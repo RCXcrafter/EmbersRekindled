@@ -3,6 +3,7 @@ Embers is best described as a dwarven magic mod. It features a smattering of mag
 
 ## Builds
 You can download the latest files here on curseforge. https://minecraft.curseforge.com/projects/embers-rekindled
+
 I don't know yet where the port will be released but if you're reading this it hasn't been released yet.
 
 ## Contact
@@ -35,7 +36,7 @@ All of the Mystical Mechanics related content in the current version of embers i
 
 ### Make mechanical content depend on Create instead of Mystical Mechanics
 This is not going to be easy since the Create power system in inherently different from Mystical Mechanics in a balance sense. Mystical Mechanics is focused on active power generation, this means the machines take fuel and stop running when they run out, Create is focused on passive power generation, you can build a machine and it will just run forever without needing any fuel. Passive power generation works great for Create because it's entirely balanced around that but for Embers it doesn't work so well, not without major changes at least.
-Also I don't want to so much content depend on a mod developed by an external team.
+Also I don't want so much content to depend on a mod developed by an external team.
 
 ### Just pretend Create doesn't exist and port Mystical Mechanics 
 Doing this would probably leave a lot of people wondering why the two systems aren't compatible and would probably cause a lot of people to ask questions. In the worst case someone might make an addon for a Create to Mystical Mechanics power converter which would then end up in every modpack that contains Embers Rekindled since modpacks without Create don't exist and in all of those modpacks the mechanical content from embers would be completely unbalanced because people would just use Create to generate the power.
