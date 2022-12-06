@@ -1,0 +1,24 @@
+package com.rekindled.embers.network;
+
+import com.rekindled.embers.Embers;
+import com.rekindled.embers.network.message.MessageTEUpdateRequest;
+
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.network.NetworkRegistry;
+import net.minecraftforge.network.simple.SimpleChannel;
+
+public class PacketHandler {
+	private static final String PROTOCOL_VERSION = "1";
+	public static final SimpleChannel INSTANCE = NetworkRegistry.newSimpleChannel(
+			new ResourceLocation(Embers.MODID, "main"),
+			() -> PROTOCOL_VERSION,
+			PROTOCOL_VERSION::equals,
+			PROTOCOL_VERSION::equals
+			);
+
+	static int id = 0;
+
+	public static void init() {
+		INSTANCE.registerMessage(id++, MessageTEUpdateRequest.class, MessageTEUpdateRequest::encode, MessageTEUpdateRequest::decode, MessageTEUpdateRequest::handle);
+	}
+}

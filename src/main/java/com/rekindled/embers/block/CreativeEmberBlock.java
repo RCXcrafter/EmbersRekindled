@@ -1,0 +1,26 @@
+package com.rekindled.embers.block;
+
+import com.rekindled.embers.blockentity.CreativeEmberBlockEntity;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+
+public class CreativeEmberBlock extends BaseEntityBlock {
+
+	public CreativeEmberBlock(Properties properties) {
+		super(properties);
+	}
+
+	@Override
+	public RenderShape getRenderShape(BlockState pState) {
+		return RenderShape.MODEL;
+	}
+
+	@Override
+	public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
+		return new CreativeEmberBlockEntity(pPos, pState);
+	}
+}
