@@ -6,6 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.network.NetworkEvent;
@@ -38,6 +39,10 @@ public class MessageTEUpdateRequest {
 					if (blockEntity != null) {
 						Packet<ClientGamePacketListener> packet = blockEntity.getUpdatePacket();
 						if (packet != null) {
+							player.connection.send(packet);
+						} else {
+							//just force it lmao
+							packet = ClientboundBlockEntityDataPacket.create(blockEntity, (BE) -> BE.saveWithoutMetadata());
 							player.connection.send(packet);
 						}
 					}

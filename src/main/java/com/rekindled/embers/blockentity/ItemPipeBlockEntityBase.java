@@ -59,6 +59,7 @@ public abstract class ItemPipeBlockEntityBase extends BlockEntity implements IIt
 			@Override
 			protected void onContentsChanged(int slot) {
 				ItemPipeBlockEntityBase.this.setChanged();
+				ItemPipeBlockEntityBase.this.syncInventory = true;
 			}
 		};
 	}

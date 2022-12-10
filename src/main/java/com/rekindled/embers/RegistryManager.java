@@ -15,6 +15,7 @@ import com.rekindled.embers.block.CreativeEmberBlock;
 import com.rekindled.embers.block.EmberDialBlock;
 import com.rekindled.embers.block.EmberEmitterBlock;
 import com.rekindled.embers.block.EmberReceiverBlock;
+import com.rekindled.embers.block.ItemDialBlock;
 import com.rekindled.embers.block.ItemExtractorBlock;
 import com.rekindled.embers.block.ItemPipeBlock;
 import com.rekindled.embers.block.WaterloggableLeverBlock;
@@ -113,6 +114,7 @@ public class RegistryManager {
 	public static final RegistryObject<Block> COPPER_CELL = BLOCKS.register("copper_cell", () -> new CopperCellBlock(Properties.of(Material.METAL, MaterialColor.TERRACOTTA_ORANGE).sound(SoundType.METAL).strength(1.4f).noOcclusion()));
 	public static final RegistryObject<Block> CREATIVE_EMBER = BLOCKS.register("creative_ember_source", () -> new CreativeEmberBlock(Properties.of(Material.METAL, MaterialColor.TERRACOTTA_YELLOW).sound(SoundType.METAL).strength(1.6f)));
 	public static final RegistryObject<Block> EMBER_DIAL = BLOCKS.register("ember_dial", () -> new EmberDialBlock(Properties.of(Material.METAL, MaterialColor.NONE).sound(SoundType.METAL).strength(1.6f).noOcclusion()));
+	public static final RegistryObject<Block> ITEM_DIAL = BLOCKS.register("item_dial", () -> new ItemDialBlock(Properties.of(Material.METAL, MaterialColor.NONE).sound(SoundType.METAL).strength(1.6f).noOcclusion()));
 	public static final RegistryObject<Block> EMBER_EMITTER = BLOCKS.register("ember_emitter", () -> new EmberEmitterBlock(Properties.of(Material.METAL, MaterialColor.NONE).sound(SoundType.METAL).strength(0.6f).noOcclusion()));
 	public static final RegistryObject<Block> EMBER_RECEIVER = BLOCKS.register("ember_receiver", () -> new EmberReceiverBlock(Properties.of(Material.METAL, MaterialColor.NONE).sound(SoundType.METAL).strength(0.6f).noOcclusion()));
 	public static final RegistryObject<Block> CAMINITE_LEVER = BLOCKS.register("caminite_lever", () -> new WaterloggableLeverBlock(Properties.of(Material.METAL, MaterialColor.NONE).noCollission().sound(SoundType.STONE).strength(0.75f)));
@@ -123,6 +125,7 @@ public class RegistryManager {
 	public static final RegistryObject<Item> COPPER_CELL_ITEM = ITEMS.register("copper_cell", () -> new CopperCellBlockItem(COPPER_CELL.get(), new Item.Properties().stacksTo(1).tab(Embers.TAB_EMBERS)));
 	public static final RegistryObject<Item> CREATIVE_EMBER_ITEM = ITEMS.register("creative_ember_source", () -> new BlockItem(CREATIVE_EMBER.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
 	public static final RegistryObject<Item> EMBER_DIAL_ITEM = ITEMS.register("ember_dial", () -> new BlockItem(EMBER_DIAL.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
+	public static final RegistryObject<Item> ITEM_DIAL_ITEM = ITEMS.register("item_dial", () -> new BlockItem(ITEM_DIAL.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
 	public static final RegistryObject<Item> EMBER_EMITTER_ITEM = ITEMS.register("ember_emitter", () -> new BlockItem(EMBER_EMITTER.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
 	public static final RegistryObject<Item> EMBER_RECEIVER_ITEM = ITEMS.register("ember_receiver", () -> new BlockItem(EMBER_RECEIVER.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
 	public static final RegistryObject<Item> CAMINITE_LEVER_ITEM = ITEMS.register("caminite_lever", () -> new BlockItem(CAMINITE_LEVER.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));

@@ -31,6 +31,7 @@ public class EmbersLang extends LanguageProvider {
 		addBlock(RegistryManager.COPPER_CELL, "Copper Cell");
 		addBlock(RegistryManager.CREATIVE_EMBER, "Creative Ember Source");
 		addBlock(RegistryManager.EMBER_DIAL, "Ember Dial");
+		addBlock(RegistryManager.ITEM_DIAL, "Item Dial");
 		addBlock(RegistryManager.EMBER_EMITTER, "Ember Emitter");
 		addBlock(RegistryManager.EMBER_RECEIVER, "Ember Receiver");
 		addBlock(RegistryManager.CAMINITE_LEVER, "Caminite Lever");
@@ -43,6 +44,12 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".tooltip.emberdial.ember", "Ember: %s/%s");
 		add(Embers.MODID + ".tooltip.aiming_block", "Aiming: %s");
 		add(Embers.MODID + ".tooltip.item.ember", "Ember: %s/%s");
+		
+		add(Embers.MODID + ".decimal_format.item_amount", "0x");
+		add(Embers.MODID + ".tooltip.itemdial.slot", "Slot %s: %s");
+		add(Embers.MODID + ".tooltip.itemdial.item", "%s %s");
+		add(Embers.MODID + ".tooltip.itemdial.noitem", "NONE");
+		add(Embers.MODID + ".tooltip.itemdial.too_many", "%s More...");
 
 
 		//subtitles
