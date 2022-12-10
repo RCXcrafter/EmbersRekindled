@@ -31,5 +31,7 @@ public class EmbersBlockLootTables extends BlockLoot {
 		dropSelf(RegistryManager.EMBER_EMITTER.get());
 		dropSelf(RegistryManager.EMBER_RECEIVER.get());
 		dropSelf(RegistryManager.CAMINITE_LEVER.get());
+		dropSelf(RegistryManager.ITEM_PIPE.get());
+		dropSelf(RegistryManager.ITEM_EXTRACTOR.get());
 	}
 }

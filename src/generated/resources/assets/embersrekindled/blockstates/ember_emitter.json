@@ -66,7 +66,7 @@
     },
     {
       "apply": {
-        "model": "embersrekindled:block/fluid_pipe_end",
+        "model": "embersrekindled:block/fluid_pipe_end_2",
         "x": 180
       },
       "when": {
@@ -84,7 +84,7 @@
     },
     {
       "apply": {
-        "model": "embersrekindled:block/fluid_pipe_end",
+        "model": "embersrekindled:block/fluid_pipe_end_2",
         "x": 90,
         "y": 180
       },
@@ -104,7 +104,7 @@
     },
     {
       "apply": {
-        "model": "embersrekindled:block/fluid_pipe_end",
+        "model": "embersrekindled:block/fluid_pipe_end_2",
         "x": 90,
         "y": 270
       },

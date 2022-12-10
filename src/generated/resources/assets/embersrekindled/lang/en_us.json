@@ -5,6 +5,8 @@
   "block.embersrekindled.ember_dial": "Ember Dial",
   "block.embersrekindled.ember_emitter": "Ember Emitter",
   "block.embersrekindled.ember_receiver": "Ember Receiver",
+  "block.embersrekindled.item_extractor": "Item Extractor",
+  "block.embersrekindled.item_pipe": "Item Pipe",
   "embersrekindled.decimal_format.ember": "0.#",
   "embersrekindled.tooltip.aiming_block": "Aiming: %s",
   "embersrekindled.tooltip.emberdial.ember": "Ember: %s/%s",

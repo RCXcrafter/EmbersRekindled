@@ -118,7 +118,7 @@ public class EmberReceiverBlock extends BaseEntityBlock implements SimpleWaterlo
 
 	@Override
 	public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-		return new EmberReceiverBlockEntity(pPos, pState);
+		return RegistryManager.EMBER_RECEIVER_ENTITY.get().create(pPos, pState);
 	}
 
 	@Override

@@ -1,0 +1,27 @@
+{
+	"parent": "block/block",
+	"elements": [
+		{
+			"from": [5, 0, 5],
+			"to": [11, 4, 11],
+			"faces": {
+				"north": {"uv": [0, 6, 6, 10], "texture": "#pipe"},
+				"east": {"uv": [0, 6, 6, 10], "texture": "#pipe"},
+				"south": {"uv": [0, 6, 6, 10], "texture": "#pipe"},
+				"west": {"uv": [0, 6, 6, 10], "texture": "#pipe"},
+				"up": {"uv": [0, 0, 6, 6], "texture": "#pipe"},
+				"down": {"uv": [0, 0, 6, 6], "texture": "#pipe"}
+			}
+		},
+		{
+			"from": [6, 4, 6],
+			"to": [10, 6, 10],
+			"faces": {
+				"north": {"uv": [12, 10, 16, 12], "rotation": 180, "texture": "#pipe"},
+				"east": {"uv": [12, 10, 16, 12], "rotation": 180, "texture": "#pipe"},
+				"south": {"uv": [12, 10, 16, 12], "rotation": 180, "texture": "#pipe"},
+				"west": {"uv": [12, 10, 16, 12], "rotation": 180, "texture": "#pipe"}
+			}
+		}
+	]
+}

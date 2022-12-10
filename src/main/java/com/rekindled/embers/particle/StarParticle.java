@@ -29,6 +29,7 @@ public class StarParticle extends TextureSheetParticle {
 		this.rCol = pOptions.getColor().x();
 		this.gCol = pOptions.getColor().y();
 		this.bCol = pOptions.getColor().z();
+		this.roll = rotScale;
 		this.quadSize *= 0.75F * pOptions.getScale();
 		double i = 6.0D / (this.random.nextDouble() * 0.5D + 0.5D);
 		this.lifetime = (int)(i * pOptions.getScale());

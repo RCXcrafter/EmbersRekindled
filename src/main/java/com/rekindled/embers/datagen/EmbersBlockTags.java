@@ -19,6 +19,8 @@ public class EmbersBlockTags extends BlockTagsProvider {
 	public static final TagKey<Block> EMITTER_CONNECTION_FLOOR = BlockTags.create(new ResourceLocation(Embers.MODID, "emitter_connection/floor"));
 	public static final TagKey<Block> EMITTER_CONNECTION_CEILING = BlockTags.create(new ResourceLocation(Embers.MODID, "emitter_connection/ceiling"));
 
+	public static final TagKey<Block> ITEM_PIPE_CONNECTION = BlockTags.create(new ResourceLocation(Embers.MODID, "item_pipe_connection"));
+
 	public EmbersBlockTags(DataGenerator gen, ExistingFileHelper existingFileHelper) {
 		super(gen, Embers.MODID, existingFileHelper);
 	}
@@ -33,7 +35,9 @@ public class EmbersBlockTags extends BlockTagsProvider {
 		tag(EMITTER_CONNECTION_FLOOR).add(Blocks.TORCH, Blocks.SOUL_TORCH, Blocks.REDSTONE_TORCH, Blocks.POINTED_DRIPSTONE)
 		.addTags(BlockTags.SIGNS);
 		tag(EMITTER_CONNECTION_CEILING).add(Blocks.POINTED_DRIPSTONE);
-		
+
+		tag(ITEM_PIPE_CONNECTION).add(RegistryManager.ITEM_PIPE.get(), RegistryManager.ITEM_EXTRACTOR.get());
+
 		tag(BlockTags.MINEABLE_WITH_PICKAXE).add(RegistryManager.COPPER_CELL.get(), RegistryManager.CREATIVE_EMBER.get(), RegistryManager.EMBER_DIAL.get(), RegistryManager.EMBER_EMITTER.get(), RegistryManager.EMBER_RECEIVER.get());
 	}
 }

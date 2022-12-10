@@ -1,0 +1,7 @@
+{
+  "parent": "embersrekindled:block/extractor_center",
+  "textures": {
+    "particle": "embersrekindled:block/item_pipe_tex",
+    "pipe": "embersrekindled:block/item_pipe_tex"
+  }
+}

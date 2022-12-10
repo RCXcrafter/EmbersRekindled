@@ -28,7 +28,8 @@ public class SmokeParticle extends TextureSheetParticle {
 		this.rCol = pOptions.getColor().x();
 		this.gCol = pOptions.getColor().y();
 		this.bCol = pOptions.getColor().z();
-		this.oRoll = this.roll = 2.0f * (float) Math.PI;
+		this.oRoll = 2.0f * (float) Math.PI;
+		this.roll = this.oRoll + rotScale;
 		this.quadSize *= 0.75F * pOptions.getScale();
 		double i = 6.0D / (this.random.nextDouble() * 0.5D + 0.5D);
 		this.lifetime = (int)(i * pOptions.getScale());

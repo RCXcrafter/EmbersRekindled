@@ -49,7 +49,7 @@ public class EmberEmitterBlock extends BaseEntityBlock implements SimpleWaterlog
 	protected static final VoxelShape SUPPORT_Z = Shapes.or(Shapes.box(0,0,0,1,0.1,1), Shapes.box(0,0.9,0,1,1,1), Shapes.box(0,0,0,0.1,1,1), Shapes.box(0.9,0,0,1,1,1));
 
 	public static final DirectionProperty FACING = BlockStateProperties.FACING;
-	private static final BooleanProperty[] DIRECTIONS = { BlockStateProperties.DOWN, BlockStateProperties.UP, BlockStateProperties.NORTH, BlockStateProperties.SOUTH, BlockStateProperties.WEST, BlockStateProperties.EAST };
+	public static final BooleanProperty[] DIRECTIONS = { BlockStateProperties.DOWN, BlockStateProperties.UP, BlockStateProperties.NORTH, BlockStateProperties.SOUTH, BlockStateProperties.WEST, BlockStateProperties.EAST };
 
 	public EmberEmitterBlock(Properties properties) {
 		super(properties);
@@ -189,7 +189,7 @@ public class EmberEmitterBlock extends BaseEntityBlock implements SimpleWaterlog
 
 	@Override
 	public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-		return new EmberEmitterBlockEntity(pPos, pState);
+		return RegistryManager.EMBER_EMITTER_ENTITY.get().create(pPos, pState);
 	}
 
 	@Override

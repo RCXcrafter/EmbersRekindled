@@ -25,7 +25,8 @@ public class WaterloggableLeverBlock extends LeverBlock {
 	@Nullable
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext pContext) {
-		return super.getStateForPlacement(pContext).setValue(BlockStateProperties.WATERLOGGED, Boolean.valueOf(pContext.getLevel().getFluidState(pContext.getClickedPos()).getType() == Fluids.WATER));
+		BlockState state = super.getStateForPlacement(pContext);
+		return state == null ? null : state.setValue(BlockStateProperties.WATERLOGGED, Boolean.valueOf(pContext.getLevel().getFluidState(pContext.getClickedPos()).getType() == Fluids.WATER));
 	}
 
 	@Override
@@ -46,5 +47,4 @@ public class WaterloggableLeverBlock extends LeverBlock {
 	public FluidState getFluidState(BlockState pState) {
 		return pState.getValue(BlockStateProperties.WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(pState);
 	}
-
 }

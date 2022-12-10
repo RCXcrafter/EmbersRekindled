@@ -42,7 +42,7 @@ public class CopperCellBlock extends BaseEntityBlock implements SimpleWaterlogge
 
 	@Override
 	public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-		return new CopperCellBlockEntity(pPos, pState);
+		return RegistryManager.COPPER_CELL_ENTITY.get().create(pPos, pState);
 	}
 
 	@Override

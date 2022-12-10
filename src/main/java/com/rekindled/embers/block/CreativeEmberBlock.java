@@ -1,6 +1,6 @@
 package com.rekindled.embers.block;
 
-import com.rekindled.embers.blockentity.CreativeEmberBlockEntity;
+import com.rekindled.embers.RegistryManager;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -21,6 +21,6 @@ public class CreativeEmberBlock extends BaseEntityBlock {
 
 	@Override
 	public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-		return new CreativeEmberBlockEntity(pPos, pState);
+		return RegistryManager.CREATIVE_EMBER_ENTITY.get().create(pPos, pState);
 	}
 }
