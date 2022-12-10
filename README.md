@@ -22,6 +22,8 @@ I've decided to port Embers Rekindled to a Minecraft version beyond 1.12.2, I do
 - There's a cool document with some of Elucent's plans for Embers, quite a bit of it has already been implemented by bord but there's also some ideas for some major changes and a port would be an idea moment to implement them: https://github.com/RCXcrafter/EmbersRekindled/blob/rekindled/docs/elucent-plans.txt
 - The current alchemy system isn't very fun, there is an easy strategy to figure out the right amounts of ash for every recipe after just a single failed attempt and placing th ash in the pedestals isn't great either. I want to change alchemy to a mastermind minigame where you have to figure out the correct order to put the aspectusses in.
 - Note from Bord: the ember cluster should be worth more than the sum of its parts
+- The extra metals should be more useful or they should be removed
+- More alloys? Without external mods the mixer centrifuge is just a dawnstone machine
 
 ## Textures
 Minecraft got a big texture update sometime after 1.12 and quite a few mods are changing their textures to fit better with the new style, however I don't think Embers Rekindled should follow this example. In my opinion Embers has great textures that actually fit the aesthetic of the modern Minecraft textures better than the old textures and I think the port should stick with these textures except in a few cases. Here is a list of texture I do intend on changing:

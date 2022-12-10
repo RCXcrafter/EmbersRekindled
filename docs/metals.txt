@@ -1,0 +1,36 @@
+Iron		Fluids, Mechanical power
+Copper		Ember, Heat conductivity
+Gold		Mechanical power
+Lead		Items, Heavy
+Silver		Magic
+Dawnstone	Ember but better than copper
+Aluminium	Lightweight?
+Bronze		Steam stuff?
+Electrum	Configuration?
+Nickel		Heat Conductivity?
+Tin			Useless white metal
+Mithril		Durable, Adverse long term health effects
+Astralite	???
+Umber Steel	???
+Antimony	Green, Corrosive/Poisonous
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
