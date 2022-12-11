@@ -2,6 +2,7 @@ package com.rekindled.embers.block;
 
 import javax.annotation.Nullable;
 
+import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.blockentity.ItemPipeBlockEntityBase;
 import com.rekindled.embers.datagen.EmbersBlockTags;
 import com.rekindled.embers.datagen.EmbersItemTags;
@@ -9,6 +10,7 @@ import com.rekindled.embers.util.Misc;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -142,11 +144,13 @@ public abstract class PipeBlockBase extends BaseEntityBlock implements SimpleWat
 			if (facingState.is(EmbersBlockTags.ITEM_PIPE_CONNECTION_TOGGLEABLE)) {
 				level.setBlock(pos, state.setValue(DIRECTIONS[face.get3DDataValue()], PipeConnection.PIPE), Block.UPDATE_ALL);
 				level.setBlock(facingPos, facingState.setValue(DIRECTIONS[face.getOpposite().get3DDataValue()], PipeConnection.PIPE), Block.UPDATE_ALL);
+				level.playLocalSound(pos.getX() + 0.5 + face.getStepX() * 0.5, pos.getY() + 0.5 + face.getStepY() * 0.5, pos.getZ() + 0.5 + face.getStepZ() * 0.5, RegistryManager.PIPE_CONNECT.get(), SoundSource.BLOCKS, 1.0f, 1.0f, false);
 				return InteractionResult.SUCCESS;
 			}
 			BlockEntity blockEntity = level.getBlockEntity(facingPos);
 			if (blockEntity != null && blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, face.getOpposite()).isPresent()) {
 				level.setBlock(pos, state.setValue(DIRECTIONS[face.get3DDataValue()], PipeConnection.END), Block.UPDATE_ALL);
+				level.playLocalSound(pos.getX() + 0.5 + face.getStepX() * 0.5, pos.getY() + 0.5 + face.getStepY() * 0.5, pos.getZ() + 0.5 + face.getStepZ() * 0.5, RegistryManager.PIPE_CONNECT.get(), SoundSource.BLOCKS, 1.0f, 1.0f, false);
 				return InteractionResult.SUCCESS;
 			}
 		} else {
@@ -159,10 +163,12 @@ public abstract class PipeBlockBase extends BaseEntityBlock implements SimpleWat
 			if (state.getValue(DIRECTIONS[closestHit]) == PipeConnection.PIPE && facingState.is(EmbersBlockTags.ITEM_PIPE_CONNECTION_TOGGLEABLE)) {
 				level.setBlock(pos, state.setValue(DIRECTIONS[direction.get3DDataValue()], PipeConnection.DISABLED), Block.UPDATE_ALL);
 				level.setBlock(facingPos, facingState.setValue(DIRECTIONS[direction.getOpposite().get3DDataValue()], PipeConnection.DISABLED), Block.UPDATE_ALL);
+				level.playLocalSound(pos.getX() + 0.5 + direction.getStepX() * 0.5, pos.getY() + 0.5 + direction.getStepY() * 0.5, pos.getZ() + 0.5 + direction.getStepZ() * 0.5, RegistryManager.PIPE_DISCONNECT.get(), SoundSource.BLOCKS, 1.0f, 1.0f, false);
 				return InteractionResult.SUCCESS;
 			}
 			if (state.getValue(DIRECTIONS[closestHit]) == PipeConnection.END && !facingState.is(EmbersBlockTags.EMITTER_CONNECTION)) {
 				level.setBlock(pos, state.setValue(DIRECTIONS[direction.get3DDataValue()], PipeConnection.DISABLED), Block.UPDATE_ALL);
+				level.playLocalSound(pos.getX() + 0.5 + direction.getStepX() * 0.5, pos.getY() + 0.5 + direction.getStepY() * 0.5, pos.getZ() + 0.5 + direction.getStepZ() * 0.5, RegistryManager.PIPE_DISCONNECT.get(), SoundSource.BLOCKS, 1.0f, 1.0f, false);
 				return InteractionResult.SUCCESS;
 			}
 		}
