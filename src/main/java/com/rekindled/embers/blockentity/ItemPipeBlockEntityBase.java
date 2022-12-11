@@ -34,7 +34,7 @@ public abstract class ItemPipeBlockEntityBase extends BlockEntity implements IIt
 
 	Random random = new Random();
 	boolean[] from = new boolean[Direction.values().length]; //just in case they like make minecraft 4 dimensional or something
-	boolean clogged = false;
+	public boolean clogged = false;
 	public ItemStackHandler inventory;
 	public LazyOptional<IItemHandler> holder = LazyOptional.of(() -> inventory);
 	Direction lastTransfer;
@@ -64,7 +64,7 @@ public abstract class ItemPipeBlockEntityBase extends BlockEntity implements IIt
 		};
 	}
 
-	abstract int getCapacity();
+	public abstract int getCapacity();
 
 	@Override
 	public int getPriority(Direction facing) {

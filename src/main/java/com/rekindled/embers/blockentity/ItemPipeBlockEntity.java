@@ -1,15 +1,20 @@
 package com.rekindled.embers.blockentity;
 
+import java.util.Random;
+
 import javax.annotation.Nonnull;
 
 import org.jetbrains.annotations.NotNull;
 
+import com.mojang.math.Vector3f;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.block.PipeBlockBase;
 import com.rekindled.embers.block.PipeBlockBase.PipeConnection;
+import com.rekindled.embers.particle.VaporParticleOptions;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -71,8 +76,19 @@ public class ItemPipeBlockEntity extends ItemPipeBlockEntityBase {
 	}
 
 	public static void serverTick(Level level, BlockPos pos, BlockState state, ItemPipeBlockEntity blockEntity) {
-		//if (level.isClientSide && blockEntity.clogged && blockEntity.isAnySideUnclogged())
-		//Misc.spawnClogParticles(level, pos, 1, 0.25f);
+		if (level instanceof ServerLevel && blockEntity.clogged && blockEntity.isAnySideUnclogged()) {
+			Random posRand = new Random(pos.asLong());
+			double angleA = posRand.nextDouble() * Math.PI * 2;
+			double angleB = posRand.nextDouble() * Math.PI * 2;
+			float xOffset = (float) (Math.cos(angleA) * Math.cos(angleB));
+			float yOffset = (float) (Math.sin(angleA) * Math.cos(angleB));
+			float zOffset = (float) Math.sin(angleB);
+			float speed = 0.1875f;
+			float vx = xOffset * speed + posRand.nextFloat() * speed * 0.3f;
+			float vy = yOffset * speed + posRand.nextFloat() * speed * 0.3f;
+			float vz = zOffset * speed + posRand.nextFloat() * speed * 0.3f;
+			((ServerLevel) level).sendParticles(new VaporParticleOptions(new Vector3f(64.0f / 255.0F, 64.0f / 255.0F, 64.0f / 255.0F), new Vector3f(vx, vy, vz), 1.0f), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 4, 0, 0, 0, 1.0);
+		}
 		ItemPipeBlockEntityBase.serverTick(level, pos, state, blockEntity);
 	}
 
@@ -81,14 +97,14 @@ public class ItemPipeBlockEntity extends ItemPipeBlockEntityBase {
 		if (!this.remove && cap == ForgeCapabilities.ITEM_HANDLER) {
 			if (side == null)
 				return ForgeCapabilities.ITEM_HANDLER.orEmpty(cap, holder);
-			else if (getInternalConnection(side) != PipeConnection.NONE)
+			else if (getInternalConnection(side).connected)
 				return ForgeCapabilities.ITEM_HANDLER.orEmpty(cap, LazyOptional.of(() -> this.sideHandlers[side.get3DDataValue()]));
 		}
 		return super.getCapability(cap, side);
 	}
 
 	@Override
-	int getCapacity() {
+	public int getCapacity() {
 		return 4;
 	}
 
@@ -99,6 +115,6 @@ public class ItemPipeBlockEntity extends ItemPipeBlockEntityBase {
 
 	@Override
 	boolean isConnected(Direction facing) {
-		return getInternalConnection(facing) != PipeConnection.NONE;
+		return getInternalConnection(facing).connected;
 	}
 }

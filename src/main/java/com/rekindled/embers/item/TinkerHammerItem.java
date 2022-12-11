@@ -8,6 +8,7 @@ import com.rekindled.embers.Embers;
 import com.rekindled.embers.api.power.IEmberPacketProducer;
 import com.rekindled.embers.api.power.IEmberPacketReceiver;
 import com.rekindled.embers.api.tile.ITargetable;
+import com.rekindled.embers.util.Misc;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -30,6 +31,7 @@ public class TinkerHammerItem extends Item {
 	public TinkerHammerItem(Properties pProperties) {
 		super(pProperties);
 		pProperties.craftRemainder(this);
+		Misc.IS_HOLDING_HAMMER.add((player, hand) -> player.getItemInHand(hand).getItem() == TinkerHammerItem.this);
 	}
 
 	@Override

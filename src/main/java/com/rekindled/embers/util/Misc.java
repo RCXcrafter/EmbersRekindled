@@ -1,14 +1,21 @@
 package com.rekindled.embers.util;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
+import java.util.function.BiPredicate;
 
 import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.items.IItemHandler;
 
 public class Misc {
+
 	public static Random random = new Random();
+	public static final List<BiPredicate<Player, InteractionHand>> IS_HOLDING_HAMMER = new ArrayList<BiPredicate<Player, InteractionHand>>();
 
 	public static void spawnInventoryInWorld(Level world, double x, double y, double z, IItemHandler inventory) {
 		if (inventory != null && !world.isClientSide) {
@@ -18,6 +25,15 @@ public class Misc {
 				}
 			}
 		}
+	}
+
+	public static boolean isHoldingHammer(Player player, InteractionHand hand) {
+		for (BiPredicate<Player, InteractionHand> predicate : IS_HOLDING_HAMMER) {
+			if (predicate.test(player, hand)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public static Direction readNullableFacing(int index) {

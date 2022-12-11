@@ -1,9 +1,7 @@
 package com.rekindled.embers.particle;
 
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.rekindled.embers.EmbersClientEvents;
 
-import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
@@ -46,11 +44,6 @@ public class SmokeParticle extends TextureSheetParticle {
 		this.oRoll = this.roll;
 		this.roll += rotScale;
 		this.yd += 0.004D;
-	}
-
-	@Override
-	public void render(VertexConsumer b, Camera info, float pticks) {
-		super.render(b, info, pticks);
 	}
 
 	@Override

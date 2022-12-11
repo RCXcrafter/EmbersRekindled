@@ -37,7 +37,7 @@ public class ItemDialBlock extends DialBaseBlock {
 			if (cap != null) {
 				double contents = 0.0;
 				double capacity = 0.0;
-				for (int i = 0; i < cap.getSlots(); i++){
+				for (int i = 0; i < cap.getSlots(); i++) {
 					contents += cap.getStackInSlot(i).getCount();
 					capacity += cap.getSlotLimit(i);
 				}
@@ -53,7 +53,7 @@ public class ItemDialBlock extends DialBaseBlock {
 	protected void getBEData(Direction facing, ArrayList<String> text, BlockEntity blockEntity) {
 		IItemHandler cap = blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, facing).orElse(null);
 		if (cap != null){
-			for (int i = 0; i < cap.getSlots() && i < 10; i++){
+			for (int i = 0; i < cap.getSlots() && i < 10; i++) {
 				ItemStack stack = cap.getStackInSlot(i);
 				String item;
 				item = formatItemStack(stack);

@@ -16,6 +16,7 @@ import com.rekindled.embers.particle.GlowParticle;
 import com.rekindled.embers.particle.SmokeParticle;
 import com.rekindled.embers.particle.SparkParticle;
 import com.rekindled.embers.particle.StarParticle;
+import com.rekindled.embers.particle.VaporParticle;
 import com.rekindled.embers.util.DecimalFormats;
 
 import net.minecraft.client.renderer.entity.EntityRenderers;
@@ -42,6 +43,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 @Mod(Embers.MODID)
 public class Embers {
+
 	public static final String MODID = "embersrekindled";
 
 	public static final CreativeModeTab TAB_EMBERS = new CreativeModeTab(Embers.MODID) {
@@ -125,6 +127,7 @@ public class Embers {
 			event.register(RegistryManager.STAR_PARTICLE.get(), StarParticle.Provider::new);
 			event.register(RegistryManager.SPARK_PARTICLE.get(), SparkParticle.Provider::new);
 			event.register(RegistryManager.SMOKE_PARTICLE.get(), SmokeParticle.Provider::new);
+			event.register(RegistryManager.VAPOR_PARTICLE.get(), VaporParticle.Provider::new);
 		}
 	}
 }

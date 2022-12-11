@@ -1,9 +1,7 @@
 package com.rekindled.embers.particle;
 
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.rekindled.embers.EmbersClientEvents;
 
-import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
@@ -50,11 +48,6 @@ public class StarParticle extends TextureSheetParticle {
 	@Override
 	protected int getLightColor(float partialTicks) {
 		return 0xF000F0;
-	}
-
-	@Override
-	public void render(VertexConsumer b, Camera info, float pticks) {
-		super.render(b, info, pticks);
 	}
 
 	@Override

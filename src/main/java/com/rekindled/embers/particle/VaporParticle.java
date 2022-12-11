@@ -12,38 +12,39 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class SparkParticle extends TextureSheetParticle {
+public class VaporParticle extends TextureSheetParticle {
 	
-	public float rotScale = random.nextFloat() * 0.1f + 0.05f;
+	public float minScale = 0.1f;
+	public float maxScale = 2.0f;
 
-	public SparkParticle(ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed, SparkParticleOptions pOptions, SpriteSet pSprites) {
+	public VaporParticle(ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed, VaporParticleOptions pOptions, SpriteSet pSprites) {
 		super(pLevel, pX, pY, pZ, pXSpeed, pYSpeed, pZSpeed);
-		this.friction = 0.96F;
+		this.friction = 0.8F;
+		float speed = random.nextFloat() * 0.5f + 0.7f;
 		this.speedUpWhenYMotionIsBlocked = true;
-		this.gravity = 0.04f;
-		this.xd *= (double)0.1F;
-		this.yd *= (double)0.1F;
-		this.zd *= (double)0.1F;
+		if (!pOptions.getMotion().equals(GlowParticle.noMotion))
+			this.setParticleSpeed(pOptions.getMotion().x() * speed, pOptions.getMotion().y() * speed, pOptions.getMotion().z() * speed);
 		this.rCol = pOptions.getColor().x();
 		this.gCol = pOptions.getColor().y();
 		this.bCol = pOptions.getColor().z();
-		this.oRoll = random.nextFloat();
-		this.roll = rotScale;
-		this.quadSize *= 0.75F * pOptions.getScale();
-		double i = 20.0D / (this.random.nextDouble() * 0.5D + 0.5D);
+		this.oRoll = 2.0f * (float) Math.PI;
+		this.roll = this.oRoll + 0.5f;
+		this.quadSize *= 0.5F * pOptions.getScale();
+		double i = 6.0D / (this.random.nextDouble() * 0.5D + 0.5D);
 		this.lifetime = (int)(i * pOptions.getScale());
 		this.pickSprite(pSprites);
 	}
 
 	public float getQuadSize(float pScaleFactor) {
-		return this.quadSize - this.quadSize * (((float)this.age + pScaleFactor) / (float)this.lifetime);
+		return (float)(minScale + (maxScale - minScale) * (-Math.cos((Math.max(this.age + pScaleFactor - 1, 0) / (this.lifetime - 1)) * 2.0f * Math.PI) + 1) / 2.0f) / 5.0f;
 	}
 
 	public void tick() {
 		super.tick();
 		this.alpha = 1.0f - (float)this.age / (float)this.lifetime;
 		this.oRoll = this.roll;
-		this.roll += rotScale;
+		this.roll += 0.5f;
+		this.yd += 0.04D;
 	}
 
 	@Override
@@ -57,15 +58,15 @@ public class SparkParticle extends TextureSheetParticle {
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public static class Provider implements ParticleProvider<SparkParticleOptions> {
+	public static class Provider implements ParticleProvider<VaporParticleOptions> {
 		private final SpriteSet sprites;
 
 		public Provider(SpriteSet pSprites) {
 			this.sprites = pSprites;
 		}
 
-		public Particle createParticle(SparkParticleOptions pType, ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed) {
-			return new SparkParticle(pLevel, pX, pY, pZ, pXSpeed, pYSpeed, pZSpeed, pType, this.sprites);
+		public Particle createParticle(VaporParticleOptions pType, ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed) {
+			return new VaporParticle(pLevel, pX, pY, pZ, pXSpeed, pYSpeed, pZSpeed, pType, this.sprites);
 		}
 	}
 }

@@ -33,6 +33,7 @@ import com.rekindled.embers.particle.GlowParticleOptions;
 import com.rekindled.embers.particle.SmokeParticleOptions;
 import com.rekindled.embers.particle.SparkParticleOptions;
 import com.rekindled.embers.particle.StarParticleOptions;
+import com.rekindled.embers.particle.VaporParticleOptions;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockSource;
@@ -151,6 +152,7 @@ public class RegistryManager {
 	public static final RegistryObject<ParticleType<StarParticleOptions>> STAR_PARTICLE = registerParticle("star", false, StarParticleOptions.DESERIALIZER, StarParticleOptions.CODEC);
 	public static final RegistryObject<ParticleType<SparkParticleOptions>> SPARK_PARTICLE = registerParticle("spark", false, SparkParticleOptions.DESERIALIZER, SparkParticleOptions.CODEC);
 	public static final RegistryObject<ParticleType<SmokeParticleOptions>> SMOKE_PARTICLE = registerParticle("smoke", false, SmokeParticleOptions.DESERIALIZER, SmokeParticleOptions.CODEC);
+	public static final RegistryObject<ParticleType<VaporParticleOptions>> VAPOR_PARTICLE = registerParticle("vapor", false, VaporParticleOptions.DESERIALIZER, VaporParticleOptions.CODEC);
 
 	//sounds
 	public static final RegistryObject<SoundEvent> ALCHEMY_FAIL = registerSound("block.alchemy.fail");

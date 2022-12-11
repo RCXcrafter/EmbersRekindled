@@ -1,9 +1,8 @@
 package com.rekindled.embers.particle;
 
-import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Vector3f;
 import com.rekindled.embers.EmbersClientEvents;
 
-import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
@@ -16,12 +15,15 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class GlowParticle extends TextureSheetParticle {
 
+	public static Vector3f noMotion = new Vector3f(0, 0, 0);
+
 	public GlowParticle(ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed, GlowParticleOptions pOptions, SpriteSet pSprites) {
 		super(pLevel, pX, pY, pZ, pOptions.getMotion().x(), pOptions.getMotion().y(), pOptions.getMotion().z());
 		this.friction = 0.96F;
 		this.speedUpWhenYMotionIsBlocked = true;
 		this.hasPhysics = false;
-		this.setParticleSpeed(pOptions.getMotion().x(), pOptions.getMotion().y(), pOptions.getMotion().z());
+		if (!pOptions.getMotion().equals(noMotion))
+			this.setParticleSpeed(pOptions.getMotion().x(), pOptions.getMotion().y(), pOptions.getMotion().z());
 		this.xd *= (double)0.1F;
 		this.yd *= (double)0.1F;
 		this.zd *= (double)0.1F;
@@ -50,11 +52,6 @@ public class GlowParticle extends TextureSheetParticle {
 	@Override
 	protected int getLightColor(float partialTicks) {
 		return 0xF000F0;
-	}
-
-	@Override
-	public void render(VertexConsumer b, Camera info, float pticks) {
-		super.render(b, info, pticks);
 	}
 
 	@Override
