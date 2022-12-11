@@ -40,6 +40,13 @@ public class EmbersBlockTags extends BlockTagsProvider {
 		tag(ITEM_PIPE_CONNECTION).addTag(ITEM_PIPE_CONNECTION_TOGGLEABLE);
 		tag(ITEM_PIPE_CONNECTION_TOGGLEABLE).add(RegistryManager.ITEM_PIPE.get(), RegistryManager.ITEM_EXTRACTOR.get());
 
-		tag(BlockTags.MINEABLE_WITH_PICKAXE).add(RegistryManager.COPPER_CELL.get(), RegistryManager.CREATIVE_EMBER.get(), RegistryManager.EMBER_DIAL.get(), RegistryManager.EMBER_EMITTER.get(), RegistryManager.EMBER_RECEIVER.get());
+		tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
+				RegistryManager.COPPER_CELL.get(),
+				RegistryManager.CREATIVE_EMBER.get(),
+				RegistryManager.EMBER_DIAL.get(),
+				RegistryManager.EMBER_EMITTER.get(),
+				RegistryManager.EMBER_RECEIVER.get(),
+				RegistryManager.ITEM_PIPE.get(),
+				RegistryManager.ITEM_EXTRACTOR.get());
 	}
 }

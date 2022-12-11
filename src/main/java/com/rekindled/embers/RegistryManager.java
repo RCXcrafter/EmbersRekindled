@@ -118,9 +118,9 @@ public class RegistryManager {
 	public static final RegistryObject<Block> ITEM_DIAL = BLOCKS.register("item_dial", () -> new ItemDialBlock(Properties.of(Material.METAL, MaterialColor.NONE).sound(SoundType.METAL).strength(1.6f).noOcclusion()));
 	public static final RegistryObject<Block> EMBER_EMITTER = BLOCKS.register("ember_emitter", () -> new EmberEmitterBlock(Properties.of(Material.METAL, MaterialColor.NONE).sound(SoundType.METAL).strength(0.6f).noOcclusion()));
 	public static final RegistryObject<Block> EMBER_RECEIVER = BLOCKS.register("ember_receiver", () -> new EmberReceiverBlock(Properties.of(Material.METAL, MaterialColor.NONE).sound(SoundType.METAL).strength(0.6f).noOcclusion()));
-	public static final RegistryObject<Block> CAMINITE_LEVER = BLOCKS.register("caminite_lever", () -> new WaterloggableLeverBlock(Properties.of(Material.METAL, MaterialColor.NONE).noCollission().sound(SoundType.STONE).strength(0.75f)));
-	public static final RegistryObject<Block> ITEM_PIPE = BLOCKS.register("item_pipe", () -> new ItemPipeBlock(Properties.of(Material.METAL, MaterialColor.NONE).sound(SoundType.STONE).strength(0.75f)));
-	public static final RegistryObject<Block> ITEM_EXTRACTOR = BLOCKS.register("item_extractor", () -> new ItemExtractorBlock(Properties.of(Material.METAL, MaterialColor.NONE).sound(SoundType.STONE).strength(0.75f)));
+	public static final RegistryObject<Block> CAMINITE_LEVER = BLOCKS.register("caminite_lever", () -> new WaterloggableLeverBlock(Properties.of(Material.STONE, MaterialColor.NONE).noCollission().sound(SoundType.STONE).strength(0.75f)));
+	public static final RegistryObject<Block> ITEM_PIPE = BLOCKS.register("item_pipe", () -> new ItemPipeBlock(Properties.of(Material.METAL, MaterialColor.NONE).sound(SoundType.METAL).strength(1.6f)));
+	public static final RegistryObject<Block> ITEM_EXTRACTOR = BLOCKS.register("item_extractor", () -> new ItemExtractorBlock(Properties.of(Material.METAL, MaterialColor.NONE).sound(SoundType.METAL).strength(1.6f)));
 
 	//itemblocks
 	public static final RegistryObject<Item> COPPER_CELL_ITEM = ITEMS.register("copper_cell", () -> new CopperCellBlockItem(COPPER_CELL.get(), new Item.Properties().stacksTo(1).tab(Embers.TAB_EMBERS)));

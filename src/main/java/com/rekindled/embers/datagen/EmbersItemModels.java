@@ -28,7 +28,7 @@ public class EmbersItemModels extends ItemModelProvider {
 			itemWithModel(fluid.FLUID_BUCKET, "item/generated");
 		}
 
-		itemWithModel(RegistryManager.TINKER_HAMMER, "item/generated");
+		itemWithModel(RegistryManager.TINKER_HAMMER, "item/handheld");//check if this looks good
 	}
 
 	public void itemWithModel(RegistryObject<? extends Item> registryObject, String model) {

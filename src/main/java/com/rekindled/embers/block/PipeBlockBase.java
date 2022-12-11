@@ -150,7 +150,7 @@ public abstract class PipeBlockBase extends BaseEntityBlock implements SimpleWat
 			BlockEntity blockEntity = level.getBlockEntity(facingPos);
 			if (blockEntity != null && blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, face.getOpposite()).isPresent()) {
 				level.setBlock(pos, state.setValue(DIRECTIONS[face.get3DDataValue()], PipeConnection.END), Block.UPDATE_ALL);
-				level.playLocalSound(pos.getX() + 0.5 + face.getStepX() * 0.5, pos.getY() + 0.5 + face.getStepY() * 0.5, pos.getZ() + 0.5 + face.getStepZ() * 0.5, RegistryManager.PIPE_CONNECT.get(), SoundSource.BLOCKS, 1.0f, 1.0f, false);
+				level.playLocalSound(pos.getX() + 0.5 + face.getStepX() * 0.4, pos.getY() + 0.5 + face.getStepY() * 0.4, pos.getZ() + 0.5 + face.getStepZ() * 0.4, RegistryManager.PIPE_CONNECT.get(), SoundSource.BLOCKS, 1.0f, 1.0f, false);
 				return InteractionResult.SUCCESS;
 			}
 		} else {
@@ -168,7 +168,7 @@ public abstract class PipeBlockBase extends BaseEntityBlock implements SimpleWat
 			}
 			if (state.getValue(DIRECTIONS[closestHit]) == PipeConnection.END && !facingState.is(EmbersBlockTags.EMITTER_CONNECTION)) {
 				level.setBlock(pos, state.setValue(DIRECTIONS[direction.get3DDataValue()], PipeConnection.DISABLED), Block.UPDATE_ALL);
-				level.playLocalSound(pos.getX() + 0.5 + direction.getStepX() * 0.5, pos.getY() + 0.5 + direction.getStepY() * 0.5, pos.getZ() + 0.5 + direction.getStepZ() * 0.5, RegistryManager.PIPE_DISCONNECT.get(), SoundSource.BLOCKS, 1.0f, 1.0f, false);
+				level.playLocalSound(pos.getX() + 0.5 + direction.getStepX() * 0.4, pos.getY() + 0.5 + direction.getStepY() * 0.4, pos.getZ() + 0.5 + direction.getStepZ() * 0.4, RegistryManager.PIPE_DISCONNECT.get(), SoundSource.BLOCKS, 1.0f, 1.0f, false);
 				return InteractionResult.SUCCESS;
 			}
 		}
