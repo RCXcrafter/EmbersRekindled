@@ -37,14 +37,19 @@ public class EmbersLang extends LanguageProvider {
 		addBlock(RegistryManager.CAMINITE_LEVER, "Caminite Lever");
 		addBlock(RegistryManager.ITEM_PIPE, "Item Pipe");
 		addBlock(RegistryManager.ITEM_EXTRACTOR, "Item Extractor");
+		addBlock(RegistryManager.EMBER_BORE, "Ember Bore");
+		addBlock(RegistryManager.EMBER_BORE_EDGE, "Ember Bore");
 
 		addItem(RegistryManager.TINKER_HAMMER, "Tinker's Hammer");
+		addItem(RegistryManager.EMBER_CRYSTAL, "Ember Crystal");
+		addItem(RegistryManager.EMBER_SHARD, "Ember Shard");
+		addItem(RegistryManager.EMBER_GRIT, "Ember Grit");
 
 		add(Embers.MODID + ".decimal_format.ember", "0.#");
 		add(Embers.MODID + ".tooltip.emberdial.ember", "Ember: %s/%s");
 		add(Embers.MODID + ".tooltip.aiming_block", "Aiming: %s");
 		add(Embers.MODID + ".tooltip.item.ember", "Ember: %s/%s");
-		
+
 		add(Embers.MODID + ".decimal_format.item_amount", "0x");
 		add(Embers.MODID + ".tooltip.itemdial.slot", "Slot %s: %s");
 		add(Embers.MODID + ".tooltip.itemdial.item", "%s %s");
@@ -53,82 +58,82 @@ public class EmbersLang extends LanguageProvider {
 
 
 		//subtitles
-		addSubtitle(RegistryManager.ALCHEMY_FAIL, "Energetic Alchemy fails...");
-		addSubtitle(RegistryManager.ALCHEMY_SUCCESS, "Energetic Alchemy succeeds!");
-		addSubtitle(RegistryManager.ALCHEMY_START, "Energetic Alchemy begins");
+		addSubtitle(EmbersSounds.ALCHEMY_FAIL, "Energetic Alchemy fails...");
+		addSubtitle(EmbersSounds.ALCHEMY_SUCCESS, "Energetic Alchemy succeeds!");
+		addSubtitle(EmbersSounds.ALCHEMY_START, "Energetic Alchemy begins");
 
-		addSubtitle(RegistryManager.BEAM_CANNON_FIRE, "Beam Cannon fires");
-		addSubtitle(RegistryManager.BEAM_CANNON_HIT, "Beam impacts");
+		addSubtitle(EmbersSounds.BEAM_CANNON_FIRE, "Beam Cannon fires");
+		addSubtitle(EmbersSounds.BEAM_CANNON_HIT, "Beam impacts");
 
-		addSubtitle(RegistryManager.CRYSTAL_CELL_GROW, "Crystal Cell grows");
+		addSubtitle(EmbersSounds.CRYSTAL_CELL_GROW, "Crystal Cell grows");
 
-		addSubtitle(RegistryManager.ACTIVATOR, "Ember Activator releases Ember");
-		addSubtitle(RegistryManager.PRESSURE_REFINERY, "Pressure Refinery releases Ember");
-		addSubtitle(RegistryManager.IGNEM_REACTOR, "Ignem Reactor releases Ember");
+		addSubtitle(EmbersSounds.ACTIVATOR, "Ember Activator releases Ember");
+		addSubtitle(EmbersSounds.PRESSURE_REFINERY, "Pressure Refinery releases Ember");
+		addSubtitle(EmbersSounds.IGNEM_REACTOR, "Ignem Reactor releases Ember");
 
-		addSubtitle(RegistryManager.BORE_START, "Ember Bore rumbles to life");
-		addSubtitle(RegistryManager.BORE_STOP, "Ember Bore sighs and stops");
+		addSubtitle(EmbersSounds.BORE_START, "Ember Bore rumbles to life");
+		addSubtitle(EmbersSounds.BORE_STOP, "Ember Bore sighs and stops");
 
-		addSubtitle(RegistryManager.CATALYTIC_PLUG_START, "Catalytic Plug begins injecting catalyst");
-		addSubtitle(RegistryManager.CATALYTIC_PLUG_STOP, "Catalytic Plug is empty");
+		addSubtitle(EmbersSounds.CATALYTIC_PLUG_START, "Catalytic Plug begins injecting catalyst");
+		addSubtitle(EmbersSounds.CATALYTIC_PLUG_STOP, "Catalytic Plug is empty");
 
-		addSubtitle(RegistryManager.STAMPER_DOWN, "Stamp slams down");
-		addSubtitle(RegistryManager.STAMPER_UP, "Stamp recedes");
+		addSubtitle(EmbersSounds.STAMPER_DOWN, "Stamp slams down");
+		addSubtitle(EmbersSounds.STAMPER_UP, "Stamp recedes");
 
-		addSubtitle(RegistryManager.METAL_SEED_PING, "Metal Seed splits off pieces");
+		addSubtitle(EmbersSounds.METAL_SEED_PING, "Metal Seed splits off pieces");
 
-		addSubtitle(RegistryManager.INFERNO_FORGE_FAIL, "Reforging fails...");
-		addSubtitle(RegistryManager.INFERNO_FORGE_SUCCESS, "Reforging succeeds!");
-		addSubtitle(RegistryManager.INFERNO_FORGE_START, "Inferno Forge begins forging");
-		addSubtitle(RegistryManager.INFERNO_FORGE_OPEN, "Inferno Forge opens");
-		addSubtitle(RegistryManager.INFERNO_FORGE_CLOSE, "Inferno Forge closes");
+		addSubtitle(EmbersSounds.INFERNO_FORGE_FAIL, "Reforging fails...");
+		addSubtitle(EmbersSounds.INFERNO_FORGE_SUCCESS, "Reforging succeeds!");
+		addSubtitle(EmbersSounds.INFERNO_FORGE_START, "Inferno Forge begins forging");
+		addSubtitle(EmbersSounds.INFERNO_FORGE_OPEN, "Inferno Forge opens");
+		addSubtitle(EmbersSounds.INFERNO_FORGE_CLOSE, "Inferno Forge closes");
 
-		addSubtitle(RegistryManager.EMBER_EMIT, "Ember packet emitted");
-		addSubtitle(RegistryManager.EMBER_EMIT_BIG, "Big Ember packet emitted");
-		addSubtitle(RegistryManager.EMBER_RECEIVE, "Ember packet received");
-		addSubtitle(RegistryManager.EMBER_RECEIVE_BIG, "Big Ember packet received");
-		addSubtitle(RegistryManager.EMBER_RELAY, "Ember packet relayed");
+		addSubtitle(EmbersSounds.EMBER_EMIT, "Ember packet emitted");
+		addSubtitle(EmbersSounds.EMBER_EMIT_BIG, "Big Ember packet emitted");
+		addSubtitle(EmbersSounds.EMBER_RECEIVE, "Ember packet received");
+		addSubtitle(EmbersSounds.EMBER_RECEIVE_BIG, "Big Ember packet received");
+		addSubtitle(EmbersSounds.EMBER_RELAY, "Ember packet relayed");
 
-		addSubtitle(RegistryManager.STEAM_ENGINE_START_STEAM, "Steam Engine spins up");
-		addSubtitle(RegistryManager.STEAM_ENGINE_START_BURN, "Steam Engine begins burning fuel");
-		addSubtitle(RegistryManager.STEAM_ENGINE_STOP, "Steam Engine rattles and stops");
+		addSubtitle(EmbersSounds.STEAM_ENGINE_START_STEAM, "Steam Engine spins up");
+		addSubtitle(EmbersSounds.STEAM_ENGINE_START_BURN, "Steam Engine begins burning fuel");
+		addSubtitle(EmbersSounds.STEAM_ENGINE_STOP, "Steam Engine rattles and stops");
 
-		addSubtitle(RegistryManager.MINI_BOILER_RUPTURE, "Mini Boiler ruptures violently");
+		addSubtitle(EmbersSounds.MINI_BOILER_RUPTURE, "Mini Boiler ruptures violently");
 
-		addSubtitle(RegistryManager.PUMP_SLOW, "Mechanical Pump grinds its balls on sandpaper");
-		addSubtitle(RegistryManager.PUMP_MID, "Mechanical Pump pumps");
-		addSubtitle(RegistryManager.PUMP_FAST, "Mechanical Pump pumps at incredibly fast speeds");
+		addSubtitle(EmbersSounds.PUMP_SLOW, "Mechanical Pump grinds its balls on sandpaper");
+		addSubtitle(EmbersSounds.PUMP_MID, "Mechanical Pump pumps");
+		addSubtitle(EmbersSounds.PUMP_FAST, "Mechanical Pump pumps at incredibly fast speeds");
 
-		addSubtitle(RegistryManager.PIPE_CONNECT, "Pipe connected");
-		addSubtitle(RegistryManager.PIPE_DISCONNECT, "Pipe disconnected");
+		addSubtitle(EmbersSounds.PIPE_CONNECT, "Pipe connected");
+		addSubtitle(EmbersSounds.PIPE_DISCONNECT, "Pipe disconnected");
 
-		addSubtitle(RegistryManager.FIREBALL_BIG, "Big fireball is unleashed");
-		addSubtitle(RegistryManager.FIREBALL_BIG_HIT, "Big fireball impacts");
-		addSubtitle(RegistryManager.FIREBALL, "Fireball is released");
-		addSubtitle(RegistryManager.FIREBALL_HIT, "Fireball impacts");
+		addSubtitle(EmbersSounds.FIREBALL_BIG, "Big fireball is unleashed");
+		addSubtitle(EmbersSounds.FIREBALL_BIG_HIT, "Big fireball impacts");
+		addSubtitle(EmbersSounds.FIREBALL, "Fireball is released");
+		addSubtitle(EmbersSounds.FIREBALL_HIT, "Fireball impacts");
 
-		addSubtitle(RegistryManager.BLAZING_RAY_FIRE, "Blazing Ray fires");
-		addSubtitle(RegistryManager.BLAZING_RAY_EMPTY, "Blazing Ray clicks");
+		addSubtitle(EmbersSounds.BLAZING_RAY_FIRE, "Blazing Ray fires");
+		addSubtitle(EmbersSounds.BLAZING_RAY_EMPTY, "Blazing Ray clicks");
 
-		addSubtitle(RegistryManager.CINDER_STAFF_CHARGE, "Cinder Staff charges");
-		addSubtitle(RegistryManager.CINDER_STAFF_FAIL, "Cinder Staff fizzles");
+		addSubtitle(EmbersSounds.CINDER_STAFF_CHARGE, "Cinder Staff charges");
+		addSubtitle(EmbersSounds.CINDER_STAFF_FAIL, "Cinder Staff fizzles");
 
-		addSubtitle(RegistryManager.EXPLOSION_CHARM_ABSORB, "Explosion is absorbed");
+		addSubtitle(EmbersSounds.EXPLOSION_CHARM_ABSORB, "Explosion is absorbed");
 
-		addSubtitle(RegistryManager.ASHEN_AMULET_BURN, "Item burns to ash");
+		addSubtitle(EmbersSounds.ASHEN_AMULET_BURN, "Item burns to ash");
 
-		addSubtitle(RegistryManager.HEATED_ITEM_LEVELUP, "Item levels up");
-		addSubtitle(RegistryManager.RESONATING_BELL, "Resonating Bell rings");
-		addSubtitle(RegistryManager.CINDER_JET, "Cinder Jet boosts");
-		addSubtitle(RegistryManager.INFLICTOR_GEM, "Inflictor Gem absorbs damage");
+		addSubtitle(EmbersSounds.HEATED_ITEM_LEVELUP, "Item levels up");
+		addSubtitle(EmbersSounds.RESONATING_BELL, "Resonating Bell rings");
+		addSubtitle(EmbersSounds.CINDER_JET, "Cinder Jet boosts");
+		addSubtitle(EmbersSounds.INFLICTOR_GEM, "Inflictor Gem absorbs damage");
 
-		addSubtitle(RegistryManager.METALLURGIC_DUST, "Metallurgic Dust transmutes ore");
-		addSubtitle(RegistryManager.METALLURGIC_DUST_FAIL, "Metallurgic Dust transmutes ore to worthless material");
+		addSubtitle(EmbersSounds.METALLURGIC_DUST, "Metallurgic Dust transmutes ore");
+		addSubtitle(EmbersSounds.METALLURGIC_DUST_FAIL, "Metallurgic Dust transmutes ore to worthless material");
 
-		addSubtitle(RegistryManager.ANCIENT_GOLEM_STEP, "Ancient Golem walks");
-		addSubtitle(RegistryManager.ANCIENT_GOLEM_HURT, "Ancient Golem is hit");
-		addSubtitle(RegistryManager.ANCIENT_GOLEM_PUNCH, "Ancient Golem punches");
-		addSubtitle(RegistryManager.ANCIENT_GOLEM_DEATH, "Ancient Golem is destroyed");
+		addSubtitle(EmbersSounds.ANCIENT_GOLEM_STEP, "Ancient Golem walks");
+		addSubtitle(EmbersSounds.ANCIENT_GOLEM_HURT, "Ancient Golem is hit");
+		addSubtitle(EmbersSounds.ANCIENT_GOLEM_PUNCH, "Ancient Golem punches");
+		addSubtitle(EmbersSounds.ANCIENT_GOLEM_DEATH, "Ancient Golem is destroyed");
 	}
 
 	public void addSubtitle(RegistryObject<SoundEvent> soundEvent, String subtitle) {

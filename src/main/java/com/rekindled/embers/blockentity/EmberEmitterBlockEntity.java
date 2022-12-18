@@ -7,6 +7,7 @@ import com.rekindled.embers.api.capabilities.EmbersCapabilities;
 import com.rekindled.embers.api.power.IEmberCapability;
 import com.rekindled.embers.api.power.IEmberPacketProducer;
 import com.rekindled.embers.api.power.IEmberPacketReceiver;
+import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.entity.EmberPacketEntity;
 import com.rekindled.embers.power.DefaultEmberCapability;
 
@@ -108,7 +109,7 @@ public class EmberEmitterBlockEntity extends BlockEntity implements IEmberPacket
 					packet.initCustom(pos, blockEntity.target, velocity.x, velocity.y, velocity.z, Math.min(TRANSFER_RATE, blockEntity.capability.getEmber()));
 					blockEntity.capability.removeAmount(Math.min(TRANSFER_RATE, blockEntity.capability.getEmber()), true);
 					blockEntity.level.addFreshEntity(packet);
-					level.playSound(null, pos, RegistryManager.EMBER_EMIT.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
+					level.playSound(null, pos, EmbersSounds.EMBER_EMIT.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
 				}
 			}
 		}

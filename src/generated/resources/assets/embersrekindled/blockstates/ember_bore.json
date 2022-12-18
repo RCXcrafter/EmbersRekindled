@@ -1,0 +1,32 @@
+{
+  "variants": {
+    "axis=x,blades=false,waterlogged=false": {
+      "model": "embersrekindled:block/ember_bore_center",
+      "y": 90
+    },
+    "axis=x,blades=false,waterlogged=true": {
+      "model": "embersrekindled:block/ember_bore_center",
+      "y": 90
+    },
+    "axis=x,blades=true,waterlogged=false": {
+      "model": "embersrekindled:block/ember_bore_blades",
+      "y": 90
+    },
+    "axis=x,blades=true,waterlogged=true": {
+      "model": "embersrekindled:block/ember_bore_blades",
+      "y": 90
+    },
+    "axis=z,blades=false,waterlogged=false": {
+      "model": "embersrekindled:block/ember_bore_center"
+    },
+    "axis=z,blades=false,waterlogged=true": {
+      "model": "embersrekindled:block/ember_bore_center"
+    },
+    "axis=z,blades=true,waterlogged=false": {
+      "model": "embersrekindled:block/ember_bore_blades"
+    },
+    "axis=z,blades=true,waterlogged=true": {
+      "model": "embersrekindled:block/ember_bore_blades"
+    }
+  }
+}

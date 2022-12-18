@@ -54,9 +54,19 @@
       "embersrekindled:ember_bore/run_loop"
     ]
   },
+  "block.bore.loop.superspeed": {
+    "sounds": [
+      "embersrekindled:ember_bore/superspeed_run_loop"
+    ]
+  },
   "block.bore.loop_mine": {
     "sounds": [
       "embersrekindled:ember_bore/mine_loop"
+    ]
+  },
+  "block.bore.loop_mine.superspeed": {
+    "sounds": [
+      "embersrekindled:ember_bore/superspeed_mine_loop"
     ]
   },
   "block.bore.start": {

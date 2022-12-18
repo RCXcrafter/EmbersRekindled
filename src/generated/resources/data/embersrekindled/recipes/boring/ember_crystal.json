@@ -1,0 +1,8 @@
+{
+  "type": "embersrekindled:boring",
+  "max_height": 7,
+  "output": {
+    "item": "embersrekindled:ember_crystal"
+  },
+  "weight": 20
+}

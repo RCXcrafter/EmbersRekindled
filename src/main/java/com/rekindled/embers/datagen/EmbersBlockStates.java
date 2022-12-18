@@ -4,10 +4,14 @@ import com.google.common.collect.ImmutableMap;
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.RegistryManager.FluidStuff;
+import com.rekindled.embers.block.EmberBoreBlock;
+import com.rekindled.embers.block.MechEdgeBlockBase;
+import com.rekindled.embers.block.MechEdgeBlockBase.MechEdge;
 import com.rekindled.embers.block.PipeBlockBase;
 import com.rekindled.embers.block.PipeBlockBase.PipeConnection;
 
 import net.minecraft.core.Direction;
+import net.minecraft.core.Direction.Axis;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
@@ -175,6 +179,33 @@ public class EmbersBlockStates extends BlockStateProvider {
 		.condition(PipeBlockBase.WEST, PipeConnection.PIPE).end()
 		.part().modelFile(itemPipeConnectionModel2).rotationX(90).rotationY(270).addModel()
 		.condition(PipeBlockBase.EAST, PipeConnection.PIPE).end();
+
+		ExistingModelFile emberBoreModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "ember_bore_center"));
+		ExistingModelFile emberBoreBladesModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "ember_bore_blades"));
+		getVariantBuilder(RegistryManager.EMBER_BORE.get()).forAllStates(state -> {
+			Axis axis = state.getValue(BlockStateProperties.HORIZONTAL_AXIS);
+
+			return ConfiguredModel.builder()
+					.modelFile(state.getValue(EmberBoreBlock.BLADES) ? emberBoreBladesModel : emberBoreModel)
+					.rotationY(axis == Axis.Z ? 0 : 90)
+					.uvLock(false)
+					.build();
+		});
+		simpleBlockItem(RegistryManager.EMBER_BORE.get(), models().cubeAll("ember_bore", new ResourceLocation(Embers.MODID, "block/crate_bore")));
+
+		ExistingModelFile mechEdgeModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "mech_edge_straight"));
+		ExistingModelFile boreEdgeModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "ember_bore_edge"));
+		ExistingModelFile mechCornerModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "mech_edge_corner"));
+		getVariantBuilder(RegistryManager.EMBER_BORE_EDGE.get()).forAllStates(state -> {
+			MechEdge edge = state.getValue(MechEdgeBlockBase.EDGE);
+			Axis axis = state.getValue(BlockStateProperties.HORIZONTAL_AXIS);
+
+			return ConfiguredModel.builder()
+					.modelFile(edge.corner ? mechCornerModel : (edge == MechEdge.NORTH || edge == MechEdge.SOUTH) && axis == Axis.Z || (edge == MechEdge.EAST || edge == MechEdge.WEST) && axis == Axis.X ? boreEdgeModel : mechEdgeModel)
+					.rotationY(edge.rotation)
+					.uvLock(false)
+					.build();
+		});
 	}
 
 	public void blockWithItem(RegistryObject<? extends Block> registryObject) {

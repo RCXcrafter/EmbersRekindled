@@ -1,6 +1,9 @@
 package com.rekindled.embers;
 
 import com.rekindled.embers.api.power.IEmberCapability;
+import com.rekindled.embers.api.upgrades.UpgradeUtil;
+import com.rekindled.embers.apiimpl.UpgradeUtilImpl;
+import com.rekindled.embers.blockentity.render.EmberBoreBlockEntityRenderer;
 import com.rekindled.embers.datagen.EmbersBlockStates;
 import com.rekindled.embers.datagen.EmbersBlockTags;
 import com.rekindled.embers.datagen.EmbersFluidTags;
@@ -26,6 +29,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
@@ -67,6 +71,14 @@ public class Embers {
 		RegistryManager.BLOCK_ENTITY_TYPES.register(modEventBus);
 		RegistryManager.PARTICLE_TYPES.register(modEventBus);
 		RegistryManager.SOUND_EVENTS.register(modEventBus);
+		RegistryManager.RECIPE_TYPES.register(modEventBus);
+		RegistryManager.RECIPE_SERIALIZERS.register(modEventBus);
+		//just call something random in the class so it loads in time
+		EmbersSounds.ALCHEMY_FAIL.getClass();
+		//TODO: move this to apiimpl when I port that
+		UpgradeUtil.IMPL = new UpgradeUtilImpl();
+
+		ConfigManager.register();
 	}
 
 	public void commonSetup(final FMLCommonSetupEvent event) {
@@ -128,6 +140,12 @@ public class Embers {
 			event.register(RegistryManager.SPARK_PARTICLE.get(), SparkParticle.Provider::new);
 			event.register(RegistryManager.SMOKE_PARTICLE.get(), SmokeParticle.Provider::new);
 			event.register(RegistryManager.VAPOR_PARTICLE.get(), VaporParticle.Provider::new);
+		}
+
+		@OnlyIn(Dist.CLIENT)
+		@SubscribeEvent
+		static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
+			event.registerBlockEntityRenderer(RegistryManager.EMBER_BORE_ENTITY.get(), EmberBoreBlockEntityRenderer::new);
 		}
 	}
 }

@@ -6,6 +6,7 @@ import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.capabilities.EmbersCapabilities;
 import com.rekindled.embers.api.power.IEmberCapability;
 import com.rekindled.embers.api.power.IEmberPacketReceiver;
+import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.entity.EmberPacketEntity;
 import com.rekindled.embers.particle.GlowParticleOptions;
 import com.rekindled.embers.particle.SmokeParticleOptions;
@@ -121,7 +122,7 @@ public class EmberReceiverBlockEntity extends BlockEntity implements IEmberPacke
 				serverLevel.sendParticles(new StarParticleOptions(GlowParticleOptions.EMBER_COLOR, 3.5f + 0.5f * random.nextFloat()), getBlockPos().getX() + 0.5, getBlockPos().getY() + 0.5, getBlockPos().getZ() + 0.5, 12, 0.0125f * (random.nextFloat() - 0.5f), 0.0125f * (random.nextFloat() - 0.5f), 0.0125f * (random.nextFloat() - 0.5f), 1.0);
 			}
 		}
-		level.playLocalSound(packet.getX(),packet. getY(), packet.getZ(), packet.value >= 100 ? RegistryManager.EMBER_RECEIVE_BIG.get() : RegistryManager.EMBER_RECEIVE.get(), SoundSource.BLOCKS, 1.0f, 1.0f, false);
+		level.playLocalSound(packet.getX(),packet. getY(), packet.getZ(), packet.value >= 100 ? EmbersSounds.EMBER_RECEIVE_BIG.get() : EmbersSounds.EMBER_RECEIVE.get(), SoundSource.BLOCKS, 1.0f, 1.0f, false);
 		return true;
 	}
 

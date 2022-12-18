@@ -28,7 +28,10 @@ public class EmbersItemModels extends ItemModelProvider {
 			itemWithModel(fluid.FLUID_BUCKET, "item/generated");
 		}
 
-		itemWithModel(RegistryManager.TINKER_HAMMER, "item/handheld");//check if this looks good
+		itemWithModel(RegistryManager.TINKER_HAMMER, "item/handheld");
+		basicItem(RegistryManager.EMBER_CRYSTAL.get());
+		basicItem(RegistryManager.EMBER_SHARD.get());
+		basicItem(RegistryManager.EMBER_GRIT.get());
 	}
 
 	public void itemWithModel(RegistryObject<? extends Item> registryObject, String model) {
