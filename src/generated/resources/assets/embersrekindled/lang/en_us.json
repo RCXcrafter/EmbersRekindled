@@ -10,6 +10,7 @@
   "block.embersrekindled.item_dial": "Item Dial",
   "block.embersrekindled.item_extractor": "Item Extractor",
   "block.embersrekindled.item_pipe": "Item Pipe",
+  "block.embersrekindled.mechanical_core": "Mechanical Core",
   "embersrekindled.decimal_format.ember": "0.#",
   "embersrekindled.decimal_format.item_amount": "0x",
   "embersrekindled.tooltip.aiming_block": "Aiming: %s",

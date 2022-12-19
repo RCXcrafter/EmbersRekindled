@@ -1,5 +1,7 @@
 package com.rekindled.embers.datagen;
 
+import java.util.function.Function;
+
 import com.google.common.collect.ImmutableMap;
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
@@ -16,6 +18,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ButtonBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -206,6 +209,10 @@ public class EmbersBlockStates extends BlockStateProvider {
 					.uvLock(false)
 					.build();
 		});
+
+		ExistingModelFile mechCoreModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "mech_core"));
+		betterDirectionalBlock(RegistryManager.MECHANICAL_CORE.get(), $ -> mechCoreModel, 0);
+		simpleBlockItem(RegistryManager.MECHANICAL_CORE.get(), mechCoreModel);
 	}
 
 	public void blockWithItem(RegistryObject<? extends Block> registryObject) {
@@ -235,6 +242,18 @@ public class EmbersBlockStates extends BlockStateProvider {
 		itemModels().getBuilder(loc.toString())
 		.parent(new ModelFile.UncheckedModelFile("item/generated"))
 		.texture("layer0", new ResourceLocation(loc.getNamespace(), "item/" + texture));
+	}
+
+	public void betterDirectionalBlock(Block block, Function<BlockState, ModelFile> modelFunc, int angleOffset) {
+		getVariantBuilder(block)
+		.forAllStates(state -> {
+			Direction dir = state.getValue(BlockStateProperties.FACING);
+			return ConfiguredModel.builder()
+					.modelFile(modelFunc.apply(state))
+					.rotationX(dir == Direction.DOWN ? 180 : dir.getAxis().isHorizontal() ? 270 : 0)
+					.rotationY(dir.getAxis().isVertical() ? 0 : (((int) dir.toYRot()) + angleOffset) % 360)
+					.build();
+		});
 	}
 
 	public void leverBlock(Block block, ModelFile lever, ModelFile leverFlipped) {
