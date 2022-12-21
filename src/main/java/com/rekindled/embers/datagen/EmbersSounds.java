@@ -8,11 +8,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.SoundDefinition;
 import net.minecraftforge.common.data.SoundDefinitionsProvider;
+import net.minecraftforge.common.util.ForgeSoundType;
 import net.minecraftforge.registries.RegistryObject;
 
 public class EmbersSounds extends SoundDefinitionsProvider {
@@ -153,11 +156,10 @@ public class EmbersSounds extends SoundDefinitionsProvider {
 	public static final RegistryObject<SoundEvent> ANCIENT_GOLEM_PUNCH = registerSound("entity.ancient_golem.punch");
 	public static final RegistryObject<SoundEvent> ANCIENT_GOLEM_DEATH = registerSound("entity.ancient_golem.death");
 
-	//public static final RegistryObject<SoundEvent> SILENCE = registerSound("silence");
+	public static final RegistryObject<SoundEvent> SILENCE = registerSound("silence");
 
 	//sound types
-	//this isn't needed whoops
-	//public static final SoundType METAL_EDGE = new ForgeSoundType(1.0F, 1.5F, SILENCE, () -> SoundEvents.METAL_STEP, SILENCE, () -> SoundEvents.METAL_HIT, () -> SoundEvents.METAL_FALL);
+	public static final SoundType MULTIBLOCK_EXTRA = new ForgeSoundType(1.0F, 1.5F, SILENCE, () -> SoundEvents.METAL_STEP, () -> SoundEvents.METAL_PLACE, () -> SoundEvents.METAL_HIT, () -> SoundEvents.METAL_FALL);
 
 
 	public EmbersSounds(DataGenerator generator, ExistingFileHelper helper) {

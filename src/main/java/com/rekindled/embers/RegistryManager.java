@@ -12,6 +12,7 @@ import javax.annotation.Nullable;
 import com.mojang.serialization.Codec;
 import com.rekindled.embers.block.CopperCellBlock;
 import com.rekindled.embers.block.CreativeEmberBlock;
+import com.rekindled.embers.block.EmberActivatorBlock;
 import com.rekindled.embers.block.EmberBoreBlock;
 import com.rekindled.embers.block.EmberBoreEdgeBlock;
 import com.rekindled.embers.block.EmberDialBlock;
@@ -24,12 +25,15 @@ import com.rekindled.embers.block.MechanicalCoreBlock;
 import com.rekindled.embers.block.WaterloggableLeverBlock;
 import com.rekindled.embers.blockentity.CopperCellBlockEntity;
 import com.rekindled.embers.blockentity.CreativeEmberBlockEntity;
+import com.rekindled.embers.blockentity.EmberActivatorBottomBlockEntity;
+import com.rekindled.embers.blockentity.EmberActivatorTopBlockEntity;
 import com.rekindled.embers.blockentity.EmberBoreBlockEntity;
 import com.rekindled.embers.blockentity.EmberEmitterBlockEntity;
 import com.rekindled.embers.blockentity.EmberReceiverBlockEntity;
 import com.rekindled.embers.blockentity.ItemExtractorBlockEntity;
 import com.rekindled.embers.blockentity.ItemPipeBlockEntity;
 import com.rekindled.embers.blockentity.MechanicalCoreBlockEntity;
+import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.entity.EmberPacketEntity;
 import com.rekindled.embers.fluidtypes.EmbersFluidType.FluidInfo;
 import com.rekindled.embers.item.CopperCellBlockItem;
@@ -41,6 +45,7 @@ import com.rekindled.embers.particle.SparkParticleOptions;
 import com.rekindled.embers.particle.StarParticleOptions;
 import com.rekindled.embers.particle.VaporParticleOptions;
 import com.rekindled.embers.recipe.BoringRecipe;
+import com.rekindled.embers.recipe.EmberActivationRecipe;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockSource;
@@ -136,9 +141,10 @@ public class RegistryManager {
 	public static final RegistryObject<Block> CAMINITE_LEVER = BLOCKS.register("caminite_lever", () -> new WaterloggableLeverBlock(Properties.of(Material.STONE, MaterialColor.NONE).noCollission().sound(SoundType.STONE).strength(0.75f)));
 	public static final RegistryObject<Block> ITEM_PIPE = BLOCKS.register("item_pipe", () -> new ItemPipeBlock(Properties.of(Material.METAL, MaterialColor.NONE).sound(SoundType.METAL).strength(1.6f).noOcclusion()));
 	public static final RegistryObject<Block> ITEM_EXTRACTOR = BLOCKS.register("item_extractor", () -> new ItemExtractorBlock(Properties.of(Material.METAL, MaterialColor.NONE).sound(SoundType.METAL).strength(1.6f).noOcclusion()));
-	public static final RegistryObject<Block> EMBER_BORE = BLOCKS.register("ember_bore", () -> new EmberBoreBlock(Properties.of(Material.METAL, MaterialColor.NONE).sound(SoundType.METAL).strength(1.6f).noOcclusion()));
-	public static final RegistryObject<Block> EMBER_BORE_EDGE = BLOCKS.register("ember_bore_edge", () -> new EmberBoreEdgeBlock(Properties.of(Material.HEAVY_METAL, MaterialColor.NONE).sound(SoundType.METAL).strength(1.6f).noOcclusion()));
-	public static final RegistryObject<Block> MECHANICAL_CORE = BLOCKS.register("mechanical_core", () -> new MechanicalCoreBlock(Properties.of(Material.METAL, MaterialColor.NONE).sound(SoundType.METAL).strength(1.6f).noOcclusion()));
+	public static final RegistryObject<Block> EMBER_BORE = BLOCKS.register("ember_bore", () -> new EmberBoreBlock(Properties.of(Material.METAL, MaterialColor.COLOR_GRAY).sound(SoundType.METAL).strength(1.6f).noOcclusion()));
+	public static final RegistryObject<Block> EMBER_BORE_EDGE = BLOCKS.register("ember_bore_edge", () -> new EmberBoreEdgeBlock(Properties.of(Material.HEAVY_METAL, MaterialColor.WOOD).sound(EmbersSounds.MULTIBLOCK_EXTRA).strength(1.6f).noOcclusion()));
+	public static final RegistryObject<Block> MECHANICAL_CORE = BLOCKS.register("mechanical_core", () -> new MechanicalCoreBlock(Properties.of(Material.METAL, MaterialColor.COLOR_GRAY).sound(SoundType.METAL).strength(1.6f).noOcclusion()));
+	public static final RegistryObject<Block> EMBER_ACTIVATOR = BLOCKS.register("ember_activator", () -> new EmberActivatorBlock(Properties.of(Material.METAL, MaterialColor.COLOR_ORANGE).sound(SoundType.METAL).strength(1.6f).noOcclusion()));
 
 	//itemblocks
 	public static final RegistryObject<Item> COPPER_CELL_ITEM = ITEMS.register("copper_cell", () -> new CopperCellBlockItem(COPPER_CELL.get(), new Item.Properties().stacksTo(1).tab(Embers.TAB_EMBERS)));
@@ -152,6 +158,7 @@ public class RegistryManager {
 	public static final RegistryObject<Item> ITEM_EXTRACTOR_ITEM = ITEMS.register("item_extractor", () -> new BlockItem(ITEM_EXTRACTOR.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
 	public static final RegistryObject<Item> EMBER_BORE_ITEM = ITEMS.register("ember_bore", () -> new BlockItem(EMBER_BORE.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
 	public static final RegistryObject<Item> MECHANICAL_CORE_ITEM = ITEMS.register("mechanical_core", () -> new BlockItem(MECHANICAL_CORE.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
+	public static final RegistryObject<Item> EMBER_ACTIVATOR_ITEM = ITEMS.register("ember_activator", () -> new BlockItem(EMBER_ACTIVATOR.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
 
 	//items
 	public static final RegistryObject<Item> TINKER_HAMMER = ITEMS.register("tinker_hammer", () -> new TinkerHammerItem(new Item.Properties().stacksTo(1).tab(Embers.TAB_EMBERS)));
@@ -168,6 +175,8 @@ public class RegistryManager {
 	public static final RegistryObject<BlockEntityType<ItemExtractorBlockEntity>> ITEM_EXTRACTOR_ENTITY = BLOCK_ENTITY_TYPES.register("item_extractor", () -> BlockEntityType.Builder.of(ItemExtractorBlockEntity::new, ITEM_EXTRACTOR.get()).build(null));
 	public static final RegistryObject<BlockEntityType<EmberBoreBlockEntity>> EMBER_BORE_ENTITY = BLOCK_ENTITY_TYPES.register("ember_bore", () -> BlockEntityType.Builder.of(EmberBoreBlockEntity::new, EMBER_BORE.get()).build(null));
 	public static final RegistryObject<BlockEntityType<MechanicalCoreBlockEntity>> MECHANICAL_CORE_ENTITY = BLOCK_ENTITY_TYPES.register("mechanical_core", () -> BlockEntityType.Builder.of(MechanicalCoreBlockEntity::new, MECHANICAL_CORE.get()).build(null));
+	public static final RegistryObject<BlockEntityType<EmberActivatorBottomBlockEntity>> EMBER_ACTIVATOR_BOTTOM_ENTITY = BLOCK_ENTITY_TYPES.register("ember_activator_bottom", () -> BlockEntityType.Builder.of(EmberActivatorBottomBlockEntity::new, EMBER_ACTIVATOR.get()).build(null));
+	public static final RegistryObject<BlockEntityType<EmberActivatorTopBlockEntity>> EMBER_ACTIVATOR_TOP_ENTITY = BLOCK_ENTITY_TYPES.register("ember_activator_top", () -> BlockEntityType.Builder.of(EmberActivatorTopBlockEntity::new, EMBER_ACTIVATOR.get()).build(null));
 
 	//entities
 	public static final RegistryObject<EntityType<EmberPacketEntity>> EMBER_PACKET = registerEntity("ember_packet", EntityType.Builder.<EmberPacketEntity>of(EmberPacketEntity::new, MobCategory.MISC).sized(0.5F, 0.5F).fireImmune().clientTrackingRange(3).updateInterval(1));
@@ -181,9 +190,11 @@ public class RegistryManager {
 
 	//recipe types
 	public static final RegistryObject<RecipeType<BoringRecipe>> BORING = registerRecipeType("boring");
+	public static final RegistryObject<RecipeType<EmberActivationRecipe>> EMBER_ACTIVATION = registerRecipeType("ember_activation");
 
 	//recipe serializers
 	public static final RegistryObject<RecipeSerializer<BoringRecipe>> BORING_SERIALIZER = RECIPE_SERIALIZERS.register("boring", () -> BoringRecipe.SERIALIZER);
+	public static final RegistryObject<RecipeSerializer<EmberActivationRecipe>> EMBER_ACTIVATION_SERIALIZER = RECIPE_SERIALIZERS.register("ember_activation", () -> EmberActivationRecipe.SERIALIZER);
 
 
 	public static void registerDispenserBehaviour(final FMLCommonSetupEvent event) {

@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "bottom=false,waterlogged=false": {
+      "model": "embersrekindled:block/activator_top"
+    },
+    "bottom=false,waterlogged=true": {
+      "model": "embersrekindled:block/activator_top"
+    },
+    "bottom=true,waterlogged=false": {
+      "model": "embersrekindled:block/activator_bottom"
+    },
+    "bottom=true,waterlogged=true": {
+      "model": "embersrekindled:block/activator_bottom"
+    }
+  }
+}

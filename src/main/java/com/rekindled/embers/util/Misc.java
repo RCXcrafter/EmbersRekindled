@@ -15,6 +15,12 @@ import net.minecraftforge.items.IItemHandler;
 public class Misc {
 
 	public static Random random = new Random();
+	public static Direction[] horizontals = {
+			Direction.NORTH,
+			Direction.SOUTH,
+			Direction.WEST,
+			Direction.EAST
+	};
 	public static final List<BiPredicate<Player, InteractionHand>> IS_HOLDING_HAMMER = new ArrayList<BiPredicate<Player, InteractionHand>>();
 
 	public static void spawnInventoryInWorld(Level world, double x, double y, double z, IItemHandler inventory) {

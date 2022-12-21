@@ -213,6 +213,15 @@ public class EmbersBlockStates extends BlockStateProvider {
 		ExistingModelFile mechCoreModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "mech_core"));
 		betterDirectionalBlock(RegistryManager.MECHANICAL_CORE.get(), $ -> mechCoreModel, 0);
 		simpleBlockItem(RegistryManager.MECHANICAL_CORE.get(), mechCoreModel);
+
+		ExistingModelFile activatorTopModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "activator_top"));
+		simpleBlockItem(RegistryManager.EMBER_ACTIVATOR.get(), activatorTopModel);
+		getVariantBuilder(RegistryManager.EMBER_ACTIVATOR.get()).forAllStates(state -> {
+			return ConfiguredModel.builder()
+					.modelFile(state.getValue(BlockStateProperties.BOTTOM) ? models().getExistingFile(new ResourceLocation(Embers.MODID, "activator_bottom")) : activatorTopModel)
+					.uvLock(false)
+					.build();
+		});
 	}
 
 	public void blockWithItem(RegistryObject<? extends Block> registryObject) {

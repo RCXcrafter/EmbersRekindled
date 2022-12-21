@@ -5,6 +5,7 @@ import java.util.function.Consumer;
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.recipe.BoringRecipeBuilder;
+import com.rekindled.embers.recipe.EmberActivationRecipeBuilder;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -24,6 +25,11 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		BoringRecipeBuilder.create(RegistryManager.EMBER_CRYSTAL.get()).folder(boringFolder).weight(20).maxHeight(7).save(consumer);
 		BoringRecipeBuilder.create(RegistryManager.EMBER_SHARD.get()).folder(boringFolder).weight(60).maxHeight(7).save(consumer);
 		BoringRecipeBuilder.create(RegistryManager.EMBER_GRIT.get()).folder(boringFolder).weight(20).maxHeight(7).save(consumer);
+
+		String activationFolder = "ember_activation";
+		EmberActivationRecipeBuilder.create(RegistryManager.EMBER_CRYSTAL.get()).folder(activationFolder).ember(2400).save(consumer);
+		EmberActivationRecipeBuilder.create(RegistryManager.EMBER_SHARD.get()).folder(activationFolder).ember(400).save(consumer);
+		EmberActivationRecipeBuilder.create(RegistryManager.EMBER_GRIT.get()).folder(activationFolder).ember(0).save(consumer);
 	}
 
 	public ResourceLocation getResource(String name) {

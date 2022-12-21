@@ -13,7 +13,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -48,7 +47,7 @@ public class EmberBoreBlock extends BaseEntityBlock implements SimpleWaterlogged
 			for (MechEdge edge : MechEdge.values()) {
 				BlockPos cornerPos = pos.subtract(edge.centerPos);
 				if (level.getBlockState(cornerPos).getBlock() instanceof MechEdgeBlockBase) {
-					level.setBlock(cornerPos, Blocks.AIR.defaultBlockState(), UPDATE_ALL);
+					level.destroyBlock(cornerPos, false);
 				}
 			}
 			BlockEntity blockEntity = level.getBlockEntity(pos);

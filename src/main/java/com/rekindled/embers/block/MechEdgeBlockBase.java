@@ -11,7 +11,6 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -51,7 +50,7 @@ public abstract class MechEdgeBlockBase extends Block implements SimpleWaterlogg
 			BlockPos centerPos = pos.offset(state.getValue(EDGE).centerPos);
 			if (level.getBlockState(centerPos).getBlock() == getCenterBlock()) {
 				//the center block takes care of removing the remaining edges
-				level.setBlock(centerPos, Blocks.AIR.defaultBlockState(), UPDATE_ALL);
+				level.destroyBlock(centerPos, true);
 			}
 			super.onRemove(state, level, pos, newState, isMoving);
 		}
