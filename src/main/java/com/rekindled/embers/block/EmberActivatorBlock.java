@@ -104,8 +104,10 @@ public class EmberActivatorBlock extends BaseEntityBlock implements SimpleWaterl
 
 	@Override
 	public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
-		if (state.getValue(BlockStateProperties.BOTTOM))
-			level.setBlock(pos.above(), this.defaultBlockState().setValue(BlockStateProperties.BOTTOM, false), UPDATE_ALL);
+		if (state.getValue(BlockStateProperties.BOTTOM)) {
+			BlockState topState = this.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, Boolean.valueOf(level.getFluidState(pos.above()).getType() == Fluids.WATER));
+			level.setBlock(pos.above(), topState.setValue(BlockStateProperties.BOTTOM, false), UPDATE_ALL);
+		}
 	}
 
 	@Override

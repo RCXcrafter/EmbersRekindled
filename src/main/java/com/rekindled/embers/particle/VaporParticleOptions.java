@@ -13,7 +13,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.Mth;
 
 public class VaporParticleOptions implements ParticleOptions {
 
@@ -52,7 +51,7 @@ public class VaporParticleOptions implements ParticleOptions {
 	public VaporParticleOptions(Vector3f pColor, Vector3f pMotion, float pScale) {
 		this.color = pColor;
 		this.motion = pMotion;
-		this.scale = Mth.clamp(pScale, 0.01F, 4.0F);
+		this.scale = pScale;
 	}
 
 	public VaporParticleOptions(Vector3f pColor, float pScale) {

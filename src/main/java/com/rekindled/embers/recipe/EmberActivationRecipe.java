@@ -42,6 +42,10 @@ public class EmberActivationRecipe implements Recipe<Container> {
 	}
 
 	public int getOutput(RecipeWrapper context) {
+		return ember;
+	}
+
+	public int process(RecipeWrapper context) {
 		for (int i = 0; i < context.getContainerSize(); i++) {
 			if (ingredient.test(context.getItem(i))) {
 				context.removeItem(i, 1);

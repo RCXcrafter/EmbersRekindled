@@ -18,7 +18,7 @@ public class SmokeParticle extends TextureSheetParticle {
 
 	public SmokeParticle(ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed, SmokeParticleOptions pOptions, SpriteSet pSprites) {
 		super(pLevel, pX, pY, pZ, pXSpeed, pYSpeed, pZSpeed);
-		this.friction = 0.96F;
+		this.friction = 1.0F;
 		this.speedUpWhenYMotionIsBlocked = true;
 		this.xd *= (double)0.1F;
 		this.yd *= (double)0.1F;

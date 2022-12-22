@@ -13,7 +13,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.Mth;
 
 public class SparkParticleOptions implements ParticleOptions {
 
@@ -45,7 +44,7 @@ public class SparkParticleOptions implements ParticleOptions {
 
 	public SparkParticleOptions(Vector3f pColor, float pScale) {
 		this.color = pColor;
-		this.scale = Mth.clamp(pScale, 0.01F, 4.0F);
+		this.scale = pScale;
 	}
 
 	public static Vector3f readVector3f(StringReader pStringInput) throws CommandSyntaxException {

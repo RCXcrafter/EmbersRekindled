@@ -74,7 +74,8 @@ public class EmberBoreBlock extends BaseEntityBlock implements SimpleWaterlogged
 	public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
 		Axis axis = state.getValue(BlockStateProperties.HORIZONTAL_AXIS);
 		for (MechEdge edge : MechEdge.values()) {
-			level.setBlock(pos.subtract(edge.centerPos), RegistryManager.EMBER_BORE_EDGE.get().defaultBlockState().setValue(MechEdgeBlockBase.EDGE, edge).setValue(BlockStateProperties.HORIZONTAL_AXIS, axis), UPDATE_ALL);
+			BlockState edgeState = RegistryManager.EMBER_BORE_EDGE.get().defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, Boolean.valueOf(level.getFluidState(pos.subtract(edge.centerPos)).getType() == Fluids.WATER));
+			level.setBlock(pos.subtract(edge.centerPos), edgeState.setValue(MechEdgeBlockBase.EDGE, edge).setValue(BlockStateProperties.HORIZONTAL_AXIS, axis), UPDATE_ALL);
 		}
 	}
 
