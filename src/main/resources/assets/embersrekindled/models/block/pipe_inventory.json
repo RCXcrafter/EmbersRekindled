@@ -29,10 +29,10 @@
 			"from": [6, 6, 6],
 			"to": [10, 10, 10],
 			"faces": {
-				"east": {"uv": [12, 12, 16, 16], "texture": "#pipe"},
-				"west": {"uv": [12, 12, 16, 16], "texture": "#pipe"},
-				"up": {"uv": [12, 12, 16, 16], "texture": "#pipe"},
-				"down": {"uv": [12, 12, 16, 16], "texture": "#pipe"}
+				"east": {"uv": [1, 1, 5, 5], "texture": "#pipe"},
+				"west": {"uv": [1, 1, 5, 5], "texture": "#pipe"},
+				"up": {"uv": [1, 1, 5, 5], "texture": "#pipe"},
+				"down": {"uv": [1, 1, 5, 5], "texture": "#pipe"}
 			}
 		},
 		{

@@ -1,7 +1,7 @@
 {
     "parent": "forge:item/default",
 	"textures": {
-        "base": "item/bucket",
+        "base": "embersrekindled:item/bucket_base",
         "cover": "embersrekindled:item/bucket_cover",
         "fluid": "embersrekindled:item/bucket_fluid"
   	}

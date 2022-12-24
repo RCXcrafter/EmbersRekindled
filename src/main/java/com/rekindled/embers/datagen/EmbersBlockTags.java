@@ -22,6 +22,9 @@ public class EmbersBlockTags extends BlockTagsProvider {
 	public static final TagKey<Block> ITEM_PIPE_CONNECTION = BlockTags.create(new ResourceLocation(Embers.MODID, "item_pipe_connection"));
 	public static final TagKey<Block> ITEM_PIPE_CONNECTION_TOGGLEABLE = BlockTags.create(new ResourceLocation(Embers.MODID, "item_pipe_connection/toggleable"));
 
+	public static final TagKey<Block> FLUID_PIPE_CONNECTION = BlockTags.create(new ResourceLocation(Embers.MODID, "fluid_pipe_connection"));
+	public static final TagKey<Block> FLUID_PIPE_CONNECTION_TOGGLEABLE = BlockTags.create(new ResourceLocation(Embers.MODID, "fluid_pipe_connection/toggleable"));
+
 	public static final TagKey<Block> MECH_CORE_PROXYABLE = BlockTags.create(new ResourceLocation(Embers.MODID, "mech_core_proxyable"));
 
 	public EmbersBlockTags(DataGenerator gen, ExistingFileHelper existingFileHelper) {
@@ -56,10 +59,15 @@ public class EmbersBlockTags extends BlockTagsProvider {
 				RegistryManager.EMBER_BORE_EDGE.get(),
 				RegistryManager.MECHANICAL_CORE.get(),
 				RegistryManager.EMBER_ACTIVATOR.get(),
-				RegistryManager.MELTER.get());
+				RegistryManager.MELTER.get(),
+				RegistryManager.FLUID_PIPE.get(),
+				RegistryManager.FLUID_EXTRACTOR.get());
 
 		tag(MECH_CORE_PROXYABLE).add(
 				RegistryManager.EMBER_BORE.get(),
 				RegistryManager.EMBER_ACTIVATOR.get());
+
+		tag(FLUID_PIPE_CONNECTION).addTag(FLUID_PIPE_CONNECTION_TOGGLEABLE);
+		tag(FLUID_PIPE_CONNECTION_TOGGLEABLE).add(RegistryManager.FLUID_PIPE.get(), RegistryManager.FLUID_EXTRACTOR.get());
 	}
 }

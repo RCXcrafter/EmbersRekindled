@@ -1,11 +1,11 @@
 {
 	"parent": "block/block",
 	"textures": {
-		"0": "embersrekindled:block/pipe_tex",
+		"0": "embersrekindled:block/fluid_pipe_tex",
 		"1": "embersrekindled:block/plates",
 		"2": "embersrekindled:block/block_caminite_brick",
 		"3": "embersrekindled:block/machine_accessor_top",
-		"particle": "embersrekindled:block/pipe_tex"
+		"particle": "embersrekindled:block/fluid_pipe_tex"
 	},
 	"elements": [
 		{

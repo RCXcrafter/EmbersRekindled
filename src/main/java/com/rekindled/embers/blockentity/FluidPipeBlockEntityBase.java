@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import com.mojang.math.Vector3f;
+import com.rekindled.embers.api.tile.IFluidPipePriority;
 import com.rekindled.embers.block.PipeBlockBase.PipeConnection;
 import com.rekindled.embers.particle.GlowParticleOptions;
 import com.rekindled.embers.util.Misc;
@@ -16,7 +17,6 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -24,42 +24,40 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+import net.minecraftforge.fluids.capability.templates.FluidTank;
 
-public abstract class ItemPipeBlockEntityBase extends BlockEntity implements IItemPipePriority {
+public abstract class FluidPipeBlockEntityBase extends BlockEntity implements IFluidPipePriority {
 
 	public static final int PRIORITY_BLOCK = 0;
 	public static final int PRIORITY_PIPE = PRIORITY_BLOCK;
+	public static final int MAX_PUSH = 120;
 
 	Random random = new Random();
 	boolean[] from = new boolean[Direction.values().length]; //just in case they like make minecraft 4 dimensional or something
 	public boolean clogged = false;
-	public ItemStackHandler inventory;
-	public LazyOptional<IItemHandler> holder = LazyOptional.of(() -> inventory);
+	public FluidTank tank;
+	public LazyOptional<IFluidHandler> holder = LazyOptional.of(() -> tank);
 	Direction lastTransfer;
-	boolean syncInventory;
+	boolean syncTank;
 	boolean syncCloggedFlag;
 	boolean syncTransfer;
 	int ticksExisted;
 	int lastRobin;
 
-	public ItemPipeBlockEntityBase(BlockEntityType<?> pType, BlockPos pPos, BlockState pBlockState) {
+	public FluidPipeBlockEntityBase(BlockEntityType<?> pType, BlockPos pPos, BlockState pBlockState) {
 		super(pType, pPos, pBlockState);
-		initInventory();
+		initFluidTank();
 	}
 
-	protected void initInventory() {
-		inventory = new ItemStackHandler(1) {
+	protected void initFluidTank() {
+		tank = new FluidTank(getCapacity()) {
 			@Override
-			public int getSlotLimit(int slot) {
-				return ItemPipeBlockEntityBase.this.getCapacity();
-			}
-
-			@Override
-			protected void onContentsChanged(int slot) {
-				ItemPipeBlockEntityBase.this.syncInventory = true;
-				ItemPipeBlockEntityBase.this.setChanged();
+			protected void onContentsChanged() {
+				FluidPipeBlockEntityBase.this.syncTank = true;
+				FluidPipeBlockEntityBase.this.setChanged();
 			}
 		};
 	}
@@ -98,7 +96,7 @@ public abstract class ItemPipeBlockEntityBase extends BlockEntity implements IIt
 			if (!isConnected(facing))
 				continue;
 			BlockEntity tile = level.getBlockEntity(worldPosition.relative(facing));
-			if (tile instanceof ItemPipeBlockEntityBase && !((ItemPipeBlockEntityBase) tile).clogged)
+			if (tile instanceof FluidPipeBlockEntityBase && !((FluidPipeBlockEntityBase) tile).clogged)
 				return true;
 		}
 		return false;
@@ -109,13 +107,13 @@ public abstract class ItemPipeBlockEntityBase extends BlockEntity implements IIt
 		return ClientboundBlockEntityDataPacket.create(this);
 	}
 
-	public static void serverTick(Level level, BlockPos pos, BlockState state, ItemPipeBlockEntityBase blockEntity) {
+	public static void serverTick(Level level, BlockPos pos, BlockState state, FluidPipeBlockEntityBase blockEntity) {
 		blockEntity.ticksExisted++;
-		boolean itemsMoved = false;
-		ItemStack passStack = blockEntity.inventory.extractItem(0, 1, true);
+		boolean fluidMoved = false;
+		FluidStack passStack = blockEntity.tank.drain(MAX_PUSH, FluidAction.SIMULATE);
 		if (!passStack.isEmpty()) {
 			PipePriorityMap<Integer, Direction> possibleDirections = new PipePriorityMap<>();
-			IItemHandler[] itemHandlers = new IItemHandler[Direction.values().length];
+			IFluidHandler[] fluidHandlers = new IFluidHandler[Direction.values().length];
 
 			for (Direction facing : Direction.values()) {
 				if (!blockEntity.isConnected(facing))
@@ -124,51 +122,53 @@ public abstract class ItemPipeBlockEntityBase extends BlockEntity implements IIt
 					continue;
 				BlockEntity tile = level.getBlockEntity(pos.relative(facing));
 				if (tile != null) {
-					IItemHandler handler = tile.getCapability(ForgeCapabilities.ITEM_HANDLER, facing.getOpposite()).orElse(null);
+					IFluidHandler handler = tile.getCapability(ForgeCapabilities.FLUID_HANDLER, facing.getOpposite()).orElse(null);
 					if (handler != null) {
 						int priority = PRIORITY_BLOCK;
-						if (tile instanceof IItemPipePriority)
-							priority = ((IItemPipePriority) tile).getPriority(facing.getOpposite());
+						if (tile instanceof IFluidPipePriority)
+							priority = ((IFluidPipePriority) tile).getPriority(facing.getOpposite());
 						if (blockEntity.isFrom(facing.getOpposite()))
 							priority -= 5; //aka always try opposite first
 						possibleDirections.put(priority, facing);
-						itemHandlers[facing.get3DDataValue()] = handler;
+						fluidHandlers[facing.get3DDataValue()] = handler;
 					}
 				}
 			}
 
 			for (int key : possibleDirections.keySet()) {
 				ArrayList<Direction> list = possibleDirections.get(key);
-				for(int i = 0; i < list.size(); i++) {
-					Direction facing = list.get((i+blockEntity.lastRobin) % list.size());
-					IItemHandler handler = itemHandlers[facing.get3DDataValue()];
-					itemsMoved = blockEntity.pushStack(passStack, facing, handler);
-					if(blockEntity.lastTransfer != facing) {
+				for (int i = 0; i < list.size(); i++) {
+					Direction facing = list.get((i + blockEntity.lastRobin) % list.size());
+					IFluidHandler handler = fluidHandlers[facing.get3DDataValue()];
+					fluidMoved = blockEntity.pushStack(passStack, facing, handler);
+					if (blockEntity.lastTransfer != facing) {
 						blockEntity.syncTransfer = true;
 						blockEntity.lastTransfer = facing;
 						blockEntity.setChanged();
 					}
-					if(itemsMoved) {
+					if (fluidMoved) {
 						blockEntity.lastRobin++;
 						break;
 					}
 				}
-				if(itemsMoved)
+				if (fluidMoved)
 					break;
 			}
 		}
 
-		if (blockEntity.inventory.getStackInSlot(0).isEmpty()) {
-			if(blockEntity.lastTransfer != null && !itemsMoved) {
+		//if (fluidMoved)
+		//    resetFrom();
+		if (blockEntity.tank.getFluidAmount() <= 0) {
+			if (blockEntity.lastTransfer != null && !fluidMoved) {
 				blockEntity.syncTransfer = true;
 				blockEntity.lastTransfer = null;
 				blockEntity.setChanged();
 			}
-			itemsMoved = true;
+			fluidMoved = true;
 			blockEntity.resetFrom();
 		}
-		if (blockEntity.clogged == itemsMoved) {
-			blockEntity.clogged = !itemsMoved;
+		if (blockEntity.clogged == fluidMoved) {
+			blockEntity.clogged = !fluidMoved;
 			blockEntity.syncCloggedFlag = true;
 			blockEntity.setChanged();
 		}
@@ -189,20 +189,13 @@ public abstract class ItemPipeBlockEntityBase extends BlockEntity implements IIt
 		}
 	}
 
-	private boolean pushStack(ItemStack passStack, Direction facing, IItemHandler handler) {
-		int slot = -1;
-		for (int j = 0; j < handler.getSlots() && slot == -1; j++) {
-			if (handler.insertItem(j, passStack, true).isEmpty()) {
-				slot = j;
-			}
-		}
-
-		if (slot != -1) {
-			ItemStack added = handler.insertItem(slot, passStack, false);
-			if (added.isEmpty()) {
-                this.inventory.extractItem(0, 1, false);
-				return true;
-			}
+	private boolean pushStack(FluidStack passStack, Direction facing, IFluidHandler handler) {
+		int added = handler.fill(passStack, FluidAction.SIMULATE);
+		if (added > 0) {
+			handler.fill(passStack, FluidAction.EXECUTE);
+			this.tank.drain(added, FluidAction.EXECUTE);
+			passStack.setAmount(passStack.getAmount() - added);
+			return passStack.getAmount() <= 0;
 		}
 
 		if (isFrom(facing))
@@ -211,13 +204,13 @@ public abstract class ItemPipeBlockEntityBase extends BlockEntity implements IIt
 	}
 
 	protected void resetSync() {
-		syncInventory = false;
+		syncTank = false;
 		syncCloggedFlag = false;
 		syncTransfer = false;
 	}
 
 	protected boolean requiresSync() {
-		return syncInventory || syncCloggedFlag || syncTransfer;
+		return syncTank || syncCloggedFlag || syncTransfer;
 	}
 
 	@Override
@@ -225,8 +218,8 @@ public abstract class ItemPipeBlockEntityBase extends BlockEntity implements IIt
 		super.load(nbt);
 		if (nbt.contains("clogged"))
 			clogged = nbt.getBoolean("clogged");
-		if (nbt.contains("inventory"))
-			inventory.deserializeNBT(nbt.getCompound("inventory"));
+		if (nbt.contains("tank"))
+			tank.readFromNBT(nbt.getCompound("tank"));
 		if (nbt.contains("lastTransfer"))
 			lastTransfer = Misc.readNullableFacing(nbt.getInt("lastTransfer"));
 		for(Direction facing : Direction.values())
@@ -239,7 +232,7 @@ public abstract class ItemPipeBlockEntityBase extends BlockEntity implements IIt
 	@Override
 	public void saveAdditional(CompoundTag nbt) {
 		super.saveAdditional(nbt);
-		writeInventory(nbt);
+		writeTank(nbt);
 		writeCloggedFlag(nbt);
 		writeLastTransfer(nbt);
 		for(Direction facing : Direction.values())
@@ -250,8 +243,8 @@ public abstract class ItemPipeBlockEntityBase extends BlockEntity implements IIt
 	@Override
 	public CompoundTag getUpdateTag() {
 		CompoundTag nbt = super.getUpdateTag();
-		if (syncInventory)
-			writeInventory(nbt);
+		if (syncTank)
+			writeTank(nbt);
 		if (syncCloggedFlag)
 			writeCloggedFlag(nbt);
 		if (syncTransfer)
@@ -267,14 +260,14 @@ public abstract class ItemPipeBlockEntityBase extends BlockEntity implements IIt
 		nbt.putInt("lastTransfer", Misc.writeNullableFacing(lastTransfer));
 	}
 
-	private void writeInventory(CompoundTag nbt) {
-		nbt.put("inventory", inventory.serializeNBT());
+	private void writeTank(CompoundTag nbt) {
+		nbt.put("tank", tank.writeToNBT(new CompoundTag()));
 	}
 
 	@Override
 	public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
-		if (!this.remove && cap == ForgeCapabilities.ITEM_HANDLER) {
-			return ForgeCapabilities.ITEM_HANDLER.orEmpty(cap, holder);
+		if (!this.remove && cap == ForgeCapabilities.FLUID_HANDLER) {
+			return holder.cast();
 		}
 		return super.getCapability(cap, side);
 	}

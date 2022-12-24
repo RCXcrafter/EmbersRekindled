@@ -43,6 +43,8 @@ public class EmbersLang extends LanguageProvider {
 		addBlock(RegistryManager.MECHANICAL_CORE, "Mechanical Core");
 		addBlock(RegistryManager.EMBER_ACTIVATOR, "Ember Activator");
 		addBlock(RegistryManager.MELTER, "Melter");
+		addBlock(RegistryManager.FLUID_PIPE, "Fluid Pipe");
+		addBlock(RegistryManager.FLUID_EXTRACTOR, "Fluid Extractor");
 
 		addItem(RegistryManager.TINKER_HAMMER, "Tinker's Hammer");
 		addItem(RegistryManager.EMBER_CRYSTAL, "Ember Crystal");

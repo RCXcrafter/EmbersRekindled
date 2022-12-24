@@ -1,5 +1,5 @@
 {
-  "parent": "embersrekindled:block/pipe_end",
+  "parent": "embersrekindled:block/pipe_center",
   "textures": {
     "particle": "embersrekindled:block/fluid_pipe_tex",
     "pipe": "embersrekindled:block/fluid_pipe_tex"
