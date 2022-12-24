@@ -1,7 +1,7 @@
 package com.rekindled.embers.particle;
 
 import com.mojang.math.Vector3f;
-import com.rekindled.embers.EmbersClientEvents;
+import com.rekindled.embers.render.EmbersRenderTypes;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
@@ -56,7 +56,7 @@ public class GlowParticle extends TextureSheetParticle {
 
 	@Override
 	public ParticleRenderType getRenderType() {
-		return EmbersClientEvents.PARTICLE_SHEET_ADDITIVE;
+		return EmbersRenderTypes.PARTICLE_SHEET_ADDITIVE;
 	}
 
 	@OnlyIn(Dist.CLIENT)

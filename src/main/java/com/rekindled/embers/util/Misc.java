@@ -2,15 +2,25 @@ package com.rekindled.embers.util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 import java.util.function.BiPredicate;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
+
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class Misc {
 
@@ -48,5 +58,26 @@ public class Misc {
 
 	public static int writeNullableFacing(Direction facing) {
 		return facing != null ? facing.get3DDataValue() : -1;
+	}
+
+	public static FluidStack deserializeFluidStack(JsonObject json) {
+		String fluidName = GsonHelper.getAsString(json, "fluid");
+		Fluid fluid = ForgeRegistries.FLUIDS.getValue(new ResourceLocation(fluidName));
+		if (fluid == null || fluid == Fluids.EMPTY) {
+			throw new JsonSyntaxException("Unknown fluid " + fluidName);
+		}
+		int amount = GsonHelper.getAsInt(json, "amount");
+		return new FluidStack(fluid, amount);
+	}
+
+	public static JsonObject serializeFluidStack(FluidStack stack) {
+		JsonObject json = new JsonObject();
+		json.addProperty("fluid", Objects.requireNonNull(ForgeRegistries.FLUIDS.getResourceKey(stack.getFluid()).get().location()).toString());
+		json.addProperty("amount", stack.getAmount());
+		return json;
+	}
+
+	public static boolean isGaseousFluid(FluidStack resource) {
+		return resource != null && resource.getFluid().getFluidType().getDensity() <= 0;
 	}
 }

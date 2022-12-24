@@ -57,6 +57,7 @@ public class EmbersBlockStates extends BlockStateProvider {
 		blockWithItem(RegistryManager.CREATIVE_EMBER);
 		dial(RegistryManager.EMBER_DIAL, "ember_dial");
 		dial(RegistryManager.ITEM_DIAL, "item_dial");
+		dial(RegistryManager.FLUID_DIAL, "fluid_dial");
 
 		ExistingModelFile emitterModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "ember_emitter"));
 		ModelFile fluidPipeEndModel = models().withExistingParent("fluid_pipe_end", new ResourceLocation(Embers.MODID, "pipe_end"))
@@ -219,6 +220,15 @@ public class EmbersBlockStates extends BlockStateProvider {
 		getVariantBuilder(RegistryManager.EMBER_ACTIVATOR.get()).forAllStates(state -> {
 			return ConfiguredModel.builder()
 					.modelFile(state.getValue(BlockStateProperties.BOTTOM) ? models().getExistingFile(new ResourceLocation(Embers.MODID, "activator_bottom")) : activatorTopModel)
+					.uvLock(false)
+					.build();
+		});
+
+		ExistingModelFile melterBottomModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "melter_bottom"));
+		simpleBlockItem(RegistryManager.MELTER.get(), melterBottomModel);
+		getVariantBuilder(RegistryManager.MELTER.get()).forAllStates(state -> {
+			return ConfiguredModel.builder()
+					.modelFile(state.getValue(BlockStateProperties.BOTTOM) ? melterBottomModel : models().getExistingFile(new ResourceLocation(Embers.MODID, "melter_top")))
 					.uvLock(false)
 					.build();
 		});

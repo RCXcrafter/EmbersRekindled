@@ -1,6 +1,6 @@
 package com.rekindled.embers.particle;
 
-import com.rekindled.embers.EmbersClientEvents;
+import com.rekindled.embers.render.EmbersRenderTypes;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
@@ -48,7 +48,7 @@ public class SmokeParticle extends TextureSheetParticle {
 
 	@Override
 	public ParticleRenderType getRenderType() {
-		return EmbersClientEvents.PARTICLE_SHEET_TRANSLUCENT_NODEPTH;
+		return EmbersRenderTypes.PARTICLE_SHEET_TRANSLUCENT_NODEPTH;
 	}
 
 	@OnlyIn(Dist.CLIENT)

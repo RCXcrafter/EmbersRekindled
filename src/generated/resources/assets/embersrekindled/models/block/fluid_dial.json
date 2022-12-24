@@ -1,0 +1,7 @@
+{
+  "parent": "embersrekindled:block/dial",
+  "textures": {
+    "dial": "embersrekindled:block/fluid_dial",
+    "particle": "embersrekindled:block/fluid_dial"
+  }
+}

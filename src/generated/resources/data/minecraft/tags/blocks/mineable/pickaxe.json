@@ -3,6 +3,8 @@
     "embersrekindled:copper_cell",
     "embersrekindled:creative_ember_source",
     "embersrekindled:ember_dial",
+    "embersrekindled:item_dial",
+    "embersrekindled:fluid_dial",
     "embersrekindled:ember_emitter",
     "embersrekindled:ember_receiver",
     "embersrekindled:item_pipe",
@@ -10,6 +12,7 @@
     "embersrekindled:ember_bore",
     "embersrekindled:ember_bore_edge",
     "embersrekindled:mechanical_core",
-    "embersrekindled:ember_activator"
+    "embersrekindled:ember_activator",
+    "embersrekindled:melter"
   ]
 }

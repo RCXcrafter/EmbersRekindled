@@ -46,6 +46,8 @@ public class EmbersBlockTags extends BlockTagsProvider {
 				RegistryManager.COPPER_CELL.get(),
 				RegistryManager.CREATIVE_EMBER.get(),
 				RegistryManager.EMBER_DIAL.get(),
+				RegistryManager.ITEM_DIAL.get(),
+				RegistryManager.FLUID_DIAL.get(),
 				RegistryManager.EMBER_EMITTER.get(),
 				RegistryManager.EMBER_RECEIVER.get(),
 				RegistryManager.ITEM_PIPE.get(),
@@ -53,7 +55,8 @@ public class EmbersBlockTags extends BlockTagsProvider {
 				RegistryManager.EMBER_BORE.get(),
 				RegistryManager.EMBER_BORE_EDGE.get(),
 				RegistryManager.MECHANICAL_CORE.get(),
-				RegistryManager.EMBER_ACTIVATOR.get());
+				RegistryManager.EMBER_ACTIVATOR.get(),
+				RegistryManager.MELTER.get());
 
 		tag(MECH_CORE_PROXYABLE).add(
 				RegistryManager.EMBER_BORE.get(),

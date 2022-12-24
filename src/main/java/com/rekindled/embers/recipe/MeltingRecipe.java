@@ -4,6 +4,7 @@ import org.jetbrains.annotations.Nullable;
 
 import com.google.gson.JsonObject;
 import com.rekindled.embers.RegistryManager;
+import com.rekindled.embers.util.Misc;
 
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -15,21 +16,22 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 
-public class EmberActivationRecipe implements Recipe<Container> {
+public class MeltingRecipe implements Recipe<Container> {
 
 	public static final Serializer SERIALIZER = new Serializer(); 
 
 	public final ResourceLocation id;
 
 	public final Ingredient ingredient;
-	public final int ember;
+	public final FluidStack output;
 
-	public EmberActivationRecipe(ResourceLocation id, Ingredient ingredient, int ember) {
+	public MeltingRecipe(ResourceLocation id, Ingredient ingredient, FluidStack output) {
 		this.id = id;
 		this.ingredient = ingredient;
-		this.ember = ember;
+		this.output = output;
 	}
 
 	@Override
@@ -41,23 +43,23 @@ public class EmberActivationRecipe implements Recipe<Container> {
 		return false;
 	}
 
-	public int getOutput(RecipeWrapper context) {
-		return ember;
+	public FluidStack getOutput(RecipeWrapper context) {
+		return output;
 	}
 
-	public int process(RecipeWrapper context) {
+	public FluidStack process(RecipeWrapper context) {
 		for (int i = 0; i < context.getContainerSize(); i++) {
 			if (ingredient.test(context.getItem(i))) {
 				context.removeItem(i, 1);
 				break;
 			}
 		}
-		return ember;
+		return output;
 	}
 
 	@Override
 	public ItemStack getToastSymbol() {
-		return new ItemStack(RegistryManager.EMBER_ACTIVATOR_ITEM.get());
+		return new ItemStack(RegistryManager.MELTER_ITEM.get());
 	}
 
 	@Override
@@ -72,7 +74,7 @@ public class EmberActivationRecipe implements Recipe<Container> {
 
 	@Override
 	public RecipeType<?> getType() {
-		return RegistryManager.EMBER_ACTIVATION.get();
+		return RegistryManager.MELTING.get();
 	}
 
 	@Override
@@ -93,28 +95,28 @@ public class EmberActivationRecipe implements Recipe<Container> {
 		return true;
 	}
 
-	public static class Serializer implements RecipeSerializer<EmberActivationRecipe> {
+	public static class Serializer implements RecipeSerializer<MeltingRecipe> {
 
 		@Override
-		public EmberActivationRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
+		public MeltingRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
 			Ingredient ingredient = Ingredient.fromJson(json.get("input"));
-			int ember = GsonHelper.getAsInt(json, "ember");
+			FluidStack output = Misc.deserializeFluidStack(GsonHelper.getAsJsonObject(json, "output"));
 
-			return new EmberActivationRecipe(recipeId, ingredient, ember);
+			return new MeltingRecipe(recipeId, ingredient, output);
 		}
 
 		@Override
-		public @Nullable EmberActivationRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
+		public @Nullable MeltingRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
 			Ingredient ingredient = Ingredient.fromNetwork(buffer);
-			int ember = buffer.readVarInt();
+			FluidStack output = FluidStack.readFromPacket(buffer);
 
-			return new EmberActivationRecipe(recipeId, ingredient, ember);
+			return new MeltingRecipe(recipeId, ingredient, output);
 		}
 
 		@Override
-		public void toNetwork(FriendlyByteBuf buffer, EmberActivationRecipe recipe) {
+		public void toNetwork(FriendlyByteBuf buffer, MeltingRecipe recipe) {
 			recipe.ingredient.toNetwork(buffer);
-			buffer.writeVarInt(recipe.ember);
+			recipe.output.writeToPacket(buffer);
 		}
 	}
 }

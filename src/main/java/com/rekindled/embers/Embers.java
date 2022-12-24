@@ -4,6 +4,7 @@ import com.rekindled.embers.api.power.IEmberCapability;
 import com.rekindled.embers.api.upgrades.UpgradeUtil;
 import com.rekindled.embers.apiimpl.UpgradeUtilImpl;
 import com.rekindled.embers.blockentity.render.EmberBoreBlockEntityRenderer;
+import com.rekindled.embers.blockentity.render.MelterTopBlockEntityRenderer;
 import com.rekindled.embers.datagen.EmbersBlockStates;
 import com.rekindled.embers.datagen.EmbersBlockTags;
 import com.rekindled.embers.datagen.EmbersFluidTags;
@@ -146,6 +147,7 @@ public class Embers {
 		@SubscribeEvent
 		static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
 			event.registerBlockEntityRenderer(RegistryManager.EMBER_BORE_ENTITY.get(), EmberBoreBlockEntityRenderer::new);
+			event.registerBlockEntityRenderer(RegistryManager.MELTER_TOP_ENTITY.get(), MelterTopBlockEntityRenderer::new);
 		}
 	}
 }

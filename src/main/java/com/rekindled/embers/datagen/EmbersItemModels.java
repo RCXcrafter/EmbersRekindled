@@ -24,8 +24,8 @@ public class EmbersItemModels extends ItemModelProvider {
 	@Override
 	protected void registerModels() {
 		for (FluidStuff fluid : RegistryManager.fluidList) {
-			//bucketModel(fluid.FLUID_BUCKET, fluid.name);
-			itemWithModel(fluid.FLUID_BUCKET, "item/generated");
+			bucketModel(fluid.FLUID_BUCKET, fluid.name);
+			//itemWithModel(fluid.FLUID_BUCKET, "item/generated");
 		}
 
 		itemWithModel(RegistryManager.TINKER_HAMMER, "item/handheld");
@@ -48,6 +48,7 @@ public class EmbersItemModels extends ItemModelProvider {
 		builder.customLoader((t, u) ->  new CustomLoaderBuilder(((ModelBuilder) t).getLocation(), (ModelBuilder) t, (ExistingFileHelper) u) {
 			public JsonObject toJson(JsonObject json) {
 				json.addProperty("loader", "forge:fluid_container");
+				json.addProperty("cover_is_mask", false);
 				json.addProperty("fluid", Embers.MODID + ":" + name);
 				return json;
 			}

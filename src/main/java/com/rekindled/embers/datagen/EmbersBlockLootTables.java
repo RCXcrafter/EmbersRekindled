@@ -29,6 +29,7 @@ public class EmbersBlockLootTables extends BlockLoot {
 		dropSelf(RegistryManager.CREATIVE_EMBER.get());
 		dropSelf(RegistryManager.EMBER_DIAL.get());
 		dropSelf(RegistryManager.ITEM_DIAL.get());
+		dropSelf(RegistryManager.FLUID_DIAL.get());
 		dropSelf(RegistryManager.EMBER_EMITTER.get());
 		dropSelf(RegistryManager.EMBER_RECEIVER.get());
 		dropSelf(RegistryManager.CAMINITE_LEVER.get());
@@ -38,5 +39,6 @@ public class EmbersBlockLootTables extends BlockLoot {
 		add(RegistryManager.EMBER_BORE_EDGE.get(), noDrop());
 		dropSelf(RegistryManager.MECHANICAL_CORE.get());
 		dropSelf(RegistryManager.EMBER_ACTIVATOR.get());
+		dropSelf(RegistryManager.MELTER.get());
 	}
 }

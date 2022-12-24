@@ -59,7 +59,6 @@ public class EmberActivatorBottomBlockEntity extends BlockEntity implements IExt
 	public LazyOptional<IItemHandler> holder = LazyOptional.of(() -> inventory);
 	private List<IUpgradeProvider> upgrades = new ArrayList<>();
 
-
 	public EmberActivatorBottomBlockEntity(BlockPos pPos, BlockState pBlockState) {
 		super(RegistryManager.EMBER_ACTIVATOR_BOTTOM_ENTITY.get(), pPos, pBlockState);
 	}

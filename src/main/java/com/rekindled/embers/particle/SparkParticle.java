@@ -1,6 +1,6 @@
 package com.rekindled.embers.particle;
 
-import com.rekindled.embers.EmbersClientEvents;
+import com.rekindled.embers.render.EmbersRenderTypes;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
@@ -21,9 +21,7 @@ public class SparkParticle extends TextureSheetParticle {
 		this.friction = 0.96F;
 		this.speedUpWhenYMotionIsBlocked = true;
 		this.gravity = 0.04f;
-		this.xd *= (double)0.1F;
-		this.yd *= (double)0.1F;
-		this.zd *= (double)0.1F;
+		this.yd = 0.1;
 		this.rCol = pOptions.getColor().x();
 		this.gCol = pOptions.getColor().y();
 		this.bCol = pOptions.getColor().z();
@@ -53,7 +51,7 @@ public class SparkParticle extends TextureSheetParticle {
 
 	@Override
 	public ParticleRenderType getRenderType() {
-		return EmbersClientEvents.PARTICLE_SHEET_ADDITIVE;
+		return EmbersRenderTypes.PARTICLE_SHEET_ADDITIVE;
 	}
 
 	@OnlyIn(Dist.CLIENT)
