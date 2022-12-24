@@ -308,6 +308,8 @@ public class EmbersBlockStates extends BlockStateProvider {
 		.condition(PipeBlockBase.WEST, PipeConnection.PIPE).end()
 		.part().modelFile(fluidPipeConnectionModel2).rotationX(90).rotationY(270).addModel()
 		.condition(PipeBlockBase.EAST, PipeConnection.PIPE).end();
+
+		blockWithItem(RegistryManager.FLUID_VESSEL, "fluid_vessel");
 	}
 
 	public void blockWithItem(RegistryObject<? extends Block> registryObject) {

@@ -15,6 +15,7 @@
     "embersrekindled:ember_activator",
     "embersrekindled:melter",
     "embersrekindled:fluid_pipe",
-    "embersrekindled:fluid_extractor"
+    "embersrekindled:fluid_extractor",
+    "embersrekindled:fluid_vessel"
   ]
 }

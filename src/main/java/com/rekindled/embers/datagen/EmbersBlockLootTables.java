@@ -42,5 +42,6 @@ public class EmbersBlockLootTables extends BlockLoot {
 		dropSelf(RegistryManager.MELTER.get());
 		dropSelf(RegistryManager.FLUID_PIPE.get());
 		dropSelf(RegistryManager.FLUID_EXTRACTOR.get());
+		dropSelf(RegistryManager.FLUID_VESSEL.get());
 	}
 }
