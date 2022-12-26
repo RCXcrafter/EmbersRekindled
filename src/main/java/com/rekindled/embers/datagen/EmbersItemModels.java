@@ -32,6 +32,7 @@ public class EmbersItemModels extends ItemModelProvider {
 		basicItem(RegistryManager.EMBER_CRYSTAL.get());
 		basicItem(RegistryManager.EMBER_SHARD.get());
 		basicItem(RegistryManager.EMBER_GRIT.get());
+		basicItem(RegistryManager.INGOT_STAMP.get());
 	}
 
 	public void itemWithModel(RegistryObject<? extends Item> registryObject, String model) {

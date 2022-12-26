@@ -62,7 +62,9 @@ public class EmbersBlockTags extends BlockTagsProvider {
 				RegistryManager.MELTER.get(),
 				RegistryManager.FLUID_PIPE.get(),
 				RegistryManager.FLUID_EXTRACTOR.get(),
-				RegistryManager.FLUID_VESSEL.get());
+				RegistryManager.FLUID_VESSEL.get(),
+				RegistryManager.STAMPER.get(),
+				RegistryManager.STAMP_BASE.get());
 
 		tag(MECH_CORE_PROXYABLE).add(
 				RegistryManager.EMBER_BORE.get(),

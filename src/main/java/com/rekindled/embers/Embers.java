@@ -6,6 +6,8 @@ import com.rekindled.embers.apiimpl.UpgradeUtilImpl;
 import com.rekindled.embers.blockentity.render.EmberBoreBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.FluidVesselBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.MelterTopBlockEntityRenderer;
+import com.rekindled.embers.blockentity.render.StampBaseBlockEntityRenderer;
+import com.rekindled.embers.blockentity.render.StamperBlockEntityRenderer;
 import com.rekindled.embers.datagen.EmbersBlockStates;
 import com.rekindled.embers.datagen.EmbersBlockTags;
 import com.rekindled.embers.datagen.EmbersFluidTags;
@@ -23,6 +25,7 @@ import com.rekindled.embers.particle.SparkParticle;
 import com.rekindled.embers.particle.StarParticle;
 import com.rekindled.embers.particle.VaporParticle;
 import com.rekindled.embers.util.DecimalFormats;
+import com.rekindled.embers.util.Misc;
 
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.data.DataGenerator;
@@ -79,6 +82,8 @@ public class Embers {
 		EmbersSounds.ALCHEMY_FAIL.getClass();
 		//TODO: move this to apiimpl when I port that
 		UpgradeUtil.IMPL = new UpgradeUtilImpl();
+
+		Misc.IS_WEARING_LENS.add((player) -> true);
 
 		ConfigManager.register();
 	}
@@ -150,6 +155,8 @@ public class Embers {
 			event.registerBlockEntityRenderer(RegistryManager.EMBER_BORE_ENTITY.get(), EmberBoreBlockEntityRenderer::new);
 			event.registerBlockEntityRenderer(RegistryManager.MELTER_TOP_ENTITY.get(), MelterTopBlockEntityRenderer::new);
 			event.registerBlockEntityRenderer(RegistryManager.FLUID_VESSEL_ENTITY.get(), FluidVesselBlockEntityRenderer::new);
+			event.registerBlockEntityRenderer(RegistryManager.STAMPER_ENTITY.get(), StamperBlockEntityRenderer::new);
+			event.registerBlockEntityRenderer(RegistryManager.STAMP_BASE_ENTITY.get(), StampBaseBlockEntityRenderer::new);
 		}
 	}
 }

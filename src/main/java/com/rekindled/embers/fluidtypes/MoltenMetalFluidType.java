@@ -1,13 +1,10 @@
 package com.rekindled.embers.fluidtypes;
 
-import java.awt.Color;
 import java.util.function.Consumer;
 
 import com.mojang.blaze3d.shaders.FogShape;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.math.Vector3f;
-import com.rekindled.embers.Embers;
-import com.rekindled.embers.fluidtypes.EmbersFluidType.FluidInfo;
 
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -19,24 +16,11 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
-import net.minecraftforge.fluids.FluidType;
 
-public class MoltenMetalFluidType extends FluidType {
-
-	public final ResourceLocation TEXTURE_STILL;
-	public final ResourceLocation TEXTURE_FLOW;
-	public final Vector3f FOG_COLOR;
-	public final float fogStart;
-	public final float fogEnd;
+public class MoltenMetalFluidType extends EmbersFluidType {
 
 	public MoltenMetalFluidType(Properties properties, FluidInfo info) {
-		super(properties);
-		TEXTURE_STILL = new ResourceLocation(Embers.MODID, "block/fluid/" + info.name + "_still");
-		TEXTURE_FLOW = new ResourceLocation(Embers.MODID, "block/fluid/" + info.name + "_flow");
-		Color colorObject = new Color(info.color);
-		FOG_COLOR = new Vector3f(colorObject.getRed()/255F, colorObject.getGreen()/255F, colorObject.getBlue()/255F);
-		fogStart = info.fogStart;
-		fogEnd = info.fogEnd;
+		super(properties, info);
 	}
 
 	@Override

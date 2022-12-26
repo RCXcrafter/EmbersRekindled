@@ -21,7 +21,7 @@ public class SparkParticle extends TextureSheetParticle {
 		this.friction = 0.96F;
 		this.speedUpWhenYMotionIsBlocked = true;
 		this.gravity = 0.04f;
-		this.yd = 0.1;
+		this.yd = 0.12 * random.nextFloat();
 		this.rCol = pOptions.getColor().x();
 		this.gCol = pOptions.getColor().y();
 		this.bCol = pOptions.getColor().z();

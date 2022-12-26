@@ -173,7 +173,7 @@ public abstract class FluidPipeBlockEntityBase extends BlockEntity implements IF
 			blockEntity.setChanged();
 		}
 
-		if (level instanceof ServerLevel serverLevel && true) {//Embers.proxy.isPlayerWearingGoggles()) { TODO: add the goggles obviously
+		/*if (level instanceof ServerLevel serverLevel && true) {//Embers.proxy.isPlayerWearingGoggles()) { TODO: add the goggles obviously
 			if (blockEntity.lastTransfer != null) {
 				float vx = blockEntity.lastTransfer.getStepX() / 1;
 				float vy = blockEntity.lastTransfer.getStepY() / 1;
@@ -186,7 +186,7 @@ public abstract class FluidPipeBlockEntityBase extends BlockEntity implements IF
 				float b = 16f;
 				serverLevel.sendParticles(new GlowParticleOptions(new Vector3f(r / 255.0F, g / 255.0F, b / 255.0F), new Vector3f(vx, vy, vz), 2.0f), x, y, z, 3, 0, 0, 0, 1.0);
 			}
-		}
+		}*/
 	}
 
 	private boolean pushStack(FluidStack passStack, Direction facing, IFluidHandler handler) {

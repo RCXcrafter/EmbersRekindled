@@ -46,11 +46,14 @@ public class EmbersLang extends LanguageProvider {
 		addBlock(RegistryManager.FLUID_PIPE, "Fluid Pipe");
 		addBlock(RegistryManager.FLUID_EXTRACTOR, "Fluid Extractor");
 		addBlock(RegistryManager.FLUID_VESSEL, "Fluid Vessel");
+		addBlock(RegistryManager.STAMPER, "Stamper");
+		addBlock(RegistryManager.STAMP_BASE, "Stamp Base");
 
 		addItem(RegistryManager.TINKER_HAMMER, "Tinker's Hammer");
 		addItem(RegistryManager.EMBER_CRYSTAL, "Ember Crystal");
 		addItem(RegistryManager.EMBER_SHARD, "Ember Shard");
 		addItem(RegistryManager.EMBER_GRIT, "Ember Grit");
+		addItem(RegistryManager.INGOT_STAMP, "Ingot Stamp");
 
 		add(Embers.MODID + ".decimal_format.ember", "0.#");
 		add(Embers.MODID + ".tooltip.emberdial.ember", "Ember: %s/%s");

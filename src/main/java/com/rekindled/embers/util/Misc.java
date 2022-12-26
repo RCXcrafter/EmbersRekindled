@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 import java.util.function.BiPredicate;
+import java.util.function.Predicate;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
@@ -24,6 +25,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class Misc {
 
+	public static final double LOG_E = Math.log10(Math.exp(1));
 	public static Random random = new Random();
 	public static Direction[] horizontals = {
 			Direction.NORTH,
@@ -32,6 +34,7 @@ public class Misc {
 			Direction.EAST
 	};
 	public static final List<BiPredicate<Player, InteractionHand>> IS_HOLDING_HAMMER = new ArrayList<BiPredicate<Player, InteractionHand>>();
+	public static final List<Predicate<Player>> IS_WEARING_LENS = new ArrayList<Predicate<Player>>();
 
 	public static void spawnInventoryInWorld(Level world, double x, double y, double z, IItemHandler inventory) {
 		if (inventory != null && !world.isClientSide) {
@@ -46,6 +49,15 @@ public class Misc {
 	public static boolean isHoldingHammer(Player player, InteractionHand hand) {
 		for (BiPredicate<Player, InteractionHand> predicate : IS_HOLDING_HAMMER) {
 			if (predicate.test(player, hand)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static boolean isWearingLens(Player player) {
+		for (Predicate<Player> predicate : IS_WEARING_LENS) {
+			if (predicate.test(player)) {
 				return true;
 			}
 		}
@@ -79,5 +91,12 @@ public class Misc {
 
 	public static boolean isGaseousFluid(FluidStack resource) {
 		return resource != null && resource.getFluid().getFluidType().getDensity() <= 0;
+	}
+
+	public static double getDiminishedPower(double power, double softcap, double slope) {
+		if (power > softcap)
+			return softcap * slope + Math.log10(power - softcap + LOG_E / slope) - Math.log10(LOG_E / slope);
+		else
+			return power * slope;
 	}
 }

@@ -21,12 +21,8 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.Entity.RemovalReason;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
 import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
@@ -37,10 +33,9 @@ import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
-public class MelterTopBlockEntity extends OpenTankBlockEntity implements IExtraCapabilityInformation {
+public class StampBaseBlockEntity extends OpenTankBlockEntity implements IExtraCapabilityInformation {
 
-	public static int capacity = FluidType.BUCKET_VOLUME * 4;
-	public double angle = 0;
+	public static int capacity = (FluidType.BUCKET_VOLUME * 3) /2;
 	int ticksExisted = 0;
 	public float renderOffset;
 	int previousFluid;
@@ -48,23 +43,23 @@ public class MelterTopBlockEntity extends OpenTankBlockEntity implements IExtraC
 	public ItemStackHandler inventory = new ItemStackHandler(1) {
 		@Override
 		protected void onContentsChanged(int slot) {
-			MelterTopBlockEntity.this.setChanged();
+			StampBaseBlockEntity.this.setChanged();
 		}
 	};
 	public LazyOptional<IItemHandler> holder = LazyOptional.of(() -> inventory);
 
-	public MelterTopBlockEntity(BlockPos pPos, BlockState pBlockState) {
-		super(RegistryManager.MELTER_TOP_ENTITY.get(), pPos, pBlockState);
+	public StampBaseBlockEntity(BlockPos pPos, BlockState pBlockState) {
+		super(RegistryManager.STAMP_BASE_ENTITY.get(), pPos, pBlockState);
 		tank = new FluidTank(capacity) {
 			@Override
 			public void onContentsChanged() {
-				MelterTopBlockEntity.this.setChanged();
+				StampBaseBlockEntity.this.setChanged();
 			}
 
 			@Override
 			public int fill(FluidStack resource, FluidAction action) {
 				if(Misc.isGaseousFluid(resource)) {
-					MelterTopBlockEntity.this.setEscapedFluid(resource);
+					StampBaseBlockEntity.this.setEscapedFluid(resource);
 					return resource.getAmount();
 				}
 				int filled = super.fill(resource, action);
@@ -109,28 +104,11 @@ public class MelterTopBlockEntity extends OpenTankBlockEntity implements IExtraC
 		return tank;
 	}
 
-	public static void serverTick(Level level, BlockPos pos, BlockState state, MelterTopBlockEntity blockEntity) {
-		blockEntity.ticksExisted ++;
-		if (blockEntity.ticksExisted % 10 == 0){
-
-			List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(pos.getX(),pos.getY(),pos.getZ(),pos.getX()+1,pos.getY()+0.5,pos.getZ()+1));
-			for (int i = 0; i < items.size(); i ++){
-				ItemStack stack = blockEntity.inventory.insertItem(0, items.get(i).getItem(), false);
-				if (!stack.isEmpty()){
-					items.get(i).setItem(stack);
-				} else {
-					items.get(i).remove(RemovalReason.DISCARDED);
-				}
-			}
-		}
-	}
-
-	public static void clientTick(Level level, BlockPos pos, BlockState state, MelterTopBlockEntity blockEntity) {
-		blockEntity.angle++;
+	public static void clientTick(Level level, BlockPos pos, BlockState state, StampBaseBlockEntity blockEntity) {
+		blockEntity.ticksExisted++;
 
 		//I know I'm supposed to use onLoad for stuff on the first tick but the tank isn't synced to the client yet when that happens
-		//also I have the angle thing anyways
-		if (blockEntity.angle == 1)
+		if (blockEntity.ticksExisted == 1)
 			blockEntity.previousFluid = blockEntity.tank.getFluidAmount();
 		if (blockEntity.tank.getFluidAmount() != blockEntity.previousFluid) {
 			blockEntity.renderOffset = blockEntity.renderOffset + blockEntity.tank.getFluidAmount() - blockEntity.previousFluid;
@@ -185,8 +163,6 @@ public class MelterTopBlockEntity extends OpenTankBlockEntity implements IExtraC
 
 	@Override
 	public void addCapabilityDescription(List<String> strings, Capability<?> capability, Direction facing) {
-		if(capability == ForgeCapabilities.ITEM_HANDLER)
-			strings.add(IExtraCapabilityInformation.formatCapability(EnumIOType.INPUT, Embers.MODID + ".tooltip.goggles.item", null));
 		if(capability == ForgeCapabilities.FLUID_HANDLER)
 			strings.add(IExtraCapabilityInformation.formatCapability(EnumIOType.OUTPUT, Embers.MODID + ".tooltip.goggles.fluid", I18n.get(Embers.MODID + ".tooltip.goggles.fluid.metal")));
 	}

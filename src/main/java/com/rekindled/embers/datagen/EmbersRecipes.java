@@ -7,11 +7,13 @@ import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.recipe.BoringRecipeBuilder;
 import com.rekindled.embers.recipe.EmberActivationRecipeBuilder;
 import com.rekindled.embers.recipe.MeltingRecipeBuilder;
+import com.rekindled.embers.recipe.StampingRecipeBuilder;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 
@@ -43,6 +45,9 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 
 		String meltingFolder = "melting";
 		MeltingRecipeBuilder.create(Tags.Items.INGOTS_IRON).domain(Embers.MODID).folder(meltingFolder).output(RegistryManager.MOLTEN_IRON.FLUID.get(), INGOT_AMOUNT).save(consumer);
+
+		String stampingFolder = "stamping";
+		StampingRecipeBuilder.create(Items.IRON_INGOT).domain(Embers.MODID).folder(stampingFolder).stamp(RegistryManager.INGOT_STAMP.get()).fluid(EmbersFluidTags.MOLTEN_IRON, INGOT_AMOUNT).save(consumer);
 	}
 
 	public ResourceLocation getResource(String name) {

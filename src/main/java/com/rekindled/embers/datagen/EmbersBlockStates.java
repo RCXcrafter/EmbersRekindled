@@ -10,6 +10,7 @@ import com.rekindled.embers.block.EmberBoreBlock;
 import com.rekindled.embers.block.MechEdgeBlockBase;
 import com.rekindled.embers.block.MechEdgeBlockBase.MechEdge;
 import com.rekindled.embers.block.PipeBlockBase;
+import com.rekindled.embers.block.StamperBlock;
 import com.rekindled.embers.block.PipeBlockBase.PipeConnection;
 
 import net.minecraft.core.Direction;
@@ -310,6 +311,17 @@ public class EmbersBlockStates extends BlockStateProvider {
 		.condition(PipeBlockBase.EAST, PipeConnection.PIPE).end();
 
 		blockWithItem(RegistryManager.FLUID_VESSEL, "fluid_vessel");
+
+		ExistingModelFile stamperModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "stamper"));
+		simpleBlockItem(RegistryManager.STAMPER.get(), stamperModel);
+		getVariantBuilder(RegistryManager.STAMPER.get()).forAllStates(state -> {
+			return ConfiguredModel.builder()
+					.modelFile(state.getValue(StamperBlock.ARM) ? models().getExistingFile(new ResourceLocation(Embers.MODID, "stamper_arm")) : stamperModel)
+					.uvLock(false)
+					.build();
+		});
+
+		blockWithItem(RegistryManager.STAMP_BASE, "stamp_base");
 	}
 
 	public void blockWithItem(RegistryObject<? extends Block> registryObject) {
