@@ -28,6 +28,8 @@ public class EmbersLang extends LanguageProvider {
 
 		add("itemGroup." + Embers.MODID, "Embers Rekindled");
 
+		addBlock(RegistryManager.CAMINITE_BRICKS, "Caminite Bricks");
+
 		addBlock(RegistryManager.COPPER_CELL, "Copper Cell");
 		addBlock(RegistryManager.CREATIVE_EMBER, "Creative Ember Source");
 		addBlock(RegistryManager.EMBER_DIAL, "Ember Dial");
@@ -53,7 +55,32 @@ public class EmbersLang extends LanguageProvider {
 		addItem(RegistryManager.EMBER_CRYSTAL, "Ember Crystal");
 		addItem(RegistryManager.EMBER_SHARD, "Ember Shard");
 		addItem(RegistryManager.EMBER_GRIT, "Ember Grit");
+		addItem(RegistryManager.CAMINITE_BLEND, "Caminite Blend");
+		addItem(RegistryManager.CAMINITE_BRICK, "Caminite Brick");
+
+		addItem(RegistryManager.RAW_CAMINITE_PLATE, "Raw Caminite Plate");
+		addItem(RegistryManager.RAW_INGOT_STAMP, "Raw Ingot Stamp");
+		addItem(RegistryManager.RAW_NUGGET_STAMP, "Raw Nugget Stamp");
+		addItem(RegistryManager.RAW_PLATE_STAMP, "Raw Plate Stamp");
+
+		addItem(RegistryManager.CAMINITE_PLATE, "Caminite Plate");
 		addItem(RegistryManager.INGOT_STAMP, "Ingot Stamp");
+		addItem(RegistryManager.NUGGET_STAMP, "Nugget Stamp");
+		addItem(RegistryManager.PLATE_STAMP, "Plate Stamp");
+
+		addItem(RegistryManager.IRON_PLATE, "Iron Plate");
+		addItem(RegistryManager.GOLD_PLATE, "Gold Plate");
+		addItem(RegistryManager.COPPER_PLATE, "Copper Plate");
+		addItem(RegistryManager.COPPER_NUGGET, "Copper Nugget");
+
+		addBlock(RegistryManager.LEAD_ORE, "Lead Ore");
+		addBlock(RegistryManager.DEEPSLATE_LEAD_ORE, "Deepslate Lead Ore");
+		addBlock(RegistryManager.RAW_LEAD_BLOCK, "Block of Raw Lead");
+		addBlock(RegistryManager.LEAD_BLOCK, "Block of Lead");
+		addItem(RegistryManager.RAW_LEAD, "Raw Lead");
+		addItem(RegistryManager.LEAD_INGOT, "Lead Ingot");
+		addItem(RegistryManager.LEAD_NUGGET, "Lead Nugget");
+		addItem(RegistryManager.LEAD_PLATE, "Lead Plate");
 
 		add(Embers.MODID + ".decimal_format.ember", "0.#");
 		add(Embers.MODID + ".tooltip.emberdial.ember", "Ember: %s/%s");

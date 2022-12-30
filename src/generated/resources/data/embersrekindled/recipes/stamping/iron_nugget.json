@@ -1,0 +1,13 @@
+{
+  "type": "embersrekindled:stamping",
+  "fluid": {
+    "amount": 10,
+    "tag": "forge:molten_iron"
+  },
+  "output": {
+    "item": "minecraft:iron_nugget"
+  },
+  "stamp": {
+    "item": "embersrekindled:nugget_stamp"
+  }
+}

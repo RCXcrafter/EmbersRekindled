@@ -32,13 +32,40 @@ public class EmbersItemModels extends ItemModelProvider {
 		basicItem(RegistryManager.EMBER_CRYSTAL.get());
 		basicItem(RegistryManager.EMBER_SHARD.get());
 		basicItem(RegistryManager.EMBER_GRIT.get());
+		basicItem(RegistryManager.CAMINITE_BLEND.get());
+		basicItem(RegistryManager.CAMINITE_BRICK.get());
+
+		itemWithTexture(RegistryManager.RAW_CAMINITE_PLATE, "plate_caminite_raw");
+		itemWithTexture(RegistryManager.RAW_INGOT_STAMP, "ingot_stamp_raw");
+		itemWithTexture(RegistryManager.RAW_NUGGET_STAMP, "nugget_stamp_raw");
+		itemWithTexture(RegistryManager.RAW_PLATE_STAMP, "plate_stamp_raw");
+
+		itemWithTexture(RegistryManager.CAMINITE_PLATE, "plate_caminite");
 		basicItem(RegistryManager.INGOT_STAMP.get());
+		basicItem(RegistryManager.NUGGET_STAMP.get());
+		basicItem(RegistryManager.PLATE_STAMP.get());
+
+		itemWithTexture(RegistryManager.IRON_PLATE, "plate_iron");
+		itemWithTexture(RegistryManager.GOLD_PLATE, "plate_gold");
+		itemWithTexture(RegistryManager.COPPER_PLATE, "plate_copper");
+		itemWithTexture(RegistryManager.COPPER_NUGGET, "nugget_copper");
+
+		basicItem(RegistryManager.RAW_LEAD.get());
+		itemWithTexture(RegistryManager.LEAD_INGOT, "ingot_lead");
+		itemWithTexture(RegistryManager.LEAD_NUGGET, "nugget_lead");
+		itemWithTexture(RegistryManager.LEAD_PLATE, "plate_lead");
 	}
 
 	public void itemWithModel(RegistryObject<? extends Item> registryObject, String model) {
 		ResourceLocation id = registryObject.getId();
 		ResourceLocation textureLocation = new ResourceLocation(id.getNamespace(), "item/" + id.getPath());
 		singleTexture(id.getPath(), new ResourceLocation(model), "layer0", textureLocation);
+	}
+
+	public void itemWithTexture(RegistryObject<? extends Item> registryObject, String texture) {
+		ResourceLocation id = registryObject.getId();
+		ResourceLocation textureLocation = new ResourceLocation(id.getNamespace(), "item/" + texture);
+		singleTexture(id.getPath(), new ResourceLocation("item/generated"), "layer0", textureLocation);
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })

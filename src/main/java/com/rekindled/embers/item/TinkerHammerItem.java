@@ -46,13 +46,13 @@ public class TinkerHammerItem extends Item {
 			if (targetTile instanceof IEmberPacketProducer) {
 				if (tile instanceof IEmberPacketReceiver) {
 					((IEmberPacketProducer) targetTile).setTargetPosition(pos, Direction.byName(nbt.getString("targetFace")));
-					world.playLocalSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, SoundEvents.ANVIL_LAND, SoundSource.BLOCKS, 1.0f, 1.5f + world.random.nextFloat() * 0.1f, false);
+					world.playLocalSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, SoundEvents.ANVIL_LAND, SoundSource.BLOCKS, 0.5f, 1.5f + world.random.nextFloat() * 0.1f, false);
 					nbt.remove("targetWorld");
 					return InteractionResult.SUCCESS;
 				}
 			} else if (targetTile instanceof ITargetable) {
 				((ITargetable) targetTile).setTarget(pos);
-				world.playLocalSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, SoundEvents.ANVIL_LAND, SoundSource.BLOCKS, 1.0f, 1.5f + world.random.nextFloat() * 0.1f, false);
+				world.playLocalSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, SoundEvents.ANVIL_LAND, SoundSource.BLOCKS, 0.5f, 1.5f + world.random.nextFloat() * 0.1f, false);
 				nbt.remove("targetWorld");
 				return InteractionResult.SUCCESS;
 			}
@@ -63,7 +63,7 @@ public class TinkerHammerItem extends Item {
 			nbt.putInt("targetX", pos.getX());
 			nbt.putInt("targetY", pos.getY());
 			nbt.putInt("targetZ", pos.getZ());
-			world.playLocalSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, SoundEvents.ANVIL_LAND, SoundSource.BLOCKS, 1.0f, 1.95f + world.random.nextFloat() * 0.2f, false);
+			world.playLocalSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, SoundEvents.ANVIL_LAND, SoundSource.BLOCKS, 0.5f, 1.95f + world.random.nextFloat() * 0.2f, false);
 			return InteractionResult.SUCCESS;
 		}
 		return InteractionResult.PASS;

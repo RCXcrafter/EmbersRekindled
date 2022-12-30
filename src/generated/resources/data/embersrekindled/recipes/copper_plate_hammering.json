@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "forge:ingots/copper"
+    },
+    {
+      "tag": "forge:ingots/copper"
+    },
+    {
+      "tag": "embersrekindled:tinker_hammer"
+    }
+  ],
+  "result": {
+    "item": "embersrekindled:copper_plate"
+  }
+}

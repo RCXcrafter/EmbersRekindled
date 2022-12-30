@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "ingredient": {
+    "item": "embersrekindled:raw_caminite_plate"
+  },
+  "result": "embersrekindled:caminite_plate"
+}

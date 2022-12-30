@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": {
+      "item": "minecraft:bucket"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "X": {
+      "item": "embersrekindled:caminite_brick"
+    }
+  },
+  "pattern": [
+    "I I",
+    "XBX"
+  ],
+  "result": {
+    "item": "embersrekindled:stamp_base"
+  }
+}

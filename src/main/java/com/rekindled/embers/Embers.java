@@ -8,13 +8,16 @@ import com.rekindled.embers.blockentity.render.FluidVesselBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.MelterTopBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.StampBaseBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.StamperBlockEntityRenderer;
+import com.rekindled.embers.datagen.EmbersBiomeModifiers;
 import com.rekindled.embers.datagen.EmbersBlockStates;
 import com.rekindled.embers.datagen.EmbersBlockTags;
+import com.rekindled.embers.datagen.EmbersConfiguredFeatures;
 import com.rekindled.embers.datagen.EmbersFluidTags;
 import com.rekindled.embers.datagen.EmbersItemModels;
 import com.rekindled.embers.datagen.EmbersItemTags;
 import com.rekindled.embers.datagen.EmbersLang;
 import com.rekindled.embers.datagen.EmbersLootTables;
+import com.rekindled.embers.datagen.EmbersPlacedFeatures;
 import com.rekindled.embers.datagen.EmbersRecipes;
 import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.entity.render.EmberPacketRenderer;
@@ -49,6 +52,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLLoader;
 
 @Mod(Embers.MODID)
 public class Embers {
@@ -78,6 +82,10 @@ public class Embers {
 		RegistryManager.SOUND_EVENTS.register(modEventBus);
 		RegistryManager.RECIPE_TYPES.register(modEventBus);
 		RegistryManager.RECIPE_SERIALIZERS.register(modEventBus);
+		if (FMLLoader.getLaunchHandler().isData()) {
+			EmbersConfiguredFeatures.CONFIGURED_FEATURES.register(modEventBus);
+			EmbersPlacedFeatures.PLACED_FEATURES.register(modEventBus);
+		}
 		//just call something random in the class so it loads in time
 		EmbersSounds.ALCHEMY_FAIL.getClass();
 		//TODO: move this to apiimpl when I port that
@@ -99,10 +107,10 @@ public class Embers {
 
 	public void gatherData(GatherDataEvent event) {
 		DataGenerator gen = event.getGenerator();
+		ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
 
 		if (event.includeClient()) {
 			gen.addProvider(true, new EmbersLang(gen));
-			ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
 			ItemModelProvider itemModels = new EmbersItemModels(gen, existingFileHelper);
 			gen.addProvider(true, itemModels);
 			gen.addProvider(true, new EmbersBlockStates(gen, existingFileHelper));
@@ -110,10 +118,13 @@ public class Embers {
 		} if (event.includeServer()) {
 			gen.addProvider(true, new EmbersLootTables(gen));
 			gen.addProvider(true, new EmbersRecipes(gen));
-			BlockTagsProvider blockTags = new EmbersBlockTags(gen, event.getExistingFileHelper());
+			BlockTagsProvider blockTags = new EmbersBlockTags(gen, existingFileHelper);
 			gen.addProvider(true, blockTags);
-			gen.addProvider(true, new EmbersItemTags(gen, blockTags, event.getExistingFileHelper()));
-			gen.addProvider(true, new EmbersFluidTags(gen, event.getExistingFileHelper()));
+			gen.addProvider(true, new EmbersItemTags(gen, blockTags, existingFileHelper));
+			gen.addProvider(true, new EmbersFluidTags(gen, existingFileHelper));
+			gen.addProvider(true, new EmbersConfiguredFeatures(gen, existingFileHelper));
+			gen.addProvider(true, new EmbersPlacedFeatures(gen, existingFileHelper));
+			gen.addProvider(true, new EmbersBiomeModifiers(gen, existingFileHelper));
 		}
 	}
 

@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "ingredient": {
+    "item": "embersrekindled:raw_ingot_stamp"
+  },
+  "result": "embersrekindled:ingot_stamp"
+}

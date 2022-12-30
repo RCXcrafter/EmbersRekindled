@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": {
+      "item": "embersrekindled:mechanical_core"
+    },
+    "C": {
+      "tag": "forge:ingots/copper"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "Y": {
+      "item": "embersrekindled:caminite_bricks"
+    }
+  },
+  "pattern": [
+    "YCY",
+    "YBY",
+    "III"
+  ],
+  "result": {
+    "item": "embersrekindled:ember_bore"
+  }
+}

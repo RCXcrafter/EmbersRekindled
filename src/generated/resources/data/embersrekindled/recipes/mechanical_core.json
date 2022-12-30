@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": {
+      "tag": "forge:plates/lead"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "P": {
+      "tag": "minecraft:compasses"
+    }
+  },
+  "pattern": [
+    "IBI",
+    " P ",
+    "I I"
+  ],
+  "result": {
+    "item": "embersrekindled:mechanical_core"
+  }
+}

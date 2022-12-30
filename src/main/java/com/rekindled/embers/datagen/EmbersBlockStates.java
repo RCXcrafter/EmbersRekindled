@@ -54,6 +54,13 @@ public class EmbersBlockStates extends BlockStateProvider {
 			fluid(fluid.FLUID_BLOCK, fluid.name);
 		}
 
+		blockWithItemTexture(RegistryManager.LEAD_ORE, "ore_lead");
+		blockWithItemTexture(RegistryManager.DEEPSLATE_LEAD_ORE, "deepslate_ore_lead");
+		blockWithItemTexture(RegistryManager.RAW_LEAD_BLOCK, "material_lead");
+		blockWithItemTexture(RegistryManager.LEAD_BLOCK, "block_lead");
+
+		blockWithItem(RegistryManager.CAMINITE_BRICKS);
+
 		blockWithItem(RegistryManager.COPPER_CELL, "copper_cell");
 		blockWithItem(RegistryManager.CREATIVE_EMBER);
 		dial(RegistryManager.EMBER_DIAL, "ember_dial");
@@ -333,6 +340,14 @@ public class EmbersBlockStates extends BlockStateProvider {
 
 	public void blockWithItem(RegistryObject<? extends Block> registryObject, String model) {
 		ExistingModelFile modelFile = models().getExistingFile(new ResourceLocation(Embers.MODID, model));
+		//block model
+		simpleBlock(registryObject.get(), modelFile);
+		//itemblock model
+		simpleBlockItem(registryObject.get(), modelFile);
+	}
+
+	public void blockWithItemTexture(RegistryObject<? extends Block> registryObject, String texture) {
+		ModelFile modelFile = models().cubeAll(ForgeRegistries.BLOCKS.getKey(registryObject.get()).getPath(), new ResourceLocation(Embers.MODID, "block/" + texture));
 		//block model
 		simpleBlock(registryObject.get(), modelFile);
 		//itemblock model

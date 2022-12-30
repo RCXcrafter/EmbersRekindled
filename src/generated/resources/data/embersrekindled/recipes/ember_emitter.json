@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "C": {
+      "tag": "forge:ingots/copper"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "P": {
+      "item": "embersrekindled:caminite_plate"
+    }
+  },
+  "pattern": [
+    " C ",
+    " C ",
+    "IPI"
+  ],
+  "result": {
+    "count": 4,
+    "item": "embersrekindled:ember_emitter"
+  }
+}

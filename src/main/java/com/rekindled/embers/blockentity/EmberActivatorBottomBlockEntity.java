@@ -109,7 +109,7 @@ public class EmberActivatorBottomBlockEntity extends BlockEntity implements IExt
 						List<EmberActivationRecipe> recipes = level.getRecipeManager().getRecipesFor(RegistryManager.EMBER_ACTIVATION.get(), wrapper, level);
 						double emberValue = recipes.get(0).getOutput(wrapper);
 						double ember = UpgradeUtil.getTotalEmberProduction(blockEntity, emberValue, blockEntity.upgrades);
-						if (ember > 0 && top.capability.getEmber() + ember <= top.capability.getEmberCapacity()) {
+						if ((ember > 0 || emberValue == 0) && top.capability.getEmber() + ember <= top.capability.getEmberCapacity()) {
 							level.playSound(null, pos, EmbersSounds.ACTIVATOR.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
 
 							if (level instanceof ServerLevel serverLevel) {

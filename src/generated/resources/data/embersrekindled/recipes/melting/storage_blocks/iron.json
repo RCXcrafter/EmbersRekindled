@@ -1,0 +1,10 @@
+{
+  "type": "embersrekindled:melting",
+  "input": {
+    "tag": "forge:storage_blocks/iron"
+  },
+  "output": {
+    "amount": 810,
+    "fluid": "embersrekindled:molten_iron"
+  }
+}

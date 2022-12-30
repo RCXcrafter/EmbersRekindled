@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": {
+      "item": "embersrekindled:caminite_plate"
+    },
+    "P": {
+      "item": "embersrekindled:fluid_pipe"
+    },
+    "R": {
+      "tag": "forge:dusts/redstone"
+    }
+  },
+  "pattern": [
+    " R ",
+    "PBP",
+    " R "
+  ],
+  "result": {
+    "item": "embersrekindled:fluid_extractor"
+  }
+}

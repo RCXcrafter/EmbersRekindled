@@ -46,6 +46,11 @@ public class EmbersBlockTags extends BlockTagsProvider {
 		tag(ITEM_PIPE_CONNECTION_TOGGLEABLE).add(RegistryManager.ITEM_PIPE.get(), RegistryManager.ITEM_EXTRACTOR.get());
 
 		tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
+				RegistryManager.LEAD_ORE.get(),
+				RegistryManager.DEEPSLATE_LEAD_ORE.get(),
+				RegistryManager.RAW_LEAD_BLOCK.get(),
+				RegistryManager.LEAD_BLOCK.get(),
+				RegistryManager.CAMINITE_BRICKS.get(),
 				RegistryManager.COPPER_CELL.get(),
 				RegistryManager.CREATIVE_EMBER.get(),
 				RegistryManager.EMBER_DIAL.get(),
@@ -65,6 +70,12 @@ public class EmbersBlockTags extends BlockTagsProvider {
 				RegistryManager.FLUID_VESSEL.get(),
 				RegistryManager.STAMPER.get(),
 				RegistryManager.STAMP_BASE.get());
+
+		tag(BlockTags.NEEDS_IRON_TOOL).add(
+				RegistryManager.LEAD_ORE.get(),
+				RegistryManager.DEEPSLATE_LEAD_ORE.get(),
+				RegistryManager.RAW_LEAD_BLOCK.get(),
+				RegistryManager.LEAD_BLOCK.get());
 
 		tag(MECH_CORE_PROXYABLE).add(
 				RegistryManager.EMBER_BORE.get(),

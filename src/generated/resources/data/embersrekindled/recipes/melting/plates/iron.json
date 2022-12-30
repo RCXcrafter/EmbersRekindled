@@ -1,0 +1,10 @@
+{
+  "type": "embersrekindled:melting",
+  "input": {
+    "tag": "forge:plates/iron"
+  },
+  "output": {
+    "amount": 90,
+    "fluid": "embersrekindled:molten_iron"
+  }
+}

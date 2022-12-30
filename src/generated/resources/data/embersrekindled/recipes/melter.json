@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": {
+      "item": "embersrekindled:caminite_bricks"
+    },
+    "C": {
+      "tag": "forge:ingots/copper"
+    },
+    "F": {
+      "item": "minecraft:furnace"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "P": {
+      "item": "embersrekindled:caminite_plate"
+    }
+  },
+  "pattern": [
+    "BPB",
+    "BCB",
+    "IFI"
+  ],
+  "result": {
+    "item": "embersrekindled:melter"
+  }
+}

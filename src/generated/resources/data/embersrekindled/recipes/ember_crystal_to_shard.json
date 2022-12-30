@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "embersrekindled:ember_crystal"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "item": "embersrekindled:ember_shard"
+  }
+}

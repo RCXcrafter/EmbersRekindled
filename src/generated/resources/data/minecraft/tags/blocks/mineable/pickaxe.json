@@ -1,5 +1,10 @@
 {
   "values": [
+    "embersrekindled:lead_ore",
+    "embersrekindled:deepslate_lead_ore",
+    "embersrekindled:raw_lead_block",
+    "embersrekindled:lead_block",
+    "embersrekindled:caminite_bricks",
     "embersrekindled:copper_cell",
     "embersrekindled:creative_ember_source",
     "embersrekindled:ember_dial",

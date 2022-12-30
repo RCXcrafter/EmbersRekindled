@@ -14,6 +14,9 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 public class EmbersFluidTags extends FluidTagsProvider {
 
 	public static final TagKey<Fluid> MOLTEN_IRON = FluidTags.create(new ResourceLocation("forge", "molten_iron"));
+	public static final TagKey<Fluid> MOLTEN_GOLD = FluidTags.create(new ResourceLocation("forge", "molten_gold"));
+	public static final TagKey<Fluid> MOLTEN_COPPER = FluidTags.create(new ResourceLocation("forge", "molten_copper"));
+	public static final TagKey<Fluid> MOLTEN_LEAD = FluidTags.create(new ResourceLocation("forge", "molten_lead"));
 
 	public EmbersFluidTags(DataGenerator gen, ExistingFileHelper existingFileHelper) {
 		super(gen, Embers.MODID, existingFileHelper);
@@ -22,5 +25,8 @@ public class EmbersFluidTags extends FluidTagsProvider {
 	@Override
 	public void addTags() {
 		tag(MOLTEN_IRON).add(RegistryManager.MOLTEN_IRON.FLUID.get());
+		tag(MOLTEN_GOLD).add(RegistryManager.MOLTEN_GOLD.FLUID.get());
+		tag(MOLTEN_COPPER).add(RegistryManager.MOLTEN_COPPER.FLUID.get());
+		tag(MOLTEN_LEAD).add(RegistryManager.MOLTEN_LEAD.FLUID.get());
 	}
 }

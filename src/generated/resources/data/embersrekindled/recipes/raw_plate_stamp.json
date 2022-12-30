@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "X": {
+      "item": "embersrekindled:caminite_blend"
+    }
+  },
+  "pattern": [
+    "X X",
+    "   ",
+    "X X"
+  ],
+  "result": {
+    "item": "embersrekindled:raw_plate_stamp"
+  }
+}

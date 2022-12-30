@@ -1,0 +1,10 @@
+{
+  "type": "embersrekindled:melting",
+  "input": {
+    "tag": "forge:nuggets/iron"
+  },
+  "output": {
+    "amount": 10,
+    "fluid": "embersrekindled:molten_iron"
+  }
+}

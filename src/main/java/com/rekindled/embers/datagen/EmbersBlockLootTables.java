@@ -25,6 +25,17 @@ public class EmbersBlockLootTables extends BlockLoot {
 
 	@Override
 	protected void addTables() {
+		add(RegistryManager.LEAD_ORE.get(), (block) -> {
+			return createOreDrop(block, RegistryManager.RAW_LEAD.get());
+		});
+		add(RegistryManager.DEEPSLATE_LEAD_ORE.get(), (block) -> {
+			return createOreDrop(block, RegistryManager.RAW_LEAD.get());
+		});
+		dropSelf(RegistryManager.RAW_LEAD_BLOCK.get());
+		dropSelf(RegistryManager.LEAD_BLOCK.get());
+
+		dropSelf(RegistryManager.CAMINITE_BRICKS.get());
+
 		dropSelf(RegistryManager.COPPER_CELL.get());
 		dropSelf(RegistryManager.CREATIVE_EMBER.get());
 		dropSelf(RegistryManager.EMBER_DIAL.get());
