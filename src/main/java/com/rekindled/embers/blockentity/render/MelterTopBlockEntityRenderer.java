@@ -34,44 +34,46 @@ public class MelterTopBlockEntityRenderer implements BlockEntityRenderer<MelterT
 		if (blockEntity != null) {
 			//render items
 			for (int i = 0; i < blockEntity.inventory.getSlots(); i ++) {
-				poseStack.pushPose();
-				ItemStack stack = blockEntity.inventory.getStackInSlot(i);
-				int seed = stack.isEmpty() ? 187 : Item.getId(stack.getItem()) + stack.getDamageValue();
-				this.random.setSeed((long)seed);
-				BakedModel bakedmodel = this.itemRenderer.getModel(stack, blockEntity.getLevel(), null, seed);
-				boolean flag = bakedmodel.isGui3d();
-				int j = this.getRenderAmount(stack);
-				float f2 = bakedmodel.getTransforms().getTransform(ItemTransforms.TransformType.GROUND).scale.y();
-				poseStack.translate(0.5D, (double)(0.25F * f2), 0.5D);
-				float f3 = ((float)blockEntity.angle + partialTick) / 20.0F;
-				poseStack.mulPose(Vector3f.YP.rotation(f3));
-				if (!flag) {
-					float f7 = -0.0F * (float)(j - 1) * 0.5F;
-					float f8 = -0.0F * (float)(j - 1) * 0.5F;
-					float f9 = -0.09375F * (float)(j - 1) * 0.5F;
-					poseStack.translate((double)f7, (double)f8, (double)f9);
-				}
-				for(int k = 0; k < j; ++k) {
+				if (!blockEntity.inventory.getStackInSlot(i).isEmpty()) {
 					poseStack.pushPose();
-					if (k > 0) {
-						if (flag) {
-							float f11 = (this.random.nextFloat() * 2.0F - 1.0F) * 0.15F;
-							float f13 = (this.random.nextFloat() * 2.0F - 1.0F) * 0.15F;
-							float f10 = (this.random.nextFloat() * 2.0F - 1.0F) * 0.15F;
-							poseStack.translate(f11, f13, f10);
-						} else {
-							float f12 = (this.random.nextFloat() * 2.0F - 1.0F) * 0.15F * 0.5F;
-							float f14 = (this.random.nextFloat() * 2.0F - 1.0F) * 0.15F * 0.5F;
-							poseStack.translate(f12, f14, 0.0D);
+					ItemStack stack = blockEntity.inventory.getStackInSlot(i);
+					int seed = stack.isEmpty() ? 187 : Item.getId(stack.getItem()) + stack.getDamageValue();
+					this.random.setSeed((long)seed);
+					BakedModel bakedmodel = this.itemRenderer.getModel(stack, blockEntity.getLevel(), null, seed);
+					boolean flag = bakedmodel.isGui3d();
+					int j = this.getRenderAmount(stack);
+					float f2 = bakedmodel.getTransforms().getTransform(ItemTransforms.TransformType.GROUND).scale.y();
+					poseStack.translate(0.5D, (double)(0.25F * f2), 0.5D);
+					float f3 = ((float)blockEntity.angle + partialTick) / 20.0F;
+					poseStack.mulPose(Vector3f.YP.rotation(f3));
+					if (!flag) {
+						float f7 = -0.0F * (float)(j - 1) * 0.5F;
+						float f8 = -0.0F * (float)(j - 1) * 0.5F;
+						float f9 = -0.09375F * (float)(j - 1) * 0.5F;
+						poseStack.translate((double)f7, (double)f8, (double)f9);
+					}
+					for(int k = 0; k < j; ++k) {
+						poseStack.pushPose();
+						if (k > 0) {
+							if (flag) {
+								float f11 = (this.random.nextFloat() * 2.0F - 1.0F) * 0.15F;
+								float f13 = (this.random.nextFloat() * 2.0F - 1.0F) * 0.15F;
+								float f10 = (this.random.nextFloat() * 2.0F - 1.0F) * 0.15F;
+								poseStack.translate(f11, f13, f10);
+							} else {
+								float f12 = (this.random.nextFloat() * 2.0F - 1.0F) * 0.15F * 0.5F;
+								float f14 = (this.random.nextFloat() * 2.0F - 1.0F) * 0.15F * 0.5F;
+								poseStack.translate(f12, f14, 0.0D);
+							}
+						}
+						this.itemRenderer.render(stack, ItemTransforms.TransformType.GROUND, false, poseStack, bufferSource, packedLight, OverlayTexture.NO_OVERLAY, bakedmodel);
+						poseStack.popPose();
+						if (!flag) {
+							poseStack.translate(0.0, 0.0, 0.09375F);
 						}
 					}
-					this.itemRenderer.render(stack, ItemTransforms.TransformType.GROUND, false, poseStack, bufferSource, packedLight, OverlayTexture.NO_OVERLAY, bakedmodel);
 					poseStack.popPose();
-					if (!flag) {
-						poseStack.translate(0.0, 0.0, 0.09375F);
-					}
 				}
-				poseStack.popPose();
 			}
 
 			//render fluid

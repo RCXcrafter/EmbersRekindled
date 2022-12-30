@@ -51,13 +51,15 @@ public class StamperBlockEntityRenderer implements BlockEntityRenderer<StamperBl
 			poseStack.translate(0, -0.001D - magnitude, 0);
 			blockrendererdispatcher.getModelRenderer().renderModel(poseStack.last(), bufferSource.getBuffer(Sheets.solidBlockSheet()), armState, blockrendererdispatcher.getBlockModel(armState), 0.0f, 0.0f, 0.0f, packedLight, packedOverlay, ModelData.EMPTY, Sheets.solidBlockSheet());
 
-			ItemStack stack = blockEntity.stamp.getStackInSlot(0);
-			int seed = stack.isEmpty() ? 187 : Item.getId(stack.getItem()) + stack.getDamageValue();
-			BakedModel bakedmodel = this.itemRenderer.getModel(stack, blockEntity.getLevel(), null, seed);
-			poseStack.translate(0.5D, -0.0234375D, 0.5);
-			poseStack.mulPose(Vector3f.XP.rotationDegrees(90));
-			poseStack.scale(0.75f, 0.75f, 0.75f);
-			this.itemRenderer.render(stack, ItemTransforms.TransformType.FIXED, false, poseStack, bufferSource, packedLight, OverlayTexture.NO_OVERLAY, bakedmodel);
+			if (!blockEntity.stamp.getStackInSlot(0).isEmpty()) {
+				ItemStack stack = blockEntity.stamp.getStackInSlot(0);
+				int seed = stack.isEmpty() ? 187 : Item.getId(stack.getItem()) + stack.getDamageValue();
+				BakedModel bakedmodel = this.itemRenderer.getModel(stack, blockEntity.getLevel(), null, seed);
+				poseStack.translate(0.5D, -0.0234375D, 0.5);
+				poseStack.mulPose(Vector3f.XP.rotationDegrees(90));
+				poseStack.scale(0.75f, 0.75f, 0.75f);
+				this.itemRenderer.render(stack, ItemTransforms.TransformType.FIXED, false, poseStack, bufferSource, packedLight, OverlayTexture.NO_OVERLAY, bakedmodel);
+			}
 			poseStack.popPose();
 		}
 	}

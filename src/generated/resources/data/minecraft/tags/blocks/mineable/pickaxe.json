@@ -23,6 +23,7 @@
     "embersrekindled:fluid_extractor",
     "embersrekindled:fluid_vessel",
     "embersrekindled:stamper",
-    "embersrekindled:stamp_base"
+    "embersrekindled:stamp_base",
+    "embersrekindled:bin"
   ]
 }

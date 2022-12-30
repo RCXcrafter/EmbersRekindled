@@ -31,14 +31,16 @@ public class StampBaseBlockEntityRenderer implements BlockEntityRenderer<StampBa
 	public void render(StampBaseBlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
 		if (blockEntity != null) {
 			//render item
-			poseStack.pushPose();
-			ItemStack stack = blockEntity.inventory.getStackInSlot(0);
-			int seed = stack.isEmpty() ? 187 : Item.getId(stack.getItem()) + stack.getDamageValue();
-			BakedModel bakedmodel = this.itemRenderer.getModel(stack, blockEntity.getLevel(), null, seed);
-			float f2 = bakedmodel.getTransforms().getTransform(ItemTransforms.TransformType.GROUND).scale.y();
-			poseStack.translate(0.5D, (double)(0.25F * f2) + 0.75D, 0.5D);
-			this.itemRenderer.render(stack, ItemTransforms.TransformType.GROUND, false, poseStack, bufferSource, packedLight, OverlayTexture.NO_OVERLAY, bakedmodel);
-			poseStack.popPose();
+			if (!blockEntity.inventory.getStackInSlot(0).isEmpty()) {
+				poseStack.pushPose();
+				ItemStack stack = blockEntity.inventory.getStackInSlot(0);
+				int seed = stack.isEmpty() ? 187 : Item.getId(stack.getItem()) + stack.getDamageValue();
+				BakedModel bakedmodel = this.itemRenderer.getModel(stack, blockEntity.getLevel(), null, seed);
+				float f2 = bakedmodel.getTransforms().getTransform(ItemTransforms.TransformType.GROUND).scale.y();
+				poseStack.translate(0.5D, (double)(0.25F * f2) + 0.75D, 0.5D);
+				this.itemRenderer.render(stack, ItemTransforms.TransformType.GROUND, false, poseStack, bufferSource, packedLight, OverlayTexture.NO_OVERLAY, bakedmodel);
+				poseStack.popPose();
+			}
 
 			//render fluid
 			FluidStack fluidStack = blockEntity.getFluidStack();

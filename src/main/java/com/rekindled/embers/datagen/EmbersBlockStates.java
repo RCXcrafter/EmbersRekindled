@@ -329,6 +329,8 @@ public class EmbersBlockStates extends BlockStateProvider {
 		});
 
 		blockWithItem(RegistryManager.STAMP_BASE, "stamp_base");
+
+		blockWithItem(RegistryManager.BIN, "bin");
 	}
 
 	public void blockWithItem(RegistryObject<? extends Block> registryObject) {
