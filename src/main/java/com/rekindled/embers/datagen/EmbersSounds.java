@@ -12,6 +12,8 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.SoundDefinition;
 import net.minecraftforge.common.data.SoundDefinitionsProvider;
@@ -19,6 +21,9 @@ import net.minecraftforge.common.util.ForgeSoundType;
 import net.minecraftforge.registries.RegistryObject;
 
 public class EmbersSounds extends SoundDefinitionsProvider {
+
+	//this is just here so the class loads, nothing else needs to happen here
+	public static void init() {}
 
 	//sounds
 	public static final RegistryObject<SoundEvent> ALCHEMY_FAIL = registerSound("block.alchemy.fail");
@@ -170,6 +175,7 @@ public class EmbersSounds extends SoundDefinitionsProvider {
 		return RegistryManager.SOUND_EVENTS.register(name, () -> new SoundEvent(new ResourceLocation(Embers.MODID, name)));
 	}
 
+	@OnlyIn(Dist.CLIENT)
 	public static void playMachineSound(BlockEntity tile, int id, SoundEvent soundIn, SoundSource categoryIn, boolean repeat, float volume, float pitch, float xIn, float yIn, float zIn) {
 		Minecraft.getInstance().getSoundManager().play(new MachineSound(tile, id, soundIn, categoryIn, repeat, volume, pitch, xIn, yIn, zIn));
 	}

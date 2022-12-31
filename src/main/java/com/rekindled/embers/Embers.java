@@ -86,8 +86,7 @@ public class Embers {
 			EmbersConfiguredFeatures.CONFIGURED_FEATURES.register(modEventBus);
 			EmbersPlacedFeatures.PLACED_FEATURES.register(modEventBus);
 		}
-		//just call something random in the class so it loads in time
-		EmbersSounds.ALCHEMY_FAIL.getClass();
+		EmbersSounds.init();
 		//TODO: move this to apiimpl when I port that
 		UpgradeUtil.IMPL = new UpgradeUtilImpl();
 
