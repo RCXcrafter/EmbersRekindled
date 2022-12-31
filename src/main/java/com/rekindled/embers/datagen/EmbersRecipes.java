@@ -131,7 +131,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('X', RegistryManager.CAMINITE_BLEND.get())
 		.unlockedBy("has_caminite", has(RegistryManager.CAMINITE_BLEND.get()))
 		.save(consumer, getResource("raw_plate_stamp"));
-		
+
 		ShapedRecipeBuilder.shaped(RegistryManager.CAMINITE_BRICKS.get())
 		.pattern("XX")
 		.pattern("XX")
@@ -159,6 +159,17 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('S', Tags.Items.RODS_WOODEN)
 		.unlockedBy("has_lead", has(itemTag("forge", "ingots/lead")))
 		.save(consumer, getResource("tinker_hammer"));
+
+		ShapedRecipeBuilder.shaped(RegistryManager.TINKER_LENS.get())
+		.pattern("BE ")
+		.pattern("IPE")
+		.pattern("BE ")
+		.define('E', itemTag("forge", "nuggets/lead"))
+		.define('I', itemTag("forge", "plates/lead"))
+		.define('B', itemTag("forge", "ingots/iron"))
+		.define('P', Tags.Items.GLASS_PANES)
+		.unlockedBy("has_lead_plate", has(itemTag("forge", "plates/lead")))
+		.save(consumer, getResource("tinker_lens"));
 
 		ShapedRecipeBuilder.shaped(RegistryManager.MECHANICAL_CORE.get())
 		.pattern("IBI")
@@ -322,7 +333,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('R', Tags.Items.DUSTS_REDSTONE)
 		.unlockedBy("has_item_pipe", has(RegistryManager.ITEM_PIPE.get()))
 		.save(consumer, getResource("item_extractor"));
-		
+
 		ShapedRecipeBuilder.shaped(RegistryManager.BIN.get())
 		.pattern("I I")
 		.pattern("I I")
@@ -335,6 +346,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 
 	public void fullOreRecipes(String name, ImmutableList<ItemLike> ores, Fluid fluid, Item raw, Item rawBlock, Item block, Item ingot, Item nugget, Item plate, Consumer<FinishedRecipe> consumer) {
 		fullMetalRecipes(name, fluid, block, ingot, nugget, plate, consumer);
+		OreMeltingRecipes(name, fluid, consumer);
 
 		ShapedRecipeBuilder.shaped(rawBlock)
 		.pattern("XXX")

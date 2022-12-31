@@ -164,6 +164,6 @@ public class StampBaseBlockEntity extends OpenTankBlockEntity implements IExtraC
 	@Override
 	public void addCapabilityDescription(List<String> strings, Capability<?> capability, Direction facing) {
 		if(capability == ForgeCapabilities.FLUID_HANDLER)
-			strings.add(IExtraCapabilityInformation.formatCapability(EnumIOType.OUTPUT, Embers.MODID + ".tooltip.goggles.fluid", I18n.get(Embers.MODID + ".tooltip.goggles.fluid.metal")));
+			strings.add(IExtraCapabilityInformation.formatCapability(EnumIOType.INPUT, Embers.MODID + ".tooltip.goggles.fluid", I18n.get(Embers.MODID + ".tooltip.goggles.fluid.metal")));
 	}
 }

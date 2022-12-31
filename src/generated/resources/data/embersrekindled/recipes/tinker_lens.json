@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": {
+      "tag": "forge:ingots/iron"
+    },
+    "E": {
+      "tag": "forge:nuggets/lead"
+    },
+    "I": {
+      "tag": "forge:plates/lead"
+    },
+    "P": {
+      "tag": "forge:glass_panes"
+    }
+  },
+  "pattern": [
+    "BE ",
+    "IPE",
+    "BE "
+  ],
+  "result": {
+    "item": "embersrekindled:tinker_lens"
+  }
+}

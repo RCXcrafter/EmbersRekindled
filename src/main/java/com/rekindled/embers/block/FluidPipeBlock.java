@@ -36,7 +36,7 @@ public class FluidPipeBlock extends PipeBlockBase {
 
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-		return pLevel.isClientSide ? null : createTickerHelper(pBlockEntityType, RegistryManager.FLUID_PIPE_ENTITY.get(), FluidPipeBlockEntity::serverTick);
+		return pLevel.isClientSide ? createTickerHelper(pBlockEntityType, RegistryManager.FLUID_PIPE_ENTITY.get(), FluidPipeBlockEntity::clientTick) : createTickerHelper(pBlockEntityType, RegistryManager.FLUID_PIPE_ENTITY.get(), FluidPipeBlockEntity::serverTick);
 	}
 
 	@Override

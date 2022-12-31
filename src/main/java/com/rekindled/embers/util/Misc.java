@@ -10,7 +10,6 @@ import java.util.function.Predicate;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.rekindled.embers.Embers;
 
 import net.minecraft.client.gui.Font;
 import net.minecraft.core.Direction;

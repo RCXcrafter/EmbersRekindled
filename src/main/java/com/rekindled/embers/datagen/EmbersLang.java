@@ -53,6 +53,7 @@ public class EmbersLang extends LanguageProvider {
 		addBlock(RegistryManager.BIN, "Bin");
 
 		addItem(RegistryManager.TINKER_HAMMER, "Tinker's Hammer");
+		addItem(RegistryManager.TINKER_LENS, "Tinker's Lens");
 		addItem(RegistryManager.EMBER_CRYSTAL, "Ember Crystal");
 		addItem(RegistryManager.EMBER_SHARD, "Ember Shard");
 		addItem(RegistryManager.EMBER_GRIT, "Ember Grit");
@@ -98,6 +99,36 @@ public class EmbersLang extends LanguageProvider {
 
 		add(Embers.MODID + ".tooltip.fluiddial.fluid", "%s: %s/%s");
 		add(Embers.MODID + ".tooltip.fluiddial.nofluid", "0/%s");
+
+		add(Embers.MODID + ".tooltip.goggles.input", "§9⬊§r %s");
+		add(Embers.MODID + ".tooltip.goggles.output", "§6⬉§r %s");
+		add(Embers.MODID + ".tooltip.goggles.storage", "• %s");
+
+		add(Embers.MODID + ".tooltip.goggles.item", "Items");
+		add(Embers.MODID + ".tooltip.goggles.fluid", "Fluids");
+		add(Embers.MODID + ".tooltip.goggles.ember", "Ember");
+		add(Embers.MODID + ".tooltip.goggles.mechanical", "Mechanical Power");
+		add(Embers.MODID + ".tooltip.goggles.filter", "%s (%s)");
+
+		add(Embers.MODID + ".tooltip.goggles.item.any", "Any");
+		add(Embers.MODID + ".tooltip.goggles.item.fuel", "Fuel");
+		add(Embers.MODID + ".tooltip.goggles.item.ember", "Ember");
+		add(Embers.MODID + ".tooltip.goggles.item.stamp", "Stamp");
+		add(Embers.MODID + ".tooltip.goggles.item.ember_storage", "Ember Storage");
+		add(Embers.MODID + ".tooltip.goggles.item.combustion", "Combustibles");
+		add(Embers.MODID + ".tooltip.goggles.item.catalysis", "Catalysts");
+		add(Embers.MODID + ".tooltip.goggles.item.ash", "Ash");
+		add(Embers.MODID + ".tooltip.goggles.fluid.any", "Any");
+		add(Embers.MODID + ".tooltip.goggles.fluid.metal", "Molten Metals");
+		add(Embers.MODID + ".tooltip.goggles.fluid.water", "Water");
+		add(Embers.MODID + ".tooltip.goggles.fluid.steam", "Steam");
+		add(Embers.MODID + ".tooltip.goggles.fluid.water_or_steam", "Water or Steam");
+		add(Embers.MODID + ".tooltip.goggles.fluid.redstone", "Alchemical Slurry");
+
+		add(Embers.MODID + ".tooltip.goggles.upgrade_slot", "• Machine Upgrade Slot");
+		add(Embers.MODID + ".tooltip.goggles.upgrade", "• Machine Upgrade");
+		add(Embers.MODID + ".tooltip.goggles.accessor_slot", "• Machine Accessor Slot");
+		add(Embers.MODID + ".tooltip.goggles.actuator_slot", "• Actuator Slot");
 
 
 		//jei stuff

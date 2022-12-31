@@ -1,0 +1,10 @@
+{
+  "type": "embersrekindled:melting",
+  "input": {
+    "tag": "forge:raw_materials/lead"
+  },
+  "output": {
+    "amount": 120,
+    "fluid": "embersrekindled:molten_lead"
+  }
+}

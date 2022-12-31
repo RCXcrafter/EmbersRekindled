@@ -9,6 +9,7 @@ import com.rekindled.embers.particle.GlowParticleOptions;
 import com.rekindled.embers.util.Misc;
 import com.rekindled.embers.util.PipePriorityMap;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -16,6 +17,7 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -32,15 +34,15 @@ public abstract class ItemPipeBlockEntityBase extends BlockEntity implements IIt
 	public static final int PRIORITY_BLOCK = 0;
 	public static final int PRIORITY_PIPE = PRIORITY_BLOCK;
 
-	Random random = new Random();
+	public static Random random = new Random();
 	boolean[] from = new boolean[Direction.values().length]; //just in case they like make minecraft 4 dimensional or something
 	public boolean clogged = false;
 	public ItemStackHandler inventory;
 	public LazyOptional<IItemHandler> holder = LazyOptional.of(() -> inventory);
 	Direction lastTransfer;
-	boolean syncInventory;
-	boolean syncCloggedFlag;
-	boolean syncTransfer;
+	boolean syncInventory = true;
+	boolean syncCloggedFlag = true;
+	boolean syncTransfer = true;
 	int ticksExisted;
 	int lastRobin;
 
@@ -62,6 +64,17 @@ public abstract class ItemPipeBlockEntityBase extends BlockEntity implements IIt
 				ItemPipeBlockEntityBase.this.setChanged();
 			}
 		};
+	}
+
+	public void onLoad() {
+		syncTransfer = true;
+		syncCloggedFlag = true;
+		if (level instanceof ServerLevel serverLevel) {
+			for (ServerPlayer serverplayer : serverLevel.getServer().getPlayerList().getPlayers()) {
+				serverplayer.connection.send(this.getUpdatePacket());
+			}
+			this.resetSync();
+		}
 	}
 
 	public abstract int getCapacity();
@@ -172,21 +185,24 @@ public abstract class ItemPipeBlockEntityBase extends BlockEntity implements IIt
 			blockEntity.syncCloggedFlag = true;
 			blockEntity.setChanged();
 		}
+	}
 
-		/*if (level instanceof ServerLevel serverLevel && true) {//Embers.proxy.isPlayerWearingGoggles()) { TODO: add the goggles obviously
-			if (blockEntity.lastTransfer != null) {
-				float vx = blockEntity.lastTransfer.getStepX() / 1;
-				float vy = blockEntity.lastTransfer.getStepY() / 1;
-				float vz = blockEntity.lastTransfer.getStepZ() / 1;
-				double x = pos.getX() + 0.4f + blockEntity.random.nextFloat() * 0.2f;
-				double y = pos.getY() + 0.4f + blockEntity.random.nextFloat() * 0.2f;
-				double z = pos.getZ() + 0.4f + blockEntity.random.nextFloat() * 0.2f;
-				float r = blockEntity.clogged ? 255f : 16f;
-				float g = blockEntity.clogged ? 16f : 255f;
-				float b = 16f;
-				serverLevel.sendParticles(new GlowParticleOptions(new Vector3f(r / 255.0F, g / 255.0F, b / 255.0F), new Vector3f(vx, vy, vz), 2.0f), x, y, z, 3, 0, 0, 0, 1.0);
+	@SuppressWarnings("resource")
+	public static void clientTick(Level level, BlockPos pos, BlockState state, ItemPipeBlockEntityBase blockEntity) {
+		if (blockEntity.lastTransfer != null && Misc.isWearingLens(Minecraft.getInstance().player)) {
+			float vx = blockEntity.lastTransfer.getStepX() / 1;
+			float vy = blockEntity.lastTransfer.getStepY() / 1;
+			float vz = blockEntity.lastTransfer.getStepZ() / 1;
+			double x = pos.getX() + 0.4f + random.nextFloat() * 0.2f;
+			double y = pos.getY() + 0.4f + random.nextFloat() * 0.2f;
+			double z = pos.getZ() + 0.4f + random.nextFloat() * 0.2f;
+			float r = blockEntity.clogged ? 255f : 16f;
+			float g = blockEntity.clogged ? 16f : 255f;
+			float b = 16f;
+			for(int i = 0; i < 3; i++) {
+				level.addParticle(new GlowParticleOptions(new Vector3f(r / 255.0F, g / 255.0F, b / 255.0F), new Vector3f(vx, vy, vz), 2.0f), x, y, z, vx, vy, vz);
 			}
-		}*/
+		}
 	}
 
 	private boolean pushStack(ItemStack passStack, Direction facing, IItemHandler handler) {
@@ -200,7 +216,7 @@ public abstract class ItemPipeBlockEntityBase extends BlockEntity implements IIt
 		if (slot != -1) {
 			ItemStack added = handler.insertItem(slot, passStack, false);
 			if (added.isEmpty()) {
-                this.inventory.extractItem(0, 1, false);
+				this.inventory.extractItem(0, 1, false);
 				return true;
 			}
 		}
@@ -277,6 +293,17 @@ public abstract class ItemPipeBlockEntityBase extends BlockEntity implements IIt
 			return ForgeCapabilities.ITEM_HANDLER.orEmpty(cap, holder);
 		}
 		return super.getCapability(cap, side);
+	}
+
+	@Override
+	public void setChanged() {
+		super.setChanged();
+		if (requiresSync() && level instanceof ServerLevel serverLevel) {
+			for (ServerPlayer serverplayer : serverLevel.getServer().getPlayerList().getPlayers()) {
+				serverplayer.connection.send(this.getUpdatePacket());
+			}
+			this.resetSync();
+		}
 	}
 
 	@Override

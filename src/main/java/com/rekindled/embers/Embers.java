@@ -29,7 +29,6 @@ import com.rekindled.embers.particle.SparkParticle;
 import com.rekindled.embers.particle.StarParticle;
 import com.rekindled.embers.particle.VaporParticle;
 import com.rekindled.embers.util.DecimalFormats;
-import com.rekindled.embers.util.Misc;
 
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.data.DataGenerator;
@@ -92,8 +91,6 @@ public class Embers {
 		//TODO: move this to apiimpl when I port that
 		UpgradeUtil.IMPL = new UpgradeUtilImpl();
 
-		Misc.IS_WEARING_LENS.add((player) -> true);
-
 		ConfigManager.register();
 	}
 
@@ -142,7 +139,7 @@ public class Embers {
 		@OnlyIn(Dist.CLIENT)
 		@SubscribeEvent
 		public static void overlayRegister(RegisterGuiOverlaysEvent event) {
-			event.registerAboveAll("dial_overlay", EmbersClientEvents::renderDialOverlay);
+			event.registerAboveAll("embers_ingame_overlay", EmbersClientEvents.INGAME_OVERLAY);
 		}
 
 		@OnlyIn(Dist.CLIENT)

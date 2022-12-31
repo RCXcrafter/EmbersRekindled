@@ -10,6 +10,7 @@ import com.rekindled.embers.particle.GlowParticleOptions;
 import com.rekindled.embers.util.Misc;
 import com.rekindled.embers.util.PipePriorityMap;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -17,6 +18,7 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -35,15 +37,15 @@ public abstract class FluidPipeBlockEntityBase extends BlockEntity implements IF
 	public static final int PRIORITY_PIPE = PRIORITY_BLOCK;
 	public static final int MAX_PUSH = 120;
 
-	Random random = new Random();
+	static Random random = new Random();
 	boolean[] from = new boolean[Direction.values().length]; //just in case they like make minecraft 4 dimensional or something
 	public boolean clogged = false;
 	public FluidTank tank;
 	public LazyOptional<IFluidHandler> holder = LazyOptional.of(() -> tank);
 	Direction lastTransfer;
-	boolean syncTank;
-	boolean syncCloggedFlag;
-	boolean syncTransfer;
+	boolean syncTank = true;
+	boolean syncCloggedFlag = true;
+	boolean syncTransfer = true;
 	int ticksExisted;
 	int lastRobin;
 
@@ -60,6 +62,17 @@ public abstract class FluidPipeBlockEntityBase extends BlockEntity implements IF
 				FluidPipeBlockEntityBase.this.setChanged();
 			}
 		};
+	}
+
+	public void onLoad() {
+		syncTransfer = true;
+		syncCloggedFlag = true;
+		if (level instanceof ServerLevel serverLevel) {
+			for (ServerPlayer serverplayer : serverLevel.getServer().getPlayerList().getPlayers()) {
+				serverplayer.connection.send(this.getUpdatePacket());
+			}
+			this.resetSync();
+		}
 	}
 
 	public abstract int getCapacity();
@@ -172,21 +185,24 @@ public abstract class FluidPipeBlockEntityBase extends BlockEntity implements IF
 			blockEntity.syncCloggedFlag = true;
 			blockEntity.setChanged();
 		}
+	}
 
-		/*if (level instanceof ServerLevel serverLevel && true) {//Embers.proxy.isPlayerWearingGoggles()) { TODO: add the goggles obviously
-			if (blockEntity.lastTransfer != null) {
-				float vx = blockEntity.lastTransfer.getStepX() / 1;
-				float vy = blockEntity.lastTransfer.getStepY() / 1;
-				float vz = blockEntity.lastTransfer.getStepZ() / 1;
-				double x = pos.getX() + 0.4f + blockEntity.random.nextFloat() * 0.2f;
-				double y = pos.getY() + 0.4f + blockEntity.random.nextFloat() * 0.2f;
-				double z = pos.getZ() + 0.4f + blockEntity.random.nextFloat() * 0.2f;
-				float r = blockEntity.clogged ? 255f : 16f;
-				float g = blockEntity.clogged ? 16f : 255f;
-				float b = 16f;
-				serverLevel.sendParticles(new GlowParticleOptions(new Vector3f(r / 255.0F, g / 255.0F, b / 255.0F), new Vector3f(vx, vy, vz), 2.0f), x, y, z, 3, 0, 0, 0, 1.0);
+	@SuppressWarnings("resource")
+	public static void clientTick(Level level, BlockPos pos, BlockState state, FluidPipeBlockEntityBase blockEntity) {
+		if (blockEntity.lastTransfer != null && Misc.isWearingLens(Minecraft.getInstance().player)) {
+			float vx = blockEntity.lastTransfer.getStepX() / 1;
+			float vy = blockEntity.lastTransfer.getStepY() / 1;
+			float vz = blockEntity.lastTransfer.getStepZ() / 1;
+			double x = pos.getX() + 0.4f + random.nextFloat() * 0.2f;
+			double y = pos.getY() + 0.4f + random.nextFloat() * 0.2f;
+			double z = pos.getZ() + 0.4f + random.nextFloat() * 0.2f;
+			float r = blockEntity.clogged ? 255f : 16f;
+			float g = blockEntity.clogged ? 16f : 255f;
+			float b = 16f;
+			for(int i = 0; i < 3; i++) {
+				level.addParticle(new GlowParticleOptions(new Vector3f(r / 255.0F, g / 255.0F, b / 255.0F), new Vector3f(vx, vy, vz), 2.0f), x, y, z, vx, vy, vz);
 			}
-		}*/
+		}
 	}
 
 	private boolean pushStack(FluidStack passStack, Direction facing, IFluidHandler handler) {
@@ -270,6 +286,17 @@ public abstract class FluidPipeBlockEntityBase extends BlockEntity implements IF
 			return holder.cast();
 		}
 		return super.getCapability(cap, side);
+	}
+
+	@Override
+	public void setChanged() {
+		super.setChanged();
+		if (requiresSync() && level instanceof ServerLevel serverLevel) {
+			for (ServerPlayer serverplayer : serverLevel.getServer().getPlayerList().getPlayers()) {
+				serverplayer.connection.send(this.getUpdatePacket());
+			}
+			this.resetSync();
+		}
 	}
 
 	@Override
