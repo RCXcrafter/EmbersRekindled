@@ -109,18 +109,14 @@ public class BoringRecipeBuilder {
 			if (!recipe.dimensions.isEmpty()) {
 				JsonArray dimJson = new JsonArray();
 				for (ResourceLocation dimension : recipe.dimensions) {
-					JsonObject object = new JsonObject();
-					object.addProperty("item", dimension.toString());
-					dimJson.add(object);
+					dimJson.add(dimension.toString());
 				}
 				json.add("dimensions", dimJson);
 			}
 			if (!recipe.biomes.isEmpty()) {
 				JsonArray biomeJson = new JsonArray();
 				for (ResourceLocation biome : recipe.biomes) {
-					JsonObject object = new JsonObject();
-					object.addProperty("item", biome.toString());
-					biomeJson.add(object);
+					biomeJson.add(biome.toString());
 				}
 				json.add("biomes", biomeJson);
 			}

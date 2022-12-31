@@ -4,22 +4,15 @@ Gold		Mechanical power
 Lead		Items, Heavy
 Silver		Magic
 Dawnstone	Ember but better than copper
-Aluminium	Lightweight?
-Bronze		Steam stuff?
-Electrum	Configuration?
-Nickel		Heat Conductivity?
-Tin			Useless white metal
+Aluminium	Lightweight?, Red field?
+Bronze		Steam stuff? (reaction chamber)
+Electrum	Configuration? (clockwork attenuator)
+Nickel		Heat Conductivity? (ember siphon and coil insulator)
+Tin 		Useless white metal
 Mithril		Durable, Adverse long term health effects
 Astralite	???
 Umber Steel	???
-Antimony	Green, Corrosive/Poisonous
-
-
-
-
-
-
-
+Antimony	Alchemy/brewing, Green
 
 
 

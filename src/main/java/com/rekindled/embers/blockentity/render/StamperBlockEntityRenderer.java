@@ -38,11 +38,11 @@ public class StamperBlockEntityRenderer implements BlockEntityRenderer<StamperBl
 			poseStack.pushPose();
 			float magnitude = 0;
 			if (!blockEntity.powered){
-				if (blockEntity.prevPowered){
+				if (blockEntity.prevPowered) {
 					magnitude = 1.0f - partialTick;
 				}
 			} else {
-				if (!blockEntity.prevPowered){
+				if (!blockEntity.prevPowered) {
 					magnitude = partialTick;
 				} else {
 					magnitude = 1;

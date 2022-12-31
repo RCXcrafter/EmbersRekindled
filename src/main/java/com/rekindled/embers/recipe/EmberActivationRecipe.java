@@ -75,6 +75,14 @@ public class EmberActivationRecipe implements Recipe<Container> {
 		return RegistryManager.EMBER_ACTIVATION.get();
 	}
 
+	public Ingredient getDisplayInput() {
+		return ingredient;
+	}
+
+	public int getDisplaOutput() {
+		return ember;
+	}
+
 	@Override
 	@Deprecated
 	public ItemStack getResultItem() {

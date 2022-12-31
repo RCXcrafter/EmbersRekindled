@@ -9,8 +9,12 @@ import java.util.function.Predicate;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.rekindled.embers.Embers;
 
+import net.minecraft.client.gui.Font;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.InteractionHand;
@@ -98,5 +102,13 @@ public class Misc {
 			return softcap * slope + Math.log10(power - softcap + LOG_E / slope) - Math.log10(LOG_E / slope);
 		else
 			return power * slope;
+	}
+
+	public static void drawComponents(Font fontRenderer, PoseStack stack, int x, int y, Component... components) {
+		for (Component component : components) {
+			fontRenderer.drawShadow(stack, component, x, y, 0xFFFFFF);
+			fontRenderer.draw(stack, component, x, y, 0xFFFFFF);
+			y += fontRenderer.lineHeight + 2;
+		}
 	}
 }

@@ -17,7 +17,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.items.wrapper.RecipeWrapper;
 
 public class MeltingRecipe implements Recipe<Container> {
 
@@ -43,11 +42,11 @@ public class MeltingRecipe implements Recipe<Container> {
 		return false;
 	}
 
-	public FluidStack getOutput(RecipeWrapper context) {
+	public FluidStack getOutput(Container context) {
 		return output;
 	}
 
-	public FluidStack process(RecipeWrapper context) {
+	public FluidStack process(Container context) {
 		for (int i = 0; i < context.getContainerSize(); i++) {
 			if (ingredient.test(context.getItem(i))) {
 				context.removeItem(i, 1);
@@ -75,6 +74,14 @@ public class MeltingRecipe implements Recipe<Container> {
 	@Override
 	public RecipeType<?> getType() {
 		return RegistryManager.MELTING.get();
+	}
+
+	public FluidStack getDisplayOutput() {
+		return output;
+	}
+
+	public Ingredient getDisplayInput() {
+		return ingredient;
 	}
 
 	@Override

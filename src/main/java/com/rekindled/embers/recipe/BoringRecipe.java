@@ -79,6 +79,10 @@ public class BoringRecipe implements Recipe<BoringContext> {
 		return RegistryManager.BORING.get();
 	}
 
+	public WeightedItemStack getDisplayOutput() {
+		return result;
+	}
+
 	@Override
 	@Deprecated
 	public ItemStack assemble(BoringContext context) {

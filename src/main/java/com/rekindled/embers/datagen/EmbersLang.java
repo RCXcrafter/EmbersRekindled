@@ -83,6 +83,8 @@ public class EmbersLang extends LanguageProvider {
 		addItem(RegistryManager.LEAD_NUGGET, "Lead Nugget");
 		addItem(RegistryManager.LEAD_PLATE, "Lead Plate");
 
+
+		//tooltips
 		add(Embers.MODID + ".decimal_format.ember", "0.#");
 		add(Embers.MODID + ".tooltip.emberdial.ember", "Ember: %s/%s");
 		add(Embers.MODID + ".tooltip.aiming_block", "Aiming: %s");
@@ -96,6 +98,19 @@ public class EmbersLang extends LanguageProvider {
 
 		add(Embers.MODID + ".tooltip.fluiddial.fluid", "%s: %s/%s");
 		add(Embers.MODID + ".tooltip.fluiddial.nofluid", "0/%s");
+
+
+		//jei stuff
+		add(Embers.MODID + ".jei.recipe.boring", "Boring");
+		add(Embers.MODID + ".jei.recipe.boring.weight", "Weight: %s");
+		add(Embers.MODID + ".jei.recipe.boring.min_height", "Min. Height: %s");
+		add(Embers.MODID + ".jei.recipe.boring.max_height", "Max. Height: %s");
+		add(Embers.MODID + ".jei.recipe.boring.dimensions", "Dimensions:");
+		add(Embers.MODID + ".jei.recipe.boring.biomes", "Biomes:");
+		add(Embers.MODID + ".jei.recipe.ember_activation", "Ember Activation");
+		add(Embers.MODID + ".jei.recipe.ember_activation.ember", "Ember: %s");
+		add(Embers.MODID + ".jei.recipe.melting", "Melting");
+		add(Embers.MODID + ".jei.recipe.stamping", "Stamping");
 
 
 		//subtitles

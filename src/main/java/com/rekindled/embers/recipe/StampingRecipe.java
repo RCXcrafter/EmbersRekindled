@@ -101,6 +101,18 @@ public class StampingRecipe implements Recipe<StampingContext> {
 		return output;
 	}
 
+	public FluidIngredient getDisplayInputFluid() {
+		return fluid;
+	}
+
+	public Ingredient getDisplayInput() {
+		return input;
+	}
+
+	public Ingredient getDisplayStamp() {
+		return stamp;
+	}
+
 	@Override
 	@Deprecated
 	public boolean canCraftInDimensions(int width, int height) {
