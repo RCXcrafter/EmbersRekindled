@@ -163,7 +163,7 @@ public abstract class PipeBlockBase extends BaseEntityBlock implements SimpleWat
 				level.playLocalSound(pos.getX() + 0.5 + direction.getStepX() * 0.5, pos.getY() + 0.5 + direction.getStepY() * 0.5, pos.getZ() + 0.5 + direction.getStepZ() * 0.5, EmbersSounds.PIPE_DISCONNECT.get(), SoundSource.BLOCKS, 1.0f, 1.0f, false);
 				return InteractionResult.SUCCESS;
 			}
-			if (state.getValue(DIRECTIONS[closestHit]) == PipeConnection.END && !facingState.is(getConnectionTag())) {
+			if (state.getValue(DIRECTIONS[closestHit]) == PipeConnection.END && !facingState.is(getConnectionTag()) && !connected(direction, facingState)) {
 				level.setBlock(pos, state.setValue(DIRECTIONS[direction.get3DDataValue()], PipeConnection.DISABLED), Block.UPDATE_ALL);
 				level.playLocalSound(pos.getX() + 0.5 + direction.getStepX() * 0.4, pos.getY() + 0.5 + direction.getStepY() * 0.4, pos.getZ() + 0.5 + direction.getStepZ() * 0.4, EmbersSounds.PIPE_DISCONNECT.get(), SoundSource.BLOCKS, 1.0f, 1.0f, false);
 				return InteractionResult.SUCCESS;
@@ -262,8 +262,9 @@ public abstract class PipeBlockBase extends BaseEntityBlock implements SimpleWat
 		if (pState.getValue(BlockStateProperties.WATERLOGGED)) {
 			pLevel.scheduleTick(pCurrentPos, Fluids.WATER, Fluids.WATER.getTickDelay(pLevel));
 		}
-		if (pState.getValue(DIRECTIONS[pFacing.get3DDataValue()]) != PipeConnection.DISABLED && (!pFacingState.hasProperty(DIRECTIONS[pFacing.getOpposite().get3DDataValue()]) || pFacingState.getValue(DIRECTIONS[pFacing.getOpposite().get3DDataValue()]) != PipeConnection.DISABLED)) {
-			if (pFacingState.is(getConnectionTag())) {
+		if (!pFacingState.hasProperty(DIRECTIONS[pFacing.getOpposite().get3DDataValue()]) || pFacingState.getValue(DIRECTIONS[pFacing.getOpposite().get3DDataValue()]) != PipeConnection.DISABLED) {
+			boolean enabled = pState.getValue(DIRECTIONS[pFacing.get3DDataValue()]) != PipeConnection.DISABLED;
+			if (pFacingState.is(getConnectionTag()) && enabled) {
 				if (pFacingState.hasProperty(DIRECTIONS[pFacing.getOpposite().get3DDataValue()]) && pFacingState.getValue(DIRECTIONS[pFacing.getOpposite().get3DDataValue()]) == PipeConnection.DISABLED) {
 					pState = pState.setValue(DIRECTIONS[pFacing.get3DDataValue()], PipeConnection.DISABLED);
 				} else {
@@ -271,9 +272,9 @@ public abstract class PipeBlockBase extends BaseEntityBlock implements SimpleWat
 				}
 			} else {
 				BlockEntity blockEntity = pLevel.getBlockEntity(pFacingPos);
-				if (connected(pFacing, pFacingState) || connectToTile(blockEntity, pFacing)) {
+				if (connected(pFacing, pFacingState) || (connectToTile(blockEntity, pFacing) && enabled)) {
 					pState = pState.setValue(DIRECTIONS[pFacing.get3DDataValue()], PipeConnection.END);
-				} else {
+				} else if (enabled) {
 					pState = pState.setValue(DIRECTIONS[pFacing.get3DDataValue()], PipeConnection.NONE);
 				}
 			}
