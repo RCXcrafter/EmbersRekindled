@@ -7,12 +7,16 @@ import com.rekindled.embers.block.EmberBoreBlock;
 import com.rekindled.embers.blockentity.EmberBoreBlockEntity;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction.Axis;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.client.model.data.ModelData;
@@ -28,8 +32,13 @@ public class EmberBoreBlockEntityRenderer implements BlockEntityRenderer<EmberBo
 		BlockRenderDispatcher blockrendererdispatcher = Minecraft.getInstance().getBlockRenderer();
 		float angle = blockEntity.angle;
 		float lastAngle = blockEntity.lastAngle;
+		BlockPos pos = blockEntity.getBlockPos().below();
+		Level level = blockEntity.getLevel();
 
-		BlockState bladeState = blockEntity.getLevel().getBlockState(blockEntity.getBlockPos());
+		if (level.getBlockState(pos).isAir())
+			packedLight = LightTexture.pack(level.getBrightness(LightLayer.BLOCK, pos), level.getBrightness(LightLayer.SKY, pos));
+
+		BlockState bladeState = level.getBlockState(blockEntity.getBlockPos());
 		if (bladeState.getBlock() == RegistryManager.EMBER_BORE.get()) {
 			bladeState = bladeState.setValue(EmberBoreBlock.BLADES, true);
 			poseStack.pushPose();
