@@ -4,7 +4,7 @@ Embers is best described as a dwarven magic mod. It features a smattering of mag
 ## Builds
 You can download the latest files here on curseforge. https://minecraft.curseforge.com/projects/embers-rekindled
 
-I don't know yet where the port will be released but if you're reading this it hasn't been released yet.
+I don't know yet where the port will be released but for now there is an alpha build available here: https://github.com/RCXcrafter/EmbersRekindled/releases/tag/Alpha-1.19.2-0.0.1
 
 ## Contact
 You can also talk about Embers Rekindled and contact me about the port on Bord's discord in the Embers channel here: https://discord.gg/J4bn3FG
