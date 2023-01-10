@@ -1,6 +1,7 @@
 package com.rekindled.embers.network;
 
 import com.rekindled.embers.Embers;
+import com.rekindled.embers.network.message.MessageResearchTick;
 import com.rekindled.embers.network.message.MessageTEUpdateRequest;
 
 import net.minecraft.resources.ResourceLocation;
@@ -20,5 +21,6 @@ public class PacketHandler {
 
 	public static void init() {
 		INSTANCE.registerMessage(id++, MessageTEUpdateRequest.class, MessageTEUpdateRequest::encode, MessageTEUpdateRequest::decode, MessageTEUpdateRequest::handle);
+		INSTANCE.registerMessage(id++, MessageResearchTick.class, MessageResearchTick::encode, MessageResearchTick::decode, MessageResearchTick::handle);
 	}
 }

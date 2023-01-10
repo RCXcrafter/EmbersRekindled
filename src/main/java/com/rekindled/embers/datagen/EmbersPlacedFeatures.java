@@ -49,7 +49,7 @@ public class EmbersPlacedFeatures extends JsonCodecProvider<PlacedFeature> {
 		super.run(cache);
 	}
 
-	private void add(RegistryObject<PlacedFeature> holder) {
+	public void add(RegistryObject<PlacedFeature> holder) {
 		Optional<? extends Registry<PlacedFeature>> registryOptional = ((RegistryOps<JsonElement>) dynamicOps).registry(Registry.PLACED_FEATURE_REGISTRY);
 		ResourceKey<PlacedFeature> key = holder.getKey();
 		if (registryOptional.isPresent() && key != null) {
@@ -61,15 +61,15 @@ public class EmbersPlacedFeatures extends JsonCodecProvider<PlacedFeature> {
 		return new ResourceLocation(Embers.MODID, name);
 	}
 
-	private static List<PlacementModifier> orePlacement(PlacementModifier p_195347_, PlacementModifier p_195348_) {
+	public static List<PlacementModifier> orePlacement(PlacementModifier p_195347_, PlacementModifier p_195348_) {
 		return List.of(p_195347_, InSquarePlacement.spread(), p_195348_, BiomeFilter.biome());
 	}
 
-	private static List<PlacementModifier> commonOrePlacement(int pCount, PlacementModifier pHeightRange) {
+	public static List<PlacementModifier> commonOrePlacement(int pCount, PlacementModifier pHeightRange) {
 		return orePlacement(CountPlacement.of(pCount), pHeightRange);
 	}
 
-	private static List<PlacementModifier> rareOrePlacement(int pChance, PlacementModifier pHeightRange) {
+	public static List<PlacementModifier> rareOrePlacement(int pChance, PlacementModifier pHeightRange) {
 		return orePlacement(RarityFilter.onAverageOnceEvery(pChance), pHeightRange);
 	}
 }

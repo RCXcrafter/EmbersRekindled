@@ -110,4 +110,12 @@ public class Misc {
 			y += fontRenderer.lineHeight + 2;
 		}
 	}
+
+	public static int intColor(int r, int g, int b) {
+		return (r * 65536 + g * 256 + b);
+	}
+
+	public static int intColor(int a, int r, int g, int b) {
+		return (a << 24) + (r << 16) + (g << 8) + (b);
+	}
 }
