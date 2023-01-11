@@ -166,8 +166,8 @@ public class EmbersLang extends LanguageProvider {
 
 		add(Embers.MODID + ".research.page.ores", "Ores");
 		add(Embers.MODID + ".research.page.ores.title", "Raw Minerals");
-		add(Embers.MODID + ".research.page.ores.tags", "Copper;Lead;Silver;Nickel;Ferrous;Aluminum;Aluminium;Quartz;Ore;");
-		add(Embers.MODID + ".research.page.ores.desc", "Deep in the vaults of the solid earth, the novice digger may find many useful minerals, namely Copper, Lead, Silver, and Quartz. Copper has many applications as a conductor, Lead as a dull and malleable metal, and Silver as a channeler for the arcane. Quartz, as well, proves a good source of raw crystalline matter.");
+		add(Embers.MODID + ".research.page.ores.tags", "Copper;Lead;Silver;Nickel;Ferrous;Aluminum;Aluminium;Ore;");
+		add(Embers.MODID + ".research.page.ores.desc", "Deep in the vaults of the solid earth, the novice digger may find many useful minerals, namely Copper, Lead and Silver. Copper has many applications as a conductor, Lead as a dull and malleable metal, and Silver as a channeler for the arcane."/* Quartz, as well, proves a good source of raw crystalline matter."*/);
 
 		add(Embers.MODID + ".research.page.hammer", "Tinker Hammer");
 		add(Embers.MODID + ".research.page.hammer.title", "Smashing");
@@ -233,7 +233,7 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".research.page.bin", "Bin");
 		add(Embers.MODID + ".research.page.bin.title", "Storage Bin");
 		add(Embers.MODID + ".research.page.bin.tags", "Bin;Chest;Storage;Item;Hopper;");
-		add(Embers.MODID + ".research.page.bin.desc", "A simple barrel of iron with an open top, the Bin can hold up to a stack of any item. It can also be used to automatically collect outputs from some machines.");
+		add(Embers.MODID + ".research.page.bin.desc", "A simple barrel of lead with an open top, the Bin can hold up to a stack of any item. It can also be used to automatically collect outputs from some machines.");
 
 		add(Embers.MODID + ".research.page.boiler", "Pressure Refinery");
 		add(Embers.MODID + ".research.page.boiler.title", "Steam Chamber");
@@ -254,7 +254,7 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".research.page.dials", "Dials");
 		add(Embers.MODID + ".research.page.dials.title", "Careful Measurements");
 		add(Embers.MODID + ".research.page.dials.tags", "Info;Item;Fluid;Liquid;Ember;Dial;Gauge;");
-		add(Embers.MODID + ".research.page.dials.desc", "Dials are a simple way to get information from a machine. Two exist: the Ember and Fluid Dials. Attached to their respective containers, each dial will graphically display the contents of that container when looked at.");
+		add(Embers.MODID + ".research.page.dials.desc", "Dials are a simple way to get information from a machine. Three exist: the Ember, Item and Fluid Dials. Attached to their respective containers, each dial will graphically display the contents of that container when looked at.");
 
 		add(Embers.MODID + ".research.page.tinker_lens", "Tinker's Lens");
 		add(Embers.MODID + ".research.page.tinker_lens.title", "What's What?");
@@ -291,7 +291,7 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".research.page.access", "Mechanical Access");
 		add(Embers.MODID + ".research.page.access.title", "Interface");
 		add(Embers.MODID + ".research.page.access.tags", "Core;Mechanical;Proxy;Capability;Side;Port;Interface;Access;Upgrade;");
-		add(Embers.MODID + ".research.page.access.desc", "Machines such as the Ember Bore or Hearth Coil are a bit large. As such, they only have one port with which to interface. Using the Mechanical Core and Machine Accessor, however, you can extend this port: the Mechanical Core will act as a proxy to the inventory, fluid storage, or Ember storage of any large machine it touches, while Machine Accessors can attach to the Mechanical Core to provide a more extended interface.");
+		add(Embers.MODID + ".research.page.access.desc", "Machines such as the Ember Bore or Hearth Coil are a bit large. As such, they only have one port with which to interface. Using the Mechanical Core, however, you can extend this port: the Mechanical Core will act as a proxy to the inventory, fluid storage, or Ember storage of any large machine it's facing towards. Up to three Mechanical Cores can be chained to provide a more extended interface.");
 
 		add(Embers.MODID + ".research.page.reservoir", "Reservoir");
 		add(Embers.MODID + ".research.page.reservoir.title", "Massive Tanks");
@@ -336,7 +336,7 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".research.page.emitters.tags", "Hammer;Transfer;Transport;Ember;Receptor;Emitter;Receive;Send;Redstone;Lever;Link;Connect;");
 		add(Embers.MODID + ".research.page.emitters.desc", "The actual manipulation of the Ember you receive from your Activator or other refineries involves two main blocks: Ember Emitters and Ember Receptors. Emitters function as the sending end. Simply place them on a machine and they will suck out Ember from the machine into their internal buffer. Then, while powered by redstone, they will periodically expel Ember.");
 		add(Embers.MODID + ".research.page.receivers.desc", "Receptors function as the receiving end. When they receive an Ember burst from an Emitter, they will push the Ember into the attached machine, no redstone required. Note that if Ember is received, but the receptor can't take all of it, some of it will be lost, signified by a plume of smoke and sparks.");
-		add(Embers.MODID + ".research.page.linking.desc", "To link Emitters and Receptors together, simply shift-right-click the Receptor with your Tinker Hammer, and right-click the Emitter with the hammer. There is no distance limit to linking, but after an Ember Burst has been in transit for a while, it can fade away, losing all of the Ember it carried.");
+		add(Embers.MODID + ".research.page.linking.desc", "To link Emitters and Receptors together, simply right-click the Emitter with your Tinker Hammer, and right-click the Receptor with the hammer. There is no distance limit to linking, but after an Ember Burst has been in transit for a while, it can fade away, losing all of the Ember it carried.");
 
 		add(Embers.MODID + ".research.page.copper_cell", "Copper Cell");
 		add(Embers.MODID + ".research.page.copper_cell.title", "Capacitor");
