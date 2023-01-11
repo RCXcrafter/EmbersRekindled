@@ -29,12 +29,13 @@ import com.rekindled.embers.particle.SparkParticle;
 import com.rekindled.embers.particle.StarParticle;
 import com.rekindled.embers.particle.VaporParticle;
 import com.rekindled.embers.research.ResearchManager;
+import com.rekindled.embers.research.capability.IResearchCapability;
 import com.rekindled.embers.util.DecimalFormats;
 
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
@@ -99,13 +100,14 @@ public class Embers {
 		PacketHandler.init();
 		RegistryManager.registerDispenserBehaviour(event);
 		MinecraftForge.EVENT_BUS.addListener(ResearchManager::onJoin);
-		MinecraftForge.EVENT_BUS.addGenericListener(Player.class, ResearchManager::attachCapability);
+		MinecraftForge.EVENT_BUS.addGenericListener(Entity.class, ResearchManager::attachCapability);
 		MinecraftForge.EVENT_BUS.addListener(ResearchManager::onClone);
 		ResearchManager.initResearches();
 	}
 
 	public void registerCaps(RegisterCapabilitiesEvent event) {
 		event.register(IEmberCapability.class);
+		event.register(IResearchCapability.class);
 	}
 
 	public void gatherData(GatherDataEvent event) {

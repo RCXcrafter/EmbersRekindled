@@ -41,7 +41,7 @@ public class MessageResearchData {
 	}
 
 	public static void handle(MessageResearchData msg, Supplier<NetworkEvent.Context> ctx) {
-		if (ctx.get().getDirection().getReceptionSide().isServer()) {
+		if (ctx.get().getDirection().getReceptionSide().isClient()) {
 			ctx.get().enqueueWork(() -> {
 				ResearchManager.receiveResearchData(msg.ticks);
 			});

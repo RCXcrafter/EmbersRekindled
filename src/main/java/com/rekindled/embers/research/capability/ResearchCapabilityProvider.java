@@ -13,7 +13,7 @@ import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
 
 public class ResearchCapabilityProvider implements ICapabilityProvider, INBTSerializable<CompoundTag> {
-	private IResearchCapability capability = null;
+	private IResearchCapability capability;
 
 	public LazyOptional<IResearchCapability> holder = LazyOptional.of(() -> capability);
 

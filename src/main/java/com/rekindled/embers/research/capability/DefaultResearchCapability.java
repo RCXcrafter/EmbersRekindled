@@ -6,7 +6,7 @@ import java.util.Map;
 import net.minecraft.nbt.CompoundTag;
 
 public class DefaultResearchCapability implements IResearchCapability {
-	Map<String,Boolean> Checkmarks = new HashMap<>();
+	Map<String, Boolean> Checkmarks = new HashMap<>();
 
 	@Override
 	public void setCheckmark(String research, boolean checked) {

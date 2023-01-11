@@ -23,13 +23,14 @@ import com.rekindled.embers.util.Vec2i;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.network.NetworkDirection;
+import net.minecraftforge.network.PacketDistributor;
 
 public class ResearchManager {
 	public static final ResourceLocation PLAYER_RESEARCH = new ResourceLocation(Embers.MODID, "research");
@@ -89,7 +90,7 @@ public class ResearchManager {
 	}
 
 	public static void onJoin(EntityJoinLevelEvent event) {
-		if(event.getEntity() instanceof ServerPlayer && !event.getLevel().isClientSide()) {
+		if (event.getEntity() instanceof ServerPlayer && !event.getLevel().isClientSide()) {
 			ServerPlayer player = (ServerPlayer) event.getEntity();
 			sendResearchData(player);
 		}
@@ -97,12 +98,12 @@ public class ResearchManager {
 
 	public static void sendResearchData(ServerPlayer player) {
 		IResearchCapability research = getPlayerResearch(player);
-		if(research != null) {
-			PacketHandler.INSTANCE.sendTo(new MessageResearchData(research.getCheckmarks()), player.connection.connection, NetworkDirection.PLAY_TO_CLIENT);
+		if (research != null) {
+			PacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), new MessageResearchData(research.getCheckmarks()));
 		}
 	}
 
-	public static void receiveResearchData(Map<String,Boolean> checkmarks) {
+	public static void receiveResearchData(Map<String, Boolean> checkmarks) {
 		for (ResearchBase research : getAllResearch()) {
 			Boolean checked = checkmarks.get(research.name);
 			if (checked != null)
@@ -114,8 +115,8 @@ public class ResearchManager {
 		PacketHandler.INSTANCE.sendToServer(new MessageResearchTick(research.name, checked));
 	}
 
-	public static void attachCapability(AttachCapabilitiesEvent<Player> event) {
-		if (!event.getCapabilities().containsKey(PLAYER_RESEARCH)) {
+	public static void attachCapability(AttachCapabilitiesEvent<Entity> event) {
+		if (event.getObject() instanceof Player && !event.getCapabilities().containsKey(PLAYER_RESEARCH)) {
 			event.addCapability(PLAYER_RESEARCH, new ResearchCapabilityProvider(new DefaultResearchCapability()));
 		}
 	}
