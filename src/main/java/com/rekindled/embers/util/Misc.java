@@ -10,6 +10,7 @@ import java.util.function.Predicate;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Vector3f;
 
 import net.minecraft.client.gui.Font;
 import net.minecraft.core.Direction;
@@ -117,5 +118,9 @@ public class Misc {
 
 	public static int intColor(int a, int r, int g, int b) {
 		return (a << 24) + (r << 16) + (g << 8) + (b);
+	}
+
+	public static Vector3f colorFromInt(int color) {
+		return new Vector3f(((0xFF0000 & color) >> 16) / 255.0f, ((0x00FF00 & color) >> 8) / 255.0f, (0x0000FF & color) / 255.0f);
 	}
 }

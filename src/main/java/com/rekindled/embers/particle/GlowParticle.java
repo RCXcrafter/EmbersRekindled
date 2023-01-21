@@ -1,6 +1,5 @@
 package com.rekindled.embers.particle;
 
-import com.mojang.math.Vector3f;
 import com.rekindled.embers.render.EmbersRenderTypes;
 
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -9,20 +8,19 @@ import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.particle.TextureSheetParticle;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class GlowParticle extends TextureSheetParticle {
 
-	public static Vector3f noMotion = new Vector3f(0, 0, 0);
-
 	public GlowParticle(ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed, GlowParticleOptions pOptions, SpriteSet pSprites) {
-		super(pLevel, pX, pY, pZ, pOptions.getMotion().x(), pOptions.getMotion().y(), pOptions.getMotion().z());
+		super(pLevel, pX, pY, pZ, pXSpeed, pYSpeed, pZSpeed);
 		this.friction = 0.96F;
 		this.speedUpWhenYMotionIsBlocked = true;
 		this.hasPhysics = false;
-		if (!pOptions.getMotion().equals(noMotion))
+		if (!pOptions.getMotion().equals(Vec3.ZERO))
 			this.setParticleSpeed(pOptions.getMotion().x(), pOptions.getMotion().y(), pOptions.getMotion().z());
 		this.xd *= (double)0.1F;
 		this.yd *= (double)0.1F;

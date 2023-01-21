@@ -8,6 +8,7 @@ import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.particle.TextureSheetParticle;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -22,7 +23,7 @@ public class VaporParticle extends TextureSheetParticle {
 		this.friction = 0.8F;
 		float speed = random.nextFloat() * 0.5f + 0.7f;
 		this.speedUpWhenYMotionIsBlocked = true;
-		if (!pOptions.getMotion().equals(GlowParticle.noMotion))
+		if (!pOptions.getMotion().equals(Vec3.ZERO))
 			this.setParticleSpeed(pOptions.getMotion().x() * speed, pOptions.getMotion().y() * speed, pOptions.getMotion().z() * speed);
 		this.rCol = pOptions.getColor().x();
 		this.gCol = pOptions.getColor().y();

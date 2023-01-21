@@ -23,6 +23,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.capabilities.Capability;
@@ -202,7 +203,7 @@ public abstract class ItemPipeBlockEntityBase extends BlockEntity implements IIt
 			float g = blockEntity.clogged ? 16f : 255f;
 			float b = 16f;
 			for(int i = 0; i < 3; i++) {
-				level.addParticle(new GlowParticleOptions(new Vector3f(r / 255.0F, g / 255.0F, b / 255.0F), new Vector3f(vx, vy, vz), 2.0f), x, y, z, vx, vy, vz);
+				level.addParticle(new GlowParticleOptions(new Vector3f(r / 255.0F, g / 255.0F, b / 255.0F), new Vec3(vx, vy, vz), 2.0f), x, y, z, vx, vy, vz);
 			}
 		}
 	}

@@ -104,7 +104,7 @@ public class EmberPacketEntity extends Entity {
 				double deltaY = getY() - oldPosition.y;
 				double deltaZ = getZ() - oldPosition.z;
 				double dist = Math.ceil(Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * 20);
-				for (double i = 0; i < dist; i ++){
+				for (double i = 0; i < dist; i ++) {
 					double coeff = i / dist;
 					level.addParticle(GlowParticleOptions.EMBER, oldPosition.x + deltaX * coeff, oldPosition.y + deltaY * coeff, oldPosition.z + deltaZ * coeff, 0.0125f*(random.nextFloat()-0.5f), 0.0125f*(random.nextFloat()-0.5f), 0.0125f*(random.nextFloat()-0.5f));
 				}

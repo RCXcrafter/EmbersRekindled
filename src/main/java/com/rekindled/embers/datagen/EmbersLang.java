@@ -85,6 +85,8 @@ public class EmbersLang extends LanguageProvider {
 		addItem(RegistryManager.LEAD_NUGGET, "Lead Nugget");
 		addItem(RegistryManager.LEAD_PLATE, "Lead Plate");
 
+		addItem(RegistryManager.ANCIENT_GOLEM_SPAWN_EGG, "Ancient Golem Spawn Egg");
+
 
 		//tooltips
 		add(Embers.MODID + ".decimal_format.ember", "0.#");

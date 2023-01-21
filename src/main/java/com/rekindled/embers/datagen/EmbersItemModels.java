@@ -56,12 +56,18 @@ public class EmbersItemModels extends ItemModelProvider {
 		itemWithTexture(RegistryManager.LEAD_INGOT, "ingot_lead");
 		itemWithTexture(RegistryManager.LEAD_NUGGET, "nugget_lead");
 		itemWithTexture(RegistryManager.LEAD_PLATE, "plate_lead");
+
+		spawnEgg(RegistryManager.ANCIENT_GOLEM_SPAWN_EGG);
 	}
 
 	public void itemWithModel(RegistryObject<? extends Item> registryObject, String model) {
 		ResourceLocation id = registryObject.getId();
 		ResourceLocation textureLocation = new ResourceLocation(id.getNamespace(), "item/" + id.getPath());
 		singleTexture(id.getPath(), new ResourceLocation(model), "layer0", textureLocation);
+	}
+
+	public void spawnEgg(RegistryObject<? extends Item> registryObject) {
+		withExistingParent(registryObject.getId().getPath(), "item/template_spawn_egg");
 	}
 
 	public void itemWithTexture(RegistryObject<? extends Item> registryObject, String texture) {

@@ -13,13 +13,14 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.phys.Vec3;
 
 public class VaporParticleOptions implements ParticleOptions {
 
 	public static final float MIN_SCALE = 0.01F;
 	public static final float MAX_SCALE = 4.0F;
 	protected final Vector3f color;
-	protected final Vector3f motion;
+	protected final Vec3 motion;
 	protected final float scale;
 	public static final Vector3f VAPOR_COLOR = new Vector3f(64.0F / 255.0F, 64.0F / 255.0F, 64.0F / 255.0F);
 	public static final VaporParticleOptions VAPOR = new VaporParticleOptions(VAPOR_COLOR, 2.0F);
@@ -27,7 +28,7 @@ public class VaporParticleOptions implements ParticleOptions {
 	public static final Codec<VaporParticleOptions> CODEC = RecordCodecBuilder.create((p_175793_) -> {
 		return p_175793_.group(Vector3f.CODEC.fieldOf("color").forGetter((p_175797_) -> {
 			return p_175797_.color;
-		}), Vector3f.CODEC.fieldOf("motion").forGetter((p_175797_) -> {
+		}), Vec3.CODEC.fieldOf("motion").forGetter((p_175797_) -> {
 			return p_175797_.motion;
 		}), Codec.FLOAT.fieldOf("scale").forGetter((p_175795_) -> {
 			return p_175795_.scale;
@@ -37,25 +38,25 @@ public class VaporParticleOptions implements ParticleOptions {
 		public VaporParticleOptions fromCommand(ParticleType<VaporParticleOptions> p_123689_, StringReader p_123690_) throws CommandSyntaxException {
 			Vector3f vector3fColor = VaporParticleOptions.readVector3f(p_123690_);
 			p_123690_.expect(' ');
-			Vector3f vector3fMotion = VaporParticleOptions.readVector3f(p_123690_);
+			Vec3 vector3fMotion = VaporParticleOptions.readVec3(p_123690_);
 			p_123690_.expect(' ');
 			float f = p_123690_.readFloat();
 			return new VaporParticleOptions(vector3fColor, vector3fMotion, f);
 		}
 
 		public VaporParticleOptions fromNetwork(ParticleType<VaporParticleOptions> p_123692_, FriendlyByteBuf p_123693_) {
-			return new VaporParticleOptions(VaporParticleOptions.readVector3f(p_123693_), VaporParticleOptions.readVector3f(p_123693_), p_123693_.readFloat());
+			return new VaporParticleOptions(VaporParticleOptions.readVector3f(p_123693_), VaporParticleOptions.readVec3(p_123693_), p_123693_.readFloat());
 		}
 	};
 
-	public VaporParticleOptions(Vector3f pColor, Vector3f pMotion, float pScale) {
+	public VaporParticleOptions(Vector3f pColor, Vec3 pMotion, float pScale) {
 		this.color = pColor;
 		this.motion = pMotion;
 		this.scale = pScale;
 	}
 
 	public VaporParticleOptions(Vector3f pColor, float pScale) {
-		this(pColor, new Vector3f(0, 0, 0), pScale);
+		this(pColor, Vec3.ZERO, pScale);
 	}
 
 	public static Vector3f readVector3f(StringReader pStringInput) throws CommandSyntaxException {
@@ -68,17 +69,31 @@ public class VaporParticleOptions implements ParticleOptions {
 		return new Vector3f(f, f1, f2);
 	}
 
+	public static Vec3 readVec3(StringReader pStringInput) throws CommandSyntaxException {
+		pStringInput.expect(' ');
+		double f = pStringInput.readDouble();
+		pStringInput.expect(' ');
+		double f1 = pStringInput.readDouble();
+		pStringInput.expect(' ');
+		double f2 = pStringInput.readDouble();
+		return new Vec3(f, f1, f2);
+	}
+
 	public static Vector3f readVector3f(FriendlyByteBuf pBuffer) {
 		return new Vector3f(pBuffer.readFloat(), pBuffer.readFloat(), pBuffer.readFloat());
+	}
+
+	public static Vec3 readVec3(FriendlyByteBuf pBuffer) {
+		return new Vec3(pBuffer.readDouble(), pBuffer.readDouble(), pBuffer.readDouble());
 	}
 
 	public void writeToNetwork(FriendlyByteBuf pBuffer) {
 		pBuffer.writeFloat(this.color.x());
 		pBuffer.writeFloat(this.color.y());
 		pBuffer.writeFloat(this.color.z());
-		pBuffer.writeFloat(this.motion.x());
-		pBuffer.writeFloat(this.motion.y());
-		pBuffer.writeFloat(this.motion.z());
+		pBuffer.writeDouble(this.motion.x());
+		pBuffer.writeDouble(this.motion.y());
+		pBuffer.writeDouble(this.motion.z());
 		pBuffer.writeFloat(this.scale);
 	}
 
@@ -90,7 +105,7 @@ public class VaporParticleOptions implements ParticleOptions {
 		return this.color;
 	}
 
-	public Vector3f getMotion() {
+	public Vec3 getMotion() {
 		return this.motion;
 	}
 

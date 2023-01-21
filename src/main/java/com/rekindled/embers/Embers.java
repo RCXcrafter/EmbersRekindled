@@ -21,7 +21,11 @@ import com.rekindled.embers.datagen.EmbersLootTables;
 import com.rekindled.embers.datagen.EmbersPlacedFeatures;
 import com.rekindled.embers.datagen.EmbersRecipes;
 import com.rekindled.embers.datagen.EmbersSounds;
+import com.rekindled.embers.entity.AncientGolemEntity;
+import com.rekindled.embers.entity.render.AncientGolemRenderer;
 import com.rekindled.embers.entity.render.EmberPacketRenderer;
+import com.rekindled.embers.entity.render.EmberProjectileRenderer;
+import com.rekindled.embers.model.AncientGolemModel;
 import com.rekindled.embers.network.PacketHandler;
 import com.rekindled.embers.particle.GlowParticle;
 import com.rekindled.embers.particle.SmokeParticle;
@@ -49,6 +53,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -64,7 +69,7 @@ public class Embers {
 
 	public static final CreativeModeTab TAB_EMBERS = new CreativeModeTab(Embers.MODID) {
 		public ItemStack makeIcon() {
-			return new ItemStack(RegistryManager.TINKER_HAMMER.get());
+			return new ItemStack(RegistryManager.EMBER_CRYSTAL.get());
 		}
 	};
 
@@ -74,6 +79,7 @@ public class Embers {
 		modEventBus.addListener(this::commonSetup);
 		modEventBus.addListener(this::gatherData);
 		modEventBus.addListener(this::registerCaps);
+		modEventBus.addListener(this::entityAttributes);
 
 		RegistryManager.BLOCKS.register(modEventBus);
 		RegistryManager.ITEMS.register(modEventBus);
@@ -110,6 +116,10 @@ public class Embers {
 		event.register(IResearchCapability.class);
 	}
 
+	public void entityAttributes(EntityAttributeCreationEvent event) {
+		event.put(RegistryManager.ANCIENT_GOLEM.get(), AncientGolemEntity.createAttributes().build());
+	}
+
 	public void gatherData(GatherDataEvent event) {
 		DataGenerator gen = event.getGenerator();
 		ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
@@ -141,6 +151,8 @@ public class Embers {
 		public static void clientSetup(FMLClientSetupEvent event) {
 			MinecraftForge.EVENT_BUS.addListener(EmbersClientEvents::onClientTick);
 			EntityRenderers.register(RegistryManager.EMBER_PACKET.get(), EmberPacketRenderer::new);
+			EntityRenderers.register(RegistryManager.EMBER_PROJECTILE.get(), EmberProjectileRenderer::new);
+			EntityRenderers.register(RegistryManager.ANCIENT_GOLEM.get(), AncientGolemRenderer::new);
 		}
 
 		@OnlyIn(Dist.CLIENT)
@@ -174,6 +186,12 @@ public class Embers {
 			event.registerBlockEntityRenderer(RegistryManager.STAMPER_ENTITY.get(), StamperBlockEntityRenderer::new);
 			event.registerBlockEntityRenderer(RegistryManager.STAMP_BASE_ENTITY.get(), StampBaseBlockEntityRenderer::new);
 			event.registerBlockEntityRenderer(RegistryManager.BIN_ENTITY.get(), BinBlockEntityRenderer::new);
+		}
+
+		@OnlyIn(Dist.CLIENT)
+		@SubscribeEvent
+		static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
+			event.registerLayerDefinition(AncientGolemRenderer.LAYER_LOCATION, AncientGolemModel::createLayer);
 		}
 	}
 }
