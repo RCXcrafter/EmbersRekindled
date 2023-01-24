@@ -1,5 +1,7 @@
 {
   "values": [
-    "#forge:ingots/lead"
+    "#forge:ingots/lead",
+    "#forge:ingots/caminite_brick",
+    "#forge:ingots/archaic_brick"
   ]
 }

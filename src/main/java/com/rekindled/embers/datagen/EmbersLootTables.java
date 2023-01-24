@@ -21,7 +21,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 
 public class EmbersLootTables extends LootTableProvider {
 
-	private final List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootContextParamSet>> lootTables = ImmutableList.of(Pair.of(EmbersBlockLootTables::new, LootContextParamSets.BLOCK));
+	private final List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootContextParamSet>> lootTables = ImmutableList.of(Pair.of(EmbersBlockLootTables::new, LootContextParamSets.BLOCK), Pair.of(EmbersEntityLootTables::new, LootContextParamSets.ENTITY));
 
 	public EmbersLootTables(DataGenerator gen) {
 		super(gen);

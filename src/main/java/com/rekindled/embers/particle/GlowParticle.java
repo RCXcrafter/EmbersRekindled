@@ -20,8 +20,17 @@ public class GlowParticle extends TextureSheetParticle {
 		this.friction = 0.96F;
 		this.speedUpWhenYMotionIsBlocked = true;
 		this.hasPhysics = false;
-		if (!pOptions.getMotion().equals(Vec3.ZERO))
+		if (!pOptions.getMotion().equals(Vec3.ZERO)) {
 			this.setParticleSpeed(pOptions.getMotion().x(), pOptions.getMotion().y(), pOptions.getMotion().z());
+		} else if (pXSpeed != 0 || pYSpeed != 0 || pZSpeed != 0) {
+			this.xd = pXSpeed;
+			this.yd = pYSpeed;
+			this.zd = pZSpeed;
+		} else {
+			this.xd = (Math.random() * 2.0D - 1.0D) * (double)0.4F;
+			this.yd = (Math.random() * 2.0D - 1.0D) * (double)0.4F;
+			this.zd = (Math.random() * 2.0D - 1.0D) * (double)0.4F;
+		}
 		this.xd *= (double)0.1F;
 		this.yd *= (double)0.1F;
 		this.zd *= (double)0.1F;
@@ -32,7 +41,11 @@ public class GlowParticle extends TextureSheetParticle {
 		this.roll = this.oRoll + 1.0f;
 		this.quadSize *= 0.75F * pOptions.getScale();
 		double i = 4.5D / (this.random.nextDouble() * 0.3D + 0.7D);
-		this.lifetime = (int)Math.max((float)i * pOptions.getScale(), 1.0F);
+		if (pOptions.getLifetime() > 0) {
+			this.lifetime = pOptions.getLifetime();
+		} else {
+			this.lifetime = (int)Math.max((float)i * pOptions.getScale(), 1.0F);
+		}
 		this.pickSprite(pSprites);
 	}
 

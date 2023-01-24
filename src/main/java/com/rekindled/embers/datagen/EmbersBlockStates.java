@@ -10,8 +10,8 @@ import com.rekindled.embers.block.EmberBoreBlock;
 import com.rekindled.embers.block.MechEdgeBlockBase;
 import com.rekindled.embers.block.MechEdgeBlockBase.MechEdge;
 import com.rekindled.embers.block.PipeBlockBase;
-import com.rekindled.embers.block.StamperBlock;
 import com.rekindled.embers.block.PipeBlockBase.PipeConnection;
+import com.rekindled.embers.block.StamperBlock;
 
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -60,6 +60,10 @@ public class EmbersBlockStates extends BlockStateProvider {
 		blockWithItemTexture(RegistryManager.LEAD_BLOCK, "block_lead");
 
 		blockWithItem(RegistryManager.CAMINITE_BRICKS);
+		blockWithItem(RegistryManager.ARCHAIC_BRICKS);
+		blockWithItem(RegistryManager.ARCHAIC_EDGE, "archaic_edge");
+		blockWithItem(RegistryManager.ARCHAIC_TILE);
+		blockWithItem(RegistryManager.ARCHAIC_LIGHT, "archaic_light");
 
 		blockWithItem(RegistryManager.COPPER_CELL, "copper_cell");
 		blockWithItem(RegistryManager.CREATIVE_EMBER);
@@ -338,6 +342,30 @@ public class EmbersBlockStates extends BlockStateProvider {
 		simpleBlock(registryObject.get());
 		//itemblock model
 		simpleBlockItem(registryObject.get(), cubeAll(registryObject.get()));
+	}
+
+	public void columnBlockWithItem(RegistryObject<? extends Block> registryObject, String sideTex, String topTex) {
+		ResourceLocation side = new ResourceLocation(Embers.MODID, "block/" + sideTex);
+		//ResourceLocation side_overlay = new ResourceLocation(Embers.MODID, "block/" + sideTex + "_overlay");
+		ResourceLocation end = new ResourceLocation(Embers.MODID, "block/" + topTex);
+
+		ModelFile model = models().cubeColumn(registryObject.getId().getPath(), side, end)/*.texture("overlay", side_overlay).renderType("cutout").element()
+				.from(0, 0, 0)
+				.to(16, 16, 16)
+				.cube(topTex)
+				.face(Direction.NORTH).texture("#overlay").cullface(Direction.NORTH).emissivity(8).end()
+				.allFaces(
+						(dir, f) -> {
+							if (dir.getAxis() != Axis.Y) {
+								f.texture("#overlay");
+								f.cullface(dir);
+								f.emissivity(8);
+							}
+						}).end()*/;
+		//block model
+		simpleBlock(registryObject.get(), model);
+		//itemblock model
+		simpleBlockItem(registryObject.get(), model);
 	}
 
 	public void blockWithItem(RegistryObject<? extends Block> registryObject, String model) {

@@ -36,6 +36,9 @@ public class EmbersItemTags extends ItemTagsProvider {
 	public static final TagKey<Item> LEAD_NUGGET = ItemTags.create(new ResourceLocation("forge", "nuggets/lead"));
 	public static final TagKey<Item> LEAD_PLATE = ItemTags.create(new ResourceLocation("forge", "plates/lead"));
 
+	public static final TagKey<Item> CAMINITE_BRICK = ItemTags.create(new ResourceLocation("forge", "ingots/caminite_brick"));
+	public static final TagKey<Item> ARCHAIC_BRICK = ItemTags.create(new ResourceLocation("forge", "ingots/archaic_brick"));
+
 	public EmbersItemTags(DataGenerator gen, BlockTagsProvider blockTags, ExistingFileHelper existingFileHelper) {
 		super(gen, blockTags, Embers.MODID, existingFileHelper);
 	}
@@ -73,5 +76,10 @@ public class EmbersItemTags extends ItemTagsProvider {
 		tag(GOLD_PLATE).add(RegistryManager.GOLD_PLATE.get());
 		tag(COPPER_PLATE).add(RegistryManager.COPPER_PLATE.get());
 		tag(LEAD_PLATE).add(RegistryManager.LEAD_PLATE.get());
+
+		tag(Tags.Items.INGOTS).addTags(CAMINITE_BRICK);
+		tag(CAMINITE_BRICK).add(RegistryManager.CAMINITE_BRICK.get());
+		tag(Tags.Items.INGOTS).addTags(ARCHAIC_BRICK);
+		tag(ARCHAIC_BRICK).add(RegistryManager.ARCHAIC_BRICK.get());
 	}
 }

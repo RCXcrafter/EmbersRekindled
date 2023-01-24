@@ -36,6 +36,8 @@ public class EmbersItemModels extends ItemModelProvider {
 		basicItem(RegistryManager.EMBER_GRIT.get());
 		basicItem(RegistryManager.CAMINITE_BLEND.get());
 		basicItem(RegistryManager.CAMINITE_BRICK.get());
+		basicItem(RegistryManager.ARCHAIC_BRICK.get());
+		basicItem(RegistryManager.ANCIENT_MOTIVE_CORE.get());
 
 		itemWithTexture(RegistryManager.RAW_CAMINITE_PLATE, "plate_caminite_raw");
 		itemWithTexture(RegistryManager.RAW_INGOT_STAMP, "ingot_stamp_raw");

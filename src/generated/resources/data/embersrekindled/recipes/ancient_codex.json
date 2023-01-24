@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "C": {
+      "item": "embersrekindled:ancient_motive_core"
+    },
+    "X": {
+      "item": "embersrekindled:archaic_brick"
+    }
+  },
+  "pattern": [
+    " X ",
+    "XCX",
+    " X "
+  ],
+  "result": {
+    "item": "embersrekindled:ancient_codex"
+  }
+}

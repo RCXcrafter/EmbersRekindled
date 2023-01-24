@@ -29,6 +29,10 @@ public class EmbersLang extends LanguageProvider {
 		add("itemGroup." + Embers.MODID, "Embers Rekindled");
 
 		addBlock(RegistryManager.CAMINITE_BRICKS, "Caminite Bricks");
+		addBlock(RegistryManager.ARCHAIC_BRICKS, "Archaic Bricks");
+		addBlock(RegistryManager.ARCHAIC_EDGE, "Archaic Edge");
+		addBlock(RegistryManager.ARCHAIC_TILE, "Archaic Tile");
+		addBlock(RegistryManager.ARCHAIC_LIGHT, "Archaic Light");
 
 		addBlock(RegistryManager.COPPER_CELL, "Copper Cell");
 		addBlock(RegistryManager.CREATIVE_EMBER, "Creative Ember Source");
@@ -60,6 +64,8 @@ public class EmbersLang extends LanguageProvider {
 		addItem(RegistryManager.EMBER_GRIT, "Ember Grit");
 		addItem(RegistryManager.CAMINITE_BLEND, "Caminite Blend");
 		addItem(RegistryManager.CAMINITE_BRICK, "Caminite Brick");
+		addItem(RegistryManager.ARCHAIC_BRICK, "Archaic Brick");
+		addItem(RegistryManager.ANCIENT_MOTIVE_CORE, "Ancient Motive Core");
 
 		addItem(RegistryManager.RAW_CAMINITE_PLATE, "Raw Caminite Plate");
 		addItem(RegistryManager.RAW_INGOT_STAMP, "Raw Ingot Stamp");

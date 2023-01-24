@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "S": {
+      "item": "embersrekindled:ember_shard"
+    },
+    "X": {
+      "item": "embersrekindled:archaic_brick"
+    }
+  },
+  "pattern": [
+    "XXX",
+    "XSX",
+    "XXX"
+  ],
+  "result": {
+    "count": 2,
+    "item": "embersrekindled:archaic_edge"
+  }
+}

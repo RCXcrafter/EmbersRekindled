@@ -1,4 +1,8 @@
 {
+  "block.embersrekindled.archaic_bricks": "Archaic Bricks",
+  "block.embersrekindled.archaic_edge": "Archaic Edge",
+  "block.embersrekindled.archaic_light": "Archaic Light",
+  "block.embersrekindled.archaic_tile": "Archaic Tile",
   "block.embersrekindled.bin": "Bin",
   "block.embersrekindled.caminite_bricks": "Caminite Bricks",
   "block.embersrekindled.caminite_lever": "Caminite Lever",
@@ -558,6 +562,8 @@
   "fluid_type.embersrekindled.molten_lead": "Molten Lead",
   "item.embersrekindled.ancient_codex": "Ancient Codex",
   "item.embersrekindled.ancient_golem_spawn_egg": "Ancient Golem Spawn Egg",
+  "item.embersrekindled.ancient_motive_core": "Ancient Motive Core",
+  "item.embersrekindled.archaic_brick": "Archaic Brick",
   "item.embersrekindled.caminite_blend": "Caminite Blend",
   "item.embersrekindled.caminite_brick": "Caminite Brick",
   "item.embersrekindled.caminite_plate": "Caminite Plate",

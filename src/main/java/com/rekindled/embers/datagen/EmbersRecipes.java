@@ -150,6 +150,52 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(RegistryManager.RAW_PLATE_STAMP.get()), RegistryManager.PLATE_STAMP.get(), 0.1F, 200)
 		.unlockedBy("has_raw_plate_stamp", has(RegistryManager.RAW_PLATE_STAMP.get())).save(consumer, getResource("plate_stamp"));
 
+		ShapedRecipeBuilder.shaped(RegistryManager.ARCHAIC_BRICKS.get())
+		.pattern("XX")
+		.pattern("XX")
+		.define('X', RegistryManager.ARCHAIC_BRICK.get())
+		.unlockedBy("has_brick", has(RegistryManager.ARCHAIC_BRICK.get()))
+		.save(consumer, getResource("archaic_bricks"));
+		ShapedRecipeBuilder.shaped(RegistryManager.ARCHAIC_LIGHT.get())
+		.pattern(" X ")
+		.pattern("XSX")
+		.pattern(" X ")
+		.define('X', RegistryManager.ARCHAIC_BRICK.get())
+		.define('S', RegistryManager.EMBER_SHARD.get())
+		.unlockedBy("has_shard", has(RegistryManager.EMBER_SHARD.get()))
+		.save(consumer, getResource("archaic_light"));
+		ShapedRecipeBuilder.shaped(RegistryManager.ARCHAIC_EDGE.get(), 2)
+		.pattern("XXX")
+		.pattern("XSX")
+		.pattern("XXX")
+		.define('X', RegistryManager.ARCHAIC_BRICK.get())
+		.define('S', RegistryManager.EMBER_SHARD.get())
+		.unlockedBy("has_shard", has(RegistryManager.EMBER_SHARD.get()))
+		.save(consumer, getResource("archaic_edge"));
+		ShapedRecipeBuilder.shaped(RegistryManager.ARCHAIC_TILE.get(), 4)
+		.pattern("XX")
+		.pattern("XX")
+		.define('X', RegistryManager.ARCHAIC_BRICKS.get())
+		.unlockedBy("has_bricks", has(RegistryManager.ARCHAIC_BRICKS.get()))
+		.save(consumer, getResource("archaic_tile"));
+		ShapedRecipeBuilder.shaped(RegistryManager.ARCHAIC_BRICKS.get(), 4)
+		.pattern("XX")
+		.pattern("XX")
+		.define('X', RegistryManager.ARCHAIC_TILE.get())
+		.unlockedBy("has_tile", has(RegistryManager.ARCHAIC_TILE.get()))
+		.save(consumer, getResource("archaic_bricks_2"));
+		stonecutterResultFromBase(consumer, RegistryManager.ARCHAIC_TILE.get(), RegistryManager.ARCHAIC_BRICKS.get());
+		stonecutterResultFromBase(consumer, RegistryManager.ARCHAIC_BRICKS.get(), RegistryManager.ARCHAIC_TILE.get());
+
+		ShapedRecipeBuilder.shaped(RegistryManager.ANCIENT_CODEX.get())
+		.pattern(" X ")
+		.pattern("XCX")
+		.pattern(" X ")
+		.define('X', RegistryManager.ARCHAIC_BRICK.get())
+		.define('C', RegistryManager.ANCIENT_MOTIVE_CORE.get())
+		.unlockedBy("has_core", has(RegistryManager.ANCIENT_MOTIVE_CORE.get()))
+		.save(consumer, getResource("ancient_codex"));
+
 		ShapedRecipeBuilder.shaped(RegistryManager.TINKER_HAMMER.get())
 		.pattern("IBI")
 		.pattern("ISI")

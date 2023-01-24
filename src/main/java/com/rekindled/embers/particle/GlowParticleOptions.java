@@ -22,6 +22,7 @@ public class GlowParticleOptions implements ParticleOptions {
 	protected final Vector3f color;
 	protected final Vec3 motion;
 	protected final float scale;
+	protected final int lifetime;
 	public static final Vector3f EMBER_COLOR = new Vector3f(255.0F / 255.0F, 64.0F / 255.0F, 16.0F / 255.0F);
 	public static final GlowParticleOptions EMBER = new GlowParticleOptions(EMBER_COLOR, 2.0F);
 
@@ -32,6 +33,8 @@ public class GlowParticleOptions implements ParticleOptions {
 			return p_175797_.motion;
 		}), Codec.FLOAT.fieldOf("scale").forGetter((p_175795_) -> {
 			return p_175795_.scale;
+		}), Codec.INT.fieldOf("lifetime").forGetter((p_175795_) -> {
+			return p_175795_.lifetime;
 		})).apply(p_175793_, GlowParticleOptions::new);
 	});
 	public static final ParticleOptions.Deserializer<GlowParticleOptions> DESERIALIZER = new ParticleOptions.Deserializer<GlowParticleOptions>() {
@@ -41,7 +44,8 @@ public class GlowParticleOptions implements ParticleOptions {
 			Vec3 vec3Motion = GlowParticleOptions.readVec3(p_123690_);
 			p_123690_.expect(' ');
 			float f = p_123690_.readFloat();
-			return new GlowParticleOptions(vector3fColor, vec3Motion, f);
+			int s = p_123690_.readInt();
+			return new GlowParticleOptions(vector3fColor, vec3Motion, f, s);
 		}
 
 		public GlowParticleOptions fromNetwork(ParticleType<GlowParticleOptions> p_123692_, FriendlyByteBuf p_123693_) {
@@ -49,10 +53,19 @@ public class GlowParticleOptions implements ParticleOptions {
 		}
 	};
 
-	public GlowParticleOptions(Vector3f pColor, Vec3 pMotion, float pScale) {
+	public GlowParticleOptions(Vector3f pColor, Vec3 pMotion, float pScale, int plifetime) {
 		this.color = pColor;
 		this.motion = pMotion;
 		this.scale = pScale;
+		this.lifetime = plifetime;
+	}
+
+	public GlowParticleOptions(Vector3f pColor, Vec3 pMotion, float pScale) {
+		this(pColor, pMotion, pScale, -1);
+	}
+
+	public GlowParticleOptions(Vector3f pColor, float pScale, int plifetime) {
+		this(pColor, Vec3.ZERO, pScale, plifetime);
 	}
 
 	public GlowParticleOptions(Vector3f pColor, float pScale) {
@@ -95,6 +108,7 @@ public class GlowParticleOptions implements ParticleOptions {
 		pBuffer.writeDouble(this.motion.y());
 		pBuffer.writeDouble(this.motion.z());
 		pBuffer.writeFloat(this.scale);
+		pBuffer.writeInt(this.lifetime);
 	}
 
 	public String writeToString() {
@@ -111,6 +125,10 @@ public class GlowParticleOptions implements ParticleOptions {
 
 	public float getScale() {
 		return this.scale;
+	}
+
+	public int getLifetime() {
+		return this.lifetime;
 	}
 
 	@Override
