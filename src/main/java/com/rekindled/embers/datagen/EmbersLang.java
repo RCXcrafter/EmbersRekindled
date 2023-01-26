@@ -154,9 +154,9 @@ public class EmbersLang extends LanguageProvider {
 
 
 		//ancient codex
-		add(Embers.MODID + ".research.controls", "Right-click entries to mark them as §a✔§r complete.;Categories will open as you complete entries.;;Enter text to search and highlight entries.;You can search entries matching multiple words with §f|§r.;ex: §fEmber|Generator§r");
+		add(Embers.MODID + ".research.controls", "Right-click entries to mark them as complete.;Incompleted entries are marked with a star §6*§r;Categories will open as you complete entries.;;Enter text to search and highlight entries.;You can search entries matching multiple words with §f|§r.;ex: §fEmber|Generator§r");
 		add(Embers.MODID + ".research.prerequisite", "Needed for %s");
-		add(Embers.MODID + ".research.prerequisite.locked", "§4✕§8 Needs %s");
+		add(Embers.MODID + ".research.prerequisite.locked", "§6*§8 Needs %s");
 		add(Embers.MODID + ".research.prerequisite.unlocked", "§a✔§r Needs %s");
 
 		add(Embers.MODID + ".research.null", "");

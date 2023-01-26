@@ -96,11 +96,11 @@ public class ResearchCategory {
 		if(showTooltips || !isChecked)
 			for (ResearchBase prerequisite : getPrerequisites()) {
 				//String checkmark;
-				if (prerequisite.isChecked())
-					tooltip.add(Component.translatable(Embers.MODID + ".research.prerequisite.unlocked",prerequisite.getName()));
-				else
+				if (prerequisite.isChecked()) {
+					//tooltip.add(Component.translatable(Embers.MODID + ".research.prerequisite.unlocked",prerequisite.getName()));
+				} else {
 					tooltip.add(Component.translatable(Embers.MODID + ".research.prerequisite.locked",prerequisite.getName()));
-
+				}
 			}
 		return tooltip;
 	}
