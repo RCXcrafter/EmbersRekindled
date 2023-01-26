@@ -22,6 +22,7 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 
 public class AncientGolemEntity extends Monster {
 
@@ -61,7 +62,9 @@ public class AncientGolemEntity extends Monster {
 				playSound(EmbersSounds.FIREBALL.get(), 1.0f, 1.0f);
 				EffectDamage effect = new EffectDamage(4.0f, DamageEmber.EMBER_DAMAGE_SOURCE_FACTORY, 1, 1.0f);
 				EmberProjectileEntity proj = RegistryManager.EMBER_PROJECTILE.get().create(level);
-				proj.shootFromRotation(this, getXRot(), getYRot(), 0.0f, 0.5f, 0.0f, 4.0f);
+
+				Vec3 lookVec = getLookAngle();
+				proj.shoot(lookVec.x, lookVec.y, lookVec.z, 0.5f, 0.0f, 4.0f);
 				proj.setPos(getEyePosition());
 				proj.setEffect(effect);
 

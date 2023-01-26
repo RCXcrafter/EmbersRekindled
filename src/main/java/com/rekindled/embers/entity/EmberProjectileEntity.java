@@ -159,7 +159,7 @@ public class EmberProjectileEntity extends Projectile {
 				GlowParticleOptions options = new GlowParticleOptions(Misc.colorFromInt(getEntityData().get(color)), getEntityData().get(value) / 1.75f);
 				for (double i = 0; i < dist; i++) {
 					double coeff = i / dist;
-					level.addParticle(options, currPosVec.x + deltaX * coeff, currPosVec.y + deltaY * coeff, currPosVec.z + deltaZ * coeff, 0.0125f*(random.nextFloat()-0.5f), 0.0125f*(random.nextFloat()-0.5f), 0.0125f*(random.nextFloat()-0.5f));
+					level.addParticle(options, currPosVec.x + deltaX * coeff, currPosVec.y + deltaY * coeff, currPosVec.z + deltaZ * coeff, 0.125f*(random.nextFloat()-0.5f), 0.125f*(random.nextFloat()-0.5f), 0.125f*(random.nextFloat()-0.5f));
 				}
 			}
 		} else {
@@ -211,7 +211,7 @@ public class EmberProjectileEntity extends Projectile {
 		GlowParticleOptions options = new GlowParticleOptions(Misc.colorFromInt(getEntityData().get(color)), getEntityData().get(value));
 		if (level instanceof ServerLevel serverLevel) {
 			float dist = ((float)getEntityData().get(value)/3.5f)*0.125f;
-			serverLevel.sendParticles(options, getX(), getY(), getZ(), 40, dist, dist, dist, 10.0);
+			serverLevel.sendParticles(options, getX(), getY(), getZ(), 40, dist, dist, dist, 0.75);
 		}
 
 		getEntityData().set(lifetime, 20);
