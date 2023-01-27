@@ -89,7 +89,8 @@ public class EmberActivatorTopBlockEntity extends BlockEntity implements ISoundC
 		blockEntity.handleSound();
 		if (blockEntity.capability.getEmber() > 0) {
 			for (int i = 0; i < Math.ceil(blockEntity.capability.getEmber() / 500.0); i ++) {
-				level.addParticle(GlowParticleOptions.EMBER, pos.getX()+0.25f+random.nextFloat()*0.5f, pos.getY()+0.25f+random.nextFloat()*0.5f, pos.getZ()+0.25f+random.nextFloat()*0.5f, 0, 0, 0);
+				level.addParticle(GlowParticleOptions.EMBER, pos.getX()+0.25f+random.nextFloat()*0.5f, pos.getY()+0.25f+random.nextFloat()*0.5f, pos.getZ()+0.25f+random.nextFloat()*0.5f,
+						(Math.random() * 2.0D - 1.0D) * 0.2D, (Math.random() * 2.0D - 1.0D) * 0.2D, (Math.random() * 2.0D - 1.0D) * 0.2D);
 			}
 		}
 	}
