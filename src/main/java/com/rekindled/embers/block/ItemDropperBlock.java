@@ -3,16 +3,12 @@ package com.rekindled.embers.block;
 import javax.annotation.Nullable;
 
 import com.rekindled.embers.RegistryManager;
-import com.rekindled.embers.blockentity.BinBlockEntity;
+import com.rekindled.embers.api.block.IPipeConnection;
+import com.rekindled.embers.blockentity.ItemDropperBlockEntity;
 import com.rekindled.embers.util.Misc;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -29,7 +25,6 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -37,34 +32,13 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.IItemHandler;
 
-public class BinBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
+public class ItemDropperBlock extends BaseEntityBlock implements SimpleWaterloggedBlock, IPipeConnection {
 
-	protected static final VoxelShape BIN_AABB = Shapes.join(Shapes.block(), Block.box(2,2,2,14,16,14), BooleanOp.ONLY_FIRST);
+	protected static final VoxelShape DROPPER_AABB = Shapes.or(Block.box(6,11,6,10,16,10), Shapes.joinUnoptimized(Block.box(4,10,4,12,14,12), Block.box(6,10,6,10,11,10), BooleanOp.ONLY_FIRST));
 
-	public BinBlock(Properties properties) {
+	public ItemDropperBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(BlockStateProperties.WATERLOGGED, false));
-	}
-
-	@Override
-	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		if (level.getBlockEntity(pos) instanceof BinBlockEntity binEntity) {
-			ItemStack heldItem = player.getItemInHand(hand);
-			if (!heldItem.isEmpty()) {
-				ItemStack leftover = binEntity.inventory.insertItem(0, heldItem, false);
-				if (!leftover.equals(heldItem)) {
-					player.setItemInHand(hand, leftover);
-					return InteractionResult.SUCCESS;
-				}
-			} else {
-				if (!binEntity.inventory.getStackInSlot(0).isEmpty() && !level.isClientSide) {
-					level.addFreshEntity(new ItemEntity(level, player.position().x, player.position().y, player.position().z, binEntity.inventory.getStackInSlot(0)));
-					binEntity.inventory.setStackInSlot(0, ItemStack.EMPTY);
-					return InteractionResult.SUCCESS;
-				}
-			}
-		}
-		return InteractionResult.PASS;
 	}
 
 	@Override
@@ -86,17 +60,17 @@ public class BinBlock extends BaseEntityBlock implements SimpleWaterloggedBlock 
 
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-		return BIN_AABB;
+		return DROPPER_AABB;
 	}
 
 	@Override
 	public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-		return RegistryManager.BIN_ENTITY.get().create(pPos, pState);
+		return RegistryManager.ITEM_DROPPER_ENTITY.get().create(pPos, pState);
 	}
 
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-		return pLevel.isClientSide ? null : createTickerHelper(pBlockEntityType, RegistryManager.BIN_ENTITY.get(), BinBlockEntity::serverTick);
+		return pLevel.isClientSide ? null : createTickerHelper(pBlockEntityType, RegistryManager.ITEM_DROPPER_ENTITY.get(), ItemDropperBlockEntity::serverTick);
 	}
 
 	@Nullable
@@ -121,5 +95,10 @@ public class BinBlock extends BaseEntityBlock implements SimpleWaterloggedBlock 
 	@Override
 	public FluidState getFluidState(BlockState pState) {
 		return pState.getValue(BlockStateProperties.WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(pState);
+	}
+
+	@Override
+	public boolean connectPipe(Direction direction) {
+		return direction == Direction.UP;
 	}
 }

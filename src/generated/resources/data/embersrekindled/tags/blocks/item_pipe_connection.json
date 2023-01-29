@@ -1,5 +1,6 @@
 {
   "values": [
-    "#embersrekindled:item_pipe_connection/toggleable"
+    "#embersrekindled:item_pipe_connection/toggleable",
+    "embersrekindled:item_dropper"
   ]
 }

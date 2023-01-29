@@ -397,6 +397,14 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_item_pipe", has(RegistryManager.ITEM_PIPE.get()))
 		.save(consumer, getResource("item_extractor"));
 
+		ShapedRecipeBuilder.shaped(RegistryManager.ITEM_DROPPER.get())
+		.pattern(" P ")
+		.pattern("I I")
+		.define('I', itemTag("forge", "ingots/lead"))
+		.define('P', RegistryManager.ITEM_PIPE.get())
+		.unlockedBy("has_item_pipe", has(RegistryManager.ITEM_PIPE.get()))
+		.save(consumer, getResource("item_dropper"));
+
 		ShapedRecipeBuilder.shaped(RegistryManager.BIN.get())
 		.pattern("I I")
 		.pattern("I I")

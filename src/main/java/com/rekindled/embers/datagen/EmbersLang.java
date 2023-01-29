@@ -56,6 +56,7 @@ public class EmbersLang extends LanguageProvider {
 		addBlock(RegistryManager.STAMP_BASE, "Stamp Base");
 		addBlock(RegistryManager.BIN, "Bin");
 		addBlock(RegistryManager.MIXER_CENTRIFUGE, "Mixer Centrifuge");
+		addBlock(RegistryManager.ITEM_DROPPER, "Item Dropper");
 
 		addItem(RegistryManager.TINKER_HAMMER, "Tinker's Hammer");
 		addItem(RegistryManager.TINKER_LENS, "Tinker's Lens");

@@ -1,0 +1,7 @@
+{
+  "parent": "embersrekindled:block/dropper",
+  "textures": {
+    "dropper": "embersrekindled:block/plates_lead",
+    "particle": "embersrekindled:block/plates_lead"
+  }
+}

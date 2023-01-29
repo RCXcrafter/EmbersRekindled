@@ -2,6 +2,7 @@ package com.rekindled.embers.block;
 
 import javax.annotation.Nullable;
 
+import com.rekindled.embers.api.block.IPipeConnection;
 import com.rekindled.embers.datagen.EmbersItemTags;
 import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.util.Misc;
@@ -239,7 +240,8 @@ public abstract class PipeBlockBase extends BaseEntityBlock implements SimpleWat
 			BlockState facingState = context.getLevel().getBlockState(context.getClickedPos().relative(direction));
 			if (!facingState.hasProperty(DIRECTIONS[direction.getOpposite().get3DDataValue()]) || facingState.getValue(DIRECTIONS[direction.getOpposite().get3DDataValue()]) != PipeConnection.DISABLED) {
 				if (facingState.is(getConnectionTag())) {
-					if (facingState.hasProperty(DIRECTIONS[direction.getOpposite().get3DDataValue()]) && facingState.getValue(DIRECTIONS[direction.getOpposite().get3DDataValue()]) == PipeConnection.DISABLED) {
+					if (facingState.hasProperty(DIRECTIONS[direction.getOpposite().get3DDataValue()]) && facingState.getValue(DIRECTIONS[direction.getOpposite().get3DDataValue()]) == PipeConnection.DISABLED
+							|| facingState.getBlock() instanceof IPipeConnection && !((IPipeConnection) facingState.getBlock()).connectPipe(direction.getOpposite())) {
 						blockstate = blockstate.setValue(DIRECTIONS[direction.get3DDataValue()], PipeConnection.DISABLED);
 					} else {
 						blockstate = blockstate.setValue(DIRECTIONS[direction.get3DDataValue()], PipeConnection.PIPE);
@@ -265,7 +267,8 @@ public abstract class PipeBlockBase extends BaseEntityBlock implements SimpleWat
 		if (!pFacingState.hasProperty(DIRECTIONS[pFacing.getOpposite().get3DDataValue()]) || pFacingState.getValue(DIRECTIONS[pFacing.getOpposite().get3DDataValue()]) != PipeConnection.DISABLED) {
 			boolean enabled = pState.getValue(DIRECTIONS[pFacing.get3DDataValue()]) != PipeConnection.DISABLED;
 			if (pFacingState.is(getConnectionTag()) && enabled) {
-				if (pFacingState.hasProperty(DIRECTIONS[pFacing.getOpposite().get3DDataValue()]) && pFacingState.getValue(DIRECTIONS[pFacing.getOpposite().get3DDataValue()]) == PipeConnection.DISABLED) {
+				if (pFacingState.hasProperty(DIRECTIONS[pFacing.getOpposite().get3DDataValue()]) && pFacingState.getValue(DIRECTIONS[pFacing.getOpposite().get3DDataValue()]) == PipeConnection.DISABLED
+						|| pFacingState.getBlock() instanceof IPipeConnection && !((IPipeConnection) pFacingState.getBlock()).connectPipe(pFacing.getOpposite())) {
 					pState = pState.setValue(DIRECTIONS[pFacing.get3DDataValue()], PipeConnection.DISABLED);
 				} else {
 					pState = pState.setValue(DIRECTIONS[pFacing.get3DDataValue()], PipeConnection.PIPE);

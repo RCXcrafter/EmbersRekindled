@@ -345,6 +345,13 @@ public class EmbersBlockStates extends BlockStateProvider {
 					.uvLock(false)
 					.build();
 		});
+
+
+		ModelFile dropperModel = models().withExistingParent(RegistryManager.ITEM_DROPPER.getId().toString(), new ResourceLocation(Embers.MODID, "dropper"))
+				.texture("dropper", new ResourceLocation(Embers.MODID, "block/plates_lead"))
+				.texture("particle", new ResourceLocation(Embers.MODID, "block/plates_lead"));
+		simpleBlock(RegistryManager.ITEM_DROPPER.get(), dropperModel);
+		simpleBlockItem(RegistryManager.ITEM_DROPPER.get(), dropperModel);
 	}
 
 	public void blockWithItem(RegistryObject<? extends Block> registryObject) {
