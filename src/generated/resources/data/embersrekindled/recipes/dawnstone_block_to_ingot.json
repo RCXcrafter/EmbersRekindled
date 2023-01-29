@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "embersrekindled:dawnstone_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "item": "embersrekindled:dawnstone_ingot"
+  }
+}

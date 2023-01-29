@@ -1,0 +1,10 @@
+{
+  "type": "embersrekindled:melting",
+  "input": {
+    "tag": "forge:storage_blocks/dawnstone"
+  },
+  "output": {
+    "amount": 810,
+    "fluid": "embersrekindled:molten_dawnstone"
+  }
+}

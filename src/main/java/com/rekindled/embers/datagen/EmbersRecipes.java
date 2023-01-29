@@ -8,6 +8,7 @@ import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.recipe.BoringRecipeBuilder;
 import com.rekindled.embers.recipe.EmberActivationRecipeBuilder;
 import com.rekindled.embers.recipe.MeltingRecipeBuilder;
+import com.rekindled.embers.recipe.MixingRecipeBuilder;
 import com.rekindled.embers.recipe.StampingRecipeBuilder;
 
 import net.minecraft.core.Registry;
@@ -42,6 +43,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 	public static String activationFolder = "ember_activation";
 	public static String meltingFolder = "melting";
 	public static String stampingFolder = "stamping";
+	public static String mixingFolder = "mixing";
 
 	public EmbersRecipes(DataGenerator gen) {
 		super(gen);
@@ -61,6 +63,8 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 
 		//metals
 		fullOreRecipes("lead", ImmutableList.of(RegistryManager.LEAD_ORE_ITEM.get(), RegistryManager.DEEPSLATE_LEAD_ORE_ITEM.get(), RegistryManager.RAW_LEAD.get()), RegistryManager.MOLTEN_LEAD.FLUID.get(), RegistryManager.RAW_LEAD.get(), RegistryManager.RAW_LEAD_BLOCK_ITEM.get(), RegistryManager.LEAD_BLOCK_ITEM.get(), RegistryManager.LEAD_INGOT.get(), RegistryManager.LEAD_NUGGET.get(), RegistryManager.LEAD_PLATE.get(), consumer);
+
+		fullMetalRecipes("dawnstone", RegistryManager.MOLTEN_DAWNSTONE.FLUID.get(), RegistryManager.DAWNSTONE_BLOCK_ITEM.get(), RegistryManager.DAWNSTONE_INGOT.get(), RegistryManager.DAWNSTONE_NUGGET.get(), RegistryManager.DAWNSTONE_PLATE.get(), consumer);
 
 		ShapedRecipeBuilder.shaped(Items.COPPER_INGOT)
 		.pattern("XXX")
@@ -84,6 +88,9 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		fullOreMeltingStampingRecipes("iron", RegistryManager.MOLTEN_IRON.FLUID.get(), Items.IRON_INGOT, Items.IRON_NUGGET, RegistryManager.IRON_PLATE.get(), consumer);
 		fullOreMeltingStampingRecipes("gold", RegistryManager.MOLTEN_GOLD.FLUID.get(), Items.GOLD_INGOT, Items.GOLD_NUGGET, RegistryManager.GOLD_PLATE.get(), consumer);
 		fullOreMeltingStampingRecipes("copper", RegistryManager.MOLTEN_COPPER.FLUID.get(), Items.COPPER_INGOT, RegistryManager.COPPER_NUGGET.get(), RegistryManager.COPPER_PLATE.get(), consumer);
+
+		//mixing
+		MixingRecipeBuilder.create(RegistryManager.MOLTEN_DAWNSTONE.FLUID.get(), 4).folder(mixingFolder).input(fluidTag("forge", "molten_copper"), 2).input(fluidTag("forge", "molten_gold"), 2).save(consumer);
 
 		//crafting
 		ShapedRecipeBuilder.shaped(RegistryManager.EMBER_CRYSTAL.get())
@@ -388,6 +395,17 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('P', itemTag("forge", "plates/lead"))
 		.unlockedBy("has_lead_plate", has(itemTag("forge", "plates/lead")))
 		.save(consumer, getResource("bin"));
+
+		ShapedRecipeBuilder.shaped(RegistryManager.MIXER_CENTRIFUGE.get())
+		.pattern("PPP")
+		.pattern("PCP")
+		.pattern("IMI")
+		.define('P', itemTag("forge", "plates/iron"))
+		.define('I', itemTag("forge", "ingots/iron"))
+		.define('C', itemTag("forge", "ingots/copper"))
+		.define('M', RegistryManager.MECHANICAL_CORE.get())
+		.unlockedBy("has_melter", has(RegistryManager.MELTER.get()))
+		.save(consumer, getResource("mixer_centrifuge"));
 	}
 
 	public void fullOreRecipes(String name, ImmutableList<ItemLike> ores, Fluid fluid, Item raw, Item rawBlock, Item block, Item ingot, Item nugget, Item plate, Consumer<FinishedRecipe> consumer) {

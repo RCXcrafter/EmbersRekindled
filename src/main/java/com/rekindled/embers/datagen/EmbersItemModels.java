@@ -59,6 +59,10 @@ public class EmbersItemModels extends ItemModelProvider {
 		itemWithTexture(RegistryManager.LEAD_NUGGET, "nugget_lead");
 		itemWithTexture(RegistryManager.LEAD_PLATE, "plate_lead");
 
+		itemWithTexture(RegistryManager.DAWNSTONE_INGOT, "ingot_dawnstone");
+		itemWithTexture(RegistryManager.DAWNSTONE_NUGGET, "nugget_dawnstone");
+		itemWithTexture(RegistryManager.DAWNSTONE_PLATE, "plate_dawnstone");
+
 		spawnEgg(RegistryManager.ANCIENT_GOLEM_SPAWN_EGG);
 	}
 

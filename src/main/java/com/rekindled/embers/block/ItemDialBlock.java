@@ -20,6 +20,8 @@ import net.minecraftforge.items.IItemHandler;
 
 public class ItemDialBlock extends DialBaseBlock {
 
+	public static final String DIAL_TYPE = "item";
+
 	public ItemDialBlock(Properties pProperties) {
 		super(pProperties);
 	}
@@ -76,6 +78,6 @@ public class ItemDialBlock extends DialBaseBlock {
 
 	@Override
 	public String getDialType() {
-		return "item";
+		return DIAL_TYPE;
 	}
 }

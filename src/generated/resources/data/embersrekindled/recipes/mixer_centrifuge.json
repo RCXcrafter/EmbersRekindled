@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "C": {
+      "tag": "forge:ingots/copper"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "M": {
+      "item": "embersrekindled:mechanical_core"
+    },
+    "P": {
+      "tag": "forge:plates/iron"
+    }
+  },
+  "pattern": [
+    "PPP",
+    "PCP",
+    "IMI"
+  ],
+  "result": {
+    "item": "embersrekindled:mixer_centrifuge"
+  }
+}

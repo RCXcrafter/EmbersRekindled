@@ -33,6 +33,7 @@ public class EmbersBlockLootTables extends BlockLoot {
 		});
 		dropSelf(RegistryManager.RAW_LEAD_BLOCK.get());
 		dropSelf(RegistryManager.LEAD_BLOCK.get());
+		dropSelf(RegistryManager.DAWNSTONE_BLOCK.get());
 
 		dropSelf(RegistryManager.CAMINITE_BRICKS.get());
 		dropSelf(RegistryManager.ARCHAIC_BRICKS.get());
@@ -61,5 +62,6 @@ public class EmbersBlockLootTables extends BlockLoot {
 		dropSelf(RegistryManager.STAMPER.get());
 		dropSelf(RegistryManager.STAMP_BASE.get());
 		dropSelf(RegistryManager.BIN.get());
+		dropSelf(RegistryManager.MIXER_CENTRIFUGE.get());
 	}
 }

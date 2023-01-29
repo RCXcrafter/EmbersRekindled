@@ -18,6 +18,8 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 
 public class FluidDialBlock extends DialBaseBlock {
 
+	public static final String DIAL_TYPE = "fluid";
+
 	public FluidDialBlock(Properties pProperties) {
 		super(pProperties);
 	}
@@ -67,6 +69,6 @@ public class FluidDialBlock extends DialBaseBlock {
 
 	@Override
 	public String getDialType() {
-		return "fluid";
+		return DIAL_TYPE;
 	}
 }

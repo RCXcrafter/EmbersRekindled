@@ -19,6 +19,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class EmberDialBlock extends DialBaseBlock {
 
+	public static final String DIAL_TYPE = "ember";
+
 	public EmberDialBlock(Properties pProperties) {
 		super(pProperties);
 	}
@@ -58,6 +60,6 @@ public class EmberDialBlock extends DialBaseBlock {
 
 	@Override
 	public String getDialType() {
-		return "ember";
+		return DIAL_TYPE;
 	}
 }

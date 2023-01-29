@@ -55,6 +55,7 @@ public class EmbersLang extends LanguageProvider {
 		addBlock(RegistryManager.STAMPER, "Stamper");
 		addBlock(RegistryManager.STAMP_BASE, "Stamp Base");
 		addBlock(RegistryManager.BIN, "Bin");
+		addBlock(RegistryManager.MIXER_CENTRIFUGE, "Mixer Centrifuge");
 
 		addItem(RegistryManager.TINKER_HAMMER, "Tinker's Hammer");
 		addItem(RegistryManager.TINKER_LENS, "Tinker's Lens");
@@ -91,6 +92,11 @@ public class EmbersLang extends LanguageProvider {
 		addItem(RegistryManager.LEAD_NUGGET, "Lead Nugget");
 		addItem(RegistryManager.LEAD_PLATE, "Lead Plate");
 
+		addBlock(RegistryManager.DAWNSTONE_BLOCK, "Block of Dawnstone");
+		addItem(RegistryManager.DAWNSTONE_INGOT, "Dawnstone Ingot");
+		addItem(RegistryManager.DAWNSTONE_NUGGET, "Dawnstone Nugget");
+		addItem(RegistryManager.DAWNSTONE_PLATE, "Dawnstone Plate");
+
 		addItem(RegistryManager.ANCIENT_GOLEM_SPAWN_EGG, "Ancient Golem Spawn Egg");
 
 
@@ -108,6 +114,14 @@ public class EmbersLang extends LanguageProvider {
 
 		add(Embers.MODID + ".tooltip.fluiddial.fluid", "%s: %s/%s");
 		add(Embers.MODID + ".tooltip.fluiddial.nofluid", "0/%s");
+
+		add(Embers.MODID + ".tooltip.side.center", "Center");
+		add(Embers.MODID + ".tooltip.side.north", "North");
+		add(Embers.MODID + ".tooltip.side.east", "East");
+		add(Embers.MODID + ".tooltip.side.south", "South");
+		add(Embers.MODID + ".tooltip.side.west", "West");
+		add(Embers.MODID + ".tooltip.side.up", "Top");
+		add(Embers.MODID + ".tooltip.side.down", "Bottom");
 
 		add(Embers.MODID + ".tooltip.goggles.input", "§9⬊§r %s");
 		add(Embers.MODID + ".tooltip.goggles.output", "§6⬉§r %s");
@@ -151,6 +165,7 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".jei.recipe.ember_activation.ember", "Ember: %s");
 		add(Embers.MODID + ".jei.recipe.melting", "Melting");
 		add(Embers.MODID + ".jei.recipe.stamping", "Stamping");
+		add(Embers.MODID + ".jei.recipe.mixing", "Mixing");
 
 
 		//ancient codex

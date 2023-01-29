@@ -36,6 +36,11 @@ public class EmbersItemTags extends ItemTagsProvider {
 	public static final TagKey<Item> LEAD_NUGGET = ItemTags.create(new ResourceLocation("forge", "nuggets/lead"));
 	public static final TagKey<Item> LEAD_PLATE = ItemTags.create(new ResourceLocation("forge", "plates/lead"));
 
+	public static final TagKey<Item> DAWNSTONE_BLOCK = ItemTags.create(new ResourceLocation("forge", "storage_blocks/dawnstone"));
+	public static final TagKey<Item> DAWNSTONE_INGOT = ItemTags.create(new ResourceLocation("forge", "ingots/dawnstone"));
+	public static final TagKey<Item> DAWNSTONE_NUGGET = ItemTags.create(new ResourceLocation("forge", "nuggets/dawnstone"));
+	public static final TagKey<Item> DAWNSTONE_PLATE = ItemTags.create(new ResourceLocation("forge", "plates/dawnstone"));
+
 	public static final TagKey<Item> CAMINITE_BRICK = ItemTags.create(new ResourceLocation("forge", "ingots/caminite_brick"));
 	public static final TagKey<Item> ARCHAIC_BRICK = ItemTags.create(new ResourceLocation("forge", "ingots/archaic_brick"));
 
@@ -60,22 +65,26 @@ public class EmbersItemTags extends ItemTagsProvider {
 
 		tag(Tags.Items.STORAGE_BLOCKS).addTags(LEAD_BLOCK);
 		tag(LEAD_BLOCK).add(RegistryManager.LEAD_BLOCK_ITEM.get());
+		tag(DAWNSTONE_BLOCK).add(RegistryManager.DAWNSTONE_BLOCK_ITEM.get());
 
 		tag(Tags.Items.RAW_MATERIALS).addTags(RAW_LEAD);
 		tag(RAW_LEAD).add(RegistryManager.RAW_LEAD.get());
 
 		tag(Tags.Items.INGOTS).addTags(LEAD_INGOT);
 		tag(LEAD_INGOT).add(RegistryManager.LEAD_INGOT.get());
+		tag(DAWNSTONE_INGOT).add(RegistryManager.DAWNSTONE_INGOT.get());
 
 		tag(Tags.Items.NUGGETS).addTags(COPPER_NUGGET, LEAD_NUGGET);
 		tag(COPPER_NUGGET).add(RegistryManager.COPPER_NUGGET.get());
 		tag(LEAD_NUGGET).add(RegistryManager.LEAD_NUGGET.get());
+		tag(DAWNSTONE_NUGGET).add(RegistryManager.DAWNSTONE_NUGGET.get());
 
 		tag(PLATES).addTags(IRON_PLATE, GOLD_PLATE, COPPER_PLATE, LEAD_PLATE);
 		tag(IRON_PLATE).add(RegistryManager.IRON_PLATE.get());
 		tag(GOLD_PLATE).add(RegistryManager.GOLD_PLATE.get());
 		tag(COPPER_PLATE).add(RegistryManager.COPPER_PLATE.get());
 		tag(LEAD_PLATE).add(RegistryManager.LEAD_PLATE.get());
+		tag(DAWNSTONE_PLATE).add(RegistryManager.DAWNSTONE_PLATE.get());
 
 		tag(Tags.Items.INGOTS).addTags(CAMINITE_BRICK);
 		tag(CAMINITE_BRICK).add(RegistryManager.CAMINITE_BRICK.get());

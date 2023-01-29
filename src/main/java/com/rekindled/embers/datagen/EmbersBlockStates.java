@@ -58,6 +58,7 @@ public class EmbersBlockStates extends BlockStateProvider {
 		blockWithItemTexture(RegistryManager.DEEPSLATE_LEAD_ORE, "deepslate_ore_lead");
 		blockWithItemTexture(RegistryManager.RAW_LEAD_BLOCK, "material_lead");
 		blockWithItemTexture(RegistryManager.LEAD_BLOCK, "block_lead");
+		blockWithItemTexture(RegistryManager.DAWNSTONE_BLOCK, "block_dawnstone");
 
 		blockWithItem(RegistryManager.CAMINITE_BRICKS);
 		blockWithItem(RegistryManager.ARCHAIC_BRICKS);
@@ -335,6 +336,15 @@ public class EmbersBlockStates extends BlockStateProvider {
 		blockWithItem(RegistryManager.STAMP_BASE, "stamp_base");
 
 		blockWithItem(RegistryManager.BIN, "bin");
+
+		ExistingModelFile mixerBottomModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "mixer_bottom"));
+		simpleBlockItem(RegistryManager.MIXER_CENTRIFUGE.get(), mixerBottomModel);
+		getVariantBuilder(RegistryManager.MIXER_CENTRIFUGE.get()).forAllStates(state -> {
+			return ConfiguredModel.builder()
+					.modelFile(state.getValue(BlockStateProperties.BOTTOM) ? mixerBottomModel : models().getExistingFile(new ResourceLocation(Embers.MODID, "mixer_top")))
+					.uvLock(false)
+					.build();
+		});
 	}
 
 	public void blockWithItem(RegistryObject<? extends Block> registryObject) {

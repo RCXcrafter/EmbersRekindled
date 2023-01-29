@@ -1,0 +1,13 @@
+{
+  "type": "embersrekindled:stamping",
+  "fluid": {
+    "amount": 90,
+    "tag": "forge:molten_dawnstone"
+  },
+  "output": {
+    "item": "embersrekindled:dawnstone_plate"
+  },
+  "stamp": {
+    "item": "embersrekindled:plate_stamp"
+  }
+}

@@ -83,6 +83,10 @@ public class BoringCategory implements IRecipeCategory<BoringRecipe> {
 				text.add(Component.literal(biome.toString()));
 			}
 		}
-		Misc.drawComponents(fontRenderer, stack, 10, 28, text.toArray(new Component[text.size()]));
+		Component[] components = new Component[text.size()];
+		for (int i = 0; i < text.size(); i++) {
+			components[i] = text.get(i);
+		}
+		Misc.drawComponents(fontRenderer, stack, 10, 28, components);
 	}
 }

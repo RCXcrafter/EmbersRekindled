@@ -16,6 +16,7 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.fluids.FluidStack;
 
 public class StampingCategory implements IRecipeCategory<StampingRecipe> {
 
@@ -51,6 +52,13 @@ public class StampingCategory implements IRecipeCategory<StampingRecipe> {
 
 	@Override
 	public void setRecipe(IRecipeLayoutBuilder builder, StampingRecipe recipe, IFocusGroup focuses) {
+		int capacity = 0;
+
+		for (FluidStack fluid : recipe.getDisplayInputFluid().getFluids()) {
+			capacity = Math.max(fluid.getAmount(), capacity);
+		}
+		capacity = Math.min(1500, capacity + capacity / 4);
+
 		builder.addSlot(RecipeIngredientRole.INPUT, 8, 28).addIngredients(recipe.getDisplayInput());
 
 		builder.addSlot(RecipeIngredientRole.INPUT, 47, 7).addIngredients(recipe.getDisplayStamp());
@@ -58,7 +66,7 @@ public class StampingCategory implements IRecipeCategory<StampingRecipe> {
 		builder.addSlot(RecipeIngredientRole.OUTPUT, 84, 28).addItemStack(recipe.getResultItem());
 
 		builder.addSlot(RecipeIngredientRole.INPUT, 47, 48)
-		.setFluidRenderer(200, false, 16, 32)
+		.setFluidRenderer(capacity, false, 16, 32)
 		.addIngredients(ForgeTypes.FLUID_STACK, recipe.getDisplayInputFluid().getFluids());
 	}
 }

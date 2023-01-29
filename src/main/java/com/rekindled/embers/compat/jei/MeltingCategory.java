@@ -16,6 +16,7 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.fluids.FluidType;
 
 public class MeltingCategory implements IRecipeCategory<MeltingRecipe> {
 
@@ -51,10 +52,13 @@ public class MeltingCategory implements IRecipeCategory<MeltingRecipe> {
 
 	@Override
 	public void setRecipe(IRecipeLayoutBuilder builder, MeltingRecipe recipe, IFocusGroup focuses) {
+		int capacity = recipe.getDisplayOutput().getAmount();
+		capacity = Math.min(FluidType.BUCKET_VOLUME * 4, capacity + capacity / 4);
+		
 		builder.addSlot(RecipeIngredientRole.INPUT, 8, 14).addIngredients(recipe.getDisplayInput());
 
 		builder.addSlot(RecipeIngredientRole.OUTPUT, 84, 6)
-		.setFluidRenderer(1500, false, 16, 32)
+		.setFluidRenderer(capacity, false, 16, 32)
 		.addIngredient(ForgeTypes.FLUID_STACK, recipe.getDisplayOutput());
 	}
 }

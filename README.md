@@ -20,6 +20,7 @@ I've decided to port Embers Rekindled to a Minecraft version beyond 1.12.2, I do
 - The mechanical core and machine accessor have been merged into one block as described in the elucent plans doc
 - The bin is now made of lead since it's related to item transport/storage
 - The checkmarks in the codex have been replaced with a dawnstone dot on uncompleted entries
+- The mixer centrifuge now has small holes on the side to show what fluids are inside
 
 ## Things I want to change:
 - There's a cool document with some of Elucent's plans for Embers, quite a bit of it has already been implemented by bord but there's also some ideas for some major changes and a port would be an ideal moment to implement them: https://github.com/RCXcrafter/EmbersRekindled/blob/rekindled/docs/elucent-plans.txt
