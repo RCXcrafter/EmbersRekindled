@@ -174,7 +174,7 @@ public class ResearchManager {
 		ores = new ResearchBase("ores", new ItemStack(RegistryManager.RAW_LEAD.get()), 0, 7);
 		hammer = new ResearchBase("hammer", new ItemStack(RegistryManager.TINKER_HAMMER.get()), 0, 3).addAncestor(ores);
 		ancient_golem = new ResearchBase("ancient_golem", ItemStack.EMPTY, 0, 0).setIconBackground(PAGE_ICONS, PAGE_ICON_SIZE *1, PAGE_ICON_SIZE *0);
-		//gauge = new ResearchBase("gauge", new ItemStack(RegistryManager.EMBER_DIAL_ITEM.get()), 4, 3).addAncestor(ores);
+		gauge = new ResearchBase("gauge", new ItemStack(RegistryManager.ATMOSPHERIC_GAUGE.get()), 4, 3).addAncestor(ores);
 		caminite = new ResearchBase("caminite", new ItemStack(RegistryManager.CAMINITE_BRICK.get()), 6, 7);
 		bore = new ResearchBase("bore", new ItemStack(RegistryManager.EMBER_BORE_ITEM.get()), 9, 0).addAncestor(hammer).addAncestor(caminite);
 		crystals = new ResearchBase("crystals", new ItemStack(RegistryManager.EMBER_CRYSTAL.get()), 12, 3).addAncestor(bore);
@@ -211,10 +211,10 @@ public class ResearchManager {
 		stamper = new ResearchBase("stamper", new ItemStack(RegistryManager.STAMPER_ITEM.get()), 2, 4).addAncestor(melter).addAncestor(emitters);
 		access = new ResearchBase("access", new ItemStack(RegistryManager.MECHANICAL_CORE_ITEM.get()), 7, 5).addAncestor(stamper);
 		//hearth_coil = new ResearchBase("hearth_coil", new ItemStack(RegistryManager.heat_coil), 10, 1).addAncestor(access);
-		//mixer = new ResearchBase("mixer", new ItemStack(RegistryManager.mixer), 5, 2).addAncestor(stamper).addAncestor(melter);
+		mixer = new ResearchBase("mixer", new ItemStack(RegistryManager.MIXER_CENTRIFUGE_ITEM.get()), 5, 2).addAncestor(stamper).addAncestor(melter);
 		//pump = new ResearchBase("pump", new ItemStack(RegistryManager.mechanical_pump), 8, 0).addAncestor(mixer);
 		//breaker = new ResearchBase("breaker", new ItemStack(RegistryManager.breaker), 4, 7).addAncestor(stamper);
-		//dawnstone = new ResearchBase("dawnstone", new ItemStack(RegistryManager.ingot_dawnstone), 11, 4).addAncestor(mixer);
+		dawnstone = new ResearchBase("dawnstone", new ItemStack(RegistryManager.DAWNSTONE_INGOT.get()), 11, 4).addAncestor(mixer);
 		copper_cell = new ResearchBase("copper_cell", new ItemStack(RegistryManager.COPPER_CELL_ITEM.get()), 0, 5).addAncestor(emitters);
 		//clockwork_attenuator = new ResearchBase("clockwork_attenuator", new ItemStack(RegistryManager.clockwork_attenuator), 12, 7);
 		/*
@@ -394,7 +394,7 @@ public class ResearchManager {
 		.addResearch(ores)
 		.addResearch(hammer)
 		.addResearch(ancient_golem)
-		//.addResearch(gauge)
+		.addResearch(gauge)
 		.addResearch(tinker_lens)
 		.addResearch(caminite)
 		.addResearch(bore)
@@ -409,12 +409,12 @@ public class ResearchManager {
 		.addResearch(melter)
 		.addResearch(stamper)
 		//.addResearch(hearth_coil)
-		//.addResearch(mixer)
+		.addResearch(mixer)
 		//.addResearch(pump)
 		.addResearch(access)
 		//.addResearch(mechanicalPowerSwitch)
 		//.addResearch(breaker)
-		//.addResearch(dawnstone)
+		.addResearch(dawnstone)
 		.addResearch(emitters)
 		.addResearch(copper_cell);
 		//.addResearch(clockwork_attenuator)
@@ -460,7 +460,7 @@ public class ResearchManager {
 		.addResearch(miscAugmentSwitch);*/
 
 		categoryMechanisms.addPrerequisite(activator);
-		//categoryMetallurgy.addPrerequisite(dawnstone);
+		categoryMetallurgy.addPrerequisite(dawnstone);
 		//categoryAlchemy.addPrerequisite(alchemy);
 		//categorySmithing.addPrerequisite(wildfire);
 

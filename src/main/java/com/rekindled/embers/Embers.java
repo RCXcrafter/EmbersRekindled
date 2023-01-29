@@ -29,6 +29,7 @@ import com.rekindled.embers.entity.render.EmberPacketRenderer;
 import com.rekindled.embers.entity.render.EmberProjectileRenderer;
 import com.rekindled.embers.model.AncientGolemModel;
 import com.rekindled.embers.network.PacketHandler;
+import com.rekindled.embers.network.message.MessageWorldSeed;
 import com.rekindled.embers.particle.GlowParticle;
 import com.rekindled.embers.particle.SmokeParticle;
 import com.rekindled.embers.particle.SparkParticle;
@@ -41,6 +42,8 @@ import com.rekindled.embers.util.DecimalFormats;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
@@ -56,6 +59,7 @@ import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -63,6 +67,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLLoader;
+import net.minecraftforge.network.PacketDistributor;
 
 @Mod(Embers.MODID)
 public class Embers {
@@ -111,6 +116,7 @@ public class Embers {
 		MinecraftForge.EVENT_BUS.addGenericListener(Entity.class, ResearchManager::attachCapability);
 		MinecraftForge.EVENT_BUS.addListener(ResearchManager::onClone);
 		ResearchManager.initResearches();
+		MinecraftForge.EVENT_BUS.addListener(Embers::onJoin);
 	}
 
 	public void registerCaps(RegisterCapabilitiesEvent event) {
@@ -142,6 +148,13 @@ public class Embers {
 			gen.addProvider(true, new EmbersConfiguredFeatures(gen, existingFileHelper));
 			gen.addProvider(true, new EmbersPlacedFeatures(gen, existingFileHelper));
 			gen.addProvider(true, new EmbersBiomeModifiers(gen, existingFileHelper));
+		}
+	}
+
+	public static void onJoin(EntityJoinLevelEvent event) {
+		if (event.getEntity() instanceof ServerPlayer && !event.getLevel().isClientSide()) {
+			ServerPlayer player = (ServerPlayer) event.getEntity();
+			PacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), new MessageWorldSeed(((ServerLevel) event.getLevel()).getSeed()));
 		}
 	}
 

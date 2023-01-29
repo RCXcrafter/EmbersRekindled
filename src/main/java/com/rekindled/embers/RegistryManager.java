@@ -243,6 +243,7 @@ public class RegistryManager {
 	public static final RegistryObject<Item> TINKER_HAMMER = ITEMS.register("tinker_hammer", () -> new TinkerHammerItem(new Item.Properties().stacksTo(1).tab(Embers.TAB_EMBERS)));
 	public static final RegistryObject<Item> TINKER_LENS = ITEMS.register("tinker_lens", () -> new TinkerLensItem(new Item.Properties().stacksTo(1).tab(Embers.TAB_EMBERS)));
 	public static final RegistryObject<Item> ANCIENT_CODEX = ITEMS.register("ancient_codex", () -> new AncientCodexItem(new Item.Properties().stacksTo(1).tab(Embers.TAB_EMBERS)));
+	public static final RegistryObject<Item> ATMOSPHERIC_GAUGE = ITEMS.register("atmospheric_gauge", () -> new Item(new Item.Properties().tab(Embers.TAB_EMBERS)));
 	public static final RegistryObject<Item> EMBER_CRYSTAL = ITEMS.register("ember_crystal", () -> new Item(new Item.Properties().tab(Embers.TAB_EMBERS)));
 	public static final RegistryObject<Item> EMBER_SHARD = ITEMS.register("ember_shard", () -> new Item(new Item.Properties().tab(Embers.TAB_EMBERS)));
 	public static final RegistryObject<Item> EMBER_GRIT = ITEMS.register("ember_grit", () -> new FuelItem(new Item.Properties().tab(Embers.TAB_EMBERS), 1600));

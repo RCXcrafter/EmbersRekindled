@@ -224,6 +224,16 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_lead_plate", has(itemTag("forge", "plates/lead")))
 		.save(consumer, getResource("tinker_lens"));
 
+		ShapedRecipeBuilder.shaped(RegistryManager.ATMOSPHERIC_GAUGE.get())
+		.pattern(" I ")
+		.pattern("CRC")
+		.pattern("CIC")
+		.define('I', itemTag("forge", "ingots/iron"))
+		.define('C', itemTag("forge", "ingots/copper"))
+		.define('R', itemTag("forge", "dusts/redstone"))
+		.unlockedBy("has_redstone", has(itemTag("forge", "dusts/redstone")))
+		.save(consumer, getResource("atmospheric_gauge"));
+
 		ShapedRecipeBuilder.shaped(RegistryManager.MECHANICAL_CORE.get())
 		.pattern("IBI")
 		.pattern(" P ")

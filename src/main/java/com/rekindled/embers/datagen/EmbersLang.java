@@ -60,6 +60,7 @@ public class EmbersLang extends LanguageProvider {
 		addItem(RegistryManager.TINKER_HAMMER, "Tinker's Hammer");
 		addItem(RegistryManager.TINKER_LENS, "Tinker's Lens");
 		addItem(RegistryManager.ANCIENT_CODEX, "Ancient Codex");
+		addItem(RegistryManager.ATMOSPHERIC_GAUGE, "Atmospheric Gauge");
 		addItem(RegistryManager.EMBER_CRYSTAL, "Ember Crystal");
 		addItem(RegistryManager.EMBER_SHARD, "Ember Shard");
 		addItem(RegistryManager.EMBER_GRIT, "Ember Grit");
