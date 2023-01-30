@@ -38,7 +38,7 @@ public class ResearchManager {
 	public static final double PAGE_ICON_SIZE = 48;
 	public static List<ResearchCategory> researches = new ArrayList<ResearchCategory>();
 
-	public static ResearchBase dials, boiler, mini_boiler, ores, hammer, ancient_golem, gauge, caminite, bore, crystals, activator, tinker_lens, reaction_chamber,//WORLD
+	public static ResearchBase dials, pressureRefinery, mini_boiler, ores, hammer, ancient_golem, gauge, caminite, bore, crystals, activator, tinker_lens, reaction_chamber,//WORLD
 	copper_cell, emitters, dawnstone, melter, stamper, mixer, breaker, hearth_coil, access, pump, clockwork_attenuator, geo_separator, //MECHANISMS
 	beam_cannon, pulser, splitter, crystal_cell, cinder_staff, clockwork_tools, blazing_ray, charger, jars, alchemy, cinder_plinth, aspecti, catalytic_plug, ember_siphon, //METALLURGY
 	tyrfing, waste, cluster, ashen_cloak, inflictor, materia, field_chart, glimmer, metallurgic_dust, //ALCHEMY
@@ -179,7 +179,7 @@ public class ResearchManager {
 		bore = new ResearchBase("bore", new ItemStack(RegistryManager.EMBER_BORE_ITEM.get()), 9, 0).addAncestor(hammer).addAncestor(caminite);
 		crystals = new ResearchBase("crystals", new ItemStack(RegistryManager.EMBER_CRYSTAL.get()), 12, 3).addAncestor(bore);
 		activator = new ResearchBase("activator", new ItemStack(RegistryManager.EMBER_ACTIVATOR_ITEM.get()), 9, 5).addAncestor(crystals);
-		//boiler = new ResearchBase("boiler", new ItemStack(RegistryManager.boiler), 9, 7).addAncestor(activator);
+		pressureRefinery = new ResearchBase("pressure_refinery", new ItemStack(RegistryManager.PRESSURE_REFINERY_ITEM.get()), 9, 7).addAncestor(activator);
 		//mini_boiler = new ResearchBase("mini_boiler", new ItemStack(RegistryManager.mini_boiler), 11, 7).addAncestor(activator);
 		dials = new ResearchBase("dials", new ItemStack(RegistryManager.EMBER_DIAL_ITEM.get()), 5, 5).addAncestor(hammer);
 		tinker_lens = new ResearchBase("tinker_lens", new ItemStack(RegistryManager.TINKER_LENS.get()),4,7).addAncestor(hammer);
@@ -401,7 +401,7 @@ public class ResearchManager {
 		.addResearch(pipeSwitch)
 		.addResearch(crystals)
 		.addResearch(activator)
-		//.addResearch(boiler)
+		.addResearch(pressureRefinery)
 		//.addResearch(mini_boiler)
 		//.addResearch(reaction_chamber)
 		.addResearch(dials);

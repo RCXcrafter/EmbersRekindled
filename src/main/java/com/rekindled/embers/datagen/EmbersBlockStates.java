@@ -2,7 +2,6 @@ package com.rekindled.embers.datagen;
 
 import java.util.function.Function;
 
-import com.google.common.collect.ImmutableMap;
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.RegistryManager.FluidStuff;
@@ -22,7 +21,6 @@ import net.minecraft.world.level.block.ButtonBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
@@ -33,15 +31,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class EmbersBlockStates extends BlockStateProvider {
-
-	public static final ImmutableMap<Direction, BooleanProperty> PIPE_PROPS = ImmutableMap.<Direction, BooleanProperty>builder()
-			.put(Direction.EAST,  BlockStateProperties.EAST)
-			.put(Direction.NORTH, BlockStateProperties.NORTH)
-			.put(Direction.SOUTH, BlockStateProperties.SOUTH)
-			.put(Direction.WEST,  BlockStateProperties.WEST)
-			.put(Direction.UP,  BlockStateProperties.UP)
-			.put(Direction.DOWN,  BlockStateProperties.DOWN)
-			.build();
 
 	public EmbersBlockStates(DataGenerator gen, ExistingFileHelper exFileHelper) {
 		super(gen, Embers.MODID, exFileHelper);
@@ -346,12 +335,20 @@ public class EmbersBlockStates extends BlockStateProvider {
 					.build();
 		});
 
-
 		ModelFile dropperModel = models().withExistingParent(RegistryManager.ITEM_DROPPER.getId().toString(), new ResourceLocation(Embers.MODID, "dropper"))
 				.texture("dropper", new ResourceLocation(Embers.MODID, "block/plates_lead"))
 				.texture("particle", new ResourceLocation(Embers.MODID, "block/plates_lead"));
 		simpleBlock(RegistryManager.ITEM_DROPPER.get(), dropperModel);
 		simpleBlockItem(RegistryManager.ITEM_DROPPER.get(), dropperModel);
+
+		ExistingModelFile refineryBottomModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "refinery_bottom"));
+		simpleBlockItem(RegistryManager.PRESSURE_REFINERY.get(), refineryBottomModel);
+		getVariantBuilder(RegistryManager.PRESSURE_REFINERY.get()).forAllStates(state -> {
+			return ConfiguredModel.builder()
+					.modelFile(state.getValue(BlockStateProperties.BOTTOM) ? refineryBottomModel : models().getExistingFile(new ResourceLocation(Embers.MODID, "refinery_top")))
+					.uvLock(false)
+					.build();
+		});
 	}
 
 	public void blockWithItem(RegistryObject<? extends Block> registryObject) {

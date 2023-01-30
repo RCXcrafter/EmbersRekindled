@@ -57,6 +57,7 @@ public class EmbersLang extends LanguageProvider {
 		addBlock(RegistryManager.BIN, "Bin");
 		addBlock(RegistryManager.MIXER_CENTRIFUGE, "Mixer Centrifuge");
 		addBlock(RegistryManager.ITEM_DROPPER, "Item Dropper");
+		addBlock(RegistryManager.PRESSURE_REFINERY, "Pressure Refinery");
 
 		addItem(RegistryManager.TINKER_HAMMER, "Tinker's Hammer");
 		addItem(RegistryManager.TINKER_LENS, "Tinker's Lens");
@@ -109,6 +110,10 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".tooltip.item.ember", "Ember: %s/%s");
 
 		add(Embers.MODID + ".decimal_format.item_amount", "0x");
+		add(Embers.MODID + ".decimal_format.ember_multiplier", "0.##x");
+
+		add(Embers.MODID + ".tooltip.dial.ember_multiplier", "Production Multiplier: %s");
+
 		add(Embers.MODID + ".tooltip.itemdial.slot", "Slot %s: %s");
 		add(Embers.MODID + ".tooltip.itemdial.item", "%s %s");
 		add(Embers.MODID + ".tooltip.itemdial.noitem", "NONE");
@@ -260,10 +265,10 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".research.page.bin.tags", "Bin;Chest;Storage;Item;Hopper;");
 		add(Embers.MODID + ".research.page.bin.desc", "A simple barrel of lead with an open top, the Bin can hold up to a stack of any item. It can also be used to automatically collect outputs from some machines.");
 
-		add(Embers.MODID + ".research.page.boiler", "Pressure Refinery");
-		add(Embers.MODID + ".research.page.boiler.title", "Steam Chamber");
-		add(Embers.MODID + ".research.page.boiler.tags", "Boiler;Refinery;Ember;Pressure;Generator;Water;Steam;Heat;");
-		add(Embers.MODID + ".research.page.boiler.desc", "While the Activator can refine crystalline Ember, it produces only a modest amount. The Pressure Refinery is a means of getting much higher yields per crystal. It requires both water and Ember to be pumped into it, resulting in a default 1.5x yield from the Activator. However, if placed on a metal block with lava or fire around it, it can reach up to 3x yields depending on how many hot blocks there are around the base.");
+		add(Embers.MODID + ".research.page.pressure_refinery", "Pressure Refinery");
+		add(Embers.MODID + ".research.page.pressure_refinery.title", "Steam Chamber");
+		add(Embers.MODID + ".research.page.pressure_refinery.tags", "Boiler;Refinery;Ember;Pressure;Generator;Water;Steam;Heat;");
+		add(Embers.MODID + ".research.page.pressure_refinery.desc", "While the Activator can refine crystalline Ember, it produces only a modest amount. The Pressure Refinery is a means of getting much higher yields per crystal. It requires both water and Ember to be pumped into it, resulting in a default 1.5x yield from the Activator. However, if placed on a metal block with lava or fire around it, it can reach up to 3x yields depending on how many hot blocks there are around the base.");
 
 		add(Embers.MODID + ".research.page.mini_boiler", "Mini Boiler");
 		add(Embers.MODID + ".research.page.mini_boiler.title", "Piggy-backing for explosions");

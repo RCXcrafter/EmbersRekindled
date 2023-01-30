@@ -82,7 +82,8 @@ public class EmbersBlockTags extends BlockTagsProvider {
 		tag(MECH_CORE_PROXYABLE).add(
 				RegistryManager.EMBER_BORE.get(),
 				RegistryManager.EMBER_ACTIVATOR.get(),
-				RegistryManager.MIXER_CENTRIFUGE.get());
+				RegistryManager.MIXER_CENTRIFUGE.get(),
+				RegistryManager.PRESSURE_REFINERY.get());
 
 		tag(FLUID_PIPE_CONNECTION).addTag(FLUID_PIPE_CONNECTION_TOGGLEABLE);
 		tag(FLUID_PIPE_CONNECTION_TOGGLEABLE).add(RegistryManager.FLUID_PIPE.get(), RegistryManager.FLUID_EXTRACTOR.get());

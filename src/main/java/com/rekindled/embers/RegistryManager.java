@@ -31,6 +31,7 @@ import com.rekindled.embers.block.ItemPipeBlock;
 import com.rekindled.embers.block.MechanicalCoreBlock;
 import com.rekindled.embers.block.MelterBlock;
 import com.rekindled.embers.block.MixerCentrifugeBlock;
+import com.rekindled.embers.block.PressureRefineryBlock;
 import com.rekindled.embers.block.StampBaseBlock;
 import com.rekindled.embers.block.StamperBlock;
 import com.rekindled.embers.block.WaterloggableLeverBlock;
@@ -53,6 +54,8 @@ import com.rekindled.embers.blockentity.MelterBottomBlockEntity;
 import com.rekindled.embers.blockentity.MelterTopBlockEntity;
 import com.rekindled.embers.blockentity.MixerCentrifugeBottomBlockEntity;
 import com.rekindled.embers.blockentity.MixerCentrifugeTopBlockEntity;
+import com.rekindled.embers.blockentity.PressureRefineryBottomBlockEntity;
+import com.rekindled.embers.blockentity.PressureRefineryTopBlockEntity;
 import com.rekindled.embers.blockentity.StampBaseBlockEntity;
 import com.rekindled.embers.blockentity.StamperBlockEntity;
 import com.rekindled.embers.datagen.EmbersSounds;
@@ -205,6 +208,7 @@ public class RegistryManager {
 	public static final RegistryObject<Block> BIN = BLOCKS.register("bin", () -> new BinBlock(Properties.of(Material.METAL, MaterialColor.TERRACOTTA_PURPLE).sound(SoundType.METAL).requiresCorrectToolForDrops().strength(1.6f)));
 	public static final RegistryObject<Block> MIXER_CENTRIFUGE = BLOCKS.register("mixer_centrifuge", () -> new MixerCentrifugeBlock(Properties.of(Material.METAL, MaterialColor.COLOR_GRAY).sound(SoundType.METAL).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
 	public static final RegistryObject<Block> ITEM_DROPPER = BLOCKS.register("item_dropper", () -> new ItemDropperBlock(Properties.of(Material.METAL, MaterialColor.NONE).sound(SoundType.METAL).requiresCorrectToolForDrops().strength(1.6f)));
+	public static final RegistryObject<Block> PRESSURE_REFINERY = BLOCKS.register("pressure_refinery", () -> new PressureRefineryBlock(Properties.of(Material.METAL, MaterialColor.COLOR_ORANGE).sound(SoundType.METAL).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
 
 	//itemblocks
 	public static final RegistryObject<Item> LEAD_ORE_ITEM = ITEMS.register("lead_ore", () -> new BlockItem(LEAD_ORE.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
@@ -242,6 +246,7 @@ public class RegistryManager {
 	public static final RegistryObject<Item> BIN_ITEM = ITEMS.register("bin", () -> new BlockItem(BIN.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
 	public static final RegistryObject<Item> MIXER_CENTRIFUGE_ITEM = ITEMS.register("mixer_centrifuge", () -> new BlockItem(MIXER_CENTRIFUGE.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
 	public static final RegistryObject<Item> ITEM_DROPPER_ITEM = ITEMS.register("item_dropper", () -> new BlockItem(ITEM_DROPPER.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
+	public static final RegistryObject<Item> PRESSURE_REFINERY_ITEM = ITEMS.register("pressure_refinery", () -> new BlockItem(PRESSURE_REFINERY.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
 
 	//items
 	public static final RegistryObject<Item> TINKER_HAMMER = ITEMS.register("tinker_hammer", () -> new TinkerHammerItem(new Item.Properties().stacksTo(1).tab(Embers.TAB_EMBERS)));
@@ -378,6 +383,8 @@ public class RegistryManager {
 	public static final RegistryObject<BlockEntityType<MixerCentrifugeBottomBlockEntity>> MIXER_CENTRIFUGE_BOTTOM_ENTITY = BLOCK_ENTITY_TYPES.register("mixer_centrifuge_bottom", () -> BlockEntityType.Builder.of(MixerCentrifugeBottomBlockEntity::new, MIXER_CENTRIFUGE.get()).build(null));
 	public static final RegistryObject<BlockEntityType<MixerCentrifugeTopBlockEntity>> MIXER_CENTRIFUGE_TOP_ENTITY = BLOCK_ENTITY_TYPES.register("mixer_centrifuge_top", () -> BlockEntityType.Builder.of(MixerCentrifugeTopBlockEntity::new, MIXER_CENTRIFUGE.get()).build(null));
 	public static final RegistryObject<BlockEntityType<ItemDropperBlockEntity>> ITEM_DROPPER_ENTITY = BLOCK_ENTITY_TYPES.register("item_dropper", () -> BlockEntityType.Builder.of(ItemDropperBlockEntity::new, ITEM_DROPPER.get()).build(null));
+	public static final RegistryObject<BlockEntityType<PressureRefineryBottomBlockEntity>> PRESSURE_REFINERY_BOTTOM_ENTITY = BLOCK_ENTITY_TYPES.register("pressure_refinery_bottom", () -> BlockEntityType.Builder.of(PressureRefineryBottomBlockEntity::new, PRESSURE_REFINERY.get()).build(null));
+	public static final RegistryObject<BlockEntityType<PressureRefineryTopBlockEntity>> PRESSURE_REFINERY_TOP_ENTITY = BLOCK_ENTITY_TYPES.register("pressure_refinery_top", () -> BlockEntityType.Builder.of(PressureRefineryTopBlockEntity::new, PRESSURE_REFINERY.get()).build(null));
 
 	//entities
 	public static final RegistryObject<EntityType<EmberPacketEntity>> EMBER_PACKET = registerEntity("ember_packet", EntityType.Builder.<EmberPacketEntity>of(EmberPacketEntity::new, MobCategory.MISC).sized(0.5F, 0.5F).fireImmune().clientTrackingRange(3).updateInterval(1));

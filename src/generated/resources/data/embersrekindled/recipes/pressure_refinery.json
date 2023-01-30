@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": {
+      "tag": "forge:storage_blocks/copper"
+    },
+    "C": {
+      "tag": "forge:ingots/copper"
+    },
+    "F": {
+      "item": "minecraft:furnace"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    }
+  },
+  "pattern": [
+    "CCC",
+    "IFI",
+    "IBI"
+  ],
+  "result": {
+    "item": "embersrekindled:pressure_refinery"
+  }
+}

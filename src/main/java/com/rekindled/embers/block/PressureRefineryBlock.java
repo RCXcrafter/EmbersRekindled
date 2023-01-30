@@ -1,8 +1,8 @@
 package com.rekindled.embers.block;
 
 import com.rekindled.embers.RegistryManager;
-import com.rekindled.embers.blockentity.EmberActivatorBottomBlockEntity;
-import com.rekindled.embers.blockentity.EmberActivatorTopBlockEntity;
+import com.rekindled.embers.blockentity.PressureRefineryBottomBlockEntity;
+import com.rekindled.embers.blockentity.PressureRefineryTopBlockEntity;
 import com.rekindled.embers.util.Misc;
 
 import net.minecraft.core.BlockPos;
@@ -21,18 +21,17 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.IItemHandler;
 
-public class EmberActivatorBlock extends DoubleTallMachineBlock {
+public class PressureRefineryBlock extends DoubleTallMachineBlock {
 
-	protected static final VoxelShape BASE_AABB = Shapes.or(Block.box(0,0,0,16,4,16), Block.box(2,0,2,14,16,14));
-	protected static final VoxelShape TOP_AABB = Shapes.or(Shapes.joinUnoptimized(Block.box(3,4,3,13,16,13), Block.box(5,5,5,11,16,11), BooleanOp.ONLY_FIRST), Block.box(2,2,2,14,4,14), Block.box(4,0,4,12,2,12));
+	protected static final VoxelShape TOP_AABB = Shapes.or(Shapes.joinUnoptimized(Block.box(3,4,3,13,16,13), Block.box(5,5,5,11,16,11), BooleanOp.ONLY_FIRST), Block.box(0,0,0,16,4,16));
 
-	public EmberActivatorBlock(Properties properties) {
+	public PressureRefineryBlock(Properties properties) {
 		super(properties);
 	}
 
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-		return state.getValue(BlockStateProperties.BOTTOM) ? BASE_AABB : TOP_AABB;
+		return state.getValue(BlockStateProperties.BOTTOM) ? Shapes.block() : TOP_AABB;
 	}
 
 	@Override
@@ -50,14 +49,14 @@ public class EmberActivatorBlock extends DoubleTallMachineBlock {
 	@Override
 	public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
 		if (pState.getValue(BlockStateProperties.BOTTOM))
-			return RegistryManager.EMBER_ACTIVATOR_BOTTOM_ENTITY.get().create(pPos, pState);
-		return RegistryManager.EMBER_ACTIVATOR_TOP_ENTITY.get().create(pPos, pState);
+			return RegistryManager.PRESSURE_REFINERY_BOTTOM_ENTITY.get().create(pPos, pState);
+		return RegistryManager.PRESSURE_REFINERY_TOP_ENTITY.get().create(pPos, pState);
 	}
 
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
 		if (pState.getValue(BlockStateProperties.BOTTOM))
-			return pLevel.isClientSide ? null : createTickerHelper(pBlockEntityType, RegistryManager.EMBER_ACTIVATOR_BOTTOM_ENTITY.get(), EmberActivatorBottomBlockEntity::serverTick);
-		return pLevel.isClientSide ? createTickerHelper(pBlockEntityType, RegistryManager.EMBER_ACTIVATOR_TOP_ENTITY.get(), EmberActivatorTopBlockEntity::clientTick) : null;
+			return pLevel.isClientSide ? null : createTickerHelper(pBlockEntityType, RegistryManager.PRESSURE_REFINERY_BOTTOM_ENTITY.get(), PressureRefineryBottomBlockEntity::serverTick);
+		return pLevel.isClientSide ? createTickerHelper(pBlockEntityType, RegistryManager.PRESSURE_REFINERY_TOP_ENTITY.get(), PressureRefineryTopBlockEntity::clientTick) : null;
 	}
 }

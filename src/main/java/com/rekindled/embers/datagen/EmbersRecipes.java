@@ -292,6 +292,17 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_iron_plate", has(itemTag("forge", "plates/iron")))
 		.save(consumer, getResource("ember_activator"));
 
+		ShapedRecipeBuilder.shaped(RegistryManager.PRESSURE_REFINERY.get())
+		.pattern("CCC")
+		.pattern("IFI")
+		.pattern("IBI")
+		.define('I', itemTag("forge", "ingots/iron"))
+		.define('C', itemTag("forge", "ingots/copper"))
+		.define('B', itemTag("forge", "storage_blocks/copper"))
+		.define('F', Items.FURNACE)
+		.unlockedBy("has_activator", has(RegistryManager.EMBER_ACTIVATOR.get()))
+		.save(consumer, getResource("pressure_refinery"));
+
 		ShapedRecipeBuilder.shaped(RegistryManager.COPPER_CELL.get())
 		.pattern("BIB")
 		.pattern("ICI")
