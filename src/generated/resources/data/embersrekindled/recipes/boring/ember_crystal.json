@@ -1,6 +1,9 @@
 {
   "type": "embersrekindled:boring",
-  "max_height": 7,
+  "dimensions": [
+    "minecraft:overworld"
+  ],
+  "max_height": -57,
   "output": {
     "item": "embersrekindled:ember_crystal"
   },

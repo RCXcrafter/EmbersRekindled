@@ -2,13 +2,13 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "B": {
-      "tag": "forge:plates/lead"
+      "item": "embersrekindled:caminite_bricks"
     },
     "I": {
       "tag": "forge:ingots/iron"
     },
     "P": {
-      "tag": "minecraft:compasses"
+      "tag": "forge:plates/lead"
     }
   },
   "pattern": [

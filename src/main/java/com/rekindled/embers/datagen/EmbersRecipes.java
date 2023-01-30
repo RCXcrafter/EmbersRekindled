@@ -52,9 +52,14 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 	@Override
 	public void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
 		//boring
-		BoringRecipeBuilder.create(RegistryManager.EMBER_CRYSTAL.get()).folder(boringFolder).weight(20).maxHeight(7).save(consumer);
-		BoringRecipeBuilder.create(RegistryManager.EMBER_SHARD.get()).folder(boringFolder).weight(60).maxHeight(7).save(consumer);
-		BoringRecipeBuilder.create(RegistryManager.EMBER_GRIT.get()).folder(boringFolder).weight(20).maxHeight(7).save(consumer);
+		ResourceLocation overworld = new ResourceLocation("overworld");
+		BoringRecipeBuilder.create(RegistryManager.EMBER_CRYSTAL.get()).folder(boringFolder).dimension(overworld).weight(20).maxHeight(-57).save(consumer);
+		BoringRecipeBuilder.create(RegistryManager.EMBER_SHARD.get()).folder(boringFolder).dimension(overworld).weight(60).maxHeight(-57).save(consumer);
+		BoringRecipeBuilder.create(RegistryManager.EMBER_GRIT.get()).folder(boringFolder).dimension(overworld).weight(20).maxHeight(-57).save(consumer);
+		ResourceLocation nether = new ResourceLocation("the_nether");
+		BoringRecipeBuilder.create(RegistryManager.EMBER_CRYSTAL.get()).folder(boringFolder + "/nether").dimension(nether).weight(20).maxHeight(7).save(consumer);
+		BoringRecipeBuilder.create(RegistryManager.EMBER_SHARD.get()).folder(boringFolder + "/nether").dimension(nether).weight(60).maxHeight(7).save(consumer);
+		BoringRecipeBuilder.create(RegistryManager.EMBER_GRIT.get()).folder(boringFolder + "/nether").dimension(nether).weight(20).maxHeight(7).save(consumer);
 
 		//activation
 		EmberActivationRecipeBuilder.create(RegistryManager.EMBER_CRYSTAL.get()).folder(activationFolder).ember(2400).save(consumer);
@@ -238,9 +243,9 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.pattern("IBI")
 		.pattern(" P ")
 		.pattern("I I")
-		.define('B', itemTag("forge", "plates/lead"))
+		.define('P', itemTag("forge", "plates/lead"))
 		.define('I', itemTag("forge", "ingots/iron"))
-		.define('P', ItemTags.COMPASSES)
+		.define('B', RegistryManager.CAMINITE_BRICKS.get())
 		.unlockedBy("has_lead_plate", has(itemTag("forge", "plates/lead")))
 		.save(consumer, getResource("mechanical_core"));
 

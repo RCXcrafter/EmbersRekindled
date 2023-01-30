@@ -1,11 +1,11 @@
 {
   "type": "embersrekindled:boring",
   "dimensions": [
-    "minecraft:overworld"
+    "minecraft:the_nether"
   ],
-  "max_height": -57,
+  "max_height": 7,
   "output": {
-    "item": "embersrekindled:ember_grit"
+    "item": "embersrekindled:ember_crystal"
   },
   "weight": 20
 }
