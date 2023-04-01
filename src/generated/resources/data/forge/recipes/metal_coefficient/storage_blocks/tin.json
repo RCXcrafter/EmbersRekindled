@@ -1,0 +1,14 @@
+{
+  "type": "embersrekindled:metal_coefficient",
+  "block_tag": "forge:storage_blocks/tin",
+  "coefficient": 2.85,
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:storage_blocks/tin"
+      }
+    }
+  ]
+}

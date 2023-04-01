@@ -7,6 +7,7 @@ import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.recipe.BoringRecipe;
 import com.rekindled.embers.recipe.EmberActivationRecipe;
 import com.rekindled.embers.recipe.MeltingRecipe;
+import com.rekindled.embers.recipe.MetalCoefficientRecipe;
 import com.rekindled.embers.recipe.MixingRecipe;
 import com.rekindled.embers.recipe.StampingRecipe;
 
@@ -32,6 +33,7 @@ public class JEIPlugin implements IModPlugin {
 	public static final RecipeType<MeltingRecipe> MELTING = RecipeType.create(Embers.MODID, "melting", MeltingRecipe.class);
 	public static final RecipeType<StampingRecipe> STAMPING = RecipeType.create(Embers.MODID, "stamping", StampingRecipe.class);
 	public static final RecipeType<MixingRecipe> MIXING = RecipeType.create(Embers.MODID, "mixing", MixingRecipe.class);
+	public static final RecipeType<MetalCoefficientRecipe> METAL_COEFFICIENT = RecipeType.create(Embers.MODID, "metal_coefficient", MetalCoefficientRecipe.class);
 
 	@Override
 	public ResourceLocation getPluginUid() {
@@ -47,6 +49,7 @@ public class JEIPlugin implements IModPlugin {
 		registry.addRecipeCategories(new MeltingCategory(guiHelper));
 		registry.addRecipeCategories(new StampingCategory(guiHelper));
 		registry.addRecipeCategories(new MixingCategory(guiHelper));
+		registry.addRecipeCategories(new MetalCoefficientCategory(guiHelper));
 	}
 
 
@@ -70,6 +73,9 @@ public class JEIPlugin implements IModPlugin {
 
 		List<MixingRecipe> mixingRecipes = manager.getAllRecipesFor(RegistryManager.MIXING.get());
 		register.addRecipes(MIXING, mixingRecipes);
+
+		List<MetalCoefficientRecipe> coefficientRecipes = manager.getAllRecipesFor(RegistryManager.METAL_COEFFICIENT.get());
+		register.addRecipes(METAL_COEFFICIENT, coefficientRecipes);
 	}
 
 
@@ -82,5 +88,6 @@ public class JEIPlugin implements IModPlugin {
 		registry.addRecipeCatalyst(new ItemStack(RegistryManager.STAMPER_ITEM.get()), STAMPING);
 		registry.addRecipeCatalyst(new ItemStack(RegistryManager.STAMP_BASE_ITEM.get()), STAMPING);
 		registry.addRecipeCatalyst(new ItemStack(RegistryManager.MIXER_CENTRIFUGE_ITEM.get()), MIXING);
+		registry.addRecipeCatalyst(new ItemStack(RegistryManager.PRESSURE_REFINERY_ITEM.get()), METAL_COEFFICIENT);
 	}
 }

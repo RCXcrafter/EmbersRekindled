@@ -78,6 +78,7 @@ import com.rekindled.embers.particle.VaporParticleOptions;
 import com.rekindled.embers.recipe.BoringRecipe;
 import com.rekindled.embers.recipe.EmberActivationRecipe;
 import com.rekindled.embers.recipe.MeltingRecipe;
+import com.rekindled.embers.recipe.MetalCoefficientRecipe;
 import com.rekindled.embers.recipe.MixingRecipe;
 import com.rekindled.embers.recipe.StampingRecipe;
 import com.rekindled.embers.util.Misc;
@@ -407,6 +408,7 @@ public class RegistryManager {
 	public static final RegistryObject<RecipeType<MeltingRecipe>> MELTING = registerRecipeType("melting");
 	public static final RegistryObject<RecipeType<StampingRecipe>> STAMPING = registerRecipeType("stamping");
 	public static final RegistryObject<RecipeType<MixingRecipe>> MIXING = registerRecipeType("mixing");
+	public static final RegistryObject<RecipeType<MetalCoefficientRecipe>> METAL_COEFFICIENT = registerRecipeType("metal_coefficient");
 
 	//recipe serializers
 	public static final RegistryObject<RecipeSerializer<BoringRecipe>> BORING_SERIALIZER = RECIPE_SERIALIZERS.register("boring", () -> BoringRecipe.SERIALIZER);
@@ -414,6 +416,7 @@ public class RegistryManager {
 	public static final RegistryObject<RecipeSerializer<MeltingRecipe>> MELTING_SERIALIZER = RECIPE_SERIALIZERS.register("melting", () -> MeltingRecipe.SERIALIZER);
 	public static final RegistryObject<RecipeSerializer<StampingRecipe>> STAMPING_SERIALIZER = RECIPE_SERIALIZERS.register("stamping", () -> StampingRecipe.SERIALIZER);
 	public static final RegistryObject<RecipeSerializer<MixingRecipe>> MIXING_SERIALIZER = RECIPE_SERIALIZERS.register("mixing", () -> MixingRecipe.SERIALIZER);
+	public static final RegistryObject<RecipeSerializer<MetalCoefficientRecipe>> METAL_COEFFICIENT_SERIALIZER = RECIPE_SERIALIZERS.register("metal_coefficient", () -> MetalCoefficientRecipe.SERIALIZER);
 
 
 	public static void registerDispenserBehaviour(final FMLCommonSetupEvent event) {

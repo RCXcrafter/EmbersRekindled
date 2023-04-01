@@ -8,8 +8,10 @@ import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.recipe.BoringRecipeBuilder;
 import com.rekindled.embers.recipe.EmberActivationRecipeBuilder;
 import com.rekindled.embers.recipe.MeltingRecipeBuilder;
+import com.rekindled.embers.recipe.MetalCoefficientRecipeBuilder;
 import com.rekindled.embers.recipe.MixingRecipeBuilder;
 import com.rekindled.embers.recipe.StampingRecipeBuilder;
+import com.rekindled.embers.util.ConsumerWrapperBuilder;
 
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
@@ -19,7 +21,6 @@ import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -27,7 +28,10 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
+import net.minecraftforge.common.crafting.conditions.NotCondition;
+import net.minecraftforge.common.crafting.conditions.TagEmptyCondition;
 
 public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 
@@ -44,6 +48,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 	public static String meltingFolder = "melting";
 	public static String stampingFolder = "stamping";
 	public static String mixingFolder = "mixing";
+	public static String coefficientFolder = "metal_coefficient";
 
 	public EmbersRecipes(DataGenerator gen) {
 		super(gen);
@@ -96,6 +101,19 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 
 		//mixing
 		MixingRecipeBuilder.create(RegistryManager.MOLTEN_DAWNSTONE.FLUID.get(), 4).folder(mixingFolder).input(fluidTag("forge", "molten_copper"), 2).input(fluidTag("forge", "molten_gold"), 2).save(consumer);
+
+		//metal coefficient
+		MetalCoefficientRecipeBuilder.create(EmbersBlockTags.DAWNSTONE_BLOCK).folder(coefficientFolder).coefficient(1.5).save(consumer);
+		MetalCoefficientRecipeBuilder.create(EmbersBlockTags.LEAD_BLOCK).folder(coefficientFolder).coefficient(2.625).save(consumer);
+		MetalCoefficientRecipeBuilder.create(EmbersBlockTags.BRONZE_BLOCK).folder(coefficientFolder).coefficient(2.625).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(EmbersBlockTags.BRONZE_BLOCK)).build(consumer));
+		MetalCoefficientRecipeBuilder.create(Tags.Blocks.STORAGE_BLOCKS_IRON).folder(coefficientFolder).coefficient(2.625).save(consumer);
+		MetalCoefficientRecipeBuilder.create(EmbersBlockTags.NICKEL_BLOCK).folder(coefficientFolder).coefficient(2.85).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(EmbersBlockTags.NICKEL_BLOCK)).build(consumer));
+		MetalCoefficientRecipeBuilder.create(EmbersBlockTags.TIN_BLOCK).folder(coefficientFolder).coefficient(2.85).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(EmbersBlockTags.TIN_BLOCK)).build(consumer));
+		MetalCoefficientRecipeBuilder.create(EmbersBlockTags.ALUMINUM_BLOCK).folder(coefficientFolder).coefficient(2.85).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(EmbersBlockTags.ALUMINUM_BLOCK)).build(consumer));
+		MetalCoefficientRecipeBuilder.create(EmbersBlockTags.SILVER_BLOCK).folder(coefficientFolder).coefficient(3.0).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(EmbersBlockTags.SILVER_BLOCK)).build(consumer));
+		MetalCoefficientRecipeBuilder.create(EmbersBlockTags.ELECTRUM_BLOCK).folder(coefficientFolder).coefficient(3.0).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(EmbersBlockTags.ELECTRUM_BLOCK)).build(consumer));
+		MetalCoefficientRecipeBuilder.create(Tags.Blocks.STORAGE_BLOCKS_COPPER).folder(coefficientFolder).coefficient(3.0).save(consumer);
+		MetalCoefficientRecipeBuilder.create(Tags.Blocks.STORAGE_BLOCKS_GOLD).folder(coefficientFolder).coefficient(3.0).save(consumer);
 
 		//crafting
 		ShapedRecipeBuilder.shaped(RegistryManager.EMBER_CRYSTAL.get())
@@ -538,6 +556,10 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 
 	public TagKey<Fluid> fluidTag(String modId, String name) {
 		return TagKey.create(Registry.FLUID_REGISTRY, new ResourceLocation(modId, name));
+	}
+
+	public ICondition tagReal(TagKey<?> tag) {
+		return new NotCondition(new TagEmptyCondition(tag.location()));
 	}
 
 	public ResourceLocation getResource(String name) {

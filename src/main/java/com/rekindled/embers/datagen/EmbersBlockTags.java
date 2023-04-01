@@ -27,6 +27,23 @@ public class EmbersBlockTags extends BlockTagsProvider {
 
 	public static final TagKey<Block> MECH_CORE_PROXYABLE = BlockTags.create(new ResourceLocation(Embers.MODID, "mech_core_proxyable"));
 
+	public static final TagKey<Block> HEAT_SOURCES = BlockTags.create(new ResourceLocation(Embers.MODID, "heat_sources"));
+
+	//tags shared with items
+	public static final TagKey<Block> LEAD_ORE = BlockTags.create(new ResourceLocation("forge", "ores/lead"));
+	public static final TagKey<Block> RAW_LEAD_BLOCK = BlockTags.create(new ResourceLocation("forge", "storage_blocks/raw_lead"));
+
+	public static final TagKey<Block> LEAD_BLOCK = BlockTags.create(new ResourceLocation("forge", "storage_blocks/lead"));
+	public static final TagKey<Block> DAWNSTONE_BLOCK = BlockTags.create(new ResourceLocation("forge", "storage_blocks/dawnstone"));
+
+	//tags not used in this class
+	public static final TagKey<Block> BRONZE_BLOCK = BlockTags.create(new ResourceLocation("forge", "storage_blocks/bronze"));
+	public static final TagKey<Block> NICKEL_BLOCK = BlockTags.create(new ResourceLocation("forge", "storage_blocks/nickel"));
+	public static final TagKey<Block> TIN_BLOCK = BlockTags.create(new ResourceLocation("forge", "storage_blocks/tin"));
+	public static final TagKey<Block> ALUMINUM_BLOCK = BlockTags.create(new ResourceLocation("forge", "storage_blocks/aluminium"));
+	public static final TagKey<Block> SILVER_BLOCK = BlockTags.create(new ResourceLocation("forge", "storage_blocks/silver"));
+	public static final TagKey<Block> ELECTRUM_BLOCK = BlockTags.create(new ResourceLocation("forge", "storage_blocks/electrum"));
+
 	public EmbersBlockTags(DataGenerator gen, ExistingFileHelper existingFileHelper) {
 		super(gen, Embers.MODID, existingFileHelper);
 	}
@@ -87,5 +104,21 @@ public class EmbersBlockTags extends BlockTagsProvider {
 
 		tag(FLUID_PIPE_CONNECTION).addTag(FLUID_PIPE_CONNECTION_TOGGLEABLE);
 		tag(FLUID_PIPE_CONNECTION_TOGGLEABLE).add(RegistryManager.FLUID_PIPE.get(), RegistryManager.FLUID_EXTRACTOR.get());
+
+		tag(HEAT_SOURCES).add(Blocks.LAVA, Blocks.FIRE);
+
+		//tags shared with items
+		tag(Tags.Blocks.ORES).addTags(LEAD_ORE);
+		tag(LEAD_ORE).add(RegistryManager.LEAD_ORE.get()).add(RegistryManager.DEEPSLATE_LEAD_ORE.get());
+
+		tag(Tags.Blocks.ORES_IN_GROUND_STONE).add(RegistryManager.LEAD_ORE.get());
+		tag(Tags.Blocks.ORES_IN_GROUND_DEEPSLATE).add(RegistryManager.DEEPSLATE_LEAD_ORE.get());
+
+		tag(Tags.Blocks.STORAGE_BLOCKS).addTags(RAW_LEAD_BLOCK);
+		tag(RAW_LEAD_BLOCK).add(RegistryManager.RAW_LEAD_BLOCK.get());
+
+		tag(Tags.Blocks.STORAGE_BLOCKS).addTags(LEAD_BLOCK);
+		tag(LEAD_BLOCK).add(RegistryManager.LEAD_BLOCK.get());
+		tag(DAWNSTONE_BLOCK).add(RegistryManager.DAWNSTONE_BLOCK.get());
 	}
 }

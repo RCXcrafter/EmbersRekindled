@@ -217,7 +217,7 @@ public class EmberProjectileEntity extends Projectile {
 		getEntityData().set(lifetime, 20);
 		getEntityData().set(dead, true);
 
-		double aoeRadius = getEntityData().get(value) * 0.125; //TODO
+		//double aoeRadius = getEntityData().get(value) * 0.125; //TODO
 
 		if(effect != null)
 			effect.onHit(level, raytraceresult, preset);

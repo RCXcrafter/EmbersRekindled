@@ -173,6 +173,7 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".jei.recipe.melting", "Melting");
 		add(Embers.MODID + ".jei.recipe.stamping", "Stamping");
 		add(Embers.MODID + ".jei.recipe.mixing", "Mixing");
+		add(Embers.MODID + ".jei.recipe.metal_coefficient", "Production Multiplier");
 
 
 		//ancient codex

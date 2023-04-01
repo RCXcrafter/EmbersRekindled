@@ -16,7 +16,9 @@ import com.rekindled.embers.block.EmberDialBlock;
 import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.particle.GlowParticleOptions;
 import com.rekindled.embers.particle.SmokeParticleOptions;
+import com.rekindled.embers.recipe.BlockStateContext;
 import com.rekindled.embers.recipe.EmberActivationRecipe;
+import com.rekindled.embers.recipe.MetalCoefficientRecipe;
 import com.rekindled.embers.recipe.SingleItemContainer;
 import com.rekindled.embers.util.DecimalFormats;
 import com.rekindled.embers.util.Misc;
@@ -111,8 +113,10 @@ public class PressureRefineryBottomBlockEntity extends FluidHandlerBlockEntity i
 
 	public double getMultiplier() {
 		BlockState metalState = level.getBlockState(worldPosition.below());
-		//IMetalCoefficient metalCoefficient = EmbersAPI.getMetalCoefficient(metalState);
-		double metalMultiplier = /*metalCoefficient != null ? metalCoefficient.getCoefficient(metalState) :*/ 0.0;
+		BlockStateContext context = new BlockStateContext(metalState);
+		List<MetalCoefficientRecipe> recipes = level.getRecipeManager().getRecipesFor(RegistryManager.METAL_COEFFICIENT.get(), context, level);
+
+		double metalMultiplier = recipes.isEmpty() ? 0.0 : recipes.get(0).getCoefficient(context);
 		double totalMult = BASE_MULTIPLIER;
 		for (Direction facing : Misc.horizontals) {
 			BlockState state = level.getBlockState(worldPosition.below().relative(facing));
@@ -142,7 +146,7 @@ public class PressureRefineryBottomBlockEntity extends FluidHandlerBlockEntity i
 						if (blockEntity.inventory != null) {
 							RecipeWrapper wrapper = new RecipeWrapper(blockEntity.inventory);
 							List<EmberActivationRecipe> recipes = level.getRecipeManager().getRecipesFor(RegistryManager.EMBER_ACTIVATION.get(), wrapper, level);
-							double emberValue = recipes.get(0).getOutput(wrapper);
+							double emberValue = recipes.get(0).getOutput(wrapper) * blockEntity.getMultiplier();
 							double ember = UpgradeUtil.getTotalEmberProduction(blockEntity, emberValue, blockEntity.upgrades);
 							if ((ember > 0 || emberValue == 0) && top.capability.getEmber() + ember <= top.capability.getEmberCapacity()) {
 								level.playSound(null, pos, EmbersSounds.PRESSURE_REFINERY.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
@@ -185,7 +189,7 @@ public class PressureRefineryBottomBlockEntity extends FluidHandlerBlockEntity i
 		if(EmberDialBlock.DIAL_TYPE.equals(dialType)) {
 			DecimalFormat multiplierFormat = DecimalFormats.getDecimalFormat(Embers.MODID + ".decimal_format.ember_multiplier");
 			double multiplier = getMultiplier();
-			information.add(I18n.get(Embers.MODID + ".tooltip.dial.ember_multiplier",multiplierFormat.format(multiplier)));
+			information.add(I18n.get(Embers.MODID + ".tooltip.dial.ember_multiplier", multiplierFormat.format(multiplier)));
 		}
 		UpgradeUtil.throwEvent(this, new DialInformationEvent(this, information, dialType), upgrades);
 	}
