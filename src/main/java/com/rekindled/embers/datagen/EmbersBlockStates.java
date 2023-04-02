@@ -349,6 +349,39 @@ public class EmbersBlockStates extends BlockStateProvider {
 					.uvLock(false)
 					.build();
 		});
+
+		ExistingModelFile ejectorModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "ember_ejector"));
+		simpleBlockItem(RegistryManager.EMBER_EJECTOR.get(), ejectorModel);
+
+		getMultipartBuilder(RegistryManager.EMBER_EJECTOR.get())
+		.part().modelFile(ejectorModel).addModel()
+		.condition(BlockStateProperties.FACING, Direction.UP).end()
+		.part().modelFile(ejectorModel).rotationX(180).addModel()
+		.condition(BlockStateProperties.FACING, Direction.DOWN).end()
+		.part().modelFile(ejectorModel).rotationX(90).addModel()
+		.condition(BlockStateProperties.FACING, Direction.NORTH).end()
+		.part().modelFile(ejectorModel).rotationX(90).rotationY(180).addModel()
+		.condition(BlockStateProperties.FACING, Direction.SOUTH).end()
+		.part().modelFile(ejectorModel).rotationX(90).rotationY(90).addModel()
+		.condition(BlockStateProperties.FACING, Direction.EAST).end()
+		.part().modelFile(ejectorModel).rotationX(90).rotationY(270).addModel()
+		.condition(BlockStateProperties.FACING, Direction.WEST).end()
+		.part().modelFile(fluidPipeEndModel).addModel()
+		.condition(BlockStateProperties.DOWN, true).end()
+		.part().modelFile(fluidPipeEndModel2).rotationX(180).addModel()
+		.condition(BlockStateProperties.UP, true).end()
+		.part().modelFile(fluidPipeEndModel).rotationX(90).addModel()
+		.condition(BlockStateProperties.SOUTH, true).end()
+		.part().modelFile(fluidPipeEndModel2).rotationX(90).rotationY(180).addModel()
+		.condition(BlockStateProperties.NORTH, true).end()
+		.part().modelFile(fluidPipeEndModel).rotationX(90).rotationY(90).addModel()
+		.condition(BlockStateProperties.WEST, true).end()
+		.part().modelFile(fluidPipeEndModel2).rotationX(90).rotationY(270).addModel()
+		.condition(BlockStateProperties.EAST, true).end();
+
+		ExistingModelFile funnelModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "ember_funnel"));
+		directionalBlock(RegistryManager.EMBER_FUNNEL.get(), funnelModel);
+		simpleBlockItem(RegistryManager.EMBER_FUNNEL.get(), funnelModel);
 	}
 
 	public void blockWithItem(RegistryObject<? extends Block> registryObject) {

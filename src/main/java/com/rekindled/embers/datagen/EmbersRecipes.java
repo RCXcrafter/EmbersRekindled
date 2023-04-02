@@ -458,6 +458,26 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('M', RegistryManager.MECHANICAL_CORE.get())
 		.unlockedBy("has_melter", has(RegistryManager.MELTER.get()))
 		.save(consumer, getResource("mixer_centrifuge"));
+
+		ShapedRecipeBuilder.shaped(RegistryManager.EMBER_EJECTOR.get())
+		.pattern("P")
+		.pattern("E")
+		.pattern("I")
+		.define('P', itemTag("forge", "plates/dawnstone"))
+		.define('I', itemTag("forge", "ingots/iron"))
+		.define('E', RegistryManager.EMBER_EMITTER.get())
+		.unlockedBy("has_dawnstone", has(itemTag("forge", "ingots/dawnstone")))
+		.save(consumer, getResource("ember_ejector"));
+
+		ShapedRecipeBuilder.shaped(RegistryManager.EMBER_FUNNEL.get())
+		.pattern("P P")
+		.pattern("CRC")
+		.pattern(" P ")
+		.define('P', itemTag("forge", "plates/dawnstone"))
+		.define('C', itemTag("forge", "ingots/copper"))
+		.define('R', RegistryManager.EMBER_RECEIVER.get())
+		.unlockedBy("has_dawnstone", has(itemTag("forge", "ingots/dawnstone")))
+		.save(consumer, getResource("ember_funnel"));
 	}
 
 	public void fullOreRecipes(String name, ImmutableList<ItemLike> ores, Fluid fluid, Item raw, Item rawBlock, Item block, Item ingot, Item nugget, Item plate, Consumer<FinishedRecipe> consumer) {

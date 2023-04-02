@@ -24,6 +24,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.common.capabilities.Capability;
@@ -53,6 +54,10 @@ public class EmberReceiverBlockEntity extends BlockEntity implements IEmberPacke
 		super(RegistryManager.EMBER_RECEIVER_ENTITY.get(), pPos, pBlockState);
 		capability.setEmberCapacity(2000);
 		capability.setEmber(0);
+	}
+
+	public EmberReceiverBlockEntity(BlockEntityType<?> pType, BlockPos pPos, BlockState pBlockState) {
+		super(pType, pPos, pBlockState);
 	}
 
 	@Override
@@ -122,7 +127,7 @@ public class EmberReceiverBlockEntity extends BlockEntity implements IEmberPacke
 				serverLevel.sendParticles(new StarParticleOptions(GlowParticleOptions.EMBER_COLOR, 3.5f + 0.5f * random.nextFloat()), getBlockPos().getX() + 0.5, getBlockPos().getY() + 0.5, getBlockPos().getZ() + 0.5, 12, 0.0125f * (random.nextFloat() - 0.5f), 0.0125f * (random.nextFloat() - 0.5f), 0.0125f * (random.nextFloat() - 0.5f), 1.0);
 			}
 		}
-		level.playLocalSound(packet.getX(),packet. getY(), packet.getZ(), packet.value >= 100 ? EmbersSounds.EMBER_RECEIVE_BIG.get() : EmbersSounds.EMBER_RECEIVE.get(), SoundSource.BLOCKS, 1.0f, 1.0f, false);
+		level.playLocalSound(packet.getX(), packet.getY(), packet.getZ(), packet.value >= 100 ? EmbersSounds.EMBER_RECEIVE_BIG.get() : EmbersSounds.EMBER_RECEIVE.get(), SoundSource.BLOCKS, 1.0f, 1.0f, false);
 		return true;
 	}
 

@@ -24,6 +24,11 @@
     "embersrekindled:fluid_vessel",
     "embersrekindled:stamper",
     "embersrekindled:stamp_base",
-    "embersrekindled:bin"
+    "embersrekindled:bin",
+    "embersrekindled:mixer_centrifuge",
+    "embersrekindled:item_dropper",
+    "embersrekindled:pressure_refinery",
+    "embersrekindled:ember_ejector",
+    "embersrekindled:ember_funnel"
   ]
 }

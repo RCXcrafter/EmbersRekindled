@@ -217,29 +217,28 @@ public class ResearchManager {
 		dawnstone = new ResearchBase("dawnstone", new ItemStack(RegistryManager.DAWNSTONE_INGOT.get()), 11, 4).addAncestor(mixer);
 		copper_cell = new ResearchBase("copper_cell", new ItemStack(RegistryManager.COPPER_CELL_ITEM.get()), 0, 5).addAncestor(emitters);
 		//clockwork_attenuator = new ResearchBase("clockwork_attenuator", new ItemStack(RegistryManager.clockwork_attenuator), 12, 7);
-		/*
-		//METALLURGY
-		crystal_cell = new ResearchBase("crystal_cell", new ItemStack(RegistryManager.crystal_cell), 0, 1);
-		pulser = new ResearchShowItem("pulser", new ItemStack(RegistryManager.ember_pulser), 0, 3.5).addItem(new DisplayItem(new ItemStack(RegistryManager.ember_pulser))).addAncestor(crystal_cell)
-				.addPage(new ResearchShowItem("ember_funnel",new ItemStack(RegistryManager.ember_funnel),0,0).addItem(new DisplayItem(new ItemStack(RegistryManager.ember_funnel))));
-		charger = new ResearchBase("charger", new ItemStack(RegistryManager.charger), 4, 0);
-		ember_siphon = new ResearchBase("ember_siphon", new ItemStack(RegistryManager.ember_siphon), 2, 0).addAncestor(ResearchManager.charger);
-		ItemStack fullJar = ((ItemEmberStorage)RegistryManager.ember_jar).withFill(((ItemEmberStorage)RegistryManager.ember_jar).getCapacity());
-		jars = new ResearchBase("jars", fullJar, 7, 1).addAncestor(charger);
-		clockwork_tools = new ResearchBase("clockwork_tools", new ItemStack(RegistryManager.axe_clockwork), 2, 2).addAncestor(jars)
-				.addPage(new ResearchShowItem("clockwork_pickaxe",ItemStack.EMPTY,0,0).addItem(new DisplayItem(new ItemStack(RegistryManager.pickaxe_clockwork))))
-				.addPage(new ResearchShowItem("clockwork_hammer",ItemStack.EMPTY,0,0).addItem(new DisplayItem(new ItemStack(RegistryManager.grandhammer))))
-				.addPage(new ResearchShowItem("clockwork_axe",ItemStack.EMPTY,0,0).addItem(new DisplayItem(new ItemStack(RegistryManager.axe_clockwork))));
-		//pulser = new ResearchBase("pulser", new ItemStack(RegistryManager.ember_pulser), 2, 5);
-		splitter = new ResearchBase("splitter", new ItemStack(RegistryManager.beam_splitter), 0, 6).addAncestor(pulser);
-		cinder_staff = new ResearchBase("cinder_staff", new ItemStack(RegistryManager.staff_ember), 4, 4).addAncestor(jars);
-		blazing_ray = new ResearchBase("blazing_ray", new ItemStack(RegistryManager.ignition_cannon), 6, 5).addAncestor(jars);
-		aspecti = new ResearchBase("aspecti", new ItemStack(RegistryManager.aspectus_dawnstone), 12, 1);
-		cinder_plinth = new ResearchBase("cinder_plinth", new ItemStack(RegistryManager.cinder_plinth), 9, 0);
-		beam_cannon = new ResearchBase("beam_cannon", new ItemStack(RegistryManager.beam_cannon), 9, 7);
-		alchemy = new ResearchBase("alchemy", new ItemStack(RegistryManager.alchemy_tablet), 9, 4).addAncestor(cinder_plinth).addAncestor(aspecti).addAncestor(beam_cannon);
-		catalytic_plug = new ResearchBase("catalytic_plug", new ItemStack(RegistryManager.catalytic_plug), 12, 5).addAncestor(ResearchManager.alchemy);
 
+		//METALLURGY
+		//crystal_cell = new ResearchBase("crystal_cell", new ItemStack(RegistryManager.crystal_cell), 0, 1);
+		pulser = new ResearchShowItem("pulser", new ItemStack(RegistryManager.EMBER_EJECTOR_ITEM.get()), 0, 3.5).addItem(new DisplayItem(new ItemStack(RegistryManager.EMBER_EJECTOR_ITEM.get())))//.addAncestor(crystal_cell)
+				.addPage(new ResearchShowItem("ember_funnel",new ItemStack(RegistryManager.EMBER_FUNNEL_ITEM.get()),0,0).addItem(new DisplayItem(new ItemStack(RegistryManager.EMBER_FUNNEL_ITEM.get()))));
+		//charger = new ResearchBase("charger", new ItemStack(RegistryManager.charger), 4, 0);
+		//ember_siphon = new ResearchBase("ember_siphon", new ItemStack(RegistryManager.ember_siphon), 2, 0).addAncestor(ResearchManager.charger);
+		//ItemStack fullJar = ((ItemEmberStorage)RegistryManager.ember_jar).withFill(((ItemEmberStorage)RegistryManager.ember_jar).getCapacity());
+		//jars = new ResearchBase("jars", fullJar, 7, 1).addAncestor(charger);
+		//clockwork_tools = new ResearchBase("clockwork_tools", new ItemStack(RegistryManager.axe_clockwork), 2, 2).addAncestor(jars)
+		//.addPage(new ResearchShowItem("clockwork_pickaxe",ItemStack.EMPTY,0,0).addItem(new DisplayItem(new ItemStack(RegistryManager.pickaxe_clockwork))))
+		//.addPage(new ResearchShowItem("clockwork_hammer",ItemStack.EMPTY,0,0).addItem(new DisplayItem(new ItemStack(RegistryManager.grandhammer))))
+		//.addPage(new ResearchShowItem("clockwork_axe",ItemStack.EMPTY,0,0).addItem(new DisplayItem(new ItemStack(RegistryManager.axe_clockwork))));
+		//splitter = new ResearchBase("splitter", new ItemStack(RegistryManager.beam_splitter), 0, 6).addAncestor(pulser);
+		//cinder_staff = new ResearchBase("cinder_staff", new ItemStack(RegistryManager.staff_ember), 4, 4).addAncestor(jars);
+		//blazing_ray = new ResearchBase("blazing_ray", new ItemStack(RegistryManager.ignition_cannon), 6, 5).addAncestor(jars);
+		//aspecti = new ResearchBase("aspecti", new ItemStack(RegistryManager.aspectus_dawnstone), 12, 1);
+		//cinder_plinth = new ResearchBase("cinder_plinth", new ItemStack(RegistryManager.cinder_plinth), 9, 0);
+		//beam_cannon = new ResearchBase("beam_cannon", new ItemStack(RegistryManager.beam_cannon), 9, 7);
+		//alchemy = new ResearchBase("alchemy", new ItemStack(RegistryManager.alchemy_tablet), 9, 4).addAncestor(cinder_plinth).addAncestor(aspecti).addAncestor(beam_cannon);
+		//catalytic_plug = new ResearchBase("catalytic_plug", new ItemStack(RegistryManager.catalytic_plug), 12, 5).addAncestor(ResearchManager.alchemy);
+		/*
 		//TRANSMUTATION
 		waste = new ResearchBase("waste", new ItemStack(RegistryManager.alchemic_waste), 6, 2);
 		materia = new ResearchBase("materia", new ItemStack(RegistryManager.isolated_materia), 6, 5).addAncestor(waste);
@@ -419,22 +418,22 @@ public class ResearchManager {
 		.addResearch(copper_cell);
 		//.addResearch(clockwork_attenuator)
 		//.addResearch(geo_separator);
-		/*categoryMetallurgy
-		.addResearch(splitter)
-		.addResearch(pulser)
-		.addResearch(crystal_cell)
-		.addResearch(charger)
-		.addResearch(ember_siphon)
-		.addResearch(jars)
-		.addResearch(clockwork_tools)
-		.addResearch(cinder_staff)
-		.addResearch(blazing_ray)
-		.addResearch(cinder_plinth)
-		.addResearch(aspecti)
-		.addResearch(alchemy)
-		.addResearch(beam_cannon)
-		.addResearch(catalytic_plug);
-		categoryAlchemy
+		categoryMetallurgy
+		//.addResearch(splitter)
+		.addResearch(pulser);
+		//.addResearch(crystal_cell)
+		//.addResearch(charger)
+		//.addResearch(ember_siphon)
+		//.addResearch(jars)
+		//.addResearch(clockwork_tools)
+		//.addResearch(cinder_staff)
+		//.addResearch(blazing_ray)
+		//.addResearch(cinder_plinth)
+		//.addResearch(aspecti)
+		//.addResearch(alchemy)
+		//.addResearch(beam_cannon)
+		//.addResearch(catalytic_plug);
+		/*categoryAlchemy
 		.addResearch(waste)
 		.addResearch(simpleAlchemySwitch)
 		.addResearch(cluster)

@@ -40,7 +40,7 @@ public class EmbersLang extends LanguageProvider {
 		addBlock(RegistryManager.ITEM_DIAL, "Item Dial");
 		addBlock(RegistryManager.FLUID_DIAL, "Fluid Dial");
 		addBlock(RegistryManager.EMBER_EMITTER, "Ember Emitter");
-		addBlock(RegistryManager.EMBER_RECEIVER, "Ember Receiver");
+		addBlock(RegistryManager.EMBER_RECEIVER, "Ember Receptor");
 		addBlock(RegistryManager.CAMINITE_LEVER, "Caminite Lever");
 		addBlock(RegistryManager.ITEM_PIPE, "Item Pipe");
 		addBlock(RegistryManager.ITEM_EXTRACTOR, "Item Extractor");
@@ -58,6 +58,8 @@ public class EmbersLang extends LanguageProvider {
 		addBlock(RegistryManager.MIXER_CENTRIFUGE, "Mixer Centrifuge");
 		addBlock(RegistryManager.ITEM_DROPPER, "Item Dropper");
 		addBlock(RegistryManager.PRESSURE_REFINERY, "Pressure Refinery");
+		addBlock(RegistryManager.EMBER_EJECTOR, "Ember Ejector");
+		addBlock(RegistryManager.EMBER_FUNNEL, "Ember Funnel");
 
 		addItem(RegistryManager.TINKER_HAMMER, "Tinker's Hammer");
 		addItem(RegistryManager.TINKER_LENS, "Tinker's Lens");

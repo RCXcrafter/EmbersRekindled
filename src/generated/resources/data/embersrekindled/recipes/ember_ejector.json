@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "E": {
+      "item": "embersrekindled:ember_emitter"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "P": {
+      "tag": "forge:plates/dawnstone"
+    }
+  },
+  "pattern": [
+    "P",
+    "E",
+    "I"
+  ],
+  "result": {
+    "item": "embersrekindled:ember_ejector"
+  }
+}

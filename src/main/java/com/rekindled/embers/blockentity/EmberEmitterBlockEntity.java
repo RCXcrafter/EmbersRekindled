@@ -20,6 +20,7 @@ import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
@@ -53,6 +54,10 @@ public class EmberEmitterBlockEntity extends BlockEntity implements IEmberPacket
 		super(RegistryManager.EMBER_EMITTER_ENTITY.get(), pPos, pBlockState);
 		capability.setEmberCapacity(200);
 		capability.setEmber(0);
+	}
+
+	public EmberEmitterBlockEntity(BlockEntityType<?> pType, BlockPos pPos, BlockState pBlockState) {
+		super(pType, pPos, pBlockState);
 	}
 
 	@Override
@@ -115,7 +120,7 @@ public class EmberEmitterBlockEntity extends BlockEntity implements IEmberPacket
 		}
 	}
 
-	private static Vec3 getBurstVelocity(Direction facing) {
+	public static Vec3 getBurstVelocity(Direction facing) {
 		switch(facing) {
 		case DOWN:
 			return new Vec3(0, -0.5, 0);
