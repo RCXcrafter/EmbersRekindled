@@ -59,6 +59,7 @@ public class MelterBottomBlockEntity extends BlockEntity implements ISoundContro
 	HashSet<Integer> soundsPlaying = new HashSet<>();
 	public boolean isWorking;
 	public List<IUpgradeProvider> upgrades;
+	public MeltingRecipe cachedRecipe = null;
 
 	public MelterBottomBlockEntity(BlockPos pPos, BlockState pBlockState) {
 		super(RegistryManager.MELTER_BOTTOM_ENTITY.get(), pPos, pBlockState);
@@ -132,19 +133,18 @@ public class MelterBottomBlockEntity extends BlockEntity implements ISoundContro
 					blockEntity.progress++;
 					if (blockEntity.progress >= UpgradeUtil.getWorkTime(blockEntity, PROCESS_TIME, blockEntity.upgrades)) {
 						RecipeWrapper wrapper = new RecipeWrapper(top.inventory);
-						List<MeltingRecipe> recipes = level.getRecipeManager().getRecipesFor(RegistryManager.MELTING.get(), wrapper, level);
-
-						if (!recipes.isEmpty()) {
-							FluidStack output = recipes.get(0).getOutput(wrapper);
+						blockEntity.cachedRecipe = Misc.getRecipe(blockEntity.cachedRecipe, RegistryManager.MELTING.get(), wrapper, level);
+						if (blockEntity.cachedRecipe != null) {
+							FluidStack output = blockEntity.cachedRecipe.getOutput(wrapper);
 							FluidTank tank = top.getTank();
 							output = UpgradeUtil.transformOutput(blockEntity, output, blockEntity.upgrades);
 							if (output != null && tank.fill(output, FluidAction.SIMULATE) >= output.getAmount()) {
 								tank.fill(output, FluidAction.EXECUTE);
 								//the recipe is responsible for taking items from the inventory
-								recipes.get(0).process(wrapper);
+								blockEntity.cachedRecipe.process(wrapper);
 								top.setChanged();
 								blockEntity.progress = 0;
-								UpgradeUtil.throwEvent(blockEntity, new MachineRecipeEvent.Success<>(blockEntity, recipes.get(0)), blockEntity.upgrades);
+								UpgradeUtil.throwEvent(blockEntity, new MachineRecipeEvent.Success<>(blockEntity, blockEntity.cachedRecipe), blockEntity.upgrades);
 							}
 						}
 					}

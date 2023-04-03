@@ -66,6 +66,7 @@ public class MixerCentrifugeBottomBlockEntity extends BlockEntity implements IMe
 	HashSet<Integer> soundsPlaying = new HashSet<>();
 	private List<IUpgradeProvider> upgrades;
 	private double powerRatio;
+	public MixingRecipe cachedRecipe = null;
 
 	public MixerCentrifugeBottomBlockEntity(BlockPos pPos, BlockState pBlockState) {
 		super(RegistryManager.MIXER_CENTRIFUGE_BOTTOM_ENTITY.get(), pPos, pBlockState);
@@ -135,28 +136,26 @@ public class MixerCentrifugeBottomBlockEntity extends BlockEntity implements IMe
 				return;
 
 			MixingContext context = new MixingContext(blockEntity.tanks);
-			List<MixingRecipe> recipes = level.getRecipeManager().getRecipesFor(RegistryManager.MIXING.get(), context, level);
+			blockEntity.cachedRecipe = Misc.getRecipe(blockEntity.cachedRecipe, RegistryManager.MIXING.get(), context, level);
 			/*if (recipe != null)
 				blockEntity.powerRatio = recipe.getPowerRatio();
 			else*/
 			blockEntity.powerRatio = 0;
 			double emberCost = UpgradeUtil.getTotalEmberConsumption(blockEntity, EMBER_COST, blockEntity.upgrades);
-			if (top.capability.getEmber() >= emberCost) {
-				if (!recipes.isEmpty()) {
-					boolean cancel = UpgradeUtil.doWork(blockEntity, blockEntity.upgrades);
-					if(!cancel) {
-						IFluidHandler tank = top.getCapability(ForgeCapabilities.FLUID_HANDLER).orElse(null);
-						FluidStack output = recipes.get(0).getOutput(context);
-						output = UpgradeUtil.transformOutput(blockEntity, output, blockEntity.upgrades);
-						int amount = tank.fill(output, FluidAction.SIMULATE);
-						if (amount != 0) {
-							UpgradeUtil.throwEvent(blockEntity, new MachineRecipeEvent.Success<>(blockEntity, recipes.get(0)), blockEntity.upgrades);
-							blockEntity.isWorking = true;
-							tank.fill(output, FluidAction.EXECUTE);
-							recipes.get(0).process(context);
-							UpgradeUtil.throwEvent(blockEntity, new EmberEvent(blockEntity, EmberEvent.EnumType.CONSUME, emberCost), blockEntity.upgrades);
-							top.capability.removeAmount(emberCost, true);
-						}
+			if (top.capability.getEmber() >= emberCost && blockEntity.cachedRecipe != null) {
+				boolean cancel = UpgradeUtil.doWork(blockEntity, blockEntity.upgrades);
+				if(!cancel) {
+					IFluidHandler tank = top.getCapability(ForgeCapabilities.FLUID_HANDLER).orElse(null);
+					FluidStack output = blockEntity.cachedRecipe.getOutput(context);
+					output = UpgradeUtil.transformOutput(blockEntity, output, blockEntity.upgrades);
+					int amount = tank.fill(output, FluidAction.SIMULATE);
+					if (amount != 0) {
+						UpgradeUtil.throwEvent(blockEntity, new MachineRecipeEvent.Success<>(blockEntity, blockEntity.cachedRecipe), blockEntity.upgrades);
+						blockEntity.isWorking = true;
+						tank.fill(output, FluidAction.EXECUTE);
+						blockEntity.cachedRecipe.process(context);
+						UpgradeUtil.throwEvent(blockEntity, new EmberEvent(blockEntity, EmberEvent.EnumType.CONSUME, emberCost), blockEntity.upgrades);
+						top.capability.removeAmount(emberCost, true);
 					}
 				}
 			}

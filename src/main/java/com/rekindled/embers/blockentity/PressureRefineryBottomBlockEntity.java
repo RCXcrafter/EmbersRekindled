@@ -74,6 +74,8 @@ public class PressureRefineryBottomBlockEntity extends FluidHandlerBlockEntity i
 	};
 	public LazyOptional<IItemHandler> holder = LazyOptional.of(() -> inventory);
 	private List<IUpgradeProvider> upgrades = new ArrayList<>();
+	public EmberActivationRecipe cachedRecipe = null;
+	public MetalCoefficientRecipe cachedCoefficient = null;
 
 	public PressureRefineryBottomBlockEntity(BlockPos pPos, BlockState pBlockState) {
 		super(RegistryManager.PRESSURE_REFINERY_BOTTOM_ENTITY.get(), pPos, pBlockState);
@@ -114,9 +116,9 @@ public class PressureRefineryBottomBlockEntity extends FluidHandlerBlockEntity i
 	public double getMultiplier() {
 		BlockState metalState = level.getBlockState(worldPosition.below());
 		BlockStateContext context = new BlockStateContext(metalState);
-		List<MetalCoefficientRecipe> recipes = level.getRecipeManager().getRecipesFor(RegistryManager.METAL_COEFFICIENT.get(), context, level);
+		cachedCoefficient = Misc.getRecipe(cachedCoefficient, RegistryManager.METAL_COEFFICIENT.get(), context, level);
 
-		double metalMultiplier = recipes.isEmpty() ? 0.0 : recipes.get(0).getCoefficient(context);
+		double metalMultiplier = cachedCoefficient == null ? 0.0 : cachedCoefficient.getCoefficient(context);
 		double totalMult = BASE_MULTIPLIER;
 		for (Direction facing : Misc.horizontals) {
 			BlockState state = level.getBlockState(worldPosition.below().relative(facing));
@@ -145,22 +147,24 @@ public class PressureRefineryBottomBlockEntity extends FluidHandlerBlockEntity i
 						blockEntity.progress = 0;
 						if (blockEntity.inventory != null) {
 							RecipeWrapper wrapper = new RecipeWrapper(blockEntity.inventory);
-							List<EmberActivationRecipe> recipes = level.getRecipeManager().getRecipesFor(RegistryManager.EMBER_ACTIVATION.get(), wrapper, level);
-							double emberValue = recipes.get(0).getOutput(wrapper) * blockEntity.getMultiplier();
-							double ember = UpgradeUtil.getTotalEmberProduction(blockEntity, emberValue, blockEntity.upgrades);
-							if ((ember > 0 || emberValue == 0) && top.capability.getEmber() + ember <= top.capability.getEmberCapacity()) {
-								level.playSound(null, pos, EmbersSounds.PRESSURE_REFINERY.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
+							blockEntity.cachedRecipe = Misc.getRecipe(blockEntity.cachedRecipe, RegistryManager.EMBER_ACTIVATION.get(), wrapper, level);
+							if (blockEntity.cachedRecipe != null) {
+								double emberValue = blockEntity.cachedRecipe.getOutput(wrapper) * blockEntity.getMultiplier();
+								double ember = UpgradeUtil.getTotalEmberProduction(blockEntity, emberValue, blockEntity.upgrades);
+								if ((ember > 0 || emberValue == 0) && top.capability.getEmber() + ember <= top.capability.getEmberCapacity()) {
+									level.playSound(null, pos, EmbersSounds.PRESSURE_REFINERY.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
 
-								if (level instanceof ServerLevel serverLevel) {
-									serverLevel.sendParticles(new GlowParticleOptions(GlowParticleOptions.EMBER_COLOR, new Vec3(0, 0.65f, 0), 4.7f), pos.getX() + 0.5f, pos.getY() + 1.5f, pos.getZ() + 0.5f, 80, 0.1, 0.1, 0.1, 1.0);
-									serverLevel.sendParticles(new SmokeParticleOptions(SmokeParticleOptions.SMOKE_COLOR, 5.0f), pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, 20, 0.1, 0.1, 0.1, 1.0);
+									if (level instanceof ServerLevel serverLevel) {
+										serverLevel.sendParticles(new GlowParticleOptions(GlowParticleOptions.EMBER_COLOR, new Vec3(0, 0.65f, 0), 4.7f), pos.getX() + 0.5f, pos.getY() + 1.5f, pos.getZ() + 0.5f, 80, 0.1, 0.1, 0.1, 1.0);
+										serverLevel.sendParticles(new SmokeParticleOptions(SmokeParticleOptions.SMOKE_COLOR, 5.0f), pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, 20, 0.1, 0.1, 0.1, 1.0);
+									}
+									UpgradeUtil.throwEvent(blockEntity, new EmberEvent(blockEntity, EmberEvent.EnumType.PRODUCE, ember), blockEntity.upgrades);
+									top.capability.addAmount(ember, true);
+
+									//the recipe is responsible for taking items from the inventory
+									blockEntity.cachedRecipe.process(wrapper);
+									blockEntity.tank.drain(FLUID_CONSUMED, FluidAction.EXECUTE);
 								}
-								UpgradeUtil.throwEvent(blockEntity, new EmberEvent(blockEntity, EmberEvent.EnumType.PRODUCE, ember), blockEntity.upgrades);
-								top.capability.addAmount(ember, true);
-
-								//the recipe is responsible for taking items from the inventory
-								recipes.get(0).process(wrapper);
-								blockEntity.tank.drain(FLUID_CONSUMED, FluidAction.EXECUTE);
 							}
 						}
 					}

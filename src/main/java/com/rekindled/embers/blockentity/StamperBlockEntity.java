@@ -79,6 +79,7 @@ public class StamperBlockEntity extends BlockEntity implements IMechanicallyPowe
 	};
 	public LazyOptional<IItemHandler> holder = LazyOptional.of(() -> stamp);
 	private List<IUpgradeProvider> upgrades = new ArrayList<>();
+	public StampingRecipe cachedRecipe = null;
 
 	public StamperBlockEntity(BlockPos pPos, BlockState pBlockState) {
 		super(RegistryManager.STAMPER_ENTITY.get(), pPos, pBlockState);
@@ -135,13 +136,13 @@ public class StamperBlockEntity extends BlockEntity implements IMechanicallyPowe
 			IFluidHandler handler = stamp.getTank();
 
 			StampingContext context = new StampingContext(stamp.inventory, handler, blockEntity.stamp.getStackInSlot(0));
-			List<StampingRecipe> recipes = level.getRecipeManager().getRecipesFor(RegistryManager.STAMPING.get(), context, level);
+			blockEntity.cachedRecipe = Misc.getRecipe(blockEntity.cachedRecipe, RegistryManager.STAMPING.get(), context, level);
 
-			if (!recipes.isEmpty() || blockEntity.powered) {
+			if (blockEntity.cachedRecipe != null || blockEntity.powered) {
 				boolean cancel = UpgradeUtil.doWork(blockEntity, blockEntity.upgrades);
 				int stampTime = UpgradeUtil.getWorkTime(blockEntity, STAMP_TIME, blockEntity.upgrades);
 				int retractTime = UpgradeUtil.getWorkTime(blockEntity, RETRACT_TIME, blockEntity.upgrades);
-				if (!cancel && !blockEntity.powered && blockEntity.ticksExisted >= stampTime && !recipes.isEmpty()) {
+				if (!cancel && !blockEntity.powered && blockEntity.ticksExisted >= stampTime) {
 					double emberCost = UpgradeUtil.getTotalEmberConsumption(blockEntity, EMBER_COST, blockEntity.upgrades);
 					if (blockEntity.capability.getEmber() >= emberCost) {
 						UpgradeUtil.throwEvent(blockEntity, new EmberEvent(blockEntity, EmberEvent.EnumType.CONSUME, emberCost), blockEntity.upgrades);
@@ -156,10 +157,10 @@ public class StamperBlockEntity extends BlockEntity implements IMechanicallyPowe
 						blockEntity.powered = true;
 						blockEntity.ticksExisted = 0;
 
-						UpgradeUtil.throwEvent(blockEntity, new MachineRecipeEvent.Success<>(blockEntity, recipes.get(0)), blockEntity.upgrades);
+						UpgradeUtil.throwEvent(blockEntity, new MachineRecipeEvent.Success<>(blockEntity, blockEntity.cachedRecipe), blockEntity.upgrades);
 
 						//the recipe is responsible for taking items and fluid from the inventory
-						List<ItemStack> results = Lists.newArrayList(recipes.get(0).assemble(context).copy());
+						List<ItemStack> results = Lists.newArrayList(blockEntity.cachedRecipe.assemble(context).copy());
 						UpgradeUtil.transformOutput(blockEntity, results, blockEntity.upgrades);
 
 						BlockPos middlePos = pos.below();

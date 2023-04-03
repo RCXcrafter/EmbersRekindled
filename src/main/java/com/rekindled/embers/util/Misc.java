@@ -17,9 +17,12 @@ import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
+import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
@@ -122,5 +125,14 @@ public class Misc {
 
 	public static Vector3f colorFromInt(int color) {
 		return new Vector3f(((0xFF0000 & color) >> 16) / 255.0f, ((0x00FF00 & color) >> 8) / 255.0f, (0x0000FF & color) / 255.0f);
+	}
+
+	public static <C extends Container, T extends Recipe<C>> T getRecipe(T cache, RecipeType<T> type, C container, Level level) {
+		if (cache != null && cache.matches(container, level))
+			return cache;
+		List<T> recipes = level.getRecipeManager().getRecipesFor(type, container, level);
+		if (recipes.isEmpty())
+			return null;
+		return recipes.get(0);
 	}
 }

@@ -59,6 +59,7 @@ public class EmberActivatorBottomBlockEntity extends BlockEntity implements IExt
 	};
 	public LazyOptional<IItemHandler> holder = LazyOptional.of(() -> inventory);
 	private List<IUpgradeProvider> upgrades = new ArrayList<>();
+	public EmberActivationRecipe cachedRecipe = null;
 
 	public EmberActivatorBottomBlockEntity(BlockPos pPos, BlockState pBlockState) {
 		super(RegistryManager.EMBER_ACTIVATOR_BOTTOM_ENTITY.get(), pPos, pBlockState);
@@ -107,21 +108,23 @@ public class EmberActivatorBottomBlockEntity extends BlockEntity implements IExt
 					blockEntity.progress = 0;
 					if (blockEntity.inventory != null) {
 						RecipeWrapper wrapper = new RecipeWrapper(blockEntity.inventory);
-						List<EmberActivationRecipe> recipes = level.getRecipeManager().getRecipesFor(RegistryManager.EMBER_ACTIVATION.get(), wrapper, level);
-						double emberValue = recipes.get(0).getOutput(wrapper);
-						double ember = UpgradeUtil.getTotalEmberProduction(blockEntity, emberValue, blockEntity.upgrades);
-						if ((ember > 0 || emberValue == 0) && top.capability.getEmber() + ember <= top.capability.getEmberCapacity()) {
-							level.playSound(null, pos, EmbersSounds.ACTIVATOR.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
+						blockEntity.cachedRecipe = Misc.getRecipe(blockEntity.cachedRecipe, RegistryManager.EMBER_ACTIVATION.get(), wrapper, level);
+						if (blockEntity.cachedRecipe != null) {
+							double emberValue = blockEntity.cachedRecipe.getOutput(wrapper);
+							double ember = UpgradeUtil.getTotalEmberProduction(blockEntity, emberValue, blockEntity.upgrades);
+							if ((ember > 0 || emberValue == 0) && top.capability.getEmber() + ember <= top.capability.getEmberCapacity()) {
+								level.playSound(null, pos, EmbersSounds.ACTIVATOR.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
 
-							if (level instanceof ServerLevel serverLevel) {
-								serverLevel.sendParticles(new GlowParticleOptions(GlowParticleOptions.EMBER_COLOR, new Vec3(0, 0.65f, 0), 4.7f), pos.getX() + 0.5f, pos.getY() + 1.5f, pos.getZ() + 0.5f, 80, 0.1, 0.1, 0.1, 1.0);
-								serverLevel.sendParticles(new SmokeParticleOptions(SmokeParticleOptions.SMOKE_COLOR, 5.0f), pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, 20, 0.1, 0.1, 0.1, 1.0);
+								if (level instanceof ServerLevel serverLevel) {
+									serverLevel.sendParticles(new GlowParticleOptions(GlowParticleOptions.EMBER_COLOR, new Vec3(0, 0.65f, 0), 4.7f), pos.getX() + 0.5f, pos.getY() + 1.5f, pos.getZ() + 0.5f, 80, 0.1, 0.1, 0.1, 1.0);
+									serverLevel.sendParticles(new SmokeParticleOptions(SmokeParticleOptions.SMOKE_COLOR, 5.0f), pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, 20, 0.1, 0.1, 0.1, 1.0);
+								}
+								UpgradeUtil.throwEvent(blockEntity, new EmberEvent(blockEntity, EmberEvent.EnumType.PRODUCE, ember), blockEntity.upgrades);
+								top.capability.addAmount(ember, true);
+
+								//the recipe is responsible for taking items from the inventory
+								blockEntity.cachedRecipe.process(wrapper);
 							}
-							UpgradeUtil.throwEvent(blockEntity, new EmberEvent(blockEntity, EmberEvent.EnumType.PRODUCE, ember), blockEntity.upgrades);
-							top.capability.addAmount(ember, true);
-
-							//the recipe is responsible for taking items from the inventory
-							recipes.get(0).process(wrapper);
 						}
 					}
 				}
