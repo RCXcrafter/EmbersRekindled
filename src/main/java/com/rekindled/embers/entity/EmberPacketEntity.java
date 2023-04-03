@@ -21,7 +21,7 @@ import net.minecraft.world.phys.Vec3;
 
 public class EmberPacketEntity extends Entity {
 
-	BlockPos pos = new BlockPos(0,0,0);
+	public BlockPos pos = new BlockPos(0,0,0);
 	public BlockPos dest = new BlockPos(0,0,0);
 	public double value = 0;
 	public int lifetime = 80;

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "C": {
+      "tag": "forge:ingots/copper"
+    },
+    "P": {
+      "tag": "forge:plates/iron"
+    }
+  },
+  "pattern": [
+    " C ",
+    "C C",
+    " P "
+  ],
+  "result": {
+    "item": "embersrekindled:ember_relay"
+  }
+}

@@ -382,6 +382,10 @@ public class EmbersBlockStates extends BlockStateProvider {
 		ExistingModelFile funnelModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "ember_funnel"));
 		directionalBlock(RegistryManager.EMBER_FUNNEL.get(), funnelModel);
 		simpleBlockItem(RegistryManager.EMBER_FUNNEL.get(), funnelModel);
+
+		ExistingModelFile relayModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "ember_relay"));
+		directionalBlock(RegistryManager.EMBER_RELAY.get(), relayModel);
+		simpleBlockItem(RegistryManager.EMBER_RELAY.get(), relayModel);
 	}
 
 	public void blockWithItem(RegistryObject<? extends Block> registryObject) {

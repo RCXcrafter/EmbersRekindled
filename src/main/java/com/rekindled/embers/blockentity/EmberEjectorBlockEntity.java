@@ -40,7 +40,7 @@ public class EmberEjectorBlockEntity extends EmberEmitterBlockEntity {
 				}
 			}
 		}
-		if ((blockEntity.ticksExisted + blockEntity.offset) % 20 == 0 && level.hasNeighborSignal(pos) && blockEntity.target != null && !level.isClientSide && blockEntity.capability.getEmber() > PULL_RATE) {
+		if ((blockEntity.ticksExisted + blockEntity.offset) % 20 == 0 && level.hasNeighborSignal(pos) && blockEntity.target != null && level.isLoaded(blockEntity.target) && !level.isClientSide && blockEntity.capability.getEmber() > PULL_RATE) {
 			BlockEntity targetTile = level.getBlockEntity(blockEntity.target);
 			if (targetTile instanceof IEmberPacketReceiver){
 				if (((IEmberPacketReceiver) targetTile).hasRoomFor(TRANSFER_RATE)){
@@ -49,7 +49,7 @@ public class EmberEjectorBlockEntity extends EmberEmitterBlockEntity {
 					packet.initCustom(pos, blockEntity.target, velocity.x, velocity.y, velocity.z, Math.min(TRANSFER_RATE, blockEntity.capability.getEmber()));
 					blockEntity.capability.removeAmount(Math.min(TRANSFER_RATE, blockEntity.capability.getEmber()), true);
 					blockEntity.level.addFreshEntity(packet);
-					level.playSound(null, pos, EmbersSounds.EMBER_EMIT.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
+					level.playSound(null, pos, EmbersSounds.EMBER_EMIT_BIG.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
 				}
 			}
 		}

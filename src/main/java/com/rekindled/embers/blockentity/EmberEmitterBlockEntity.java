@@ -105,7 +105,7 @@ public class EmberEmitterBlockEntity extends BlockEntity implements IEmberPacket
 				}
 			}
 		}
-		if ((blockEntity.ticksExisted + blockEntity.offset) % 20 == 0 && level.hasNeighborSignal(pos) && blockEntity.target != null && !level.isClientSide && blockEntity.capability.getEmber() > PULL_RATE) {
+		if ((blockEntity.ticksExisted + blockEntity.offset) % 20 == 0 && level.hasNeighborSignal(pos) && blockEntity.target != null && level.isLoaded(blockEntity.target) && !level.isClientSide && blockEntity.capability.getEmber() > PULL_RATE) {
 			BlockEntity targetTile = level.getBlockEntity(blockEntity.target);
 			if (targetTile instanceof IEmberPacketReceiver){
 				if (((IEmberPacketReceiver) targetTile).hasRoomFor(TRANSFER_RATE)){
