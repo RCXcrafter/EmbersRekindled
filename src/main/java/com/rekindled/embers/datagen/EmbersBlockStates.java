@@ -386,6 +386,20 @@ public class EmbersBlockStates extends BlockStateProvider {
 		ExistingModelFile relayModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "ember_relay"));
 		directionalBlock(RegistryManager.EMBER_RELAY.get(), relayModel);
 		simpleBlockItem(RegistryManager.EMBER_RELAY.get(), relayModel);
+
+		ExistingModelFile splitterModelX = models().getExistingFile(new ResourceLocation(Embers.MODID, "beam_splitter_x"));
+		ExistingModelFile splitterModelZ = models().getExistingFile(new ResourceLocation(Embers.MODID, "beam_splitter_z"));
+		simpleBlockItem(RegistryManager.BEAM_SPLITTER.get(), splitterModelZ);
+		getVariantBuilder(RegistryManager.BEAM_SPLITTER.get()).forAllStates(state -> {
+			Direction face = state.getValue(BlockStateProperties.FACING);
+			Axis axis = state.getValue(BlockStateProperties.AXIS);
+			return ConfiguredModel.builder()
+					.modelFile((axis == Axis.X && face.getAxis() == Axis.Y) || (axis != Axis.Y && face.getAxis() != Axis.Y) ? splitterModelX : splitterModelZ)
+					.rotationX(face == Direction.DOWN ? 180 : face == Direction.UP ? 0 : 90)
+					.rotationY(face == Direction.SOUTH ? 180 : face == Direction.WEST ? 270 : face == Direction.EAST ? 90 : 0)
+					.uvLock(false)
+					.build();
+		});
 	}
 
 	public void blockWithItem(RegistryObject<? extends Block> registryObject) {

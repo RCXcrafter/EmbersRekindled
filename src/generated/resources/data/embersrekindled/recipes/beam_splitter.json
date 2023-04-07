@@ -4,17 +4,22 @@
     "C": {
       "tag": "forge:ingots/copper"
     },
+    "D": {
+      "tag": "forge:ingots/dawnstone"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
     "P": {
       "tag": "forge:plates/iron"
     }
   },
   "pattern": [
-    " C ",
-    "C C",
-    " P "
+    " D ",
+    "CPC",
+    " I "
   ],
   "result": {
-    "count": 4,
-    "item": "embersrekindled:ember_relay"
+    "item": "embersrekindled:beam_splitter"
   }
 }

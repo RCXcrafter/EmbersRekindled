@@ -13,6 +13,7 @@ import com.rekindled.embers.api.tile.IExtraDialInformation;
 import com.rekindled.embers.api.upgrades.IUpgradeProvider;
 import com.rekindled.embers.api.upgrades.UpgradeUtil;
 import com.rekindled.embers.block.EmberDialBlock;
+import com.rekindled.embers.datagen.EmbersBlockTags;
 import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.particle.GlowParticleOptions;
 import com.rekindled.embers.particle.SmokeParticleOptions;
@@ -35,7 +36,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -121,8 +121,7 @@ public class PressureRefineryBottomBlockEntity extends FluidHandlerBlockEntity i
 		double metalMultiplier = cachedCoefficient == null ? 0.0 : cachedCoefficient.getCoefficient(context);
 		double totalMult = BASE_MULTIPLIER;
 		for (Direction facing : Misc.horizontals) {
-			BlockState state = level.getBlockState(worldPosition.below().relative(facing));
-			if (state.getBlock() == Blocks.LAVA || state.getBlock() == Blocks.FIRE) {
+			if (level.getBlockState(worldPosition.below().relative(facing)).is(EmbersBlockTags.HEAT_SOURCES)) {
 				totalMult += PER_BLOCK_MULTIPLIER * metalMultiplier;
 			}
 		}

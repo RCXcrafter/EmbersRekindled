@@ -230,7 +230,7 @@ public class ResearchManager {
 		//.addPage(new ResearchShowItem("clockwork_pickaxe",ItemStack.EMPTY,0,0).addItem(new DisplayItem(new ItemStack(RegistryManager.pickaxe_clockwork))))
 		//.addPage(new ResearchShowItem("clockwork_hammer",ItemStack.EMPTY,0,0).addItem(new DisplayItem(new ItemStack(RegistryManager.grandhammer))))
 		//.addPage(new ResearchShowItem("clockwork_axe",ItemStack.EMPTY,0,0).addItem(new DisplayItem(new ItemStack(RegistryManager.axe_clockwork))));
-		//splitter = new ResearchBase("splitter", new ItemStack(RegistryManager.beam_splitter), 0, 6).addAncestor(pulser);
+		splitter = new ResearchBase("splitter", new ItemStack(RegistryManager.BEAM_SPLITTER.get()), 0, 6).addAncestor(pulser);
 		//cinder_staff = new ResearchBase("cinder_staff", new ItemStack(RegistryManager.staff_ember), 4, 4).addAncestor(jars);
 		//blazing_ray = new ResearchBase("blazing_ray", new ItemStack(RegistryManager.ignition_cannon), 6, 5).addAncestor(jars);
 		//aspecti = new ResearchBase("aspecti", new ItemStack(RegistryManager.aspectus_dawnstone), 12, 1);
@@ -419,7 +419,7 @@ public class ResearchManager {
 		//.addResearch(clockwork_attenuator)
 		//.addResearch(geo_separator);
 		categoryMetallurgy
-		//.addResearch(splitter)
+		.addResearch(splitter)
 		.addResearch(pulser);
 		//.addResearch(crystal_cell)
 		//.addResearch(charger)

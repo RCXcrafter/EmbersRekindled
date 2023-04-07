@@ -119,10 +119,10 @@ public class EmberPacketEntity extends Entity {
 				if (capability != null) {
 					capability.addAmount(value, true);
 					blockEntity.setChanged();
-					setDeltaMovement(0, 0, 0);
-					//stay alive for one more tick for the sake of the particles reaching the receptor properly
-					this.lifetime = 2;
 				}
+				setDeltaMovement(0, 0, 0);
+				//stay alive for one more tick for the sake of the particles reaching the receptor properly
+				this.lifetime = 2;
 			}
 		}
 	}

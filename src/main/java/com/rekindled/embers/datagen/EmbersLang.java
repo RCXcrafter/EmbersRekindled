@@ -61,6 +61,7 @@ public class EmbersLang extends LanguageProvider {
 		addBlock(RegistryManager.EMBER_EJECTOR, "Ember Ejector");
 		addBlock(RegistryManager.EMBER_FUNNEL, "Ember Funnel");
 		addBlock(RegistryManager.EMBER_RELAY, "Ember Relay");
+		addBlock(RegistryManager.BEAM_SPLITTER, "Beam Splitter");
 
 		addItem(RegistryManager.TINKER_HAMMER, "Tinker's Hammer");
 		addItem(RegistryManager.TINKER_LENS, "Tinker's Lens");

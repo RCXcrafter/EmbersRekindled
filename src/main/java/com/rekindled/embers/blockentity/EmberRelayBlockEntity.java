@@ -92,7 +92,9 @@ public class EmberRelayBlockEntity extends BlockEntity implements IEmberPacketPr
 
 	@Override
 	public void setTargetPosition(BlockPos pos, Direction side) {
-		target = pos;
-		this.setChanged();
+		if (pos != worldPosition) {
+			target = pos;
+			this.setChanged();
+		}
 	}
 }
