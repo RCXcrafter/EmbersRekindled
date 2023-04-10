@@ -498,6 +498,15 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('D', itemTag("forge", "ingots/dawnstone"))
 		.unlockedBy("has_dawnstone", has(itemTag("forge", "ingots/dawnstone")))
 		.save(consumer, getResource("beam_splitter"));
+
+		ShapedRecipeBuilder.shaped(RegistryManager.ITEM_VACUUM.get())
+		.pattern(" II")
+		.pattern("P  ")
+		.pattern(" II")
+		.define('I', itemTag("forge", "ingots/lead"))
+		.define('P', RegistryManager.ITEM_PIPE.get())
+		.unlockedBy("has_item_pipe", has(RegistryManager.ITEM_PIPE.get()))
+		.save(consumer, getResource("item_vacuum"));
 	}
 
 	public void fullOreRecipes(String name, ImmutableList<ItemLike> ores, Fluid fluid, Item raw, Item rawBlock, Item block, Item ingot, Item nugget, Item plate, Consumer<FinishedRecipe> consumer) {

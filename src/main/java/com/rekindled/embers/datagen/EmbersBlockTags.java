@@ -52,7 +52,7 @@ public class EmbersBlockTags extends BlockTagsProvider {
 	@Override
 	protected void addTags() {
 		tag(EMITTER_CONNECTION).add(Blocks.LEVER, Blocks.LADDER, Blocks.IRON_BARS, Blocks.TRIPWIRE_HOOK, Blocks.WALL_TORCH, Blocks.SOUL_WALL_TORCH, Blocks.REDSTONE_WALL_TORCH, Blocks.BELL, Blocks.LANTERN, Blocks.SOUL_LANTERN, Blocks.END_ROD, Blocks.LIGHTNING_ROD, Blocks.CHAIN)
-		.add(RegistryManager.EMBER_DIAL.get(), RegistryManager.CAMINITE_LEVER.get(), RegistryManager.EMBER_EMITTER.get(), RegistryManager.EMBER_RECEIVER.get(), RegistryManager.EMBER_EJECTOR.get(), RegistryManager.EMBER_FUNNEL.get(), RegistryManager.EMBER_RELAY.get())
+		.add(RegistryManager.EMBER_DIAL.get(), RegistryManager.CAMINITE_LEVER.get(), RegistryManager.EMBER_EMITTER.get(), RegistryManager.EMBER_RECEIVER.get(), RegistryManager.EMBER_EJECTOR.get(), RegistryManager.EMBER_FUNNEL.get(), RegistryManager.EMBER_RELAY.get(), RegistryManager.BEAM_SPLITTER.get())
 		.addTags(Tags.Blocks.GLASS_PANES, BlockTags.BUTTONS, Tags.Blocks.FENCES, BlockTags.WALLS, BlockTags.WALL_SIGNS)
 		.addTags(EMITTER_CONNECTION_FLOOR, EMITTER_CONNECTION_CEILING);
 		tag(EMITTER_CONNECTION_FLOOR).add(Blocks.TORCH, Blocks.SOUL_TORCH, Blocks.REDSTONE_TORCH, Blocks.POINTED_DRIPSTONE)
@@ -60,7 +60,7 @@ public class EmbersBlockTags extends BlockTagsProvider {
 		tag(EMITTER_CONNECTION_CEILING).add(Blocks.POINTED_DRIPSTONE);
 
 		tag(ITEM_PIPE_CONNECTION).addTag(ITEM_PIPE_CONNECTION_TOGGLEABLE);
-		tag(ITEM_PIPE_CONNECTION).add(RegistryManager.ITEM_DROPPER.get());
+		tag(ITEM_PIPE_CONNECTION).add(RegistryManager.ITEM_DROPPER.get(), RegistryManager.ITEM_VACUUM.get());
 		tag(ITEM_PIPE_CONNECTION_TOGGLEABLE).add(RegistryManager.ITEM_PIPE.get(), RegistryManager.ITEM_EXTRACTOR.get());
 
 		tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
@@ -95,7 +95,8 @@ public class EmbersBlockTags extends BlockTagsProvider {
 				RegistryManager.EMBER_EJECTOR.get(),
 				RegistryManager.EMBER_FUNNEL.get(),
 				RegistryManager.EMBER_RELAY.get(),
-				RegistryManager.BEAM_SPLITTER.get());
+				RegistryManager.BEAM_SPLITTER.get(),
+				RegistryManager.ITEM_VACUUM.get());
 
 		tag(BlockTags.NEEDS_IRON_TOOL).add(
 				RegistryManager.LEAD_ORE.get(),

@@ -155,7 +155,7 @@ public class EmberEmitterBlock extends BaseEntityBlock implements SimpleWaterlog
 			return false;
 		}
 		//connect to blocks on the same axis
-		if (state.hasProperty(BlockStateProperties.AXIS)) {
+		if (state.hasProperty(BlockStateProperties.AXIS) && !state.hasProperty(BlockStateProperties.FACING)) {
 			return state.getValue(BlockStateProperties.AXIS) == direction.getAxis();
 		}
 		//if there is a face property and it is not wall, only check floor and ceiling

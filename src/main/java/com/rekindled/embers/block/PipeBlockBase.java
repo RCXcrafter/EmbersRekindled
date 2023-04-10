@@ -241,7 +241,7 @@ public abstract class PipeBlockBase extends BaseEntityBlock implements SimpleWat
 			if (!facingState.hasProperty(DIRECTIONS[direction.getOpposite().get3DDataValue()]) || facingState.getValue(DIRECTIONS[direction.getOpposite().get3DDataValue()]) != PipeConnection.DISABLED) {
 				if (facingState.is(getConnectionTag())) {
 					if (facingState.hasProperty(DIRECTIONS[direction.getOpposite().get3DDataValue()]) && facingState.getValue(DIRECTIONS[direction.getOpposite().get3DDataValue()]) == PipeConnection.DISABLED
-							|| facingState.getBlock() instanceof IPipeConnection && !((IPipeConnection) facingState.getBlock()).connectPipe(direction.getOpposite())) {
+							|| facingState.getBlock() instanceof IPipeConnection && !((IPipeConnection) facingState.getBlock()).connectPipe(facingState, direction.getOpposite())) {
 						blockstate = blockstate.setValue(DIRECTIONS[direction.get3DDataValue()], PipeConnection.DISABLED);
 					} else {
 						blockstate = blockstate.setValue(DIRECTIONS[direction.get3DDataValue()], PipeConnection.PIPE);
@@ -268,7 +268,7 @@ public abstract class PipeBlockBase extends BaseEntityBlock implements SimpleWat
 			boolean enabled = pState.getValue(DIRECTIONS[pFacing.get3DDataValue()]) != PipeConnection.DISABLED;
 			if (pFacingState.is(getConnectionTag()) && enabled) {
 				if (pFacingState.hasProperty(DIRECTIONS[pFacing.getOpposite().get3DDataValue()]) && pFacingState.getValue(DIRECTIONS[pFacing.getOpposite().get3DDataValue()]) == PipeConnection.DISABLED
-						|| pFacingState.getBlock() instanceof IPipeConnection && !((IPipeConnection) pFacingState.getBlock()).connectPipe(pFacing.getOpposite())) {
+						|| pFacingState.getBlock() instanceof IPipeConnection && !((IPipeConnection) pFacingState.getBlock()).connectPipe(pFacingState, pFacing.getOpposite())) {
 					pState = pState.setValue(DIRECTIONS[pFacing.get3DDataValue()], PipeConnection.DISABLED);
 				} else {
 					pState = pState.setValue(DIRECTIONS[pFacing.get3DDataValue()], PipeConnection.PIPE);

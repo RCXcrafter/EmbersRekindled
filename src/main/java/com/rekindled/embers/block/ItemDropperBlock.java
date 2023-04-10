@@ -98,7 +98,7 @@ public class ItemDropperBlock extends BaseEntityBlock implements SimpleWaterlogg
 	}
 
 	@Override
-	public boolean connectPipe(Direction direction) {
+	public boolean connectPipe(BlockState state, Direction direction) {
 		return direction == Direction.UP;
 	}
 }

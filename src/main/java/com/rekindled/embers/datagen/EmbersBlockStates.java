@@ -400,6 +400,10 @@ public class EmbersBlockStates extends BlockStateProvider {
 					.uvLock(false)
 					.build();
 		});
+
+		ExistingModelFile vacuumModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "item_vacuum"));
+		directionalBlock(RegistryManager.ITEM_VACUUM.get(), vacuumModel);
+		simpleBlockItem(RegistryManager.ITEM_VACUUM.get(), vacuumModel);
 	}
 
 	public void blockWithItem(RegistryObject<? extends Block> registryObject) {

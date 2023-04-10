@@ -195,5 +195,17 @@
 				"down": {"uv": [0, 0, 3, 3], "texture": "#brick"}
 			}
 		}
-	]
+	],
+	"display": {
+		"firstperson_righthand": {
+			"rotation": [0, 45, 0],
+			"translation": [0, 2, 0],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"firstperson_lefthand": {
+			"rotation": [0, 225, 0],
+			"translation": [0, 2, 0],
+			"scale": [0.4, 0.4, 0.4]
+		}
+	}
 }

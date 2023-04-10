@@ -7,8 +7,6 @@ import com.rekindled.embers.api.power.IEmberPacketProducer;
 import com.rekindled.embers.api.power.IEmberPacketReceiver;
 import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.entity.EmberPacketEntity;
-import com.rekindled.embers.particle.GlowParticleOptions;
-import com.rekindled.embers.particle.StarParticleOptions;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -18,7 +16,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -77,7 +74,7 @@ public class BeamSplitterBlockEntity extends BlockEntity implements IEmberPacket
 	@Override
 	public boolean hasRoomFor(double ember) {
 		if (polled)
-			return target1 != null && target2 != null;
+			return false;
 		polled = true;
 		if (target1 != null && target2 != null && level.isLoaded(target1) && level.isLoaded(target2) && level.getBlockEntity(target1) instanceof IEmberPacketReceiver targetBE1 && level.getBlockEntity(target2) instanceof IEmberPacketReceiver targetBE2) {
 			boolean hasRoom = targetBE1.hasRoomFor(ember / 2.0) && targetBE2.hasRoomFor(ember / 2.0);
@@ -90,7 +87,7 @@ public class BeamSplitterBlockEntity extends BlockEntity implements IEmberPacket
 
 	@Override
 	public boolean onReceive(EmberPacketEntity packet) {
-		if (target1 != null && target2 != null && packet.pos != getBlockPos()) {
+		if (target1 != null && target2 != null && packet.pos != getBlockPos() && packet.value > 0.1) {
 			Axis axis = level.getBlockState(worldPosition).getValue(BlockStateProperties.AXIS);
 
 			EmberPacketEntity packet1 = RegistryManager.EMBER_PACKET.get().create(level);
