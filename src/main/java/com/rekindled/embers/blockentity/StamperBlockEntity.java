@@ -145,6 +145,18 @@ public class StamperBlockEntity extends BlockEntity implements IMechanicallyPowe
 				if (!cancel && !blockEntity.powered && blockEntity.ticksExisted >= stampTime) {
 					double emberCost = UpgradeUtil.getTotalEmberConsumption(blockEntity, EMBER_COST, blockEntity.upgrades);
 					if (blockEntity.capability.getEmber() >= emberCost) {
+						List<ItemStack> results = Lists.newArrayList(blockEntity.cachedRecipe.getOutput(context).copy());
+						UpgradeUtil.transformOutput(blockEntity, results, blockEntity.upgrades);
+
+						BlockEntity outputTile = level.getBlockEntity(pos.below(3));
+						if (outputTile instanceof IBin) {
+							for (ItemStack remainder : results) {
+								remainder = ((IBin) outputTile).getInventory().insertItem(0, remainder, true);
+								if (!remainder.isEmpty())
+									return;
+							}
+						}
+
 						UpgradeUtil.throwEvent(blockEntity, new EmberEvent(blockEntity, EmberEvent.EnumType.CONSUME, emberCost), blockEntity.upgrades);
 						blockEntity.capability.removeAmount(emberCost, true);
 						if (level instanceof ServerLevel serverLevel) {
@@ -160,17 +172,13 @@ public class StamperBlockEntity extends BlockEntity implements IMechanicallyPowe
 						UpgradeUtil.throwEvent(blockEntity, new MachineRecipeEvent.Success<>(blockEntity, blockEntity.cachedRecipe), blockEntity.upgrades);
 
 						//the recipe is responsible for taking items and fluid from the inventory
-						List<ItemStack> results = Lists.newArrayList(blockEntity.cachedRecipe.assemble(context).copy());
-						UpgradeUtil.transformOutput(blockEntity, results, blockEntity.upgrades);
+						blockEntity.cachedRecipe.assemble(context);
 
 						BlockPos middlePos = pos.below();
-						BlockPos outputPos = pos.below(3);
-						BlockEntity outputTile = level.getBlockEntity(outputPos);
 						for (ItemStack remainder : results) {
 							if (outputTile instanceof IBin) {
-								remainder = ((IBin) outputTile).getInventory().insertItem(0, remainder, false);
-							}
-							if (!remainder.isEmpty()) {
+								((IBin) outputTile).getInventory().insertItem(0, remainder, false);
+							} else {
 								level.addFreshEntity(new ItemEntity(level, middlePos.getX() + 0.5, middlePos.getY() + 0.5, middlePos.getZ() + 0.5, remainder));
 							}
 						}
