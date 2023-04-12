@@ -45,7 +45,7 @@ public class EmberDialBlock extends DialBaseBlock {
 	}
 
 	@Override
-	protected void getBEData(Direction facing, ArrayList<String> text, BlockEntity blockEntity) {
+	protected void getBEData(Direction facing, ArrayList<String> text, BlockEntity blockEntity, int maxLines) {
 		IEmberCapability cap = blockEntity.getCapability(EmbersCapabilities.EMBER_CAPABILITY, facing).orElse(null);
 		if (cap != null){
 			text.add(formatEmber(cap.getEmber(), cap.getEmberCapacity()));

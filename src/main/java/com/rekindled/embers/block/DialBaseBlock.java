@@ -126,19 +126,19 @@ public abstract class DialBaseBlock extends DirectionalBlock implements IDial, S
 	}
 
 	@Override
-	public List<String> getDisplayInfo(Level world, BlockPos pos, BlockState state) {
+	public List<String> getDisplayInfo(Level world, BlockPos pos, BlockState state, int maxLines) {
 		ArrayList<String> text = new ArrayList<>();
 		Direction facing = state.getValue(FACING);
 		BlockEntity tileEntity = world.getBlockEntity(pos.relative(facing, -1));
 		if (tileEntity != null){
-			getBEData(facing, text, tileEntity);
+			getBEData(facing, text, tileEntity, maxLines);
 			if(tileEntity instanceof IExtraDialInformation)
 				((IExtraDialInformation) tileEntity).addDialInformation(facing, text, getDialType());
 		}
 		return text;
 	}
 
-	protected abstract void getBEData(Direction facing, ArrayList<String> text, BlockEntity blockEntity);
+	protected abstract void getBEData(Direction facing, ArrayList<String> text, BlockEntity blockEntity, int maxLines);
 
 	@Override
 	public void updateBEData(Level world, BlockState state, BlockPos pos) {

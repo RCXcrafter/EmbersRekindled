@@ -48,7 +48,7 @@ public class FluidDialBlock extends DialBaseBlock {
 	}
 
 	@Override
-	protected void getBEData(Direction facing, ArrayList<String> text, BlockEntity blockEntity) {
+	protected void getBEData(Direction facing, ArrayList<String> text, BlockEntity blockEntity, int maxLines) {
 		IFluidHandler cap = blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, facing).orElse(null);
 		if (cap != null) {
 			for (int i = 0; i < cap.getTanks(); i++) {

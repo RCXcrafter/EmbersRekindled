@@ -52,17 +52,17 @@ public class ItemDialBlock extends DialBaseBlock {
 	}
 
 	@Override
-	protected void getBEData(Direction facing, ArrayList<String> text, BlockEntity blockEntity) {
+	protected void getBEData(Direction facing, ArrayList<String> text, BlockEntity blockEntity, int maxLines) {
 		IItemHandler cap = blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, facing).orElse(null);
 		if (cap != null){
-			for (int i = 0; i < cap.getSlots() && i < 10; i++) {
+			for (int i = 0; i < cap.getSlots() && i < maxLines; i++) {
 				ItemStack stack = cap.getStackInSlot(i);
 				String item;
 				item = formatItemStack(stack);
 				text.add(I18n.get(Embers.MODID + ".tooltip.itemdial.slot", i, item));
 			}
-			if (cap.getSlots() > 10) {
-				text.add(I18n.get(Embers.MODID + ".tooltip.itemdial.too_many", cap.getSlots() - 9));
+			if (cap.getSlots() > maxLines) {
+				text.add(I18n.get(Embers.MODID + ".tooltip.itemdial.too_many", cap.getSlots() - maxLines + 1));
 			}
 		}
 	}

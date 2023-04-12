@@ -83,7 +83,11 @@ public class EmbersClientEvents {
 					List<String> text = new ArrayList<String>();
 
 					if (state.getBlock() instanceof IDial) {
-						text.addAll(((IDial) state.getBlock()).getDisplayInfo(world, result.getBlockPos(), state));
+						
+						int maxLines = (height / 2 - 100) / 11;
+						System.out.println("max lines is: " + maxLines);
+						
+						text.addAll(((IDial) state.getBlock()).getDisplayInfo(world, result.getBlockPos(), state, maxLines));
 					} else if (Misc.isWearingLens(player)) {
 						BlockEntity tileEntity = world.getBlockEntity(result.getBlockPos());
 						if (tileEntity != null) {
