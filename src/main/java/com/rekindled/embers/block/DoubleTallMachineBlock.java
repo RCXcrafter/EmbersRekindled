@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
@@ -27,7 +28,7 @@ public abstract class DoubleTallMachineBlock extends BaseEntityBlock implements 
 
 	public DoubleTallMachineBlock(Properties properties) {
 		super(properties);
-		this.registerDefaultState(this.stateDefinition.any().setValue(BlockStateProperties.BOTTOM, true).setValue(BlockStateProperties.WATERLOGGED, false));
+		this.registerDefaultState(this.stateDefinition.any().setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER).setValue(BlockStateProperties.WATERLOGGED, false));
 	}
 
 	@Override
@@ -38,13 +39,13 @@ public abstract class DoubleTallMachineBlock extends BaseEntityBlock implements 
 	@Override
 	public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
 		if (!state.is(newState.getBlock())) {
-			if (state.getValue(BlockStateProperties.BOTTOM)) {
+			if (state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER) {
 				BlockState above = level.getBlockState(pos.above());
-				if (above.getBlock() == this && !above.getValue(BlockStateProperties.BOTTOM))
+				if (above.getBlock() == this && above.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) != DoubleBlockHalf.LOWER)
 					level.destroyBlock(pos.above(), false);
 			} else {
 				BlockState below = level.getBlockState(pos.below());
-				if (below.getBlock() == this && below.getValue(BlockStateProperties.BOTTOM))
+				if (below.getBlock() == this && below.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER)
 					level.destroyBlock(pos.below(), false);
 			}
 			IItemHandler handler = level.getBlockEntity(pos).getCapability(ForgeCapabilities.ITEM_HANDLER, null).orElse(null);
@@ -58,7 +59,7 @@ public abstract class DoubleTallMachineBlock extends BaseEntityBlock implements 
 
 	@Override
 	public SoundType getSoundType(BlockState state) {
-		return state.getValue(BlockStateProperties.BOTTOM) ? super.getSoundType(state) : EmbersSounds.MULTIBLOCK_EXTRA;
+		return state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER ? super.getSoundType(state) : EmbersSounds.MULTIBLOCK_EXTRA;
 	}
 
 	@Nullable
@@ -71,9 +72,9 @@ public abstract class DoubleTallMachineBlock extends BaseEntityBlock implements 
 
 	@Override
 	public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
-		if (state.getValue(BlockStateProperties.BOTTOM)) {
+		if (state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER) {
 			BlockState topState = this.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, Boolean.valueOf(level.getFluidState(pos.above()).getType() == Fluids.WATER));
-			level.setBlock(pos.above(), topState.setValue(BlockStateProperties.BOTTOM, false), UPDATE_ALL);
+			level.setBlock(pos.above(), topState.setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.UPPER), UPDATE_ALL);
 		}
 	}
 
@@ -87,7 +88,7 @@ public abstract class DoubleTallMachineBlock extends BaseEntityBlock implements 
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-		pBuilder.add(BlockStateProperties.WATERLOGGED).add(BlockStateProperties.BOTTOM);
+		pBuilder.add(BlockStateProperties.WATERLOGGED).add(BlockStateProperties.DOUBLE_BLOCK_HALF);
 	}
 
 	@Override

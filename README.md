@@ -31,14 +31,14 @@ I've decided to port Embers Rekindled to a Minecraft version beyond 1.12.2, I do
 - Don't port overworld quartz ore, Embers doesn't require quartz for anything early game
 
 ## Textures
-Minecraft got a big texture update sometime after 1.12 and quite a few mods are changing their textures to fit better with the new style, however I don't think Embers Rekindled should follow this example. In my opinion Embers has great textures that actually fit the aesthetic of the modern Minecraft textures better than the old textures and I think the port should stick with these textures except in a few cases. Here is a list of texture I do intend on changing:
+Minecraft got a big texture update sometime after 1.12 and quite a few mods are changing their textures to fit better with the new style, however I don't think Embers Rekindled should follow this example. In my opinion Embers has great textures that actually fit the aesthetic of the modern Minecraft textures better than the old textures and I think the port should stick with these textures except in a few cases. Here is a list of textures I do intend on changing:
 - Ores, they should use the new stone textures and maybe also have unique shapes like the new ore textures
 - Ingots and maybe nuggets, I want them to fit in Tinkers' Construct casts and the new ingot shape is slightly different
 - Fluids, all of them are either an edit of lava or water and I'd like to make them more unique
 
 # Food for thought:
 ## What the hell do I do with Mystical Mechanics?
-That might seem like a weird question with an obvious answer but the reason I struggle to answer it for myself is Create. Create is the second Minecraft mod that does a good job at adding mechanical power related game mechanics to Minecraft (the first being Mystical Mechanics) and it currently dominates this market since Mystical Mechanics left a power vacuum after not being ported. This in itself is not such a big deal, Create is a great mod and I think it deserves its position at the top of the food chain of mechanical power mods. The issue with porting Embers to a version where create also exists is that mechanical is and important part of Embers and I don't want want to leave it out of the port. This leaves me with a few options, none of which I particularly like:
+That might seem like a weird question with an obvious answer but the reason I struggle to answer it for myself is Create. Create is the second Minecraft mod that does a good job at adding mechanical power related game mechanics to Minecraft (the first being Mystical Mechanics) and it currently dominates this market since Mystical Mechanics left a power vacuum after not being ported. This in itself is not such a big deal, Create is a great mod and I think it deserves its position at the top of the food chain of mechanical power mods. The issue with porting Embers to a version where create also exists is that Mystical Mechanics is an important part of Embers and I don't want want to leave it out of the port. This leaves me with a few options, none of which I particularly like:
 
 ### Leave all mechanical content out of the port
 All of the Mystical Mechanics related content in the current version of embers is completely optional which makes this an easy option but as I said I don't want to leave it out because it's cool.

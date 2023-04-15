@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -38,7 +39,7 @@ public class MelterBlock extends DoubleTallMachineBlock {
 
 	@Override
 	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		if (!state.getValue(BlockStateProperties.BOTTOM) && level.getBlockEntity(pos) instanceof MelterTopBlockEntity melterEntity) {
+		if (state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) != DoubleBlockHalf.LOWER && level.getBlockEntity(pos) instanceof MelterTopBlockEntity melterEntity) {
 			ItemStack heldItem = player.getItemInHand(hand);
 			if (!heldItem.isEmpty()) {
 				IFluidHandler cap = melterEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, hit.getDirection()).orElse(null);
@@ -68,19 +69,19 @@ public class MelterBlock extends DoubleTallMachineBlock {
 
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-		return state.getValue(BlockStateProperties.BOTTOM) ? BASE_AABB : TOP_AABB;
+		return state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER ? BASE_AABB : TOP_AABB;
 	}
 
 	@Override
 	public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-		if (pState.getValue(BlockStateProperties.BOTTOM))
+		if (pState.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER)
 			return RegistryManager.MELTER_BOTTOM_ENTITY.get().create(pPos, pState);
 		return RegistryManager.MELTER_TOP_ENTITY.get().create(pPos, pState);
 	}
 
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-		if (pState.getValue(BlockStateProperties.BOTTOM))
+		if (pState.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER)
 			return pLevel.isClientSide ? createTickerHelper(pBlockEntityType, RegistryManager.MELTER_BOTTOM_ENTITY.get(), MelterBottomBlockEntity::clientTick) : createTickerHelper(pBlockEntityType, RegistryManager.MELTER_BOTTOM_ENTITY.get(), MelterBottomBlockEntity::serverTick);
 		return pLevel.isClientSide ? createTickerHelper(pBlockEntityType, RegistryManager.MELTER_TOP_ENTITY.get(), MelterTopBlockEntity::clientTick) : createTickerHelper(pBlockEntityType, RegistryManager.MELTER_TOP_ENTITY.get(), MelterTopBlockEntity::serverTick);
 	}

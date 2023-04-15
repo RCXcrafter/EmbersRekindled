@@ -21,6 +21,7 @@ import net.minecraft.world.level.block.ButtonBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
@@ -231,7 +232,7 @@ public class EmbersBlockStates extends BlockStateProvider {
 		simpleBlockItem(RegistryManager.EMBER_ACTIVATOR.get(), activatorTopModel);
 		getVariantBuilder(RegistryManager.EMBER_ACTIVATOR.get()).forAllStates(state -> {
 			return ConfiguredModel.builder()
-					.modelFile(state.getValue(BlockStateProperties.BOTTOM) ? models().getExistingFile(new ResourceLocation(Embers.MODID, "activator_bottom")) : activatorTopModel)
+					.modelFile(state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER ? models().getExistingFile(new ResourceLocation(Embers.MODID, "activator_bottom")) : activatorTopModel)
 					.uvLock(false)
 					.build();
 		});
@@ -240,7 +241,7 @@ public class EmbersBlockStates extends BlockStateProvider {
 		simpleBlockItem(RegistryManager.MELTER.get(), melterBottomModel);
 		getVariantBuilder(RegistryManager.MELTER.get()).forAllStates(state -> {
 			return ConfiguredModel.builder()
-					.modelFile(state.getValue(BlockStateProperties.BOTTOM) ? melterBottomModel : models().getExistingFile(new ResourceLocation(Embers.MODID, "melter_top")))
+					.modelFile(state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER ? melterBottomModel : models().getExistingFile(new ResourceLocation(Embers.MODID, "melter_top")))
 					.uvLock(false)
 					.build();
 		});
@@ -330,7 +331,7 @@ public class EmbersBlockStates extends BlockStateProvider {
 		simpleBlockItem(RegistryManager.MIXER_CENTRIFUGE.get(), mixerBottomModel);
 		getVariantBuilder(RegistryManager.MIXER_CENTRIFUGE.get()).forAllStates(state -> {
 			return ConfiguredModel.builder()
-					.modelFile(state.getValue(BlockStateProperties.BOTTOM) ? mixerBottomModel : models().getExistingFile(new ResourceLocation(Embers.MODID, "mixer_top")))
+					.modelFile(state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER ? mixerBottomModel : models().getExistingFile(new ResourceLocation(Embers.MODID, "mixer_top")))
 					.uvLock(false)
 					.build();
 		});
@@ -345,7 +346,7 @@ public class EmbersBlockStates extends BlockStateProvider {
 		simpleBlockItem(RegistryManager.PRESSURE_REFINERY.get(), refineryBottomModel);
 		getVariantBuilder(RegistryManager.PRESSURE_REFINERY.get()).forAllStates(state -> {
 			return ConfiguredModel.builder()
-					.modelFile(state.getValue(BlockStateProperties.BOTTOM) ? refineryBottomModel : models().getExistingFile(new ResourceLocation(Embers.MODID, "refinery_top")))
+					.modelFile(state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER ? refineryBottomModel : models().getExistingFile(new ResourceLocation(Embers.MODID, "refinery_top")))
 					.uvLock(false)
 					.build();
 		});
