@@ -63,6 +63,8 @@ public class EmbersLang extends LanguageProvider {
 		addBlock(RegistryManager.EMBER_RELAY, "Ember Relay");
 		addBlock(RegistryManager.BEAM_SPLITTER, "Beam Splitter");
 		addBlock(RegistryManager.ITEM_VACUUM, "Item Vacuum");
+		addBlock(RegistryManager.HEARTH_COIL, "Hearth Coil");
+		addBlock(RegistryManager.HEARTH_COIL_EDGE, "Hearth Coil");
 
 		addItem(RegistryManager.TINKER_HAMMER, "Tinker's Hammer");
 		addItem(RegistryManager.TINKER_LENS, "Tinker's Lens");
@@ -116,8 +118,10 @@ public class EmbersLang extends LanguageProvider {
 
 		add(Embers.MODID + ".decimal_format.item_amount", "0x");
 		add(Embers.MODID + ".decimal_format.ember_multiplier", "0.##x");
+		add(Embers.MODID + ".decimal_format.heat", "0.#");
 
 		add(Embers.MODID + ".tooltip.dial.ember_multiplier", "Production Multiplier: %s");
+		add(Embers.MODID + ".tooltip.dial.heat", "Heat: %s/%s");
 
 		add(Embers.MODID + ".tooltip.itemdial.slot", "Slot %s: %s");
 		add(Embers.MODID + ".tooltip.itemdial.item", "%s %s");

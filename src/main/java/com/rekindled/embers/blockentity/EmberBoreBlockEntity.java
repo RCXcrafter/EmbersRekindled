@@ -50,7 +50,6 @@ import net.minecraftforge.items.ItemStackHandler;
 
 public class EmberBoreBlockEntity extends BlockEntity implements ISoundController, IMechanicallyPowered, IExtraDialInformation, IExtraCapabilityInformation {
 
-	public static final int MAX_LEVEL = 7;
 	public static int BORE_TIME = 200;
 	public static final int SLOT_FUEL = 8;
 	public static double FUEL_CONSUMPTION = 3;
@@ -363,7 +362,7 @@ public class EmberBoreBlockEntity extends BlockEntity implements ISoundControlle
 
 	@Override
 	public boolean hasCapabilityDescription(Capability<?> capability) {
-		return true;
+		return capability == ForgeCapabilities.ITEM_HANDLER;
 	}
 
 	@Override

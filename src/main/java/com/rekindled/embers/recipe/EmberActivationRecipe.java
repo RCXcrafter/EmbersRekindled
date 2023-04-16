@@ -15,7 +15,6 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.items.wrapper.RecipeWrapper;
 
 public class EmberActivationRecipe implements Recipe<Container> {
 
@@ -41,11 +40,11 @@ public class EmberActivationRecipe implements Recipe<Container> {
 		return false;
 	}
 
-	public int getOutput(RecipeWrapper context) {
+	public int getOutput(Container context) {
 		return ember;
 	}
 
-	public int process(RecipeWrapper context) {
+	public int process(Container context) {
 		for (int i = 0; i < context.getContainerSize(); i++) {
 			if (ingredient.test(context.getItem(i))) {
 				context.removeItem(i, 1);

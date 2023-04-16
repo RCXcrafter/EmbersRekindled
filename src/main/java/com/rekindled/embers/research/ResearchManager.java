@@ -210,7 +210,7 @@ public class ResearchManager {
 		//geo_separator = new ResearchBase("geo_separator", new ItemStack(RegistryManager.geo_separator), 0, 0).addAncestor(melter);
 		stamper = new ResearchBase("stamper", new ItemStack(RegistryManager.STAMPER_ITEM.get()), 2, 4).addAncestor(melter).addAncestor(emitters);
 		access = new ResearchBase("access", new ItemStack(RegistryManager.MECHANICAL_CORE_ITEM.get()), 7, 5).addAncestor(stamper);
-		//hearth_coil = new ResearchBase("hearth_coil", new ItemStack(RegistryManager.heat_coil), 10, 1).addAncestor(access);
+		hearth_coil = new ResearchBase("hearth_coil", new ItemStack(RegistryManager.HEARTH_COIL.get()), 10, 1).addAncestor(access);
 		mixer = new ResearchBase("mixer", new ItemStack(RegistryManager.MIXER_CENTRIFUGE_ITEM.get()), 5, 2).addAncestor(stamper).addAncestor(melter);
 		//pump = new ResearchBase("pump", new ItemStack(RegistryManager.mechanical_pump), 8, 0).addAncestor(mixer);
 		//breaker = new ResearchBase("breaker", new ItemStack(RegistryManager.breaker), 4, 7).addAncestor(stamper);
@@ -407,7 +407,7 @@ public class ResearchManager {
 		categoryMechanisms
 		.addResearch(melter)
 		.addResearch(stamper)
-		//.addResearch(hearth_coil)
+		.addResearch(hearth_coil)
 		.addResearch(mixer)
 		//.addResearch(pump)
 		.addResearch(access)

@@ -220,7 +220,7 @@ public class EmbersBlockStates extends BlockStateProvider {
 			return ConfiguredModel.builder()
 					.modelFile(edge.corner ? mechCornerModel : (edge == MechEdge.NORTH || edge == MechEdge.SOUTH) && axis == Axis.Z || (edge == MechEdge.EAST || edge == MechEdge.WEST) && axis == Axis.X ? boreEdgeModel : mechEdgeModel)
 					.rotationY(edge.rotation)
-					.uvLock(false)
+					.uvLock(true)
 					.build();
 		});
 
@@ -405,6 +405,22 @@ public class EmbersBlockStates extends BlockStateProvider {
 		ExistingModelFile vacuumModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "item_vacuum"));
 		directionalBlock(RegistryManager.ITEM_VACUUM.get(), vacuumModel);
 		simpleBlockItem(RegistryManager.ITEM_VACUUM.get(), vacuumModel);
+
+		simpleBlock(RegistryManager.HEARTH_COIL.get(), models().getExistingFile(new ResourceLocation(Embers.MODID, "hearth_coil_center")));
+		simpleBlockItem(RegistryManager.HEARTH_COIL.get(), models().cubeAll("hearth_coil", new ResourceLocation(Embers.MODID, "block/crate_coil")));
+
+		ExistingModelFile coilEdgeModelX = models().getExistingFile(new ResourceLocation(Embers.MODID, "hearth_coil_edge_x"));
+		ExistingModelFile coilEdgeModelZ = models().getExistingFile(new ResourceLocation(Embers.MODID, "hearth_coil_edge_z"));
+		ExistingModelFile coilCornerModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "hearth_coil_corner"));
+		getVariantBuilder(RegistryManager.HEARTH_COIL_EDGE.get()).forAllStates(state -> {
+			MechEdge edge = state.getValue(MechEdgeBlockBase.EDGE);
+
+			return ConfiguredModel.builder()
+					.modelFile(edge.corner ? coilCornerModel : edge == MechEdge.EAST || edge == MechEdge.WEST ? coilEdgeModelZ : coilEdgeModelX)
+					.rotationY(edge.rotation)
+					.uvLock(true)
+					.build();
+		});
 	}
 
 	public void blockWithItem(RegistryObject<? extends Block> registryObject) {

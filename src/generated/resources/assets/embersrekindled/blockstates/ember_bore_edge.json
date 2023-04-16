@@ -2,122 +2,154 @@
   "variants": {
     "axis=x,edge=east,waterlogged=false": {
       "model": "embersrekindled:block/ember_bore_edge",
+      "uvlock": true,
       "y": 90
     },
     "axis=x,edge=east,waterlogged=true": {
       "model": "embersrekindled:block/ember_bore_edge",
+      "uvlock": true,
       "y": 90
     },
     "axis=x,edge=north,waterlogged=false": {
-      "model": "embersrekindled:block/mech_edge_straight"
+      "model": "embersrekindled:block/mech_edge_straight",
+      "uvlock": true
     },
     "axis=x,edge=north,waterlogged=true": {
-      "model": "embersrekindled:block/mech_edge_straight"
+      "model": "embersrekindled:block/mech_edge_straight",
+      "uvlock": true
     },
     "axis=x,edge=northeast,waterlogged=false": {
-      "model": "embersrekindled:block/mech_edge_corner"
+      "model": "embersrekindled:block/mech_edge_corner",
+      "uvlock": true
     },
     "axis=x,edge=northeast,waterlogged=true": {
-      "model": "embersrekindled:block/mech_edge_corner"
+      "model": "embersrekindled:block/mech_edge_corner",
+      "uvlock": true
     },
     "axis=x,edge=northwest,waterlogged=false": {
       "model": "embersrekindled:block/mech_edge_corner",
+      "uvlock": true,
       "y": 270
     },
     "axis=x,edge=northwest,waterlogged=true": {
       "model": "embersrekindled:block/mech_edge_corner",
+      "uvlock": true,
       "y": 270
     },
     "axis=x,edge=south,waterlogged=false": {
       "model": "embersrekindled:block/mech_edge_straight",
+      "uvlock": true,
       "y": 180
     },
     "axis=x,edge=south,waterlogged=true": {
       "model": "embersrekindled:block/mech_edge_straight",
+      "uvlock": true,
       "y": 180
     },
     "axis=x,edge=southeast,waterlogged=false": {
       "model": "embersrekindled:block/mech_edge_corner",
+      "uvlock": true,
       "y": 90
     },
     "axis=x,edge=southeast,waterlogged=true": {
       "model": "embersrekindled:block/mech_edge_corner",
+      "uvlock": true,
       "y": 90
     },
     "axis=x,edge=southwest,waterlogged=false": {
       "model": "embersrekindled:block/mech_edge_corner",
+      "uvlock": true,
       "y": 180
     },
     "axis=x,edge=southwest,waterlogged=true": {
       "model": "embersrekindled:block/mech_edge_corner",
+      "uvlock": true,
       "y": 180
     },
     "axis=x,edge=west,waterlogged=false": {
       "model": "embersrekindled:block/ember_bore_edge",
+      "uvlock": true,
       "y": 270
     },
     "axis=x,edge=west,waterlogged=true": {
       "model": "embersrekindled:block/ember_bore_edge",
+      "uvlock": true,
       "y": 270
     },
     "axis=z,edge=east,waterlogged=false": {
       "model": "embersrekindled:block/mech_edge_straight",
+      "uvlock": true,
       "y": 90
     },
     "axis=z,edge=east,waterlogged=true": {
       "model": "embersrekindled:block/mech_edge_straight",
+      "uvlock": true,
       "y": 90
     },
     "axis=z,edge=north,waterlogged=false": {
-      "model": "embersrekindled:block/ember_bore_edge"
+      "model": "embersrekindled:block/ember_bore_edge",
+      "uvlock": true
     },
     "axis=z,edge=north,waterlogged=true": {
-      "model": "embersrekindled:block/ember_bore_edge"
+      "model": "embersrekindled:block/ember_bore_edge",
+      "uvlock": true
     },
     "axis=z,edge=northeast,waterlogged=false": {
-      "model": "embersrekindled:block/mech_edge_corner"
+      "model": "embersrekindled:block/mech_edge_corner",
+      "uvlock": true
     },
     "axis=z,edge=northeast,waterlogged=true": {
-      "model": "embersrekindled:block/mech_edge_corner"
+      "model": "embersrekindled:block/mech_edge_corner",
+      "uvlock": true
     },
     "axis=z,edge=northwest,waterlogged=false": {
       "model": "embersrekindled:block/mech_edge_corner",
+      "uvlock": true,
       "y": 270
     },
     "axis=z,edge=northwest,waterlogged=true": {
       "model": "embersrekindled:block/mech_edge_corner",
+      "uvlock": true,
       "y": 270
     },
     "axis=z,edge=south,waterlogged=false": {
       "model": "embersrekindled:block/ember_bore_edge",
+      "uvlock": true,
       "y": 180
     },
     "axis=z,edge=south,waterlogged=true": {
       "model": "embersrekindled:block/ember_bore_edge",
+      "uvlock": true,
       "y": 180
     },
     "axis=z,edge=southeast,waterlogged=false": {
       "model": "embersrekindled:block/mech_edge_corner",
+      "uvlock": true,
       "y": 90
     },
     "axis=z,edge=southeast,waterlogged=true": {
       "model": "embersrekindled:block/mech_edge_corner",
+      "uvlock": true,
       "y": 90
     },
     "axis=z,edge=southwest,waterlogged=false": {
       "model": "embersrekindled:block/mech_edge_corner",
+      "uvlock": true,
       "y": 180
     },
     "axis=z,edge=southwest,waterlogged=true": {
       "model": "embersrekindled:block/mech_edge_corner",
+      "uvlock": true,
       "y": 180
     },
     "axis=z,edge=west,waterlogged=false": {
       "model": "embersrekindled:block/mech_edge_straight",
+      "uvlock": true,
       "y": 270
     },
     "axis=z,edge=west,waterlogged=true": {
       "model": "embersrekindled:block/mech_edge_straight",
+      "uvlock": true,
       "y": 270
     }
   }

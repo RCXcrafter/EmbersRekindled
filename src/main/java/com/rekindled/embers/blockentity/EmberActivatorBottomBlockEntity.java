@@ -51,10 +51,10 @@ public class EmberActivatorBottomBlockEntity extends BlockEntity implements IExt
 
 		@Override
 		public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
-			if (level.getRecipeManager().getRecipesFor(RegistryManager.EMBER_ACTIVATION.get(), new SingleItemContainer(stack), level).isEmpty()) {
-				return stack;
+			if (Misc.getRecipe(cachedRecipe, RegistryManager.EMBER_ACTIVATION.get(), new SingleItemContainer(stack), level) != null) {
+				return super.insertItem(slot, stack, simulate);
 			}
-			return super.insertItem(slot, stack, simulate);
+			return stack;
 		}
 	};
 	public LazyOptional<IItemHandler> holder = LazyOptional.of(() -> inventory);

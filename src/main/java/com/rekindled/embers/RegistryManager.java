@@ -28,6 +28,8 @@ import com.rekindled.embers.block.FluidDialBlock;
 import com.rekindled.embers.block.FluidExtractorBlock;
 import com.rekindled.embers.block.FluidPipeBlock;
 import com.rekindled.embers.block.FluidVesselBlock;
+import com.rekindled.embers.block.HearthCoilBlock;
+import com.rekindled.embers.block.HearthCoilEdgeBlock;
 import com.rekindled.embers.block.ItemDialBlock;
 import com.rekindled.embers.block.ItemDropperBlock;
 import com.rekindled.embers.block.ItemExtractorBlock;
@@ -55,6 +57,7 @@ import com.rekindled.embers.blockentity.EmberRelayBlockEntity;
 import com.rekindled.embers.blockentity.FluidExtractorBlockEntity;
 import com.rekindled.embers.blockentity.FluidPipeBlockEntity;
 import com.rekindled.embers.blockentity.FluidVesselBlockEntity;
+import com.rekindled.embers.blockentity.HearthCoilBlockEntity;
 import com.rekindled.embers.blockentity.ItemDropperBlockEntity;
 import com.rekindled.embers.blockentity.ItemExtractorBlockEntity;
 import com.rekindled.embers.blockentity.ItemPipeBlockEntity;
@@ -225,6 +228,8 @@ public class RegistryManager {
 	public static final RegistryObject<Block> EMBER_RELAY = BLOCKS.register("ember_relay", () -> new EmberRelayBlock(Properties.of(Material.METAL, MaterialColor.NONE).sound(SoundType.METAL).requiresCorrectToolForDrops().strength(0.6f).noOcclusion()));
 	public static final RegistryObject<Block> BEAM_SPLITTER = BLOCKS.register("beam_splitter", () -> new BeamSplitterBlock(Properties.of(Material.METAL, MaterialColor.NONE).sound(SoundType.METAL).requiresCorrectToolForDrops().strength(0.6f).noOcclusion()));
 	public static final RegistryObject<Block> ITEM_VACUUM = BLOCKS.register("item_vacuum", () -> new ItemVacuumBlock(Properties.of(Material.METAL, MaterialColor.TERRACOTTA_PURPLE).sound(SoundType.METAL).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
+	public static final RegistryObject<Block> HEARTH_COIL = BLOCKS.register("hearth_coil", () -> new HearthCoilBlock(Properties.of(Material.METAL, MaterialColor.COLOR_ORANGE).sound(SoundType.METAL).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
+	public static final RegistryObject<Block> HEARTH_COIL_EDGE = BLOCKS.register("hearth_coil_edge", () -> new HearthCoilEdgeBlock(Properties.of(Material.HEAVY_METAL, MaterialColor.WOOD).sound(EmbersSounds.MULTIBLOCK_EXTRA).requiresCorrectToolForDrops().strength(1.6f)));
 
 	//itemblocks
 	public static final RegistryObject<Item> LEAD_ORE_ITEM = ITEMS.register("lead_ore", () -> new BlockItem(LEAD_ORE.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
@@ -268,6 +273,7 @@ public class RegistryManager {
 	public static final RegistryObject<Item> EMBER_RELAY_ITEM = ITEMS.register("ember_relay", () -> new BlockItem(EMBER_RELAY.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
 	public static final RegistryObject<Item> BEAM_SPLITTER_ITEM = ITEMS.register("beam_splitter", () -> new BlockItem(BEAM_SPLITTER.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
 	public static final RegistryObject<Item> ITEM_VACUUM_ITEM = ITEMS.register("item_vacuum", () -> new BlockItem(ITEM_VACUUM.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
+	public static final RegistryObject<Item> HEARTH_COIL_ITEM = ITEMS.register("hearth_coil", () -> new BlockItem(HEARTH_COIL.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
 
 	//items
 	public static final RegistryObject<Item> TINKER_HAMMER = ITEMS.register("tinker_hammer", () -> new TinkerHammerItem(new Item.Properties().stacksTo(1).tab(Embers.TAB_EMBERS)));
@@ -411,6 +417,7 @@ public class RegistryManager {
 	public static final RegistryObject<BlockEntityType<EmberRelayBlockEntity>> EMBER_RELAY_ENTITY = BLOCK_ENTITY_TYPES.register("ember_relay", () -> BlockEntityType.Builder.of(EmberRelayBlockEntity::new, EMBER_RELAY.get()).build(null));
 	public static final RegistryObject<BlockEntityType<BeamSplitterBlockEntity>> BEAM_SPLITTER_ENTITY = BLOCK_ENTITY_TYPES.register("beam_splitter", () -> BlockEntityType.Builder.of(BeamSplitterBlockEntity::new, BEAM_SPLITTER.get()).build(null));
 	public static final RegistryObject<BlockEntityType<ItemVacuumBlockEntity>> ITEM_VACUUM_ENTITY = BLOCK_ENTITY_TYPES.register("item_vacuum", () -> BlockEntityType.Builder.of(ItemVacuumBlockEntity::new, ITEM_VACUUM.get()).build(null));
+	public static final RegistryObject<BlockEntityType<HearthCoilBlockEntity>> HEARTH_COIL_ENTITY = BLOCK_ENTITY_TYPES.register("hearth_coil", () -> BlockEntityType.Builder.of(HearthCoilBlockEntity::new, HEARTH_COIL.get()).build(null));
 
 	//entities
 	public static final RegistryObject<EntityType<EmberPacketEntity>> EMBER_PACKET = registerEntity("ember_packet", EntityType.Builder.<EmberPacketEntity>of(EmberPacketEntity::new, MobCategory.MISC).sized(0.5F, 0.5F).fireImmune().clientTrackingRange(3).updateInterval(1));

@@ -1,16 +1,16 @@
 {
   "variants": {
-    "bottom=false,waterlogged=false": {
-      "model": "embersrekindled:block/refinery_top"
-    },
-    "bottom=false,waterlogged=true": {
-      "model": "embersrekindled:block/refinery_top"
-    },
-    "bottom=true,waterlogged=false": {
+    "half=lower,waterlogged=false": {
       "model": "embersrekindled:block/refinery_bottom"
     },
-    "bottom=true,waterlogged=true": {
+    "half=lower,waterlogged=true": {
       "model": "embersrekindled:block/refinery_bottom"
+    },
+    "half=upper,waterlogged=false": {
+      "model": "embersrekindled:block/refinery_top"
+    },
+    "half=upper,waterlogged=true": {
+      "model": "embersrekindled:block/refinery_top"
     }
   }
 }

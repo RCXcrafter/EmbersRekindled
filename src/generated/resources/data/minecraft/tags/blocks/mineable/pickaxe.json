@@ -32,6 +32,8 @@
     "embersrekindled:ember_funnel",
     "embersrekindled:ember_relay",
     "embersrekindled:beam_splitter",
-    "embersrekindled:item_vacuum"
+    "embersrekindled:item_vacuum",
+    "embersrekindled:hearth_coil",
+    "embersrekindled:hearth_coil_edge"
   ]
 }

@@ -53,7 +53,6 @@ public class EmberReceiverBlockEntity extends BlockEntity implements IEmberPacke
 	public EmberReceiverBlockEntity(BlockPos pPos, BlockState pBlockState) {
 		super(RegistryManager.EMBER_RECEIVER_ENTITY.get(), pPos, pBlockState);
 		capability.setEmberCapacity(2000);
-		capability.setEmber(0);
 	}
 
 	public EmberReceiverBlockEntity(BlockEntityType<?> pType, BlockPos pPos, BlockState pBlockState) {

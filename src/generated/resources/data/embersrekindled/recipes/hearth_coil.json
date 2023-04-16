@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": {
+      "item": "embersrekindled:mechanical_core"
+    },
+    "C": {
+      "tag": "forge:storage_blocks/copper"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "P": {
+      "tag": "forge:plates/copper"
+    }
+  },
+  "pattern": [
+    "PPP",
+    "ICI",
+    " B "
+  ],
+  "result": {
+    "item": "embersrekindled:hearth_coil"
+  }
+}
