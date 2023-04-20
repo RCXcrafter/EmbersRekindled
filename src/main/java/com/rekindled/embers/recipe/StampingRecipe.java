@@ -21,7 +21,7 @@ import net.minecraftforge.items.wrapper.RecipeWrapper;
 
 public class StampingRecipe implements Recipe<StampingContext> {
 
-	public static final Serializer SERIALIZER = new Serializer(); 
+	public static final Serializer SERIALIZER = new Serializer();
 
 	public final ResourceLocation id;
 
@@ -73,7 +73,7 @@ public class StampingRecipe implements Recipe<StampingContext> {
 				break;
 			}
 		}
-		return output;
+		return this.getOutput(context);
 	}
 
 	@Override

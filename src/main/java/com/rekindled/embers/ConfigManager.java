@@ -1,5 +1,8 @@
 package com.rekindled.embers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -9,6 +12,7 @@ public class ConfigManager {
 
 	public static ConfigValue<Integer> EMBER_BORE_SPEED_MOD;
 	public static ConfigValue<Boolean> CODEX_PROGRESSION;
+	public static ConfigValue<List<? extends String>> TAG_PREFERENCES;
 
 	public static void register() {
 		//registerClientConfigs();
@@ -32,7 +36,13 @@ public class ConfigManager {
 
 
 		COMMON.comment("Miscellaneous settings").push("misc");
-		CODEX_PROGRESSION = COMMON.comment("Codex entries need to be completed before the next one unlocks").define("misc.codexProgression", true);
+
+		CODEX_PROGRESSION = COMMON.comment("Codex entries need to be completed before the next one unlocks.").define("misc.codexProgression", true);
+
+		List<String> preferences = new ArrayList<String>();
+		preferences.add(0, "minecraft");
+		preferences.add(1, "embers");
+		TAG_PREFERENCES = COMMON.comment("Which domains are preferred for tag output recipes.").defineList("misc.tagPreferences", preferences, a -> true);
 
 		COMMON.pop();
 		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, COMMON.build());

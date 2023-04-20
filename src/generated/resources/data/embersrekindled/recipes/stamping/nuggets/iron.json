@@ -1,5 +1,5 @@
 {
-  "type": "embersrekindled:melting",
+  "type": "embersrekindled:tag_stamping",
   "conditions": [
     {
       "type": "forge:not",
@@ -9,11 +9,12 @@
       }
     }
   ],
-  "input": {
-    "tag": "forge:nuggets/iron"
-  },
-  "output": {
+  "fluid": {
     "amount": 10,
-    "fluid": "embersrekindled:molten_iron"
+    "tag": "forge:molten_iron"
+  },
+  "output": "forge:nuggets/iron",
+  "stamp": {
+    "item": "embersrekindled:nugget_stamp"
   }
 }

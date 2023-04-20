@@ -22,7 +22,7 @@ public class EmbersItemTags extends ItemTagsProvider {
 
 	public static final TagKey<Item> PLATES = ItemTags.create(new ResourceLocation("forge", "plates"));
 	public static final TagKey<Item> IRON_PLATE = ItemTags.create(new ResourceLocation("forge", "plates/iron"));
-	public static final TagKey<Item> GOLD_PLATE = ItemTags.create(new ResourceLocation("forge", "plates/gold"));
+	//public static final TagKey<Item> GOLD_PLATE = ItemTags.create(new ResourceLocation("forge", "plates/gold"));
 	public static final TagKey<Item> COPPER_PLATE = ItemTags.create(new ResourceLocation("forge", "plates/copper"));
 
 	public static final TagKey<Item> COPPER_NUGGET = ItemTags.create(new ResourceLocation("forge", "nuggets/copper"));
@@ -79,9 +79,9 @@ public class EmbersItemTags extends ItemTagsProvider {
 		tag(LEAD_NUGGET).add(RegistryManager.LEAD_NUGGET.get());
 		tag(DAWNSTONE_NUGGET).add(RegistryManager.DAWNSTONE_NUGGET.get());
 
-		tag(PLATES).addTags(IRON_PLATE, GOLD_PLATE, COPPER_PLATE, LEAD_PLATE);
+		tag(PLATES).addTags(IRON_PLATE, COPPER_PLATE, LEAD_PLATE);
 		tag(IRON_PLATE).add(RegistryManager.IRON_PLATE.get());
-		tag(GOLD_PLATE).add(RegistryManager.GOLD_PLATE.get());
+		//tag(GOLD_PLATE).add(RegistryManager.GOLD_PLATE.get());
 		tag(COPPER_PLATE).add(RegistryManager.COPPER_PLATE.get());
 		tag(LEAD_PLATE).add(RegistryManager.LEAD_PLATE.get());
 		tag(DAWNSTONE_PLATE).add(RegistryManager.DAWNSTONE_PLATE.get());

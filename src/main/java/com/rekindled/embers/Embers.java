@@ -38,6 +38,7 @@ import com.rekindled.embers.particle.VaporParticle;
 import com.rekindled.embers.research.ResearchManager;
 import com.rekindled.embers.research.capability.IResearchCapability;
 import com.rekindled.embers.util.DecimalFormats;
+import com.rekindled.embers.util.Misc;
 
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.data.DataGenerator;
@@ -58,8 +59,10 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
+import net.minecraftforge.event.TagsUpdatedEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -117,6 +120,7 @@ public class Embers {
 		MinecraftForge.EVENT_BUS.addListener(ResearchManager::onClone);
 		ResearchManager.initResearches();
 		MinecraftForge.EVENT_BUS.addListener(Embers::onJoin);
+		MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, TagsUpdatedEvent.class, e -> Misc.tagItems.clear());
 	}
 
 	public void registerCaps(RegisterCapabilitiesEvent event) {

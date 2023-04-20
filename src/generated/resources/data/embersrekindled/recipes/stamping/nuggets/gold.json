@@ -1,5 +1,5 @@
 {
-  "type": "embersrekindled:melting",
+  "type": "embersrekindled:tag_stamping",
   "conditions": [
     {
       "type": "forge:not",
@@ -9,11 +9,12 @@
       }
     }
   ],
-  "input": {
-    "tag": "forge:nuggets/gold"
-  },
-  "output": {
+  "fluid": {
     "amount": 10,
-    "fluid": "embersrekindled:molten_gold"
+    "tag": "forge:molten_gold"
+  },
+  "output": "forge:nuggets/gold",
+  "stamp": {
+    "item": "embersrekindled:nugget_stamp"
   }
 }

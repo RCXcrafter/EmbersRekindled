@@ -51,7 +51,7 @@ public class EmbersItemModels extends ItemModelProvider {
 		basicItem(RegistryManager.PLATE_STAMP.get());
 
 		itemWithTexture(RegistryManager.IRON_PLATE, "plate_iron");
-		itemWithTexture(RegistryManager.GOLD_PLATE, "plate_gold");
+		//itemWithTexture(RegistryManager.GOLD_PLATE, "plate_gold");
 		itemWithTexture(RegistryManager.COPPER_PLATE, "plate_copper");
 		itemWithTexture(RegistryManager.COPPER_NUGGET, "nugget_copper");
 

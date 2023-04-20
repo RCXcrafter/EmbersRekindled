@@ -1,6 +1,7 @@
 package com.rekindled.embers.util;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
@@ -11,16 +12,22 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
+import com.rekindled.embers.ConfigManager;
 
 import net.minecraft.client.gui.Font;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
@@ -134,5 +141,26 @@ public class Misc {
 		if (recipes.isEmpty())
 			return null;
 		return recipes.get(0);
+	}
+
+	public static HashMap<ResourceLocation, ItemStack> tagItems = new HashMap<ResourceLocation, ItemStack>();
+
+	public static ItemStack getTaggedItem(TagKey<Item> tag) {
+		if (tagItems.containsKey(tag.location()))
+			return tagItems.get(tag.location());
+
+		ItemStack output = ItemStack.EMPTY;
+		for (Holder<Item> holder : Registry.ITEM.getTagOrEmpty(tag)) {
+			for (String domain : ConfigManager.TAG_PREFERENCES.get()) {
+				if (domain == Registry.ITEM.getKey(holder.get()).getNamespace()) {
+					output = new ItemStack(holder);
+					break;
+				}
+			}
+			if (output.isEmpty())
+				output = new ItemStack(holder);
+		}
+		tagItems.put(tag.location(), output);
+		return output;
 	}
 }

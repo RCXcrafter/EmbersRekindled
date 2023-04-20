@@ -89,7 +89,7 @@ public class EmbersLang extends LanguageProvider {
 		addItem(RegistryManager.PLATE_STAMP, "Plate Stamp");
 
 		addItem(RegistryManager.IRON_PLATE, "Iron Plate");
-		addItem(RegistryManager.GOLD_PLATE, "Gold Plate");
+		//addItem(RegistryManager.GOLD_PLATE, "Gold Plate");
 		addItem(RegistryManager.COPPER_PLATE, "Copper Plate");
 		addItem(RegistryManager.COPPER_NUGGET, "Copper Nugget");
 

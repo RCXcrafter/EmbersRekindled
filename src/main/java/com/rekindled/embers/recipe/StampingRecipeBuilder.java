@@ -24,6 +24,7 @@ public class StampingRecipeBuilder {
 	public Ingredient input = Ingredient.EMPTY;
 	public FluidIngredient fluid = FluidIngredient.EMPTY;
 	public ItemStack output;
+	public TagKey<Item> tagOutput = null;
 
 	public static StampingRecipeBuilder create(ItemStack itemStack) {
 		StampingRecipeBuilder builder = new StampingRecipeBuilder();
@@ -34,6 +35,13 @@ public class StampingRecipeBuilder {
 
 	public static StampingRecipeBuilder create(Item item) {
 		return create(new ItemStack(item));
+	}
+
+	public static StampingRecipeBuilder create(TagKey<Item> tag) {
+		StampingRecipeBuilder builder = new StampingRecipeBuilder();
+		builder.tagOutput = tag;
+		builder.id = tag.location();
+		return builder;
 	}
 
 	public StampingRecipeBuilder id(ResourceLocation id) {
@@ -117,6 +125,9 @@ public class StampingRecipeBuilder {
 	}
 
 	public StampingRecipe build() {
+		if (tagOutput != null) {
+			return new TagStampingRecipe(id, stamp, input, fluid, tagOutput);
+		}
 		return new StampingRecipe(id, stamp, input, fluid, output);
 	}
 
@@ -134,13 +145,17 @@ public class StampingRecipeBuilder {
 
 		@Override
 		public void serializeRecipeData(JsonObject json) {
-			JsonObject outputJson = new JsonObject();
-			outputJson.addProperty("item", ForgeRegistries.ITEMS.getKey(recipe.output.getItem()).toString());
-			int count = recipe.output.getCount();
-			if (count > 1) {
-				outputJson.addProperty("count", count);
+			if (recipe instanceof TagStampingRecipe) {
+				json.addProperty("output", ((TagStampingRecipe) recipe).tagOutput.location().toString());
+			} else {
+				JsonObject outputJson = new JsonObject();
+				outputJson.addProperty("item", ForgeRegistries.ITEMS.getKey(recipe.output.getItem()).toString());
+				int count = recipe.output.getCount();
+				if (count > 1) {
+					outputJson.addProperty("count", count);
+				}
+				json.add("output", outputJson);
 			}
-			json.add("output", outputJson);
 
 			json.add("stamp", recipe.stamp.toJson());
 			if (!recipe.input.isEmpty())
@@ -157,6 +172,8 @@ public class StampingRecipeBuilder {
 
 		@Override
 		public RecipeSerializer<?> getType() {
+			if (recipe instanceof TagStampingRecipe)
+				return RegistryManager.TAG_STAMPING_SERIALIZER.get();
 			return RegistryManager.STAMPING_SERIALIZER.get();
 		}
 

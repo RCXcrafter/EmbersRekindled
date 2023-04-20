@@ -91,13 +91,13 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.save(consumer, getResource("copper_ingot_to_nugget"));
 
 		plateHammerRecipe("iron", RegistryManager.IRON_PLATE.get(), consumer);
-		plateHammerRecipe("gold", RegistryManager.GOLD_PLATE.get(), consumer);
+		//plateHammerRecipe("gold", RegistryManager.GOLD_PLATE.get(), consumer);
 		plateHammerRecipe("copper", RegistryManager.COPPER_PLATE.get(), consumer);
 
 		//melting and stamping
-		fullOreMeltingStampingRecipes("iron", RegistryManager.MOLTEN_IRON.FLUID.get(), Items.IRON_INGOT, Items.IRON_NUGGET, RegistryManager.IRON_PLATE.get(), consumer);
-		fullOreMeltingStampingRecipes("gold", RegistryManager.MOLTEN_GOLD.FLUID.get(), Items.GOLD_INGOT, Items.GOLD_NUGGET, RegistryManager.GOLD_PLATE.get(), consumer);
-		fullOreMeltingStampingRecipes("copper", RegistryManager.MOLTEN_COPPER.FLUID.get(), Items.COPPER_INGOT, RegistryManager.COPPER_NUGGET.get(), RegistryManager.COPPER_PLATE.get(), consumer);
+		fullOreMeltingStampingRecipes("iron", RegistryManager.MOLTEN_IRON.FLUID.get(), consumer);
+		fullOreMeltingStampingRecipes("gold", RegistryManager.MOLTEN_GOLD.FLUID.get(), consumer);
+		fullOreMeltingStampingRecipes("copper", RegistryManager.MOLTEN_COPPER.FLUID.get(), consumer);
 
 		//mixing
 		MixingRecipeBuilder.create(RegistryManager.MOLTEN_DAWNSTONE.FLUID.get(), 4).folder(mixingFolder).input(fluidTag("forge", "molten_copper"), 2).input(fluidTag("forge", "molten_gold"), 2).save(consumer);
@@ -543,7 +543,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 	}
 
 	public void fullMetalRecipes(String name, Fluid fluid, Item block, Item ingot, Item nugget, Item plate, Consumer<FinishedRecipe> consumer) {
-		fullMeltingStampingRecipes(name, fluid, ingot, nugget, plate, consumer);
+		fullMeltingStampingRecipes(name, fluid, consumer);
 		blockIngotNuggetCompression(name, block, ingot, nugget, consumer);
 		plateHammerRecipe(name, plate, consumer);
 	}
@@ -557,9 +557,9 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.save(consumer, getResource(name + "_plate_hammering"));
 	}
 
-	public void fullOreMeltingStampingRecipes(String name, Fluid fluid, Item ingot, Item nugget, Item plate, Consumer<FinishedRecipe> consumer) {
+	public void fullOreMeltingStampingRecipes(String name, Fluid fluid, Consumer<FinishedRecipe> consumer) {
 		OreMeltingRecipes(name, fluid, consumer);
-		fullMeltingStampingRecipes(name, fluid, ingot, nugget, plate, consumer);
+		fullMeltingStampingRecipes(name, fluid, consumer);
 	}
 
 	public void OreMeltingRecipes(String name, Fluid fluid, Consumer<FinishedRecipe> consumer) {
@@ -568,16 +568,20 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		MeltingRecipeBuilder.create(itemTag("forge", "storage_blocks/raw_" + name)).domain(Embers.MODID).folder(meltingFolder).output(fluid, RAW_BLOCK_AMOUNT).save(consumer);
 	}
 
-	public void fullMeltingStampingRecipes(String name, Fluid fluid, Item ingot, Item nugget, Item plate, Consumer<FinishedRecipe> consumer) {
+	public void fullMeltingStampingRecipes(String name, Fluid fluid, Consumer<FinishedRecipe> consumer) {
+		TagKey<Item> ingot = itemTag("forge", "ingots/" + name);
+		TagKey<Item> nugget = itemTag("forge", "nuggets/" + name);
+		TagKey<Item> block = itemTag("forge", "storage_blocks/" + name);
+		TagKey<Item> plate = itemTag("forge", "plates/" + name);
 		//melting
-		MeltingRecipeBuilder.create(itemTag("forge", "ingots/" + name)).domain(Embers.MODID).folder(meltingFolder).output(fluid, INGOT_AMOUNT).save(consumer);
-		MeltingRecipeBuilder.create(itemTag("forge", "nuggets/" + name)).domain(Embers.MODID).folder(meltingFolder).output(fluid, NUGGET_AMOUNT).save(consumer);
-		MeltingRecipeBuilder.create(itemTag("forge", "storage_blocks/" + name)).domain(Embers.MODID).folder(meltingFolder).output(fluid, BLOCK_AMOUNT).save(consumer);
-		MeltingRecipeBuilder.create(itemTag("forge", "plates/" + name)).domain(Embers.MODID).folder(meltingFolder).output(fluid, PLATE_AMOUNT).save(consumer);
+		MeltingRecipeBuilder.create(ingot).domain(Embers.MODID).folder(meltingFolder).output(fluid, INGOT_AMOUNT).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(ingot)).build(consumer));
+		MeltingRecipeBuilder.create(nugget).domain(Embers.MODID).folder(meltingFolder).output(fluid, NUGGET_AMOUNT).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(nugget)).build(consumer));
+		MeltingRecipeBuilder.create(block).domain(Embers.MODID).folder(meltingFolder).output(fluid, BLOCK_AMOUNT).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(block)).build(consumer));
+		MeltingRecipeBuilder.create(plate).domain(Embers.MODID).folder(meltingFolder).output(fluid, PLATE_AMOUNT).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(plate)).build(consumer));
 		//stamping
-		StampingRecipeBuilder.create(ingot).domain(Embers.MODID).folder(stampingFolder).stamp(RegistryManager.INGOT_STAMP.get()).fluid(fluidTag("forge", "molten_" + name), INGOT_AMOUNT).save(consumer);
-		StampingRecipeBuilder.create(nugget).domain(Embers.MODID).folder(stampingFolder).stamp(RegistryManager.NUGGET_STAMP.get()).fluid(fluidTag("forge", "molten_" + name), NUGGET_AMOUNT).save(consumer);
-		StampingRecipeBuilder.create(plate).domain(Embers.MODID).folder(stampingFolder).stamp(RegistryManager.PLATE_STAMP.get()).fluid(fluidTag("forge", "molten_" + name), PLATE_AMOUNT).save(consumer);
+		StampingRecipeBuilder.create(ingot).domain(Embers.MODID).folder(stampingFolder).stamp(RegistryManager.INGOT_STAMP.get()).fluid(fluidTag("forge", "molten_" + name), INGOT_AMOUNT).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(ingot)).build(consumer));
+		StampingRecipeBuilder.create(nugget).domain(Embers.MODID).folder(stampingFolder).stamp(RegistryManager.NUGGET_STAMP.get()).fluid(fluidTag("forge", "molten_" + name), NUGGET_AMOUNT).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(nugget)).build(consumer));
+		StampingRecipeBuilder.create(plate).domain(Embers.MODID).folder(stampingFolder).stamp(RegistryManager.PLATE_STAMP.get()).fluid(fluidTag("forge", "molten_" + name), PLATE_AMOUNT).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(plate)).build(consumer));
 	}
 
 	public void blockIngotNuggetCompression(String name, Item block, Item ingot, Item nugget, Consumer<FinishedRecipe> consumer) {

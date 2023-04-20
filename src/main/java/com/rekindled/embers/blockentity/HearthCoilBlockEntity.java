@@ -172,11 +172,11 @@ public class HearthCoilBlockEntity extends BlockEntity implements ISoundControll
 		if (blockEntity.capability.getEmber() >= emberCost) {
 			UpgradeUtil.throwEvent(blockEntity, new EmberEvent(blockEntity, EmberEvent.EnumType.CONSUME, emberCost), blockEntity.upgrades);
 			blockEntity.capability.removeAmount(emberCost, true);
-			if (blockEntity.ticksExisted % 20 == 0){
+			if (blockEntity.ticksExisted % 20 == 0) {
 				blockEntity.heat += UpgradeUtil.getOtherParameter(blockEntity, "heating_speed", HEATING_SPEED, blockEntity.upgrades);
 			}
 		} else {
-			if (blockEntity.ticksExisted % 20 == 0){
+			if (blockEntity.ticksExisted % 20 == 0) {
 				blockEntity.heat -= UpgradeUtil.getOtherParameter(blockEntity, "cooling_speed", COOLING_SPEED, blockEntity.upgrades);
 			}
 		}
@@ -324,7 +324,7 @@ public class HearthCoilBlockEntity extends BlockEntity implements ISoundControll
 
 	@Override
 	public void addDialInformation(Direction facing, List<String> information, String dialType) {
-		if(EmberDialBlock.DIAL_TYPE.equals(dialType)) {
+		if (EmberDialBlock.DIAL_TYPE.equals(dialType)) {
 			DecimalFormat heatFormat = DecimalFormats.getDecimalFormat(Embers.MODID + ".decimal_format.heat");
 			double maxHeat = UpgradeUtil.getOtherParameter(this, "max_heat", MAX_HEAT, upgrades);
 			double heat = Mth.clamp(this.heat, 0, maxHeat);
@@ -339,7 +339,7 @@ public class HearthCoilBlockEntity extends BlockEntity implements ISoundControll
 
 	@Override
 	public void addCapabilityDescription(List<String> strings, Capability<?> capability, Direction facing) {
-		if(capability == ForgeCapabilities.ITEM_HANDLER)
+		if (capability == ForgeCapabilities.ITEM_HANDLER)
 			strings.add(IExtraCapabilityInformation.formatCapability(EnumIOType.OUTPUT, Embers.MODID + ".tooltip.goggles.item", null));
 	}
 }
