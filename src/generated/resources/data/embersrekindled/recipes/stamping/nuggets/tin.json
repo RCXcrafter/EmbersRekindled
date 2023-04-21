@@ -1,0 +1,20 @@
+{
+  "type": "embersrekindled:tag_stamping",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:nuggets/tin"
+      }
+    }
+  ],
+  "fluid": {
+    "amount": 10,
+    "tag": "forge:molten_tin"
+  },
+  "output": "forge:nuggets/tin",
+  "stamp": {
+    "item": "embersrekindled:nugget_stamp"
+  }
+}

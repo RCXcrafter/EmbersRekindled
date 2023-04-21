@@ -13,11 +13,11 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class RenderUtil {
 
-	public static void renderWavyEmberLine(BufferBuilder b, double x1, double y1, double x2, double y2, double thickness){
+	public static void renderWavyEmberLine(BufferBuilder b, double x1, double y1, double x2, double y2, double thickness) {
 		renderWavyEmberLine(b,x1,y1,x2,y2,thickness,1.0,new Color(255,64,16));
 	}
 
-	public static void renderWavyEmberLine(BufferBuilder b, double x1, double y1, double x2, double y2, double thickness, double density, Color color){
+	public static void renderWavyEmberLine(BufferBuilder b, double x1, double y1, double x2, double y2, double thickness, double density, Color color) {
 		double dx = x2-x1;
 		double dy = y2-y1;
 		double angleRads = Math.atan2(y2-y1, x2-x1);
@@ -26,7 +26,7 @@ public class RenderUtil {
 		double orthoY = Math.sin(angleRads+(Math.PI/2.0));
 		//double rayX = Math.cos(angleRads);
 		//double rayY = Math.sin(angleRads);
-		for (int i = 0; i <= 10; i ++){
+		for (int i = 0; i <= 10; i ++) {
 			float coeff = (float)i / 10f;
 			double thickCoeff = Math.min(1.0, 1.4f*Mth.sqrt(2.0f*(0.5f-Math.abs((coeff-0.5f)))));
 			//double thickCoeff = 1.0+0.25*Math.sin(coeff*Math.PI*2.0f);
@@ -45,11 +45,11 @@ public class RenderUtil {
 		}
 	}
 
-	public static void renderHighlightCircle(BufferBuilder b, double x1, double y1, double thickness){
+	public static void renderHighlightCircle(BufferBuilder b, double x1, double y1, double thickness) {
 		renderHighlightCircle(b,x1,y1,thickness,0,new Color(255,64,16));
 	}
 
-	public static void renderHighlightCircle(BufferBuilder b, double x1, double y1, double thickness, double z, Color color){
+	public static void renderHighlightCircle(BufferBuilder b, double x1, double y1, double thickness, double z, Color color) {
 		for (int i = 0; i < 40; i ++) {
 			float coeff = (float)i / 40f;
 			int i2 = i+1;

@@ -1,0 +1,19 @@
+{
+  "type": "embersrekindled:melting",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ores/silver"
+      }
+    }
+  ],
+  "input": {
+    "tag": "forge:ores/silver"
+  },
+  "output": {
+    "amount": 240,
+    "fluid": "embersrekindled:molten_silver"
+  }
+}

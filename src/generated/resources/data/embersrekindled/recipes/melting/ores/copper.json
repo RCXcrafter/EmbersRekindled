@@ -1,5 +1,14 @@
 {
   "type": "embersrekindled:melting",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ores/copper"
+      }
+    }
+  ],
   "input": {
     "tag": "forge:ores/copper"
   },

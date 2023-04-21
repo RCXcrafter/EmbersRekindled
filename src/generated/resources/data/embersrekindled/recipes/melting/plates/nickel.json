@@ -1,0 +1,19 @@
+{
+  "type": "embersrekindled:melting",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:plates/nickel"
+      }
+    }
+  ],
+  "input": {
+    "tag": "forge:plates/nickel"
+  },
+  "output": {
+    "amount": 90,
+    "fluid": "embersrekindled:molten_nickel"
+  }
+}

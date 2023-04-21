@@ -98,9 +98,17 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		fullOreMeltingStampingRecipes("iron", RegistryManager.MOLTEN_IRON.FLUID.get(), consumer);
 		fullOreMeltingStampingRecipes("gold", RegistryManager.MOLTEN_GOLD.FLUID.get(), consumer);
 		fullOreMeltingStampingRecipes("copper", RegistryManager.MOLTEN_COPPER.FLUID.get(), consumer);
+		fullOreMeltingStampingRecipes("silver", RegistryManager.MOLTEN_SILVER.FLUID.get(), consumer);
+		fullOreMeltingStampingRecipes("nickel", RegistryManager.MOLTEN_NICKEL.FLUID.get(), consumer);
+		fullOreMeltingStampingRecipes("tin", RegistryManager.MOLTEN_TIN.FLUID.get(), consumer);
+		fullOreMeltingStampingRecipes("aluminum", RegistryManager.MOLTEN_ALUMINUM.FLUID.get(), consumer);
+		fullMeltingStampingRecipes("bronze", RegistryManager.MOLTEN_BRONZE.FLUID.get(), consumer);
+		fullMeltingStampingRecipes("electrum", RegistryManager.MOLTEN_ELECTRUM.FLUID.get(), consumer);
 
 		//mixing
 		MixingRecipeBuilder.create(RegistryManager.MOLTEN_DAWNSTONE.FLUID.get(), 4).folder(mixingFolder).input(fluidTag("forge", "molten_copper"), 2).input(fluidTag("forge", "molten_gold"), 2).save(consumer);
+		MixingRecipeBuilder.create(RegistryManager.MOLTEN_BRONZE.FLUID.get(), 4).folder(mixingFolder).input(fluidTag("forge", "molten_copper"), 3).input(fluidTag("forge", "molten_tin"), 1).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(itemTag("forge", "ingots/bronze"))).build(consumer));
+		MixingRecipeBuilder.create(RegistryManager.MOLTEN_ELECTRUM.FLUID.get(), 4).folder(mixingFolder).input(fluidTag("forge", "molten_silver"), 2).input(fluidTag("forge", "molten_gold"), 2).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(itemTag("forge", "ingots/electrum"))).build(consumer));
 
 		//metal coefficient
 		MetalCoefficientRecipeBuilder.create(EmbersBlockTags.DAWNSTONE_BLOCK).folder(coefficientFolder).coefficient(1.5).save(consumer);
@@ -563,9 +571,12 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 	}
 
 	public void OreMeltingRecipes(String name, Fluid fluid, Consumer<FinishedRecipe> consumer) {
-		MeltingRecipeBuilder.create(itemTag("forge", "raw_materials/" + name)).domain(Embers.MODID).folder(meltingFolder).output(fluid, RAW_AMOUNT).save(consumer);
-		MeltingRecipeBuilder.create(itemTag("forge", "ores/" + name)).domain(Embers.MODID).folder(meltingFolder).output(fluid, ORE_AMOUNT).save(consumer);
-		MeltingRecipeBuilder.create(itemTag("forge", "storage_blocks/raw_" + name)).domain(Embers.MODID).folder(meltingFolder).output(fluid, RAW_BLOCK_AMOUNT).save(consumer);
+		TagKey<Item> raw = itemTag("forge", "raw_materials/" + name);
+		TagKey<Item> ore = itemTag("forge", "ores/" + name);
+		TagKey<Item> rawBlock = itemTag("forge", "storage_blocks/raw_" + name);
+		MeltingRecipeBuilder.create(raw).domain(Embers.MODID).folder(meltingFolder).output(fluid, RAW_AMOUNT).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(raw)).build(consumer));
+		MeltingRecipeBuilder.create(ore).domain(Embers.MODID).folder(meltingFolder).output(fluid, ORE_AMOUNT).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(ore)).build(consumer));
+		MeltingRecipeBuilder.create(rawBlock).domain(Embers.MODID).folder(meltingFolder).output(fluid, RAW_BLOCK_AMOUNT).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(rawBlock)).build(consumer));
 	}
 
 	public void fullMeltingStampingRecipes(String name, Fluid fluid, Consumer<FinishedRecipe> consumer) {

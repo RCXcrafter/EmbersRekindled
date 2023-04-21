@@ -22,7 +22,7 @@ public class TagStampingRecipe extends StampingRecipe {
 	public final TagKey<Item> tagOutput;
 
 	public TagStampingRecipe(ResourceLocation id, Ingredient stamp, Ingredient input, FluidIngredient fluid, TagKey<Item> tagOutput) {
-		super(id, stamp, input, fluid, Misc.getTaggedItem(tagOutput));
+		super(id, stamp, input, fluid, ItemStack.EMPTY);
 		this.tagOutput = tagOutput;
 	}
 

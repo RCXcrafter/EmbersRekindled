@@ -1,0 +1,19 @@
+{
+  "type": "embersrekindled:melting",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:storage_blocks/nickel"
+      }
+    }
+  ],
+  "input": {
+    "tag": "forge:storage_blocks/nickel"
+  },
+  "output": {
+    "amount": 810,
+    "fluid": "embersrekindled:molten_nickel"
+  }
+}

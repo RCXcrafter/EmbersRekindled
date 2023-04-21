@@ -41,7 +41,7 @@ public class ConfigManager {
 
 		List<String> preferences = new ArrayList<String>();
 		preferences.add(0, "minecraft");
-		preferences.add(1, "embers");
+		preferences.add(1, Embers.MODID);
 		TAG_PREFERENCES = COMMON.comment("Which domains are preferred for tag output recipes.").defineList("misc.tagPreferences", preferences, a -> true);
 
 		COMMON.pop();

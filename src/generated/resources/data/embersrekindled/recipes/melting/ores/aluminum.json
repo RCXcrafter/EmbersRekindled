@@ -1,0 +1,19 @@
+{
+  "type": "embersrekindled:melting",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ores/aluminum"
+      }
+    }
+  ],
+  "input": {
+    "tag": "forge:ores/aluminum"
+  },
+  "output": {
+    "amount": 240,
+    "fluid": "embersrekindled:molten_aluminum"
+  }
+}

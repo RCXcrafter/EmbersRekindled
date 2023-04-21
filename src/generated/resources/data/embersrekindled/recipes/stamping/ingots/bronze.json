@@ -1,0 +1,20 @@
+{
+  "type": "embersrekindled:tag_stamping",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/bronze"
+      }
+    }
+  ],
+  "fluid": {
+    "amount": 90,
+    "tag": "forge:molten_bronze"
+  },
+  "output": "forge:ingots/bronze",
+  "stamp": {
+    "item": "embersrekindled:ingot_stamp"
+  }
+}

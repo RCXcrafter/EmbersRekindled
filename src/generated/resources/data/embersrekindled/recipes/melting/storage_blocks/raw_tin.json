@@ -1,0 +1,19 @@
+{
+  "type": "embersrekindled:melting",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:storage_blocks/raw_tin"
+      }
+    }
+  ],
+  "input": {
+    "tag": "forge:storage_blocks/raw_tin"
+  },
+  "output": {
+    "amount": 1080,
+    "fluid": "embersrekindled:molten_tin"
+  }
+}

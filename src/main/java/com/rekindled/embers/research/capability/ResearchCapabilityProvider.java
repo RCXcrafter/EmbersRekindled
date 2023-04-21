@@ -35,7 +35,7 @@ public class ResearchCapabilityProvider implements ICapabilityProvider, INBTSeri
 	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction facing) {
 		if (researchCapability != null && capability == researchCapability)
 			return researchCapability.orEmpty(capability, holder);
-		return null;
+		return LazyOptional.empty();
 	}
 
 	@Override

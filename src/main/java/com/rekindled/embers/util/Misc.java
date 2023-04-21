@@ -150,11 +150,13 @@ public class Misc {
 			return tagItems.get(tag.location());
 
 		ItemStack output = ItemStack.EMPTY;
+		int index = Integer.MAX_VALUE;
+		List<? extends String> preferences = ConfigManager.TAG_PREFERENCES.get();
 		for (Holder<Item> holder : Registry.ITEM.getTagOrEmpty(tag)) {
-			for (String domain : ConfigManager.TAG_PREFERENCES.get()) {
-				if (domain == Registry.ITEM.getKey(holder.get()).getNamespace()) {
+			for (int i = 0; i < preferences.size(); i ++) {
+				if (i < index && preferences.get(i).equals(Registry.ITEM.getKey(holder.get()).getNamespace())) {
 					output = new ItemStack(holder);
-					break;
+					index = i;
 				}
 			}
 			if (output.isEmpty())

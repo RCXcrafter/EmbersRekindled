@@ -374,7 +374,97 @@ public class RegistryManager {
 			.viscosity(6000)
 			.temperature(1100));
 
+	public static final FluidStuff MOLTEN_SILVER = addFluid("Molten Silver", new FluidInfo("molten_silver", 0xBCEAF7, 0.1F, 1.5F), Material.LAVA, MoltenMetalFluidType::new, LiquidBlock::new,
+			prop -> prop.explosionResistance(1000F).tickRate(30).slopeFindDistance(2).levelDecreasePerBlock(2),
+			FluidType.Properties.create()
+			.canSwim(false)
+			.canDrown(false)
+			.pathType(BlockPathTypes.LAVA)
+			.adjacentPathType(null)
+			.motionScale(0.0023333333333333335D)
+			.sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY_LAVA)
+			.sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL_LAVA)
+			.lightLevel(12)
+			.density(3000)
+			.viscosity(6000)
+			.temperature(1100));
+
 	public static final FluidStuff MOLTEN_DAWNSTONE = addFluid("Molten Dawnstone", new FluidInfo("molten_dawnstone", 0xFF9C36, 0.1F, 1.5F), Material.LAVA, MoltenMetalFluidType::new, LiquidBlock::new,
+			prop -> prop.explosionResistance(1000F).tickRate(30).slopeFindDistance(2).levelDecreasePerBlock(2),
+			FluidType.Properties.create()
+			.canSwim(false)
+			.canDrown(false)
+			.pathType(BlockPathTypes.LAVA)
+			.adjacentPathType(null)
+			.motionScale(0.0023333333333333335D)
+			.sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY_LAVA)
+			.sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL_LAVA)
+			.lightLevel(12)
+			.density(3000)
+			.viscosity(6000)
+			.temperature(1100));
+
+	public static final FluidStuff MOLTEN_NICKEL = addFluid("Molten Nickel", new FluidInfo("molten_nickel", 0xDDEBC0, 0.1F, 1.5F), Material.LAVA, MoltenMetalFluidType::new, LiquidBlock::new,
+			prop -> prop.explosionResistance(1000F).tickRate(30).slopeFindDistance(2).levelDecreasePerBlock(2),
+			FluidType.Properties.create()
+			.canSwim(false)
+			.canDrown(false)
+			.pathType(BlockPathTypes.LAVA)
+			.adjacentPathType(null)
+			.motionScale(0.0023333333333333335D)
+			.sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY_LAVA)
+			.sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL_LAVA)
+			.lightLevel(12)
+			.density(3000)
+			.viscosity(6000)
+			.temperature(1100));
+
+	public static final FluidStuff MOLTEN_TIN = addFluid("Molten Tin", new FluidInfo("molten_tin", 0xDCEDE5, 0.1F, 1.5F), Material.LAVA, MoltenMetalFluidType::new, LiquidBlock::new,
+			prop -> prop.explosionResistance(1000F).tickRate(30).slopeFindDistance(2).levelDecreasePerBlock(2),
+			FluidType.Properties.create()
+			.canSwim(false)
+			.canDrown(false)
+			.pathType(BlockPathTypes.LAVA)
+			.adjacentPathType(null)
+			.motionScale(0.0023333333333333335D)
+			.sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY_LAVA)
+			.sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL_LAVA)
+			.lightLevel(12)
+			.density(3000)
+			.viscosity(6000)
+			.temperature(1100));
+
+	public static final FluidStuff MOLTEN_ALUMINUM = addFluid("Molten Aluminum", new FluidInfo("molten_aluminum", 0xFFAE9C, 0.1F, 1.5F), Material.LAVA, MoltenMetalFluidType::new, LiquidBlock::new,
+			prop -> prop.explosionResistance(1000F).tickRate(30).slopeFindDistance(2).levelDecreasePerBlock(2),
+			FluidType.Properties.create()
+			.canSwim(false)
+			.canDrown(false)
+			.pathType(BlockPathTypes.LAVA)
+			.adjacentPathType(null)
+			.motionScale(0.0023333333333333335D)
+			.sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY_LAVA)
+			.sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL_LAVA)
+			.lightLevel(12)
+			.density(3000)
+			.viscosity(6000)
+			.temperature(1100));
+
+	public static final FluidStuff MOLTEN_BRONZE = addFluid("Molten Bronze", new FluidInfo("molten_bronze", 0xEDAE66, 0.1F, 1.5F), Material.LAVA, MoltenMetalFluidType::new, LiquidBlock::new,
+			prop -> prop.explosionResistance(1000F).tickRate(30).slopeFindDistance(2).levelDecreasePerBlock(2),
+			FluidType.Properties.create()
+			.canSwim(false)
+			.canDrown(false)
+			.pathType(BlockPathTypes.LAVA)
+			.adjacentPathType(null)
+			.motionScale(0.0023333333333333335D)
+			.sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY_LAVA)
+			.sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL_LAVA)
+			.lightLevel(12)
+			.density(3000)
+			.viscosity(6000)
+			.temperature(1100));
+
+	public static final FluidStuff MOLTEN_ELECTRUM = addFluid("Molten Electrum", new FluidInfo("molten_electrum", 0xFAE176, 0.1F, 1.5F), Material.LAVA, MoltenMetalFluidType::new, LiquidBlock::new,
 			prop -> prop.explosionResistance(1000F).tickRate(30).slopeFindDistance(2).levelDecreasePerBlock(2),
 			FluidType.Properties.create()
 			.canSwim(false)

@@ -1,0 +1,6 @@
+{
+  "parent": "embersrekindled:item/bucket_fluid",
+  "cover_is_mask": false,
+  "fluid": "embersrekindled:molten_aluminum",
+  "loader": "forge:fluid_container"
+}

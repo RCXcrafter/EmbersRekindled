@@ -1,5 +1,14 @@
 {
   "type": "embersrekindled:melting",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:storage_blocks/raw_iron"
+      }
+    }
+  ],
   "input": {
     "tag": "forge:storage_blocks/raw_iron"
   },

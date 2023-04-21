@@ -1,0 +1,20 @@
+{
+  "type": "embersrekindled:tag_stamping",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:plates/electrum"
+      }
+    }
+  ],
+  "fluid": {
+    "amount": 90,
+    "tag": "forge:molten_electrum"
+  },
+  "output": "forge:plates/electrum",
+  "stamp": {
+    "item": "embersrekindled:plate_stamp"
+  }
+}
