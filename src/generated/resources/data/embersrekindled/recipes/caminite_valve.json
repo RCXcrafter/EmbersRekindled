@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": {
+      "item": "embersrekindled:caminite_bricks"
+    },
+    "P": {
+      "item": "embersrekindled:fluid_pipe"
+    }
+  },
+  "pattern": [
+    "BBB",
+    "P P",
+    "BBB"
+  ],
+  "result": {
+    "item": "embersrekindled:caminite_valve"
+  }
+}

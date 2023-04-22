@@ -72,5 +72,11 @@ public class EmbersBlockLootTables extends BlockLoot {
 		dropSelf(RegistryManager.ITEM_VACUUM.get());
 		dropSelf(RegistryManager.HEARTH_COIL.get());
 		add(RegistryManager.HEARTH_COIL_EDGE.get(), noDrop());
+		dropSelf(RegistryManager.RESERVOIR.get());
+		add(RegistryManager.RESERVOIR_EDGE.get(), noDrop());
+		dropSelf(RegistryManager.CAMINITE_RING.get());
+		add(RegistryManager.CAMINITE_RING_EDGE.get(), noDrop());
+		dropSelf(RegistryManager.CAMINITE_VALVE.get());
+		add(RegistryManager.CAMINITE_VALVE_EDGE.get(), noDrop());
 	}
 }

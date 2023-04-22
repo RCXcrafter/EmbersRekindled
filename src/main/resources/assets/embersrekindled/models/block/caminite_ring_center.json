@@ -1,0 +1,6 @@
+{
+	"parent": "block/block",
+	"textures": {
+		"particle": "embersrekindled:block/caminite_bricks"
+	}
+}

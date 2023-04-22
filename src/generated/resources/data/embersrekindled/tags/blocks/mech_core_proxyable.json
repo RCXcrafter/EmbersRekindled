@@ -4,6 +4,7 @@
     "embersrekindled:ember_activator",
     "embersrekindled:mixer_centrifuge",
     "embersrekindled:pressure_refinery",
-    "embersrekindled:hearth_coil"
+    "embersrekindled:hearth_coil",
+    "embersrekindled:reservoir"
   ]
 }

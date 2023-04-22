@@ -65,6 +65,12 @@ public class EmbersLang extends LanguageProvider {
 		addBlock(RegistryManager.ITEM_VACUUM, "Item Vacuum");
 		addBlock(RegistryManager.HEARTH_COIL, "Hearth Coil");
 		addBlock(RegistryManager.HEARTH_COIL_EDGE, "Hearth Coil");
+		addBlock(RegistryManager.RESERVOIR, "Reservoir");
+		addBlock(RegistryManager.RESERVOIR_EDGE, "Reservoir");
+		addBlock(RegistryManager.CAMINITE_RING, "Caminite Ring");
+		addBlock(RegistryManager.CAMINITE_RING_EDGE, "Caminite Ring");
+		addBlock(RegistryManager.CAMINITE_VALVE, "Caminite Valve");
+		addBlock(RegistryManager.CAMINITE_VALVE_EDGE, "Caminite Valve");
 
 		addItem(RegistryManager.TINKER_HAMMER, "Tinker's Hammer");
 		addItem(RegistryManager.TINKER_LENS, "Tinker's Lens");

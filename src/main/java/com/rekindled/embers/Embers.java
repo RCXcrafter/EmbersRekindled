@@ -9,6 +9,7 @@ import com.rekindled.embers.blockentity.render.FluidVesselBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.MelterTopBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.MixerCentrifugeBottomBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.MixerCentrifugeTopBlockEntityRenderer;
+import com.rekindled.embers.blockentity.render.ReservoirBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.StampBaseBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.StamperBlockEntityRenderer;
 import com.rekindled.embers.datagen.EmbersBiomeModifiers;
@@ -207,6 +208,7 @@ public class Embers {
 			event.registerBlockEntityRenderer(RegistryManager.BIN_ENTITY.get(), BinBlockEntityRenderer::new);
 			event.registerBlockEntityRenderer(RegistryManager.MIXER_CENTRIFUGE_BOTTOM_ENTITY.get(), MixerCentrifugeBottomBlockEntityRenderer::new);
 			event.registerBlockEntityRenderer(RegistryManager.MIXER_CENTRIFUGE_TOP_ENTITY.get(), MixerCentrifugeTopBlockEntityRenderer::new);
+			event.registerBlockEntityRenderer(RegistryManager.RESERVOIR_ENTITY.get(), ReservoirBlockEntityRenderer::new);
 		}
 
 		@OnlyIn(Dist.CLIENT)

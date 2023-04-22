@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": {
+      "item": "embersrekindled:caminite_bricks"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "T": {
+      "item": "embersrekindled:fluid_vessel"
+    }
+  },
+  "pattern": [
+    "B B",
+    "I I",
+    "BTB"
+  ],
+  "result": {
+    "item": "embersrekindled:reservoir"
+  }
+}

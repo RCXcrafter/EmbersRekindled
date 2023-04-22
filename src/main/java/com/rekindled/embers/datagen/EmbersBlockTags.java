@@ -29,6 +29,8 @@ public class EmbersBlockTags extends BlockTagsProvider {
 
 	public static final TagKey<Block> HEAT_SOURCES = BlockTags.create(new ResourceLocation(Embers.MODID, "heat_sources"));
 
+	public static final TagKey<Block> RESERVOIR_EXPANSION = BlockTags.create(new ResourceLocation(Embers.MODID, "reservoir_expansion"));
+
 	//tags shared with items
 	public static final TagKey<Block> LEAD_ORE = BlockTags.create(new ResourceLocation("forge", "ores/lead"));
 	public static final TagKey<Block> RAW_LEAD_BLOCK = BlockTags.create(new ResourceLocation("forge", "storage_blocks/raw_lead"));
@@ -98,7 +100,13 @@ public class EmbersBlockTags extends BlockTagsProvider {
 				RegistryManager.BEAM_SPLITTER.get(),
 				RegistryManager.ITEM_VACUUM.get(),
 				RegistryManager.HEARTH_COIL.get(),
-				RegistryManager.HEARTH_COIL_EDGE.get());
+				RegistryManager.HEARTH_COIL_EDGE.get(),
+				RegistryManager.RESERVOIR.get(),
+				RegistryManager.RESERVOIR_EDGE.get(),
+				RegistryManager.CAMINITE_RING.get(),
+				RegistryManager.CAMINITE_RING_EDGE.get(),
+				RegistryManager.CAMINITE_VALVE.get(),
+				RegistryManager.CAMINITE_VALVE_EDGE.get());
 
 		tag(BlockTags.NEEDS_IRON_TOOL).add(
 				RegistryManager.LEAD_ORE.get(),
@@ -111,7 +119,12 @@ public class EmbersBlockTags extends BlockTagsProvider {
 				RegistryManager.EMBER_ACTIVATOR.get(),
 				RegistryManager.MIXER_CENTRIFUGE.get(),
 				RegistryManager.PRESSURE_REFINERY.get(),
-				RegistryManager.HEARTH_COIL.get());
+				RegistryManager.HEARTH_COIL.get(),
+				RegistryManager.RESERVOIR.get());
+
+		tag(RESERVOIR_EXPANSION).add(
+				RegistryManager.CAMINITE_RING.get(),
+				RegistryManager.CAMINITE_VALVE.get());
 
 		tag(FLUID_PIPE_CONNECTION).addTag(FLUID_PIPE_CONNECTION_TOGGLEABLE);
 		tag(FLUID_PIPE_CONNECTION_TOGGLEABLE).add(RegistryManager.FLUID_PIPE.get(), RegistryManager.FLUID_EXTRACTOR.get());

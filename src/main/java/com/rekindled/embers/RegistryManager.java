@@ -13,6 +13,10 @@ import com.mojang.serialization.Codec;
 import com.rekindled.embers.block.ArchaicLightBlock;
 import com.rekindled.embers.block.BeamSplitterBlock;
 import com.rekindled.embers.block.BinBlock;
+import com.rekindled.embers.block.CaminiteRingBlock;
+import com.rekindled.embers.block.CaminiteRingEdgeBlock;
+import com.rekindled.embers.block.CaminiteValveBlock;
+import com.rekindled.embers.block.CaminiteValveEdgeBlock;
 import com.rekindled.embers.block.CopperCellBlock;
 import com.rekindled.embers.block.CreativeEmberBlock;
 import com.rekindled.embers.block.EmberActivatorBlock;
@@ -39,11 +43,14 @@ import com.rekindled.embers.block.MechanicalCoreBlock;
 import com.rekindled.embers.block.MelterBlock;
 import com.rekindled.embers.block.MixerCentrifugeBlock;
 import com.rekindled.embers.block.PressureRefineryBlock;
+import com.rekindled.embers.block.ReservoirBlock;
+import com.rekindled.embers.block.ReservoirEdgeBlock;
 import com.rekindled.embers.block.StampBaseBlock;
 import com.rekindled.embers.block.StamperBlock;
 import com.rekindled.embers.block.WaterloggableLeverBlock;
 import com.rekindled.embers.blockentity.BeamSplitterBlockEntity;
 import com.rekindled.embers.blockentity.BinBlockEntity;
+import com.rekindled.embers.blockentity.CaminiteValveBlockEntity;
 import com.rekindled.embers.blockentity.CopperCellBlockEntity;
 import com.rekindled.embers.blockentity.CreativeEmberBlockEntity;
 import com.rekindled.embers.blockentity.EmberActivatorBottomBlockEntity;
@@ -69,6 +76,7 @@ import com.rekindled.embers.blockentity.MixerCentrifugeBottomBlockEntity;
 import com.rekindled.embers.blockentity.MixerCentrifugeTopBlockEntity;
 import com.rekindled.embers.blockentity.PressureRefineryBottomBlockEntity;
 import com.rekindled.embers.blockentity.PressureRefineryTopBlockEntity;
+import com.rekindled.embers.blockentity.ReservoirBlockEntity;
 import com.rekindled.embers.blockentity.StampBaseBlockEntity;
 import com.rekindled.embers.blockentity.StamperBlockEntity;
 import com.rekindled.embers.datagen.EmbersSounds;
@@ -166,6 +174,21 @@ public class RegistryManager {
 		return addFluid(localizedName, info, material, type, block, ForgeFlowingFluid.Source::new, ForgeFlowingFluid.Flowing::new, fluidProperties, prop);
 	}
 
+	public static FluidType.Properties moltenMetalProps() {
+		return FluidType.Properties.create()
+				.canSwim(false)
+				.canDrown(false)
+				.pathType(BlockPathTypes.LAVA)
+				.adjacentPathType(null)
+				.motionScale(0.0023333333333333335D)
+				.sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY_LAVA)
+				.sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL_LAVA)
+				.lightLevel(12)
+				.density(3000)
+				.viscosity(6000)
+				.temperature(1100);
+	}
+
 	public static <T extends Entity> RegistryObject<EntityType<T>> registerEntity(String name, EntityType.Builder<T> builder) {
 		return ENTITY_TYPES.register(name, () -> builder.build(Embers.MODID + ":" + name));
 	}
@@ -231,6 +254,12 @@ public class RegistryManager {
 	public static final RegistryObject<Block> ITEM_VACUUM = BLOCKS.register("item_vacuum", () -> new ItemVacuumBlock(Properties.of(Material.METAL, MaterialColor.TERRACOTTA_PURPLE).sound(SoundType.METAL).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
 	public static final RegistryObject<Block> HEARTH_COIL = BLOCKS.register("hearth_coil", () -> new HearthCoilBlock(Properties.of(Material.METAL, MaterialColor.COLOR_ORANGE).sound(SoundType.METAL).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
 	public static final RegistryObject<Block> HEARTH_COIL_EDGE = BLOCKS.register("hearth_coil_edge", () -> new HearthCoilEdgeBlock(Properties.of(Material.HEAVY_METAL, MaterialColor.WOOD).sound(EmbersSounds.MULTIBLOCK_EXTRA).requiresCorrectToolForDrops().strength(1.6f)));
+	public static final RegistryObject<Block> RESERVOIR = BLOCKS.register("reservoir", () -> new ReservoirBlock(Properties.of(Material.METAL, MaterialColor.WOOD).sound(SoundType.METAL).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
+	public static final RegistryObject<Block> RESERVOIR_EDGE = BLOCKS.register("reservoir_edge", () -> new ReservoirEdgeBlock(Properties.of(Material.HEAVY_METAL, MaterialColor.WOOD).sound(EmbersSounds.MULTIBLOCK_EXTRA).requiresCorrectToolForDrops().strength(1.6f)));
+	public static final RegistryObject<Block> CAMINITE_RING = BLOCKS.register("caminite_ring", () -> new CaminiteRingBlock(Properties.of(Material.METAL, MaterialColor.NONE).noCollission().sound(SoundType.METAL).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
+	public static final RegistryObject<Block> CAMINITE_RING_EDGE = BLOCKS.register("caminite_ring_edge", () -> new CaminiteRingEdgeBlock(Properties.of(Material.HEAVY_METAL, MaterialColor.WOOD).sound(EmbersSounds.MULTIBLOCK_EXTRA).requiresCorrectToolForDrops().strength(1.6f)));
+	public static final RegistryObject<Block> CAMINITE_VALVE = BLOCKS.register("caminite_valve", () -> new CaminiteValveBlock(Properties.of(Material.METAL, MaterialColor.NONE).noCollission().sound(SoundType.METAL).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
+	public static final RegistryObject<Block> CAMINITE_VALVE_EDGE = BLOCKS.register("caminite_valve_edge", () -> new CaminiteValveEdgeBlock(Properties.of(Material.HEAVY_METAL, MaterialColor.WOOD).sound(EmbersSounds.MULTIBLOCK_EXTRA).requiresCorrectToolForDrops().strength(1.6f)));
 
 	//itemblocks
 	public static final RegistryObject<Item> LEAD_ORE_ITEM = ITEMS.register("lead_ore", () -> new BlockItem(LEAD_ORE.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
@@ -275,6 +304,9 @@ public class RegistryManager {
 	public static final RegistryObject<Item> BEAM_SPLITTER_ITEM = ITEMS.register("beam_splitter", () -> new BlockItem(BEAM_SPLITTER.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
 	public static final RegistryObject<Item> ITEM_VACUUM_ITEM = ITEMS.register("item_vacuum", () -> new BlockItem(ITEM_VACUUM.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
 	public static final RegistryObject<Item> HEARTH_COIL_ITEM = ITEMS.register("hearth_coil", () -> new BlockItem(HEARTH_COIL.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
+	public static final RegistryObject<Item> RESERVOIR_ITEM = ITEMS.register("reservoir", () -> new BlockItem(RESERVOIR.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
+	public static final RegistryObject<Item> CAMINITE_RING_ITEM = ITEMS.register("caminite_ring", () -> new BlockItem(CAMINITE_RING.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
+	public static final RegistryObject<Item> CAMINITE_VALVE_ITEM = ITEMS.register("caminite_valve", () -> new BlockItem(CAMINITE_VALVE.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
 
 	//items
 	public static final RegistryObject<Item> TINKER_HAMMER = ITEMS.register("tinker_hammer", () -> new TinkerHammerItem(new Item.Properties().stacksTo(1).tab(Embers.TAB_EMBERS)));
@@ -315,169 +347,37 @@ public class RegistryManager {
 
 	//fluids
 	public static final FluidStuff MOLTEN_IRON = addFluid("Molten Iron", new FluidInfo("molten_iron", 0xC72913, 0.1F, 1.5F), Material.LAVA, MoltenMetalFluidType::new, LiquidBlock::new,
-			prop -> prop.explosionResistance(1000F).tickRate(30).slopeFindDistance(2).levelDecreasePerBlock(2),
-			FluidType.Properties.create()
-			.canSwim(false)
-			.canDrown(false)
-			.pathType(BlockPathTypes.LAVA)
-			.adjacentPathType(null)
-			.motionScale(0.0023333333333333335D)
-			.sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY_LAVA)
-			.sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL_LAVA)
-			.lightLevel(12)
-			.density(3000)
-			.viscosity(6000)
-			.temperature(1100));
+			prop -> prop.explosionResistance(1000F).tickRate(30).slopeFindDistance(2).levelDecreasePerBlock(2), moltenMetalProps());
 
 	public static final FluidStuff MOLTEN_GOLD = addFluid("Molten Gold", new FluidInfo("molten_gold", 0xF9C026, 0.1F, 1.5F), Material.LAVA, MoltenMetalFluidType::new, LiquidBlock::new,
-			prop -> prop.explosionResistance(1000F).tickRate(30).slopeFindDistance(2).levelDecreasePerBlock(2),
-			FluidType.Properties.create()
-			.canSwim(false)
-			.canDrown(false)
-			.pathType(BlockPathTypes.LAVA)
-			.adjacentPathType(null)
-			.motionScale(0.0023333333333333335D)
-			.sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY_LAVA)
-			.sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL_LAVA)
-			.lightLevel(12)
-			.density(3000)
-			.viscosity(6000)
-			.temperature(1100));
+			prop -> prop.explosionResistance(1000F).tickRate(30).slopeFindDistance(2).levelDecreasePerBlock(2), moltenMetalProps());
 
 	public static final FluidStuff MOLTEN_COPPER = addFluid("Molten Copper", new FluidInfo("molten_copper", 0xEA7E38, 0.1F, 1.5F), Material.LAVA, MoltenMetalFluidType::new, LiquidBlock::new,
-			prop -> prop.explosionResistance(1000F).tickRate(30).slopeFindDistance(2).levelDecreasePerBlock(2),
-			FluidType.Properties.create()
-			.canSwim(false)
-			.canDrown(false)
-			.pathType(BlockPathTypes.LAVA)
-			.adjacentPathType(null)
-			.motionScale(0.0023333333333333335D)
-			.sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY_LAVA)
-			.sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL_LAVA)
-			.lightLevel(12)
-			.density(3000)
-			.viscosity(6000)
-			.temperature(1100));
+			prop -> prop.explosionResistance(1000F).tickRate(30).slopeFindDistance(2).levelDecreasePerBlock(2), moltenMetalProps());
 
 	public static final FluidStuff MOLTEN_LEAD = addFluid("Molten Lead", new FluidInfo("molten_lead", 0x665975, 0.1F, 1.5F), Material.LAVA, MoltenMetalFluidType::new, LiquidBlock::new,
-			prop -> prop.explosionResistance(1000F).tickRate(30).slopeFindDistance(2).levelDecreasePerBlock(2),
-			FluidType.Properties.create()
-			.canSwim(false)
-			.canDrown(false)
-			.pathType(BlockPathTypes.LAVA)
-			.adjacentPathType(null)
-			.motionScale(0.0023333333333333335D)
-			.sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY_LAVA)
-			.sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL_LAVA)
-			.lightLevel(12)
-			.density(3000)
-			.viscosity(6000)
-			.temperature(1100));
+			prop -> prop.explosionResistance(1000F).tickRate(30).slopeFindDistance(2).levelDecreasePerBlock(2), moltenMetalProps());
 
 	public static final FluidStuff MOLTEN_SILVER = addFluid("Molten Silver", new FluidInfo("molten_silver", 0xBCEAF7, 0.1F, 1.5F), Material.LAVA, MoltenMetalFluidType::new, LiquidBlock::new,
-			prop -> prop.explosionResistance(1000F).tickRate(30).slopeFindDistance(2).levelDecreasePerBlock(2),
-			FluidType.Properties.create()
-			.canSwim(false)
-			.canDrown(false)
-			.pathType(BlockPathTypes.LAVA)
-			.adjacentPathType(null)
-			.motionScale(0.0023333333333333335D)
-			.sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY_LAVA)
-			.sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL_LAVA)
-			.lightLevel(12)
-			.density(3000)
-			.viscosity(6000)
-			.temperature(1100));
+			prop -> prop.explosionResistance(1000F).tickRate(30).slopeFindDistance(2).levelDecreasePerBlock(2), moltenMetalProps());
 
 	public static final FluidStuff MOLTEN_DAWNSTONE = addFluid("Molten Dawnstone", new FluidInfo("molten_dawnstone", 0xFF9C36, 0.1F, 1.5F), Material.LAVA, MoltenMetalFluidType::new, LiquidBlock::new,
-			prop -> prop.explosionResistance(1000F).tickRate(30).slopeFindDistance(2).levelDecreasePerBlock(2),
-			FluidType.Properties.create()
-			.canSwim(false)
-			.canDrown(false)
-			.pathType(BlockPathTypes.LAVA)
-			.adjacentPathType(null)
-			.motionScale(0.0023333333333333335D)
-			.sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY_LAVA)
-			.sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL_LAVA)
-			.lightLevel(12)
-			.density(3000)
-			.viscosity(6000)
-			.temperature(1100));
+			prop -> prop.explosionResistance(1000F).tickRate(30).slopeFindDistance(2).levelDecreasePerBlock(2), moltenMetalProps());
 
 	public static final FluidStuff MOLTEN_NICKEL = addFluid("Molten Nickel", new FluidInfo("molten_nickel", 0xDDEBC0, 0.1F, 1.5F), Material.LAVA, MoltenMetalFluidType::new, LiquidBlock::new,
-			prop -> prop.explosionResistance(1000F).tickRate(30).slopeFindDistance(2).levelDecreasePerBlock(2),
-			FluidType.Properties.create()
-			.canSwim(false)
-			.canDrown(false)
-			.pathType(BlockPathTypes.LAVA)
-			.adjacentPathType(null)
-			.motionScale(0.0023333333333333335D)
-			.sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY_LAVA)
-			.sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL_LAVA)
-			.lightLevel(12)
-			.density(3000)
-			.viscosity(6000)
-			.temperature(1100));
+			prop -> prop.explosionResistance(1000F).tickRate(30).slopeFindDistance(2).levelDecreasePerBlock(2), moltenMetalProps());
 
 	public static final FluidStuff MOLTEN_TIN = addFluid("Molten Tin", new FluidInfo("molten_tin", 0xDCEDE5, 0.1F, 1.5F), Material.LAVA, MoltenMetalFluidType::new, LiquidBlock::new,
-			prop -> prop.explosionResistance(1000F).tickRate(30).slopeFindDistance(2).levelDecreasePerBlock(2),
-			FluidType.Properties.create()
-			.canSwim(false)
-			.canDrown(false)
-			.pathType(BlockPathTypes.LAVA)
-			.adjacentPathType(null)
-			.motionScale(0.0023333333333333335D)
-			.sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY_LAVA)
-			.sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL_LAVA)
-			.lightLevel(12)
-			.density(3000)
-			.viscosity(6000)
-			.temperature(1100));
+			prop -> prop.explosionResistance(1000F).tickRate(30).slopeFindDistance(2).levelDecreasePerBlock(2), moltenMetalProps());
 
 	public static final FluidStuff MOLTEN_ALUMINUM = addFluid("Molten Aluminum", new FluidInfo("molten_aluminum", 0xFFAE9C, 0.1F, 1.5F), Material.LAVA, MoltenMetalFluidType::new, LiquidBlock::new,
-			prop -> prop.explosionResistance(1000F).tickRate(30).slopeFindDistance(2).levelDecreasePerBlock(2),
-			FluidType.Properties.create()
-			.canSwim(false)
-			.canDrown(false)
-			.pathType(BlockPathTypes.LAVA)
-			.adjacentPathType(null)
-			.motionScale(0.0023333333333333335D)
-			.sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY_LAVA)
-			.sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL_LAVA)
-			.lightLevel(12)
-			.density(3000)
-			.viscosity(6000)
-			.temperature(1100));
+			prop -> prop.explosionResistance(1000F).tickRate(30).slopeFindDistance(2).levelDecreasePerBlock(2), moltenMetalProps());
 
 	public static final FluidStuff MOLTEN_BRONZE = addFluid("Molten Bronze", new FluidInfo("molten_bronze", 0xEDAE66, 0.1F, 1.5F), Material.LAVA, MoltenMetalFluidType::new, LiquidBlock::new,
-			prop -> prop.explosionResistance(1000F).tickRate(30).slopeFindDistance(2).levelDecreasePerBlock(2),
-			FluidType.Properties.create()
-			.canSwim(false)
-			.canDrown(false)
-			.pathType(BlockPathTypes.LAVA)
-			.adjacentPathType(null)
-			.motionScale(0.0023333333333333335D)
-			.sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY_LAVA)
-			.sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL_LAVA)
-			.lightLevel(12)
-			.density(3000)
-			.viscosity(6000)
-			.temperature(1100));
+			prop -> prop.explosionResistance(1000F).tickRate(30).slopeFindDistance(2).levelDecreasePerBlock(2), moltenMetalProps());
 
 	public static final FluidStuff MOLTEN_ELECTRUM = addFluid("Molten Electrum", new FluidInfo("molten_electrum", 0xFAE176, 0.1F, 1.5F), Material.LAVA, MoltenMetalFluidType::new, LiquidBlock::new,
-			prop -> prop.explosionResistance(1000F).tickRate(30).slopeFindDistance(2).levelDecreasePerBlock(2),
-			FluidType.Properties.create()
-			.canSwim(false)
-			.canDrown(false)
-			.pathType(BlockPathTypes.LAVA)
-			.adjacentPathType(null)
-			.motionScale(0.0023333333333333335D)
-			.sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY_LAVA)
-			.sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL_LAVA)
-			.lightLevel(12)
-			.density(3000)
-			.viscosity(6000)
-			.temperature(1100));
+			prop -> prop.explosionResistance(1000F).tickRate(30).slopeFindDistance(2).levelDecreasePerBlock(2), moltenMetalProps());
 
 	//block entities
 	public static final RegistryObject<BlockEntityType<CopperCellBlockEntity>> COPPER_CELL_ENTITY = BLOCK_ENTITY_TYPES.register("copper_cell", () -> BlockEntityType.Builder.of(CopperCellBlockEntity::new, COPPER_CELL.get()).build(null));
@@ -509,6 +409,8 @@ public class RegistryManager {
 	public static final RegistryObject<BlockEntityType<BeamSplitterBlockEntity>> BEAM_SPLITTER_ENTITY = BLOCK_ENTITY_TYPES.register("beam_splitter", () -> BlockEntityType.Builder.of(BeamSplitterBlockEntity::new, BEAM_SPLITTER.get()).build(null));
 	public static final RegistryObject<BlockEntityType<ItemVacuumBlockEntity>> ITEM_VACUUM_ENTITY = BLOCK_ENTITY_TYPES.register("item_vacuum", () -> BlockEntityType.Builder.of(ItemVacuumBlockEntity::new, ITEM_VACUUM.get()).build(null));
 	public static final RegistryObject<BlockEntityType<HearthCoilBlockEntity>> HEARTH_COIL_ENTITY = BLOCK_ENTITY_TYPES.register("hearth_coil", () -> BlockEntityType.Builder.of(HearthCoilBlockEntity::new, HEARTH_COIL.get()).build(null));
+	public static final RegistryObject<BlockEntityType<ReservoirBlockEntity>> RESERVOIR_ENTITY = BLOCK_ENTITY_TYPES.register("reservoir", () -> BlockEntityType.Builder.of(ReservoirBlockEntity::new, RESERVOIR.get()).build(null));
+	public static final RegistryObject<BlockEntityType<CaminiteValveBlockEntity>> CAMINITE_VALVE_ENTITY = BLOCK_ENTITY_TYPES.register("caminite_valve", () -> BlockEntityType.Builder.of(CaminiteValveBlockEntity::new, CAMINITE_VALVE_EDGE.get()).build(null));
 
 	//entities
 	public static final RegistryObject<EntityType<EmberPacketEntity>> EMBER_PACKET = registerEntity("ember_packet", EntityType.Builder.<EmberPacketEntity>of(EmberPacketEntity::new, MobCategory.MISC).sized(0.5F, 0.5F).fireImmune().clientTrackingRange(3).updateInterval(1));

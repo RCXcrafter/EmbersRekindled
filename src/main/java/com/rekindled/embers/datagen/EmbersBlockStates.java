@@ -421,6 +421,48 @@ public class EmbersBlockStates extends BlockStateProvider {
 					.uvLock(true)
 					.build();
 		});
+
+		simpleBlock(RegistryManager.RESERVOIR.get(), models().getExistingFile(new ResourceLocation(Embers.MODID, "reservoir_center")));
+		simpleBlockItem(RegistryManager.RESERVOIR.get(), models().cubeAll("reservoir", new ResourceLocation(Embers.MODID, "block/crate_tank")));
+
+		getVariantBuilder(RegistryManager.RESERVOIR_EDGE.get()).forAllStates(state -> {
+			MechEdge edge = state.getValue(MechEdgeBlockBase.EDGE);
+
+			return ConfiguredModel.builder()
+					.modelFile(edge.corner ? mechCornerModel : mechEdgeModel)
+					.rotationY(edge.rotation)
+					.uvLock(true)
+					.build();
+		});
+
+		simpleBlock(RegistryManager.CAMINITE_RING.get(), models().getExistingFile(new ResourceLocation(Embers.MODID, "caminite_ring_center")));
+		flatItem(RegistryManager.CAMINITE_RING, "caminite_ring");
+
+		ExistingModelFile ringEdgeModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "caminite_ring_edge"));
+		ExistingModelFile ringCornerModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "caminite_ring_corner"));
+		getVariantBuilder(RegistryManager.CAMINITE_RING_EDGE.get()).forAllStates(state -> {
+			MechEdge edge = state.getValue(MechEdgeBlockBase.EDGE);
+
+			return ConfiguredModel.builder()
+					.modelFile(edge.corner ? ringCornerModel : ringEdgeModel)
+					.rotationY(edge.rotation)
+					.uvLock(false)
+					.build();
+		});
+
+		simpleBlock(RegistryManager.CAMINITE_VALVE.get(), models().getExistingFile(new ResourceLocation(Embers.MODID, "caminite_ring_center")));
+		flatItem(RegistryManager.CAMINITE_VALVE, "caminite_valve");
+
+		ExistingModelFile valveEdgeModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "caminite_valve_edge"));
+		getVariantBuilder(RegistryManager.CAMINITE_VALVE_EDGE.get()).forAllStates(state -> {
+			MechEdge edge = state.getValue(MechEdgeBlockBase.EDGE);
+
+			return ConfiguredModel.builder()
+					.modelFile(edge.corner ? ringCornerModel : valveEdgeModel)
+					.rotationY(edge.rotation)
+					.uvLock(false)
+					.build();
+		});
 	}
 
 	public void blockWithItem(RegistryObject<? extends Block> registryObject) {
@@ -479,6 +521,11 @@ public class EmbersBlockStates extends BlockStateProvider {
 		directionalBlock(registryObject.get(), model);
 
 		//item model
+		flatItem(registryObject, texture);
+	}
+
+	public void flatItem(RegistryObject<? extends Block> registryObject, String texture) {
+		ResourceLocation loc = ForgeRegistries.BLOCKS.getKey(registryObject.get());
 		itemModels().getBuilder(loc.toString())
 		.parent(new ModelFile.UncheckedModelFile("item/generated"))
 		.texture("layer0", new ResourceLocation(loc.getNamespace(), "item/" + texture));

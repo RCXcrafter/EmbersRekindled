@@ -526,6 +526,33 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('C', itemTag("forge", "storage_blocks/copper"))
 		.unlockedBy("has_mech_core", has(RegistryManager.MECHANICAL_CORE.get()))
 		.save(consumer, getResource("hearth_coil"));
+
+		ShapedRecipeBuilder.shaped(RegistryManager.RESERVOIR.get())
+		.pattern("B B")
+		.pattern("I I")
+		.pattern("BTB")
+		.define('I', itemTag("forge", "ingots/iron"))
+		.define('B', RegistryManager.CAMINITE_BRICKS.get())
+		.define('T', RegistryManager.FLUID_VESSEL.get())
+		.unlockedBy("has_vessel", has(RegistryManager.FLUID_VESSEL.get()))
+		.save(consumer, getResource("reservoir"));
+
+		ShapedRecipeBuilder.shaped(RegistryManager.CAMINITE_RING.get())
+		.pattern("BBB")
+		.pattern("B B")
+		.pattern("BBB")
+		.define('B', RegistryManager.CAMINITE_BRICKS.get())
+		.unlockedBy("has_reservoir", has(RegistryManager.RESERVOIR.get()))
+		.save(consumer, getResource("caminite_ring"));
+
+		ShapedRecipeBuilder.shaped(RegistryManager.CAMINITE_VALVE.get())
+		.pattern("BBB")
+		.pattern("P P")
+		.pattern("BBB")
+		.define('B', RegistryManager.CAMINITE_BRICKS.get())
+		.define('P', RegistryManager.FLUID_PIPE.get())
+		.unlockedBy("has_reservoir", has(RegistryManager.RESERVOIR.get()))
+		.save(consumer, getResource("caminite_valve"));
 	}
 
 	public void fullOreRecipes(String name, ImmutableList<ItemLike> ores, Fluid fluid, Item raw, Item rawBlock, Item block, Item ingot, Item nugget, Item plate, Consumer<FinishedRecipe> consumer) {
