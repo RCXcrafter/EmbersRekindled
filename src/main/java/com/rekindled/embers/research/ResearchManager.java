@@ -198,8 +198,8 @@ public class ResearchManager {
 		dropper = new ResearchBase("dropper", new ItemStack(RegistryManager.ITEM_DROPPER_ITEM.get()), 8, 6).addAncestor(pipes);
 		bin = new ResearchBase("bin", new ItemStack(RegistryManager.BIN_ITEM.get()), 4, 3).addAncestor(pipes);
 		tank = new ResearchBase("tank", new ItemStack(RegistryManager.FLUID_VESSEL_ITEM.get()), 3, 1).addAncestor(pipes);
-		//reservoir = new ResearchBase("reservoir", new ItemStack(RegistryManager.large_tank), 6, 0).addAncestor(tank)
-		//		.addPage(new ResearchShowItem("reservoir_valve", new ItemStack(RegistryManager.stone_valve), 0, 0).addItem(new DisplayItem(new ItemStack(RegistryManager.stone_valve))));
+		reservoir = new ResearchBase("reservoir", new ItemStack(RegistryManager.RESERVOIR_ITEM.get()), 6, 0).addAncestor(tank)
+				.addPage(new ResearchShowItem("reservoir_valve", new ItemStack(RegistryManager.CAMINITE_VALVE_ITEM.get()), 0, 0).addItem(new DisplayItem(new ItemStack(RegistryManager.CAMINITE_VALVE_ITEM.get()))));
 		//requisition = new ResearchBase("requisition", new ItemStack(RegistryManager.item_request), 3, 6).addAncestor(pipes).addAncestor(golem_eye);
 
 		//MECHANISMS
@@ -338,7 +338,7 @@ public class ResearchManager {
 		subCategoryPipes.addResearch(pipes);
 		subCategoryPipes.addResearch(bin);
 		subCategoryPipes.addResearch(tank);
-		//subCategoryPipes.addResearch(reservoir);
+		subCategoryPipes.addResearch(reservoir);
 		//subCategoryPipes.addResearch(transfer);
 		subCategoryPipes.addResearch(vacuum);
 		subCategoryPipes.addResearch(dropper);

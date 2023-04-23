@@ -131,7 +131,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.DropExperienceBlock;
 import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
@@ -218,9 +221,12 @@ public class RegistryManager {
 	public static final RegistryObject<Block> DAWNSTONE_BLOCK = BLOCKS.register("dawnstone_block", () -> new Block(Properties.of(Material.METAL, MaterialColor.TERRACOTTA_YELLOW).sound(SoundType.METAL).requiresCorrectToolForDrops().strength(5.0F, 6.0F)));
 
 	public static final RegistryObject<Block> CAMINITE_BRICKS = BLOCKS.register("caminite_bricks", () -> new Block(Properties.of(Material.STONE, MaterialColor.WOOD).sound(SoundType.STONE).requiresCorrectToolForDrops().strength(1.6f)));
+	public static final StoneDecoBlocks CAMINITE_BRICKS_DECO = new StoneDecoBlocks("caminite_bricks", CAMINITE_BRICKS, Properties.of(Material.STONE, MaterialColor.WOOD).sound(SoundType.STONE).requiresCorrectToolForDrops().strength(1.6f));
 	public static final RegistryObject<Block> ARCHAIC_BRICKS = BLOCKS.register("archaic_bricks", () -> new Block(Properties.of(Material.STONE, MaterialColor.TERRACOTTA_BROWN).sound(SoundType.STONE).requiresCorrectToolForDrops().strength(1.6f)));
+	public static final StoneDecoBlocks ARCHAIC_BRICKS_DECO = new StoneDecoBlocks("archaic_bricks", ARCHAIC_BRICKS, Properties.of(Material.STONE, MaterialColor.TERRACOTTA_BROWN).sound(SoundType.STONE).requiresCorrectToolForDrops().strength(1.6f));
 	public static final RegistryObject<Block> ARCHAIC_EDGE = BLOCKS.register("archaic_edge", () -> new Block(Properties.of(Material.STONE, MaterialColor.TERRACOTTA_BROWN).sound(SoundType.STONE).requiresCorrectToolForDrops().strength(1.6f)));
 	public static final RegistryObject<Block> ARCHAIC_TILE = BLOCKS.register("archaic_tile", () -> new Block(Properties.of(Material.STONE, MaterialColor.TERRACOTTA_BROWN).sound(SoundType.STONE).requiresCorrectToolForDrops().strength(1.6f)));
+	public static final StoneDecoBlocks ARCHAIC_TILE_DECO = new StoneDecoBlocks("archaic_tile", ARCHAIC_TILE, Properties.of(Material.STONE, MaterialColor.TERRACOTTA_BROWN).sound(SoundType.STONE).requiresCorrectToolForDrops().strength(1.6f), true, true, false);
 	public static final RegistryObject<Block> ARCHAIC_LIGHT = BLOCKS.register("archaic_light", () -> new ArchaicLightBlock(Properties.of(Material.STONE, MaterialColor.COLOR_ORANGE).sound(SoundType.STONE).requiresCorrectToolForDrops().strength(1.6f).lightLevel(state -> 15)));
 
 	public static final RegistryObject<Block> COPPER_CELL = BLOCKS.register("copper_cell", () -> new CopperCellBlock(Properties.of(Material.METAL, MaterialColor.TERRACOTTA_ORANGE).sound(SoundType.METAL).requiresCorrectToolForDrops().strength(1.4f).noOcclusion()));
@@ -506,6 +512,40 @@ public class RegistryManager {
 
 		public ForgeFlowingFluid.Properties getFluidProperties() {
 			return PROPERTIES;       
+		}
+	}
+
+	public static class StoneDecoBlocks {
+
+		public String name;
+
+		public RegistryObject<Block> block;
+		public RegistryObject<StairBlock> stairs = null;
+		public RegistryObject<Item> stairsItem = null;
+		public RegistryObject<SlabBlock> slab = null;
+		public RegistryObject<Item> slabItem = null;
+		public RegistryObject<WallBlock> wall = null;
+		public RegistryObject<Item> wallItem = null;
+
+		public StoneDecoBlocks(String name, RegistryObject<Block> block, Properties properties, boolean stairs, boolean slab, boolean wall) {
+			this.name = name;
+			this.block = block;
+			if (stairs) {
+				this.stairs = BLOCKS.register(name + "_stairs", () -> new StairBlock(() -> block.get().defaultBlockState(), properties));
+				this.stairsItem = ITEMS.register(name + "_stairs", () -> new BlockItem(this.stairs.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
+			}
+			if (slab) {
+				this.slab = BLOCKS.register(name + "_slab", () -> new SlabBlock(properties));
+				this.slabItem = ITEMS.register(name + "_slab", () -> new BlockItem(this.slab.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
+			}
+			if (wall) {
+				this.wall = BLOCKS.register(name + "_wall", () -> new WallBlock(properties));
+				this.wallItem = ITEMS.register(name + "_wall", () -> new BlockItem(this.wall.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
+			}
+		}
+
+		public StoneDecoBlocks(String name, RegistryObject<Block> block, Properties properties) {
+			this(name, block, properties, true, true, true);
 		}
 	}
 }

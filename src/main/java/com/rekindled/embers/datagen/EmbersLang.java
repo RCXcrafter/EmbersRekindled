@@ -5,6 +5,7 @@ import java.util.function.Supplier;
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.RegistryManager.FluidStuff;
+import com.rekindled.embers.RegistryManager.StoneDecoBlocks;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraft.sounds.SoundEvent;
@@ -29,9 +30,12 @@ public class EmbersLang extends LanguageProvider {
 		add("itemGroup." + Embers.MODID, "Embers Rekindled");
 
 		addBlock(RegistryManager.CAMINITE_BRICKS, "Caminite Bricks");
+		addDeco(RegistryManager.CAMINITE_BRICKS_DECO, "Caminite Brick");
 		addBlock(RegistryManager.ARCHAIC_BRICKS, "Archaic Bricks");
+		addDeco(RegistryManager.ARCHAIC_BRICKS_DECO, "Archaic Brick");
 		addBlock(RegistryManager.ARCHAIC_EDGE, "Archaic Edge");
 		addBlock(RegistryManager.ARCHAIC_TILE, "Archaic Tile");
+		addDeco(RegistryManager.ARCHAIC_TILE_DECO, "Archaic Tile");
 		addBlock(RegistryManager.ARCHAIC_LIGHT, "Archaic Light");
 
 		addBlock(RegistryManager.COPPER_CELL, "Copper Cell");
@@ -879,5 +883,14 @@ public class EmbersLang extends LanguageProvider {
 
 	public void addLore(Supplier<? extends Item> key, String lore) {
 		add(key.get().getDescriptionId() + ".lore", lore);
+	}
+
+	public void addDeco(StoneDecoBlocks deco, String name) {
+		if (deco.stairs != null)
+			addBlock(deco.stairs, name + " Stairs");
+		if (deco.slab != null)
+			addBlock(deco.slab, name + " Slab");
+		if (deco.wall != null)
+			addBlock(deco.wall, name + " Wall");
 	}
 }

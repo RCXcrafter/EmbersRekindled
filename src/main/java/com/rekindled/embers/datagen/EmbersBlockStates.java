@@ -5,6 +5,7 @@ import java.util.function.Function;
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.RegistryManager.FluidStuff;
+import com.rekindled.embers.RegistryManager.StoneDecoBlocks;
 import com.rekindled.embers.block.EmberBoreBlock;
 import com.rekindled.embers.block.MechEdgeBlockBase;
 import com.rekindled.embers.block.MechEdgeBlockBase.MechEdge;
@@ -51,9 +52,12 @@ public class EmbersBlockStates extends BlockStateProvider {
 		blockWithItemTexture(RegistryManager.DAWNSTONE_BLOCK, "block_dawnstone");
 
 		blockWithItem(RegistryManager.CAMINITE_BRICKS);
+		decoBlocks(RegistryManager.CAMINITE_BRICKS_DECO);
 		blockWithItem(RegistryManager.ARCHAIC_BRICKS);
+		decoBlocks(RegistryManager.ARCHAIC_BRICKS_DECO);
 		blockWithItem(RegistryManager.ARCHAIC_EDGE, "archaic_edge");
 		blockWithItem(RegistryManager.ARCHAIC_TILE);
+		decoBlocks(RegistryManager.ARCHAIC_TILE_DECO);
 		blockWithItem(RegistryManager.ARCHAIC_LIGHT, "archaic_light");
 
 		blockWithItem(RegistryManager.COPPER_CELL, "copper_cell");
@@ -560,5 +564,22 @@ public class EmbersBlockStates extends BlockStateProvider {
 
 	public void fluid(RegistryObject<? extends Block> fluid, String name) {
 		simpleBlock(fluid.get(), models().cubeAll(name, new ResourceLocation(Embers.MODID, ModelProvider.BLOCK_FOLDER + "/fluid/" + name + "_still")));
+	}
+
+	public void decoBlocks(StoneDecoBlocks deco) {
+		ResourceLocation resourceLocation = this.blockTexture(deco.block.get());
+
+		if (deco.stairs != null) {
+			this.stairsBlock(deco.stairs.get(), resourceLocation);
+			this.itemModels().stairs(deco.stairs.getId().getPath(), resourceLocation, resourceLocation, resourceLocation);
+		}
+		if (deco.slab != null) {
+			this.slabBlock(deco.slab.get(), deco.block.getId(), resourceLocation);
+			this.itemModels().slab(deco.slab.getId().getPath(), resourceLocation, resourceLocation, resourceLocation);
+		}
+		if (deco.wall != null) {
+			this.wallBlock(deco.wall.get(), resourceLocation);
+			this.itemModels().wallInventory(deco.wall.getId().getPath(), resourceLocation);
+		}
 	}
 }

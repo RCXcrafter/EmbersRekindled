@@ -2,6 +2,7 @@ package com.rekindled.embers.datagen;
 
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
+import com.rekindled.embers.RegistryManager.StoneDecoBlocks;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
@@ -64,6 +65,10 @@ public class EmbersBlockTags extends BlockTagsProvider {
 		tag(ITEM_PIPE_CONNECTION).addTag(ITEM_PIPE_CONNECTION_TOGGLEABLE);
 		tag(ITEM_PIPE_CONNECTION).add(RegistryManager.ITEM_DROPPER.get(), RegistryManager.ITEM_VACUUM.get());
 		tag(ITEM_PIPE_CONNECTION_TOGGLEABLE).add(RegistryManager.ITEM_PIPE.get(), RegistryManager.ITEM_EXTRACTOR.get());
+
+		decoTags(RegistryManager.CAMINITE_BRICKS_DECO);
+		decoTags(RegistryManager.ARCHAIC_BRICKS_DECO);
+		decoTags(RegistryManager.ARCHAIC_TILE_DECO);
 
 		tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
 				RegistryManager.LEAD_ORE.get(),
@@ -144,5 +149,20 @@ public class EmbersBlockTags extends BlockTagsProvider {
 		tag(Tags.Blocks.STORAGE_BLOCKS).addTags(LEAD_BLOCK);
 		tag(LEAD_BLOCK).add(RegistryManager.LEAD_BLOCK.get());
 		tag(DAWNSTONE_BLOCK).add(RegistryManager.DAWNSTONE_BLOCK.get());
+	}
+
+	public void decoTags(StoneDecoBlocks deco) {
+		if (deco.stairs != null) {
+			tag(BlockTags.STAIRS).add(deco.stairs.get());
+			tag(BlockTags.MINEABLE_WITH_PICKAXE).add(deco.stairs.get());
+		}
+		if (deco.slab != null) {
+			tag(BlockTags.SLABS).add(deco.slab.get());
+			tag(BlockTags.MINEABLE_WITH_PICKAXE).add(deco.slab.get());
+		}
+		if (deco.wall != null) {
+			tag(BlockTags.WALLS).add(deco.wall.get());
+			tag(BlockTags.MINEABLE_WITH_PICKAXE).add(deco.wall.get());
+		}
 	}
 }

@@ -1,5 +1,13 @@
 {
   "values": [
+    "embersrekindled:caminite_bricks_stairs",
+    "embersrekindled:caminite_bricks_slab",
+    "embersrekindled:caminite_bricks_wall",
+    "embersrekindled:archaic_bricks_stairs",
+    "embersrekindled:archaic_bricks_slab",
+    "embersrekindled:archaic_bricks_wall",
+    "embersrekindled:archaic_tile_stairs",
+    "embersrekindled:archaic_tile_slab",
     "embersrekindled:lead_ore",
     "embersrekindled:deepslate_lead_ore",
     "embersrekindled:raw_lead_block",

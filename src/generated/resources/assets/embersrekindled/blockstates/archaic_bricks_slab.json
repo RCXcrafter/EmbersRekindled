@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "embersrekindled:block/archaic_bricks_slab"
+    },
+    "type=double": {
+      "model": "embersrekindled:block/archaic_bricks"
+    },
+    "type=top": {
+      "model": "embersrekindled:block/archaic_bricks_slab_top"
+    }
+  }
+}

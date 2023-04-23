@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "embersrekindled:block/caminite_bricks",
+    "side": "embersrekindled:block/caminite_bricks",
+    "top": "embersrekindled:block/caminite_bricks"
+  }
+}

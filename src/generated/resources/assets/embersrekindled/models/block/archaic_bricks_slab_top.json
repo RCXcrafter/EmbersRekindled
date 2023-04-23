@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "embersrekindled:block/archaic_bricks",
+    "side": "embersrekindled:block/archaic_bricks",
+    "top": "embersrekindled:block/archaic_bricks"
+  }
+}

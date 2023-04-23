@@ -7,6 +7,7 @@ import javax.annotation.Nonnull;
 
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
+import com.rekindled.embers.RegistryManager.StoneDecoBlocks;
 
 import net.minecraft.core.Registry;
 import net.minecraft.data.loot.BlockLoot;
@@ -36,9 +37,12 @@ public class EmbersBlockLootTables extends BlockLoot {
 		dropSelf(RegistryManager.DAWNSTONE_BLOCK.get());
 
 		dropSelf(RegistryManager.CAMINITE_BRICKS.get());
+		decoDrops(RegistryManager.CAMINITE_BRICKS_DECO);
 		dropSelf(RegistryManager.ARCHAIC_BRICKS.get());
+		decoDrops(RegistryManager.ARCHAIC_BRICKS_DECO);
 		dropSelf(RegistryManager.ARCHAIC_EDGE.get());
 		dropSelf(RegistryManager.ARCHAIC_TILE.get());
+		decoDrops(RegistryManager.ARCHAIC_TILE_DECO);
 		dropSelf(RegistryManager.ARCHAIC_LIGHT.get());
 
 		dropSelf(RegistryManager.COPPER_CELL.get());
@@ -78,5 +82,14 @@ public class EmbersBlockLootTables extends BlockLoot {
 		add(RegistryManager.CAMINITE_RING_EDGE.get(), noDrop());
 		dropSelf(RegistryManager.CAMINITE_VALVE.get());
 		add(RegistryManager.CAMINITE_VALVE_EDGE.get(), noDrop());
+	}
+
+	public void decoDrops(StoneDecoBlocks deco) {
+		if (deco.stairs != null)
+			dropSelf(deco.stairs.get());
+		if (deco.slab != null)
+			add(deco.slab.get(), BlockLoot::createSlabItemTable);
+		if (deco.wall != null)
+			dropSelf(deco.wall.get());
 	}
 }

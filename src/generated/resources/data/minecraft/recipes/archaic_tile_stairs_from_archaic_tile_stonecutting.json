@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "embersrekindled:archaic_tile"
+  },
+  "result": "embersrekindled:archaic_tile_stairs"
+}

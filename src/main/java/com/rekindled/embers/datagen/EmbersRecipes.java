@@ -5,6 +5,7 @@ import java.util.function.Consumer;
 import com.google.common.collect.ImmutableList;
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
+import com.rekindled.embers.RegistryManager.StoneDecoBlocks;
 import com.rekindled.embers.recipe.BoringRecipeBuilder;
 import com.rekindled.embers.recipe.EmberActivationRecipeBuilder;
 import com.rekindled.embers.recipe.MeltingRecipeBuilder;
@@ -177,6 +178,8 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_brick", has(RegistryManager.CAMINITE_BRICK.get()))
 		.save(consumer, getResource("caminite_bricks"));
 
+		decoRecipes(RegistryManager.CAMINITE_BRICKS_DECO, consumer);
+
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(RegistryManager.CAMINITE_BLEND.get()), RegistryManager.CAMINITE_BRICK.get(), 0.1F, 200)
 		.unlockedBy("has_caminite", has(RegistryManager.CAMINITE_BLEND.get())).save(consumer, getResource("caminite_brick"));
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(RegistryManager.RAW_CAMINITE_PLATE.get()), RegistryManager.CAMINITE_PLATE.get(), 0.1F, 200)
@@ -224,6 +227,8 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.save(consumer, getResource("archaic_bricks_2"));
 		stonecutterResultFromBase(consumer, RegistryManager.ARCHAIC_TILE.get(), RegistryManager.ARCHAIC_BRICKS.get());
 		stonecutterResultFromBase(consumer, RegistryManager.ARCHAIC_BRICKS.get(), RegistryManager.ARCHAIC_TILE.get());
+		decoRecipes(RegistryManager.ARCHAIC_BRICKS_DECO, consumer);
+		decoRecipes(RegistryManager.ARCHAIC_TILE_DECO, consumer);
 
 		ShapedRecipeBuilder.shaped(RegistryManager.ANCIENT_CODEX.get())
 		.pattern(" X ")
@@ -557,7 +562,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 
 	public void fullOreRecipes(String name, ImmutableList<ItemLike> ores, Fluid fluid, Item raw, Item rawBlock, Item block, Item ingot, Item nugget, Item plate, Consumer<FinishedRecipe> consumer) {
 		fullMetalRecipes(name, fluid, block, ingot, nugget, plate, consumer);
-		OreMeltingRecipes(name, fluid, consumer);
+		oreMeltingRecipes(name, fluid, consumer);
 
 		ShapedRecipeBuilder.shaped(rawBlock)
 		.pattern("XXX")
@@ -593,11 +598,11 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 	}
 
 	public void fullOreMeltingStampingRecipes(String name, Fluid fluid, Consumer<FinishedRecipe> consumer) {
-		OreMeltingRecipes(name, fluid, consumer);
+		oreMeltingRecipes(name, fluid, consumer);
 		fullMeltingStampingRecipes(name, fluid, consumer);
 	}
 
-	public void OreMeltingRecipes(String name, Fluid fluid, Consumer<FinishedRecipe> consumer) {
+	public void oreMeltingRecipes(String name, Fluid fluid, Consumer<FinishedRecipe> consumer) {
 		TagKey<Item> raw = itemTag("forge", "raw_materials/" + name);
 		TagKey<Item> ore = itemTag("forge", "ores/" + name);
 		TagKey<Item> rawBlock = itemTag("forge", "storage_blocks/raw_" + name);
@@ -650,6 +655,43 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.requires(ingot)
 		.unlockedBy("has_ingot", has(ingot))
 		.save(consumer, getResource(name + "_ingot_to_nugget"));
+	}
+
+	public void decoRecipes(StoneDecoBlocks deco, Consumer<FinishedRecipe> consumer) {
+		Item item = deco.block.get().asItem();
+
+		if (deco.stairs != null) {
+			ShapedRecipeBuilder.shaped(deco.stairs.get(), 4)
+			.pattern("X  ")
+			.pattern("XX ")
+			.pattern("XXX")
+			.define('X', item)
+			.unlockedBy("has_" + deco.name, has(item))
+			.save(consumer, deco.stairs.getId());
+
+			stonecutterResultFromBase(consumer, deco.stairs.get(), item);
+		}
+
+		if (deco.slab != null) {
+			ShapedRecipeBuilder.shaped(deco.slab.get(), 6)
+			.pattern("XXX")
+			.define('X', item)
+			.unlockedBy("has_" + deco.name, has(item))
+			.save(consumer, deco.slab.getId());
+
+			stonecutterResultFromBase(consumer, deco.slab.get(), item, 2);
+		}
+
+		if (deco.wall != null) {
+			ShapedRecipeBuilder.shaped(deco.wall.get(), 6)
+			.pattern("XXX")
+			.pattern("XXX")
+			.define('X', item)
+			.unlockedBy("has_" + deco.name, has(item))
+			.save(consumer, deco.wall.getId());
+
+			stonecutterResultFromBase(consumer, deco.wall.get(), item);
+		}
 	}
 
 	public TagKey<Item> itemTag(String modId, String name) {
