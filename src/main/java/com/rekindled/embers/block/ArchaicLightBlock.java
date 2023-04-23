@@ -18,7 +18,7 @@ public class ArchaicLightBlock extends Block {
 
 	@Override
 	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-		for (int i = 0; i < 12; i ++){
+		for (int i = 0; i < 12; i ++) {
 			int chance = random.nextInt(3);
 			if (chance == 0) {
 				level.addParticle(EMBER, pos.getX()-0.03125f+1.0625f*random.nextInt(2), pos.getY()+0.125f+0.75f*random.nextFloat(), pos.getZ()+0.125f+0.75f*random.nextFloat(), (random.nextFloat()-0.5f)*0.03f, (random.nextFloat())*0.03f, (random.nextFloat()-0.5f)*0.03f);

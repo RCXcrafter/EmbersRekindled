@@ -230,6 +230,16 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		decoRecipes(RegistryManager.ARCHAIC_BRICKS_DECO, consumer);
 		decoRecipes(RegistryManager.ARCHAIC_TILE_DECO, consumer);
 
+		ShapedRecipeBuilder.shaped(RegistryManager.EMBER_LANTERN.get(), 4)
+		.pattern("P")
+		.pattern("E")
+		.pattern("I")
+		.define('E', RegistryManager.EMBER_SHARD.get())
+		.define('P', itemTag("forge", "plates/iron"))
+		.define('I', itemTag("forge", "ingots/iron"))
+		.unlockedBy("has_shard", has(RegistryManager.EMBER_SHARD.get()))
+		.save(consumer, getResource("ember_lantern"));
+
 		ShapedRecipeBuilder.shaped(RegistryManager.ANCIENT_CODEX.get())
 		.pattern(" X ")
 		.pattern("XCX")

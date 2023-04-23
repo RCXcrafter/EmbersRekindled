@@ -44,6 +44,7 @@ public class EmbersBlockLootTables extends BlockLoot {
 		dropSelf(RegistryManager.ARCHAIC_TILE.get());
 		decoDrops(RegistryManager.ARCHAIC_TILE_DECO);
 		dropSelf(RegistryManager.ARCHAIC_LIGHT.get());
+		dropSelf(RegistryManager.EMBER_LANTERN.get());
 
 		dropSelf(RegistryManager.COPPER_CELL.get());
 		dropSelf(RegistryManager.CREATIVE_EMBER.get());

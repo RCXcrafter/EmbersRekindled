@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "E": {
+      "item": "embersrekindled:ember_shard"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "P": {
+      "tag": "forge:plates/iron"
+    }
+  },
+  "pattern": [
+    "P",
+    "E",
+    "I"
+  ],
+  "result": {
+    "count": 4,
+    "item": "embersrekindled:ember_lantern"
+  }
+}
