@@ -83,6 +83,8 @@ public class EmbersBlockLootTables extends BlockLoot {
 		add(RegistryManager.CAMINITE_RING_EDGE.get(), noDrop());
 		dropSelf(RegistryManager.CAMINITE_VALVE.get());
 		add(RegistryManager.CAMINITE_VALVE_EDGE.get(), noDrop());
+		dropSelf(RegistryManager.CRYSTAL_CELL.get());
+		add(RegistryManager.CRYSTAL_CELL_EDGE.get(), noDrop());
 	}
 
 	public void decoDrops(StoneDecoBlocks deco) {

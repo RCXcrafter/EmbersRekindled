@@ -468,6 +468,21 @@ public class EmbersBlockStates extends BlockStateProvider {
 					.uvLock(false)
 					.build();
 		});
+
+		simpleBlock(RegistryManager.CRYSTAL_CELL.get(), models().getExistingFile(new ResourceLocation(Embers.MODID, "crystal_cell_center")));
+		simpleBlockItem(RegistryManager.CRYSTAL_CELL.get(), models().cubeAll("crystal_cell", new ResourceLocation(Embers.MODID, "block/crate_crystal")));
+
+		ExistingModelFile cellEdgeModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "crystal_cell_edge"));
+		ExistingModelFile cellCornerModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "crystal_cell_corner"));
+		getVariantBuilder(RegistryManager.CRYSTAL_CELL_EDGE.get()).forAllStates(state -> {
+			MechEdge edge = state.getValue(MechEdgeBlockBase.EDGE);
+
+			return ConfiguredModel.builder()
+					.modelFile(edge.corner ? cellCornerModel : cellEdgeModel)
+					.rotationY(edge.rotation)
+					.uvLock(false)
+					.build();
+		});
 	}
 
 	public void blockWithItem(RegistryObject<? extends Block> registryObject) {

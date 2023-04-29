@@ -25,6 +25,7 @@ public class GlowParticleOptions implements ParticleOptions {
 	protected final int lifetime;
 	public static final Vector3f EMBER_COLOR = new Vector3f(255.0F / 255.0F, 64.0F / 255.0F, 16.0F / 255.0F);
 	public static final GlowParticleOptions EMBER = new GlowParticleOptions(EMBER_COLOR, 2.0F);
+	public static final GlowParticleOptions EMBER_NOMOTION = new GlowParticleOptions(EMBER_COLOR, new Vec3(0.0, 0.000001, 0.0), 2.0F);
 
 	public static final Codec<GlowParticleOptions> CODEC = RecordCodecBuilder.create((p_175793_) -> {
 		return p_175793_.group(Vector3f.CODEC.fieldOf("color").forGetter((p_175797_) -> {

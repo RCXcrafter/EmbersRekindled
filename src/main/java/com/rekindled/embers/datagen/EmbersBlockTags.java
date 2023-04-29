@@ -116,7 +116,9 @@ public class EmbersBlockTags extends BlockTagsProvider {
 				RegistryManager.CAMINITE_RING.get(),
 				RegistryManager.CAMINITE_RING_EDGE.get(),
 				RegistryManager.CAMINITE_VALVE.get(),
-				RegistryManager.CAMINITE_VALVE_EDGE.get());
+				RegistryManager.CAMINITE_VALVE_EDGE.get(),
+				RegistryManager.CRYSTAL_CELL.get(),
+				RegistryManager.CRYSTAL_CELL_EDGE.get());
 
 		tag(BlockTags.NEEDS_IRON_TOOL).add(
 				RegistryManager.LEAD_ORE.get(),
@@ -130,7 +132,8 @@ public class EmbersBlockTags extends BlockTagsProvider {
 				RegistryManager.MIXER_CENTRIFUGE.get(),
 				RegistryManager.PRESSURE_REFINERY.get(),
 				RegistryManager.HEARTH_COIL.get(),
-				RegistryManager.RESERVOIR.get());
+				RegistryManager.RESERVOIR.get(),
+				RegistryManager.CRYSTAL_CELL.get());
 
 		tag(RESERVOIR_EXPANSION).add(
 				RegistryManager.CAMINITE_RING.get(),

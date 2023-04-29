@@ -28,7 +28,6 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -54,11 +53,6 @@ public class FluidVesselBlock extends BaseEntityBlock implements SimpleWaterlogg
 	}
 
 	@Override
-	public boolean canPlaceLiquid(BlockGetter pLevel, BlockPos pPos, BlockState pState, Fluid pFluid) {
-		return false;
-	}
-
-	@Override
 	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		if (level.getBlockEntity(pos) instanceof FluidVesselBlockEntity vesselEntity) {
 			ItemStack heldItem = player.getItemInHand(hand);
@@ -70,6 +64,10 @@ public class FluidVesselBlock extends BaseEntityBlock implements SimpleWaterlogg
 					if (didFill) {
 						return InteractionResult.SUCCESS;
 					}
+				}
+				//prevent buckets from placing their fluid in the world when clicking on the vessel
+				if (heldItem.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).isPresent()) {
+					return InteractionResult.CONSUME_PARTIAL;
 				}
 			}
 		}

@@ -76,6 +76,8 @@ public class EmbersLang extends LanguageProvider {
 		addBlock(RegistryManager.CAMINITE_RING_EDGE, "Caminite Ring");
 		addBlock(RegistryManager.CAMINITE_VALVE, "Caminite Valve");
 		addBlock(RegistryManager.CAMINITE_VALVE_EDGE, "Caminite Valve");
+		addBlock(RegistryManager.CRYSTAL_CELL, "Crystal Cell");
+		addBlock(RegistryManager.CRYSTAL_CELL_EDGE, "Crystal Cell");
 
 		addItem(RegistryManager.TINKER_HAMMER, "Tinker's Hammer");
 		addItem(RegistryManager.TINKER_LENS, "Tinker's Lens");

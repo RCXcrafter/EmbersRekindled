@@ -219,8 +219,8 @@ public class ResearchManager {
 		//clockwork_attenuator = new ResearchBase("clockwork_attenuator", new ItemStack(RegistryManager.clockwork_attenuator), 12, 7);
 
 		//METALLURGY
-		//crystal_cell = new ResearchBase("crystal_cell", new ItemStack(RegistryManager.crystal_cell), 0, 1);
-		pulser = new ResearchShowItem("pulser", new ItemStack(RegistryManager.EMBER_EJECTOR_ITEM.get()), 0, 3.5).addItem(new DisplayItem(new ItemStack(RegistryManager.EMBER_EJECTOR_ITEM.get())))//.addAncestor(crystal_cell)
+		crystal_cell = new ResearchBase("crystal_cell", new ItemStack(RegistryManager.CRYSTAL_CELL_ITEM.get()), 0, 1);
+		pulser = new ResearchShowItem("pulser", new ItemStack(RegistryManager.EMBER_EJECTOR_ITEM.get()), 0, 3.5).addItem(new DisplayItem(new ItemStack(RegistryManager.EMBER_EJECTOR_ITEM.get()))).addAncestor(crystal_cell)
 				.addPage(new ResearchShowItem("ember_funnel",new ItemStack(RegistryManager.EMBER_FUNNEL_ITEM.get()),0,0).addItem(new DisplayItem(new ItemStack(RegistryManager.EMBER_FUNNEL_ITEM.get()))));
 		//charger = new ResearchBase("charger", new ItemStack(RegistryManager.charger), 4, 0);
 		//ember_siphon = new ResearchBase("ember_siphon", new ItemStack(RegistryManager.ember_siphon), 2, 0).addAncestor(ResearchManager.charger);
@@ -420,8 +420,8 @@ public class ResearchManager {
 		//.addResearch(geo_separator);
 		categoryMetallurgy
 		.addResearch(splitter)
-		.addResearch(pulser);
-		//.addResearch(crystal_cell)
+		.addResearch(pulser)
+		.addResearch(crystal_cell);
 		//.addResearch(charger)
 		//.addResearch(ember_siphon)
 		//.addResearch(jars)

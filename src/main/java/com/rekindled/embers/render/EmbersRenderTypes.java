@@ -10,9 +10,12 @@ import com.mojang.blaze3d.vertex.VertexFormat.Mode;
 import com.rekindled.embers.Embers;
 
 import net.minecraft.client.particle.ParticleRenderType;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.resources.ResourceLocation;
 
 public class EmbersRenderTypes extends RenderType {
 
@@ -67,5 +70,19 @@ public class EmbersRenderTypes extends RenderType {
 			.setShaderState(POSITION_COLOR_TEX_LIGHTMAP_SHADER)
 			.setTextureState(BLOCK_SHEET_MIPPED)
 			.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
+			.createCompositeState(false));
+
+	public static final RenderStateShard.ShaderStateShard PTLC_SHADER = new RenderStateShard.ShaderStateShard(GameRenderer::getPositionTexLightmapColorShader);
+
+	//render type used for the crystal cell
+	public static final RenderType CRYSTAL = create(
+			Embers.MODID + ":crystal_render_type",
+			DefaultVertexFormat.POSITION_TEX_LIGHTMAP_COLOR, VertexFormat.Mode.QUADS, 256, false, true,
+			RenderType.CompositeState.builder()
+			.setShaderState(PTLC_SHADER)
+			.setTextureState(new RenderStateShard.TextureStateShard(new ResourceLocation(Embers.MODID + ":textures/block/crystal_material.png"), false, false))
+			.setTransparencyState(LIGHTNING_TRANSPARENCY)
+			.setCullState(NO_CULL)
+			.setOutputState(TRANSLUCENT_TARGET)
 			.createCompositeState(false));
 }
