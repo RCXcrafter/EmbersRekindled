@@ -24,3 +24,4 @@ classes
 /gradle/gradle.properties
 /src/old
 /src/generated/resources/.cache
+/old_assets
