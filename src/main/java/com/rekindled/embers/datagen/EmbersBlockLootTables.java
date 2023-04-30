@@ -34,6 +34,16 @@ public class EmbersBlockLootTables extends BlockLoot {
 		});
 		dropSelf(RegistryManager.RAW_LEAD_BLOCK.get());
 		dropSelf(RegistryManager.LEAD_BLOCK.get());
+
+		add(RegistryManager.SILVER_ORE.get(), (block) -> {
+			return createOreDrop(block, RegistryManager.RAW_SILVER.get());
+		});
+		add(RegistryManager.DEEPSLATE_SILVER_ORE.get(), (block) -> {
+			return createOreDrop(block, RegistryManager.RAW_SILVER.get());
+		});
+		dropSelf(RegistryManager.RAW_SILVER_BLOCK.get());
+		dropSelf(RegistryManager.SILVER_BLOCK.get());
+
 		dropSelf(RegistryManager.DAWNSTONE_BLOCK.get());
 
 		dropSelf(RegistryManager.CAMINITE_BRICKS.get());

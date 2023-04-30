@@ -41,6 +41,7 @@ public class EmbersBiomeModifiers extends JsonCodecProvider<BiomeModifier> {
 		HolderSet.Named<Biome> overworldBiomes = new HolderSet.Named<>(biomeRegistry, BiomeTags.IS_OVERWORLD);
 
 		this.entries.put(getResource("add_lead_ore"), new AddFeaturesBiomeModifier(overworldBiomes, HolderSet.direct(getHolder(EmbersPlacedFeatures.ORE_LEAD_PLACER)), Decoration.UNDERGROUND_ORES));
+		this.entries.put(getResource("add_silver_ore"), new AddFeaturesBiomeModifier(overworldBiomes, HolderSet.direct(getHolder(EmbersPlacedFeatures.ORE_SILVER_PLACER)), Decoration.UNDERGROUND_ORES));
 		super.run(cache);
 	}
 

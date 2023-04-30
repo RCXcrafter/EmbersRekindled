@@ -60,6 +60,11 @@ public class EmbersItemModels extends ItemModelProvider {
 		itemWithTexture(RegistryManager.LEAD_NUGGET, "nugget_lead");
 		itemWithTexture(RegistryManager.LEAD_PLATE, "plate_lead");
 
+		basicItem(RegistryManager.RAW_SILVER.get());
+		itemWithTexture(RegistryManager.SILVER_INGOT, "ingot_silver");
+		itemWithTexture(RegistryManager.SILVER_NUGGET, "nugget_silver");
+		itemWithTexture(RegistryManager.SILVER_PLATE, "plate_silver");
+
 		itemWithTexture(RegistryManager.DAWNSTONE_INGOT, "ingot_dawnstone");
 		itemWithTexture(RegistryManager.DAWNSTONE_NUGGET, "nugget_dawnstone");
 		itemWithTexture(RegistryManager.DAWNSTONE_PLATE, "plate_dawnstone");

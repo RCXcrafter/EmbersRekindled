@@ -38,6 +38,9 @@ public class EmbersPlacedFeatures extends JsonCodecProvider<PlacedFeature> {
 	public static final RegistryObject<PlacedFeature> ORE_LEAD_PLACER = PLACED_FEATURES.register("ore_lead_placer", () -> new PlacedFeature(Holder.hackyErase(EmbersConfiguredFeatures.ORE_LEAD.getHolder().get()),
 			commonOrePlacement(8, HeightRangePlacement.triangle(VerticalAnchor.absolute(-28), VerticalAnchor.absolute(28)))));
 
+	public static final RegistryObject<PlacedFeature> ORE_SILVER_PLACER = PLACED_FEATURES.register("ore_silver_placer", () -> new PlacedFeature(Holder.hackyErase(EmbersConfiguredFeatures.ORE_SILVER.getHolder().get()),
+			commonOrePlacement(8, HeightRangePlacement.triangle(VerticalAnchor.absolute(-28), VerticalAnchor.absolute(28)))));
+
 	public EmbersPlacedFeatures(DataGenerator dataGenerator, ExistingFileHelper existingFileHelper) {
 		super(dataGenerator, existingFileHelper, Embers.MODID, RegistryOps.create(JsonOps.INSTANCE, RegistryAccess.builtinCopy()), PackType.SERVER_DATA, Registry.PLACED_FEATURE_REGISTRY.location().getPath(), PlacedFeature.DIRECT_CODEC, new HashMap<ResourceLocation, PlacedFeature>());
 	}
@@ -45,6 +48,7 @@ public class EmbersPlacedFeatures extends JsonCodecProvider<PlacedFeature> {
 	@Override
 	public void run(final CachedOutput cache) throws IOException {
 		this.add(ORE_LEAD_PLACER);
+		this.add(ORE_SILVER_PLACER);
 
 		super.run(cache);
 	}

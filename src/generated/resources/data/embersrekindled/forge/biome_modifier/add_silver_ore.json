@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#minecraft:is_overworld",
+  "features": "embersrekindled:ore_silver_placer",
+  "step": "underground_ores"
+}

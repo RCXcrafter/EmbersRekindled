@@ -1,6 +1,8 @@
 {
   "values": [
     "#forge:nuggets/copper",
-    "#forge:nuggets/lead"
+    "#forge:nuggets/lead",
+    "#forge:nuggets/silver",
+    "#forge:nuggets/dawnstone"
   ]
 }

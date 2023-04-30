@@ -36,7 +36,11 @@ public class EmbersBlockTags extends BlockTagsProvider {
 	public static final TagKey<Block> LEAD_ORE = BlockTags.create(new ResourceLocation("forge", "ores/lead"));
 	public static final TagKey<Block> RAW_LEAD_BLOCK = BlockTags.create(new ResourceLocation("forge", "storage_blocks/raw_lead"));
 
+	public static final TagKey<Block> SILVER_ORE = BlockTags.create(new ResourceLocation("forge", "ores/silver"));
+	public static final TagKey<Block> RAW_SILVER_BLOCK = BlockTags.create(new ResourceLocation("forge", "storage_blocks/raw_silver"));
+
 	public static final TagKey<Block> LEAD_BLOCK = BlockTags.create(new ResourceLocation("forge", "storage_blocks/lead"));
+	public static final TagKey<Block> SILVER_BLOCK = BlockTags.create(new ResourceLocation("forge", "storage_blocks/silver"));
 	public static final TagKey<Block> DAWNSTONE_BLOCK = BlockTags.create(new ResourceLocation("forge", "storage_blocks/dawnstone"));
 
 	//tags not used in this class
@@ -44,7 +48,6 @@ public class EmbersBlockTags extends BlockTagsProvider {
 	public static final TagKey<Block> NICKEL_BLOCK = BlockTags.create(new ResourceLocation("forge", "storage_blocks/nickel"));
 	public static final TagKey<Block> TIN_BLOCK = BlockTags.create(new ResourceLocation("forge", "storage_blocks/tin"));
 	public static final TagKey<Block> ALUMINUM_BLOCK = BlockTags.create(new ResourceLocation("forge", "storage_blocks/aluminium"));
-	public static final TagKey<Block> SILVER_BLOCK = BlockTags.create(new ResourceLocation("forge", "storage_blocks/silver"));
 	public static final TagKey<Block> ELECTRUM_BLOCK = BlockTags.create(new ResourceLocation("forge", "storage_blocks/electrum"));
 
 	public EmbersBlockTags(DataGenerator gen, ExistingFileHelper existingFileHelper) {
@@ -75,6 +78,11 @@ public class EmbersBlockTags extends BlockTagsProvider {
 				RegistryManager.DEEPSLATE_LEAD_ORE.get(),
 				RegistryManager.RAW_LEAD_BLOCK.get(),
 				RegistryManager.LEAD_BLOCK.get(),
+				RegistryManager.SILVER_ORE.get(),
+				RegistryManager.DEEPSLATE_SILVER_ORE.get(),
+				RegistryManager.RAW_SILVER_BLOCK.get(),
+				RegistryManager.SILVER_BLOCK.get(),
+				RegistryManager.DAWNSTONE_BLOCK.get(),
 				RegistryManager.CAMINITE_BRICKS.get(),
 				RegistryManager.ARCHAIC_BRICKS.get(),
 				RegistryManager.ARCHAIC_EDGE.get(),
@@ -124,7 +132,12 @@ public class EmbersBlockTags extends BlockTagsProvider {
 				RegistryManager.LEAD_ORE.get(),
 				RegistryManager.DEEPSLATE_LEAD_ORE.get(),
 				RegistryManager.RAW_LEAD_BLOCK.get(),
-				RegistryManager.LEAD_BLOCK.get());
+				RegistryManager.LEAD_BLOCK.get(),
+				RegistryManager.SILVER_ORE.get(),
+				RegistryManager.DEEPSLATE_SILVER_ORE.get(),
+				RegistryManager.RAW_SILVER_BLOCK.get(),
+				RegistryManager.SILVER_BLOCK.get(),
+				RegistryManager.DAWNSTONE_BLOCK.get());
 
 		tag(MECH_CORE_PROXYABLE).add(
 				RegistryManager.EMBER_BORE.get(),
@@ -154,8 +167,18 @@ public class EmbersBlockTags extends BlockTagsProvider {
 		tag(Tags.Blocks.STORAGE_BLOCKS).addTags(RAW_LEAD_BLOCK);
 		tag(RAW_LEAD_BLOCK).add(RegistryManager.RAW_LEAD_BLOCK.get());
 
-		tag(Tags.Blocks.STORAGE_BLOCKS).addTags(LEAD_BLOCK);
+		tag(Tags.Blocks.ORES).addTags(SILVER_ORE);
+		tag(SILVER_ORE).add(RegistryManager.SILVER_ORE.get()).add(RegistryManager.DEEPSLATE_SILVER_ORE.get());
+
+		tag(Tags.Blocks.ORES_IN_GROUND_STONE).add(RegistryManager.SILVER_ORE.get());
+		tag(Tags.Blocks.ORES_IN_GROUND_DEEPSLATE).add(RegistryManager.DEEPSLATE_SILVER_ORE.get());
+
+		tag(Tags.Blocks.STORAGE_BLOCKS).addTags(RAW_SILVER_BLOCK);
+		tag(RAW_SILVER_BLOCK).add(RegistryManager.RAW_SILVER_BLOCK.get());
+
+		tag(Tags.Blocks.STORAGE_BLOCKS).addTags(LEAD_BLOCK).addTags(SILVER_BLOCK).addTags(DAWNSTONE_BLOCK);
 		tag(LEAD_BLOCK).add(RegistryManager.LEAD_BLOCK.get());
+		tag(SILVER_BLOCK).add(RegistryManager.SILVER_BLOCK.get());
 		tag(DAWNSTONE_BLOCK).add(RegistryManager.DAWNSTONE_BLOCK.get());
 	}
 

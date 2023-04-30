@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "embersrekindled:silver_ingot"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "item": "embersrekindled:silver_nugget"
+  }
+}

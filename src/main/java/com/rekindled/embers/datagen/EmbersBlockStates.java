@@ -49,6 +49,12 @@ public class EmbersBlockStates extends BlockStateProvider {
 		blockWithItemTexture(RegistryManager.DEEPSLATE_LEAD_ORE, "deepslate_ore_lead");
 		blockWithItemTexture(RegistryManager.RAW_LEAD_BLOCK, "material_lead");
 		blockWithItemTexture(RegistryManager.LEAD_BLOCK, "block_lead");
+
+		blockWithItemTexture(RegistryManager.SILVER_ORE, "ore_silver");
+		blockWithItemTexture(RegistryManager.DEEPSLATE_SILVER_ORE, "deepslate_ore_silver");
+		blockWithItemTexture(RegistryManager.RAW_SILVER_BLOCK, "material_silver");
+		blockWithItemTexture(RegistryManager.SILVER_BLOCK, "block_silver");
+
 		blockWithItemTexture(RegistryManager.DAWNSTONE_BLOCK, "block_dawnstone");
 
 		blockWithItem(RegistryManager.CAMINITE_BRICKS);

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "X": {
+      "tag": "forge:nuggets/silver"
+    },
+    "Y": {
+      "item": "embersrekindled:silver_nugget"
+    }
+  },
+  "pattern": [
+    "XXX",
+    "XYX",
+    "XXX"
+  ],
+  "result": {
+    "item": "embersrekindled:silver_ingot"
+  }
+}

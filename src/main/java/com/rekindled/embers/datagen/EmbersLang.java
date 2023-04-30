@@ -115,6 +115,15 @@ public class EmbersLang extends LanguageProvider {
 		addItem(RegistryManager.LEAD_NUGGET, "Lead Nugget");
 		addItem(RegistryManager.LEAD_PLATE, "Lead Plate");
 
+		addBlock(RegistryManager.SILVER_ORE, "Silver Ore");
+		addBlock(RegistryManager.DEEPSLATE_SILVER_ORE, "Deepslate Silver Ore");
+		addBlock(RegistryManager.RAW_SILVER_BLOCK, "Block of Raw Silver");
+		addBlock(RegistryManager.SILVER_BLOCK, "Block of Silver");
+		addItem(RegistryManager.RAW_SILVER, "Raw Silver");
+		addItem(RegistryManager.SILVER_INGOT, "Silver Ingot");
+		addItem(RegistryManager.SILVER_NUGGET, "Silver Nugget");
+		addItem(RegistryManager.SILVER_PLATE, "Silver Plate");
+
 		addBlock(RegistryManager.DAWNSTONE_BLOCK, "Block of Dawnstone");
 		addItem(RegistryManager.DAWNSTONE_INGOT, "Dawnstone Ingot");
 		addItem(RegistryManager.DAWNSTONE_NUGGET, "Dawnstone Nugget");

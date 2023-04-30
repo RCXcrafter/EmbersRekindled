@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "X": {
+      "tag": "forge:raw_materials/silver"
+    },
+    "Y": {
+      "item": "embersrekindled:raw_silver"
+    }
+  },
+  "pattern": [
+    "XXX",
+    "XYX",
+    "XXX"
+  ],
+  "result": {
+    "item": "embersrekindled:raw_silver_block"
+  }
+}
