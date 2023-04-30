@@ -216,7 +216,7 @@ public class ResearchManager {
 		//breaker = new ResearchBase("breaker", new ItemStack(RegistryManager.breaker), 4, 7).addAncestor(stamper);
 		dawnstone = new ResearchBase("dawnstone", new ItemStack(RegistryManager.DAWNSTONE_INGOT.get()), 11, 4).addAncestor(mixer);
 		copper_cell = new ResearchBase("copper_cell", new ItemStack(RegistryManager.COPPER_CELL_ITEM.get()), 0, 5).addAncestor(emitters);
-		//clockwork_attenuator = new ResearchBase("clockwork_attenuator", new ItemStack(RegistryManager.clockwork_attenuator), 12, 7);
+		clockwork_attenuator = new ResearchBase("clockwork_attenuator", new ItemStack(RegistryManager.CLOCKWORK_ATTENUATOR.get()), 12, 7);
 
 		//METALLURGY
 		crystal_cell = new ResearchBase("crystal_cell", new ItemStack(RegistryManager.CRYSTAL_CELL_ITEM.get()), 0, 1);
@@ -415,8 +415,8 @@ public class ResearchManager {
 		//.addResearch(breaker)
 		.addResearch(dawnstone)
 		.addResearch(emitters)
-		.addResearch(copper_cell);
-		//.addResearch(clockwork_attenuator)
+		.addResearch(copper_cell)
+		.addResearch(clockwork_attenuator);
 		//.addResearch(geo_separator);
 		categoryMetallurgy
 		.addResearch(splitter)

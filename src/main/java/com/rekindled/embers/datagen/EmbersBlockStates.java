@@ -72,6 +72,7 @@ public class EmbersBlockStates extends BlockStateProvider {
 		dial(RegistryManager.EMBER_DIAL, "ember_dial");
 		dial(RegistryManager.ITEM_DIAL, "item_dial");
 		dial(RegistryManager.FLUID_DIAL, "fluid_dial");
+		dial(RegistryManager.CLOCKWORK_ATTENUATOR, "clockwork_attenuator");
 
 		ModelFile fluidPipeCenterModel = models().withExistingParent("fluid_pipe_center", new ResourceLocation(Embers.MODID, "pipe_center"))
 				.texture("pipe", new ResourceLocation(Embers.MODID, "block/fluid_pipe_tex"))

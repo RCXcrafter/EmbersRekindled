@@ -146,7 +146,7 @@ public class GuiCodex extends Screen {
 				}
 				researchCategory = popLastCategory();
 				playSound(researchCategory == null ? EmbersSounds.CODEX_CATEGORY_CLOSE.get() : EmbersSounds.CODEX_CATEGORY_SWITCH.get());
-				return super.keyPressed(keyCode, scanCode, modifiers);
+				return false;
 			}
 		}
 		if (researchPage != null && researchPage.hasMultiplePages()) {

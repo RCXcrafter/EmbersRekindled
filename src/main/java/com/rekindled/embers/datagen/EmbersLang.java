@@ -78,6 +78,7 @@ public class EmbersLang extends LanguageProvider {
 		addBlock(RegistryManager.CAMINITE_VALVE_EDGE, "Caminite Valve");
 		addBlock(RegistryManager.CRYSTAL_CELL, "Crystal Cell");
 		addBlock(RegistryManager.CRYSTAL_CELL_EDGE, "Crystal Cell");
+		addBlock(RegistryManager.CLOCKWORK_ATTENUATOR, "Clockwork Attenuator");
 
 		addItem(RegistryManager.TINKER_HAMMER, "Tinker's Hammer");
 		addItem(RegistryManager.TINKER_LENS, "Tinker's Lens");
@@ -137,10 +138,13 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".tooltip.emberdial.ember", "Ember: %s/%s");
 		add(Embers.MODID + ".tooltip.aiming_block", "Aiming: %s");
 		add(Embers.MODID + ".tooltip.item.ember", "Ember: %s/%s");
+		add(Embers.MODID + ".tooltip.attenuator.on", "When active: %s Speed");
+		add(Embers.MODID + ".tooltip.attenuator.off", "When inactive: %s Speed");
 
 		add(Embers.MODID + ".decimal_format.item_amount", "0x");
 		add(Embers.MODID + ".decimal_format.ember_multiplier", "0.##x");
 		add(Embers.MODID + ".decimal_format.heat", "0.#");
+		add(Embers.MODID + ".decimal_format.attenuator_multiplier", "0.##x");
 
 		add(Embers.MODID + ".tooltip.dial.ember_multiplier", "Production Multiplier: %s");
 		add(Embers.MODID + ".tooltip.dial.heat", "Heat: %s/%s");

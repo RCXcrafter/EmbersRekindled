@@ -37,7 +37,7 @@ public class EmbersConfiguredFeatures extends JsonCodecProvider<ConfiguredFeatur
 	public static final Supplier<List<OreConfiguration.TargetBlockState>> ORE_SILVER_TARGET_LIST = () -> List.of(
 			OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, RegistryManager.SILVER_ORE.get().defaultBlockState()),
 			OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, RegistryManager.DEEPSLATE_SILVER_ORE.get().defaultBlockState()));
-	public static final RegistryObject<ConfiguredFeature<OreConfiguration, ?>> ORE_SILVER = CONFIGURED_FEATURES.register("ore_silver", () -> new ConfiguredFeature<OreConfiguration, Feature<OreConfiguration>>(Feature.ORE, new OreConfiguration(ORE_SILVER_TARGET_LIST.get(), 8)));
+	public static final RegistryObject<ConfiguredFeature<OreConfiguration, ?>> ORE_SILVER = CONFIGURED_FEATURES.register("ore_silver", () -> new ConfiguredFeature<OreConfiguration, Feature<OreConfiguration>>(Feature.ORE, new OreConfiguration(ORE_SILVER_TARGET_LIST.get(), 6, 0.25F)));
 
 	public EmbersConfiguredFeatures(DataGenerator dataGenerator, ExistingFileHelper existingFileHelper) {
 		super(dataGenerator, existingFileHelper, Embers.MODID, RegistryOps.create(JsonOps.INSTANCE, RegistryAccess.builtinCopy()), PackType.SERVER_DATA, Registry.CONFIGURED_FEATURE_REGISTRY.location().getPath(), ConfiguredFeature.DIRECT_CODEC, new HashMap<ResourceLocation, ConfiguredFeature<?, ?>>());

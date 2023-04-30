@@ -21,10 +21,11 @@ I've decided to port Embers Rekindled to a Minecraft version beyond 1.12.2, I do
 - The bin is now made of lead since it's related to item transport/storage
 - The checkmarks in the codex have been replaced with a dawnstone dot on uncompleted entries
 - The mixer centrifuge now has small holes on the side to show what fluids are inside
+- Stampers now stop working when they're trying to output to a bin that's full
 
 ## Things I want to change:
 - There's a cool document with some of Elucent's plans for Embers, quite a bit of it has already been implemented by bord but there's also some ideas for some major changes and a port would be an ideal moment to implement them: https://github.com/RCXcrafter/EmbersRekindled/blob/rekindled/docs/elucent-plans.txt
-- The current alchemy system isn't very fun, there is an easy strategy to figure out the right amounts of ash for every recipe after just a single failed attempt and placing th ash in the pedestals isn't great either. I want to change alchemy to a mastermind minigame where you have to figure out the correct order to put the aspectusses in.
+- The current alchemy system isn't very fun, there is an easy strategy to figure out the right amounts of ash for every recipe after just a single failed attempt and placing the ash in the pedestals isn't great either. I want to change alchemy to a mastermind minigame where you have to figure out the correct order to put the aspectusses in.
 - Note from Bord: the ember cluster should be worth more than the sum of its parts
 - The extra metals should be more useful or they should be removed
 - More alloys? Without external mods the mixer centrifuge is just a dawnstone machine
@@ -48,4 +49,4 @@ This is not going to be easy since the Create power system in inherently differe
 Also I don't want so much content to depend on a mod developed by an external team.
 
 ### Just pretend Create doesn't exist and port Mystical Mechanics 
-Doing this would probably leave a lot of people wondering why the two systems aren't compatible and would probably cause a lot of people to ask questions. In the worst case someone might make an addon for a Create to Mystical Mechanics power converter which would then end up in every modpack that contains Embers Rekindled since modpacks without Create don't exist and in all of those modpacks the mechanical content from embers would be completely unbalanced because people would just use Create to generate the power.
+Doing this would probably leave a lot of people wondering why the two systems aren't compatible and would probably cause a lot of people to ask questions. In the worst case someone might make an addon for a Create to Mystical Mechanics power converter which would then end up in every modpack that contains Embers Rekindled (since modpacks without Create don't exist) and in all of those modpacks the mechanical content from embers would be completely unbalanced because people would just use Create to generate the power.

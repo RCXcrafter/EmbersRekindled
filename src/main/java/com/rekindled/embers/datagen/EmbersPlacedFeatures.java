@@ -39,7 +39,7 @@ public class EmbersPlacedFeatures extends JsonCodecProvider<PlacedFeature> {
 			commonOrePlacement(8, HeightRangePlacement.triangle(VerticalAnchor.absolute(-28), VerticalAnchor.absolute(28)))));
 
 	public static final RegistryObject<PlacedFeature> ORE_SILVER_PLACER = PLACED_FEATURES.register("ore_silver_placer", () -> new PlacedFeature(Holder.hackyErase(EmbersConfiguredFeatures.ORE_SILVER.getHolder().get()),
-			commonOrePlacement(8, HeightRangePlacement.triangle(VerticalAnchor.absolute(-28), VerticalAnchor.absolute(28)))));
+			commonOrePlacement(4, HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(64)))));
 
 	public EmbersPlacedFeatures(DataGenerator dataGenerator, ExistingFileHelper existingFileHelper) {
 		super(dataGenerator, existingFileHelper, Embers.MODID, RegistryOps.create(JsonOps.INSTANCE, RegistryAccess.builtinCopy()), PackType.SERVER_DATA, Registry.PLACED_FEATURE_REGISTRY.location().getPath(), PlacedFeature.DIRECT_CODEC, new HashMap<ResourceLocation, PlacedFeature>());

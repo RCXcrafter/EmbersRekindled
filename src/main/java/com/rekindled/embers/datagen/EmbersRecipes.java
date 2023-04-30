@@ -422,6 +422,13 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('I', itemTag("forge", "plates/iron"))
 		.unlockedBy("has_iron_plate", has(itemTag("forge", "plates/iron")))
 		.save(consumer, getResource("fluid_dial"));
+		ShapedRecipeBuilder.shaped(RegistryManager.CLOCKWORK_ATTENUATOR.get())
+		.pattern("P")
+		.pattern("I")
+		.define('P', Items.PAPER)
+		.define('I', itemTag("forge", "plates/silver"))
+		.unlockedBy("has_silver_plate", has(itemTag("forge", "plates/silver")))
+		.save(consumer, getResource("clockwork_attenuator"));
 
 		ShapedRecipeBuilder.shaped(RegistryManager.FLUID_PIPE.get(), 8)
 		.pattern("IPI")

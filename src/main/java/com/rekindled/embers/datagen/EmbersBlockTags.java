@@ -126,7 +126,8 @@ public class EmbersBlockTags extends BlockTagsProvider {
 				RegistryManager.CAMINITE_VALVE.get(),
 				RegistryManager.CAMINITE_VALVE_EDGE.get(),
 				RegistryManager.CRYSTAL_CELL.get(),
-				RegistryManager.CRYSTAL_CELL_EDGE.get());
+				RegistryManager.CRYSTAL_CELL_EDGE.get(),
+				RegistryManager.CLOCKWORK_ATTENUATOR.get());
 
 		tag(BlockTags.NEEDS_IRON_TOOL).add(
 				RegistryManager.LEAD_ORE.get(),
