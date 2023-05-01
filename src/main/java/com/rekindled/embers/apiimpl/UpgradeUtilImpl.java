@@ -11,6 +11,7 @@ import com.rekindled.embers.api.event.UpgradeEvent;
 import com.rekindled.embers.api.upgrades.IUpgradeProvider;
 import com.rekindled.embers.api.upgrades.IUpgradeProxy;
 import com.rekindled.embers.api.upgrades.IUpgradeUtil;
+import com.rekindled.embers.blockentity.MechanicalCoreBlockEntity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -49,6 +50,13 @@ public class UpgradeUtilImpl implements IUpgradeUtil {
 	}
 
 	public void collectUpgrades(Level world, BlockPos pos, Direction side, List<IUpgradeProvider> upgrades) {
+		collectUpgrades(world, pos, side, upgrades, MechanicalCoreBlockEntity.MAX_DISTANCE);
+	}
+
+	public void collectUpgrades(Level world, BlockPos pos, Direction side, List<IUpgradeProvider> upgrades, int distanceLeft) {
+		if (distanceLeft < 0) {
+			return;
+		}
 		BlockEntity te = world.getBlockEntity(pos);
 		if (te != null) {
 			IUpgradeProvider cap = te.getCapability(EmbersCapabilities.UPGRADE_PROVIDER_CAPABILITY, side).orElse(null);
@@ -59,12 +67,12 @@ public class UpgradeUtilImpl implements IUpgradeUtil {
 			IUpgradeProxy proxy = (IUpgradeProxy) te;
 			if (!isProxyChecked(proxy) && proxy.isProvider(side)) { //Prevent infinite recursion
 				addCheckedProxy(proxy);
-				proxy.collectUpgrades(upgrades);
+				proxy.collectUpgrades(upgrades, distanceLeft - 1);
 			}
 		}
 	}
 
-	public void verifyUpgrades(BlockEntity tile,List<IUpgradeProvider> list) {
+	public void verifyUpgrades(BlockEntity tile, List<IUpgradeProvider> list) {
 		//Count, remove, sort
 		//This call is expensive. Ideally should be cached. The total time complexity is O(n + n^2 + n log n) = O(n^2) for an ArrayList.
 		//Total time complexity for a LinkedList should be O(n + n + n log n) = O(n log n). Slightly better.

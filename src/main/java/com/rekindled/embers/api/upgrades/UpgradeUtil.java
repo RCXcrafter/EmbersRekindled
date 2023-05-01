@@ -26,6 +26,10 @@ public class UpgradeUtil {
 		IMPL.collectUpgrades(world, pos, side, upgrades);
 	}
 
+	public static void collectUpgrades(Level world, BlockPos pos, Direction side, List<IUpgradeProvider> upgrades, int distanceLeft) {
+		IMPL.collectUpgrades(world, pos, side, upgrades, distanceLeft);
+	}
+
 	public static void verifyUpgrades(BlockEntity tile, List<IUpgradeProvider> list) {
 		IMPL.verifyUpgrades(tile, list);
 	}

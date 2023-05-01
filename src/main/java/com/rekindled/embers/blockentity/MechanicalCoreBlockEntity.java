@@ -35,7 +35,7 @@ public class MechanicalCoreBlockEntity extends BlockEntity implements IExtraDial
 			return new BlockEntityDirection(level.getBlockEntity(sidePos), getFace());
 		}
 		if (level.getBlockEntity(sidePos) instanceof MechanicalCoreBlockEntity coreEntity) {
-			return coreEntity.getAttachedMultiblock(distanceLeft -1);
+			return coreEntity.getAttachedMultiblock(distanceLeft - 1);
 		}
 		return null;
 	}
@@ -49,7 +49,7 @@ public class MechanicalCoreBlockEntity extends BlockEntity implements IExtraDial
 			return level.getBlockEntity(sidePos);
 		}
 		if (level.getBlockEntity(sidePos) instanceof MechanicalCoreBlockEntity coreEntity) {
-			return coreEntity.getAttachedBlockEntity(distanceLeft -1);
+			return coreEntity.getAttachedBlockEntity(distanceLeft - 1);
 		}
 		return null;
 	}
@@ -100,10 +100,10 @@ public class MechanicalCoreBlockEntity extends BlockEntity implements IExtraDial
 	}
 
 	@Override
-	public void collectUpgrades(List<IUpgradeProvider> upgrades) {
+	public void collectUpgrades(List<IUpgradeProvider> upgrades, int distanceLeft) {
 		for (Direction facing : Direction.values()) {
 			if(isSocket(facing))
-				UpgradeUtil.collectUpgrades(level, worldPosition.relative(facing), facing.getOpposite(), upgrades);
+				UpgradeUtil.collectUpgrades(level, worldPosition.relative(facing), facing.getOpposite(), upgrades, distanceLeft);
 		}
 	}
 

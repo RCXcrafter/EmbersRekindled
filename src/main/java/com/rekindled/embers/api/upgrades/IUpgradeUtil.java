@@ -18,6 +18,8 @@ public interface IUpgradeUtil {
 
 	void collectUpgrades(Level world, BlockPos pos, Direction side, List<IUpgradeProvider> upgrades);
 
+	void collectUpgrades(Level world, BlockPos pos, Direction side, List<IUpgradeProvider> upgrades, int distanceLeft);
+
 	void verifyUpgrades(BlockEntity tile, List<IUpgradeProvider> list);
 
 	int getWorkTime(BlockEntity tile, int time, List<IUpgradeProvider> list);
