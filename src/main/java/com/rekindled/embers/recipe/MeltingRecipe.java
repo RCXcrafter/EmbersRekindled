@@ -26,11 +26,17 @@ public class MeltingRecipe implements Recipe<Container> {
 
 	public final Ingredient ingredient;
 	public final FluidStack output;
+	public final FluidStack bonus;
 
-	public MeltingRecipe(ResourceLocation id, Ingredient ingredient, FluidStack output) {
+	public MeltingRecipe(ResourceLocation id, Ingredient ingredient, FluidStack output, FluidStack bonus) {
 		this.id = id;
 		this.ingredient = ingredient;
 		this.output = output;
+		this.bonus = bonus;
+	}
+
+	public MeltingRecipe(ResourceLocation id, Ingredient ingredient, FluidStack output) {
+		this(id, ingredient, output, FluidStack.EMPTY);
 	}
 
 	@Override
@@ -44,6 +50,10 @@ public class MeltingRecipe implements Recipe<Container> {
 
 	public FluidStack getOutput(Container context) {
 		return output;
+	}
+
+	public FluidStack getBonus() {
+		return bonus;
 	}
 
 	public FluidStack process(Container context) {
@@ -108,22 +118,27 @@ public class MeltingRecipe implements Recipe<Container> {
 		public MeltingRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
 			Ingredient ingredient = Ingredient.fromJson(json.get("input"));
 			FluidStack output = Misc.deserializeFluidStack(GsonHelper.getAsJsonObject(json, "output"));
+			FluidStack bonus = FluidStack.EMPTY;
+			if (json.has("bonus"))
+				bonus = Misc.deserializeFluidStack(GsonHelper.getAsJsonObject(json, "bonus"));
 
-			return new MeltingRecipe(recipeId, ingredient, output);
+			return new MeltingRecipe(recipeId, ingredient, output, bonus);
 		}
 
 		@Override
 		public @Nullable MeltingRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
 			Ingredient ingredient = Ingredient.fromNetwork(buffer);
 			FluidStack output = FluidStack.readFromPacket(buffer);
+			FluidStack bonus = FluidStack.readFromPacket(buffer);
 
-			return new MeltingRecipe(recipeId, ingredient, output);
+			return new MeltingRecipe(recipeId, ingredient, output, bonus);
 		}
 
 		@Override
 		public void toNetwork(FriendlyByteBuf buffer, MeltingRecipe recipe) {
 			recipe.ingredient.toNetwork(buffer);
 			recipe.output.writeToPacket(buffer);
+			recipe.bonus.writeToPacket(buffer);
 		}
 	}
 }

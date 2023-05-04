@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": {
+      "tag": "forge:storage_blocks/silver"
+    },
+    "G": {
+      "item": "embersrekindled:caminite_brick"
+    },
+    "I": {
+      "item": "embersrekindled:fluid_vessel"
+    }
+  },
+  "pattern": [
+    "  B",
+    "GIG"
+  ],
+  "result": {
+    "item": "embersrekindled:geologic_separator"
+  }
+}

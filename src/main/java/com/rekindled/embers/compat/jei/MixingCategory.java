@@ -17,7 +17,6 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidType;
 
 public class MixingCategory implements IRecipeCategory<MixingRecipe> {
@@ -26,6 +25,7 @@ public class MixingCategory implements IRecipeCategory<MixingRecipe> {
 	private final IDrawable icon;
 	public static Component title = Component.translatable(Embers.MODID + ".jei.recipe.mixing");
 	public static ResourceLocation texture = new ResourceLocation(Embers.MODID, "textures/gui/jei_mixer.png");
+	double scale = 1.0 / 1000.0;
 
 	public MixingCategory(IGuiHelper helper) {
 		background = helper.createDrawable(texture, 0, 0, 108, 124);
@@ -55,39 +55,31 @@ public class MixingCategory implements IRecipeCategory<MixingRecipe> {
 	@Override
 	public void setRecipe(IRecipeLayoutBuilder builder, MixingRecipe recipe, IFocusGroup focuses) {
 		int count = 0;
-		int capacity = 0;
-
-		for (FluidIngredient ingredient : recipe.getDisplayInputFluids()) {
-			for (FluidStack fluid : ingredient.getFluids()) {
-				capacity = Math.max(fluid.getAmount(), capacity);
-			}
-		}
-		capacity = Math.max(recipe.getDisplayOutput().getAmount(), capacity);
-		capacity = Math.min(FluidType.BUCKET_VOLUME * 8, capacity + capacity / 4);
+		int capacity = FluidType.BUCKET_VOLUME * 8;
 
 		for (FluidIngredient ingredient : recipe.getDisplayInputFluids()) {
 			if (count > 2)
 				break;
 			if (count == 0) {
 				builder.addSlot(RecipeIngredientRole.INPUT, 46, 7)
-				.setFluidRenderer(capacity, false, 16, 32)
+				.setFluidRenderer((int) (capacity * scale + ingredient.getFluids().get(0).getAmount() * (1.0 - scale)), false, 16, 32)
 				.addIngredients(ForgeTypes.FLUID_STACK, ingredient.getFluids());
 			}
 			if (count == 1) {
 				builder.addSlot(RecipeIngredientRole.INPUT, 8, 46)
-				.setFluidRenderer(capacity, false, 16, 32)
+				.setFluidRenderer((int) (capacity * scale + ingredient.getFluids().get(0).getAmount() * (1.0 - scale)), false, 16, 32)
 				.addIngredients(ForgeTypes.FLUID_STACK, ingredient.getFluids());
 			}
 			if (count == 2) {
 				builder.addSlot(RecipeIngredientRole.INPUT, 46, 84)
-				.setFluidRenderer(capacity, false, 16, 32)
+				.setFluidRenderer((int) (capacity * scale + ingredient.getFluids().get(0).getAmount() * (1.0 - scale)), false, 16, 32)
 				.addIngredients(ForgeTypes.FLUID_STACK, ingredient.getFluids());
 			}
 			count++;
 		}
 
 		builder.addSlot(RecipeIngredientRole.OUTPUT, 84, 46)
-		.setFluidRenderer(capacity, false, 16, 32)
+		.setFluidRenderer((int) (capacity * scale + recipe.getDisplayOutput().getAmount() * (1.0 - scale)), false, 16, 32)
 		.addIngredient(ForgeTypes.FLUID_STACK, recipe.getDisplayOutput());
 	}
 }

@@ -1,0 +1,35 @@
+{
+  "type": "embersrekindled:melting",
+  "bonus": {
+    "amount": 20,
+    "fluid": "embersrekindled:molten_lead"
+  },
+  "conditions": [
+    {
+      "type": "forge:and",
+      "values": [
+        {
+          "type": "forge:not",
+          "value": {
+            "type": "forge:tag_empty",
+            "tag": "forge:ores/silver"
+          }
+        },
+        {
+          "type": "forge:not",
+          "value": {
+            "type": "forge:tag_empty",
+            "tag": "forge:ingots/lead"
+          }
+        }
+      ]
+    }
+  ],
+  "input": {
+    "tag": "forge:ores/silver"
+  },
+  "output": {
+    "amount": 240,
+    "fluid": "embersrekindled:molten_silver"
+  }
+}

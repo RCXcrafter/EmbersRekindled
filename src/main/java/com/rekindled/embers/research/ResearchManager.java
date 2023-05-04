@@ -207,7 +207,7 @@ public class ResearchManager {
 				.addPage(new ResearchShowItem("receivers", new ItemStack(RegistryManager.EMBER_RECEIVER_ITEM.get()), 0, 0).addItem(new DisplayItem(new ItemStack(RegistryManager.EMBER_RECEIVER_ITEM.get()))))
 				.addPage(new ResearchShowItem("linking", ItemStack.EMPTY, 0, 0).addItem(new DisplayItem(new ItemStack(RegistryManager.EMBER_EMITTER_ITEM.get()),new ItemStack(RegistryManager.TINKER_HAMMER.get()),new ItemStack(RegistryManager.EMBER_RECEIVER_ITEM.get()))));
 		melter = new ResearchBase("melter", new ItemStack(RegistryManager.MELTER_ITEM.get()), 2, 0).addAncestor(emitters);
-		//geo_separator = new ResearchBase("geo_separator", new ItemStack(RegistryManager.geo_separator), 0, 0).addAncestor(melter);
+		geo_separator = new ResearchBase("geo_separator", new ItemStack(RegistryManager.GEOLOGIC_SEPARATOR_ITEM.get()), 0, 0).addAncestor(melter);
 		stamper = new ResearchBase("stamper", new ItemStack(RegistryManager.STAMPER_ITEM.get()), 2, 4).addAncestor(melter).addAncestor(emitters);
 		access = new ResearchBase("access", new ItemStack(RegistryManager.MECHANICAL_CORE_ITEM.get()), 7, 5).addAncestor(stamper);
 		hearth_coil = new ResearchBase("hearth_coil", new ItemStack(RegistryManager.HEARTH_COIL.get()), 10, 1).addAncestor(access);
@@ -416,8 +416,8 @@ public class ResearchManager {
 		.addResearch(dawnstone)
 		.addResearch(emitters)
 		.addResearch(copper_cell)
-		.addResearch(clockwork_attenuator);
-		//.addResearch(geo_separator);
+		.addResearch(clockwork_attenuator)
+		.addResearch(geo_separator);
 		categoryMetallurgy
 		.addResearch(splitter)
 		.addResearch(pulser)

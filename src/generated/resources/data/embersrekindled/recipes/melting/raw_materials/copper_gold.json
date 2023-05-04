@@ -1,0 +1,35 @@
+{
+  "type": "embersrekindled:melting",
+  "bonus": {
+    "amount": 10,
+    "fluid": "embersrekindled:molten_gold"
+  },
+  "conditions": [
+    {
+      "type": "forge:and",
+      "values": [
+        {
+          "type": "forge:not",
+          "value": {
+            "type": "forge:tag_empty",
+            "tag": "forge:raw_materials/copper"
+          }
+        },
+        {
+          "type": "forge:not",
+          "value": {
+            "type": "forge:tag_empty",
+            "tag": "forge:ingots/gold"
+          }
+        }
+      ]
+    }
+  ],
+  "input": {
+    "tag": "forge:raw_materials/copper"
+  },
+  "output": {
+    "amount": 120,
+    "fluid": "embersrekindled:molten_copper"
+  }
+}

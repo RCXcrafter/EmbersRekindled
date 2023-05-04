@@ -18,22 +18,22 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fluids.FluidType;
 
-public class MeltingCategory implements IRecipeCategory<MeltingRecipe> {
+public class MeltingBonusCategory implements IRecipeCategory<MeltingRecipe> {
 
 	private final IDrawable background;
 	private final IDrawable icon;
-	public static Component title = Component.translatable(Embers.MODID + ".jei.recipe.melting");
-	public static ResourceLocation texture = new ResourceLocation(Embers.MODID, "textures/gui/jei_melter.png");
+	public static Component title = Component.translatable(Embers.MODID + ".jei.recipe.geologic_separator");
+	public static ResourceLocation texture = new ResourceLocation(Embers.MODID, "textures/gui/jei_geologic_separator.png");
 	double scale = 1.0 / 32.0;
 
-	public MeltingCategory(IGuiHelper helper) {
+	public MeltingBonusCategory(IGuiHelper helper) {
 		background = helper.createDrawable(texture, 0, 14, 108, 42);
-		icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(RegistryManager.MELTER_ITEM.get()));
+		icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(RegistryManager.GEOLOGIC_SEPARATOR_ITEM.get()));
 	}
 
 	@Override
 	public RecipeType<MeltingRecipe> getRecipeType() {
-		return JEIPlugin.MELTING;
+		return JEIPlugin.MELTING_BONUS;
 	}
 
 	@Override
@@ -54,11 +54,16 @@ public class MeltingCategory implements IRecipeCategory<MeltingRecipe> {
 	@Override
 	public void setRecipe(IRecipeLayoutBuilder builder, MeltingRecipe recipe, IFocusGroup focuses) {
 		int capacity = FluidType.BUCKET_VOLUME * 4;
-		
+		int capacity2 = FluidType.BUCKET_VOLUME;
+
 		builder.addSlot(RecipeIngredientRole.INPUT, 8, 14).addIngredients(recipe.getDisplayInput());
 
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 84, 6)
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 63, 6)
 		.setFluidRenderer((int) (capacity * scale + recipe.getDisplayOutput().getAmount() * (1.0 - scale)), false, 16, 32)
 		.addIngredient(ForgeTypes.FLUID_STACK, recipe.getDisplayOutput());
+
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 84, 26)
+		.setFluidRenderer((int) (capacity2 * scale + recipe.getBonus().getAmount() * (1.0 - scale)), false, 16, 12)
+		.addIngredient(ForgeTypes.FLUID_STACK, recipe.getBonus());
 	}
 }

@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=east,waterlogged=false": {
+      "model": "embersrekindled:block/geologic_separator",
+      "y": 90
+    },
+    "facing=east,waterlogged=true": {
+      "model": "embersrekindled:block/geologic_separator",
+      "y": 90
+    },
+    "facing=north,waterlogged=false": {
+      "model": "embersrekindled:block/geologic_separator"
+    },
+    "facing=north,waterlogged=true": {
+      "model": "embersrekindled:block/geologic_separator"
+    },
+    "facing=south,waterlogged=false": {
+      "model": "embersrekindled:block/geologic_separator",
+      "y": 180
+    },
+    "facing=south,waterlogged=true": {
+      "model": "embersrekindled:block/geologic_separator",
+      "y": 180
+    },
+    "facing=west,waterlogged=false": {
+      "model": "embersrekindled:block/geologic_separator",
+      "y": 270
+    },
+    "facing=west,waterlogged=true": {
+      "model": "embersrekindled:block/geologic_separator",
+      "y": 270
+    }
+  }
+}

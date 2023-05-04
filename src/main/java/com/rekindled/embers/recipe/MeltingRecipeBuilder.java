@@ -22,6 +22,7 @@ public class MeltingRecipeBuilder {
 	public ResourceLocation id;
 	public Ingredient ingredient;
 	public FluidStack output;
+	public FluidStack bonus = FluidStack.EMPTY;
 
 	public static MeltingRecipeBuilder create(Ingredient ingredient) {
 		MeltingRecipeBuilder builder = new MeltingRecipeBuilder();
@@ -60,6 +61,11 @@ public class MeltingRecipeBuilder {
 		return this;
 	}
 
+	public MeltingRecipeBuilder bonusName(String stuff) {
+		this.id = new ResourceLocation(id.getNamespace(), id.getPath() + "_" + stuff);
+		return this;
+	}
+
 	public MeltingRecipeBuilder output(FluidStack output) {
 		this.output = output;
 		return this;
@@ -70,8 +76,18 @@ public class MeltingRecipeBuilder {
 		return this;
 	}
 
+	public MeltingRecipeBuilder bonus(FluidStack bonus) {
+		this.bonus = bonus;
+		return this;
+	}
+
+	public MeltingRecipeBuilder bonus(Fluid fluid, int amount) {
+		this.bonus = new FluidStack(fluid, amount);
+		return this;
+	}
+
 	public MeltingRecipe build() {
-		return new MeltingRecipe(id, ingredient, output);
+		return new MeltingRecipe(id, ingredient, output, bonus);
 	}
 
 	public void save(Consumer<FinishedRecipe> consumer) {
@@ -90,6 +106,8 @@ public class MeltingRecipeBuilder {
 		public void serializeRecipeData(JsonObject json) {
 			json.add("input", recipe.ingredient.toJson());
 			json.add("output", Misc.serializeFluidStack(recipe.output));
+			if (!recipe.bonus.isEmpty())
+				json.add("bonus", Misc.serializeFluidStack(recipe.bonus));
 		}
 
 		@Override

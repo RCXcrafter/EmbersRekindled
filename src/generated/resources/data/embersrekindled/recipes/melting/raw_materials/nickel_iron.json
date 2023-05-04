@@ -1,0 +1,35 @@
+{
+  "type": "embersrekindled:melting",
+  "bonus": {
+    "amount": 10,
+    "fluid": "embersrekindled:molten_iron"
+  },
+  "conditions": [
+    {
+      "type": "forge:and",
+      "values": [
+        {
+          "type": "forge:not",
+          "value": {
+            "type": "forge:tag_empty",
+            "tag": "forge:raw_materials/nickel"
+          }
+        },
+        {
+          "type": "forge:not",
+          "value": {
+            "type": "forge:tag_empty",
+            "tag": "forge:ingots/iron"
+          }
+        }
+      ]
+    }
+  ],
+  "input": {
+    "tag": "forge:raw_materials/nickel"
+  },
+  "output": {
+    "amount": 120,
+    "fluid": "embersrekindled:molten_nickel"
+  }
+}

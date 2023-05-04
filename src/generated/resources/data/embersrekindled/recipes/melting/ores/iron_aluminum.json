@@ -1,0 +1,39 @@
+{
+  "type": "embersrekindled:melting",
+  "bonus": {
+    "amount": 20,
+    "fluid": "embersrekindled:molten_aluminum"
+  },
+  "conditions": [
+    {
+      "type": "forge:and",
+      "values": [
+        {
+          "type": "forge:tag_empty",
+          "tag": "forge:ingots/nickel"
+        },
+        {
+          "type": "forge:not",
+          "value": {
+            "type": "forge:tag_empty",
+            "tag": "forge:ores/iron"
+          }
+        },
+        {
+          "type": "forge:not",
+          "value": {
+            "type": "forge:tag_empty",
+            "tag": "forge:ingots/aluminum"
+          }
+        }
+      ]
+    }
+  ],
+  "input": {
+    "tag": "forge:ores/iron"
+  },
+  "output": {
+    "amount": 240,
+    "fluid": "embersrekindled:molten_iron"
+  }
+}

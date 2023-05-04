@@ -79,6 +79,7 @@ public class EmbersLang extends LanguageProvider {
 		addBlock(RegistryManager.CRYSTAL_CELL, "Crystal Cell");
 		addBlock(RegistryManager.CRYSTAL_CELL_EDGE, "Crystal Cell");
 		addBlock(RegistryManager.CLOCKWORK_ATTENUATOR, "Clockwork Attenuator");
+		addBlock(RegistryManager.GEOLOGIC_SEPARATOR, "Geologic Separator");
 
 		addItem(RegistryManager.TINKER_HAMMER, "Tinker's Hammer");
 		addItem(RegistryManager.TINKER_LENS, "Tinker's Lens");
@@ -206,6 +207,7 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".jei.recipe.ember_activation", "Ember Activation");
 		add(Embers.MODID + ".jei.recipe.ember_activation.ember", "Ember: %s");
 		add(Embers.MODID + ".jei.recipe.melting", "Melting");
+		add(Embers.MODID + ".jei.recipe.geologic_separator", "Geologic Separator Bonus");
 		add(Embers.MODID + ".jei.recipe.stamping", "Stamping");
 		add(Embers.MODID + ".jei.recipe.mixing", "Mixing");
 		add(Embers.MODID + ".jei.recipe.metal_coefficient", "Production Multiplier");

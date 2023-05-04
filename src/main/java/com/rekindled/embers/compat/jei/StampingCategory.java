@@ -24,6 +24,7 @@ public class StampingCategory implements IRecipeCategory<StampingRecipe> {
 	private final IDrawable icon;
 	public static Component title = Component.translatable(Embers.MODID + ".jei.recipe.stamping");
 	public static ResourceLocation texture = new ResourceLocation(Embers.MODID, "textures/gui/jei_stamp.png");
+	double scale = 1.0 / 16.0;
 
 	public StampingCategory(IGuiHelper helper) {
 		background = helper.createDrawable(texture, 0, 0, 108, 83);
@@ -52,12 +53,11 @@ public class StampingCategory implements IRecipeCategory<StampingRecipe> {
 
 	@Override
 	public void setRecipe(IRecipeLayoutBuilder builder, StampingRecipe recipe, IFocusGroup focuses) {
-		int capacity = 0;
+		int amount = 0;
 
 		for (FluidStack fluid : recipe.getDisplayInputFluid().getFluids()) {
-			capacity = Math.max(fluid.getAmount(), capacity);
+			amount = fluid.getAmount();
 		}
-		capacity = Math.min(1500, capacity + capacity / 4);
 
 		builder.addSlot(RecipeIngredientRole.INPUT, 8, 28).addIngredients(recipe.getDisplayInput());
 
@@ -66,7 +66,7 @@ public class StampingCategory implements IRecipeCategory<StampingRecipe> {
 		builder.addSlot(RecipeIngredientRole.OUTPUT, 84, 28).addItemStack(recipe.getResultItem());
 
 		builder.addSlot(RecipeIngredientRole.INPUT, 47, 48)
-		.setFluidRenderer(capacity, false, 16, 32)
+		.setFluidRenderer((int) (1500 * scale + amount * (1.0 - scale)), false, 16, 32)
 		.addIngredients(ForgeTypes.FLUID_STACK, recipe.getDisplayInputFluid().getFluids());
 	}
 }

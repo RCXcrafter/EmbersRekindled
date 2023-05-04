@@ -1,5 +1,6 @@
 package com.rekindled.embers.compat.jei;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.rekindled.embers.Embers;
@@ -32,6 +33,7 @@ public class JEIPlugin implements IModPlugin {
 	public static final RecipeType<BoringRecipe> BORING = RecipeType.create(Embers.MODID, "boring", BoringRecipe.class);
 	public static final RecipeType<EmberActivationRecipe> EMBER_ACTIVATION = RecipeType.create(Embers.MODID, "ember_activation", EmberActivationRecipe.class);
 	public static final RecipeType<MeltingRecipe> MELTING = RecipeType.create(Embers.MODID, "melting", MeltingRecipe.class);
+	public static final RecipeType<MeltingRecipe> MELTING_BONUS = RecipeType.create(Embers.MODID, "melting_bonus", MeltingRecipe.class);
 	public static final RecipeType<StampingRecipe> STAMPING = RecipeType.create(Embers.MODID, "stamping", StampingRecipe.class);
 	public static final RecipeType<MixingRecipe> MIXING = RecipeType.create(Embers.MODID, "mixing", MixingRecipe.class);
 	public static final RecipeType<MetalCoefficientRecipe> METAL_COEFFICIENT = RecipeType.create(Embers.MODID, "metal_coefficient", MetalCoefficientRecipe.class);
@@ -48,6 +50,7 @@ public class JEIPlugin implements IModPlugin {
 		registry.addRecipeCategories(new BoringCategory(guiHelper));
 		registry.addRecipeCategories(new EmberActivationCategory(guiHelper));
 		registry.addRecipeCategories(new MeltingCategory(guiHelper));
+		registry.addRecipeCategories(new MeltingBonusCategory(guiHelper));
 		registry.addRecipeCategories(new StampingCategory(guiHelper));
 		registry.addRecipeCategories(new MixingCategory(guiHelper));
 		registry.addRecipeCategories(new MetalCoefficientCategory(guiHelper));
@@ -69,6 +72,13 @@ public class JEIPlugin implements IModPlugin {
 		List<MeltingRecipe> meltingRecipes = manager.getAllRecipesFor(RegistryManager.MELTING.get());
 		register.addRecipes(MELTING, meltingRecipes);
 
+		List<MeltingRecipe> meltingBonusRecipes = new ArrayList<MeltingRecipe>();
+		for (MeltingRecipe recipe : meltingRecipes) {
+			if (!recipe.getBonus().isEmpty())
+				meltingBonusRecipes.add(recipe);
+		}
+		register.addRecipes(MELTING_BONUS, meltingBonusRecipes);
+
 		List<StampingRecipe> stampingRecipes = manager.getAllRecipesFor(RegistryManager.STAMPING.get());
 		register.addRecipes(STAMPING, stampingRecipes);
 
@@ -85,7 +95,8 @@ public class JEIPlugin implements IModPlugin {
 		registry.addRecipeCatalyst(new ItemStack(RegistryManager.EMBER_BORE_ITEM.get()), BORING);
 		registry.addRecipeCatalyst(new ItemStack(RegistryManager.EMBER_ACTIVATOR_ITEM.get()), EMBER_ACTIVATION);
 		registry.addRecipeCatalyst(new ItemStack(RegistryManager.PRESSURE_REFINERY_ITEM.get()), EMBER_ACTIVATION);
-		registry.addRecipeCatalyst(new ItemStack(RegistryManager.MELTER_ITEM.get()), MELTING);
+		registry.addRecipeCatalyst(new ItemStack(RegistryManager.MELTER_ITEM.get()), MELTING, MELTING_BONUS);
+		registry.addRecipeCatalyst(new ItemStack(RegistryManager.GEOLOGIC_SEPARATOR_ITEM.get()), MELTING_BONUS);
 		registry.addRecipeCatalyst(new ItemStack(RegistryManager.STAMPER_ITEM.get()), STAMPING);
 		registry.addRecipeCatalyst(new ItemStack(RegistryManager.STAMP_BASE_ITEM.get()), STAMPING);
 		registry.addRecipeCatalyst(new ItemStack(RegistryManager.MIXER_CENTRIFUGE_ITEM.get()), MIXING);
