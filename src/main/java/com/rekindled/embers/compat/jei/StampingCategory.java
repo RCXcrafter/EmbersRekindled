@@ -66,6 +66,7 @@ public class StampingCategory implements IRecipeCategory<StampingRecipe> {
 		builder.addSlot(RecipeIngredientRole.OUTPUT, 84, 28).addItemStack(recipe.getResultItem());
 
 		builder.addSlot(RecipeIngredientRole.INPUT, 47, 48)
+		.addTooltipCallback(IngotTooltipCallback.INSTANCE)
 		.setFluidRenderer((int) (1500 * scale + amount * (1.0 - scale)), false, 16, 32)
 		.addIngredients(ForgeTypes.FLUID_STACK, recipe.getDisplayInputFluid().getFluids());
 	}

@@ -14,13 +14,6 @@
             "type": "forge:tag_empty",
             "tag": "forge:ores/lead"
           }
-        },
-        {
-          "type": "forge:not",
-          "value": {
-            "type": "forge:tag_empty",
-            "tag": "forge:ingots/silver"
-          }
         }
       ]
     }

@@ -15,6 +15,7 @@ import com.rekindled.embers.recipe.MetalCoefficientRecipeBuilder;
 import com.rekindled.embers.recipe.MixingRecipeBuilder;
 import com.rekindled.embers.recipe.StampingRecipeBuilder;
 import com.rekindled.embers.util.ConsumerWrapperBuilder;
+import com.rekindled.embers.util.FluidAmounts;
 import com.rekindled.embers.util.MeltingBonus;
 
 import net.minecraft.core.Registry;
@@ -39,14 +40,6 @@ import net.minecraftforge.common.crafting.conditions.NotCondition;
 import net.minecraftforge.common.crafting.conditions.TagEmptyCondition;
 
 public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
-
-	public static final int INGOT_AMOUNT = 90;
-	public static final int NUGGET_AMOUNT = INGOT_AMOUNT / 9;
-	public static final int BLOCK_AMOUNT = INGOT_AMOUNT * 9;
-	public static final int RAW_AMOUNT = NUGGET_AMOUNT * 12;
-	public static final int ORE_AMOUNT = RAW_AMOUNT * 2;
-	public static final int RAW_BLOCK_AMOUNT = RAW_AMOUNT * 9;
-	public static final int PLATE_AMOUNT = INGOT_AMOUNT;
 
 	public static String boringFolder = "boring";
 	public static String activationFolder = "ember_activation";
@@ -650,13 +643,13 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		TagKey<Item> rawBlock = itemTag("forge", "storage_blocks/raw_" + name);
 
 		bonusRecipe((condition, bonus) -> {
-			MeltingRecipeBuilder.create(raw).domain(Embers.MODID).folder(meltingFolder).bonusName(bonus.name).output(fluid, RAW_AMOUNT).bonus(bonus.fluid, bonus.amount).save(ConsumerWrapperBuilder.wrap().addCondition(condition).build(consumer));
+			MeltingRecipeBuilder.create(raw).domain(Embers.MODID).folder(meltingFolder).bonusName(bonus.name).output(fluid, FluidAmounts.RAW_AMOUNT).bonus(bonus.fluid, bonus.amount).save(ConsumerWrapperBuilder.wrap().addCondition(condition).build(consumer));
 		}, tagReal(raw), bonusses);
 		bonusRecipe((condition, bonus) -> {
-			MeltingRecipeBuilder.create(ore).domain(Embers.MODID).folder(meltingFolder).bonusName(bonus.name).output(fluid, ORE_AMOUNT).bonus(bonus.fluid, bonus.amount * 2).save(ConsumerWrapperBuilder.wrap().addCondition(condition).build(consumer));
+			MeltingRecipeBuilder.create(ore).domain(Embers.MODID).folder(meltingFolder).bonusName(bonus.name).output(fluid, FluidAmounts.ORE_AMOUNT).bonus(bonus.fluid, bonus.amount * 2).save(ConsumerWrapperBuilder.wrap().addCondition(condition).build(consumer));
 		}, tagReal(ore), bonusses);
 		bonusRecipe((condition, bonus) -> {
-			MeltingRecipeBuilder.create(rawBlock).domain(Embers.MODID).folder(meltingFolder).bonusName(bonus.name).output(fluid, RAW_BLOCK_AMOUNT).bonus(bonus.fluid, bonus.amount * 9).save(ConsumerWrapperBuilder.wrap().addCondition(condition).build(consumer));
+			MeltingRecipeBuilder.create(rawBlock).domain(Embers.MODID).folder(meltingFolder).bonusName(bonus.name).output(fluid, FluidAmounts.RAW_BLOCK_AMOUNT).bonus(bonus.fluid, bonus.amount * 9).save(ConsumerWrapperBuilder.wrap().addCondition(condition).build(consumer));
 		}, tagReal(rawBlock), bonusses);
 	}
 
@@ -669,7 +662,8 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 
 			recipeConditions.addAll(conditions);
 			recipeConditions.add(baseCondition);
-			recipeConditions.add(new NotCondition(condition));
+			if (bonus.optional)
+				recipeConditions.add(new NotCondition(condition));
 
 			recipe.accept(new AndCondition(recipeConditions.toArray(new ICondition[recipeConditions.size()])), bonus);
 			conditions.add(condition);
@@ -682,14 +676,14 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		TagKey<Item> block = itemTag("forge", "storage_blocks/" + name);
 		TagKey<Item> plate = itemTag("forge", "plates/" + name);
 		//melting
-		MeltingRecipeBuilder.create(ingot).domain(Embers.MODID).folder(meltingFolder).output(fluid, INGOT_AMOUNT).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(ingot)).build(consumer));
-		MeltingRecipeBuilder.create(nugget).domain(Embers.MODID).folder(meltingFolder).output(fluid, NUGGET_AMOUNT).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(nugget)).build(consumer));
-		MeltingRecipeBuilder.create(block).domain(Embers.MODID).folder(meltingFolder).output(fluid, BLOCK_AMOUNT).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(block)).build(consumer));
-		MeltingRecipeBuilder.create(plate).domain(Embers.MODID).folder(meltingFolder).output(fluid, PLATE_AMOUNT).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(plate)).build(consumer));
+		MeltingRecipeBuilder.create(ingot).domain(Embers.MODID).folder(meltingFolder).output(fluid, FluidAmounts.INGOT_AMOUNT).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(ingot)).build(consumer));
+		MeltingRecipeBuilder.create(nugget).domain(Embers.MODID).folder(meltingFolder).output(fluid, FluidAmounts.NUGGET_AMOUNT).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(nugget)).build(consumer));
+		MeltingRecipeBuilder.create(block).domain(Embers.MODID).folder(meltingFolder).output(fluid, FluidAmounts.BLOCK_AMOUNT).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(block)).build(consumer));
+		MeltingRecipeBuilder.create(plate).domain(Embers.MODID).folder(meltingFolder).output(fluid, FluidAmounts.PLATE_AMOUNT).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(plate)).build(consumer));
 		//stamping
-		StampingRecipeBuilder.create(ingot).domain(Embers.MODID).folder(stampingFolder).stamp(RegistryManager.INGOT_STAMP.get()).fluid(fluidTag("forge", "molten_" + name), INGOT_AMOUNT).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(ingot)).build(consumer));
-		StampingRecipeBuilder.create(nugget).domain(Embers.MODID).folder(stampingFolder).stamp(RegistryManager.NUGGET_STAMP.get()).fluid(fluidTag("forge", "molten_" + name), NUGGET_AMOUNT).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(nugget)).build(consumer));
-		StampingRecipeBuilder.create(plate).domain(Embers.MODID).folder(stampingFolder).stamp(RegistryManager.PLATE_STAMP.get()).fluid(fluidTag("forge", "molten_" + name), PLATE_AMOUNT).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(plate)).build(consumer));
+		StampingRecipeBuilder.create(ingot).domain(Embers.MODID).folder(stampingFolder).stamp(RegistryManager.INGOT_STAMP.get()).fluid(fluidTag("forge", "molten_" + name), FluidAmounts.INGOT_AMOUNT).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(ingot)).build(consumer));
+		StampingRecipeBuilder.create(nugget).domain(Embers.MODID).folder(stampingFolder).stamp(RegistryManager.NUGGET_STAMP.get()).fluid(fluidTag("forge", "molten_" + name), FluidAmounts.NUGGET_AMOUNT).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(nugget)).build(consumer));
+		StampingRecipeBuilder.create(plate).domain(Embers.MODID).folder(stampingFolder).stamp(RegistryManager.PLATE_STAMP.get()).fluid(fluidTag("forge", "molten_" + name), FluidAmounts.PLATE_AMOUNT).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(plate)).build(consumer));
 	}
 
 	public void blockIngotNuggetCompression(String name, Item block, Item ingot, Item nugget, Consumer<FinishedRecipe> consumer) {

@@ -13,9 +13,11 @@ import com.rekindled.embers.api.tile.IMechanicallyPowered;
 import com.rekindled.embers.api.upgrades.IUpgradeProvider;
 import com.rekindled.embers.api.upgrades.UpgradeUtil;
 import com.rekindled.embers.block.FluidDialBlock;
+import com.rekindled.embers.datagen.EmbersFluidTags;
 import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.recipe.MixingContext;
 import com.rekindled.embers.recipe.MixingRecipe;
+import com.rekindled.embers.util.FluidAmounts;
 import com.rekindled.embers.util.Misc;
 import com.rekindled.embers.util.sound.ISoundController;
 
@@ -244,9 +246,17 @@ public class MixerCentrifugeBottomBlockEntity extends BlockEntity implements IMe
 		if (FluidDialBlock.DIAL_TYPE.equals(dialType)) {
 			information.clear();
 			information.add((facing == Direction.NORTH ? ChatFormatting.BOLD.toString() : "")+I18n.get(Embers.MODID + ".tooltip.side.north")+ChatFormatting.RESET.toString()+": "+FluidDialBlock.formatFluidStack(north.getFluid(),north.getCapacity()));
+			if (north.getFluid().getFluid().is(EmbersFluidTags.INGOT_TOOLTIP) && north.getFluid().getAmount() >= FluidAmounts.NUGGET_AMOUNT)
+				information.add(FluidAmounts.getIngotTooltip(north.getFluid().getAmount()));
 			information.add((facing == Direction.EAST ? ChatFormatting.BOLD.toString() : "")+I18n.get(Embers.MODID + ".tooltip.side.east")+ChatFormatting.RESET.toString()+": "+FluidDialBlock.formatFluidStack(east.getFluid(),east.getCapacity()));
+			if (east.getFluid().getFluid().is(EmbersFluidTags.INGOT_TOOLTIP) && east.getFluid().getAmount() >= FluidAmounts.NUGGET_AMOUNT)
+				information.add(FluidAmounts.getIngotTooltip(east.getFluid().getAmount()));
 			information.add((facing == Direction.SOUTH ? ChatFormatting.BOLD.toString() : "")+I18n.get(Embers.MODID + ".tooltip.side.south")+ChatFormatting.RESET.toString()+": "+FluidDialBlock.formatFluidStack(south.getFluid(),south.getCapacity()));
-			information.add((facing == Direction.WEST ? ChatFormatting.BOLD.toString() : "")+I18n.get(Embers.MODID + ".tooltip.side.west")+ChatFormatting.RESET.toString()+": "+FluidDialBlock.formatFluidStack(west.getFluid(),south.getCapacity()));
+			if (south.getFluid().getFluid().is(EmbersFluidTags.INGOT_TOOLTIP) && south.getFluid().getAmount() >= FluidAmounts.NUGGET_AMOUNT)
+				information.add(FluidAmounts.getIngotTooltip(south.getFluid().getAmount()));
+			information.add((facing == Direction.WEST ? ChatFormatting.BOLD.toString() : "")+I18n.get(Embers.MODID + ".tooltip.side.west")+ChatFormatting.RESET.toString()+": "+FluidDialBlock.formatFluidStack(west.getFluid(),west.getCapacity()));
+			if (west.getFluid().getFluid().is(EmbersFluidTags.INGOT_TOOLTIP) && west.getFluid().getAmount() >= FluidAmounts.NUGGET_AMOUNT)
+				information.add(FluidAmounts.getIngotTooltip(west.getFluid().getAmount()));
 		}
 	}
 

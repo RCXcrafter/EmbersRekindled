@@ -11,12 +11,12 @@
   ],
   "inputs": [
     {
-      "amount": 3,
-      "tag": "forge:molten_copper"
-    },
-    {
       "amount": 1,
       "tag": "forge:molten_tin"
+    },
+    {
+      "amount": 3,
+      "tag": "forge:molten_copper"
     }
   ],
   "output": {

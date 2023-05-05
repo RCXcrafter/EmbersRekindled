@@ -62,16 +62,19 @@ public class MixingCategory implements IRecipeCategory<MixingRecipe> {
 				break;
 			if (count == 0) {
 				builder.addSlot(RecipeIngredientRole.INPUT, 46, 7)
+				.addTooltipCallback(IngotTooltipCallback.INSTANCE)
 				.setFluidRenderer((int) (capacity * scale + ingredient.getFluids().get(0).getAmount() * (1.0 - scale)), false, 16, 32)
 				.addIngredients(ForgeTypes.FLUID_STACK, ingredient.getFluids());
 			}
 			if (count == 1) {
 				builder.addSlot(RecipeIngredientRole.INPUT, 8, 46)
+				.addTooltipCallback(IngotTooltipCallback.INSTANCE)
 				.setFluidRenderer((int) (capacity * scale + ingredient.getFluids().get(0).getAmount() * (1.0 - scale)), false, 16, 32)
 				.addIngredients(ForgeTypes.FLUID_STACK, ingredient.getFluids());
 			}
 			if (count == 2) {
 				builder.addSlot(RecipeIngredientRole.INPUT, 46, 84)
+				.addTooltipCallback(IngotTooltipCallback.INSTANCE)
 				.setFluidRenderer((int) (capacity * scale + ingredient.getFluids().get(0).getAmount() * (1.0 - scale)), false, 16, 32)
 				.addIngredients(ForgeTypes.FLUID_STACK, ingredient.getFluids());
 			}
@@ -79,6 +82,7 @@ public class MixingCategory implements IRecipeCategory<MixingRecipe> {
 		}
 
 		builder.addSlot(RecipeIngredientRole.OUTPUT, 84, 46)
+		.addTooltipCallback(IngotTooltipCallback.INSTANCE)
 		.setFluidRenderer((int) (capacity * scale + recipe.getDisplayOutput().getAmount() * (1.0 - scale)), false, 16, 32)
 		.addIngredient(ForgeTypes.FLUID_STACK, recipe.getDisplayOutput());
 	}

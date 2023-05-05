@@ -59,10 +59,12 @@ public class MeltingBonusCategory implements IRecipeCategory<MeltingRecipe> {
 		builder.addSlot(RecipeIngredientRole.INPUT, 8, 14).addIngredients(recipe.getDisplayInput());
 
 		builder.addSlot(RecipeIngredientRole.OUTPUT, 63, 6)
+		.addTooltipCallback(IngotTooltipCallback.INSTANCE)
 		.setFluidRenderer((int) (capacity * scale + recipe.getDisplayOutput().getAmount() * (1.0 - scale)), false, 16, 32)
 		.addIngredient(ForgeTypes.FLUID_STACK, recipe.getDisplayOutput());
 
 		builder.addSlot(RecipeIngredientRole.OUTPUT, 84, 26)
+		.addTooltipCallback(IngotTooltipCallback.INSTANCE)
 		.setFluidRenderer((int) (capacity2 * scale + recipe.getBonus().getAmount() * (1.0 - scale)), false, 16, 12)
 		.addIngredient(ForgeTypes.FLUID_STACK, recipe.getBonus());
 	}

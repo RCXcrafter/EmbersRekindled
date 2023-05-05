@@ -157,6 +157,12 @@ public class EmbersLang extends LanguageProvider {
 
 		add(Embers.MODID + ".tooltip.fluiddial.fluid", "%s: %s/%s");
 		add(Embers.MODID + ".tooltip.fluiddial.nofluid", "0/%s");
+		add(Embers.MODID + ".tooltip.fluiddial.separator", "%s, %s");
+		add(Embers.MODID + ".tooltip.fluiddial.ingot", "1 Ingot");
+		add(Embers.MODID + ".tooltip.fluiddial.ingots", "%s Ingots");
+		add(Embers.MODID + ".tooltip.fluiddial.nugget", "1 Nugget");
+		add(Embers.MODID + ".tooltip.fluiddial.nuggets", "%s Nuggets");
+		add(Embers.MODID + ".tooltip.fluiddial.millibucket", "%s mB");
 
 		add(Embers.MODID + ".tooltip.side.center", "Center");
 		add(Embers.MODID + ".tooltip.side.north", "North");

@@ -14,13 +14,6 @@
             "type": "forge:tag_empty",
             "tag": "forge:ores/nickel"
           }
-        },
-        {
-          "type": "forge:not",
-          "value": {
-            "type": "forge:tag_empty",
-            "tag": "forge:ingots/iron"
-          }
         }
       ]
     }

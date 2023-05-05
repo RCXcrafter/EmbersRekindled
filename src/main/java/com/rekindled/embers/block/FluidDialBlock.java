@@ -3,6 +3,8 @@ package com.rekindled.embers.block;
 import java.util.ArrayList;
 
 import com.rekindled.embers.Embers;
+import com.rekindled.embers.datagen.EmbersFluidTags;
+import com.rekindled.embers.util.FluidAmounts;
 
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
@@ -55,6 +57,8 @@ public class FluidDialBlock extends DialBaseBlock {
 				FluidStack contents = cap.getFluidInTank(i);
 				int capacity = cap.getTankCapacity(i);
 				text.add(formatFluidStack(contents, capacity));
+				if (contents.getFluid().is(EmbersFluidTags.INGOT_TOOLTIP) && contents.getAmount() >= FluidAmounts.NUGGET_AMOUNT)
+					text.add(FluidAmounts.getIngotTooltip(contents.getAmount()));
 			}
 		}
 	}
