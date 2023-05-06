@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "P": {
+      "tag": "forge:plates/lead"
+    },
+    "S": {
+      "tag": "forge:ingots/silver"
+    }
+  },
+  "pattern": [
+    " P ",
+    "S S"
+  ],
+  "result": {
+    "count": 4,
+    "item": "embersrekindled:mirror_relay"
+  }
+}

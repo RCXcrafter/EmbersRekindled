@@ -49,6 +49,7 @@
     "embersrekindled:ember_ejector",
     "embersrekindled:ember_funnel",
     "embersrekindled:ember_relay",
+    "embersrekindled:mirror_relay",
     "embersrekindled:beam_splitter",
     "embersrekindled:item_vacuum",
     "embersrekindled:hearth_coil",

@@ -400,6 +400,10 @@ public class EmbersBlockStates extends BlockStateProvider {
 		directionalBlock(RegistryManager.EMBER_RELAY.get(), relayModel);
 		simpleBlockItem(RegistryManager.EMBER_RELAY.get(), relayModel);
 
+		ExistingModelFile mirrorModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "mirror_relay"));
+		directionalBlock(RegistryManager.MIRROR_RELAY.get(), mirrorModel);
+		simpleBlockItem(RegistryManager.MIRROR_RELAY.get(), mirrorModel);
+
 		ExistingModelFile splitterModelX = models().getExistingFile(new ResourceLocation(Embers.MODID, "beam_splitter_x"));
 		ExistingModelFile splitterModelZ = models().getExistingFile(new ResourceLocation(Embers.MODID, "beam_splitter_z"));
 		simpleBlockItem(RegistryManager.BEAM_SPLITTER.get(), splitterModelZ);

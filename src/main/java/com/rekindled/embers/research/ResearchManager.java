@@ -39,7 +39,7 @@ public class ResearchManager {
 	public static List<ResearchCategory> researches = new ArrayList<ResearchCategory>();
 
 	public static ResearchBase dials, pressureRefinery, mini_boiler, ores, hammer, ancient_golem, gauge, caminite, bore, crystals, activator, tinker_lens, reaction_chamber,//WORLD
-	copper_cell, emitters, dawnstone, melter, stamper, mixer, breaker, hearth_coil, access, pump, clockwork_attenuator, geo_separator, //MECHANISMS
+	copper_cell, emitters, relays, dawnstone, melter, stamper, mixer, breaker, hearth_coil, access, pump, clockwork_attenuator, geo_separator, //MECHANISMS
 	beam_cannon, pulser, splitter, crystal_cell, cinder_staff, clockwork_tools, blazing_ray, charger, jars, alchemy, cinder_plinth, aspecti, catalytic_plug, ember_siphon, //METALLURGY
 	tyrfing, waste, cluster, ashen_cloak, inflictor, materia, field_chart, glimmer, metallurgic_dust, //ALCHEMY
 	modifiers, inferno_forge, heat, dawnstone_anvil, autohammer, dismantling //SMITHING
@@ -206,9 +206,11 @@ public class ResearchManager {
 		emitters = new ResearchShowItem("emitters", new ItemStack(RegistryManager.EMBER_EMITTER_ITEM.get()), 0, 2).addItem(new DisplayItem(new ItemStack(RegistryManager.EMBER_EMITTER_ITEM.get())))
 				.addPage(new ResearchShowItem("receivers", new ItemStack(RegistryManager.EMBER_RECEIVER_ITEM.get()), 0, 0).addItem(new DisplayItem(new ItemStack(RegistryManager.EMBER_RECEIVER_ITEM.get()))))
 				.addPage(new ResearchShowItem("linking", ItemStack.EMPTY, 0, 0).addItem(new DisplayItem(new ItemStack(RegistryManager.EMBER_EMITTER_ITEM.get()),new ItemStack(RegistryManager.TINKER_HAMMER.get()),new ItemStack(RegistryManager.EMBER_RECEIVER_ITEM.get()))));
+		relays = new ResearchShowItem("relays", new ItemStack(RegistryManager.EMBER_RELAY_ITEM.get()), 2, 7).addItem(new DisplayItem(new ItemStack(RegistryManager.EMBER_RELAY_ITEM.get()))).addAncestor(emitters)
+				.addPage(new ResearchShowItem("mirror_relay", new ItemStack(RegistryManager.MIRROR_RELAY_ITEM.get()), 0, 0).addItem(new DisplayItem(new ItemStack(RegistryManager.MIRROR_RELAY_ITEM.get()))));
 		melter = new ResearchBase("melter", new ItemStack(RegistryManager.MELTER_ITEM.get()), 2, 0).addAncestor(emitters);
 		geo_separator = new ResearchBase("geo_separator", new ItemStack(RegistryManager.GEOLOGIC_SEPARATOR_ITEM.get()), 0, 0).addAncestor(melter);
-		stamper = new ResearchBase("stamper", new ItemStack(RegistryManager.STAMPER_ITEM.get()), 2, 4).addAncestor(melter).addAncestor(emitters);
+		stamper = new ResearchBase("stamper", new ItemStack(RegistryManager.STAMPER_ITEM.get()), 3, 4).addAncestor(melter).addAncestor(emitters);
 		access = new ResearchBase("access", new ItemStack(RegistryManager.MECHANICAL_CORE_ITEM.get()), 7, 5).addAncestor(stamper);
 		hearth_coil = new ResearchBase("hearth_coil", new ItemStack(RegistryManager.HEARTH_COIL.get()), 10, 1).addAncestor(access);
 		mixer = new ResearchBase("mixer", new ItemStack(RegistryManager.MIXER_CENTRIFUGE_ITEM.get()), 5, 2).addAncestor(stamper).addAncestor(melter);
@@ -415,6 +417,7 @@ public class ResearchManager {
 		//.addResearch(breaker)
 		.addResearch(dawnstone)
 		.addResearch(emitters)
+		.addResearch(relays)
 		.addResearch(copper_cell)
 		.addResearch(clockwork_attenuator)
 		.addResearch(geo_separator);

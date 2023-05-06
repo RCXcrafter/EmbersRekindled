@@ -516,6 +516,14 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_iron_plate", has(itemTag("forge", "plates/iron")))
 		.save(consumer, getResource("ember_relay"));
 
+		ShapedRecipeBuilder.shaped(RegistryManager.MIRROR_RELAY.get(), 4)
+		.pattern(" P ")
+		.pattern("S S")
+		.define('P', itemTag("forge", "plates/lead"))
+		.define('S', itemTag("forge", "ingots/silver"))
+		.unlockedBy("has_silver", has(itemTag("forge", "ingots/silver")))
+		.save(consumer, getResource("mirror_relay"));
+
 		ShapedRecipeBuilder.shaped(RegistryManager.BEAM_SPLITTER.get())
 		.pattern(" D ")
 		.pattern("CPC")

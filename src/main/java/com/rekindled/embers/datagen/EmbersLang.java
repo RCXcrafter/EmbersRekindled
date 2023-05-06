@@ -66,6 +66,7 @@ public class EmbersLang extends LanguageProvider {
 		addBlock(RegistryManager.EMBER_EJECTOR, "Ember Ejector");
 		addBlock(RegistryManager.EMBER_FUNNEL, "Ember Funnel");
 		addBlock(RegistryManager.EMBER_RELAY, "Ember Relay");
+		addBlock(RegistryManager.MIRROR_RELAY, "Mirror Relay");
 		addBlock(RegistryManager.BEAM_SPLITTER, "Beam Splitter");
 		addBlock(RegistryManager.ITEM_VACUUM, "Item Vacuum");
 		addBlock(RegistryManager.HEARTH_COIL, "Hearth Coil");
@@ -411,6 +412,12 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".research.page.emitters.desc", "The actual manipulation of the Ember you receive from your Activator or other refineries involves two main blocks: Ember Emitters and Ember Receptors. Emitters function as the sending end. Simply place them on a machine and they will suck out Ember from the machine into their internal buffer. Then, while powered by redstone, they will periodically expel Ember.");
 		add(Embers.MODID + ".research.page.receivers.desc", "Receptors function as the receiving end. When they receive an Ember burst from an Emitter, they will push the Ember into the attached machine, no redstone required. Note that if Ember is received, but the receptor can't take all of it, some of it will be lost, signified by a plume of smoke and sparks.");
 		add(Embers.MODID + ".research.page.linking.desc", "To link Emitters and Receptors together, simply right-click the Emitter with your Tinker Hammer, and right-click the Receptor with the hammer. There is no distance limit to linking, but after an Ember Burst has been in transit for a while, it can fade away, losing all of the Ember it carried.");
+
+		add(Embers.MODID + ".research.page.relays", "Ember Relay");
+		add(Embers.MODID + ".research.page.relays.title", "Redirection");
+		add(Embers.MODID + ".research.page.relays.tags", "Hammer;Transfer;Transport;Ember;Relay;Mirror;Link;Connect;");
+		add(Embers.MODID + ".research.page.relays.desc", "A burst of ember can only travel a limited distance, Ember Relays can be used to extend this distance. Relays are linked just like Emitters and Receptors, right-click on the source and then right-click on the destination of the burst. If linked properly, the burst will flow through the Relay and move towards its destination.");
+		add(Embers.MODID + ".research.page.mirror_relay.desc", "Sometimes you want to reverse the direction of an Ember Burst besides just relaying it, for this purpose you have devised the Mirror Relay. It functions identically to an Ember Relay except that ember bounces off it like light off a mirror instead of flowing though it.");
 
 		add(Embers.MODID + ".research.page.copper_cell", "Copper Cell");
 		add(Embers.MODID + ".research.page.copper_cell.title", "Capacitor");

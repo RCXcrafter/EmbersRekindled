@@ -200,5 +200,17 @@
                 "down": { "texture": "#0", "uv": [ 2.0, 14.0, 4.0, 16.0 ] }
             }
         }
-    ]
+    ],
+	"display": {
+		"firstperson_righthand": {
+			"rotation": [0, 225, 0],
+			"translation": [0, 2.5, 0],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"firstperson_lefthand": {
+			"rotation": [0, 225, 0],
+			"translation": [0, 2.5, 0],
+			"scale": [0.4, 0.4, 0.4]
+		}
+	}
 }
