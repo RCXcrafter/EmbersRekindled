@@ -113,7 +113,7 @@ public class EmberReceiverBlockEntity extends BlockEntity implements IEmberPacke
 
 	@Override
 	public boolean hasRoomFor(double ember) {
-		return capability.getEmber() + ember <= capability.getEmberCapacity();
+		return capability.getEmber() * 2 <= capability.getEmberCapacity();
 	}
 
 	@Override

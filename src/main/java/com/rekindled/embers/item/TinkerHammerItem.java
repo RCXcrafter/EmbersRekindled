@@ -32,6 +32,19 @@ public class TinkerHammerItem extends Item {
 		super(pProperties);
 		pProperties.craftRemainder(this);
 		Misc.IS_HOLDING_HAMMER.add((player, hand) -> player.getItemInHand(hand).getItem() == TinkerHammerItem.this);
+		Misc.GET_HAMMER_TARGET.add(player -> {
+			ItemStack stack = player.getMainHandItem();
+			if (stack.getItem() != TinkerHammerItem.this) {
+				stack = player.getOffhandItem();
+			}
+			if (stack.getItem() == TinkerHammerItem.this && stack.hasTag()) {	
+				CompoundTag nbt = stack.getTag();
+				if (stack.hasTag() && nbt.contains("targetWorld") && player.level.dimension().location().toString().equals(nbt.getString("targetWorld"))) {
+					return new BlockPos(nbt.getInt("targetX"), nbt.getInt("targetY"), nbt.getInt("targetZ"));
+				}
+			}
+			return null;
+		});
 	}
 
 	@Override

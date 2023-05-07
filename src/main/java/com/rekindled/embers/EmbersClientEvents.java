@@ -12,12 +12,14 @@ import com.rekindled.embers.api.power.IEmberCapability;
 import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
 import com.rekindled.embers.api.tile.IMechanicallyPowered;
 import com.rekindled.embers.datagen.EmbersBlockTags;
+import com.rekindled.embers.render.EmbersRenderTypes;
 import com.rekindled.embers.util.EmberGenUtil;
 import com.rekindled.embers.util.Misc;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -27,8 +29,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.RenderLevelStageEvent;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import net.minecraftforge.common.capabilities.Capability;
@@ -62,6 +66,22 @@ public class EmbersClientEvents {
 						}
 					}
 				}
+			}
+		}
+	}
+
+	public static void onLevelRender(RenderLevelStageEvent event) {
+		if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_TRANSLUCENT_BLOCKS) {
+			Minecraft mc = Minecraft.getInstance();
+			if (mc.options.hideGui)
+				return;
+
+			Player player = mc.player;
+			BlockPos target = Misc.getHammerTarget(player);
+			if (target != null && player.level.isLoaded(target)) {
+				float sine = 0.5f*((float)Math.sin(Math.toRadians(4.0f*(event.getRenderTick() + event.getPartialTick())))+1.0f);
+				Vec3 camPos = event.getCamera().getPosition();
+				LevelRenderer.renderShape(event.getPoseStack(), mc.renderBuffers().bufferSource().getBuffer(EmbersRenderTypes.GLOW_LINES), player.level.getBlockState(target).getShape(player.level, target), target.getX() - camPos.x, target.getY() - camPos.y, target.getZ() - camPos.z, 1.0F, 0.25F + sine * 0.25F, 0.062745F, 0.8F);
 			}
 		}
 	}

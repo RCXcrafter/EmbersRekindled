@@ -76,12 +76,27 @@ public class BeamSplitterBlockEntity extends BlockEntity implements IEmberPacket
 		if (polled)
 			return false;
 		polled = true;
-		if (target1 != null && target2 != null && level.isLoaded(target1) && level.isLoaded(target2) && level.getBlockEntity(target1) instanceof IEmberPacketReceiver targetBE1 && level.getBlockEntity(target2) instanceof IEmberPacketReceiver targetBE2) {
-			boolean hasRoom = targetBE1.hasRoomFor(ember / 2.0) && targetBE2.hasRoomFor(ember / 2.0);
+
+		if (hasRoomTarget(target1, ember / 2.0) && hasRoomTarget(target2, ember / 2.0)) {
 			polled = false;
-			return hasRoom;
+			return true;
+		}
+		if (hasRoomTarget(target1, ember)) {
+			polled = false;
+			return true;
+		}
+		if (hasRoomTarget(target2, ember)) {
+			polled = false;
+			return true;
 		}
 		polled = false;
+		return false;
+	}
+
+	public boolean hasRoomTarget(BlockPos target, double ember) {
+		if (target != null && level.isLoaded(target) && level.getBlockEntity(target) instanceof IEmberPacketReceiver targetBE) {
+			return targetBE.hasRoomFor(ember);
+		}
 		return false;
 	}
 
@@ -90,15 +105,25 @@ public class BeamSplitterBlockEntity extends BlockEntity implements IEmberPacket
 		if (target1 != null && target2 != null && packet.pos != getBlockPos() && packet.value > 0.1) {
 			Axis axis = level.getBlockState(worldPosition).getValue(BlockStateProperties.AXIS);
 
-			EmberPacketEntity packet1 = RegistryManager.EMBER_PACKET.get().create(level);
-			Vec3 velocity1 = EmberEmitterBlockEntity.getBurstVelocity(Direction.get(AxisDirection.POSITIVE, axis));
-			packet1.initCustom(worldPosition, target1, velocity1.x, velocity1.y, velocity1.z, packet.value / 2.0);
-			level.addFreshEntity(packet1);
 
-			EmberPacketEntity packet2 = RegistryManager.EMBER_PACKET.get().create(level);
-			Vec3 velocity2 = EmberEmitterBlockEntity.getBurstVelocity(Direction.get(AxisDirection.NEGATIVE, axis));
-			packet2.initCustom(worldPosition, target2, velocity2.x, velocity2.y, velocity2.z, packet.value / 2.0);
-			level.addFreshEntity(packet2);
+			double value = packet.value / 2.0;
+			boolean room1 = hasRoomTarget(target1, value);
+			boolean room2 = hasRoomTarget(target2, value);
+			if (room1 != room2)
+				value = packet.value;
+
+			if (room1 || (!room1 && !room2)) {
+				EmberPacketEntity packet1 = RegistryManager.EMBER_PACKET.get().create(level);
+				Vec3 velocity1 = EmberEmitterBlockEntity.getBurstVelocity(Direction.get(AxisDirection.POSITIVE, axis));
+				packet1.initCustom(worldPosition, target1, velocity1.x, velocity1.y, velocity1.z, value);
+				level.addFreshEntity(packet1);
+			}
+			if (room2 || (!room1 && !room2)) {
+				EmberPacketEntity packet2 = RegistryManager.EMBER_PACKET.get().create(level);
+				Vec3 velocity2 = EmberEmitterBlockEntity.getBurstVelocity(Direction.get(AxisDirection.NEGATIVE, axis));
+				packet2.initCustom(worldPosition, target2, velocity2.x, velocity2.y, velocity2.z, value);
+				level.addFreshEntity(packet2);
+			}
 
 			level.playSound(null, worldPosition, packet.value >= 100 ? EmbersSounds.EMBER_EMIT_BIG.get() : EmbersSounds.EMBER_EMIT.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
 		}

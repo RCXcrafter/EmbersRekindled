@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 import java.util.function.BiPredicate;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 import com.google.gson.JsonObject;
@@ -15,6 +16,7 @@ import com.mojang.math.Vector3f;
 import com.rekindled.embers.ConfigManager;
 
 import net.minecraft.client.gui.Font;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -48,6 +50,7 @@ public class Misc {
 			Direction.EAST
 	};
 	public static final List<BiPredicate<Player, InteractionHand>> IS_HOLDING_HAMMER = new ArrayList<BiPredicate<Player, InteractionHand>>();
+	public static final List<Function<Player, BlockPos>> GET_HAMMER_TARGET = new ArrayList<Function<Player, BlockPos>>();
 	public static final List<Predicate<Player>> IS_WEARING_LENS = new ArrayList<Predicate<Player>>();
 
 	public static void spawnInventoryInWorld(Level world, double x, double y, double z, IItemHandler inventory) {
@@ -67,6 +70,16 @@ public class Misc {
 			}
 		}
 		return false;
+	}
+
+	public static BlockPos getHammerTarget(Player player) {
+		for (Function<Player, BlockPos> func : GET_HAMMER_TARGET) {
+			BlockPos pos = func.apply(player);
+			if (pos != null) {
+				return pos;
+			}
+		}
+		return null;
 	}
 
 	public static boolean isWearingLens(Player player) {

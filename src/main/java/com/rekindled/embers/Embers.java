@@ -172,6 +172,7 @@ public class Embers {
 		@SubscribeEvent
 		public static void clientSetup(FMLClientSetupEvent event) {
 			MinecraftForge.EVENT_BUS.addListener(EmbersClientEvents::onClientTick);
+			MinecraftForge.EVENT_BUS.addListener(EmbersClientEvents::onLevelRender);
 			EntityRenderers.register(RegistryManager.EMBER_PACKET.get(), EmberPacketRenderer::new);
 			EntityRenderers.register(RegistryManager.EMBER_PROJECTILE.get(), EmberProjectileRenderer::new);
 			EntityRenderers.register(RegistryManager.ANCIENT_GOLEM.get(), AncientGolemRenderer::new);

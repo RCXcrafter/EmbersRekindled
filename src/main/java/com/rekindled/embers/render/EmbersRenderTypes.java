@@ -1,5 +1,7 @@
 package com.rekindled.embers.render;
 
+import java.util.OptionalDouble;
+
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
@@ -84,5 +86,20 @@ public class EmbersRenderTypes extends RenderType {
 			.setTransparencyState(LIGHTNING_TRANSPARENCY)
 			.setCullState(NO_CULL)
 			.setOutputState(TRANSLUCENT_TARGET)
+			.createCompositeState(false));
+
+	//render type used for highlighting the emitter being aimed
+	public static final RenderType GLOW_LINES = create(
+			Embers.MODID + ":glow_lines",
+			DefaultVertexFormat.POSITION_COLOR_NORMAL, VertexFormat.Mode.LINES, 256, false, false,
+			RenderType.CompositeState.builder()
+			.setShaderState(RENDERTYPE_LINES_SHADER)
+			.setLightmapState(NO_LIGHTMAP)
+			.setLineState(new RenderStateShard.LineStateShard(OptionalDouble.of(6.0D)))
+			.setLayeringState(VIEW_OFFSET_Z_LAYERING)
+			.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
+			.setOutputState(ITEM_ENTITY_TARGET)
+			.setWriteMaskState(COLOR_DEPTH_WRITE)
+			.setCullState(NO_CULL)
 			.createCompositeState(false));
 }

@@ -16,7 +16,7 @@ I've decided to port Embers Rekindled to a Minecraft version beyond 1.12.2, I do
 - Ember Dials don't display a decimal if it's zero (I don't think there was a good reason for that)
 - Linking emitters and receivers no longer requires shift-clicking and you click on the emitter first now
 - All blocks that are not full blocks can be waterlogged (why not I guess)
-- Ember emitters no longer emit an ember packet if the linked reciever doesn't have space for the entire packet
+- Ember Receptors no longer say they accept ember if they're over half full, giving them plenty of buffer for long distance connections
 - The mechanical core and machine accessor have been merged into one block as described in the elucent plans doc
 - The bin is now made of lead since it's related to item transport/storage
 - The checkmarks in the codex have been replaced with a dawnstone dot on uncompleted entries
