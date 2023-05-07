@@ -9,7 +9,7 @@ import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.capabilities.EmbersCapabilities;
 import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
 import com.rekindled.embers.particle.VaporParticleOptions;
-import com.rekindled.embers.upgrade.UpgradeGeologicSeparator;
+import com.rekindled.embers.upgrade.GeologicSeparatorUpgrade;
 import com.rekindled.embers.util.Misc;
 
 import net.minecraft.client.Minecraft;
@@ -41,7 +41,7 @@ public class GeologicSeparatorBlockEntity extends OpenTankBlockEntity implements
 	public float renderOffset;
 	int previousFluid;
 	Random random = new Random();
-	protected UpgradeGeologicSeparator upgrade;
+	protected GeologicSeparatorUpgrade upgrade;
 
 	public GeologicSeparatorBlockEntity(BlockPos pPos, BlockState pBlockState) {
 		super(RegistryManager.GEOLOGIC_SEPARATOR_ENTITY.get(), pPos, pBlockState);
@@ -61,7 +61,7 @@ public class GeologicSeparatorBlockEntity extends OpenTankBlockEntity implements
 				return filled;
 			}
 		};
-		upgrade = new UpgradeGeologicSeparator(this);
+		upgrade = new GeologicSeparatorUpgrade(this);
 	}
 
 	@Override

@@ -2,7 +2,7 @@ package com.rekindled.embers.blockentity;
 
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.capabilities.EmbersCapabilities;
-import com.rekindled.embers.upgrade.UpgradeClockworkAttenuator;
+import com.rekindled.embers.upgrade.ClockworkAttenuatorUpgrade;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -20,14 +20,14 @@ import net.minecraftforge.common.util.LazyOptional;
 
 public class ClockworkAttenuatorBlockEntity extends BlockEntity {
 
-	public UpgradeClockworkAttenuator upgrade;
+	public ClockworkAttenuatorUpgrade upgrade;
 	public double activeSpeed = 0, inactiveSpeed = 1;
 
 	public double[] validSpeeds = new double[]{0.0, 0.0625, 0.125, 0.25, 0.5, 1.0};
 
 	public ClockworkAttenuatorBlockEntity(BlockPos pPos, BlockState pBlockState) {
 		super(RegistryManager.CLOCKWORK_ATTENUATOR_ENTITY.get(), pPos, pBlockState);
-		upgrade = new UpgradeClockworkAttenuator(this);
+		upgrade = new ClockworkAttenuatorUpgrade(this);
 	}
 
 	@Override

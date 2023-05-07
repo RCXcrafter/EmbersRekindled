@@ -502,6 +502,10 @@ public class EmbersBlockStates extends BlockStateProvider {
 		ExistingModelFile chargerModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "copper_charger"));
 		horizontalBlock(RegistryManager.COPPER_CHARGER.get(), chargerModel);
 		simpleBlockItem(RegistryManager.COPPER_CHARGER.get(), chargerModel);
+
+		ExistingModelFile siphonModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "ember_siphon"));
+		simpleBlock(RegistryManager.EMBER_SIPHON.get(), siphonModel);
+		simpleBlockItem(RegistryManager.EMBER_SIPHON.get(), siphonModel);
 	}
 
 	public void blockWithItem(RegistryObject<? extends Block> registryObject) {

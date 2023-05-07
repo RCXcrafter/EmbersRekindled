@@ -8,9 +8,9 @@ import com.rekindled.embers.blockentity.ClockworkAttenuatorBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 
-public class UpgradeClockworkAttenuator extends DefaultUpgradeProvider {
+public class ClockworkAttenuatorUpgrade extends DefaultUpgradeProvider {
 
-	public UpgradeClockworkAttenuator(BlockEntity tile) {
+	public ClockworkAttenuatorUpgrade(BlockEntity tile) {
 		super("clockwork_attenuator", tile);
 	}
 

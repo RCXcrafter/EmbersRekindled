@@ -82,6 +82,7 @@ public class EmbersLang extends LanguageProvider {
 		addBlock(RegistryManager.CLOCKWORK_ATTENUATOR, "Clockwork Attenuator");
 		addBlock(RegistryManager.GEOLOGIC_SEPARATOR, "Geologic Separator");
 		addBlock(RegistryManager.COPPER_CHARGER, "Copper Charger");
+		addBlock(RegistryManager.EMBER_SIPHON, "Ember Siphon");
 
 		addItem(RegistryManager.TINKER_HAMMER, "Tinker's Hammer");
 		addItem(RegistryManager.TINKER_LENS, "Tinker's Lens");

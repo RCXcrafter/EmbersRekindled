@@ -122,7 +122,7 @@ public class CopperChargerBlockEntity extends BlockEntity implements ISoundContr
 	}
 
 	public static void serverTick(Level level, BlockPos pos, BlockState state, CopperChargerBlockEntity blockEntity) {
-		List<IUpgradeProvider> upgrades = UpgradeUtil.getUpgrades(level, pos, Misc.horizontals);
+		List<IUpgradeProvider> upgrades = UpgradeUtil.getUpgrades(level, pos, Direction.values());
 		UpgradeUtil.verifyUpgrades(blockEntity, upgrades);
 		if (UpgradeUtil.doTick(blockEntity, upgrades))
 			return;

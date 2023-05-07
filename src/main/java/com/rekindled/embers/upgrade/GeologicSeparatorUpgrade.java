@@ -11,10 +11,10 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 
-public class UpgradeGeologicSeparator extends DefaultUpgradeProvider {
+public class GeologicSeparatorUpgrade extends DefaultUpgradeProvider {
 
-	public UpgradeGeologicSeparator(BlockEntity tile) {
-		super("geo_separator", tile);
+	public GeologicSeparatorUpgrade(BlockEntity tile) {
+		super("geologic_separator", tile);
 	}
 
 	@Override
