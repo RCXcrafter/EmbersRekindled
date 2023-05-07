@@ -11,7 +11,7 @@
       "tag": "forge:plates/lead"
     },
     "P": {
-      "tag": "forge:glass_panes"
+      "tag": "forge:glass_panes/colorless"
     }
   },
   "pattern": [

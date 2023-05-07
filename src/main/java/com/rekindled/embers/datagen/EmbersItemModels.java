@@ -32,6 +32,9 @@ public class EmbersItemModels extends ItemModelProvider {
 		basicItem(RegistryManager.TINKER_LENS.get());
 		basicItem(RegistryManager.ANCIENT_CODEX.get());
 		basicItem(RegistryManager.ATMOSPHERIC_GAUGE.get());
+		layeredItem(RegistryManager.EMBER_JAR, "ember_jar_glass", "ember_jar_glass_shine", "ember_jar");
+		layeredItem(RegistryManager.EMBER_CARTRIDGE, "ember_cartridge_glass", "ember_cartridge_glass_shine", "ember_cartridge");
+
 		basicItem(RegistryManager.EMBER_CRYSTAL.get());
 		basicItem(RegistryManager.EMBER_SHARD.get());
 		basicItem(RegistryManager.EMBER_GRIT.get());
@@ -86,6 +89,15 @@ public class EmbersItemModels extends ItemModelProvider {
 		ResourceLocation id = registryObject.getId();
 		ResourceLocation textureLocation = new ResourceLocation(id.getNamespace(), "item/" + texture);
 		singleTexture(id.getPath(), new ResourceLocation("item/generated"), "layer0", textureLocation);
+	}
+
+	public void layeredItem(RegistryObject<? extends Item> registryObject, String... textures) {
+		ResourceLocation id = registryObject.getId();
+
+		ModelBuilder<?> builder = withExistingParent(id.getPath(), new ResourceLocation("item/generated"));
+		for (int i = 0; i < textures.length; i ++) {
+			builder.texture("layer" + i, new ResourceLocation(id.getNamespace(), "item/" + textures[i]));
+		}
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })

@@ -9,6 +9,7 @@ import java.util.Set;
 
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
+import com.rekindled.embers.item.EmberStorageItem;
 import com.rekindled.embers.network.PacketHandler;
 import com.rekindled.embers.network.message.MessageResearchData;
 import com.rekindled.embers.network.message.MessageResearchTick;
@@ -226,8 +227,8 @@ public class ResearchManager {
 				.addPage(new ResearchShowItem("ember_funnel",new ItemStack(RegistryManager.EMBER_FUNNEL_ITEM.get()),0,0).addItem(new DisplayItem(new ItemStack(RegistryManager.EMBER_FUNNEL_ITEM.get()))));
 		charger = new ResearchBase("charger", new ItemStack(RegistryManager.COPPER_CHARGER_ITEM.get()), 4, 0);
 		ember_siphon = new ResearchBase("ember_siphon", new ItemStack(RegistryManager.EMBER_SIPHON_ITEM.get()), 2, 0).addAncestor(ResearchManager.charger);
-		//ItemStack fullJar = ((ItemEmberStorage)RegistryManager.ember_jar).withFill(((ItemEmberStorage)RegistryManager.ember_jar).getCapacity());
-		//jars = new ResearchBase("jars", fullJar, 7, 1).addAncestor(charger);
+		ItemStack fullJar = ((EmberStorageItem)RegistryManager.EMBER_JAR.get()).withFill(((EmberStorageItem)RegistryManager.EMBER_JAR.get()).getCapacity());
+		jars = new ResearchBase("jars", fullJar, 7, 1).addAncestor(charger);
 		//clockwork_tools = new ResearchBase("clockwork_tools", new ItemStack(RegistryManager.axe_clockwork), 2, 2).addAncestor(jars)
 		//.addPage(new ResearchShowItem("clockwork_pickaxe",ItemStack.EMPTY,0,0).addItem(new DisplayItem(new ItemStack(RegistryManager.pickaxe_clockwork))))
 		//.addPage(new ResearchShowItem("clockwork_hammer",ItemStack.EMPTY,0,0).addItem(new DisplayItem(new ItemStack(RegistryManager.grandhammer))))
@@ -426,8 +427,8 @@ public class ResearchManager {
 		.addResearch(pulser)
 		.addResearch(crystal_cell)
 		.addResearch(charger)
-		.addResearch(ember_siphon);
-		//.addResearch(jars)
+		.addResearch(ember_siphon)
+		.addResearch(jars);
 		//.addResearch(clockwork_tools)
 		//.addResearch(cinder_staff)
 		//.addResearch(blazing_ray)

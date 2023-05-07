@@ -31,6 +31,7 @@ import com.rekindled.embers.entity.AncientGolemEntity;
 import com.rekindled.embers.entity.render.AncientGolemRenderer;
 import com.rekindled.embers.entity.render.EmberPacketRenderer;
 import com.rekindled.embers.entity.render.EmberProjectileRenderer;
+import com.rekindled.embers.item.EmberStorageItem;
 import com.rekindled.embers.model.AncientGolemModel;
 import com.rekindled.embers.network.PacketHandler;
 import com.rekindled.embers.network.message.MessageWorldSeed;
@@ -56,6 +57,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
@@ -222,6 +224,12 @@ public class Embers {
 		@SubscribeEvent
 		static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
 			event.registerLayerDefinition(AncientGolemRenderer.LAYER_LOCATION, AncientGolemModel::createLayer);
+		}
+
+		@OnlyIn(Dist.CLIENT)
+		@SubscribeEvent
+		static void registerItemColorHandlers(RegisterColorHandlersEvent.Item event) {
+			event.register(new EmberStorageItem.ColorHandler(), RegistryManager.EMBER_JAR.get(), RegistryManager.EMBER_CARTRIDGE.get());
 		}
 	}
 }

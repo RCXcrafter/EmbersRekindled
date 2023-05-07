@@ -264,7 +264,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('E', itemTag("forge", "nuggets/lead"))
 		.define('I', itemTag("forge", "plates/lead"))
 		.define('B', itemTag("forge", "ingots/iron"))
-		.define('P', Tags.Items.GLASS_PANES)
+		.define('P', Tags.Items.GLASS_PANES_COLORLESS)
 		.unlockedBy("has_lead_plate", has(itemTag("forge", "plates/lead")))
 		.save(consumer, getResource("tinker_lens"));
 
@@ -277,6 +277,28 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('R', itemTag("forge", "dusts/redstone"))
 		.unlockedBy("has_redstone", has(itemTag("forge", "dusts/redstone")))
 		.save(consumer, getResource("atmospheric_gauge"));
+
+		ShapedRecipeBuilder.shaped(RegistryManager.EMBER_JAR.get())
+		.pattern(" C ")
+		.pattern("ISI")
+		.pattern(" G ")
+		.define('I', itemTag("forge", "ingots/iron"))
+		.define('C', itemTag("forge", "ingots/copper"))
+		.define('S', RegistryManager.EMBER_SHARD.get())
+		.define('G', Tags.Items.GLASS_COLORLESS)
+		.unlockedBy("has_charger", has(RegistryManager.COPPER_CHARGER.get()))
+		.save(consumer, getResource("ember_jar"));
+
+		ShapedRecipeBuilder.shaped(RegistryManager.EMBER_CARTRIDGE.get())
+		.pattern("ICI")
+		.pattern("GSG")
+		.pattern(" G ")
+		.define('I', itemTag("forge", "ingots/iron"))
+		.define('C', itemTag("forge", "ingots/copper"))
+		.define('S', RegistryManager.EMBER_CRYSTAL.get())
+		.define('G', Tags.Items.GLASS_COLORLESS)
+		.unlockedBy("has_charger", has(RegistryManager.COPPER_CHARGER.get()))
+		.save(consumer, getResource("ember_cartridge"));
 
 		ShapedRecipeBuilder.shaped(RegistryManager.MECHANICAL_CORE.get())
 		.pattern("IBI")

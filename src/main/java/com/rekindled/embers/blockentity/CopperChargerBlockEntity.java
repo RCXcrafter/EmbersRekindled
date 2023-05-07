@@ -17,7 +17,6 @@ import com.rekindled.embers.block.ItemDialBlock;
 import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.particle.GlowParticleOptions;
 import com.rekindled.embers.power.DefaultEmberCapability;
-import com.rekindled.embers.util.Misc;
 import com.rekindled.embers.util.sound.ISoundController;
 
 import net.minecraft.client.resources.language.I18n;
