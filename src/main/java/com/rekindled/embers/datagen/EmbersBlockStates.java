@@ -498,6 +498,10 @@ public class EmbersBlockStates extends BlockStateProvider {
 		ExistingModelFile separatorModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "geologic_separator"));
 		horizontalBlock(RegistryManager.GEOLOGIC_SEPARATOR.get(), separatorModel);
 		simpleBlockItem(RegistryManager.GEOLOGIC_SEPARATOR.get(), separatorModel);
+
+		ExistingModelFile chargerModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "copper_charger"));
+		horizontalBlock(RegistryManager.COPPER_CHARGER.get(), chargerModel);
+		simpleBlockItem(RegistryManager.COPPER_CHARGER.get(), chargerModel);
 	}
 
 	public void blockWithItem(RegistryObject<? extends Block> registryObject) {

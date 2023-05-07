@@ -19,6 +19,7 @@ import com.rekindled.embers.block.CaminiteValveBlock;
 import com.rekindled.embers.block.CaminiteValveEdgeBlock;
 import com.rekindled.embers.block.ClockworkAttenuatorBlock;
 import com.rekindled.embers.block.CopperCellBlock;
+import com.rekindled.embers.block.CopperChargerBlock;
 import com.rekindled.embers.block.CreativeEmberBlock;
 import com.rekindled.embers.block.CrystalCellBlock;
 import com.rekindled.embers.block.CrystalCellEdgeBlock;
@@ -59,6 +60,7 @@ import com.rekindled.embers.blockentity.BinBlockEntity;
 import com.rekindled.embers.blockentity.CaminiteValveBlockEntity;
 import com.rekindled.embers.blockentity.ClockworkAttenuatorBlockEntity;
 import com.rekindled.embers.blockentity.CopperCellBlockEntity;
+import com.rekindled.embers.blockentity.CopperChargerBlockEntity;
 import com.rekindled.embers.blockentity.CreativeEmberBlockEntity;
 import com.rekindled.embers.blockentity.CrystalCellBlockEntity;
 import com.rekindled.embers.blockentity.EmberActivatorBottomBlockEntity;
@@ -287,6 +289,7 @@ public class RegistryManager {
 	public static final RegistryObject<Block> CRYSTAL_CELL_EDGE = BLOCKS.register("crystal_cell_edge", () -> new CrystalCellEdgeBlock(Properties.of(Material.HEAVY_METAL, MaterialColor.WOOD).sound(EmbersSounds.MULTIBLOCK_EXTRA).requiresCorrectToolForDrops().strength(1.6f)));
 	public static final RegistryObject<Block> CLOCKWORK_ATTENUATOR = BLOCKS.register("clockwork_attenuator", () -> new ClockworkAttenuatorBlock(Properties.of(Material.METAL, MaterialColor.NONE).sound(SoundType.METAL).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
 	public static final RegistryObject<Block> GEOLOGIC_SEPARATOR = BLOCKS.register("geologic_separator", () -> new GeologicSeparatorBlock(Properties.of(Material.METAL, MaterialColor.COLOR_GRAY).sound(SoundType.METAL).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
+	public static final RegistryObject<Block> COPPER_CHARGER = BLOCKS.register("copper_charger", () -> new CopperChargerBlock(Properties.of(Material.METAL, MaterialColor.COLOR_GRAY).sound(SoundType.METAL).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
 
 	//itemblocks
 	public static final RegistryObject<Item> LEAD_ORE_ITEM = ITEMS.register("lead_ore", () -> new BlockItem(LEAD_ORE.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
@@ -344,6 +347,7 @@ public class RegistryManager {
 	public static final RegistryObject<Item> CRYSTAL_CELL_ITEM = ITEMS.register("crystal_cell", () -> new BlockItem(CRYSTAL_CELL.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
 	public static final RegistryObject<Item> CLOCKWORK_ATTENUATOR_ITEM = ITEMS.register("clockwork_attenuator", () -> new BlockItem(CLOCKWORK_ATTENUATOR.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
 	public static final RegistryObject<Item> GEOLOGIC_SEPARATOR_ITEM = ITEMS.register("geologic_separator", () -> new BlockItem(GEOLOGIC_SEPARATOR.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
+	public static final RegistryObject<Item> COPPER_CHARGER_ITEM = ITEMS.register("copper_charger", () -> new BlockItem(COPPER_CHARGER.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
 
 	//items
 	public static final RegistryObject<Item> TINKER_HAMMER = ITEMS.register("tinker_hammer", () -> new TinkerHammerItem(new Item.Properties().stacksTo(1).tab(Embers.TAB_EMBERS)));
@@ -457,6 +461,7 @@ public class RegistryManager {
 	public static final RegistryObject<BlockEntityType<CrystalCellBlockEntity>> CRYSTAL_CELL_ENTITY = BLOCK_ENTITY_TYPES.register("crystal_cell", () -> BlockEntityType.Builder.of(CrystalCellBlockEntity::new, CRYSTAL_CELL.get()).build(null));
 	public static final RegistryObject<BlockEntityType<ClockworkAttenuatorBlockEntity>> CLOCKWORK_ATTENUATOR_ENTITY = BLOCK_ENTITY_TYPES.register("clockwork_attenuator", () -> BlockEntityType.Builder.of(ClockworkAttenuatorBlockEntity::new, CLOCKWORK_ATTENUATOR.get()).build(null));
 	public static final RegistryObject<BlockEntityType<GeologicSeparatorBlockEntity>> GEOLOGIC_SEPARATOR_ENTITY = BLOCK_ENTITY_TYPES.register("geologic_separator", () -> BlockEntityType.Builder.of(GeologicSeparatorBlockEntity::new, GEOLOGIC_SEPARATOR.get()).build(null));
+	public static final RegistryObject<BlockEntityType<CopperChargerBlockEntity>> COPPER_CHARGER_ENTITY = BLOCK_ENTITY_TYPES.register("copper_charger", () -> BlockEntityType.Builder.of(CopperChargerBlockEntity::new, COPPER_CHARGER.get()).build(null));
 
 	//entities
 	public static final RegistryObject<EntityType<EmberPacketEntity>> EMBER_PACKET = registerEntity("ember_packet", EntityType.Builder.<EmberPacketEntity>of(EmberPacketEntity::new, MobCategory.MISC).sized(0.5F, 0.5F).fireImmune().clientTrackingRange(3).updateInterval(1));

@@ -338,13 +338,13 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 
 		ShapedRecipeBuilder.shaped(RegistryManager.PRESSURE_REFINERY.get())
 		.pattern("CCC")
-		.pattern("IFI")
+		.pattern("IDI")
 		.pattern("IBI")
 		.define('I', itemTag("forge", "ingots/iron"))
 		.define('C', itemTag("forge", "ingots/copper"))
 		.define('B', itemTag("forge", "storage_blocks/copper"))
-		.define('F', Items.FURNACE)
-		.unlockedBy("has_activator", has(RegistryManager.EMBER_ACTIVATOR.get()))
+		.define('D', itemTag("forge", "ingots/dawnstone"))
+		.unlockedBy("has_dawnstone", has(itemTag("forge", "ingots/dawnstone")))
 		.save(consumer, getResource("pressure_refinery"));
 
 		ShapedRecipeBuilder.shaped(RegistryManager.COPPER_CELL.get())
@@ -601,6 +601,18 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('I', RegistryManager.FLUID_VESSEL.get())
 		.unlockedBy("has_silver", has(itemTag("forge", "ingots/silver")))
 		.save(consumer, getResource("geologic_separator"));
+
+		ShapedRecipeBuilder.shaped(RegistryManager.COPPER_CHARGER.get())
+		.pattern(" X ")
+		.pattern("DCD")
+		.pattern("IPI")
+		.define('D', itemTag("forge", "ingots/dawnstone"))
+		.define('P', itemTag("forge", "plates/copper"))
+		.define('C', itemTag("forge", "ingots/copper"))
+		.define('X', itemTag("forge", "plates/iron"))
+		.define('I', itemTag("forge", "ingots/iron"))
+		.unlockedBy("has_dawnstone", has(itemTag("forge", "ingots/dawnstone")))
+		.save(consumer, getResource("copper_charger"));
 	}
 
 	public void fullOreRecipes(String name, ImmutableList<ItemLike> ores, Fluid fluid, Item raw, Item rawBlock, Item block, Item ingot, Item nugget, Item plate, Consumer<FinishedRecipe> consumer, MeltingBonus... bonusses) {

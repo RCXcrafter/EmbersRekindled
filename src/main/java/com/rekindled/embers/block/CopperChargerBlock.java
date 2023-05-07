@@ -3,11 +3,12 @@ package com.rekindled.embers.block;
 import javax.annotation.Nullable;
 
 import com.rekindled.embers.RegistryManager;
-import com.rekindled.embers.blockentity.GeologicSeparatorBlockEntity;
+import com.rekindled.embers.api.capabilities.EmbersCapabilities;
+import com.rekindled.embers.blockentity.CopperChargerBlockEntity;
+import com.rekindled.embers.util.Misc;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Direction.Axis;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -29,43 +30,49 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.fluids.FluidUtil;
-import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.items.IItemHandler;
 
-public class GeologicSeparatorBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
+public class CopperChargerBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
 
-	protected static final VoxelShape SEPARATOR_AABB = Shapes.join(Block.box(0,0,0,16,8,16), Block.box(4,4,4,12,16,12), BooleanOp.ONLY_FIRST);
+	protected static final VoxelShape CHARGER_AABB = Shapes.or(Block.box(2,0,2,14,2,14), Block.box(3,2,3,13,12,13), Block.box(2,12,2,14,14,14), Block.box(4,14,4,12,16,12));
 
-	public GeologicSeparatorBlock(Properties properties) {
+	public CopperChargerBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(BlockStateProperties.WATERLOGGED, false).setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH));
 	}
 
 	@Override
 	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		if (level.getBlockEntity(pos) instanceof GeologicSeparatorBlockEntity vesselEntity) {
+		if (level.getBlockEntity(pos) instanceof CopperChargerBlockEntity chargerEntity) {
 			ItemStack heldItem = player.getItemInHand(hand);
-			if (!heldItem.isEmpty()) {
-				IFluidHandler cap = vesselEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, hit.getDirection()).orElse(null);
-				if (cap != null) {
-					boolean didFill = FluidUtil.interactWithFluidHandler(player, hand, cap);
-
-					if (didFill) {
-						return InteractionResult.SUCCESS;
-					}
-				}
-				//prevent buckets from placing their fluid in the world when clicking
-				if (heldItem.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).isPresent()) {
-					return InteractionResult.CONSUME_PARTIAL;
+			IItemHandler cap = chargerEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, hit.getDirection()).orElse(null);
+			if (cap != null) {
+				if (heldItem.getCapability(EmbersCapabilities.EMBER_CAPABILITY, null).isPresent()) {
+					player.setItemInHand(hand, cap.insertItem(0, heldItem, level.isClientSide));
+					return InteractionResult.SUCCESS;
+				} else if (!cap.getStackInSlot(0).isEmpty() && heldItem.isEmpty()) {
+					player.setItemInHand(hand, cap.extractItem(0, 1, level.isClientSide));
+					return InteractionResult.SUCCESS;
 				}
 			}
 		}
 		return InteractionResult.PASS;
+	}
+
+	@Override
+	public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
+		if (!state.is(newState.getBlock())) {
+			IItemHandler handler = level.getBlockEntity(pos).getCapability(ForgeCapabilities.ITEM_HANDLER, null).orElse(null);
+			if (handler != null) {
+				Misc.spawnInventoryInWorld(level, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, handler);
+				level.updateNeighbourForOutputSignal(pos, this);
+			}
+			super.onRemove(state, level, pos, newState, isMoving);
+		}
 	}
 
 	@Override
@@ -75,29 +82,23 @@ public class GeologicSeparatorBlock extends BaseEntityBlock implements SimpleWat
 
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-		return SEPARATOR_AABB;
+		return CHARGER_AABB;
 	}
 
 	@Override
 	public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-		return RegistryManager.GEOLOGIC_SEPARATOR_ENTITY.get().create(pPos, pState);
+		return RegistryManager.COPPER_CHARGER_ENTITY.get().create(pPos, pState);
 	}
 
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-		return pLevel.isClientSide ? createTickerHelper(pBlockEntityType, RegistryManager.GEOLOGIC_SEPARATOR_ENTITY.get(), GeologicSeparatorBlockEntity::clientTick) : null;
+		return pLevel.isClientSide ? createTickerHelper(pBlockEntityType, RegistryManager.COPPER_CHARGER_ENTITY.get(), CopperChargerBlockEntity::clientTick) : createTickerHelper(pBlockEntityType, RegistryManager.COPPER_CHARGER_ENTITY.get(), CopperChargerBlockEntity::serverTick);
 	}
 
 	@Nullable
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext pContext) {
-		Direction direction;
-		if (pContext.getClickedFace().getAxis() != Axis.Y) {
-			direction = pContext.getClickedFace().getOpposite();
-		} else {
-			direction = pContext.getHorizontalDirection();
-		}
-		return super.getStateForPlacement(pContext).setValue(BlockStateProperties.HORIZONTAL_FACING, direction).setValue(BlockStateProperties.WATERLOGGED, Boolean.valueOf(pContext.getLevel().getFluidState(pContext.getClickedPos()).getType() == Fluids.WATER));
+		return super.getStateForPlacement(pContext).setValue(BlockStateProperties.HORIZONTAL_FACING, pContext.getHorizontalDirection().getOpposite()).setValue(BlockStateProperties.WATERLOGGED, Boolean.valueOf(pContext.getLevel().getFluidState(pContext.getClickedPos()).getType() == Fluids.WATER));
 	}
 
 	@Override

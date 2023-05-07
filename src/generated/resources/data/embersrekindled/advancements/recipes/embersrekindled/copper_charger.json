@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "embersrekindled:pressure_refinery"
+        "recipe": "embersrekindled:copper_charger"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "embersrekindled:pressure_refinery"
+      "embersrekindled:copper_charger"
     ]
   }
 }

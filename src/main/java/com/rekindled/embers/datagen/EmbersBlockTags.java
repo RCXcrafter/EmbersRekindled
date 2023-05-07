@@ -129,7 +129,8 @@ public class EmbersBlockTags extends BlockTagsProvider {
 				RegistryManager.CRYSTAL_CELL.get(),
 				RegistryManager.CRYSTAL_CELL_EDGE.get(),
 				RegistryManager.CLOCKWORK_ATTENUATOR.get(),
-				RegistryManager.GEOLOGIC_SEPARATOR.get());
+				RegistryManager.GEOLOGIC_SEPARATOR.get(),
+				RegistryManager.COPPER_CHARGER.get());
 
 		tag(BlockTags.NEEDS_IRON_TOOL).add(
 				RegistryManager.LEAD_ORE.get(),

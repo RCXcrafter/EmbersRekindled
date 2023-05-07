@@ -1,9 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
   "key": {
-    "B": {
-      "tag": "forge:storage_blocks/copper"
-    },
     "C": {
       "tag": "forge:ingots/copper"
     },
@@ -12,14 +9,20 @@
     },
     "I": {
       "tag": "forge:ingots/iron"
+    },
+    "P": {
+      "tag": "forge:plates/copper"
+    },
+    "X": {
+      "tag": "forge:plates/iron"
     }
   },
   "pattern": [
-    "CCC",
-    "IDI",
-    "IBI"
+    " X ",
+    "DCD",
+    "IPI"
   ],
   "result": {
-    "item": "embersrekindled:pressure_refinery"
+    "item": "embersrekindled:copper_charger"
   }
 }

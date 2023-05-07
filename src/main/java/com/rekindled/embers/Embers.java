@@ -4,6 +4,7 @@ import com.rekindled.embers.api.power.IEmberCapability;
 import com.rekindled.embers.api.upgrades.UpgradeUtil;
 import com.rekindled.embers.apiimpl.UpgradeUtilImpl;
 import com.rekindled.embers.blockentity.render.BinBlockEntityRenderer;
+import com.rekindled.embers.blockentity.render.CopperChargerBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.CrystalCellBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.EmberBoreBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.FluidVesselBlockEntityRenderer;
@@ -214,6 +215,7 @@ public class Embers {
 			event.registerBlockEntityRenderer(RegistryManager.RESERVOIR_ENTITY.get(), ReservoirBlockEntityRenderer::new);
 			event.registerBlockEntityRenderer(RegistryManager.CRYSTAL_CELL_ENTITY.get(), CrystalCellBlockEntityRenderer::new);
 			event.registerBlockEntityRenderer(RegistryManager.GEOLOGIC_SEPARATOR_ENTITY.get(), GeologicSeparatorBlockEntityRenderer::new);
+			event.registerBlockEntityRenderer(RegistryManager.COPPER_CHARGER_ENTITY.get(), CopperChargerBlockEntityRenderer::new);
 		}
 
 		@OnlyIn(Dist.CLIENT)
