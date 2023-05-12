@@ -23,6 +23,7 @@ import com.rekindled.embers.datagen.EmbersFluidTags;
 import com.rekindled.embers.datagen.EmbersItemModels;
 import com.rekindled.embers.datagen.EmbersItemTags;
 import com.rekindled.embers.datagen.EmbersLang;
+import com.rekindled.embers.datagen.EmbersLootModifiers;
 import com.rekindled.embers.datagen.EmbersLootTables;
 import com.rekindled.embers.datagen.EmbersPlacedFeatures;
 import com.rekindled.embers.datagen.EmbersRecipes;
@@ -107,6 +108,7 @@ public class Embers {
 		RegistryManager.SOUND_EVENTS.register(modEventBus);
 		RegistryManager.RECIPE_TYPES.register(modEventBus);
 		RegistryManager.RECIPE_SERIALIZERS.register(modEventBus);
+		RegistryManager.LOOT_MODIFIERS.register(modEventBus);
 		if (FMLLoader.getLaunchHandler().isData()) {
 			EmbersConfiguredFeatures.CONFIGURED_FEATURES.register(modEventBus);
 			EmbersPlacedFeatures.PLACED_FEATURES.register(modEventBus);
@@ -158,6 +160,7 @@ public class Embers {
 			gen.addProvider(true, new EmbersConfiguredFeatures(gen, existingFileHelper));
 			gen.addProvider(true, new EmbersPlacedFeatures(gen, existingFileHelper));
 			gen.addProvider(true, new EmbersBiomeModifiers(gen, existingFileHelper));
+			gen.addProvider(true, new EmbersLootModifiers(gen));
 		}
 	}
 

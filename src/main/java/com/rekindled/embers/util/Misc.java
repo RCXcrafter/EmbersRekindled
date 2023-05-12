@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Random;
 import java.util.function.BiPredicate;
 import java.util.function.Function;
@@ -26,6 +27,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -35,6 +37,9 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -177,5 +182,25 @@ public class Misc {
 		}
 		tagItems.put(tag.location(), output);
 		return output;
+	}
+
+	public static List<EntityHitResult> getEntityHitResults(Level level, Entity projectile, Entity shooter, Vec3 startVec, Vec3 endVec, AABB boundingBox, Predicate<Entity> pFilter, float pInflationAmount) {
+		List<EntityHitResult> entities = new ArrayList<>();
+		double motionX = endVec.x - startVec.x;
+		double motionY = endVec.y - startVec.y;
+		double motionZ = endVec.z - startVec.z;
+
+		for (Entity entity : level.getEntities(projectile, boundingBox.expandTowards(motionX, motionY, motionZ).inflate(1.0D), pFilter)) {
+			if (entity != shooter) {
+				AABB aabb = entity.getBoundingBox().inflate((double)pInflationAmount);
+				Optional<Vec3> optional = aabb.clip(startVec, endVec);
+				if (optional.isPresent()) {
+					entities.add(new EntityHitResult(entity, optional.get()));
+				}
+			}
+		}
+		entities.sort((o1, o2) -> Double.compare(startVec.distanceToSqr(o1.getLocation()), startVec.distanceToSqr(o2.getLocation())));
+
+		return entities;
 	}
 }

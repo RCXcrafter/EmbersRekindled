@@ -229,13 +229,13 @@ public class ResearchManager {
 		ember_siphon = new ResearchBase("ember_siphon", new ItemStack(RegistryManager.EMBER_SIPHON_ITEM.get()), 2, 0).addAncestor(ResearchManager.charger);
 		ItemStack fullJar = ((EmberStorageItem)RegistryManager.EMBER_JAR.get()).withFill(((EmberStorageItem)RegistryManager.EMBER_JAR.get()).getCapacity());
 		jars = new ResearchBase("jars", fullJar, 7, 1).addAncestor(charger);
-		//clockwork_tools = new ResearchBase("clockwork_tools", new ItemStack(RegistryManager.axe_clockwork), 2, 2).addAncestor(jars)
-		//.addPage(new ResearchShowItem("clockwork_pickaxe",ItemStack.EMPTY,0,0).addItem(new DisplayItem(new ItemStack(RegistryManager.pickaxe_clockwork))))
-		//.addPage(new ResearchShowItem("clockwork_hammer",ItemStack.EMPTY,0,0).addItem(new DisplayItem(new ItemStack(RegistryManager.grandhammer))))
-		//.addPage(new ResearchShowItem("clockwork_axe",ItemStack.EMPTY,0,0).addItem(new DisplayItem(new ItemStack(RegistryManager.axe_clockwork))));
+		clockwork_tools = new ResearchBase("clockwork_tools", new ItemStack(RegistryManager.CLOCKWORK_AXE.get()), 2, 2).addAncestor(jars)
+				.addPage(new ResearchShowItem("clockwork_pickaxe",ItemStack.EMPTY,0,0).addItem(new DisplayItem(new ItemStack(RegistryManager.CLOCKWORK_PICKAXE.get()))))
+				.addPage(new ResearchShowItem("clockwork_hammer",ItemStack.EMPTY,0,0).addItem(new DisplayItem(new ItemStack(RegistryManager.GRANDHAMMER.get()))))
+				.addPage(new ResearchShowItem("clockwork_axe",ItemStack.EMPTY,0,0).addItem(new DisplayItem(new ItemStack(RegistryManager.CLOCKWORK_AXE.get()))));
 		splitter = new ResearchBase("splitter", new ItemStack(RegistryManager.BEAM_SPLITTER.get()), 0, 6).addAncestor(pulser);
 		//cinder_staff = new ResearchBase("cinder_staff", new ItemStack(RegistryManager.staff_ember), 4, 4).addAncestor(jars);
-		//blazing_ray = new ResearchBase("blazing_ray", new ItemStack(RegistryManager.ignition_cannon), 6, 5).addAncestor(jars);
+		blazing_ray = new ResearchBase("blazing_ray", new ItemStack(RegistryManager.BLAZING_RAY.get()), 6, 5).addAncestor(jars);
 		//aspecti = new ResearchBase("aspecti", new ItemStack(RegistryManager.aspectus_dawnstone), 12, 1);
 		//cinder_plinth = new ResearchBase("cinder_plinth", new ItemStack(RegistryManager.cinder_plinth), 9, 0);
 		//beam_cannon = new ResearchBase("beam_cannon", new ItemStack(RegistryManager.beam_cannon), 9, 7);
@@ -428,10 +428,10 @@ public class ResearchManager {
 		.addResearch(crystal_cell)
 		.addResearch(charger)
 		.addResearch(ember_siphon)
-		.addResearch(jars);
-		//.addResearch(clockwork_tools)
+		.addResearch(jars)
+		.addResearch(clockwork_tools)
 		//.addResearch(cinder_staff)
-		//.addResearch(blazing_ray)
+		.addResearch(blazing_ray);
 		//.addResearch(cinder_plinth)
 		//.addResearch(aspecti)
 		//.addResearch(alchemy)

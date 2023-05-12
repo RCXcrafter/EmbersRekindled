@@ -300,6 +300,52 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_charger", has(RegistryManager.COPPER_CHARGER.get()))
 		.save(consumer, getResource("ember_cartridge"));
 
+		ShapedRecipeBuilder.shaped(RegistryManager.CLOCKWORK_PICKAXE.get())
+		.pattern("ISI")
+		.pattern(" C ")
+		.pattern(" W ")
+		.define('C', itemTag("forge", "ingots/copper"))
+		.define('I', itemTag("forge", "ingots/dawnstone"))
+		.define('S', RegistryManager.EMBER_SHARD.get())
+		.define('W', Tags.Items.RODS_WOODEN)
+		.unlockedBy("has_charger", has(RegistryManager.COPPER_CHARGER.get()))
+		.save(consumer, getResource("clockwork_pickaxe"));
+
+		ShapedRecipeBuilder.shaped(RegistryManager.CLOCKWORK_AXE.get())
+		.pattern("PCP")
+		.pattern("ISI")
+		.pattern(" W ")
+		.define('C', itemTag("forge", "plates/copper"))
+		.define('P', itemTag("forge", "plates/dawnstone"))
+		.define('I', itemTag("forge", "ingots/dawnstone"))
+		.define('S', RegistryManager.EMBER_SHARD.get())
+		.define('W', Tags.Items.RODS_WOODEN)
+		.unlockedBy("has_charger", has(RegistryManager.COPPER_CHARGER.get()))
+		.save(consumer, getResource("clockwork_axe"));
+
+		ShapedRecipeBuilder.shaped(RegistryManager.GRANDHAMMER.get())
+		.pattern("BIB")
+		.pattern(" C ")
+		.pattern(" W ")
+		.define('C', itemTag("forge", "ingots/copper"))
+		.define('I', itemTag("forge", "ingots/dawnstone"))
+		.define('B', itemTag("forge", "storage_blocks/dawnstone"))
+		.define('W', Tags.Items.RODS_WOODEN)
+		.unlockedBy("has_charger", has(RegistryManager.COPPER_CHARGER.get()))
+		.save(consumer, getResource("grandhammer"));
+
+		ShapedRecipeBuilder.shaped(RegistryManager.BLAZING_RAY.get())
+		.pattern(" DP")
+		.pattern("DPI")
+		.pattern("SW ")
+		.define('I', itemTag("forge", "ingots/iron"))
+		.define('D', itemTag("forge", "ingots/dawnstone"))
+		.define('P', itemTag("forge", "plates/dawnstone"))
+		.define('S', RegistryManager.EMBER_SHARD.get())
+		.define('W', Tags.Items.RODS_WOODEN)
+		.unlockedBy("has_charger", has(RegistryManager.COPPER_CHARGER.get()))
+		.save(consumer, getResource("blazing_ray"));
+
 		ShapedRecipeBuilder.shaped(RegistryManager.MECHANICAL_CORE.get())
 		.pattern("IBI")
 		.pattern(" P ")

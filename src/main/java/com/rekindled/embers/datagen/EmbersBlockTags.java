@@ -32,6 +32,9 @@ public class EmbersBlockTags extends BlockTagsProvider {
 
 	public static final TagKey<Block> RESERVOIR_EXPANSION = BlockTags.create(new ResourceLocation(Embers.MODID, "reservoir_expansion"));
 
+	public static final TagKey<Block> MINABLE_WITH_PICKAXE_SHOVEL = BlockTags.create(new ResourceLocation(Embers.MODID, "mineable/pickaxe_shovel"));
+	public static final TagKey<Block> MINABLE_WITH_HAMMER = BlockTags.create(new ResourceLocation(Embers.MODID, "mineable/hammer"));
+
 	//tags shared with items
 	public static final TagKey<Block> LEAD_ORE = BlockTags.create(new ResourceLocation("forge", "ores/lead"));
 	public static final TagKey<Block> RAW_LEAD_BLOCK = BlockTags.create(new ResourceLocation("forge", "storage_blocks/raw_lead"));
@@ -72,6 +75,9 @@ public class EmbersBlockTags extends BlockTagsProvider {
 		decoTags(RegistryManager.CAMINITE_BRICKS_DECO);
 		decoTags(RegistryManager.ARCHAIC_BRICKS_DECO);
 		decoTags(RegistryManager.ARCHAIC_TILE_DECO);
+
+		tag(MINABLE_WITH_PICKAXE_SHOVEL).addTags(BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.MINEABLE_WITH_SHOVEL);
+		tag(MINABLE_WITH_HAMMER).addTags(BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.MINEABLE_WITH_SHOVEL, BlockTags.MINEABLE_WITH_AXE);
 
 		tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
 				RegistryManager.LEAD_ORE.get(),

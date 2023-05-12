@@ -1,0 +1,13 @@
+{
+  "type": "embersrekindled:grandhammer",
+  "conditions": [
+    {
+      "condition": "minecraft:match_tool",
+      "predicate": {
+        "items": [
+          "embersrekindled:grandhammer"
+        ]
+      }
+    }
+  ]
+}

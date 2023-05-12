@@ -20,6 +20,8 @@ public class EmbersItemTags extends ItemTagsProvider {
 	//this tag is only for recipes
 	public static final TagKey<Item> TINKER_HAMMER = ItemTags.create(new ResourceLocation(Embers.MODID, "tinker_hammer"));
 
+	public static final TagKey<Item> TOOLS_HAMMERS = ItemTags.create(new ResourceLocation("forge", "tools/hammers"));
+
 	public static final TagKey<Item> PLATES = ItemTags.create(new ResourceLocation("forge", "plates"));
 	public static final TagKey<Item> IRON_PLATE = ItemTags.create(new ResourceLocation("forge", "plates/iron"));
 	//public static final TagKey<Item> GOLD_PLATE = ItemTags.create(new ResourceLocation("forge", "plates/gold"));
@@ -108,5 +110,10 @@ public class EmbersItemTags extends ItemTagsProvider {
 		tag(CAMINITE_BRICK).add(RegistryManager.CAMINITE_BRICK.get());
 		tag(Tags.Items.INGOTS).addTags(ARCHAIC_BRICK);
 		tag(ARCHAIC_BRICK).add(RegistryManager.ARCHAIC_BRICK.get());
+
+		tag(Tags.Items.TOOLS_PICKAXES).add(RegistryManager.CLOCKWORK_PICKAXE.get());
+		tag(Tags.Items.TOOLS_AXES).add(RegistryManager.CLOCKWORK_AXE.get());
+		tag(Tags.Items.TOOLS).addTag(TOOLS_HAMMERS);
+		tag(TOOLS_HAMMERS).add(RegistryManager.TINKER_HAMMER.get(), RegistryManager.GRANDHAMMER.get());
 	}
 }

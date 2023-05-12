@@ -1,12 +1,24 @@
 package com.rekindled.embers.api.projectile;
 
 import java.awt.Color;
+import java.util.List;
 
 import javax.annotation.Nullable;
 
+import com.rekindled.embers.network.PacketHandler;
+import com.rekindled.embers.network.message.MessageEmberRayFX;
+import com.rekindled.embers.util.Misc;
+
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.network.PacketDistributor;
 
 public class ProjectileRay implements IProjectilePreset {
 
@@ -86,7 +98,7 @@ public class ProjectileRay implements IProjectilePreset {
 	}
 
 	@Override
-	public void shoot(Level world) {/*
+	public void shoot(Level world) {
 		double startX = getPos().x;
 		double startY = getPos().y;
 		double startZ = getPos().z;
@@ -99,34 +111,34 @@ public class ProjectileRay implements IProjectilePreset {
 		boolean doContinue = true;
 		Vec3 currPosVec = getPos();
 		Vec3 newPosVector = getPos().add(getVelocity());
-		HitResult blockTrace = world.rayTraceBlocks(currPosVec, newPosVector, false, true, false);
-		java.util.List<HitResult> entityTraces = Misc.findEntitiesOnPath(world,null,shooter,new AxisAlignedBB(startX-0.3,startY-0.3,startZ-0.3,startX+0.3,startY+0.3,startZ+0.3),currPosVec,newPosVector,VALID_TARGETS);
+		BlockHitResult blockTrace = world.clip(new ClipContext(currPosVec, newPosVector, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, shooter));
+		List<EntityHitResult> entityTraces = Misc.getEntityHitResults(world, null, shooter, currPosVec, newPosVector, new AABB(startX-0.3,startY-0.3,startZ-0.3,startX+0.3,startY+0.3,startZ+0.3), EntitySelector.NO_SPECTATORS, 0.3f);
 
-		double distBlock = blockTrace != null ? getPos().squareDistanceTo(blockTrace.hitVec) : Double.POSITIVE_INFINITY;
+		double distBlock = blockTrace != null ? getPos().distanceToSqr(blockTrace.getLocation()) : Double.POSITIVE_INFINITY;
 
-		for(HitResult entityTraceFirst : entityTraces) {
-			if (doContinue && entityTraceFirst != null && getPos().squareDistanceTo(entityTraceFirst.hitVec) < distBlock) {
+		for (HitResult entityTraceFirst : entityTraces) {
+			if (doContinue && entityTraceFirst != null && getPos().distanceToSqr(entityTraceFirst.getLocation()) < distBlock) {
 				effect.onHit(world, entityTraceFirst, this);
 				if (!pierceEntities) {
-					impactDist = getPos().distanceTo(entityTraceFirst.hitVec);
+					impactDist = getPos().distanceTo(entityTraceFirst.getLocation());
 					doContinue = false;
 				}
 			}
 		}
 
-		if(doContinue && blockTrace != null) {
+		if (doContinue && blockTrace != null) {
 			effect.onHit(world,blockTrace,this);
-			impactDist = getPos().distanceTo(blockTrace.hitVec);
+			impactDist = getPos().distanceTo(blockTrace.getLocation());
 			doContinue = false;
 		}
 
-		if(doContinue) {
+		if (doContinue) {
 			effect.onFizzle(world,newPosVector,this);
 			impactDist = getPos().distanceTo(newPosVector);
 		}
 
-		if (!world.isClientSide){
-			PacketHandler.INSTANCE.sendToAll(new MessageCannonBeamFX(startX,startY,startZ,dX,dY,dZ,impactDist,color.getRGB()));
-		}*/
+		if (!world.isClientSide) {
+			PacketHandler.INSTANCE.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> shooter), new MessageEmberRayFX(startX,startY,startZ,dX,dY,dZ,impactDist,Misc.intColor(color.getRed(), color.getGreen(), color.getBlue())));
+		}
 	}
 }

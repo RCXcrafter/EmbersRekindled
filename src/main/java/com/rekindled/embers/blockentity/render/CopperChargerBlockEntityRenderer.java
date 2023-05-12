@@ -32,7 +32,9 @@ public class CopperChargerBlockEntityRenderer implements BlockEntityRenderer<Cop
 				int seed = stack.isEmpty() ? 187 : Item.getId(stack.getItem()) + stack.getDamageValue();
 				BakedModel bakedmodel = this.itemRenderer.getModel(stack, blockEntity.getLevel(), null, seed);
 				float f2 = bakedmodel.getTransforms().getTransform(ItemTransforms.TransformType.GROUND).scale.y();
-				poseStack.translate(0.5D, 0.25F * f2 + 0.15D, 0.5D);
+				poseStack.translate(0.5D, 0.4F * f2 + 0.13D, 0.5D);
+				if (f2 > 0.4f)
+					poseStack.scale(0.75f, 0.75f, 0.75f);
 				poseStack.mulPose(Vector3f.YP.rotation(((float)blockEntity.angle + partialTick) / 20.0F));
 				this.itemRenderer.render(stack, ItemTransforms.TransformType.GROUND, false, poseStack, bufferSource, packedLight, OverlayTexture.NO_OVERLAY, bakedmodel);
 				poseStack.popPose();

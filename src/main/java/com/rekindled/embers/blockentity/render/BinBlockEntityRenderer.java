@@ -5,7 +5,6 @@ import java.util.Random;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import com.rekindled.embers.blockentity.BinBlockEntity;
-import com.rekindled.embers.render.FluidCuboid;
 
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
@@ -21,8 +20,6 @@ public class BinBlockEntityRenderer implements BlockEntityRenderer<BinBlockEntit
 
 	private final ItemRenderer itemRenderer;
 	Random random = new Random();
-
-	FluidCuboid cube = new FluidCuboid(new Vector3f(4, 12, 4), new Vector3f(12, 15, 12), FluidCuboid.DEFAULT_FACES);
 
 	public BinBlockEntityRenderer(BlockEntityRendererProvider.Context pContext) {
 		this.itemRenderer = pContext.getItemRenderer();

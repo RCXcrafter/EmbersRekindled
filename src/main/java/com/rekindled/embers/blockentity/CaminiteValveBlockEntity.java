@@ -86,7 +86,7 @@ public class CaminiteValveBlockEntity extends BlockEntity {
 
 	@Override
 	public <T> LazyOptional<T> getCapability(@NotNull Capability<T> capability, @Nullable Direction facing) {
-		if (capability == ForgeCapabilities.FLUID_HANDLER)
+		if (!this.remove && capability == ForgeCapabilities.FLUID_HANDLER && facing.getAxis() != Direction.Axis.Y)
 			return holder.cast();
 		return super.getCapability(capability, facing);
 	}
