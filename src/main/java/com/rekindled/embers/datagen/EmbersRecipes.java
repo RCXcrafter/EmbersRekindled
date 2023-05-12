@@ -346,6 +346,17 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_charger", has(RegistryManager.COPPER_CHARGER.get()))
 		.save(consumer, getResource("blazing_ray"));
 
+		ShapedRecipeBuilder.shaped(RegistryManager.CINDER_STAFF.get())
+		.pattern("SES")
+		.pattern("IWI")
+		.pattern(" W ")
+		.define('S', itemTag("forge", "plates/silver"))
+		.define('I', itemTag("forge", "ingots/dawnstone"))
+		.define('E', RegistryManager.EMBER_SHARD.get())
+		.define('W', Tags.Items.RODS_WOODEN)
+		.unlockedBy("has_charger", has(RegistryManager.COPPER_CHARGER.get()))
+		.save(consumer, getResource("cinder_staff"));
+
 		ShapedRecipeBuilder.shaped(RegistryManager.MECHANICAL_CORE.get())
 		.pattern("IBI")
 		.pattern(" P ")

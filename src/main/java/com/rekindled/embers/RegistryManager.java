@@ -101,6 +101,7 @@ import com.rekindled.embers.fluidtypes.EmbersFluidType.FluidInfo;
 import com.rekindled.embers.fluidtypes.MoltenMetalFluidType;
 import com.rekindled.embers.item.AncientCodexItem;
 import com.rekindled.embers.item.BlazingRayItem;
+import com.rekindled.embers.item.CinderStaffItem;
 import com.rekindled.embers.item.ClockworkAxeItem;
 import com.rekindled.embers.item.ClockworkHammerItem;
 import com.rekindled.embers.item.ClockworkPickaxeItem;
@@ -373,6 +374,7 @@ public class RegistryManager {
 	public static final RegistryObject<Item> CLOCKWORK_AXE = ITEMS.register("clockwork_axe", () -> new ClockworkAxeItem(new Item.Properties().stacksTo(1).tab(Embers.TAB_EMBERS)));
 	public static final RegistryObject<Item> GRANDHAMMER = ITEMS.register("grandhammer", () -> new ClockworkHammerItem(new Item.Properties().stacksTo(1).tab(Embers.TAB_EMBERS)));
 	public static final RegistryObject<Item> BLAZING_RAY = ITEMS.register("blazing_ray", () -> new BlazingRayItem(new Item.Properties().stacksTo(1).tab(Embers.TAB_EMBERS)));
+	public static final RegistryObject<Item> CINDER_STAFF = ITEMS.register("cinder_staff", () -> new CinderStaffItem(new Item.Properties().stacksTo(1).tab(Embers.TAB_EMBERS)));
 
 	public static final RegistryObject<Item> EMBER_CRYSTAL = ITEMS.register("ember_crystal", () -> new Item(new Item.Properties().tab(Embers.TAB_EMBERS)));
 	public static final RegistryObject<Item> EMBER_SHARD = ITEMS.register("ember_shard", () -> new Item(new Item.Properties().tab(Embers.TAB_EMBERS)));

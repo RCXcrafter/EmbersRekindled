@@ -94,6 +94,7 @@ public class EmbersLang extends LanguageProvider {
 		addItem(RegistryManager.CLOCKWORK_AXE, "Clockwork Axe");
 		addItem(RegistryManager.GRANDHAMMER, "Grandhammer");
 		addItem(RegistryManager.BLAZING_RAY, "Blazing Ray");
+		addItem(RegistryManager.CINDER_STAFF, "Cinder Staff");
 
 		addItem(RegistryManager.EMBER_CRYSTAL, "Ember Crystal");
 		addItem(RegistryManager.EMBER_SHARD, "Ember Shard");

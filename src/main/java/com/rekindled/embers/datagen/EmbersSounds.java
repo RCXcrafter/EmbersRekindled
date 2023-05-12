@@ -2,6 +2,7 @@ package com.rekindled.embers.datagen;
 
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
+import com.rekindled.embers.util.sound.ItemUseSound;
 import com.rekindled.embers.util.sound.MachineSound;
 
 import net.minecraft.client.Minecraft;
@@ -10,6 +11,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.api.distmarker.Dist;
@@ -178,6 +181,11 @@ public class EmbersSounds extends SoundDefinitionsProvider {
 	@OnlyIn(Dist.CLIENT)
 	public static void playMachineSound(BlockEntity tile, int id, SoundEvent soundIn, SoundSource categoryIn, boolean repeat, float volume, float pitch, float xIn, float yIn, float zIn) {
 		Minecraft.getInstance().getSoundManager().play(new MachineSound(tile, id, soundIn, categoryIn, repeat, volume, pitch, xIn, yIn, zIn));
+	}
+
+	@OnlyIn(Dist.CLIENT)
+	public static void playItemSound(LivingEntity entity, Item item, SoundEvent soundIn, SoundSource categoryIn, boolean repeat, float volume, float pitch) {
+		Minecraft.getInstance().getSoundManager().play(new ItemUseSound(entity, item, soundIn, categoryIn, repeat, volume, pitch));
 	}
 
 	@Override

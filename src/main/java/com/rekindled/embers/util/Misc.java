@@ -28,6 +28,7 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -202,5 +203,16 @@ public class Misc {
 		entities.sort((o1, o2) -> Double.compare(startVec.distanceToSqr(o1.getLocation()), startVec.distanceToSqr(o2.getLocation())));
 
 		return entities;
+	}
+
+	public static EquipmentSlot handToSlot(InteractionHand hand) {
+		switch(hand) {
+		case MAIN_HAND:
+			return EquipmentSlot.MAINHAND;
+		case OFF_HAND:
+			return EquipmentSlot.OFFHAND;
+		default:
+			return null;
+		}
 	}
 }

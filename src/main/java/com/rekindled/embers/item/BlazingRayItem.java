@@ -86,7 +86,7 @@ public class BlazingRayItem extends Item implements IProjectileWeapon {
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
-		if (!stack.hasTag() || stack.getTag().getLong("lastUse") + COOLDOWN < level.getGameTime() || player.isCreative()) {
+		if (!stack.hasTag() || stack.getTag().getLong("lastUse") + COOLDOWN <= level.getGameTime() || player.isCreative()) {
 			if (EmberInventoryUtil.getEmberTotal(player) >= EMBER_COST || player.isCreative()) {
 				EmberInventoryUtil.removeEmber(player, EMBER_COST);
 				player.startUsingItem(hand);

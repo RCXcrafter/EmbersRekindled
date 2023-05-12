@@ -64,7 +64,7 @@ public class EmberProjectileEntity extends Projectile {
 		getEntityData().set(EmberProjectileEntity.value, (float) value);
 		this.setOwner(shooter);
 
-		super.shootFromRotation(shooter, x, y, z, velocity, inaccuracy);
+		super.shoot(x, y, z, velocity, inaccuracy);
 	}
 
 	public void shoot(double x, double y, double z, float velocity, float inaccuracy, double value) {
@@ -156,7 +156,7 @@ public class EmberProjectileEntity extends Projectile {
 				double deltaY = getY() - currPosVec.y;
 				double deltaZ = getZ() - currPosVec.z;
 				double dist = Math.ceil(Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * 10);
-				GlowParticleOptions options = new GlowParticleOptions(Misc.colorFromInt(getEntityData().get(color)), getEntityData().get(value) / 1.75f);
+				GlowParticleOptions options = new GlowParticleOptions(Misc.colorFromInt(getEntityData().get(color)), getEntityData().get(value) / 1.75f, 24);
 				for (double i = 0; i < dist; i++) {
 					double coeff = i / dist;
 					level.addParticle(options, currPosVec.x + deltaX * coeff, currPosVec.y + deltaY * coeff, currPosVec.z + deltaZ * coeff, 0.125f*(random.nextFloat()-0.5f), 0.125f*(random.nextFloat()-0.5f), 0.125f*(random.nextFloat()-0.5f));
@@ -208,7 +208,7 @@ public class EmberProjectileEntity extends Projectile {
 		super.onHit(raytraceresult);
 		playSound(getEntityData().get(value) > 7.0 ? EmbersSounds.FIREBALL_BIG_HIT.get() : EmbersSounds.FIREBALL_HIT.get());
 
-		GlowParticleOptions options = new GlowParticleOptions(Misc.colorFromInt(getEntityData().get(color)), getEntityData().get(value));
+		GlowParticleOptions options = new GlowParticleOptions(Misc.colorFromInt(getEntityData().get(color)), getEntityData().get(value), 24);
 		if (level instanceof ServerLevel serverLevel) {
 			float dist = ((float)getEntityData().get(value)/3.5f)*0.125f;
 			serverLevel.sendParticles(options, getX(), getY(), getZ(), 40, dist, dist, dist, 0.75);

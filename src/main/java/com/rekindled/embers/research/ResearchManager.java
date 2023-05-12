@@ -234,7 +234,7 @@ public class ResearchManager {
 				.addPage(new ResearchShowItem("clockwork_hammer",ItemStack.EMPTY,0,0).addItem(new DisplayItem(new ItemStack(RegistryManager.GRANDHAMMER.get()))))
 				.addPage(new ResearchShowItem("clockwork_axe",ItemStack.EMPTY,0,0).addItem(new DisplayItem(new ItemStack(RegistryManager.CLOCKWORK_AXE.get()))));
 		splitter = new ResearchBase("splitter", new ItemStack(RegistryManager.BEAM_SPLITTER.get()), 0, 6).addAncestor(pulser);
-		//cinder_staff = new ResearchBase("cinder_staff", new ItemStack(RegistryManager.staff_ember), 4, 4).addAncestor(jars);
+		cinder_staff = new ResearchBase("cinder_staff", new ItemStack(RegistryManager.CINDER_STAFF.get()), 4, 4).addAncestor(jars);
 		blazing_ray = new ResearchBase("blazing_ray", new ItemStack(RegistryManager.BLAZING_RAY.get()), 6, 5).addAncestor(jars);
 		//aspecti = new ResearchBase("aspecti", new ItemStack(RegistryManager.aspectus_dawnstone), 12, 1);
 		//cinder_plinth = new ResearchBase("cinder_plinth", new ItemStack(RegistryManager.cinder_plinth), 9, 0);
@@ -430,7 +430,7 @@ public class ResearchManager {
 		.addResearch(ember_siphon)
 		.addResearch(jars)
 		.addResearch(clockwork_tools)
-		//.addResearch(cinder_staff)
+		.addResearch(cinder_staff)
 		.addResearch(blazing_ray);
 		//.addResearch(cinder_plinth)
 		//.addResearch(aspecti)
