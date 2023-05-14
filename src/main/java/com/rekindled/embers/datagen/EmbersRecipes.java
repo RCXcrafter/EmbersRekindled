@@ -129,7 +129,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('X', RegistryManager.EMBER_SHARD.get())
 		.unlockedBy("has_shard", has(RegistryManager.EMBER_SHARD.get()))
 		.save(consumer, getResource("ember_shard_to_crystal"));
-		ShapelessRecipeBuilder.shapeless(RegistryManager.EMBER_SHARD.get(), 9)
+		ShapelessRecipeBuilder.shapeless(RegistryManager.EMBER_SHARD.get(), 6)
 		.requires(RegistryManager.EMBER_CRYSTAL.get())
 		.unlockedBy("has_crystal", has(RegistryManager.EMBER_CRYSTAL.get()))
 		.save(consumer, getResource("ember_crystal_to_shard"));

@@ -49,6 +49,7 @@ public class EmberProjectileEntity extends Projectile {
 
 	public EmberProjectileEntity(EntityType<? extends Projectile> pEntityType, Level pLevel) {
 		super(pEntityType, pLevel);
+		this.noPhysics = true;
 	}
 
 	@Override
@@ -129,7 +130,7 @@ public class EmberProjectileEntity extends Projectile {
 
 			Vec3 currPosVec = this.position();
 			Vec3 newPosVector = currPosVec.add(getDeltaMovement());
-			HitResult raytraceresult = level.clip(new ClipContext(currPosVec, newPosVector, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this));
+			HitResult raytraceresult = level.clip(new ClipContext(currPosVec, newPosVector.add(getDeltaMovement().normalize().scale(1.5)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this));
 
 			if (raytraceresult != null && raytraceresult.getType() != HitResult.Type.MISS)
 				newPosVector = raytraceresult.getLocation();
@@ -216,6 +217,7 @@ public class EmberProjectileEntity extends Projectile {
 
 		getEntityData().set(lifetime, 20);
 		getEntityData().set(dead, true);
+		setDeltaMovement(Vec3.ZERO);
 
 		//double aoeRadius = getEntityData().get(value) * 0.125; //TODO
 

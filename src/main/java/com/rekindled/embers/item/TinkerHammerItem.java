@@ -30,7 +30,6 @@ public class TinkerHammerItem extends Item {
 
 	public TinkerHammerItem(Properties pProperties) {
 		super(pProperties);
-		pProperties.craftRemainder(this);
 		Misc.IS_HOLDING_HAMMER.add((player, hand) -> player.getItemInHand(hand).getItem() == TinkerHammerItem.this);
 		Misc.GET_HAMMER_TARGET.add(player -> {
 			ItemStack stack = player.getMainHandItem();
@@ -45,6 +44,18 @@ public class TinkerHammerItem extends Item {
 			}
 			return null;
 		});
+	}
+
+	@Override
+	public final ItemStack getCraftingRemainingItem(ItemStack stack) {
+		if (stack.isEmpty())
+			return new ItemStack(this, stack.getCount(), stack.getTag());
+		return stack.copy();
+	}
+
+	@Override
+	public boolean hasCraftingRemainingItem() {
+		return true;
 	}
 
 	@Override
