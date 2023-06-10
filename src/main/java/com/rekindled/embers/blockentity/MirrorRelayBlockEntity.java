@@ -94,4 +94,9 @@ public class MirrorRelayBlockEntity extends BlockEntity implements IEmberPacketP
 			this.setChanged();
 		}
 	}
+
+	@Override
+	public Direction getEmittingDirection(Direction side) {
+		return level.getBlockState(worldPosition).getValue(BlockStateProperties.FACING);
+	}
 }

@@ -97,4 +97,9 @@ public class EmberRelayBlockEntity extends BlockEntity implements IEmberPacketPr
 			this.setChanged();
 		}
 	}
+
+	@Override
+	public Direction getEmittingDirection(Direction side) {
+		return side;
+	}
 }

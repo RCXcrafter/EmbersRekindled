@@ -141,4 +141,12 @@ public class BeamSplitterBlockEntity extends BlockEntity implements IEmberPacket
 			this.setChanged();
 		}
 	}
+
+	@Override
+	public Direction getEmittingDirection(Direction side) {
+		if (side.getAxis() == level.getBlockState(worldPosition).getValue(BlockStateProperties.AXIS)) {
+			return side;
+		}
+		return null;
+	}
 }

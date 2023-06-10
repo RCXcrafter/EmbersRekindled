@@ -4,7 +4,10 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import org.apache.commons.lang3.tuple.Pair;
+
 import com.rekindled.embers.Embers;
+import com.rekindled.embers.EmbersClientEvents;
 import com.rekindled.embers.api.power.IEmberPacketProducer;
 import com.rekindled.embers.api.power.IEmberPacketReceiver;
 import com.rekindled.embers.api.tile.ITargetable;
@@ -39,7 +42,7 @@ public class TinkerHammerItem extends Item {
 			if (stack.getItem() == TinkerHammerItem.this && stack.hasTag()) {	
 				CompoundTag nbt = stack.getTag();
 				if (stack.hasTag() && nbt.contains("targetWorld") && player.level.dimension().location().toString().equals(nbt.getString("targetWorld"))) {
-					return new BlockPos(nbt.getInt("targetX"), nbt.getInt("targetY"), nbt.getInt("targetZ"));
+					return Pair.of(new BlockPos(nbt.getInt("targetX"), nbt.getInt("targetY"), nbt.getInt("targetZ")), Direction.byName(nbt.getString("targetFace")));
 				}
 			}
 			return null;
@@ -82,12 +85,20 @@ public class TinkerHammerItem extends Item {
 			}
 		}
 		if (world != null && (tile instanceof IEmberPacketProducer || tile instanceof ITargetable)) {
+			Direction face = context.getClickedFace();
+			if (tile instanceof IEmberPacketProducer) {
+				face = ((IEmberPacketProducer)tile).getEmittingDirection(face);
+				if (face == null)
+					return InteractionResult.PASS;
+			}
 			nbt.putString("targetWorld", world.dimension().location().toString());
-			nbt.putString("targetFace", context.getClickedFace().getName());
+			nbt.putString("targetFace", face.getName());
 			nbt.putInt("targetX", pos.getX());
 			nbt.putInt("targetY", pos.getY());
 			nbt.putInt("targetZ", pos.getZ());
 			world.playLocalSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, SoundEvents.ANVIL_LAND, SoundSource.BLOCKS, 0.5f, 1.95f + world.random.nextFloat() * 0.2f, false);
+			if (world.isClientSide)
+				EmbersClientEvents.lastTarget = null;
 			return InteractionResult.SUCCESS;
 		}
 		return InteractionResult.PASS;

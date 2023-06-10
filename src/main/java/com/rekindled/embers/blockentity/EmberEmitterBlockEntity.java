@@ -158,4 +158,9 @@ public class EmberEmitterBlockEntity extends BlockEntity implements IEmberPacket
 		target = pos;
 		this.setChanged();
 	}
+
+	@Override
+	public Direction getEmittingDirection(Direction side) {
+		return level.getBlockState(worldPosition).getValue(BlockStateProperties.FACING);
+	}
 }

@@ -5,4 +5,6 @@ import net.minecraft.core.Direction;
 
 public interface IEmberPacketProducer {
 	void setTargetPosition(BlockPos pos, Direction side);
+
+	Direction getEmittingDirection(Direction side);
 }

@@ -84,7 +84,7 @@ public class EmberPacketEntity extends Entity {
 				Vec3 targetVector = new Vec3(targetX - getX(), targetY - getY(), targetZ - getZ());
 				double length = targetVector.length();
 				targetVector = targetVector.scale(0.3 / length);
-				double weight  = 0;
+				double weight = 0;
 				if (length <= 3) {
 					weight = 0.9 * ((3.0 - length) / 3.0);
 				}

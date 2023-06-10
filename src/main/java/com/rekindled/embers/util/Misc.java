@@ -10,6 +10,8 @@ import java.util.function.BiPredicate;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import org.apache.commons.lang3.tuple.Pair;
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -56,7 +58,7 @@ public class Misc {
 			Direction.EAST
 	};
 	public static final List<BiPredicate<Player, InteractionHand>> IS_HOLDING_HAMMER = new ArrayList<BiPredicate<Player, InteractionHand>>();
-	public static final List<Function<Player, BlockPos>> GET_HAMMER_TARGET = new ArrayList<Function<Player, BlockPos>>();
+	public static final List<Function<Player, Pair<BlockPos, Direction>>> GET_HAMMER_TARGET = new ArrayList<Function<Player, Pair<BlockPos, Direction>>>();
 	public static final List<Predicate<Player>> IS_WEARING_LENS = new ArrayList<Predicate<Player>>();
 
 	public static void spawnInventoryInWorld(Level world, double x, double y, double z, IItemHandler inventory) {
@@ -78,11 +80,11 @@ public class Misc {
 		return false;
 	}
 
-	public static BlockPos getHammerTarget(Player player) {
-		for (Function<Player, BlockPos> func : GET_HAMMER_TARGET) {
-			BlockPos pos = func.apply(player);
-			if (pos != null) {
-				return pos;
+	public static Pair<BlockPos, Direction> getHammerTarget(Player player) {
+		for (Function<Player, Pair<BlockPos, Direction>> func : GET_HAMMER_TARGET) {
+			Pair<BlockPos, Direction> target = func.apply(player);
+			if (target != null) {
+				return target;
 			}
 		}
 		return null;
