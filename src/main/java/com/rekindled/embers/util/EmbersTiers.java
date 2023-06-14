@@ -3,10 +3,10 @@ package com.rekindled.embers.util;
 import java.util.List;
 
 import com.rekindled.embers.Embers;
+import com.rekindled.embers.datagen.EmbersBlockTags;
 import com.rekindled.embers.datagen.EmbersItemTags;
 
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.Tiers;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -15,12 +15,12 @@ import net.minecraftforge.common.TierSortingRegistry;
 
 public class EmbersTiers {
 
-	public static final Tier LEAD = new ForgeTier(2, 59, 2.0F, 0.0F, 15, BlockTags.NEEDS_IRON_TOOL, () -> Ingredient.of(EmbersItemTags.LEAD_INGOT));
-	public static final Tier SILVER = new ForgeTier(2, 59, 2.0F, 0.0F, 15, BlockTags.NEEDS_IRON_TOOL, () -> Ingredient.of(EmbersItemTags.SILVER_INGOT));
-	public static final Tier DAWNSTONE = new ForgeTier(2, 59, 2.0F, 0.0F, 15, BlockTags.NEEDS_IRON_TOOL, () -> Ingredient.of(EmbersItemTags.DAWNSTONE_INGOT));
-	public static final Tier CLOCKWORK_PICK = new ForgeTier(3, -1, 16.0F, 4.0F, 15, BlockTags.NEEDS_DIAMOND_TOOL, () -> Ingredient.EMPTY);
-	public static final Tier CLOCKWORK_AXE = new ForgeTier(3, -1, 16.0F, 5.0F, 15, BlockTags.NEEDS_DIAMOND_TOOL, () -> Ingredient.EMPTY);
-	public static final Tier CLOCKWORK_HAMMER = new ForgeTier(1, -1, 6.0F, 6.0F, 15, BlockTags.NEEDS_STONE_TOOL, () -> Ingredient.EMPTY);
+	public static final Tier LEAD = new ForgeTier(2, 59, 2.0F, 0.0F, 15, EmbersBlockTags.NEEDS_LEAD_TOOL, () -> Ingredient.of(EmbersItemTags.LEAD_INGOT));
+	public static final Tier SILVER = new ForgeTier(2, 59, 2.0F, 0.0F, 15, EmbersBlockTags.NEEDS_SILVER_TOOL, () -> Ingredient.of(EmbersItemTags.SILVER_INGOT));
+	public static final Tier DAWNSTONE = new ForgeTier(2, 59, 2.0F, 0.0F, 15, EmbersBlockTags.NEEDS_DAWNSTONE_TOOL, () -> Ingredient.of(EmbersItemTags.DAWNSTONE_INGOT));
+	public static final Tier CLOCKWORK_PICK = new ForgeTier(3, -1, 16.0F, 4.0F, 15, EmbersBlockTags.NEEDS_CLOCKWORK_TOOL, () -> Ingredient.EMPTY);
+	public static final Tier CLOCKWORK_AXE = new ForgeTier(3, -1, 16.0F, 5.0F, 15, EmbersBlockTags.NEEDS_CLOCKWORK_TOOL, () -> Ingredient.EMPTY);
+	public static final Tier CLOCKWORK_HAMMER = new ForgeTier(1, -1, 6.0F, 6.0F, 15, EmbersBlockTags.NEEDS_CLOCKWORK_HAMMER, () -> Ingredient.EMPTY);
 
 	static {
 		TierSortingRegistry.registerTier(LEAD, new ResourceLocation(Embers.MODID + ":lead"), List.of(Tiers.IRON), List.of(Tiers.DIAMOND, Embers.MODID + ":silver"));

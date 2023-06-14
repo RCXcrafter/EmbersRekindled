@@ -35,6 +35,12 @@ public class EmbersBlockTags extends BlockTagsProvider {
 	public static final TagKey<Block> MINABLE_WITH_PICKAXE_SHOVEL = BlockTags.create(new ResourceLocation(Embers.MODID, "mineable/pickaxe_shovel"));
 	public static final TagKey<Block> MINABLE_WITH_HAMMER = BlockTags.create(new ResourceLocation(Embers.MODID, "mineable/hammer"));
 
+	public static final TagKey<Block> NEEDS_LEAD_TOOL = BlockTags.create(new ResourceLocation(Embers.MODID, "needs_lead_tool"));
+	public static final TagKey<Block> NEEDS_SILVER_TOOL = BlockTags.create(new ResourceLocation(Embers.MODID, "needs_silver_tool"));
+	public static final TagKey<Block> NEEDS_DAWNSTONE_TOOL = BlockTags.create(new ResourceLocation(Embers.MODID, "needs_dawnstone_tool"));
+	public static final TagKey<Block> NEEDS_CLOCKWORK_TOOL = BlockTags.create(new ResourceLocation(Embers.MODID, "needs_clockwork_tool"));
+	public static final TagKey<Block> NEEDS_CLOCKWORK_HAMMER = BlockTags.create(new ResourceLocation(Embers.MODID, "needs_clockwork_hammer"));
+
 	//tags shared with items
 	public static final TagKey<Block> LEAD_ORE = BlockTags.create(new ResourceLocation("forge", "ores/lead"));
 	public static final TagKey<Block> RAW_LEAD_BLOCK = BlockTags.create(new ResourceLocation("forge", "storage_blocks/raw_lead"));
