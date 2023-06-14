@@ -2,6 +2,7 @@ package com.rekindled.embers.network;
 
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.network.message.MessageEmberRayFX;
+import com.rekindled.embers.network.message.MessageItemSound;
 import com.rekindled.embers.network.message.MessageResearchData;
 import com.rekindled.embers.network.message.MessageResearchTick;
 import com.rekindled.embers.network.message.MessageTEUpdateRequest;
@@ -28,5 +29,6 @@ public class PacketHandler {
 		INSTANCE.registerMessage(id++, MessageResearchData.class, MessageResearchData::encode, MessageResearchData::decode, MessageResearchData::handle);
 		INSTANCE.registerMessage(id++, MessageWorldSeed.class, MessageWorldSeed::encode, MessageWorldSeed::decode, MessageWorldSeed::handle);
 		INSTANCE.registerMessage(id++, MessageEmberRayFX.class, MessageEmberRayFX::encode, MessageEmberRayFX::decode, MessageEmberRayFX::handle);
+		INSTANCE.registerMessage(id++, MessageItemSound.class, MessageItemSound::encode, MessageItemSound::decode, MessageItemSound::handle);
 	}
 }

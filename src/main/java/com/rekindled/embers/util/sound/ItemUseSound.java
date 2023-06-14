@@ -30,8 +30,10 @@ public class ItemUseSound extends AbstractTickableSoundInstance {
 			return;
 		}
 		ItemStack heldItem = linkedEntity.getItemInHand(linkedEntity.getUsedItemHand());
-		if(linkedEntity.isRemoved() || !linkedEntity.isUsingItem() || heldItem.getItem() != itemType)
+		if(linkedEntity.isRemoved() || !linkedEntity.isUsingItem() || heldItem.getItem() != itemType) {
 			stop();
+			return;
+		}
 		x = linkedEntity.getX();
 		y = linkedEntity.getY();
 		z = linkedEntity.getZ();

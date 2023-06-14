@@ -2,6 +2,8 @@ package com.rekindled.embers.datagen;
 
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
+import com.rekindled.embers.network.PacketHandler;
+import com.rekindled.embers.network.message.MessageItemSound;
 import com.rekindled.embers.util.sound.ItemUseSound;
 import com.rekindled.embers.util.sound.MachineSound;
 
@@ -21,6 +23,7 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.SoundDefinition;
 import net.minecraftforge.common.data.SoundDefinitionsProvider;
 import net.minecraftforge.common.util.ForgeSoundType;
+import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.registries.RegistryObject;
 
 public class EmbersSounds extends SoundDefinitionsProvider {
@@ -183,9 +186,12 @@ public class EmbersSounds extends SoundDefinitionsProvider {
 		Minecraft.getInstance().getSoundManager().play(new MachineSound(tile, id, soundIn, categoryIn, repeat, volume, pitch, xIn, yIn, zIn));
 	}
 
-	@OnlyIn(Dist.CLIENT)
 	public static void playItemSound(LivingEntity entity, Item item, SoundEvent soundIn, SoundSource categoryIn, boolean repeat, float volume, float pitch) {
-		Minecraft.getInstance().getSoundManager().play(new ItemUseSound(entity, item, soundIn, categoryIn, repeat, volume, pitch));
+		if (entity.level.isClientSide) {
+			Minecraft.getInstance().getSoundManager().play(new ItemUseSound(entity, item, soundIn, categoryIn, repeat, volume, pitch));
+		} else {
+			PacketHandler.INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), new MessageItemSound(entity, item, soundIn, categoryIn, repeat, volume, pitch));
+		}
 	}
 
 	@Override

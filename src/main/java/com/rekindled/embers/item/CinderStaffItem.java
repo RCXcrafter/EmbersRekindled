@@ -97,15 +97,13 @@ public class CinderStaffItem extends Item implements IProjectileWeapon {
 
 		MinecraftForge.EVENT_BUS.post(event);
 
-		if (player.level.isClientSide) {
-			if (event.hasSound()) {
-				if (!soundPlaying) {
-					EmbersSounds.playItemSound(player, this, event.getSound(), SoundSource.PLAYERS, true, event.getVolume(), event.getPitch());
-					soundPlaying = true;
-				}
-			} else {
-				soundPlaying = false;
+		if (event.hasSound()) {
+			if (!soundPlaying) {
+				EmbersSounds.playItemSound(player, this, event.getSound(), SoundSource.PLAYERS, true, event.getVolume(), event.getPitch());
+				soundPlaying = true;
 			}
+		} else {
+			soundPlaying = false;
 		}
 
 		if (event.hasParticles()) {
