@@ -34,7 +34,7 @@ public class EmberDialBlock extends DialBaseBlock {
 	public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
 		BlockEntity blockEntity = level.getBlockEntity(pos.relative(state.getValue(FACING), -1));
 		if (blockEntity != null) {
-			IEmberCapability cap = blockEntity.getCapability(EmbersCapabilities.EMBER_CAPABILITY, state.getValue(FACING).getOpposite()).orElse(null);
+			IEmberCapability cap = blockEntity.getCapability(EmbersCapabilities.EMBER_CAPABILITY, state.getValue(FACING).getOpposite()).orElse(blockEntity.getCapability(EmbersCapabilities.EMBER_CAPABILITY, null).orElse(null));
 			if (cap != null) {
 				if (cap.getEmber() == cap.getEmberCapacity())
 					return 15;
@@ -46,7 +46,7 @@ public class EmberDialBlock extends DialBaseBlock {
 
 	@Override
 	protected void getBEData(Direction facing, ArrayList<String> text, BlockEntity blockEntity, int maxLines) {
-		IEmberCapability cap = blockEntity.getCapability(EmbersCapabilities.EMBER_CAPABILITY, facing).orElse(null);
+		IEmberCapability cap = blockEntity.getCapability(EmbersCapabilities.EMBER_CAPABILITY, facing).orElse(blockEntity.getCapability(EmbersCapabilities.EMBER_CAPABILITY, null).orElse(null));
 		if (cap != null){
 			text.add(formatEmber(cap.getEmber(), cap.getEmberCapacity()));
 		}

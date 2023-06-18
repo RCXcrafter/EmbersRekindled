@@ -35,7 +35,7 @@ public class FluidDialBlock extends DialBaseBlock {
 	public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
 		BlockEntity blockEntity = level.getBlockEntity(pos.relative(state.getValue(FACING), -1));
 		if (blockEntity != null) {
-			IFluidHandler cap = blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, state.getValue(FACING).getOpposite()).orElse(null);
+			IFluidHandler cap = blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, state.getValue(FACING).getOpposite()).orElse(blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, null).orElse(null));
 			if (cap != null) {
 				int totalCapacity = 0;
 				int totalContents = 0;
@@ -51,7 +51,7 @@ public class FluidDialBlock extends DialBaseBlock {
 
 	@Override
 	protected void getBEData(Direction facing, ArrayList<String> text, BlockEntity blockEntity, int maxLines) {
-		IFluidHandler cap = blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, facing).orElse(null);
+		IFluidHandler cap = blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, facing).orElse(blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, null).orElse(null));
 		if (cap != null) {
 			for (int i = 0; i < cap.getTanks(); i++) {
 				FluidStack contents = cap.getFluidInTank(i);

@@ -35,7 +35,7 @@ public class ItemDialBlock extends DialBaseBlock {
 	public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
 		BlockEntity blockEntity = level.getBlockEntity(pos.relative(state.getValue(FACING), -1));
 		if (blockEntity != null) {
-			IItemHandler cap = blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, state.getValue(FACING).getOpposite()).orElse(null);
+			IItemHandler cap = blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, state.getValue(FACING).getOpposite()).orElse(blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, null).orElse(null));
 			if (cap != null) {
 				double contents = 0.0;
 				double capacity = 0.0;
@@ -53,7 +53,7 @@ public class ItemDialBlock extends DialBaseBlock {
 
 	@Override
 	protected void getBEData(Direction facing, ArrayList<String> text, BlockEntity blockEntity, int maxLines) {
-		IItemHandler cap = blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, facing).orElse(null);
+		IItemHandler cap = blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, facing).orElse(blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, null).orElse(null));
 		if (cap != null){
 			for (int i = 0; i < cap.getSlots() && i < maxLines; i++) {
 				ItemStack stack = cap.getStackInSlot(i);

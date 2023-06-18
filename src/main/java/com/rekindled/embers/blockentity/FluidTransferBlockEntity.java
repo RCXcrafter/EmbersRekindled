@@ -121,12 +121,16 @@ public class FluidTransferBlockEntity extends FluidPipeBlockEntityBase {
 
 	@Override
 	public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
-		if (!this.remove && cap == ForgeCapabilities.FLUID_HANDLER && level.getBlockState(this.getBlockPos()).hasProperty(BlockStateProperties.FACING)) {
-			Direction facing = level.getBlockState(this.getBlockPos()).getValue(BlockStateProperties.FACING);
-			if (side.getOpposite() == facing)
-				return ForgeCapabilities.FLUID_HANDLER.orEmpty(cap, outputHolder);
-			else if (side.getAxis() == facing.getAxis())
+		if (!this.remove && cap == ForgeCapabilities.FLUID_HANDLER) {
+			if (side == null)
 				return ForgeCapabilities.FLUID_HANDLER.orEmpty(cap, holder);
+			if (level.getBlockState(this.getBlockPos()).hasProperty(BlockStateProperties.FACING)) {
+				Direction facing = level.getBlockState(this.getBlockPos()).getValue(BlockStateProperties.FACING);
+				if (side.getOpposite() == facing)
+					return ForgeCapabilities.FLUID_HANDLER.orEmpty(cap, outputHolder);
+				else if (side.getAxis() == facing.getAxis())
+					return ForgeCapabilities.FLUID_HANDLER.orEmpty(cap, holder);
+			}
 		}
 		return LazyOptional.empty();
 	}
