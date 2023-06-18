@@ -1,5 +1,6 @@
 {
   "values": [
-    "#embersrekindled:fluid_pipe_connection/toggleable"
+    "#embersrekindled:fluid_pipe_connection/toggleable",
+    "embersrekindled:fluid_transfer"
   ]
 }

@@ -100,6 +100,8 @@ public class EmbersBlockLootTables extends BlockLoot {
 		dropSelf(RegistryManager.GEOLOGIC_SEPARATOR.get());
 		dropSelf(RegistryManager.COPPER_CHARGER.get());
 		dropSelf(RegistryManager.EMBER_SIPHON.get());
+		dropSelf(RegistryManager.ITEM_TRANSFER.get());
+		dropSelf(RegistryManager.FLUID_TRANSFER.get());
 	}
 
 	public void decoDrops(StoneDecoBlocks deco) {

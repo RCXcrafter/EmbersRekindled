@@ -37,6 +37,7 @@ import com.rekindled.embers.block.EmberSiphonBlock;
 import com.rekindled.embers.block.FluidDialBlock;
 import com.rekindled.embers.block.FluidExtractorBlock;
 import com.rekindled.embers.block.FluidPipeBlock;
+import com.rekindled.embers.block.FluidTransferBlock;
 import com.rekindled.embers.block.FluidVesselBlock;
 import com.rekindled.embers.block.GeologicSeparatorBlock;
 import com.rekindled.embers.block.HearthCoilBlock;
@@ -45,6 +46,7 @@ import com.rekindled.embers.block.ItemDialBlock;
 import com.rekindled.embers.block.ItemDropperBlock;
 import com.rekindled.embers.block.ItemExtractorBlock;
 import com.rekindled.embers.block.ItemPipeBlock;
+import com.rekindled.embers.block.ItemTransferBlock;
 import com.rekindled.embers.block.ItemVacuumBlock;
 import com.rekindled.embers.block.MechanicalCoreBlock;
 import com.rekindled.embers.block.MelterBlock;
@@ -75,12 +77,14 @@ import com.rekindled.embers.blockentity.EmberRelayBlockEntity;
 import com.rekindled.embers.blockentity.EmberSiphonBlockEntity;
 import com.rekindled.embers.blockentity.FluidExtractorBlockEntity;
 import com.rekindled.embers.blockentity.FluidPipeBlockEntity;
+import com.rekindled.embers.blockentity.FluidTransferBlockEntity;
 import com.rekindled.embers.blockentity.FluidVesselBlockEntity;
 import com.rekindled.embers.blockentity.GeologicSeparatorBlockEntity;
 import com.rekindled.embers.blockentity.HearthCoilBlockEntity;
 import com.rekindled.embers.blockentity.ItemDropperBlockEntity;
 import com.rekindled.embers.blockentity.ItemExtractorBlockEntity;
 import com.rekindled.embers.blockentity.ItemPipeBlockEntity;
+import com.rekindled.embers.blockentity.ItemTransferBlockEntity;
 import com.rekindled.embers.blockentity.ItemVacuumBlockEntity;
 import com.rekindled.embers.blockentity.MechanicalCoreBlockEntity;
 import com.rekindled.embers.blockentity.MelterBottomBlockEntity;
@@ -303,6 +307,8 @@ public class RegistryManager {
 	public static final RegistryObject<Block> GEOLOGIC_SEPARATOR = BLOCKS.register("geologic_separator", () -> new GeologicSeparatorBlock(Properties.of(Material.METAL, MaterialColor.COLOR_GRAY).sound(SoundType.METAL).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
 	public static final RegistryObject<Block> COPPER_CHARGER = BLOCKS.register("copper_charger", () -> new CopperChargerBlock(Properties.of(Material.METAL, MaterialColor.COLOR_GRAY).sound(SoundType.METAL).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
 	public static final RegistryObject<Block> EMBER_SIPHON = BLOCKS.register("ember_siphon", () -> new EmberSiphonBlock(Properties.of(Material.METAL, MaterialColor.COLOR_GRAY).sound(SoundType.METAL).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
+	public static final RegistryObject<Block> ITEM_TRANSFER = BLOCKS.register("item_transfer", () -> new ItemTransferBlock(Properties.of(Material.METAL, MaterialColor.TERRACOTTA_PURPLE).sound(SoundType.METAL).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
+	public static final RegistryObject<Block> FLUID_TRANSFER = BLOCKS.register("fluid_transfer", () -> new FluidTransferBlock(Properties.of(Material.METAL, MaterialColor.TERRACOTTA_PURPLE).sound(SoundType.METAL).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
 
 	//itemblocks
 	public static final RegistryObject<Item> LEAD_ORE_ITEM = ITEMS.register("lead_ore", () -> new BlockItem(LEAD_ORE.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
@@ -362,6 +368,8 @@ public class RegistryManager {
 	public static final RegistryObject<Item> GEOLOGIC_SEPARATOR_ITEM = ITEMS.register("geologic_separator", () -> new BlockItem(GEOLOGIC_SEPARATOR.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
 	public static final RegistryObject<Item> COPPER_CHARGER_ITEM = ITEMS.register("copper_charger", () -> new BlockItem(COPPER_CHARGER.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
 	public static final RegistryObject<Item> EMBER_SIPHON_ITEM = ITEMS.register("ember_siphon", () -> new BlockItem(EMBER_SIPHON.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
+	public static final RegistryObject<Item> ITEM_TRANSFER_ITEM = ITEMS.register("item_transfer", () -> new BlockItem(ITEM_TRANSFER.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
+	public static final RegistryObject<Item> FLUID_TRANSFER_ITEM = ITEMS.register("fluid_transfer", () -> new BlockItem(FLUID_TRANSFER.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
 
 	//items
 	public static final RegistryObject<Item> TINKER_HAMMER = ITEMS.register("tinker_hammer", () -> new TinkerHammerItem(new Item.Properties().stacksTo(1).tab(Embers.TAB_EMBERS)));
@@ -485,6 +493,8 @@ public class RegistryManager {
 	public static final RegistryObject<BlockEntityType<GeologicSeparatorBlockEntity>> GEOLOGIC_SEPARATOR_ENTITY = BLOCK_ENTITY_TYPES.register("geologic_separator", () -> BlockEntityType.Builder.of(GeologicSeparatorBlockEntity::new, GEOLOGIC_SEPARATOR.get()).build(null));
 	public static final RegistryObject<BlockEntityType<CopperChargerBlockEntity>> COPPER_CHARGER_ENTITY = BLOCK_ENTITY_TYPES.register("copper_charger", () -> BlockEntityType.Builder.of(CopperChargerBlockEntity::new, COPPER_CHARGER.get()).build(null));
 	public static final RegistryObject<BlockEntityType<EmberSiphonBlockEntity>> EMBER_SIPHON_ENTITY = BLOCK_ENTITY_TYPES.register("ember_siphon", () -> BlockEntityType.Builder.of(EmberSiphonBlockEntity::new, EMBER_SIPHON.get()).build(null));
+	public static final RegistryObject<BlockEntityType<ItemTransferBlockEntity>> ITEM_TRANSFER_ENTITY = BLOCK_ENTITY_TYPES.register("item_transfer", () -> BlockEntityType.Builder.of(ItemTransferBlockEntity::new, ITEM_TRANSFER.get()).build(null));
+	public static final RegistryObject<BlockEntityType<FluidTransferBlockEntity>> FLUID_TRANSFER_ENTITY = BLOCK_ENTITY_TYPES.register("fluid_transfer", () -> BlockEntityType.Builder.of(FluidTransferBlockEntity::new, FLUID_TRANSFER.get()).build(null));
 
 	//entities
 	public static final RegistryObject<EntityType<EmberPacketEntity>> EMBER_PACKET = registerEntity("ember_packet", EntityType.Builder.<EmberPacketEntity>of(EmberPacketEntity::new, MobCategory.MISC).sized(0.5F, 0.5F).fireImmune().clientTrackingRange(3).updateInterval(1));

@@ -3,11 +3,11 @@
   "inputs": [
     {
       "amount": 2,
-      "tag": "forge:molten_gold"
+      "tag": "forge:molten_copper"
     },
     {
       "amount": 2,
-      "tag": "forge:molten_copper"
+      "tag": "forge:molten_gold"
     }
   ],
   "output": {

@@ -12,11 +12,11 @@
   "inputs": [
     {
       "amount": 2,
-      "tag": "forge:molten_silver"
+      "tag": "forge:molten_gold"
     },
     {
       "amount": 2,
-      "tag": "forge:molten_gold"
+      "tag": "forge:molten_silver"
     }
   ],
   "output": {

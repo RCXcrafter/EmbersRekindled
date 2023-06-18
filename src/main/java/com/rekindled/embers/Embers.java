@@ -7,8 +7,10 @@ import com.rekindled.embers.blockentity.render.BinBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.CopperChargerBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.CrystalCellBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.EmberBoreBlockEntityRenderer;
+import com.rekindled.embers.blockentity.render.FluidTransferBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.FluidVesselBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.GeologicSeparatorBlockEntityRenderer;
+import com.rekindled.embers.blockentity.render.ItemTransferBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.MelterTopBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.MixerCentrifugeBottomBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.MixerCentrifugeTopBlockEntityRenderer;
@@ -222,6 +224,8 @@ public class Embers {
 			event.registerBlockEntityRenderer(RegistryManager.CRYSTAL_CELL_ENTITY.get(), CrystalCellBlockEntityRenderer::new);
 			event.registerBlockEntityRenderer(RegistryManager.GEOLOGIC_SEPARATOR_ENTITY.get(), GeologicSeparatorBlockEntityRenderer::new);
 			event.registerBlockEntityRenderer(RegistryManager.COPPER_CHARGER_ENTITY.get(), CopperChargerBlockEntityRenderer::new);
+			event.registerBlockEntityRenderer(RegistryManager.ITEM_TRANSFER_ENTITY.get(), ItemTransferBlockEntityRenderer::new);
+			event.registerBlockEntityRenderer(RegistryManager.FLUID_TRANSFER_ENTITY.get(), FluidTransferBlockEntityRenderer::new);
 		}
 
 		@OnlyIn(Dist.CLIENT)

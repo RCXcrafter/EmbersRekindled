@@ -83,6 +83,8 @@ public class EmbersLang extends LanguageProvider {
 		addBlock(RegistryManager.GEOLOGIC_SEPARATOR, "Geologic Separator");
 		addBlock(RegistryManager.COPPER_CHARGER, "Copper Charger");
 		addBlock(RegistryManager.EMBER_SIPHON, "Ember Siphon");
+		addBlock(RegistryManager.ITEM_TRANSFER, "Item Transfer");
+		addBlock(RegistryManager.FLUID_TRANSFER, "Fluid Transfer");
 
 		addItem(RegistryManager.TINKER_HAMMER, "Tinker's Hammer");
 		addItem(RegistryManager.TINKER_LENS, "Tinker's Lens");
@@ -388,7 +390,7 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".research.page.transfer.title", "Filtering");
 		add(Embers.MODID + ".research.page.transfer.tags", "Pipe;Transport;Item;Fluid;Liquid;Filter;Transfer;");
 		add(Embers.MODID + ".research.page.transfer.desc", "Item Pipes may be a simple way to get items from place to place, but only with the development of the Item Transfer have you created a way to filter items out. The Item Transfer functions much like a normal pipe, with a few rules. It can only connect to pipes on its front and on its back, and it will take priority over all other pipes when items are being sent. It can also be given an item filter by right-clicking it.");
-		add(Embers.MODID + ".research.page.fluid_transfer.desc", "Fluid Transfers are the fluid equivalent to Item Transfers. They function equivalent in almost all aspects. Only to set the filter on a Fluid Transfer, a bucket or other container holding some fluid is needed instead. The fluid inside the container is not consumed when setting a filter.");
+		add(Embers.MODID + ".research.page.fluid_transfer.desc", "Fluid Transfers are the fluid equivalent to Item Transfers. They function equivalent in almost all aspects. Only to set the filter on a Fluid Transfer, a bucket or other container holding some fluid is needed instead. The fluid inside the container is not consumed when setting a filter. Without a filter, it functions as a one-way pipe.");
 
 		add(Embers.MODID + ".research.page.breaker", "Automatic Breaker");
 		add(Embers.MODID + ".research.page.breaker.title", "Breaking Blocks");

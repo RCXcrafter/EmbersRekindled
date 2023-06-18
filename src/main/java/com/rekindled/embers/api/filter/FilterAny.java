@@ -22,7 +22,7 @@ public class FilterAny implements IFilter {
 
 	@Override
 	public String formatFilter() {
-		return I18n.get("embers.filter.any");
+		return I18n.get(Embers.MODID + ".filter.any");
 	}
 
 	@Override

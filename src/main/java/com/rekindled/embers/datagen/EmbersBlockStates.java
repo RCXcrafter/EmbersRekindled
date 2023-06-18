@@ -7,6 +7,7 @@ import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.RegistryManager.FluidStuff;
 import com.rekindled.embers.RegistryManager.StoneDecoBlocks;
 import com.rekindled.embers.block.EmberBoreBlock;
+import com.rekindled.embers.block.ItemTransferBlock;
 import com.rekindled.embers.block.MechEdgeBlockBase;
 import com.rekindled.embers.block.MechEdgeBlockBase.MechEdge;
 import com.rekindled.embers.block.PipeBlockBase;
@@ -506,6 +507,24 @@ public class EmbersBlockStates extends BlockStateProvider {
 		ExistingModelFile siphonModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "ember_siphon"));
 		simpleBlock(RegistryManager.EMBER_SIPHON.get(), siphonModel);
 		simpleBlockItem(RegistryManager.EMBER_SIPHON.get(), siphonModel);
+
+		ExistingModelFile itemTransferModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "item_transfer"));
+		ExistingModelFile itemTransferFilterModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "item_transfer_filtered"));
+		directionalBlock(RegistryManager.ITEM_TRANSFER.get(), state -> state.getValue(ItemTransferBlock.FILTER) ? itemTransferFilterModel : itemTransferModel, 180);
+		simpleBlockItem(RegistryManager.ITEM_TRANSFER.get(), itemTransferModel);
+
+		ModelFile fluidTransferModel = models().withExistingParent("fluid_transfer", new ResourceLocation(Embers.MODID, "item_transfer"))
+				.texture("top", new ResourceLocation(Embers.MODID, "block/fluid_transfer_top"))
+				.texture("side", new ResourceLocation(Embers.MODID, "block/fluid_transfer_side"))
+				.texture("bottom", new ResourceLocation(Embers.MODID, "block/fluid_transfer_bottom"))
+				.texture("particle", new ResourceLocation(Embers.MODID, "block/fluid_transfer_side"));
+		ModelFile fluidTransferFilterModel = models().withExistingParent("fluid_transfer_filtered", new ResourceLocation(Embers.MODID, "item_transfer_filtered"))
+				.texture("top", new ResourceLocation(Embers.MODID, "block/fluid_transfer_top"))
+				.texture("side", new ResourceLocation(Embers.MODID, "block/fluid_transfer_side"))
+				.texture("bottom", new ResourceLocation(Embers.MODID, "block/fluid_transfer_bottom"))
+				.texture("particle", new ResourceLocation(Embers.MODID, "block/fluid_transfer_side"));
+		directionalBlock(RegistryManager.FLUID_TRANSFER.get(), state -> state.getValue(ItemTransferBlock.FILTER) ? fluidTransferFilterModel : fluidTransferModel, 180);
+		simpleBlockItem(RegistryManager.FLUID_TRANSFER.get(), fluidTransferModel);
 	}
 
 	public void blockWithItem(RegistryObject<? extends Block> registryObject) {

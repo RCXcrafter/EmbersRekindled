@@ -65,6 +65,8 @@
     "embersrekindled:clockwork_attenuator",
     "embersrekindled:geologic_separator",
     "embersrekindled:copper_charger",
-    "embersrekindled:ember_siphon"
+    "embersrekindled:ember_siphon",
+    "embersrekindled:item_transfer",
+    "embersrekindled:fluid_transfer"
   ]
 }

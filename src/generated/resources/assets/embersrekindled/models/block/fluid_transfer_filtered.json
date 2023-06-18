@@ -1,0 +1,9 @@
+{
+  "parent": "embersrekindled:block/item_transfer_filtered",
+  "textures": {
+    "bottom": "embersrekindled:block/fluid_transfer_bottom",
+    "particle": "embersrekindled:block/fluid_transfer_side",
+    "side": "embersrekindled:block/fluid_transfer_side",
+    "top": "embersrekindled:block/fluid_transfer_top"
+  }
+}

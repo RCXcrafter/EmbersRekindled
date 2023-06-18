@@ -702,6 +702,26 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('B', RegistryManager.CAMINITE_BRICK.get())
 		.unlockedBy("has_charger", has(RegistryManager.COPPER_CHARGER.get()))
 		.save(consumer, getResource("ember_siphon"));
+
+		ShapedRecipeBuilder.shaped(RegistryManager.ITEM_TRANSFER.get())
+		.pattern("PLP")
+		.pattern("ILI")
+		.pattern("I I")
+		.define('P', itemTag("forge", "plates/lead"))
+		.define('I', itemTag("forge", "ingots/lead"))
+		.define('L', RegistryManager.ITEM_PIPE.get())
+		.unlockedBy("has_item_pipe", has(RegistryManager.ITEM_PIPE.get()))
+		.save(consumer, getResource("item_transfer"));
+
+		ShapedRecipeBuilder.shaped(RegistryManager.FLUID_TRANSFER.get())
+		.pattern("PLP")
+		.pattern("ILI")
+		.pattern("I I")
+		.define('P', itemTag("forge", "plates/iron"))
+		.define('I', itemTag("forge", "ingots/iron"))
+		.define('L', RegistryManager.FLUID_PIPE.get())
+		.unlockedBy("has_fluid_pipe", has(RegistryManager.FLUID_PIPE.get()))
+		.save(consumer, getResource("fluid_transfer"));
 	}
 
 	public void fullOreRecipes(String name, ImmutableList<ItemLike> ores, Fluid fluid, Item raw, Item rawBlock, Item block, Item ingot, Item nugget, Item plate, Consumer<FinishedRecipe> consumer, MeltingBonus... bonusses) {

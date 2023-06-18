@@ -11,6 +11,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 import org.apache.commons.lang3.tuple.Pair;
+import org.jetbrains.annotations.NotNull;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
@@ -44,6 +45,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -216,5 +218,89 @@ public class Misc {
 		default:
 			return null;
 		}
+	}
+
+	public static IItemHandler makeRestrictedItemHandler(IItemHandler handler, boolean input, boolean output) {
+		return new IItemHandler() {
+			@Override
+			public int getSlots() {
+				return handler.getSlots();
+			}
+
+			@Override
+			public ItemStack getStackInSlot(int slot) {
+				return handler.getStackInSlot(slot);
+			}
+
+			@Override
+			public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+				if(!input)
+					return stack;
+				return handler.insertItem(slot,stack,simulate);
+			}
+
+			@Override
+			public ItemStack extractItem(int slot, int amount, boolean simulate) {
+				if(!output)
+					return ItemStack.EMPTY;
+				return handler.extractItem(slot,amount,simulate);
+			}
+
+			@Override
+			public int getSlotLimit(int slot) {
+				return handler.getSlotLimit(slot);
+			}
+
+			@Override
+			public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+				return input && handler.isItemValid(slot, stack);
+			}
+		};
+	}
+
+	public static IFluidHandler makeRestrictedFluidHandler(IFluidHandler handler, boolean input, boolean output) {
+		return new IFluidHandler() {
+
+			@Override
+			public int fill(FluidStack resource, FluidAction action) {
+				if(!input)
+					return 0;
+				return handler.fill(resource, action);
+			}
+
+			@Override
+			public FluidStack drain(FluidStack resource, FluidAction action) {
+				if(!output)
+					return null;
+				return handler.drain(resource, action);
+			}
+
+			@Override
+			public FluidStack drain(int maxDrain, FluidAction action) {
+				if(!output)
+					return null;
+				return handler.drain(maxDrain, action);
+			}
+
+			@Override
+			public int getTanks() {
+				return handler.getTanks();
+			}
+
+			@Override
+			public @NotNull FluidStack getFluidInTank(int tank) {
+				return handler.getFluidInTank(tank);
+			}
+
+			@Override
+			public int getTankCapacity(int tank) {
+				return handler.getTankCapacity(tank);
+			}
+
+			@Override
+			public boolean isFluidValid(int tank, @NotNull FluidStack stack) {
+				return input && handler.isFluidValid(tank, stack);
+			}
+		};
 	}
 }

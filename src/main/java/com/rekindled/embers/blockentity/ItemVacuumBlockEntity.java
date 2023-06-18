@@ -66,9 +66,11 @@ public class ItemVacuumBlockEntity extends BlockEntity {
 	static int getInsertedSlot(ItemStack stack, IItemHandler inventory) {
 		int slot = -1;
 		for (int j = 0; j < inventory.getSlots() && slot == -1; j++) {
-			ItemStack added = inventory.insertItem(j, stack, true);
-			if (added.getCount() < stack.getCount() || !added.sameItem(stack)) {
-				slot = j;
+			if (inventory.isItemValid(j, stack)) {
+				ItemStack added = inventory.insertItem(j, stack, true);
+				if (added.getCount() < stack.getCount() || !added.sameItem(stack)) {
+					slot = j;
+				}
 			}
 		}
 		return slot;

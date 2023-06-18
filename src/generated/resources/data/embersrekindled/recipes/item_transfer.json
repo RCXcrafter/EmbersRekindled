@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "I": {
+      "tag": "forge:ingots/lead"
+    },
+    "L": {
+      "item": "embersrekindled:item_pipe"
+    },
+    "P": {
+      "tag": "forge:plates/lead"
+    }
+  },
+  "pattern": [
+    "PLP",
+    "ILI",
+    "I I"
+  ],
+  "result": {
+    "item": "embersrekindled:item_transfer"
+  }
+}
