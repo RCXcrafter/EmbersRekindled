@@ -11,7 +11,7 @@ import com.rekindled.embers.research.ResearchCategory;
 import net.minecraft.world.item.ItemStack;
 
 public class ResearchSwitchCategory extends ResearchBase {
-	ResearchCategory targetCategory;
+	public ResearchCategory targetCategory;
 	int minEntries;
 
 	public ResearchSwitchCategory(String location, ItemStack icon, double x, double y) {

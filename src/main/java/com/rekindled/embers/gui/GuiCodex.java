@@ -24,6 +24,7 @@ import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.research.ResearchBase;
 import com.rekindled.embers.research.ResearchCategory;
 import com.rekindled.embers.research.ResearchManager;
+import com.rekindled.embers.research.subtypes.ResearchSwitchCategory;
 import com.rekindled.embers.util.Misc;
 import com.rekindled.embers.util.RenderUtil;
 
@@ -227,12 +228,16 @@ public class GuiCodex extends Screen {
 			} else if (mouseButton == 1) {
 				boolean newChecked = !selectedResearchPage.isChecked();
 				selectedResearchPage.check(newChecked);
-				if (selectedResearchPage.isChecked() == newChecked) {
-					if (newChecked)
-						playSound(EmbersSounds.CODEX_CHECK.get());
-					else
-						playSound(EmbersSounds.CODEX_UNCHECK.get());
-					ResearchManager.sendCheckmark(selectedResearchPage,newChecked); //hmmm...
+				if (newChecked)
+					playSound(EmbersSounds.CODEX_CHECK.get());
+				else
+					playSound(EmbersSounds.CODEX_UNCHECK.get());
+				if (selectedResearchPage instanceof ResearchSwitchCategory selectedCategory) {
+					for (ResearchBase research : selectedCategory.targetCategory.researches) {
+						ResearchManager.sendCheckmark(research, newChecked);
+					}
+				} else {
+					ResearchManager.sendCheckmark(selectedResearchPage, newChecked);
 				}
 			}
 		}
@@ -698,7 +703,7 @@ public class GuiCodex extends Screen {
 			}
 		}
 		doRenderTooltip(poseStack);
-		
+
 		RenderSystem.disableBlend();
 	}
 
@@ -800,7 +805,7 @@ public class GuiCodex extends Screen {
 			float cosine = 0.5f*((float)Math.cos(Math.toRadians(4.0f*((float)EmbersClientEvents.ticks + Minecraft.getInstance().getPartialTick())))+1.0f);
 			int borderColorStart = new Color(255,64+(int)(64*sine),16,128).getRGB();
 			int borderColorEnd =  new Color(255,64+(int)(64*cosine),16,128).getRGB();
-			
+
 			fillGradient(matrix4f, bufferbuilder, j2 - 3, k2 - 4, j2 + i + 3, k2 - 3, 400, backgroundColor, backgroundColor);
 			fillGradient(matrix4f, bufferbuilder, j2 - 3, k2 + j + 3, j2 + i + 3, k2 + j + 4, 400, backgroundColor, backgroundColor);
 			fillGradient(matrix4f, bufferbuilder, j2 - 3, k2 - 3, j2 + i + 3, k2 + j + 3, 400, backgroundColor, backgroundColor);
