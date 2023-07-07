@@ -104,7 +104,7 @@ public class FluidTransferBlock extends BaseEntityBlock implements SimpleWaterlo
 	@Nullable
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext pContext) {
-		return this.defaultBlockState().setValue(BlockStateProperties.FACING, pContext.getNearestLookingDirection().getOpposite()).setValue(BlockStateProperties.WATERLOGGED, Boolean.valueOf(pContext.getLevel().getFluidState(pContext.getClickedPos()).getType() == Fluids.WATER));
+		return this.defaultBlockState().setValue(BlockStateProperties.FACING, pContext.getNearestLookingDirection()).setValue(BlockStateProperties.WATERLOGGED, Boolean.valueOf(pContext.getLevel().getFluidState(pContext.getClickedPos()).getType() == Fluids.WATER));
 	}
 
 	@Override

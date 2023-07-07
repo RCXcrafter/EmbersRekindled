@@ -53,6 +53,7 @@ public class ItemTransferBlockEntity extends ItemPipeBlockEntityBase {
 
 			@Override
 			protected void onContentsChanged(int slot) {
+				ItemTransferBlockEntity.this.syncInventory = true;
 				ItemTransferBlockEntity.this.setChanged();
 			}
 

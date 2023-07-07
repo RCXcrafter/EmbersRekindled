@@ -55,6 +55,8 @@ public class EmbersItemTags extends ItemTagsProvider {
 	public static final TagKey<Item> CAMINITE_BRICK = ItemTags.create(new ResourceLocation("forge", "ingots/caminite_brick"));
 	public static final TagKey<Item> ARCHAIC_BRICK = ItemTags.create(new ResourceLocation("forge", "ingots/archaic_brick"));
 
+	public static final TagKey<Item> WORLD_BOTTOM = ItemTags.create(new ResourceLocation(Embers.MODID, "world_bottom"));
+
 	public EmbersItemTags(DataGenerator gen, BlockTagsProvider blockTags, ExistingFileHelper existingFileHelper) {
 		super(gen, blockTags, Embers.MODID, existingFileHelper);
 	}
@@ -115,5 +117,7 @@ public class EmbersItemTags extends ItemTagsProvider {
 		tag(Tags.Items.TOOLS_AXES).add(RegistryManager.CLOCKWORK_AXE.get());
 		tag(Tags.Items.TOOLS).addTag(TOOLS_HAMMERS);
 		tag(TOOLS_HAMMERS).add(RegistryManager.TINKER_HAMMER.get(), RegistryManager.GRANDHAMMER.get());
+
+		copy(EmbersBlockTags.WORLD_BOTTOM, WORLD_BOTTOM);
 	}
 }

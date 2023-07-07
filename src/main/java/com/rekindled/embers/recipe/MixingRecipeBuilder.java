@@ -1,6 +1,6 @@
 package com.rekindled.embers.recipe;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.function.Consumer;
 
 import com.google.gson.JsonArray;
@@ -19,7 +19,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class MixingRecipeBuilder {
 
 	public ResourceLocation id;
-	public HashSet<FluidIngredient> inputs = new HashSet<>();
+	public ArrayList<FluidIngredient> inputs = new ArrayList<>();
 	public FluidStack output;
 
 	public static MixingRecipeBuilder create(FluidStack fluidStack) {

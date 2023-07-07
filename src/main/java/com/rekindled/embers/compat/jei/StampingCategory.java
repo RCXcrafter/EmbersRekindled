@@ -61,7 +61,7 @@ public class StampingCategory implements IRecipeCategory<StampingRecipe> {
 
 		builder.addSlot(RecipeIngredientRole.INPUT, 8, 28).addIngredients(recipe.getDisplayInput());
 
-		builder.addSlot(RecipeIngredientRole.INPUT, 47, 7).addIngredients(recipe.getDisplayStamp());
+		builder.addSlot(RecipeIngredientRole.CATALYST, 47, 7).addIngredients(recipe.getDisplayStamp());
 
 		builder.addSlot(RecipeIngredientRole.OUTPUT, 84, 28).addItemStack(recipe.getResultItem());
 

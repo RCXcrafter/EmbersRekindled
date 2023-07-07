@@ -42,6 +42,8 @@ public class EmbersBlockTags extends BlockTagsProvider {
 	public static final TagKey<Block> NEEDS_CLOCKWORK_HAMMER = BlockTags.create(new ResourceLocation(Embers.MODID, "needs_clockwork_hammer"));
 
 	//tags shared with items
+	public static final TagKey<Block> WORLD_BOTTOM = BlockTags.create(new ResourceLocation(Embers.MODID, "world_bottom"));
+
 	public static final TagKey<Block> LEAD_ORE = BlockTags.create(new ResourceLocation("forge", "ores/lead"));
 	public static final TagKey<Block> RAW_LEAD_BLOCK = BlockTags.create(new ResourceLocation("forge", "storage_blocks/raw_lead"));
 
@@ -178,6 +180,8 @@ public class EmbersBlockTags extends BlockTagsProvider {
 		tag(HEAT_SOURCES).add(Blocks.LAVA, Blocks.FIRE);
 
 		//tags shared with items
+		tag(WORLD_BOTTOM).add(Blocks.BEDROCK);
+
 		tag(Tags.Blocks.ORES).addTags(LEAD_ORE);
 		tag(LEAD_ORE).add(RegistryManager.LEAD_ORE.get()).add(RegistryManager.DEEPSLATE_LEAD_ORE.get());
 

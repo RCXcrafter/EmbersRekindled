@@ -1,17 +1,23 @@
 package com.rekindled.embers.recipe;
 
 import java.util.HashSet;
+import java.util.List;
 
 import org.jetbrains.annotations.Nullable;
 
+import com.google.common.collect.Lists;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.util.WeightedItemStack;
 
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
@@ -19,6 +25,8 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class BoringRecipe implements Recipe<BoringContext> {
 
@@ -31,14 +39,18 @@ public class BoringRecipe implements Recipe<BoringContext> {
 	public final int maxHeight;
 	public final HashSet<ResourceLocation> dimensions;
 	public final HashSet<ResourceLocation> biomes;
+	public final TagKey<Block> requiredBlock;
+	public final int amountRequired;
 
-	public BoringRecipe(ResourceLocation id, WeightedItemStack result, int minHeight, int maxHeight, HashSet<ResourceLocation> dimensions, HashSet<ResourceLocation> biomes) {
+	public BoringRecipe(ResourceLocation id, WeightedItemStack result, int minHeight, int maxHeight, HashSet<ResourceLocation> dimensions, HashSet<ResourceLocation> biomes, TagKey<Block> requiredBlock, int amountRequired) {
 		this.id = id;
 		this.result = result;
 		this.maxHeight = maxHeight;
 		this.minHeight = minHeight;
 		this.dimensions = dimensions;
 		this.biomes = biomes;
+		this.requiredBlock = requiredBlock;
+		this.amountRequired = amountRequired;
 	}
 
 	@Override
@@ -47,6 +59,17 @@ public class BoringRecipe implements Recipe<BoringContext> {
 			return false;
 		if (!biomes.isEmpty() && !biomes.contains(context.biome))
 			return false;
+		if (amountRequired > 0) {
+			int amountLeft = amountRequired;
+			for (BlockState state : context.blocks) {
+				if (state.is(requiredBlock))
+					amountLeft--;
+				if (amountLeft < 1)
+					break;
+			}
+			if (amountLeft > 0)
+				return false;
+		}
 		return context.height >= minHeight && context.height <= maxHeight;
 	}
 
@@ -81,6 +104,14 @@ public class BoringRecipe implements Recipe<BoringContext> {
 
 	public WeightedItemStack getDisplayOutput() {
 		return result;
+	}
+
+	public List<ItemStack> getDisplayInput() {
+		List<ItemStack> list = Lists.newArrayList();
+		for (Holder<Block> holder : Registry.BLOCK.getTagOrEmpty(requiredBlock)) {
+			list.add(new ItemStack(holder.get(), amountRequired));
+		}
+		return list;
 	}
 
 	@Override
@@ -119,8 +150,15 @@ public class BoringRecipe implements Recipe<BoringContext> {
 					biomes.add(new ResourceLocation(element.getAsString()));
 				}
 			}
+			ResourceLocation requiredBlock = null;
+			int amountRequired = 0;
+			JsonObject blockJson = json.getAsJsonObject("required_block");
+			if (blockJson != null) {
+				requiredBlock = new ResourceLocation(blockJson.get("block_tag").getAsString());
+				amountRequired = GsonHelper.getAsInt(blockJson, "amount", 0);
+			}
 
-			return new BoringRecipe(recipeId, new WeightedItemStack(stack, weight), minHeight, maxHeight, dimensions, biomes);
+			return new BoringRecipe(recipeId, new WeightedItemStack(stack, weight), minHeight, maxHeight, dimensions, biomes, BlockTags.create(requiredBlock), amountRequired);
 		}
 
 		@Override
@@ -132,8 +170,10 @@ public class BoringRecipe implements Recipe<BoringContext> {
 			int maxHeight = buffer.readVarInt();
 			HashSet<ResourceLocation> dimensions = buffer.readCollection((i) -> new HashSet<>(), FriendlyByteBuf::readResourceLocation);
 			HashSet<ResourceLocation> biomes = buffer.readCollection((i) -> new HashSet<>(), FriendlyByteBuf::readResourceLocation);
+			ResourceLocation requiredBlock = buffer.readResourceLocation();
+			int amountRequired = buffer.readInt();
 
-			return new BoringRecipe(recipeId, new WeightedItemStack(stack, weight), minHeight, maxHeight, dimensions, biomes);
+			return new BoringRecipe(recipeId, new WeightedItemStack(stack, weight), minHeight, maxHeight, dimensions, biomes, BlockTags.create(requiredBlock), amountRequired);
 		}
 
 		@Override

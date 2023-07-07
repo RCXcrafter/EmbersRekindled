@@ -89,6 +89,7 @@
   "embersrekindled.jei.recipe.boring.dimensions": "Dimensions:",
   "embersrekindled.jei.recipe.boring.max_height": "Max. Height: %s",
   "embersrekindled.jei.recipe.boring.min_height": "Min. Height: %s",
+  "embersrekindled.jei.recipe.boring.required_blocks": "Touching blades",
   "embersrekindled.jei.recipe.boring.weight": "Weight: %s",
   "embersrekindled.jei.recipe.ember_activation": "Ember Activation",
   "embersrekindled.jei.recipe.ember_activation.ember": "Ember: %s",

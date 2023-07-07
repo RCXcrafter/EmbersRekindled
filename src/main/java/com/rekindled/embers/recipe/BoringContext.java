@@ -4,17 +4,20 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class BoringContext implements Container {
 
 	public ResourceLocation dimension;
 	public ResourceLocation biome;
 	public int height;
+	public BlockState[] blocks;
 
-	public BoringContext(ResourceLocation dimension, ResourceLocation biome, int height) {
+	public BoringContext(ResourceLocation dimension, ResourceLocation biome, int height, BlockState[] blocks) {
 		this.dimension = dimension;
 		this.biome = biome;
 		this.height = height;
+		this.blocks = blocks;
 	}
 
 	//useless methods from container that I have to implement to make a recipe

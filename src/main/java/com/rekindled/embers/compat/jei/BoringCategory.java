@@ -32,7 +32,7 @@ public class BoringCategory implements IRecipeCategory<BoringRecipe> {
 	public static ResourceLocation texture = new ResourceLocation(Embers.MODID, "textures/gui/jei_boring.png");
 
 	public BoringCategory(IGuiHelper helper) {
-		background = helper.createDrawable(texture, 0, 0, 126, 126);
+		background = helper.createDrawable(texture, 0, 0, 126, 98);
 		icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(RegistryManager.EMBER_BORE_ITEM.get()));
 	}
 
@@ -59,6 +59,35 @@ public class BoringCategory implements IRecipeCategory<BoringRecipe> {
 	@Override
 	public void setRecipe(IRecipeLayoutBuilder builder, BoringRecipe recipe, IFocusGroup focuses) {
 		builder.addSlot(RecipeIngredientRole.OUTPUT, 6, 6).addItemStack(recipe.getDisplayOutput().getStack());
+		builder.addSlot(RecipeIngredientRole.CATALYST, 6, 26).addItemStacks(recipe.getDisplayInput());
+	}
+
+	public List<Component> getTooltipStrings(BoringRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
+		int height = 48;
+		List<Component> text = new ArrayList<Component>();
+
+		if (recipe.minHeight != Integer.MIN_VALUE)
+			height += 11;
+		if (recipe.maxHeight != Integer.MAX_VALUE)
+			height += 11;
+		if (!recipe.dimensions.isEmpty()) {
+			if (mouseY > height && mouseY < height + 11 && mouseX > 7 && mouseX < 119) {
+				for (ResourceLocation dimension : recipe.dimensions) {
+					text.add(Component.literal(dimension.toString()));
+				}
+			}
+			height += 11;
+		}
+		if (!recipe.biomes.isEmpty()) {
+			if (mouseY > height && mouseY < height + 11 && mouseX > 7 && mouseX < 119) {
+				for (ResourceLocation biome : recipe.biomes) {
+					text.add(Component.literal(biome.toString()));
+				}
+			}
+			height += 11;
+		}
+
+		return text;
 	}
 
 	@SuppressWarnings("resource")
@@ -66,27 +95,28 @@ public class BoringCategory implements IRecipeCategory<BoringRecipe> {
 	public void draw(BoringRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX, double mouseY) { 
 		Font fontRenderer = Minecraft.getInstance().font;
 		Misc.drawComponents(fontRenderer, stack, 28, 10, Component.translatable(Embers.MODID + ".jei.recipe.boring.weight", recipe.getDisplayOutput().getWeight()));
+		Misc.drawComponents(fontRenderer, stack, 28, 30, Component.translatable(Embers.MODID + ".jei.recipe.boring.required_blocks"));
 		List<Component> text = new ArrayList<Component>();
 		if (recipe.minHeight != Integer.MIN_VALUE)
 			text.add(Component.translatable(Embers.MODID + ".jei.recipe.boring.min_height", recipe.minHeight));
 		if (recipe.maxHeight != Integer.MAX_VALUE)
 			text.add(Component.translatable(Embers.MODID + ".jei.recipe.boring.max_height", recipe.maxHeight));
 		if (!recipe.dimensions.isEmpty()) {
-			text.add(Component.translatable(Embers.MODID + ".jei.recipe.boring.dimensions"));
-			for (ResourceLocation dimension : recipe.dimensions) {
-				text.add(Component.literal(dimension.toString()));
-			}
+			text.add(Component.translatable(Embers.MODID + ".jei.recipe.boring.dimensions").withStyle(style -> style.withColor(0xFFB54D)));
+			//for (ResourceLocation dimension : recipe.dimensions) {
+			//text.add(Component.literal(dimension.toString()));
+			//}
 		}
 		if (!recipe.biomes.isEmpty()) {
-			text.add(Component.translatable(Embers.MODID + ".jei.recipe.boring.biomes"));
-			for (ResourceLocation biome : recipe.biomes) {
-				text.add(Component.literal(biome.toString()));
-			}
+			text.add(Component.translatable(Embers.MODID + ".jei.recipe.boring.biomes").withStyle(style -> style.withColor(0xFFB54D)));
+			//for (ResourceLocation biome : recipe.biomes) {
+			//text.add(Component.translatable(biome.toString()));
+			//}
 		}
 		Component[] components = new Component[text.size()];
 		for (int i = 0; i < text.size(); i++) {
 			components[i] = text.get(i);
 		}
-		Misc.drawComponents(fontRenderer, stack, 10, 28, components);
+		Misc.drawComponents(fontRenderer, stack, 10, 48, components);
 	}
 }

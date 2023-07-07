@@ -57,7 +57,7 @@ public class MetalCoefficientCategory implements IRecipeCategory<MetalCoefficien
 
 	@Override
 	public void setRecipe(IRecipeLayoutBuilder builder, MetalCoefficientRecipe recipe, IFocusGroup focuses) {
-		builder.addSlot(RecipeIngredientRole.INPUT, 6, 6).addItemStacks(recipe.getDisplayInput());
+		builder.addSlot(RecipeIngredientRole.CATALYST, 6, 6).addItemStacks(recipe.getDisplayInput());
 	}
 
 	@SuppressWarnings("resource")

@@ -219,6 +219,7 @@ public class EmbersLang extends LanguageProvider {
 		//jei stuff
 		add(Embers.MODID + ".jei.recipe.boring", "Boring");
 		add(Embers.MODID + ".jei.recipe.boring.weight", "Weight: %s");
+		add(Embers.MODID + ".jei.recipe.boring.required_blocks", "Touching blades");
 		add(Embers.MODID + ".jei.recipe.boring.min_height", "Min. Height: %s");
 		add(Embers.MODID + ".jei.recipe.boring.max_height", "Max. Height: %s");
 		add(Embers.MODID + ".jei.recipe.boring.dimensions", "Dimensions:");

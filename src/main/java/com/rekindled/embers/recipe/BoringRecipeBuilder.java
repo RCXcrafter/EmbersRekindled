@@ -10,9 +10,11 @@ import com.rekindled.embers.util.WeightedItemStack;
 
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class BoringRecipeBuilder {
@@ -24,6 +26,8 @@ public class BoringRecipeBuilder {
 	public int maxHeight = Integer.MAX_VALUE;
 	public HashSet<ResourceLocation> dimensions = new HashSet<>();
 	public HashSet<ResourceLocation> biomes = new HashSet<>();
+	public TagKey<Block> requiredBlock = null;
+	public int amountRequired = 0;
 
 	public static BoringRecipeBuilder create(ItemStack itemStack) {
 		BoringRecipeBuilder builder = new BoringRecipeBuilder();
@@ -83,8 +87,14 @@ public class BoringRecipeBuilder {
 		return this;
 	}
 
+	public BoringRecipeBuilder require(TagKey<Block> requiredBlock, int amountRequired) {
+		this.requiredBlock = requiredBlock;
+		this.amountRequired = amountRequired;
+		return this;
+	}
+
 	public BoringRecipe build() {
-		return new BoringRecipe(id, new WeightedItemStack(result, weight), minHeight, maxHeight, dimensions, biomes);
+		return new BoringRecipe(id, new WeightedItemStack(result, weight), minHeight, maxHeight, dimensions, biomes, requiredBlock, amountRequired);
 	}
 
 	public void save(Consumer<FinishedRecipe> consumer) {
@@ -119,6 +129,12 @@ public class BoringRecipeBuilder {
 					biomeJson.add(biome.toString());
 				}
 				json.add("biomes", biomeJson);
+			}
+			if (recipe.amountRequired != 0) {
+				JsonObject blockJson = new JsonObject();
+				blockJson.addProperty("block_tag", recipe.requiredBlock.location().toString());
+				blockJson.addProperty("amount", recipe.amountRequired);
+				json.add("required_block", blockJson);
 			}
 			JsonObject resultJson = new JsonObject();
 			resultJson.addProperty("item", ForgeRegistries.ITEMS.getKey(recipe.result.getStack().getItem()).toString());

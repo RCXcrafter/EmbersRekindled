@@ -81,7 +81,11 @@ public class EmberBoreBlockEntity extends BlockEntity implements ISoundControlle
 
 	@Override
 	public AABB getRenderBoundingBox() {
-		return new AABB(worldPosition.offset(-1, -2, -1), worldPosition.offset(2, 0, 2));
+		return new AABB(worldPosition.offset(-1, -2, -1), worldPosition.offset(2, -1, 2));
+	}
+
+	public AABB getBladeBoundingBox() {
+		return new AABB(worldPosition.offset(-1, -2, -1), worldPosition.offset(1, -1, 1));
 	}
 
 	@Override
@@ -118,7 +122,7 @@ public class EmberBoreBlockEntity extends BlockEntity implements ISoundControlle
 		if (canMine == null) {
 			ResourceKey<Biome> biome = level.getBiome(worldPosition).unwrapKey().get();
 			if (biome != null) {
-				BoringContext context = new BoringContext(level.dimension().location(), biome.location(), worldPosition.getY());
+				BoringContext context = new BoringContext(level.dimension().location(), biome.location(), worldPosition.getY(), level.getBlockStatesIfLoaded(getBladeBoundingBox()).toArray(i -> new BlockState[i]));
 				List<BoringRecipe> recipes = level.getRecipeManager().getRecipesFor(RegistryManager.BORING.get(), context, level);
 				canMine = !recipes.isEmpty();
 			} else {
@@ -191,7 +195,7 @@ public class EmberBoreBlockEntity extends BlockEntity implements ISoundControlle
 					if (blockEntity.random.nextFloat() < EmberGenUtil.getEmberDensity(((ServerLevel) level).getSeed(), pos.getX(), pos.getZ())) {
 						ResourceKey<Biome> biome = level.getBiome(pos).unwrapKey().get();
 						if (biome != null) {
-							BoringContext context = new BoringContext(level.dimension().location(), biome.location(), pos.getY());
+							BoringContext context = new BoringContext(level.dimension().location(), biome.location(), pos.getY(), level.getBlockStatesIfLoaded(blockEntity.getBladeBoundingBox()).toArray(i -> new BlockState[i]));
 							List<BoringRecipe> recipes = level.getRecipeManager().getRecipesFor(RegistryManager.BORING.get(), context, level);
 							ArrayList<WeightedItemStack> stacks = new ArrayList<>();
 							for (BoringRecipe recipe : recipes) {

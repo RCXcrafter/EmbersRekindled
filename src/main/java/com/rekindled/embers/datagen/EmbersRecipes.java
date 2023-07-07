@@ -56,13 +56,13 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 	public void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
 		//boring
 		ResourceLocation overworld = new ResourceLocation("overworld");
-		BoringRecipeBuilder.create(RegistryManager.EMBER_CRYSTAL.get()).folder(boringFolder).dimension(overworld).weight(20).maxHeight(-57).save(consumer);
-		BoringRecipeBuilder.create(RegistryManager.EMBER_SHARD.get()).folder(boringFolder).dimension(overworld).weight(60).maxHeight(-57).save(consumer);
-		BoringRecipeBuilder.create(RegistryManager.EMBER_GRIT.get()).folder(boringFolder).dimension(overworld).weight(20).maxHeight(-57).save(consumer);
+		BoringRecipeBuilder.create(RegistryManager.EMBER_CRYSTAL.get()).folder(boringFolder).dimension(overworld).require(EmbersBlockTags.WORLD_BOTTOM, 3).weight(20).maxHeight(-57).save(consumer);
+		BoringRecipeBuilder.create(RegistryManager.EMBER_SHARD.get()).folder(boringFolder).dimension(overworld).require(EmbersBlockTags.WORLD_BOTTOM, 3).weight(60).maxHeight(-57).save(consumer);
+		BoringRecipeBuilder.create(RegistryManager.EMBER_GRIT.get()).folder(boringFolder).dimension(overworld).require(EmbersBlockTags.WORLD_BOTTOM, 3).weight(20).maxHeight(-57).save(consumer);
 		ResourceLocation nether = new ResourceLocation("the_nether");
-		BoringRecipeBuilder.create(RegistryManager.EMBER_CRYSTAL.get()).folder(boringFolder + "/nether").dimension(nether).weight(20).maxHeight(7).save(consumer);
-		BoringRecipeBuilder.create(RegistryManager.EMBER_SHARD.get()).folder(boringFolder + "/nether").dimension(nether).weight(60).maxHeight(7).save(consumer);
-		BoringRecipeBuilder.create(RegistryManager.EMBER_GRIT.get()).folder(boringFolder + "/nether").dimension(nether).weight(20).maxHeight(7).save(consumer);
+		BoringRecipeBuilder.create(RegistryManager.EMBER_CRYSTAL.get()).folder(boringFolder + "/nether").dimension(nether).require(EmbersBlockTags.WORLD_BOTTOM, 3).weight(20).maxHeight(7).save(consumer);
+		BoringRecipeBuilder.create(RegistryManager.EMBER_SHARD.get()).folder(boringFolder + "/nether").dimension(nether).require(EmbersBlockTags.WORLD_BOTTOM, 3).weight(60).maxHeight(7).save(consumer);
+		BoringRecipeBuilder.create(RegistryManager.EMBER_GRIT.get()).folder(boringFolder + "/nether").dimension(nether).require(EmbersBlockTags.WORLD_BOTTOM, 3).weight(20).maxHeight(7).save(consumer);
 
 		//activation
 		EmberActivationRecipeBuilder.create(RegistryManager.EMBER_CRYSTAL.get()).folder(activationFolder).ember(2400).save(consumer);

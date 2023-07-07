@@ -1,5 +1,6 @@
 package com.rekindled.embers.recipe;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 import org.jetbrains.annotations.Nullable;
@@ -28,10 +29,10 @@ public class MixingRecipe implements Recipe<MixingContext> {
 
 	public final ResourceLocation id;
 
-	public final HashSet<FluidIngredient> inputs;
+	public final ArrayList<FluidIngredient> inputs;
 	public final FluidStack output;
 
-	public MixingRecipe(ResourceLocation id, HashSet<FluidIngredient> inputs, FluidStack output) {
+	public MixingRecipe(ResourceLocation id, ArrayList<FluidIngredient> inputs, FluidStack output) {
 		this.id = id;
 		this.inputs = inputs;
 		this.output = output;
@@ -106,7 +107,7 @@ public class MixingRecipe implements Recipe<MixingContext> {
 		return RegistryManager.MIXING.get();
 	}
 
-	public HashSet<FluidIngredient> getDisplayInputFluids() {
+	public ArrayList<FluidIngredient> getDisplayInputFluids() {
 		return inputs;
 	}
 
@@ -137,7 +138,7 @@ public class MixingRecipe implements Recipe<MixingContext> {
 		@Override
 		public MixingRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
 			FluidStack output = Misc.deserializeFluidStack(GsonHelper.getAsJsonObject(json, "output"));
-			HashSet<FluidIngredient> inputs = new HashSet<>();
+			ArrayList<FluidIngredient> inputs = new ArrayList<>();
 
 			JsonArray inputJson = GsonHelper.getAsJsonArray(json, "inputs", null);
 			if (inputJson != null) {
@@ -151,7 +152,7 @@ public class MixingRecipe implements Recipe<MixingContext> {
 
 		@Override
 		public @Nullable MixingRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
-			HashSet<FluidIngredient> inputs = buffer.readCollection((i) -> new HashSet<>(), (buf) -> FluidIngredient.read(buf));
+			ArrayList<FluidIngredient> inputs = buffer.readCollection((i) -> new ArrayList<>(), (buf) -> FluidIngredient.read(buf));
 			FluidStack output = FluidStack.readFromPacket(buffer);
 
 			return new MixingRecipe(recipeId, inputs, output);

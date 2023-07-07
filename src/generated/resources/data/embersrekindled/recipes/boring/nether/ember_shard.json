@@ -7,5 +7,9 @@
   "output": {
     "item": "embersrekindled:ember_shard"
   },
+  "required_block": {
+    "amount": 3,
+    "block_tag": "embersrekindled:world_bottom"
+  },
   "weight": 60
 }

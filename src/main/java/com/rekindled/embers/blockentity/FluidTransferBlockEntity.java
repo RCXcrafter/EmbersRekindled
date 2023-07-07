@@ -41,6 +41,7 @@ public class FluidTransferBlockEntity extends FluidPipeBlockEntityBase {
 		tank = new FluidTank(getCapacity()) {
 			@Override
 			protected void onContentsChanged() {
+				FluidTransferBlockEntity.this.syncTank = true;
 				FluidTransferBlockEntity.this.setChanged();
 			}
 
