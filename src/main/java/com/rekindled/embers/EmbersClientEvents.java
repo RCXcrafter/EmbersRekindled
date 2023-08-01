@@ -62,15 +62,17 @@ public class EmbersClientEvents {
 	public static void onClientTick(ClientTickEvent event) {
 		if (event.side == LogicalSide.CLIENT && event.phase == Phase.START) {
 			Minecraft mc = Minecraft.getInstance();
-			ticks++;
+			if (!mc.isPaused()) {
+				ticks++;
 
-			if (mc.hitResult instanceof BlockHitResult result) {
-				Level world = mc.level;
-				if (result != null && world != null) {
-					if (result.getType() == BlockHitResult.Type.BLOCK) {
-						BlockState state = world.getBlockState(result.getBlockPos());
-						if (state.getBlock() instanceof IDial) {
-							((IDial) state.getBlock()).updateBEData(world, state, result.getBlockPos());
+				if (mc.hitResult instanceof BlockHitResult result) {
+					Level world = mc.level;
+					if (result != null && world != null) {
+						if (result.getType() == BlockHitResult.Type.BLOCK) {
+							BlockState state = world.getBlockState(result.getBlockPos());
+							if (state.getBlock() instanceof IDial) {
+								((IDial) state.getBlock()).updateBEData(world, state, result.getBlockPos());
+							}
 						}
 					}
 				}

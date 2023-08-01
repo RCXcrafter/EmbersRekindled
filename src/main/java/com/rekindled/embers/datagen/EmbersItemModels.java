@@ -34,6 +34,7 @@ public class EmbersItemModels extends ItemModelProvider {
 		basicItem(RegistryManager.ATMOSPHERIC_GAUGE.get());
 		layeredItem(RegistryManager.EMBER_JAR, "ember_jar_glass", "ember_jar_glass_shine", "ember_jar");
 		layeredItem(RegistryManager.EMBER_CARTRIDGE, "ember_cartridge_glass", "ember_cartridge_glass_shine", "ember_cartridge");
+		basicItem(RegistryManager.ALCHEMICAL_WASTE.get());
 
 		basicItem(RegistryManager.EMBER_CRYSTAL.get());
 		basicItem(RegistryManager.EMBER_SHARD.get());
@@ -52,6 +53,12 @@ public class EmbersItemModels extends ItemModelProvider {
 		basicItem(RegistryManager.INGOT_STAMP.get());
 		basicItem(RegistryManager.NUGGET_STAMP.get());
 		basicItem(RegistryManager.PLATE_STAMP.get());
+
+		itemWithTexture(RegistryManager.IRON_ASPECTUS, "aspectus_iron");
+		itemWithTexture(RegistryManager.COPPER_ASPECTUS, "aspectus_copper");
+		itemWithTexture(RegistryManager.LEAD_ASPECTUS, "aspectus_lead");
+		itemWithTexture(RegistryManager.SILVER_ASPECTUS, "aspectus_silver");
+		itemWithTexture(RegistryManager.DAWNSTONE_ASPECTUS, "aspectus_dawnstone");
 
 		itemWithTexture(RegistryManager.IRON_PLATE, "plate_iron");
 		//itemWithTexture(RegistryManager.GOLD_PLATE, "plate_gold");

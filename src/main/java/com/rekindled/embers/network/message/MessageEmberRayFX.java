@@ -23,7 +23,7 @@ public class MessageEmberRayFX {
 		super();
 	}
 
-	public MessageEmberRayFX(double x, double y, double z, double dX, double dY, double dZ, double hitDistance, int packedColor){
+	public MessageEmberRayFX(double x, double y, double z, double dX, double dY, double dZ, double hitDistance, int packedColor) {
 		super();
 		this.posX = x;
 		this.posY = y;

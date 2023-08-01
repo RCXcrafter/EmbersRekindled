@@ -22,6 +22,13 @@ public class EmbersItemTags extends ItemTagsProvider {
 
 	public static final TagKey<Item> TOOLS_HAMMERS = ItemTags.create(new ResourceLocation("forge", "tools/hammers"));
 
+	public static final TagKey<Item> ASPECTUS = ItemTags.create(new ResourceLocation(Embers.MODID, "aspectus"));
+	public static final TagKey<Item> IRON_ASPECTUS = ItemTags.create(new ResourceLocation(Embers.MODID, "aspectus/iron"));
+	public static final TagKey<Item> COPPER_ASPECTUS = ItemTags.create(new ResourceLocation(Embers.MODID, "aspectus/copper"));
+	public static final TagKey<Item> LEAD_ASPECTUS = ItemTags.create(new ResourceLocation(Embers.MODID, "aspectus/lead"));
+	public static final TagKey<Item> SILVER_ASPECTUS = ItemTags.create(new ResourceLocation(Embers.MODID, "aspectus/silver"));
+	public static final TagKey<Item> DAWNSTONE_ASPECTUS = ItemTags.create(new ResourceLocation(Embers.MODID, "aspectus/dawnstone"));
+
 	public static final TagKey<Item> PLATES = ItemTags.create(new ResourceLocation("forge", "plates"));
 	public static final TagKey<Item> IRON_PLATE = ItemTags.create(new ResourceLocation("forge", "plates/iron"));
 	//public static final TagKey<Item> GOLD_PLATE = ItemTags.create(new ResourceLocation("forge", "plates/gold"));
@@ -66,6 +73,13 @@ public class EmbersItemTags extends ItemTagsProvider {
 	protected void addTags() {
 		tag(PIPE_UNCLOGGER).addTag(Tags.Items.RODS);
 		tag(TINKER_HAMMER).add(RegistryManager.TINKER_HAMMER.get());
+
+		tag(ASPECTUS).addTags(IRON_ASPECTUS, COPPER_ASPECTUS, LEAD_ASPECTUS, SILVER_ASPECTUS, DAWNSTONE_ASPECTUS);
+		tag(IRON_ASPECTUS).add(RegistryManager.IRON_ASPECTUS.get());
+		tag(COPPER_ASPECTUS).add(RegistryManager.COPPER_ASPECTUS.get());
+		tag(LEAD_ASPECTUS).add(RegistryManager.LEAD_ASPECTUS.get());
+		tag(SILVER_ASPECTUS).add(RegistryManager.SILVER_ASPECTUS.get());
+		tag(DAWNSTONE_ASPECTUS).add(RegistryManager.DAWNSTONE_ASPECTUS.get());
 
 		tag(Tags.Items.ORES).addTags(LEAD_ORE, SILVER_ORE);
 		tag(LEAD_ORE).add(RegistryManager.LEAD_ORE_ITEM.get()).add(RegistryManager.DEEPSLATE_LEAD_ORE_ITEM.get());

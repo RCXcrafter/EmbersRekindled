@@ -525,6 +525,44 @@ public class EmbersBlockStates extends BlockStateProvider {
 				.texture("particle", new ResourceLocation(Embers.MODID, "block/fluid_transfer_side"));
 		directionalBlock(RegistryManager.FLUID_TRANSFER.get(), state -> state.getValue(ItemTransferBlock.FILTER) ? fluidTransferFilterModel : fluidTransferModel, 180);
 		simpleBlockItem(RegistryManager.FLUID_TRANSFER.get(), fluidTransferModel);
+
+		getVariantBuilder(RegistryManager.ALCHEMY_PEDESTAL.get()).forAllStates(state -> {
+			return ConfiguredModel.builder()
+					.modelFile(state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER ? models().getExistingFile(new ResourceLocation(Embers.MODID, "alchemy_pedestal_bottom")) : models().getExistingFile(new ResourceLocation(Embers.MODID, "alchemy_pedestal_top")))
+					.uvLock(false)
+					.build();
+		});
+
+		blockWithItem(RegistryManager.ALCHEMY_TABLET, "alchemy_tablet");
+
+		ExistingModelFile cannonModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "beam_cannon"));
+		simpleBlockItem(RegistryManager.BEAM_CANNON.get(), cannonModel);
+
+		getMultipartBuilder(RegistryManager.BEAM_CANNON.get())
+		.part().modelFile(cannonModel).addModel()
+		.condition(BlockStateProperties.FACING, Direction.UP).end()
+		.part().modelFile(cannonModel).rotationX(180).addModel()
+		.condition(BlockStateProperties.FACING, Direction.DOWN).end()
+		.part().modelFile(cannonModel).rotationX(90).addModel()
+		.condition(BlockStateProperties.FACING, Direction.NORTH).end()
+		.part().modelFile(cannonModel).rotationX(90).rotationY(180).addModel()
+		.condition(BlockStateProperties.FACING, Direction.SOUTH).end()
+		.part().modelFile(cannonModel).rotationX(90).rotationY(90).addModel()
+		.condition(BlockStateProperties.FACING, Direction.EAST).end()
+		.part().modelFile(cannonModel).rotationX(90).rotationY(270).addModel()
+		.condition(BlockStateProperties.FACING, Direction.WEST).end()
+		.part().modelFile(fluidPipeEndModel).addModel()
+		.condition(BlockStateProperties.DOWN, true).end()
+		.part().modelFile(fluidPipeEndModel2).rotationX(180).addModel()
+		.condition(BlockStateProperties.UP, true).end()
+		.part().modelFile(fluidPipeEndModel).rotationX(90).addModel()
+		.condition(BlockStateProperties.SOUTH, true).end()
+		.part().modelFile(fluidPipeEndModel2).rotationX(90).rotationY(180).addModel()
+		.condition(BlockStateProperties.NORTH, true).end()
+		.part().modelFile(fluidPipeEndModel).rotationX(90).rotationY(90).addModel()
+		.condition(BlockStateProperties.WEST, true).end()
+		.part().modelFile(fluidPipeEndModel2).rotationX(90).rotationY(270).addModel()
+		.condition(BlockStateProperties.EAST, true).end();
 	}
 
 	public void blockWithItem(RegistryObject<? extends Block> registryObject) {

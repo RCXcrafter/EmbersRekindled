@@ -1,0 +1,116 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "embersrekindled:block/beam_cannon"
+      },
+      "when": {
+        "facing": "up"
+      }
+    },
+    {
+      "apply": {
+        "model": "embersrekindled:block/beam_cannon",
+        "x": 180
+      },
+      "when": {
+        "facing": "down"
+      }
+    },
+    {
+      "apply": {
+        "model": "embersrekindled:block/beam_cannon",
+        "x": 90
+      },
+      "when": {
+        "facing": "north"
+      }
+    },
+    {
+      "apply": {
+        "model": "embersrekindled:block/beam_cannon",
+        "x": 90,
+        "y": 180
+      },
+      "when": {
+        "facing": "south"
+      }
+    },
+    {
+      "apply": {
+        "model": "embersrekindled:block/beam_cannon",
+        "x": 90,
+        "y": 90
+      },
+      "when": {
+        "facing": "east"
+      }
+    },
+    {
+      "apply": {
+        "model": "embersrekindled:block/beam_cannon",
+        "x": 90,
+        "y": 270
+      },
+      "when": {
+        "facing": "west"
+      }
+    },
+    {
+      "apply": {
+        "model": "embersrekindled:block/fluid_pipe_end"
+      },
+      "when": {
+        "down": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "embersrekindled:block/fluid_pipe_end_2",
+        "x": 180
+      },
+      "when": {
+        "up": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "embersrekindled:block/fluid_pipe_end",
+        "x": 90
+      },
+      "when": {
+        "south": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "embersrekindled:block/fluid_pipe_end_2",
+        "x": 90,
+        "y": 180
+      },
+      "when": {
+        "north": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "embersrekindled:block/fluid_pipe_end",
+        "x": 90,
+        "y": 90
+      },
+      "when": {
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "embersrekindled:block/fluid_pipe_end_2",
+        "x": 90,
+        "y": 270
+      },
+      "when": {
+        "east": "true"
+      }
+    }
+  ]
+}

@@ -3,6 +3,8 @@ package com.rekindled.embers.util;
 import java.awt.Color;
 
 import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Matrix4f;
 import com.rekindled.embers.EmbersClientEvents;
 
 import net.minecraft.client.Minecraft;
@@ -71,5 +73,50 @@ public class RenderUtil {
 			b.vertex(tx, ty, z).color(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, 0.0f).endVertex();
 			b.vertex(tx2, ty2, z).color(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, 0.0f).endVertex();
 		}
+	}
+
+	public static void renderAlchemyCircle(VertexConsumer buf, Matrix4f matrix4f, float x, float y, float z, float r, float g, float b, float a, float radius, float angle) {
+		float sign = 1;
+		/*if (Minecraft.getInstance().player.position().y+Minecraft.getInstance().player.getEyeHeight() < y) {
+			sign = -1;
+		}*/
+		int lightx = 0xF000F0;
+		int lighty = 0xF000F0;
+		for (float i = 0; i < 360; i += 10) {
+			float tx = (float) Math.sin(Math.toRadians(i+angle));
+			float tz = (float) Math.cos(Math.toRadians(i+angle));
+			float tx2 = (float) Math.sin(Math.toRadians(i+angle+10));
+			float tz2 = (float) Math.cos(Math.toRadians(i+angle+10));
+			buf.vertex(matrix4f, x+radius*tx, y, z+radius*tz).uv(0, 0).uv2(lightx, lighty).color(r, g, b, a).endVertex();
+			buf.vertex(matrix4f, x+(radius+0.25f)*tx, y, z+(radius+0.25f)*tz).uv(0, 0.5f).uv2(lightx, lighty).color(r, g, b, a).endVertex();
+			buf.vertex(matrix4f, x+(radius+0.25f)*tx2, y, z+(radius+0.25f)*tz2).uv(1, 0.5f).uv2(lightx, lighty).color(r, g, b, a).endVertex();
+			buf.vertex(matrix4f, x+radius*tx2, y, z+radius*tz2).uv(1, 0).uv2(lightx, lighty).color(r, g, b, a).endVertex();
+		}
+		float ax = (float) ((radius+0.24)*Math.sin(Math.toRadians(0+angle)));
+		float az = (float) ((radius+0.24)*Math.cos(Math.toRadians(0+angle)));
+		float adx = (float) ((0.1875)*Math.cos(Math.toRadians(0+angle)));
+		float adz = (float) ((0.1875)*-Math.sin(Math.toRadians(0+angle)));
+		float bx = (float) ((radius+0.24)*Math.sin(Math.toRadians(120+angle)));
+		float bz = (float) ((radius+0.24)*Math.cos(Math.toRadians(120+angle)));
+		float bdx = (float) ((0.1875)*Math.cos(Math.toRadians(120+angle)));
+		float bdz = (float) ((0.1875)*-Math.sin(Math.toRadians(120+angle)));
+		float cx = (float) ((radius+0.24)*Math.sin(Math.toRadians(240+angle)));
+		float cz = (float) ((radius+0.24)*Math.cos(Math.toRadians(240+angle)));
+		float cdx = (float) ((0.1875)*Math.cos(Math.toRadians(240+angle)));
+		float cdz = (float) ((0.1875)*-Math.sin(Math.toRadians(240+angle)));
+		buf.vertex(matrix4f, x+(ax-adx), y+0.00005f*sign, z+(az-adz)).uv(0, 0.5f).uv2(lightx, lighty).color(r, g, b, a).endVertex();
+		buf.vertex(matrix4f, x+(ax+adx), y+0.00005f*sign, z+(az+adz)).uv(0, 1).uv2(lightx, lighty).color(r, g, b, a).endVertex();
+		buf.vertex(matrix4f, x+(bx-bdx), y+0.00005f*sign, z+(bz-bdz)).uv(1, 1).uv2(lightx, lighty).color(r, g, b, a).endVertex();
+		buf.vertex(matrix4f, x+(bx+bdx), y+0.00005f*sign, z+(bz+bdz)).uv(1, 0.5f).uv2(lightx, lighty).color(r, g, b, a).endVertex();
+
+		buf.vertex(matrix4f, x+(bx-bdx), y+0.0001f*sign, z+(bz-bdz)).uv(0, 0.5f).uv2(lightx, lighty).color(r, g, b, a).endVertex();
+		buf.vertex(matrix4f, x+(bx+bdx), y+0.0001f*sign, z+(bz+bdz)).uv(0, 1).uv2(lightx, lighty).color(r, g, b, a).endVertex();
+		buf.vertex(matrix4f, x+(cx-cdx), y+0.0001f*sign, z+(cz-cdz)).uv(1, 1).uv2(lightx, lighty).color(r, g, b, a).endVertex();
+		buf.vertex(matrix4f, x+(cx+cdx), y+0.0001f*sign, z+(cz+cdz)).uv(1, 0.5f).uv2(lightx, lighty).color(r, g, b, a).endVertex();
+
+		buf.vertex(matrix4f, x+(ax-adx), y+0.00015f*sign, z+(az-adz)).uv(0, 0.5f).uv2(lightx, lighty).color(r, g, b, a).endVertex();
+		buf.vertex(matrix4f, x+(ax+adx), y+0.00015f*sign, z+(az+adz)).uv(0, 1).uv2(lightx, lighty).color(r, g, b, a).endVertex();
+		buf.vertex(matrix4f, x+(cx-cdx), y+0.00015f*sign, z+(cz-cdz)).uv(1, 1).uv2(lightx, lighty).color(r, g, b, a).endVertex();
+		buf.vertex(matrix4f, x+(cx+cdx), y+0.00015f*sign, z+(cz+cdz)).uv(1, 0.5f).uv2(lightx, lighty).color(r, g, b, a).endVertex();
 	}
 }

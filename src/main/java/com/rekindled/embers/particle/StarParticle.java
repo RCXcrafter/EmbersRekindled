@@ -13,14 +13,17 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class StarParticle extends TextureSheetParticle {
-	
+
 	public float rotScale = random.nextFloat() * 0.1f + 0.05f;
 
 	public StarParticle(ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed, StarParticleOptions pOptions, SpriteSet pSprites) {
 		super(pLevel, pX, pY, pZ, pXSpeed, pYSpeed, pZSpeed);
-		this.friction = 0.6F;
+		this.friction = 1.0F;
 		this.speedUpWhenYMotionIsBlocked = true;
 		this.hasPhysics = false;
+		this.xd = pXSpeed;
+		this.yd = pYSpeed;
+		this.zd = pZSpeed;
 		this.xd *= (double)0.1F;
 		this.yd *= (double)0.1F;
 		this.zd *= (double)0.1F;

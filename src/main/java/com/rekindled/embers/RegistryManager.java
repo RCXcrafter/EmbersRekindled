@@ -10,7 +10,10 @@ import java.util.function.Supplier;
 import javax.annotation.Nullable;
 
 import com.mojang.serialization.Codec;
+import com.rekindled.embers.block.AlchemyPedestalBlock;
+import com.rekindled.embers.block.AlchemyTabletBlock;
 import com.rekindled.embers.block.ArchaicLightBlock;
+import com.rekindled.embers.block.BeamCannonBlock;
 import com.rekindled.embers.block.BeamSplitterBlock;
 import com.rekindled.embers.block.BinBlock;
 import com.rekindled.embers.block.CaminiteRingBlock;
@@ -58,6 +61,10 @@ import com.rekindled.embers.block.ReservoirEdgeBlock;
 import com.rekindled.embers.block.StampBaseBlock;
 import com.rekindled.embers.block.StamperBlock;
 import com.rekindled.embers.block.WaterloggableLeverBlock;
+import com.rekindled.embers.blockentity.AlchemyPedestalTopBlockEntity;
+import com.rekindled.embers.blockentity.AlchemyPedestalBlockEntity;
+import com.rekindled.embers.blockentity.AlchemyTabletBlockEntity;
+import com.rekindled.embers.blockentity.BeamCannonBlockEntity;
 import com.rekindled.embers.blockentity.BeamSplitterBlockEntity;
 import com.rekindled.embers.blockentity.BinBlockEntity;
 import com.rekindled.embers.blockentity.CaminiteValveBlockEntity;
@@ -103,6 +110,7 @@ import com.rekindled.embers.entity.EmberPacketEntity;
 import com.rekindled.embers.entity.EmberProjectileEntity;
 import com.rekindled.embers.fluidtypes.EmbersFluidType.FluidInfo;
 import com.rekindled.embers.fluidtypes.MoltenMetalFluidType;
+import com.rekindled.embers.item.AlchemyHintItem;
 import com.rekindled.embers.item.AncientCodexItem;
 import com.rekindled.embers.item.BlazingRayItem;
 import com.rekindled.embers.item.CinderStaffItem;
@@ -116,11 +124,13 @@ import com.rekindled.embers.item.FluidVesselBlockItem;
 import com.rekindled.embers.item.FuelItem;
 import com.rekindled.embers.item.TinkerHammerItem;
 import com.rekindled.embers.item.TinkerLensItem;
+import com.rekindled.embers.particle.AlchemyCircleParticleOptions;
 import com.rekindled.embers.particle.GlowParticleOptions;
 import com.rekindled.embers.particle.SmokeParticleOptions;
 import com.rekindled.embers.particle.SparkParticleOptions;
 import com.rekindled.embers.particle.StarParticleOptions;
 import com.rekindled.embers.particle.VaporParticleOptions;
+import com.rekindled.embers.recipe.AlchemyRecipe;
 import com.rekindled.embers.recipe.BoringRecipe;
 import com.rekindled.embers.recipe.EmberActivationRecipe;
 import com.rekindled.embers.recipe.MeltingRecipe;
@@ -309,6 +319,9 @@ public class RegistryManager {
 	public static final RegistryObject<Block> EMBER_SIPHON = BLOCKS.register("ember_siphon", () -> new EmberSiphonBlock(Properties.of(Material.METAL, MaterialColor.COLOR_GRAY).sound(SoundType.METAL).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
 	public static final RegistryObject<Block> ITEM_TRANSFER = BLOCKS.register("item_transfer", () -> new ItemTransferBlock(Properties.of(Material.METAL, MaterialColor.TERRACOTTA_PURPLE).sound(SoundType.METAL).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
 	public static final RegistryObject<Block> FLUID_TRANSFER = BLOCKS.register("fluid_transfer", () -> new FluidTransferBlock(Properties.of(Material.METAL, MaterialColor.TERRACOTTA_PURPLE).sound(SoundType.METAL).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
+	public static final RegistryObject<Block> ALCHEMY_PEDESTAL = BLOCKS.register("alchemy_pedestal", () -> new AlchemyPedestalBlock(Properties.of(Material.STONE, MaterialColor.TERRACOTTA_YELLOW).sound(SoundType.STONE).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
+	public static final RegistryObject<Block> ALCHEMY_TABLET = BLOCKS.register("alchemy_tablet", () -> new AlchemyTabletBlock(Properties.of(Material.STONE, MaterialColor.TERRACOTTA_YELLOW).sound(SoundType.STONE).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
+	public static final RegistryObject<Block> BEAM_CANNON = BLOCKS.register("beam_cannon", () -> new BeamCannonBlock(Properties.of(Material.STONE, MaterialColor.NONE).sound(SoundType.STONE).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
 
 	//itemblocks
 	public static final RegistryObject<Item> LEAD_ORE_ITEM = ITEMS.register("lead_ore", () -> new BlockItem(LEAD_ORE.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
@@ -370,6 +383,9 @@ public class RegistryManager {
 	public static final RegistryObject<Item> EMBER_SIPHON_ITEM = ITEMS.register("ember_siphon", () -> new BlockItem(EMBER_SIPHON.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
 	public static final RegistryObject<Item> ITEM_TRANSFER_ITEM = ITEMS.register("item_transfer", () -> new BlockItem(ITEM_TRANSFER.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
 	public static final RegistryObject<Item> FLUID_TRANSFER_ITEM = ITEMS.register("fluid_transfer", () -> new BlockItem(FLUID_TRANSFER.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
+	public static final RegistryObject<Item> ALCHEMY_PEDESTAL_ITEM = ITEMS.register("alchemy_pedestal", () -> new BlockItem(ALCHEMY_PEDESTAL.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
+	public static final RegistryObject<Item> ALCHEMY_TABLET_ITEM = ITEMS.register("alchemy_tablet", () -> new BlockItem(ALCHEMY_TABLET.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
+	public static final RegistryObject<Item> BEAM_CANNON_ITEM = ITEMS.register("beam_cannon", () -> new BlockItem(BEAM_CANNON.get(), new Item.Properties().tab(Embers.TAB_EMBERS)));
 
 	//items
 	public static final RegistryObject<Item> TINKER_HAMMER = ITEMS.register("tinker_hammer", () -> new TinkerHammerItem(new Item.Properties().stacksTo(1).tab(Embers.TAB_EMBERS)));
@@ -383,6 +399,7 @@ public class RegistryManager {
 	public static final RegistryObject<Item> GRANDHAMMER = ITEMS.register("grandhammer", () -> new ClockworkHammerItem(new Item.Properties().stacksTo(1).tab(Embers.TAB_EMBERS)));
 	public static final RegistryObject<Item> BLAZING_RAY = ITEMS.register("blazing_ray", () -> new BlazingRayItem(new Item.Properties().stacksTo(1).tab(Embers.TAB_EMBERS)));
 	public static final RegistryObject<Item> CINDER_STAFF = ITEMS.register("cinder_staff", () -> new CinderStaffItem(new Item.Properties().stacksTo(1).tab(Embers.TAB_EMBERS)));
+	public static final RegistryObject<Item> ALCHEMICAL_WASTE = ITEMS.register("alchemical_waste", () -> new AlchemyHintItem(new Item.Properties().stacksTo(1).tab(Embers.TAB_EMBERS)));
 
 	public static final RegistryObject<Item> EMBER_CRYSTAL = ITEMS.register("ember_crystal", () -> new Item(new Item.Properties().tab(Embers.TAB_EMBERS)));
 	public static final RegistryObject<Item> EMBER_SHARD = ITEMS.register("ember_shard", () -> new Item(new Item.Properties().tab(Embers.TAB_EMBERS)));
@@ -401,6 +418,12 @@ public class RegistryManager {
 	public static final RegistryObject<Item> INGOT_STAMP = ITEMS.register("ingot_stamp", () -> new Item(new Item.Properties().tab(Embers.TAB_EMBERS)));
 	public static final RegistryObject<Item> NUGGET_STAMP = ITEMS.register("nugget_stamp", () -> new Item(new Item.Properties().tab(Embers.TAB_EMBERS)));
 	public static final RegistryObject<Item> PLATE_STAMP = ITEMS.register("plate_stamp", () -> new Item(new Item.Properties().tab(Embers.TAB_EMBERS)));
+
+	public static final RegistryObject<Item> IRON_ASPECTUS = ITEMS.register("iron_aspectus", () -> new Item(new Item.Properties().tab(Embers.TAB_EMBERS)));
+	public static final RegistryObject<Item> COPPER_ASPECTUS = ITEMS.register("copper_aspectus", () -> new Item(new Item.Properties().tab(Embers.TAB_EMBERS)));
+	public static final RegistryObject<Item> LEAD_ASPECTUS = ITEMS.register("lead_aspectus", () -> new Item(new Item.Properties().tab(Embers.TAB_EMBERS)));
+	public static final RegistryObject<Item> SILVER_ASPECTUS = ITEMS.register("silver_aspectus", () -> new Item(new Item.Properties().tab(Embers.TAB_EMBERS)));
+	public static final RegistryObject<Item> DAWNSTONE_ASPECTUS = ITEMS.register("dawnstone_aspectus", () -> new Item(new Item.Properties().tab(Embers.TAB_EMBERS)));
 
 	public static final RegistryObject<Item> IRON_PLATE = ITEMS.register("iron_plate", () -> new Item(new Item.Properties().tab(Embers.TAB_EMBERS)));
 	//public static final RegistryObject<Item> GOLD_PLATE = ITEMS.register("gold_plate", () -> new Item(new Item.Properties().tab(Embers.TAB_EMBERS)));
@@ -495,6 +518,10 @@ public class RegistryManager {
 	public static final RegistryObject<BlockEntityType<EmberSiphonBlockEntity>> EMBER_SIPHON_ENTITY = BLOCK_ENTITY_TYPES.register("ember_siphon", () -> BlockEntityType.Builder.of(EmberSiphonBlockEntity::new, EMBER_SIPHON.get()).build(null));
 	public static final RegistryObject<BlockEntityType<ItemTransferBlockEntity>> ITEM_TRANSFER_ENTITY = BLOCK_ENTITY_TYPES.register("item_transfer", () -> BlockEntityType.Builder.of(ItemTransferBlockEntity::new, ITEM_TRANSFER.get()).build(null));
 	public static final RegistryObject<BlockEntityType<FluidTransferBlockEntity>> FLUID_TRANSFER_ENTITY = BLOCK_ENTITY_TYPES.register("fluid_transfer", () -> BlockEntityType.Builder.of(FluidTransferBlockEntity::new, FLUID_TRANSFER.get()).build(null));
+	public static final RegistryObject<BlockEntityType<AlchemyPedestalBlockEntity>> ALCHEMY_PEDESTAL_ENTITY = BLOCK_ENTITY_TYPES.register("alchemy_pedestal", () -> BlockEntityType.Builder.of(AlchemyPedestalBlockEntity::new, ALCHEMY_PEDESTAL.get()).build(null));
+	public static final RegistryObject<BlockEntityType<AlchemyPedestalTopBlockEntity>> ALCHEMY_PEDESTAL_TOP_ENTITY = BLOCK_ENTITY_TYPES.register("alchemy_pedestal_top", () -> BlockEntityType.Builder.of(AlchemyPedestalTopBlockEntity::new, ALCHEMY_PEDESTAL.get()).build(null));
+	public static final RegistryObject<BlockEntityType<AlchemyTabletBlockEntity>> ALCHEMY_TABLET_ENTITY = BLOCK_ENTITY_TYPES.register("alchemy_tablet", () -> BlockEntityType.Builder.of(AlchemyTabletBlockEntity::new, ALCHEMY_TABLET.get()).build(null));
+	public static final RegistryObject<BlockEntityType<BeamCannonBlockEntity>> BEAM_CANNON_ENTITY = BLOCK_ENTITY_TYPES.register("beam_cannon", () -> BlockEntityType.Builder.of(BeamCannonBlockEntity::new, BEAM_CANNON.get()).build(null));
 
 	//entities
 	public static final RegistryObject<EntityType<EmberPacketEntity>> EMBER_PACKET = registerEntity("ember_packet", EntityType.Builder.<EmberPacketEntity>of(EmberPacketEntity::new, MobCategory.MISC).sized(0.5F, 0.5F).fireImmune().clientTrackingRange(3).updateInterval(1));
@@ -510,6 +537,7 @@ public class RegistryManager {
 	public static final RegistryObject<ParticleType<SparkParticleOptions>> SPARK_PARTICLE = registerParticle("spark", false, SparkParticleOptions.DESERIALIZER, SparkParticleOptions.CODEC);
 	public static final RegistryObject<ParticleType<SmokeParticleOptions>> SMOKE_PARTICLE = registerParticle("smoke", false, SmokeParticleOptions.DESERIALIZER, SmokeParticleOptions.CODEC);
 	public static final RegistryObject<ParticleType<VaporParticleOptions>> VAPOR_PARTICLE = registerParticle("vapor", false, VaporParticleOptions.DESERIALIZER, VaporParticleOptions.CODEC);
+	public static final RegistryObject<ParticleType<AlchemyCircleParticleOptions>> ALCHEMY_CIRCLE_PARTICLE = registerParticle("alchemy_circle", false, AlchemyCircleParticleOptions.DESERIALIZER, AlchemyCircleParticleOptions.CODEC);
 
 	//recipe types
 	public static final RegistryObject<RecipeType<BoringRecipe>> BORING = registerRecipeType("boring");
@@ -518,6 +546,7 @@ public class RegistryManager {
 	public static final RegistryObject<RecipeType<StampingRecipe>> STAMPING = registerRecipeType("stamping");
 	public static final RegistryObject<RecipeType<MixingRecipe>> MIXING = registerRecipeType("mixing");
 	public static final RegistryObject<RecipeType<MetalCoefficientRecipe>> METAL_COEFFICIENT = registerRecipeType("metal_coefficient");
+	public static final RegistryObject<RecipeType<AlchemyRecipe>> ALCHEMY = registerRecipeType("alchemy");
 
 	//recipe serializers
 	public static final RegistryObject<RecipeSerializer<BoringRecipe>> BORING_SERIALIZER = RECIPE_SERIALIZERS.register("boring", () -> BoringRecipe.SERIALIZER);
@@ -527,6 +556,7 @@ public class RegistryManager {
 	public static final RegistryObject<RecipeSerializer<TagStampingRecipe>> TAG_STAMPING_SERIALIZER = RECIPE_SERIALIZERS.register("tag_stamping", () -> TagStampingRecipe.SERIALIZER);
 	public static final RegistryObject<RecipeSerializer<MixingRecipe>> MIXING_SERIALIZER = RECIPE_SERIALIZERS.register("mixing", () -> MixingRecipe.SERIALIZER);
 	public static final RegistryObject<RecipeSerializer<MetalCoefficientRecipe>> METAL_COEFFICIENT_SERIALIZER = RECIPE_SERIALIZERS.register("metal_coefficient", () -> MetalCoefficientRecipe.SERIALIZER);
+	public static final RegistryObject<RecipeSerializer<AlchemyRecipe>> ALCHEMY_SERIALIZER = RECIPE_SERIALIZERS.register("alchemy", () -> AlchemyRecipe.SERIALIZER);
 
 	//loot modifiers
 	public static final RegistryObject<Codec<GrandhammerLootModifier>> GRANDHAMMER_MODIFIER = LOOT_MODIFIERS.register("grandhammer", () -> GrandhammerLootModifier.CODEC);

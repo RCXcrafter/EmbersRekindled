@@ -88,6 +88,22 @@ public class EmbersRenderTypes extends RenderType {
 			.setOutputState(TRANSLUCENT_TARGET)
 			.createCompositeState(false));
 
+	//render type used for the alchemy circle
+	public static final RenderType BEAM = create(
+			Embers.MODID + ":beam_render_type",
+			DefaultVertexFormat.POSITION_TEX_LIGHTMAP_COLOR, VertexFormat.Mode.QUADS, 256, false, true,
+			RenderType.CompositeState.builder()
+			.setShaderState(PTLC_SHADER)
+			.setTextureState(new RenderStateShard.TextureStateShard(new ResourceLocation(Embers.MODID + ":textures/entity/alchemy_circle.png"), false, false))
+			.setTransparencyState(LIGHTNING_TRANSPARENCY)
+			.setCullState(NO_CULL)
+			//.setDepthTestState(NO_DEPTH_TEST)
+			.setLayeringState(VIEW_OFFSET_Z_LAYERING)
+			.setWriteMaskState(COLOR_DEPTH_WRITE)
+			
+			.setOutputState(TRANSLUCENT_TARGET)
+			.createCompositeState(false));
+
 	//render type used for highlighting the emitter being aimed
 	public static final RenderType GLOW_LINES = create(
 			Embers.MODID + ":glow_lines",

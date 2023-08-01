@@ -102,6 +102,9 @@ public class EmbersBlockLootTables extends BlockLoot {
 		dropSelf(RegistryManager.EMBER_SIPHON.get());
 		dropSelf(RegistryManager.ITEM_TRANSFER.get());
 		dropSelf(RegistryManager.FLUID_TRANSFER.get());
+		dropSelf(RegistryManager.ALCHEMY_PEDESTAL.get());
+		dropSelf(RegistryManager.ALCHEMY_TABLET.get());
+		dropSelf(RegistryManager.BEAM_CANNON.get());
 	}
 
 	public void decoDrops(StoneDecoBlocks deco) {

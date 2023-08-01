@@ -68,7 +68,7 @@ public class EmberPacketEntity extends Entity {
 		//super.tick();
 		if (this.lifetime == 79) {
 			if (level instanceof ServerLevel serverLevel) {
-				serverLevel.sendParticles(new StarParticleOptions(GlowParticleOptions.EMBER_COLOR, 3.5f + 0.5f * random.nextFloat()), getX(), getY(), getZ(), 12, 0.0125f * (random.nextFloat() - 0.5f), 0.0125f * (random.nextFloat() - 0.5f), 0.0125f * (random.nextFloat() - 0.5f), 1.0);
+				serverLevel.sendParticles(new StarParticleOptions(GlowParticleOptions.EMBER_COLOR, 3.5f + 0.5f * random.nextFloat()), getX(), getY(), getZ(), 12, 0.0125f * (random.nextFloat() - 0.5f), 0.0125f * (random.nextFloat() - 0.5f), 0.0125f * (random.nextFloat() - 0.5f), 0.0);
 			}
 		}
 		lifetime --;

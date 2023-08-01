@@ -1,0 +1,32 @@
+{
+  "type": "embersrekindled:alchemy",
+  "aspects": [
+    {
+      "tag": "embersrekindled:aspectus/copper"
+    },
+    {
+      "tag": "embersrekindled:aspectus/iron"
+    }
+  ],
+  "inputs": [
+    {
+      "item": "minecraft:sand"
+    },
+    {
+      "item": "minecraft:sand"
+    },
+    {
+      "item": "minecraft:sand"
+    },
+    {
+      "item": "minecraft:sand"
+    }
+  ],
+  "output": {
+    "count": 4,
+    "item": "minecraft:soul_sand"
+  },
+  "tablet": {
+    "tag": "forge:dusts/redstone"
+  }
+}

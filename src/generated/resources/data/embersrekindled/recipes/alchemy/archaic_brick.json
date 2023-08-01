@@ -1,0 +1,29 @@
+{
+  "type": "embersrekindled:alchemy",
+  "aspects": [
+    {
+      "tag": "embersrekindled:aspectus/iron"
+    },
+    {
+      "tag": "embersrekindled:aspectus/silver"
+    }
+  ],
+  "inputs": [
+    {
+      "item": "minecraft:soul_sand"
+    },
+    {
+      "item": "minecraft:clay_ball"
+    },
+    {
+      "item": "minecraft:clay_ball"
+    }
+  ],
+  "output": {
+    "count": 5,
+    "item": "embersrekindled:archaic_brick"
+  },
+  "tablet": {
+    "item": "embersrekindled:archaic_brick"
+  }
+}

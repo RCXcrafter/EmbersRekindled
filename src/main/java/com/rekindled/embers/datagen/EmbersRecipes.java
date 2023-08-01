@@ -8,6 +8,7 @@ import com.google.common.collect.ImmutableList;
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.RegistryManager.StoneDecoBlocks;
+import com.rekindled.embers.recipe.AlchemyRecipeBuilder;
 import com.rekindled.embers.recipe.BoringRecipeBuilder;
 import com.rekindled.embers.recipe.EmberActivationRecipeBuilder;
 import com.rekindled.embers.recipe.MeltingRecipeBuilder;
@@ -28,6 +29,7 @@ import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
@@ -47,6 +49,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 	public static String stampingFolder = "stamping";
 	public static String mixingFolder = "mixing";
 	public static String coefficientFolder = "metal_coefficient";
+	public static String alchemyFolder = "alchemy";
 
 	public EmbersRecipes(DataGenerator gen) {
 		super(gen);
@@ -104,6 +107,13 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		fullMeltingStampingRecipes("bronze", RegistryManager.MOLTEN_BRONZE.FLUID.get(), consumer);
 		fullMeltingStampingRecipes("electrum", RegistryManager.MOLTEN_ELECTRUM.FLUID.get(), consumer);
 
+		//aspectus recipes
+		StampingRecipeBuilder.create(RegistryManager.IRON_ASPECTUS.get()).domain(Embers.MODID).folder(stampingFolder).stamp(RegistryManager.INGOT_STAMP.get()).input(RegistryManager.EMBER_SHARD.get()).fluid(fluidTag("forge", "molten_iron"), FluidAmounts.INGOT_AMOUNT).save(ConsumerWrapperBuilder.wrap().build(consumer));
+		StampingRecipeBuilder.create(RegistryManager.COPPER_ASPECTUS.get()).domain(Embers.MODID).folder(stampingFolder).stamp(RegistryManager.INGOT_STAMP.get()).input(RegistryManager.EMBER_SHARD.get()).fluid(fluidTag("forge", "molten_copper"), FluidAmounts.INGOT_AMOUNT).save(ConsumerWrapperBuilder.wrap().build(consumer));
+		StampingRecipeBuilder.create(RegistryManager.LEAD_ASPECTUS.get()).domain(Embers.MODID).folder(stampingFolder).stamp(RegistryManager.INGOT_STAMP.get()).input(RegistryManager.EMBER_SHARD.get()).fluid(fluidTag("forge", "molten_lead"), FluidAmounts.INGOT_AMOUNT).save(ConsumerWrapperBuilder.wrap().build(consumer));
+		StampingRecipeBuilder.create(RegistryManager.SILVER_ASPECTUS.get()).domain(Embers.MODID).folder(stampingFolder).stamp(RegistryManager.INGOT_STAMP.get()).input(RegistryManager.EMBER_SHARD.get()).fluid(fluidTag("forge", "molten_silver"), FluidAmounts.INGOT_AMOUNT).save(ConsumerWrapperBuilder.wrap().build(consumer));
+		StampingRecipeBuilder.create(RegistryManager.DAWNSTONE_ASPECTUS.get()).domain(Embers.MODID).folder(stampingFolder).stamp(RegistryManager.INGOT_STAMP.get()).input(RegistryManager.EMBER_SHARD.get()).fluid(fluidTag("forge", "molten_dawnstone"), FluidAmounts.INGOT_AMOUNT).save(ConsumerWrapperBuilder.wrap().build(consumer));
+
 		//mixing
 		MixingRecipeBuilder.create(RegistryManager.MOLTEN_DAWNSTONE.FLUID.get(), 4).folder(mixingFolder).input(fluidTag("forge", "molten_copper"), 2).input(fluidTag("forge", "molten_gold"), 2).save(consumer);
 		MixingRecipeBuilder.create(RegistryManager.MOLTEN_BRONZE.FLUID.get(), 4).folder(mixingFolder).input(fluidTag("forge", "molten_copper"), 3).input(fluidTag("forge", "molten_tin"), 1).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(itemTag("forge", "ingots/bronze"))).build(consumer));
@@ -121,6 +131,23 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		MetalCoefficientRecipeBuilder.create(EmbersBlockTags.ELECTRUM_BLOCK).folder(coefficientFolder).coefficient(3.0).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(EmbersBlockTags.ELECTRUM_BLOCK)).build(consumer));
 		MetalCoefficientRecipeBuilder.create(Tags.Blocks.STORAGE_BLOCKS_COPPER).folder(coefficientFolder).coefficient(3.0).save(consumer);
 		MetalCoefficientRecipeBuilder.create(Tags.Blocks.STORAGE_BLOCKS_GOLD).folder(coefficientFolder).coefficient(3.0).save(consumer);
+
+		//alchemy
+		AlchemyRecipeBuilder.create(new ItemStack(Items.NETHERRACK, 2)).tablet(Tags.Items.DUSTS_REDSTONE).domain(Embers.MODID).folder(alchemyFolder)
+		.inputs(Items.COBBLESTONE, Items.COBBLESTONE)
+		.aspects(EmbersItemTags.COPPER_ASPECTUS, EmbersItemTags.IRON_ASPECTUS).save(consumer);
+		AlchemyRecipeBuilder.create(new ItemStack(Items.SOUL_SAND, 4)).tablet(Tags.Items.DUSTS_REDSTONE).domain(Embers.MODID).folder(alchemyFolder)
+		.inputs(Items.SAND, Items.SAND, Items.SAND, Items.SAND)
+		.aspects(EmbersItemTags.COPPER_ASPECTUS, EmbersItemTags.IRON_ASPECTUS).save(consumer);
+		AlchemyRecipeBuilder.create(new ItemStack(RegistryManager.ARCHAIC_BRICK.get(), 5)).tablet(RegistryManager.ARCHAIC_BRICK.get()).domain(Embers.MODID).folder(alchemyFolder)
+		.inputs(Items.SOUL_SAND, Items.CLAY_BALL, Items.CLAY_BALL)
+		.aspects(EmbersItemTags.IRON_ASPECTUS, EmbersItemTags.SILVER_ASPECTUS).save(consumer);
+		//AlchemyRecipeBuilder.create(RegistryManager.ANCIENT_MOTIVE_CORE.get()).tablet(RegistryManager.EMBER_SHARD.get()).domain(Embers.MODID).folder(alchemyFolder)
+		//.inputs(RegistryManager.ARCHAIC_BRICK.get(), RegistryManager.ARCHAIC_BRICK.get(), RegistryManager.ARCHAIC_BRICK.get())
+		//.aspects(EmbersItemTags.DAWNSTONE_ASPECTUS, EmbersItemTags.LEAD_ASPECTUS).save(consumer);
+		AlchemyRecipeBuilder.create(RegistryManager.ANCIENT_MOTIVE_CORE.get()).tablet(RegistryManager.EMBER_SHARD.get()).domain(Embers.MODID).folder(alchemyFolder)
+		.inputs(RegistryManager.ARCHAIC_BRICK.get(), RegistryManager.EMBER_GRIT.get(), RegistryManager.LEAD_PLATE.get(), RegistryManager.COPPER_NUGGET.get())
+		.aspects(EmbersItemTags.COPPER_ASPECTUS, EmbersItemTags.IRON_ASPECTUS, EmbersItemTags.LEAD_ASPECTUS, EmbersItemTags.SILVER_ASPECTUS, EmbersItemTags.DAWNSTONE_ASPECTUS).save(consumer);
 
 		//crafting
 		ShapedRecipeBuilder.shaped(RegistryManager.EMBER_CRYSTAL.get())
@@ -722,6 +749,40 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('L', RegistryManager.FLUID_PIPE.get())
 		.unlockedBy("has_fluid_pipe", has(RegistryManager.FLUID_PIPE.get()))
 		.save(consumer, getResource("fluid_transfer"));
+
+		ShapedRecipeBuilder.shaped(RegistryManager.ALCHEMY_PEDESTAL.get())
+		.pattern("D D")
+		.pattern("ICI")
+		.pattern("SBS")
+		.define('D', itemTag("forge", "plates/dawnstone"))
+		.define('I', itemTag("forge", "ingots/dawnstone"))
+		.define('B', itemTag("forge", "storage_blocks/copper"))
+		.define('C', RegistryManager.EMBER_CRYSTAL.get())
+		.define('S', RegistryManager.CAMINITE_BRICKS.get())
+		.unlockedBy("has_dawnstone", has(itemTag("forge", "ingots/dawnstone")))
+		.save(consumer, getResource("alchemy_pedestal"));
+
+		ShapedRecipeBuilder.shaped(RegistryManager.ALCHEMY_TABLET.get())
+		.pattern(" D ")
+		.pattern("SXS")
+		.pattern("SIS")
+		.define('D', itemTag("forge", "plates/dawnstone"))
+		.define('I', itemTag("forge", "ingots/dawnstone"))
+		.define('X', itemTag("forge", "plates/copper"))
+		.define('S', RegistryManager.CAMINITE_BRICKS.get())
+		.unlockedBy("has_dawnstone", has(itemTag("forge", "ingots/dawnstone")))
+		.save(consumer, getResource("alchemy_tablet"));
+
+		ShapedRecipeBuilder.shaped(RegistryManager.BEAM_CANNON.get())
+		.pattern("PSP")
+		.pattern("PSP")
+		.pattern("IBI")
+		.define('P', itemTag("forge", "plates/copper"))
+		.define('I', itemTag("forge", "ingots/dawnstone"))
+		.define('B', RegistryManager.CAMINITE_BRICKS.get())
+		.define('S', RegistryManager.EMBER_CRYSTAL.get())
+		.unlockedBy("has_dawnstone", has(itemTag("forge", "ingots/dawnstone")))
+		.save(consumer, getResource("beam_cannon"));
 	}
 
 	public void fullOreRecipes(String name, ImmutableList<ItemLike> ores, Fluid fluid, Item raw, Item rawBlock, Item block, Item ingot, Item nugget, Item plate, Consumer<FinishedRecipe> consumer, MeltingBonus... bonusses) {

@@ -3,6 +3,9 @@ package com.rekindled.embers;
 import com.rekindled.embers.api.power.IEmberCapability;
 import com.rekindled.embers.api.upgrades.UpgradeUtil;
 import com.rekindled.embers.apiimpl.UpgradeUtilImpl;
+import com.rekindled.embers.blockentity.render.AlchemyPedestalTopBlockEntityRenderer;
+import com.rekindled.embers.blockentity.render.AlchemyPedestalBlockEntityRenderer;
+import com.rekindled.embers.blockentity.render.AlchemyTabletBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.BinBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.CopperChargerBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.CrystalCellBlockEntityRenderer;
@@ -38,6 +41,7 @@ import com.rekindled.embers.item.EmberStorageItem;
 import com.rekindled.embers.model.AncientGolemModel;
 import com.rekindled.embers.network.PacketHandler;
 import com.rekindled.embers.network.message.MessageWorldSeed;
+import com.rekindled.embers.particle.AlchemyCircleParticle;
 import com.rekindled.embers.particle.GlowParticle;
 import com.rekindled.embers.particle.SmokeParticle;
 import com.rekindled.embers.particle.SparkParticle;
@@ -207,6 +211,7 @@ public class Embers {
 			event.register(RegistryManager.SPARK_PARTICLE.get(), SparkParticle.Provider::new);
 			event.register(RegistryManager.SMOKE_PARTICLE.get(), SmokeParticle.Provider::new);
 			event.register(RegistryManager.VAPOR_PARTICLE.get(), VaporParticle.Provider::new);
+			event.register(RegistryManager.ALCHEMY_CIRCLE_PARTICLE.get(), AlchemyCircleParticle.Provider::new);
 		}
 
 		@OnlyIn(Dist.CLIENT)
@@ -226,6 +231,9 @@ public class Embers {
 			event.registerBlockEntityRenderer(RegistryManager.COPPER_CHARGER_ENTITY.get(), CopperChargerBlockEntityRenderer::new);
 			event.registerBlockEntityRenderer(RegistryManager.ITEM_TRANSFER_ENTITY.get(), ItemTransferBlockEntityRenderer::new);
 			event.registerBlockEntityRenderer(RegistryManager.FLUID_TRANSFER_ENTITY.get(), FluidTransferBlockEntityRenderer::new);
+			event.registerBlockEntityRenderer(RegistryManager.ALCHEMY_PEDESTAL_TOP_ENTITY.get(), AlchemyPedestalTopBlockEntityRenderer::new);
+			event.registerBlockEntityRenderer(RegistryManager.ALCHEMY_PEDESTAL_ENTITY.get(), AlchemyPedestalBlockEntityRenderer::new);
+			event.registerBlockEntityRenderer(RegistryManager.ALCHEMY_TABLET_ENTITY.get(), AlchemyTabletBlockEntityRenderer::new);
 		}
 
 		@OnlyIn(Dist.CLIENT)

@@ -85,6 +85,9 @@ public class EmbersLang extends LanguageProvider {
 		addBlock(RegistryManager.EMBER_SIPHON, "Ember Siphon");
 		addBlock(RegistryManager.ITEM_TRANSFER, "Item Transfer");
 		addBlock(RegistryManager.FLUID_TRANSFER, "Fluid Transfer");
+		addBlock(RegistryManager.ALCHEMY_PEDESTAL, "Alchemy Pedestal");
+		addBlock(RegistryManager.ALCHEMY_TABLET, "Alchemy Tablet");
+		addBlock(RegistryManager.BEAM_CANNON, "Beam Cannon");
 
 		addItem(RegistryManager.TINKER_HAMMER, "Tinker's Hammer");
 		addItem(RegistryManager.TINKER_LENS, "Tinker's Lens");
@@ -97,6 +100,7 @@ public class EmbersLang extends LanguageProvider {
 		addItem(RegistryManager.GRANDHAMMER, "Grandhammer");
 		addItem(RegistryManager.BLAZING_RAY, "Blazing Ray");
 		addItem(RegistryManager.CINDER_STAFF, "Cinder Staff");
+		addItem(RegistryManager.ALCHEMICAL_WASTE, "Alchemical Waste");
 
 		addItem(RegistryManager.EMBER_CRYSTAL, "Ember Crystal");
 		addItem(RegistryManager.EMBER_SHARD, "Ember Shard");
@@ -115,6 +119,12 @@ public class EmbersLang extends LanguageProvider {
 		addItem(RegistryManager.INGOT_STAMP, "Ingot Stamp");
 		addItem(RegistryManager.NUGGET_STAMP, "Nugget Stamp");
 		addItem(RegistryManager.PLATE_STAMP, "Plate Stamp");
+
+		addItem(RegistryManager.IRON_ASPECTUS, "Iron Aspectus");
+		addItem(RegistryManager.COPPER_ASPECTUS, "Copper Aspectus");
+		addItem(RegistryManager.LEAD_ASPECTUS, "Lead Aspectus");
+		addItem(RegistryManager.SILVER_ASPECTUS, "Silver Aspectus");
+		addItem(RegistryManager.DAWNSTONE_ASPECTUS, "Dawnstone Aspectus");
 
 		addItem(RegistryManager.IRON_PLATE, "Iron Plate");
 		//addItem(RegistryManager.GOLD_PLATE, "Gold Plate");
@@ -146,6 +156,14 @@ public class EmbersLang extends LanguageProvider {
 
 		addItem(RegistryManager.ANCIENT_GOLEM_SPAWN_EGG, "Ancient Golem Spawn Egg");
 
+
+		add(Embers.MODID + ".alchemy_hint", "Upon closer inspection, you notice %s in the waste");
+		add(Embers.MODID + ".alchemy_hint.none", "no differently colored spots");
+		add(Embers.MODID + ".alchemy_hint.black.one", "1 dark spot");
+		add(Embers.MODID + ".alchemy_hint.black", "%s dark spots");
+		add(Embers.MODID + ".alchemy_hint.white.one", "1 bright spot");
+		add(Embers.MODID + ".alchemy_hint.white", "%s bright spots");
+		add(Embers.MODID + ".alchemy_hint.and", "%s and %s");
 
 		//tooltips
 		add(Embers.MODID + ".decimal_format.ember", "0.#");
@@ -231,6 +249,7 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".jei.recipe.stamping", "Stamping");
 		add(Embers.MODID + ".jei.recipe.mixing", "Mixing");
 		add(Embers.MODID + ".jei.recipe.metal_coefficient", "Production Multiplier");
+		add(Embers.MODID + ".jei.recipe.alchemy", "Alchemy");
 
 
 		//ancient codex
@@ -567,7 +586,7 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".research.page.ember_siphon", "Ember Siphon");
 		add(Embers.MODID + ".research.page.ember_siphon.title", "Reversing The Flow");
 		add(Embers.MODID + ".research.page.ember_siphon.tags", "Upgrade;Reverse;Siphon;Ember;Charge;Discharge;");
-		add(Embers.MODID + ".research.page.ember_siphon.desc", "The Ember Siphon is a machine upgrade that can be placed underneath a Charger to invert it's function. Instead of filling an ember container with ember, it will empty it instead, and store the drained ember in its internal buffer. Ember can then be extracted from the charger or the sides of the siphon using the usual transfer mechanisms.");
+		add(Embers.MODID + ".research.page.ember_siphon.desc", "The Ember Siphon is a machine upgrade that can be placed underneath a Charger to invert its function. Instead of filling an ember container with ember, it will empty it instead, and store the drained ember in its internal buffer. Ember can then be extracted from the charger or the sides of the siphon using the usual transfer mechanisms.");
 
 
 

@@ -47,6 +47,11 @@ public class CopperCellBlockItem extends BlockItem {
 	}
 
 	@Override
+	public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+		return slotChanged || !oldStack.sameItem(newStack);
+	}
+
+	@Override
 	public int getBarColor(ItemStack pStack) {
 		return 0xFF6600;
 	}

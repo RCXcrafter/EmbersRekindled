@@ -1,0 +1,26 @@
+{
+  "type": "embersrekindled:alchemy",
+  "aspects": [
+    {
+      "tag": "embersrekindled:aspectus/copper"
+    },
+    {
+      "tag": "embersrekindled:aspectus/iron"
+    }
+  ],
+  "inputs": [
+    {
+      "item": "minecraft:cobblestone"
+    },
+    {
+      "item": "minecraft:cobblestone"
+    }
+  ],
+  "output": {
+    "count": 2,
+    "item": "minecraft:netherrack"
+  },
+  "tablet": {
+    "tag": "forge:dusts/redstone"
+  }
+}

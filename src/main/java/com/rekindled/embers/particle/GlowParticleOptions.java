@@ -50,7 +50,7 @@ public class GlowParticleOptions implements ParticleOptions {
 		}
 
 		public GlowParticleOptions fromNetwork(ParticleType<GlowParticleOptions> p_123692_, FriendlyByteBuf p_123693_) {
-			return new GlowParticleOptions(GlowParticleOptions.readVector3f(p_123693_), GlowParticleOptions.readVec3(p_123693_), p_123693_.readFloat());
+			return new GlowParticleOptions(GlowParticleOptions.readVector3f(p_123693_), GlowParticleOptions.readVec3(p_123693_), p_123693_.readFloat(), p_123693_.readInt());
 		}
 	};
 

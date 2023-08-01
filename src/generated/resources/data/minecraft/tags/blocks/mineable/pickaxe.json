@@ -67,6 +67,9 @@
     "embersrekindled:copper_charger",
     "embersrekindled:ember_siphon",
     "embersrekindled:item_transfer",
-    "embersrekindled:fluid_transfer"
+    "embersrekindled:fluid_transfer",
+    "embersrekindled:alchemy_pedestal",
+    "embersrekindled:alchemy_tablet",
+    "embersrekindled:beam_cannon"
   ]
 }
