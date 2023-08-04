@@ -30,8 +30,7 @@ public class TagStampingRecipe extends StampingRecipe {
 	public ItemStack getOutput(RecipeWrapper context) {
 		return Misc.getTaggedItem(tagOutput);
 	}
-
-	@Override
+	
 	public ItemStack getResultItem() {
 		return Misc.getTaggedItem(tagOutput);
 	}

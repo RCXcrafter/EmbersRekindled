@@ -34,8 +34,8 @@ public class MessageTEUpdateRequest {
 		if (ctx.get().getDirection().getReceptionSide().isServer()) {
 			ctx.get().enqueueWork(() -> {
 				ServerPlayer player = ctx.get().getSender();
-				if (player != null && player.level != null) {
-					BlockEntity blockEntity = player.level.getBlockEntity(BlockPos.of(msg.pos));
+				if (player != null && player.level() != null) {
+					BlockEntity blockEntity = player.level().getBlockEntity(BlockPos.of(msg.pos));
 					if (blockEntity != null) {
 						Packet<ClientGamePacketListener> packet = blockEntity.getUpdatePacket();
 						if (packet != null) {

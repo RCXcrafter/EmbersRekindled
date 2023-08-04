@@ -1,15 +1,18 @@
 package com.rekindled.embers.datagen;
 
+import java.util.concurrent.CompletableFuture;
+
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
@@ -64,13 +67,13 @@ public class EmbersItemTags extends ItemTagsProvider {
 
 	public static final TagKey<Item> WORLD_BOTTOM = ItemTags.create(new ResourceLocation(Embers.MODID, "world_bottom"));
 
-	public EmbersItemTags(DataGenerator gen, BlockTagsProvider blockTags, ExistingFileHelper existingFileHelper) {
-		super(gen, blockTags, Embers.MODID, existingFileHelper);
+	public EmbersItemTags(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<Block>> blockTagProvider, ExistingFileHelper existingFileHelper) {
+		super(output, lookupProvider, blockTagProvider, Embers.MODID, existingFileHelper);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	protected void addTags() {
+	protected void addTags(HolderLookup.Provider provider) {
 		tag(PIPE_UNCLOGGER).addTag(Tags.Items.RODS);
 		tag(TINKER_HAMMER).add(RegistryManager.TINKER_HAMMER.get());
 
@@ -127,8 +130,8 @@ public class EmbersItemTags extends ItemTagsProvider {
 		tag(Tags.Items.INGOTS).addTags(ARCHAIC_BRICK);
 		tag(ARCHAIC_BRICK).add(RegistryManager.ARCHAIC_BRICK.get());
 
-		tag(Tags.Items.TOOLS_PICKAXES).add(RegistryManager.CLOCKWORK_PICKAXE.get());
-		tag(Tags.Items.TOOLS_AXES).add(RegistryManager.CLOCKWORK_AXE.get());
+		tag(ItemTags.PICKAXES).add(RegistryManager.CLOCKWORK_PICKAXE.get());
+		tag(ItemTags.AXES).add(RegistryManager.CLOCKWORK_AXE.get());
 		tag(Tags.Items.TOOLS).addTag(TOOLS_HAMMERS);
 		tag(TOOLS_HAMMERS).add(RegistryManager.TINKER_HAMMER.get(), RegistryManager.GRANDHAMMER.get());
 

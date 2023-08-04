@@ -7,7 +7,7 @@ import org.apache.commons.lang3.Validate;
 import com.rekindled.embers.util.sound.ItemUseSound;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
@@ -42,8 +42,8 @@ public class MessageItemSound {
 
 	public static void encode(MessageItemSound msg, FriendlyByteBuf buf) {
 		buf.writeVarInt(msg.id);
-		buf.writeId(Registry.ITEM, msg.item);
-		buf.writeId(Registry.SOUND_EVENT, msg.sound);
+		buf.writeId(BuiltInRegistries.ITEM, msg.item);
+		buf.writeId(BuiltInRegistries.SOUND_EVENT, msg.sound);
 		buf.writeEnum(msg.source);
 		buf.writeBoolean(msg.repeat);
 		buf.writeFloat(msg.volume);
@@ -51,7 +51,7 @@ public class MessageItemSound {
 	}
 
 	public static MessageItemSound decode(FriendlyByteBuf buf) {
-		return new MessageItemSound(buf.readVarInt(), buf.readById(Registry.ITEM), buf.readById(Registry.SOUND_EVENT), buf.readEnum(SoundSource.class), buf.readBoolean(), buf.readFloat(), buf.readFloat());
+		return new MessageItemSound(buf.readVarInt(), buf.readById(BuiltInRegistries.ITEM), buf.readById(BuiltInRegistries.SOUND_EVENT), buf.readEnum(SoundSource.class), buf.readBoolean(), buf.readFloat(), buf.readFloat());
 	}
 
 	@SuppressWarnings("resource")

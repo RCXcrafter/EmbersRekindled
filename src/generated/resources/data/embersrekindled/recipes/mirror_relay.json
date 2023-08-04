@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "P": {
       "tag": "forge:plates/lead"
@@ -15,5 +16,6 @@
   "result": {
     "count": 4,
     "item": "embersrekindled:mirror_relay"
-  }
+  },
+  "show_notification": true
 }

@@ -30,7 +30,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.BooleanOp;
@@ -95,7 +95,7 @@ public class FluidVesselBlock extends BaseEntityBlock implements SimpleWaterlogg
 	}
 
 	@Override
-	public List<ItemStack> getDrops(BlockState pState, LootContext.Builder pBuilder) {
+	public List<ItemStack> getDrops(BlockState pState, LootParams.Builder pBuilder) {
 		List<ItemStack> items = super.getDrops(pState, pBuilder);
 		BlockEntity blockentity = pBuilder.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
 		if (blockentity instanceof FluidVesselBlockEntity) {

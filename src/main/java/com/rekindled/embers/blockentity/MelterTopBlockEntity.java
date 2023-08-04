@@ -3,7 +3,8 @@ package com.rekindled.embers.blockentity;
 import java.util.List;
 import java.util.Random;
 
-import com.mojang.math.Vector3f;
+import org.joml.Vector3f;
+
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.tile.IExtraCapabilityInformation;

@@ -46,7 +46,7 @@ public class ClockworkToolItem extends DiggerItem implements IEmberChargedTool {
 	@Override
 	public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
 		stack.getOrCreateTag().putBoolean("didUse", true);
-		if (target.level instanceof ServerLevel serverLevel) {
+		if (target.level() instanceof ServerLevel serverLevel) {
 			serverLevel.sendParticles(GlowParticleOptions.EMBER, target.getX(), target.getY() + target.getEyeHeight() / 1.5, target.getZ(), 70, 0.15, 0.15, 0.15, 0.6);
 		}
 		return super.hurtEnemy(stack, target, attacker);

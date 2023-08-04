@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "redstone",
   "key": {
     "P": {
       "item": "embersrekindled:caminite_plate"
@@ -15,5 +16,6 @@
   "result": {
     "count": 4,
     "item": "embersrekindled:caminite_lever"
-  }
+  },
+  "show_notification": true
 }

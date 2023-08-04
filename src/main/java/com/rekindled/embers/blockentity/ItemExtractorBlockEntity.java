@@ -8,8 +8,8 @@ import java.util.Random;
 import javax.annotation.Nonnull;
 
 import org.jetbrains.annotations.NotNull;
+import org.joml.Vector3f;
 
-import com.mojang.math.Vector3f;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.filter.FilterAny;
 import com.rekindled.embers.api.filter.IFilter;

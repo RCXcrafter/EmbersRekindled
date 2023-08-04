@@ -3,7 +3,8 @@ package com.rekindled.embers.network.message;
 import java.util.Random;
 import java.util.function.Supplier;
 
-import com.mojang.math.Vector3f;
+import org.joml.Vector3f;
+
 import com.rekindled.embers.particle.GlowParticleOptions;
 import com.rekindled.embers.util.Misc;
 

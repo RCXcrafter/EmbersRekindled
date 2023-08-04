@@ -19,9 +19,10 @@ import com.rekindled.embers.util.ConsumerWrapperBuilder;
 import com.rekindled.embers.util.FluidAmounts;
 import com.rekindled.embers.util.MeltingBonus;
 
-import net.minecraft.core.Registry;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
@@ -51,12 +52,12 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 	public static String coefficientFolder = "metal_coefficient";
 	public static String alchemyFolder = "alchemy";
 
-	public EmbersRecipes(DataGenerator gen) {
+	public EmbersRecipes(PackOutput gen) {
 		super(gen);
 	}
 
 	@Override
-	public void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
+	public void buildRecipes(Consumer<FinishedRecipe> consumer) {
 		//boring
 		ResourceLocation overworld = new ResourceLocation("overworld");
 		BoringRecipeBuilder.create(RegistryManager.EMBER_CRYSTAL.get()).folder(boringFolder).dimension(overworld).require(EmbersBlockTags.WORLD_BOTTOM, 3).weight(20).maxHeight(-57).save(consumer);
@@ -79,7 +80,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 
 		fullMetalRecipes("dawnstone", RegistryManager.MOLTEN_DAWNSTONE.FLUID.get(), RegistryManager.DAWNSTONE_BLOCK_ITEM.get(), RegistryManager.DAWNSTONE_INGOT.get(), RegistryManager.DAWNSTONE_NUGGET.get(), RegistryManager.DAWNSTONE_PLATE.get(), consumer);
 
-		ShapedRecipeBuilder.shaped(Items.COPPER_INGOT)
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.COPPER_INGOT)
 		.pattern("XXX")
 		.pattern("XXX")
 		.pattern("XXX")
@@ -87,7 +88,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_nugget", has(itemTag("forge", "nuggets/copper")))
 		.save(consumer, getResource("copper_nugget_to_ingot"));
 
-		ShapelessRecipeBuilder.shapeless(RegistryManager.COPPER_NUGGET.get(), 9)
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, RegistryManager.COPPER_NUGGET.get(), 9)
 		.requires(itemTag("forge", "ingots/copper"))
 		.group("")
 		.unlockedBy("has_ingot", has(itemTag("forge", "ingots/copper")))
@@ -150,18 +151,18 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.aspects(EmbersItemTags.COPPER_ASPECTUS, EmbersItemTags.IRON_ASPECTUS, EmbersItemTags.LEAD_ASPECTUS, EmbersItemTags.SILVER_ASPECTUS, EmbersItemTags.DAWNSTONE_ASPECTUS).save(consumer);
 
 		//crafting
-		ShapedRecipeBuilder.shaped(RegistryManager.EMBER_CRYSTAL.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.EMBER_CRYSTAL.get())
 		.pattern("XXX")
 		.pattern("XXX")
 		.define('X', RegistryManager.EMBER_SHARD.get())
 		.unlockedBy("has_shard", has(RegistryManager.EMBER_SHARD.get()))
 		.save(consumer, getResource("ember_shard_to_crystal"));
-		ShapelessRecipeBuilder.shapeless(RegistryManager.EMBER_SHARD.get(), 6)
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, RegistryManager.EMBER_SHARD.get(), 6)
 		.requires(RegistryManager.EMBER_CRYSTAL.get())
 		.unlockedBy("has_crystal", has(RegistryManager.EMBER_CRYSTAL.get()))
 		.save(consumer, getResource("ember_crystal_to_shard"));
 
-		ShapelessRecipeBuilder.shapeless(RegistryManager.CAMINITE_BLEND.get(), 8)
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, RegistryManager.CAMINITE_BLEND.get(), 8)
 		.requires(Items.CLAY_BALL)
 		.requires(Items.CLAY_BALL)
 		.requires(Items.CLAY_BALL)
@@ -169,26 +170,26 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.requires(Tags.Items.SAND)
 		.unlockedBy("has_clay", has(Items.CLAY_BALL))
 		.save(consumer, getResource("caminite_blend"));
-		ShapedRecipeBuilder.shaped(RegistryManager.RAW_CAMINITE_PLATE.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.RAW_CAMINITE_PLATE.get())
 		.pattern("XX")
 		.pattern("XX")
 		.define('X', RegistryManager.CAMINITE_BLEND.get())
 		.unlockedBy("has_caminite", has(RegistryManager.CAMINITE_BLEND.get()))
 		.save(consumer, getResource("raw_caminite_plate"));
-		ShapedRecipeBuilder.shaped(RegistryManager.RAW_INGOT_STAMP.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.RAW_INGOT_STAMP.get())
 		.pattern(" X ")
 		.pattern("X X")
 		.pattern(" X ")
 		.define('X', RegistryManager.CAMINITE_BLEND.get())
 		.unlockedBy("has_caminite", has(RegistryManager.CAMINITE_BLEND.get()))
 		.save(consumer, getResource("raw_ingot_stamp"));
-		ShapedRecipeBuilder.shaped(RegistryManager.RAW_NUGGET_STAMP.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.RAW_NUGGET_STAMP.get())
 		.pattern("X X")
 		.pattern("X X")
 		.define('X', RegistryManager.CAMINITE_BLEND.get())
 		.unlockedBy("has_caminite", has(RegistryManager.CAMINITE_BLEND.get()))
 		.save(consumer, getResource("raw_nugget_stamp"));
-		ShapedRecipeBuilder.shaped(RegistryManager.RAW_PLATE_STAMP.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.RAW_PLATE_STAMP.get())
 		.pattern("X X")
 		.pattern("   ")
 		.pattern("X X")
@@ -196,7 +197,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_caminite", has(RegistryManager.CAMINITE_BLEND.get()))
 		.save(consumer, getResource("raw_plate_stamp"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.CAMINITE_BRICKS.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegistryManager.CAMINITE_BRICKS.get())
 		.pattern("XX")
 		.pattern("XX")
 		.define('X', RegistryManager.CAMINITE_BRICK.get())
@@ -205,24 +206,24 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 
 		decoRecipes(RegistryManager.CAMINITE_BRICKS_DECO, consumer);
 
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(RegistryManager.CAMINITE_BLEND.get()), RegistryManager.CAMINITE_BRICK.get(), 0.1F, 200)
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(RegistryManager.CAMINITE_BLEND.get()), RecipeCategory.MISC, RegistryManager.CAMINITE_BRICK.get(), 0.1F, 200)
 		.unlockedBy("has_caminite", has(RegistryManager.CAMINITE_BLEND.get())).save(consumer, getResource("caminite_brick"));
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(RegistryManager.RAW_CAMINITE_PLATE.get()), RegistryManager.CAMINITE_PLATE.get(), 0.1F, 200)
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(RegistryManager.RAW_CAMINITE_PLATE.get()), RecipeCategory.MISC, RegistryManager.CAMINITE_PLATE.get(), 0.1F, 200)
 		.unlockedBy("has_raw_plate", has(RegistryManager.RAW_CAMINITE_PLATE.get())).save(consumer, getResource("caminite_plate"));
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(RegistryManager.RAW_INGOT_STAMP.get()), RegistryManager.INGOT_STAMP.get(), 0.1F, 200)
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(RegistryManager.RAW_INGOT_STAMP.get()), RecipeCategory.MISC, RegistryManager.INGOT_STAMP.get(), 0.1F, 200)
 		.unlockedBy("has_raw_ingot_stamp", has(RegistryManager.RAW_INGOT_STAMP.get())).save(consumer, getResource("ingot_stamp"));
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(RegistryManager.RAW_NUGGET_STAMP.get()), RegistryManager.NUGGET_STAMP.get(), 0.1F, 200)
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(RegistryManager.RAW_NUGGET_STAMP.get()), RecipeCategory.MISC, RegistryManager.NUGGET_STAMP.get(), 0.1F, 200)
 		.unlockedBy("has_raw_nugget_stamp", has(RegistryManager.RAW_NUGGET_STAMP.get())).save(consumer, getResource("nugget_stamp"));
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(RegistryManager.RAW_PLATE_STAMP.get()), RegistryManager.PLATE_STAMP.get(), 0.1F, 200)
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(RegistryManager.RAW_PLATE_STAMP.get()), RecipeCategory.MISC, RegistryManager.PLATE_STAMP.get(), 0.1F, 200)
 		.unlockedBy("has_raw_plate_stamp", has(RegistryManager.RAW_PLATE_STAMP.get())).save(consumer, getResource("plate_stamp"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.ARCHAIC_BRICKS.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegistryManager.ARCHAIC_BRICKS.get())
 		.pattern("XX")
 		.pattern("XX")
 		.define('X', RegistryManager.ARCHAIC_BRICK.get())
 		.unlockedBy("has_brick", has(RegistryManager.ARCHAIC_BRICK.get()))
 		.save(consumer, getResource("archaic_bricks"));
-		ShapedRecipeBuilder.shaped(RegistryManager.ARCHAIC_LIGHT.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegistryManager.ARCHAIC_LIGHT.get())
 		.pattern(" X ")
 		.pattern("XSX")
 		.pattern(" X ")
@@ -230,7 +231,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('S', RegistryManager.EMBER_SHARD.get())
 		.unlockedBy("has_shard", has(RegistryManager.EMBER_SHARD.get()))
 		.save(consumer, getResource("archaic_light"));
-		ShapedRecipeBuilder.shaped(RegistryManager.ARCHAIC_EDGE.get(), 2)
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegistryManager.ARCHAIC_EDGE.get(), 2)
 		.pattern("XXX")
 		.pattern("XSX")
 		.pattern("XXX")
@@ -238,24 +239,24 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('S', RegistryManager.EMBER_SHARD.get())
 		.unlockedBy("has_shard", has(RegistryManager.EMBER_SHARD.get()))
 		.save(consumer, getResource("archaic_edge"));
-		ShapedRecipeBuilder.shaped(RegistryManager.ARCHAIC_TILE.get(), 4)
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegistryManager.ARCHAIC_TILE.get(), 4)
 		.pattern("XX")
 		.pattern("XX")
 		.define('X', RegistryManager.ARCHAIC_BRICKS.get())
 		.unlockedBy("has_bricks", has(RegistryManager.ARCHAIC_BRICKS.get()))
 		.save(consumer, getResource("archaic_tile"));
-		ShapedRecipeBuilder.shaped(RegistryManager.ARCHAIC_BRICKS.get(), 4)
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegistryManager.ARCHAIC_BRICKS.get(), 4)
 		.pattern("XX")
 		.pattern("XX")
 		.define('X', RegistryManager.ARCHAIC_TILE.get())
 		.unlockedBy("has_tile", has(RegistryManager.ARCHAIC_TILE.get()))
 		.save(consumer, getResource("archaic_bricks_2"));
-		stonecutterResultFromBase(consumer, RegistryManager.ARCHAIC_TILE.get(), RegistryManager.ARCHAIC_BRICKS.get());
-		stonecutterResultFromBase(consumer, RegistryManager.ARCHAIC_BRICKS.get(), RegistryManager.ARCHAIC_TILE.get());
+		stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, RegistryManager.ARCHAIC_TILE.get(), RegistryManager.ARCHAIC_BRICKS.get());
+		stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, RegistryManager.ARCHAIC_BRICKS.get(), RegistryManager.ARCHAIC_TILE.get());
 		decoRecipes(RegistryManager.ARCHAIC_BRICKS_DECO, consumer);
 		decoRecipes(RegistryManager.ARCHAIC_TILE_DECO, consumer);
 
-		ShapedRecipeBuilder.shaped(RegistryManager.EMBER_LANTERN.get(), 4)
+		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, RegistryManager.EMBER_LANTERN.get(), 4)
 		.pattern("P")
 		.pattern("E")
 		.pattern("I")
@@ -265,7 +266,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_shard", has(RegistryManager.EMBER_SHARD.get()))
 		.save(consumer, getResource("ember_lantern"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.ANCIENT_CODEX.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.ANCIENT_CODEX.get())
 		.pattern(" X ")
 		.pattern("XCX")
 		.pattern(" X ")
@@ -274,7 +275,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_core", has(RegistryManager.ANCIENT_MOTIVE_CORE.get()))
 		.save(consumer, getResource("ancient_codex"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.TINKER_HAMMER.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, RegistryManager.TINKER_HAMMER.get())
 		.pattern("IBI")
 		.pattern("ISI")
 		.pattern(" S ")
@@ -284,7 +285,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_lead", has(itemTag("forge", "ingots/lead")))
 		.save(consumer, getResource("tinker_hammer"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.TINKER_LENS.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, RegistryManager.TINKER_LENS.get())
 		.pattern("BE ")
 		.pattern("IPE")
 		.pattern("BE ")
@@ -295,7 +296,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_lead_plate", has(itemTag("forge", "plates/lead")))
 		.save(consumer, getResource("tinker_lens"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.ATMOSPHERIC_GAUGE.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, RegistryManager.ATMOSPHERIC_GAUGE.get())
 		.pattern(" I ")
 		.pattern("CRC")
 		.pattern("CIC")
@@ -305,7 +306,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_redstone", has(itemTag("forge", "dusts/redstone")))
 		.save(consumer, getResource("atmospheric_gauge"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.EMBER_JAR.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, RegistryManager.EMBER_JAR.get())
 		.pattern(" C ")
 		.pattern("ISI")
 		.pattern(" G ")
@@ -316,7 +317,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_charger", has(RegistryManager.COPPER_CHARGER.get()))
 		.save(consumer, getResource("ember_jar"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.EMBER_CARTRIDGE.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, RegistryManager.EMBER_CARTRIDGE.get())
 		.pattern("ICI")
 		.pattern("GSG")
 		.pattern(" G ")
@@ -327,7 +328,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_charger", has(RegistryManager.COPPER_CHARGER.get()))
 		.save(consumer, getResource("ember_cartridge"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.CLOCKWORK_PICKAXE.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, RegistryManager.CLOCKWORK_PICKAXE.get())
 		.pattern("ISI")
 		.pattern(" C ")
 		.pattern(" W ")
@@ -338,7 +339,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_charger", has(RegistryManager.COPPER_CHARGER.get()))
 		.save(consumer, getResource("clockwork_pickaxe"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.CLOCKWORK_AXE.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, RegistryManager.CLOCKWORK_AXE.get())
 		.pattern("PCP")
 		.pattern("ISI")
 		.pattern(" W ")
@@ -350,7 +351,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_charger", has(RegistryManager.COPPER_CHARGER.get()))
 		.save(consumer, getResource("clockwork_axe"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.GRANDHAMMER.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, RegistryManager.GRANDHAMMER.get())
 		.pattern("BIB")
 		.pattern(" C ")
 		.pattern(" W ")
@@ -361,7 +362,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_charger", has(RegistryManager.COPPER_CHARGER.get()))
 		.save(consumer, getResource("grandhammer"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.BLAZING_RAY.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, RegistryManager.BLAZING_RAY.get())
 		.pattern(" DP")
 		.pattern("DPI")
 		.pattern("SW ")
@@ -373,7 +374,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_charger", has(RegistryManager.COPPER_CHARGER.get()))
 		.save(consumer, getResource("blazing_ray"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.CINDER_STAFF.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, RegistryManager.CINDER_STAFF.get())
 		.pattern("SES")
 		.pattern("IWI")
 		.pattern(" W ")
@@ -384,7 +385,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_charger", has(RegistryManager.COPPER_CHARGER.get()))
 		.save(consumer, getResource("cinder_staff"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.MECHANICAL_CORE.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.MECHANICAL_CORE.get())
 		.pattern("IBI")
 		.pattern(" P ")
 		.pattern("I I")
@@ -394,7 +395,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_lead_plate", has(itemTag("forge", "plates/lead")))
 		.save(consumer, getResource("mechanical_core"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.EMBER_BORE.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.EMBER_BORE.get())
 		.pattern("YCY")
 		.pattern("YBY")
 		.pattern("III")
@@ -405,7 +406,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_mech_core", has(RegistryManager.MECHANICAL_CORE.get()))
 		.save(consumer, getResource("ember_bore"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.CAMINITE_LEVER.get(), 4)
+		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, RegistryManager.CAMINITE_LEVER.get(), 4)
 		.pattern("S")
 		.pattern("P")
 		.define('S', Tags.Items.RODS_WOODEN)
@@ -413,7 +414,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_caminite_plate", has(RegistryManager.CAMINITE_PLATE.get()))
 		.save(consumer, getResource("caminite_lever"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.EMBER_EMITTER.get(), 4)
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.EMBER_EMITTER.get(), 4)
 		.pattern(" C ")
 		.pattern(" C ")
 		.pattern("IPI")
@@ -423,7 +424,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_caminite_plate", has(RegistryManager.CAMINITE_PLATE.get()))
 		.save(consumer, getResource("ember_emitter"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.EMBER_RECEIVER.get(), 4)
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.EMBER_RECEIVER.get(), 4)
 		.pattern("I I")
 		.pattern("CPC")
 		.define('I', itemTag("forge", "ingots/iron"))
@@ -432,7 +433,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_caminite_plate", has(RegistryManager.CAMINITE_PLATE.get()))
 		.save(consumer, getResource("ember_receiver"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.EMBER_ACTIVATOR.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.EMBER_ACTIVATOR.get())
 		.pattern("CCC")
 		.pattern("CCC")
 		.pattern("IFI")
@@ -442,7 +443,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_iron_plate", has(itemTag("forge", "plates/iron")))
 		.save(consumer, getResource("ember_activator"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.PRESSURE_REFINERY.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.PRESSURE_REFINERY.get())
 		.pattern("CCC")
 		.pattern("IDI")
 		.pattern("IBI")
@@ -453,7 +454,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_dawnstone", has(itemTag("forge", "ingots/dawnstone")))
 		.save(consumer, getResource("pressure_refinery"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.COPPER_CELL.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.COPPER_CELL.get())
 		.pattern("BIB")
 		.pattern("ICI")
 		.pattern("BIB")
@@ -463,7 +464,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_caminite_bricks", has(RegistryManager.CAMINITE_BRICKS.get()))
 		.save(consumer, getResource("copper_cell"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.MELTER.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.MELTER.get())
 		.pattern("BPB")
 		.pattern("BCB")
 		.pattern("IFI")
@@ -475,7 +476,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_caminite_bricks", has(RegistryManager.CAMINITE_BRICKS.get()))
 		.save(consumer, getResource("melter"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.FLUID_VESSEL.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.FLUID_VESSEL.get())
 		.pattern("B B")
 		.pattern("P P")
 		.pattern("BIB")
@@ -485,7 +486,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_caminite_brick", has(RegistryManager.CAMINITE_BRICK.get()))
 		.save(consumer, getResource("fluid_vessel"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.STAMPER.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.STAMPER.get())
 		.pattern("XCX")
 		.pattern("XBX")
 		.pattern("X X")
@@ -495,7 +496,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_iron_block", has(itemTag("forge", "storage_blocks/iron")))
 		.save(consumer, getResource("stamper"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.STAMP_BASE.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.STAMP_BASE.get())
 		.pattern("I I")
 		.pattern("XBX")
 		.define('I', itemTag("forge", "ingots/iron"))
@@ -504,28 +505,28 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_bucket", has(Items.BUCKET))
 		.save(consumer, getResource("stamp_base"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.EMBER_DIAL.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.EMBER_DIAL.get())
 		.pattern("P")
 		.pattern("C")
 		.define('P', Items.PAPER)
 		.define('C', itemTag("forge", "plates/copper"))
 		.unlockedBy("has_copper_plate", has(itemTag("forge", "plates/copper")))
 		.save(consumer, getResource("ember_dial"));
-		ShapedRecipeBuilder.shaped(RegistryManager.ITEM_DIAL.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.ITEM_DIAL.get())
 		.pattern("P")
 		.pattern("L")
 		.define('P', Items.PAPER)
 		.define('L', itemTag("forge", "plates/lead"))
 		.unlockedBy("has_lead_plate", has(itemTag("forge", "plates/lead")))
 		.save(consumer, getResource("item_dial"));
-		ShapedRecipeBuilder.shaped(RegistryManager.FLUID_DIAL.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.FLUID_DIAL.get())
 		.pattern("P")
 		.pattern("I")
 		.define('P', Items.PAPER)
 		.define('I', itemTag("forge", "plates/iron"))
 		.unlockedBy("has_iron_plate", has(itemTag("forge", "plates/iron")))
 		.save(consumer, getResource("fluid_dial"));
-		ShapedRecipeBuilder.shaped(RegistryManager.CLOCKWORK_ATTENUATOR.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.CLOCKWORK_ATTENUATOR.get())
 		.pattern("P")
 		.pattern("I")
 		.define('P', Items.PAPER)
@@ -533,20 +534,20 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_silver_plate", has(itemTag("forge", "plates/silver")))
 		.save(consumer, getResource("clockwork_attenuator"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.FLUID_PIPE.get(), 8)
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.FLUID_PIPE.get(), 8)
 		.pattern("IPI")
 		.define('I', itemTag("forge", "ingots/iron"))
 		.define('P', itemTag("forge", "plates/iron"))
 		.unlockedBy("has_iron_plate", has(itemTag("forge", "plates/iron")))
 		.save(consumer, getResource("fluid_pipe"));
-		ShapedRecipeBuilder.shaped(RegistryManager.ITEM_PIPE.get(), 8)
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.ITEM_PIPE.get(), 8)
 		.pattern("IPI")
 		.define('I', itemTag("forge", "ingots/lead"))
 		.define('P', itemTag("forge", "plates/lead"))
 		.unlockedBy("has_lead_plate", has(itemTag("forge", "plates/lead")))
 		.save(consumer, getResource("item_pipe"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.FLUID_EXTRACTOR.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.FLUID_EXTRACTOR.get())
 		.pattern(" R ")
 		.pattern("PBP")
 		.pattern(" R ")
@@ -555,7 +556,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('R', Tags.Items.DUSTS_REDSTONE)
 		.unlockedBy("has_fluid_pipe", has(RegistryManager.FLUID_PIPE.get()))
 		.save(consumer, getResource("fluid_extractor"));
-		ShapedRecipeBuilder.shaped(RegistryManager.ITEM_EXTRACTOR.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.ITEM_EXTRACTOR.get())
 		.pattern(" R ")
 		.pattern("PBP")
 		.pattern(" R ")
@@ -565,7 +566,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_item_pipe", has(RegistryManager.ITEM_PIPE.get()))
 		.save(consumer, getResource("item_extractor"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.ITEM_DROPPER.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.ITEM_DROPPER.get())
 		.pattern(" P ")
 		.pattern("I I")
 		.define('I', itemTag("forge", "ingots/lead"))
@@ -573,7 +574,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_item_pipe", has(RegistryManager.ITEM_PIPE.get()))
 		.save(consumer, getResource("item_dropper"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.BIN.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.BIN.get())
 		.pattern("I I")
 		.pattern("I I")
 		.pattern("IPI")
@@ -582,7 +583,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_lead_plate", has(itemTag("forge", "plates/lead")))
 		.save(consumer, getResource("bin"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.MIXER_CENTRIFUGE.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.MIXER_CENTRIFUGE.get())
 		.pattern("PPP")
 		.pattern("PCP")
 		.pattern("IMI")
@@ -593,7 +594,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_melter", has(RegistryManager.MELTER.get()))
 		.save(consumer, getResource("mixer_centrifuge"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.EMBER_EJECTOR.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.EMBER_EJECTOR.get())
 		.pattern("P")
 		.pattern("E")
 		.pattern("I")
@@ -603,7 +604,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_dawnstone", has(itemTag("forge", "ingots/dawnstone")))
 		.save(consumer, getResource("ember_ejector"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.EMBER_FUNNEL.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.EMBER_FUNNEL.get())
 		.pattern("P P")
 		.pattern("CRC")
 		.pattern(" P ")
@@ -613,7 +614,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_dawnstone", has(itemTag("forge", "ingots/dawnstone")))
 		.save(consumer, getResource("ember_funnel"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.EMBER_RELAY.get(), 4)
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.EMBER_RELAY.get(), 4)
 		.pattern(" C ")
 		.pattern("C C")
 		.pattern(" P ")
@@ -622,7 +623,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_iron_plate", has(itemTag("forge", "plates/iron")))
 		.save(consumer, getResource("ember_relay"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.MIRROR_RELAY.get(), 4)
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.MIRROR_RELAY.get(), 4)
 		.pattern(" P ")
 		.pattern("S S")
 		.define('P', itemTag("forge", "plates/lead"))
@@ -630,7 +631,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_silver", has(itemTag("forge", "ingots/silver")))
 		.save(consumer, getResource("mirror_relay"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.BEAM_SPLITTER.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.BEAM_SPLITTER.get())
 		.pattern(" D ")
 		.pattern("CPC")
 		.pattern(" I ")
@@ -641,7 +642,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_dawnstone", has(itemTag("forge", "ingots/dawnstone")))
 		.save(consumer, getResource("beam_splitter"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.ITEM_VACUUM.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.ITEM_VACUUM.get())
 		.pattern(" II")
 		.pattern("P  ")
 		.pattern(" II")
@@ -650,7 +651,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_item_pipe", has(RegistryManager.ITEM_PIPE.get()))
 		.save(consumer, getResource("item_vacuum"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.HEARTH_COIL.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.HEARTH_COIL.get())
 		.pattern("PPP")
 		.pattern("ICI")
 		.pattern(" B ")
@@ -661,7 +662,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_mech_core", has(RegistryManager.MECHANICAL_CORE.get()))
 		.save(consumer, getResource("hearth_coil"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.RESERVOIR.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.RESERVOIR.get())
 		.pattern("B B")
 		.pattern("I I")
 		.pattern("BTB")
@@ -671,7 +672,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_vessel", has(RegistryManager.FLUID_VESSEL.get()))
 		.save(consumer, getResource("reservoir"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.CAMINITE_RING.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.CAMINITE_RING.get())
 		.pattern("BBB")
 		.pattern("B B")
 		.pattern("BBB")
@@ -679,7 +680,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_reservoir", has(RegistryManager.RESERVOIR.get()))
 		.save(consumer, getResource("caminite_ring"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.CAMINITE_VALVE.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.CAMINITE_VALVE.get())
 		.pattern("BBB")
 		.pattern("P P")
 		.pattern("BBB")
@@ -688,7 +689,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_reservoir", has(RegistryManager.RESERVOIR.get()))
 		.save(consumer, getResource("caminite_valve"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.CRYSTAL_CELL.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.CRYSTAL_CELL.get())
 		.pattern(" E ")
 		.pattern("DED")
 		.pattern("CBC")
@@ -699,7 +700,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_dawnstone", has(itemTag("forge", "ingots/dawnstone")))
 		.save(consumer, getResource("crystal_cell"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.GEOLOGIC_SEPARATOR.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.GEOLOGIC_SEPARATOR.get())
 		.pattern("  B")
 		.pattern("GIG")
 		.define('B', itemTag("forge", "storage_blocks/silver"))
@@ -708,7 +709,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_silver", has(itemTag("forge", "ingots/silver")))
 		.save(consumer, getResource("geologic_separator"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.COPPER_CHARGER.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.COPPER_CHARGER.get())
 		.pattern(" X ")
 		.pattern("DCD")
 		.pattern("IPI")
@@ -720,7 +721,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_dawnstone", has(itemTag("forge", "ingots/dawnstone")))
 		.save(consumer, getResource("copper_charger"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.EMBER_SIPHON.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.EMBER_SIPHON.get())
 		.pattern("BGB")
 		.pattern("XGX")
 		.pattern("BBB")
@@ -730,7 +731,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_charger", has(RegistryManager.COPPER_CHARGER.get()))
 		.save(consumer, getResource("ember_siphon"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.ITEM_TRANSFER.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.ITEM_TRANSFER.get())
 		.pattern("PLP")
 		.pattern("ILI")
 		.pattern("I I")
@@ -740,7 +741,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_item_pipe", has(RegistryManager.ITEM_PIPE.get()))
 		.save(consumer, getResource("item_transfer"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.FLUID_TRANSFER.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.FLUID_TRANSFER.get())
 		.pattern("PLP")
 		.pattern("ILI")
 		.pattern("I I")
@@ -750,7 +751,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_fluid_pipe", has(RegistryManager.FLUID_PIPE.get()))
 		.save(consumer, getResource("fluid_transfer"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.ALCHEMY_PEDESTAL.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.ALCHEMY_PEDESTAL.get())
 		.pattern("D D")
 		.pattern("ICI")
 		.pattern("SBS")
@@ -762,7 +763,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_dawnstone", has(itemTag("forge", "ingots/dawnstone")))
 		.save(consumer, getResource("alchemy_pedestal"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.ALCHEMY_TABLET.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.ALCHEMY_TABLET.get())
 		.pattern(" D ")
 		.pattern("SXS")
 		.pattern("SIS")
@@ -773,7 +774,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_dawnstone", has(itemTag("forge", "ingots/dawnstone")))
 		.save(consumer, getResource("alchemy_tablet"));
 
-		ShapedRecipeBuilder.shaped(RegistryManager.BEAM_CANNON.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.BEAM_CANNON.get())
 		.pattern("PSP")
 		.pattern("PSP")
 		.pattern("IBI")
@@ -789,7 +790,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		fullMetalRecipes(name, fluid, block, ingot, nugget, plate, consumer);
 		oreMeltingRecipes(name, fluid, consumer, bonusses);
 
-		ShapedRecipeBuilder.shaped(rawBlock)
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, rawBlock)
 		.pattern("XXX")
 		.pattern("XYX")
 		.pattern("XXX")
@@ -798,13 +799,13 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_raw", has(raw))
 		.save(consumer, getResource(name + "_raw_to_raw_block"));
 
-		ShapelessRecipeBuilder.shapeless(raw, 9)
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, raw, 9)
 		.requires(rawBlock)
 		.unlockedBy("has_block", has(rawBlock))
 		.save(consumer, getResource(name + "_raw_block_to_raw"));
 
-		oreSmelting(consumer, ores, ingot, 0.7F, 200, name + "_ingot");
-		oreBlasting(consumer, ores, ingot, 0.7F, 100, name + "_ingot");
+		oreSmelting(consumer, ores, RecipeCategory.MISC, ingot, 0.7F, 200, name + "_ingot");
+		oreBlasting(consumer, ores, RecipeCategory.MISC, ingot, 0.7F, 100, name + "_ingot");
 	}
 
 	public void fullMetalRecipes(String name, Fluid fluid, Item block, Item ingot, Item nugget, Item plate, Consumer<FinishedRecipe> consumer) {
@@ -814,7 +815,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 	}
 
 	public void plateHammerRecipe(String name, Item plate, Consumer<FinishedRecipe> consumer) {
-		ShapelessRecipeBuilder.shapeless(plate)
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, plate)
 		.requires(itemTag("forge", "ingots/" + name))
 		.requires(itemTag("forge", "ingots/" + name))
 		.requires(EmbersItemTags.TINKER_HAMMER)
@@ -877,7 +878,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 	}
 
 	public void blockIngotNuggetCompression(String name, Item block, Item ingot, Item nugget, Consumer<FinishedRecipe> consumer) {
-		ShapedRecipeBuilder.shaped(block)
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, block)
 		.pattern("XXX")
 		.pattern("XYX")
 		.pattern("XXX")
@@ -886,12 +887,12 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_ingot", has(itemTag("forge", "ingots/" + name)))
 		.save(consumer, getResource(name + "_ingot_to_block"));
 
-		ShapelessRecipeBuilder.shapeless(ingot, 9)
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ingot, 9)
 		.requires(block)
 		.unlockedBy("has_block", has(block))
 		.save(consumer, getResource(name + "_block_to_ingot"));
 
-		ShapedRecipeBuilder.shaped(ingot)
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ingot)
 		.pattern("XXX")
 		.pattern("XYX")
 		.pattern("XXX")
@@ -900,7 +901,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_nugget", has(itemTag("forge", "nuggets/" + name)))
 		.save(consumer, getResource(name + "_nugget_to_ingot"));
 
-		ShapelessRecipeBuilder.shapeless(nugget, 9)
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, nugget, 9)
 		.requires(ingot)
 		.unlockedBy("has_ingot", has(ingot))
 		.save(consumer, getResource(name + "_ingot_to_nugget"));
@@ -910,7 +911,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		Item item = deco.block.get().asItem();
 
 		if (deco.stairs != null) {
-			ShapedRecipeBuilder.shaped(deco.stairs.get(), 4)
+			ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, deco.stairs.get(), 4)
 			.pattern("X  ")
 			.pattern("XX ")
 			.pattern("XXX")
@@ -918,37 +919,37 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 			.unlockedBy("has_" + deco.name, has(item))
 			.save(consumer, deco.stairs.getId());
 
-			stonecutterResultFromBase(consumer, deco.stairs.get(), item);
+			stonecutterResultFromBase(consumer, RecipeCategory.DECORATIONS, deco.stairs.get(), item);
 		}
 
 		if (deco.slab != null) {
-			ShapedRecipeBuilder.shaped(deco.slab.get(), 6)
+			ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, deco.slab.get(), 6)
 			.pattern("XXX")
 			.define('X', item)
 			.unlockedBy("has_" + deco.name, has(item))
 			.save(consumer, deco.slab.getId());
 
-			stonecutterResultFromBase(consumer, deco.slab.get(), item, 2);
+			stonecutterResultFromBase(consumer, RecipeCategory.DECORATIONS, deco.slab.get(), item, 2);
 		}
 
 		if (deco.wall != null) {
-			ShapedRecipeBuilder.shaped(deco.wall.get(), 6)
+			ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, deco.wall.get(), 6)
 			.pattern("XXX")
 			.pattern("XXX")
 			.define('X', item)
 			.unlockedBy("has_" + deco.name, has(item))
 			.save(consumer, deco.wall.getId());
 
-			stonecutterResultFromBase(consumer, deco.wall.get(), item);
+			stonecutterResultFromBase(consumer, RecipeCategory.DECORATIONS, deco.wall.get(), item);
 		}
 	}
 
 	public TagKey<Item> itemTag(String modId, String name) {
-		return TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(modId, name));
+		return TagKey.create(Registries.ITEM, new ResourceLocation(modId, name));
 	}
 
 	public TagKey<Fluid> fluidTag(String modId, String name) {
-		return TagKey.create(Registry.FLUID_REGISTRY, new ResourceLocation(modId, name));
+		return TagKey.create(Registries.FLUID, new ResourceLocation(modId, name));
 	}
 
 	public ICondition tagReal(TagKey<?> tag) {

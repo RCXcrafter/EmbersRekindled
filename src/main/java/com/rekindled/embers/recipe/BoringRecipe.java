@@ -13,7 +13,8 @@ import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.util.WeightedItemStack;
 
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
@@ -83,7 +84,7 @@ public class BoringRecipe implements Recipe<BoringContext> {
 	}
 
 	@Override
-	public ItemStack getResultItem() {
+	public ItemStack getResultItem(RegistryAccess registry) {
 		return result.getStack();
 	}
 
@@ -108,7 +109,7 @@ public class BoringRecipe implements Recipe<BoringContext> {
 
 	public List<ItemStack> getDisplayInput() {
 		List<ItemStack> list = Lists.newArrayList();
-		for (Holder<Block> holder : Registry.BLOCK.getTagOrEmpty(requiredBlock)) {
+		for (Holder<Block> holder : BuiltInRegistries.BLOCK.getTagOrEmpty(requiredBlock)) {
 			list.add(new ItemStack(holder.get(), amountRequired));
 		}
 		return list;
@@ -116,7 +117,7 @@ public class BoringRecipe implements Recipe<BoringContext> {
 
 	@Override
 	@Deprecated
-	public ItemStack assemble(BoringContext context) {
+	public ItemStack assemble(BoringContext context, RegistryAccess registry) {
 		return ItemStack.EMPTY;
 	}
 

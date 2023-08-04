@@ -41,7 +41,7 @@ public class TinkerHammerItem extends Item {
 			}
 			if (stack.getItem() == TinkerHammerItem.this && stack.hasTag()) {	
 				CompoundTag nbt = stack.getTag();
-				if (stack.hasTag() && nbt.contains("targetWorld") && player.level.dimension().location().toString().equals(nbt.getString("targetWorld"))) {
+				if (stack.hasTag() && nbt.contains("targetWorld") && player.level().dimension().location().toString().equals(nbt.getString("targetWorld"))) {
 					return Pair.of(new BlockPos(nbt.getInt("targetX"), nbt.getInt("targetY"), nbt.getInt("targetZ")), Direction.byName(nbt.getString("targetFace")));
 				}
 			}

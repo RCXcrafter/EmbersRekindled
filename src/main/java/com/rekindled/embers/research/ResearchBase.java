@@ -5,13 +5,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.rekindled.embers.ConfigManager;
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.gui.GuiCodex;
 import com.rekindled.embers.util.Vec2i;
 
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
@@ -276,10 +276,10 @@ public class ResearchBase {
 		return true;
 	}
 
-	public void renderPageContent(PoseStack poseStack, GuiCodex gui, int basePosX, int basePosY, Font fontRenderer) {
+	public void renderPageContent(GuiGraphics graphics, GuiCodex gui, int basePosX, int basePosY, Font fontRenderer) {
 		List<FormattedCharSequence> strings = getLines(fontRenderer, getText(), 152);
 		for (int i = 0; i < Math.min(strings.size(),17); i++){
-			GuiCodex.drawTextGlowing(fontRenderer, poseStack, strings.get(i), basePosX+20, basePosY+43+i*(fontRenderer.lineHeight+3));
+			GuiCodex.drawTextGlowing(fontRenderer, graphics, strings.get(i), basePosX+20, basePosY+43+i*(fontRenderer.lineHeight+3));
 		}
 	}
 

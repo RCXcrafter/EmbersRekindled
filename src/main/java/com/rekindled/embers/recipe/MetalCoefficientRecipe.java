@@ -9,7 +9,8 @@ import com.google.gson.JsonObject;
 import com.rekindled.embers.RegistryManager;
 
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
@@ -68,7 +69,7 @@ public class MetalCoefficientRecipe implements Recipe<BlockStateContext> {
 
 	public List<ItemStack> getDisplayInput() {
 		List<ItemStack> list = Lists.newArrayList();
-		for (Holder<Block> holder : Registry.BLOCK.getTagOrEmpty(blockTag)) {
+		for (Holder<Block> holder : BuiltInRegistries.BLOCK.getTagOrEmpty(blockTag)) {
 			list.add(new ItemStack(holder.get()));
 		}
 		return list;
@@ -80,13 +81,13 @@ public class MetalCoefficientRecipe implements Recipe<BlockStateContext> {
 
 	@Override
 	@Deprecated
-	public ItemStack getResultItem() {
+	public ItemStack getResultItem(RegistryAccess registry) {
 		return ItemStack.EMPTY;
 	}
 
 	@Override
 	@Deprecated
-	public ItemStack assemble(BlockStateContext context) {
+	public ItemStack assemble(BlockStateContext context, RegistryAccess registry) {
 		return ItemStack.EMPTY;
 	}
 

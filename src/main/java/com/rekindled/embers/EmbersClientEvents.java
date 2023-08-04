@@ -5,10 +5,9 @@ import java.util.List;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import com.rekindled.embers.api.block.IDial;
 import com.rekindled.embers.api.capabilities.EmbersCapabilities;
 import com.rekindled.embers.api.power.IEmberCapability;
@@ -22,7 +21,7 @@ import com.rekindled.embers.util.EmberGenUtil;
 import com.rekindled.embers.util.Misc;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
@@ -58,6 +57,8 @@ public class EmbersClientEvents {
 	public static double gaugeAngle = 0;
 	public static long seed = 0;
 	public static BlockPos lastTarget = null;
+	public static ResourceLocation GAUGE = new ResourceLocation(Embers.MODID, "textures/gui/ember_meter_overlay.png"); 
+	public static ResourceLocation GAUGE_POINTER = new ResourceLocation(Embers.MODID, "textures/gui/ember_meter_pointer.png"); 
 
 	public static void onClientTick(ClientTickEvent event) {
 		if (event.side == LogicalSide.CLIENT && event.phase == Phase.START) {
@@ -99,7 +100,7 @@ public class EmbersClientEvents {
 
 			Player player = mc.player;
 			Pair<BlockPos, Direction> target = Misc.getHammerTarget(player);
-			if (target != null && player.level.isLoaded(target.getLeft())) {
+			if (target != null && player.level().isLoaded(target.getLeft())) {
 				BlockPos targetPos = target.getLeft();
 				Direction targetDir = target.getRight();
 				Vec3 camPos = event.getCamera().getPosition();
@@ -126,7 +127,7 @@ public class EmbersClientEvents {
 				};
 
 				//LevelRenderer.renderShape(event.getPoseStack(), consumer, player.level.getBlockState(targetPos).getShape(player.level, targetPos), x, y, z, red, green, blue, alpha);
-				player.level.getBlockState(targetPos).getShape(player.level, targetPos).forAllEdges(lineDrawer);
+				player.level().getBlockState(targetPos).getShape(player.level(), targetPos).forAllEdges(lineDrawer);
 
 				if (mc.hitResult instanceof BlockHitResult result && result != null && result.getType() == BlockHitResult.Type.BLOCK && !result.getBlockPos().equals(targetPos) && mc.level.getBlockEntity(result.getBlockPos()) instanceof IEmberPacketReceiver) {
 					lastTarget = result.getBlockPos();
@@ -165,7 +166,7 @@ public class EmbersClientEvents {
 		}
 	}
 
-	public static void renderIngameOverlay(ForgeGui gui, PoseStack poseStack, float partialTicks, int width, int height) {
+	public static void renderIngameOverlay(ForgeGui gui, GuiGraphics graphics, float partialTicks, int width, int height) {
 		Minecraft mc = gui.getMinecraft();
 		if (mc.options.hideGui)
 			return;
@@ -190,12 +191,14 @@ public class EmbersClientEvents {
 						}
 					}
 					if (!text.isEmpty()) {
-						poseStack.pushPose();
+						//poseStack.pushPose();
 						for (int i = 0; i < text.size(); i++) {
-							mc.font.drawShadow(poseStack, text.get(i), width / 2 - mc.font.width(text.get(i)) / 2, height / 2 + 40 + 11 * i, 0xFFFFFF);
-							mc.font.draw(poseStack, text.get(i), width / 2 - mc.font.width(text.get(i)) / 2, height / 2 + 40 + 11 * i, 0xFFFFFF);
+							graphics.drawString(mc.font, text.get(i), width / 2 - mc.font.width(text.get(i)) / 2, height / 2 + 40 + 11 * i, 0xFFFFFF);
+
+							//mc.font.drawShadow(poseStack, text.get(i), width / 2 - mc.font.width(text.get(i)) / 2, height / 2 + 40 + 11 * i, 0xFFFFFF);
+							//mc.font.draw(poseStack, text.get(i), width / 2 - mc.font.width(text.get(i)) / 2, height / 2 + 40 + 11 * i, 0xFFFFFF);
 						}
-						poseStack.popPose();
+						//poseStack.popPose();
 					}
 				}
 			}
@@ -205,12 +208,12 @@ public class EmbersClientEvents {
 			int x = width / 2;
 			int y = height / 2;
 
-			poseStack.pushPose();
-			RenderSystem.setShaderTexture(0, new ResourceLocation(Embers.MODID, "textures/gui/ember_meter_overlay.png"));
+			graphics.pose().pushPose();
+			//RenderSystem.setShaderTexture(0, new ResourceLocation(Embers.MODID, "textures/gui/ember_meter_overlay.png"));
 
 			//int offsetX = 0;
 
-			GuiComponent.blit(poseStack, x - 16, y - 16, gui.getBlitOffset(), 0, 0, 32, 32, 32, 32);
+			graphics.blit(GAUGE, x - 16, y - 16, 0, 0, 0, 32, 32, 32, 32);
 
 			//double angle = 195.0;
 			//EmberWorldData data = EmberWorldData.get(world);
@@ -227,14 +230,14 @@ public class EmbersClientEvents {
 				//}
 			}
 
-			RenderSystem.setShaderTexture(0, new ResourceLocation(Embers.MODID, "textures/gui/ember_meter_pointer.png"));
-			poseStack.translate(x, y, 0);
-			poseStack.mulPose(Vector3f.ZP.rotationDegrees((float) gaugeAngle));
-			poseStack.translate(-2.5, -2.5, 0);
+			//RenderSystem.setShaderTexture(0, new ResourceLocation(Embers.MODID, "textures/gui/ember_meter_pointer.png"));
+			graphics.pose().translate(x, y, 0);
+			graphics.pose().mulPose(Axis.ZP.rotationDegrees((float) gaugeAngle));
+			graphics.pose().translate(-2.5, -2.5, 0);
 
-			GuiComponent.blit(poseStack, 0, 0, gui.getBlitOffset(), 0, 0, 12, 5, 16, 16);
+			graphics.blit(GAUGE_POINTER, 0, 0, 0, 0, 0, 12, 5, 16, 16);
 
-			poseStack.popPose();
+			graphics.pose().popPose();
 		}
 	}
 

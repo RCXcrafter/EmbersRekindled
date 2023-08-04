@@ -101,7 +101,7 @@ public abstract class PipeBlockBase extends BaseEntityBlock implements SimpleWat
 			}
 			return InteractionResult.PASS;
 		}
-		double reach = player.getReachDistance();
+		double reach = player.getBlockReach();
 		Vec3 eyePosition = player.getEyePosition();
 		Vec3 lookVector = player.getLookAngle().multiply(reach, reach, reach).add(eyePosition);
 

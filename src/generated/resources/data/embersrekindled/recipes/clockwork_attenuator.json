@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "I": {
       "tag": "forge:plates/silver"
@@ -14,5 +15,6 @@
   ],
   "result": {
     "item": "embersrekindled:clockwork_attenuator"
-  }
+  },
+  "show_notification": true
 }

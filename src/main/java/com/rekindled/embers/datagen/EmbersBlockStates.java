@@ -16,7 +16,7 @@ import com.rekindled.embers.block.StamperBlock;
 
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ButtonBlock;
@@ -35,7 +35,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class EmbersBlockStates extends BlockStateProvider {
 
-	public EmbersBlockStates(DataGenerator gen, ExistingFileHelper exFileHelper) {
+	public EmbersBlockStates(PackOutput gen, ExistingFileHelper exFileHelper) {
 		super(gen, Embers.MODID, exFileHelper);
 	}
 

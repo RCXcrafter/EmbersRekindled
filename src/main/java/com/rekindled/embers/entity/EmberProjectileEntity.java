@@ -12,6 +12,7 @@ import com.rekindled.embers.util.Misc;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -130,12 +131,12 @@ public class EmberProjectileEntity extends Projectile {
 
 			Vec3 currPosVec = this.position();
 			Vec3 newPosVector = currPosVec.add(getDeltaMovement());
-			HitResult raytraceresult = level.clip(new ClipContext(currPosVec, newPosVector.add(getDeltaMovement().normalize().scale(1.5)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this));
+			HitResult raytraceresult = level().clip(new ClipContext(currPosVec, newPosVector.add(getDeltaMovement().normalize().scale(1.5)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this));
 
 			if (raytraceresult != null && raytraceresult.getType() != HitResult.Type.MISS)
 				newPosVector = raytraceresult.getLocation();
 
-			HitResult hitEntity = ProjectileUtil.getEntityHitResult(level, this, currPosVec, newPosVector, this.getBoundingBox().expandTowards(this.getDeltaMovement()).inflate(1.0D), this::canHitEntity);
+			HitResult hitEntity = ProjectileUtil.getEntityHitResult(level(), this, currPosVec, newPosVector, this.getBoundingBox().expandTowards(this.getDeltaMovement()).inflate(1.0D), this::canHitEntity);
 
 			if (hitEntity != null) {
 				newPosVector = hitEntity.getLocation();
@@ -146,13 +147,13 @@ public class EmberProjectileEntity extends Projectile {
 
 			setDeltaMovement(getDeltaMovement().add(0, gravity, 0));
 
-			if (!level.isClientSide && raytraceresult != null && raytraceresult.getType() != HitResult.Type.MISS && !ForgeEventFactory.onProjectileImpact(this, raytraceresult)) {
+			if (!level().isClientSide() && raytraceresult != null && raytraceresult.getType() != HitResult.Type.MISS && !ForgeEventFactory.onProjectileImpact(this, raytraceresult)) {
 				onHit(raytraceresult);
 			}
 
-			handleHoming(lifetime, level);
+			handleHoming(lifetime, level());
 
-			if (level.isClientSide) {
+			if (level().isClientSide()) {
 				double deltaX = getX() - currPosVec.x;
 				double deltaY = getY() - currPosVec.y;
 				double deltaZ = getZ() - currPosVec.z;
@@ -160,7 +161,7 @@ public class EmberProjectileEntity extends Projectile {
 				GlowParticleOptions options = new GlowParticleOptions(Misc.colorFromInt(getEntityData().get(color)), getEntityData().get(value) / 1.75f, 24);
 				for (double i = 0; i < dist; i++) {
 					double coeff = i / dist;
-					level.addParticle(options, currPosVec.x + deltaX * coeff, currPosVec.y + deltaY * coeff, currPosVec.z + deltaZ * coeff, 0.125f*(random.nextFloat()-0.5f), 0.125f*(random.nextFloat()-0.5f), 0.125f*(random.nextFloat()-0.5f));
+					level().addParticle(options, currPosVec.x + deltaX * coeff, currPosVec.y + deltaY * coeff, currPosVec.z + deltaZ * coeff, 0.125f*(random.nextFloat()-0.5f), 0.125f*(random.nextFloat()-0.5f), 0.125f*(random.nextFloat()-0.5f));
 				}
 			}
 		} else {
@@ -210,7 +211,7 @@ public class EmberProjectileEntity extends Projectile {
 		playSound(getEntityData().get(value) > 7.0 ? EmbersSounds.FIREBALL_BIG_HIT.get() : EmbersSounds.FIREBALL_HIT.get());
 
 		GlowParticleOptions options = new GlowParticleOptions(Misc.colorFromInt(getEntityData().get(color)), getEntityData().get(value), 24);
-		if (level instanceof ServerLevel serverLevel) {
+		if (level() instanceof ServerLevel serverLevel) {
 			float dist = ((float)getEntityData().get(value)/3.5f)*0.125f;
 			serverLevel.sendParticles(options, getX(), getY(), getZ(), 40, dist, dist, dist, 0.75);
 		}
@@ -222,11 +223,11 @@ public class EmberProjectileEntity extends Projectile {
 		//double aoeRadius = getEntityData().get(value) * 0.125; //TODO
 
 		if(effect != null)
-			effect.onHit(level, raytraceresult, preset);
+			effect.onHit(level(), raytraceresult, preset);
 	}
 
 	@Override
-	public Packet<?> getAddEntityPacket() {
+	public Packet<ClientGamePacketListener> getAddEntityPacket() {
 		return new ClientboundAddEntityPacket(this);
 	}
 }

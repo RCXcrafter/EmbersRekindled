@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "building",
   "key": {
     "S": {
       "item": "embersrekindled:ember_shard"
@@ -15,5 +16,6 @@
   ],
   "result": {
     "item": "embersrekindled:archaic_light"
-  }
+  },
+  "show_notification": true
 }

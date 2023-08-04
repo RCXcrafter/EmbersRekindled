@@ -2,11 +2,12 @@ package com.rekindled.embers.blockentity.render;
 
 import java.util.Random;
 
+import org.joml.Matrix4f;
+
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.blockentity.CrystalCellBlockEntity;
 import com.rekindled.embers.render.EmbersRenderTypes;
@@ -56,7 +57,7 @@ public class CrystalCellBlockEntityRenderer implements BlockEntityRenderer<Cryst
 
 		RenderSystem.setShaderTexture(0, texture);
 		RenderSystem.disableCull();
-		RenderSystem.enableTexture();
+		//RenderSystem.enableTexture();
 		VertexConsumer buffer = bufferSource.getBuffer(EmbersRenderTypes.CRYSTAL);
 
 		int l = 15;
@@ -73,8 +74,8 @@ public class CrystalCellBlockEntityRenderer implements BlockEntityRenderer<Cryst
 				poseStack.scale(scale, scale, scale);
 
 
-				poseStack.mulPose(Vector3f.YP.rotationDegrees(partialTick + blockEntity.ticksExisted % 360));
-				poseStack.mulPose(Vector3f.XP.rotationDegrees(30.0f * (float) Math.sin(Math.toRadians((partialTick / 3.0f) + (blockEntity.ticksExisted / 3.0f) % 360))));
+				poseStack.mulPose(Axis.YP.rotationDegrees(partialTick + blockEntity.ticksExisted % 360));
+				poseStack.mulPose(Axis.XP.rotationDegrees(30.0f * (float) Math.sin(Math.toRadians((partialTick / 3.0f) + (blockEntity.ticksExisted / 3.0f) % 360))));
 
 				Matrix4f matrix4f = poseStack.last().pose();
 				for (int i = 0; i < widths.length - 1; i++) {

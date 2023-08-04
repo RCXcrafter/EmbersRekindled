@@ -3,10 +3,8 @@ package com.rekindled.embers.particle;
 import com.rekindled.embers.render.EmbersRenderTypes;
 
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.ParticleRenderType;
-import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.particle.TextureSheetParticle;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -16,7 +14,7 @@ public class SmokeParticle extends TextureSheetParticle {
 
 	public float rotScale = random.nextFloat() * 0.1f + 0.05f;
 
-	public SmokeParticle(ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed, SmokeParticleOptions pOptions, SpriteSet pSprites) {
+	public SmokeParticle(ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed, SmokeParticleOptions pOptions) {
 		super(pLevel, pX, pY, pZ, pXSpeed, pYSpeed, pZSpeed);
 		this.friction = 1.0F;
 		this.speedUpWhenYMotionIsBlocked = true;
@@ -31,7 +29,6 @@ public class SmokeParticle extends TextureSheetParticle {
 		this.quadSize *= 0.75F * pOptions.getScale();
 		double i = 6.0D / (this.random.nextDouble() * 0.5D + 0.5D);
 		this.lifetime = (int)(i * pOptions.getScale());
-		this.pickSprite(pSprites);
 	}
 
 	public float getQuadSize(float pScaleFactor) {
@@ -52,15 +49,9 @@ public class SmokeParticle extends TextureSheetParticle {
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public static class Provider implements ParticleProvider<SmokeParticleOptions> {
-		private final SpriteSet sprites;
-
-		public Provider(SpriteSet pSprites) {
-			this.sprites = pSprites;
-		}
-
-		public Particle createParticle(SmokeParticleOptions pType, ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed) {
-			return new SmokeParticle(pLevel, pX, pY, pZ, pXSpeed, pYSpeed, pZSpeed, pType, this.sprites);
+	public static class Provider implements ParticleProvider.Sprite<SmokeParticleOptions> {
+		public TextureSheetParticle createParticle(SmokeParticleOptions pType, ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed) {
+			return new SmokeParticle(pLevel, pX, pY, pZ, pXSpeed, pYSpeed, pZSpeed, pType);
 		}
 	}
 }

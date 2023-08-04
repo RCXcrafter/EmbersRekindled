@@ -2,7 +2,6 @@ package com.rekindled.embers.compat.jei;
 
 import java.text.DecimalFormat;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.recipe.MetalCoefficientRecipe;
@@ -19,6 +18,7 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -62,8 +62,8 @@ public class MetalCoefficientCategory implements IRecipeCategory<MetalCoefficien
 
 	@SuppressWarnings("resource")
 	@Override
-	public void draw(MetalCoefficientRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX, double mouseY) {
+	public void draw(MetalCoefficientRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
 		DecimalFormat multiplierFormat = DecimalFormats.getDecimalFormat(Embers.MODID + ".decimal_format.ember_multiplier");
-		Misc.drawComponents(Minecraft.getInstance().font, stack, 28, 10, Component.literal(multiplierFormat.format(recipe.getDisplayCoefficient())));
+		Misc.drawComponents(Minecraft.getInstance().font, guiGraphics, 28, 10, Component.literal(multiplierFormat.format(recipe.getDisplayCoefficient())));
 	}
 }

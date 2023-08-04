@@ -3,10 +3,8 @@ package com.rekindled.embers.particle;
 import com.rekindled.embers.render.EmbersRenderTypes;
 
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.ParticleRenderType;
-import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.particle.TextureSheetParticle;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -16,7 +14,7 @@ public class SparkParticle extends TextureSheetParticle {
 	
 	public float rotScale = random.nextFloat() * 0.1f + 0.05f;
 
-	public SparkParticle(ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed, SparkParticleOptions pOptions, SpriteSet pSprites) {
+	public SparkParticle(ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed, SparkParticleOptions pOptions) {
 		super(pLevel, pX, pY, pZ, pXSpeed, pYSpeed, pZSpeed);
 		this.friction = 0.96F;
 		this.speedUpWhenYMotionIsBlocked = true;
@@ -30,7 +28,6 @@ public class SparkParticle extends TextureSheetParticle {
 		this.quadSize *= 0.75F * pOptions.getScale();
 		double i = 20.0D / (this.random.nextDouble() * 0.5D + 0.5D);
 		this.lifetime = (int)(i * pOptions.getScale());
-		this.pickSprite(pSprites);
 	}
 
 	public float getQuadSize(float pScaleFactor) {
@@ -55,15 +52,9 @@ public class SparkParticle extends TextureSheetParticle {
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public static class Provider implements ParticleProvider<SparkParticleOptions> {
-		private final SpriteSet sprites;
-
-		public Provider(SpriteSet pSprites) {
-			this.sprites = pSprites;
-		}
-
-		public Particle createParticle(SparkParticleOptions pType, ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed) {
-			return new SparkParticle(pLevel, pX, pY, pZ, pXSpeed, pYSpeed, pZSpeed, pType, this.sprites);
+	public static class Provider implements ParticleProvider.Sprite<SparkParticleOptions> {
+		public TextureSheetParticle createParticle(SparkParticleOptions pType, ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed) {
+			return new SparkParticle(pLevel, pX, pY, pZ, pXSpeed, pYSpeed, pZSpeed, pType);
 		}
 	}
 }

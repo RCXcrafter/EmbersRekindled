@@ -1,7 +1,7 @@
 package com.rekindled.embers.blockentity.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.block.EmberBoreBlock;
 import com.rekindled.embers.blockentity.EmberBoreBlockEntity;
@@ -14,7 +14,7 @@ import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction.Axis;
+import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.state.BlockState;
@@ -43,10 +43,10 @@ public class EmberBoreBlockEntityRenderer implements BlockEntityRenderer<EmberBo
 			bladeState = bladeState.setValue(EmberBoreBlock.BLADES, true);
 			poseStack.pushPose();
 			poseStack.translate(0.5D, -0.5D, 0.5D);
-			if (bladeState.getValue(BlockStateProperties.HORIZONTAL_AXIS) == Axis.Z) {
-				poseStack.mulPose(Vector3f.ZP.rotationDegrees(partialTick * angle + (1 - partialTick) * lastAngle));
+			if (bladeState.getValue(BlockStateProperties.HORIZONTAL_AXIS) == Direction.Axis.Z) {
+				poseStack.mulPose(Axis.ZP.rotationDegrees(partialTick * angle + (1 - partialTick) * lastAngle));
 			} else {
-				poseStack.mulPose(Vector3f.XP.rotationDegrees(partialTick * angle + (1 - partialTick) * lastAngle));
+				poseStack.mulPose(Axis.XP.rotationDegrees(partialTick * angle + (1 - partialTick) * lastAngle));
 			}
 			poseStack.translate(-0.5D, -0.5D, -0.5D);
 			blockrendererdispatcher.getModelRenderer().renderModel(poseStack.last(), bufferSource.getBuffer(Sheets.solidBlockSheet()), bladeState, blockrendererdispatcher.getBlockModel(bladeState), 0.0f, 0.0f, 0.0f, packedLight, packedOverlay, ModelData.EMPTY, Sheets.solidBlockSheet());

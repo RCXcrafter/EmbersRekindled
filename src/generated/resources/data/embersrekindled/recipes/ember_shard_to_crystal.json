@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "X": {
       "item": "embersrekindled:ember_shard"
@@ -11,5 +12,6 @@
   ],
   "result": {
     "item": "embersrekindled:ember_crystal"
-  }
+  },
+  "show_notification": true
 }

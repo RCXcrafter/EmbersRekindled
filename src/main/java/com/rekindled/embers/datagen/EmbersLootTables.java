@@ -1,50 +1,18 @@
 package com.rekindled.embers.datagen;
 
 import java.util.List;
-import java.util.Map;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
+import java.util.Set;
 
-import com.google.common.collect.ImmutableList;
-import com.mojang.datafixers.util.Pair;
-import com.rekindled.embers.Embers;
-
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.LootTableProvider;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.LootTables;
-import net.minecraft.world.level.storage.loot.ValidationContext;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 
 public class EmbersLootTables extends LootTableProvider {
 
-	private final List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootContextParamSet>> lootTables = ImmutableList.of(Pair.of(EmbersBlockLootTables::new, LootContextParamSets.BLOCK), Pair.of(EmbersEntityLootTables::new, LootContextParamSets.ENTITY));
-
-	public EmbersLootTables(DataGenerator gen) {
-		super(gen);
-	}
-
-	@Override
-	protected List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootContextParamSet>> getTables() {
-		return lootTables;
-	}
-
-	@Override
-	protected void validate(Map<ResourceLocation,LootTable> map, ValidationContext validationtracker) {
-		map.forEach((loc, table) -> LootTables.validate(validationtracker, loc, table));
-		// Remove vanilla's tables, which we also loaded so we can redirect stuff to them.
-		// This ensures the remaining generator logic doesn't write those to files.
-		map.keySet().removeIf((loc) -> !loc.getNamespace().equals(Embers.MODID));
-	}
-
-	/**
-	 * Gets a name for this provider, to use in logging.
-	 */
-	@Override
-	public String getName() {
-		return Embers.MODID + " LootTables";
+	public EmbersLootTables(PackOutput output) {
+		super(output, Set.of(), List.of(
+				new LootTableProvider.SubProviderEntry(EmbersBlockLootTables::new, LootContextParamSets.BLOCK),
+				new LootTableProvider.SubProviderEntry(EmbersEntityLootTables::new, LootContextParamSets.ENTITY)
+				));
 	}
 }

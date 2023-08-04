@@ -9,6 +9,7 @@ import com.rekindled.embers.particle.StarParticleOptions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
@@ -67,7 +68,7 @@ public class EmberPacketEntity extends Entity {
 	public void tick() {
 		//super.tick();
 		if (this.lifetime == 79) {
-			if (level instanceof ServerLevel serverLevel) {
+			if (level() instanceof ServerLevel serverLevel) {
 				serverLevel.sendParticles(new StarParticleOptions(GlowParticleOptions.EMBER_COLOR, 3.5f + 0.5f * random.nextFloat()), getX(), getY(), getZ(), 12, 0.0125f * (random.nextFloat() - 0.5f), 0.0125f * (random.nextFloat() - 0.5f), 0.0125f * (random.nextFloat() - 0.5f), 0.0);
 			}
 		}
@@ -97,16 +98,16 @@ public class EmberPacketEntity extends Entity {
 
 			BlockPos pos = blockPosition();
 			if (getX() > pos.getX()+0.25 && getX() < pos.getX()+0.75 && getY() > pos.getY()+0.25 && this.getY() < pos.getY()+0.75 && getZ() > pos.getZ()+0.25 && getZ() < pos.getZ()+0.75) {
-				affectTileEntity(level.getBlockState(blockPosition()), level.getBlockEntity(blockPosition()));
+				affectTileEntity(level().getBlockState(blockPosition()), level().getBlockEntity(blockPosition()));
 			}
-			if (level.isClientSide() && this.lifetime != 80) {
+			if (level().isClientSide() && this.lifetime != 80) {
 				double deltaX = getX() - oldPosition.x;
 				double deltaY = getY() - oldPosition.y;
 				double deltaZ = getZ() - oldPosition.z;
 				double dist = Math.ceil(Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * 20);
 				for (double i = 0; i < dist; i ++) {
 					double coeff = i / dist;
-					level.addParticle(GlowParticleOptions.EMBER, oldPosition.x + deltaX * coeff, oldPosition.y + deltaY * coeff, oldPosition.z + deltaZ * coeff, 0.125f*(random.nextFloat()-0.5f), 0.125f*(random.nextFloat()-0.5f), 0.125f*(random.nextFloat()-0.5f));
+					level().addParticle(GlowParticleOptions.EMBER, oldPosition.x + deltaX * coeff, oldPosition.y + deltaY * coeff, oldPosition.z + deltaZ * coeff, 0.125f*(random.nextFloat()-0.5f), 0.125f*(random.nextFloat()-0.5f), 0.125f*(random.nextFloat()-0.5f));
 				}
 			}
 		}
@@ -128,7 +129,7 @@ public class EmberPacketEntity extends Entity {
 	}
 
 	@Override
-	public Packet<?> getAddEntityPacket() {
+	public Packet<ClientGamePacketListener> getAddEntityPacket() {
 		return new ClientboundAddEntityPacket(this);
 	}
 }

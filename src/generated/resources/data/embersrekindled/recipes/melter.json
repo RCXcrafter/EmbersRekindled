@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "B": {
       "item": "embersrekindled:caminite_bricks"
@@ -24,5 +25,6 @@
   ],
   "result": {
     "item": "embersrekindled:melter"
-  }
+  },
+  "show_notification": true
 }

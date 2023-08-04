@@ -95,7 +95,7 @@ public class FilterSieve implements IFilter {
 		return Objects.equals(comparator, other.comparator)
 				&& Objects.equals(inverted,other.inverted)
 				&& Objects.equals(setting, other.setting)
-				&& ItemStack.isSame(stack1, other.stack1)
-				&& ItemStack.isSame(stack2, other.stack2);
+				&& ItemStack.isSameItemSameTags(stack1, other.stack1)
+				&& ItemStack.isSameItemSameTags(stack2, other.stack2);
 	}
 }

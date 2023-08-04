@@ -10,11 +10,11 @@ import net.minecraft.world.entity.LivingEntity;
 
 public class EffectDamage implements IProjectileEffect {
 	float damage;
-	Function<IProjectilePreset, DamageSource> source;
+	Function<Entity, DamageSource> source;
 	int fire;
 	double invinciblityMultiplier = 1.0;
 
-	public EffectDamage(float damage, Function<IProjectilePreset, DamageSource> source, int fire, double invinciblityMultiplier) {
+	public EffectDamage(float damage, Function<Entity, DamageSource> source, int fire, double invinciblityMultiplier) {
 		this.damage = damage;
 		this.source = source;
 		this.fire = fire;
@@ -29,11 +29,11 @@ public class EffectDamage implements IProjectileEffect {
 		this.damage = damage;
 	}
 
-	public Function<IProjectilePreset, DamageSource> getSource() {
+	public Function<Entity, DamageSource> getSource() {
 		return source;
 	}
 
-	public void setSource(Function<IProjectilePreset, DamageSource> source) {
+	public void setSource(Function<Entity, DamageSource> source) {
 		this.source = source;
 	}
 
@@ -56,10 +56,10 @@ public class EffectDamage implements IProjectileEffect {
 	@Override
 	public void onEntityImpact(Entity entity, @Nullable IProjectilePreset projectile) {
 		Entity shooter = projectile != null ? projectile.getShooter() : null;
-		//Entity projectileEntity = projectile != null ? projectile.getEntity() : null;
-		if (entity.hurt(source.apply(projectile),damage))
+		Entity projectileEntity = projectile != null ? projectile.getEntity() : null;
+		if (entity.hurt(source.apply(projectileEntity), damage))
 			entity.setSecondsOnFire(fire);
-		if(entity instanceof LivingEntity) {
+		if (entity instanceof LivingEntity) {
 			LivingEntity livingTarget = (LivingEntity) entity;
 			livingTarget.setLastHurtMob(shooter);
 			livingTarget.hurtDuration = (int) (livingTarget.hurtDuration * invinciblityMultiplier);

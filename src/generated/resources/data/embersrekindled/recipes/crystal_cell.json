@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "B": {
       "tag": "forge:storage_blocks/dawnstone"
@@ -21,5 +22,6 @@
   ],
   "result": {
     "item": "embersrekindled:crystal_cell"
-  }
+  },
+  "show_notification": true
 }

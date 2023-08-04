@@ -1,13 +1,14 @@
 package com.rekindled.embers.blockentity.render;
 
+import org.joml.Vector3f;
+
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import com.rekindled.embers.blockentity.MelterTopBlockEntity;
 import com.rekindled.embers.render.FluidCuboid;
 import com.rekindled.embers.render.FluidRenderer;
 
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
@@ -15,6 +16,7 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -42,10 +44,10 @@ public class MelterTopBlockEntityRenderer implements BlockEntityRenderer<MelterT
 					BakedModel bakedmodel = this.itemRenderer.getModel(stack, blockEntity.getLevel(), null, seed);
 					boolean flag = bakedmodel.isGui3d();
 					int j = this.getRenderAmount(stack);
-					float f2 = bakedmodel.getTransforms().getTransform(ItemTransforms.TransformType.GROUND).scale.y();
+					float f2 = bakedmodel.getTransforms().getTransform(ItemDisplayContext.GROUND).scale.y();
 					poseStack.translate(0.5D, (double)(0.25F * f2), 0.5D);
 					float f3 = ((float)blockEntity.angle + partialTick) / 20.0F;
-					poseStack.mulPose(Vector3f.YP.rotation(f3));
+					poseStack.mulPose(Axis.YP.rotation(f3));
 					if (!flag) {
 						float f7 = -0.0F * (float)(j - 1) * 0.5F;
 						float f8 = -0.0F * (float)(j - 1) * 0.5F;
@@ -66,7 +68,7 @@ public class MelterTopBlockEntityRenderer implements BlockEntityRenderer<MelterT
 								poseStack.translate(f12, f14, 0.0D);
 							}
 						}
-						this.itemRenderer.render(stack, ItemTransforms.TransformType.GROUND, false, poseStack, bufferSource, packedLight, OverlayTexture.NO_OVERLAY, bakedmodel);
+						this.itemRenderer.render(stack, ItemDisplayContext.GROUND, false, poseStack, bufferSource, packedLight, OverlayTexture.NO_OVERLAY, bakedmodel);
 						poseStack.popPose();
 						if (!flag) {
 							poseStack.translate(0.0, 0.0, 0.09375F);

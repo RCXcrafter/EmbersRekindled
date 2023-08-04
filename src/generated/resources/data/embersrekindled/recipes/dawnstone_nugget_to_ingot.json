@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "X": {
       "tag": "forge:nuggets/dawnstone"
@@ -15,5 +16,6 @@
   ],
   "result": {
     "item": "embersrekindled:dawnstone_ingot"
-  }
+  },
+  "show_notification": true
 }

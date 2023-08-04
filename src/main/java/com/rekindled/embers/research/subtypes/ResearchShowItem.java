@@ -4,14 +4,13 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.gui.GuiCodex;
 import com.rekindled.embers.research.ResearchBase;
 import com.rekindled.embers.util.Vec2i;
 
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
 import net.minecraft.util.FormattedCharSequence;
@@ -44,8 +43,7 @@ public class ResearchShowItem extends ResearchBase {
 	}
 
 	@Override
-	public void renderPageContent(PoseStack poseStack, GuiCodex gui, int basePosX, int basePosY, Font fontRenderer) {
-		RenderSystem.setShaderTexture(0, getBackground());
+	public void renderPageContent(GuiGraphics graphics, GuiCodex gui, int basePosX, int basePosY, Font fontRenderer) {
 		int textOffX = 3;
 		int textOffY = 2;
 		int y = 0;
@@ -55,11 +53,11 @@ public class ResearchShowItem extends ResearchBase {
 			int slotY = basePosY - textOffY + 43 + y * 24;
 			for(int x = 0; x < stacks.length; x++) {
 				int slotX = basePosX - textOffX + batchOff + 20;
-				gui.blit(poseStack, slotX + x * 24, slotY, 192, 0, 24, 24);
+				graphics.blit(getBackground(), slotX + x * 24, slotY, 192, 0, 24, 24);
 			}
 			y++;
 		}
-		super.renderPageContent(poseStack, gui, basePosX, basePosY, fontRenderer);
+		super.renderPageContent(graphics, gui, basePosX, basePosY, fontRenderer);
 		y = 0;
 		for (DisplayItem displayItem : displayItems) {
 			ItemStack[] stacks = displayItem.getStacks();
@@ -67,13 +65,13 @@ public class ResearchShowItem extends ResearchBase {
 			int slotY = basePosY - textOffY + 43 + y * 24;
 			for(int x = 0; x < stacks.length; x++) {
 				int slotX = basePosX - textOffX + batchOff + 20 + x * 24;
-				gui.renderItemStackMinusTooltipAt(stacks[x], slotX + 4, slotY + 4);
+				gui.renderItemStackMinusTooltipAt(graphics, stacks[x], slotX + 4, slotY + 4);
 			}
 			if(displayItem.sideText != null) {
 				List<FormattedCharSequence> strings = fontRenderer.split(displayItem.getSideText(), 152 - stacks.length * 24);
 				int textOff = strings.size() <= 1 ? (fontRenderer.lineHeight + 3) / 2 : 0;
 				for (int i = 0; i < Math.min(strings.size(), 2); i++)
-					GuiCodex.drawTextGlowing(fontRenderer, poseStack, strings.get(i), basePosX + 20 + stacks.length * 24, slotY + textOffY + textOff + i * (fontRenderer.lineHeight + 3));
+					GuiCodex.drawTextGlowing(fontRenderer, graphics, strings.get(i), basePosX + 20 + stacks.length * 24, slotY + textOffY + textOff + i * (fontRenderer.lineHeight + 3));
 			}
 			y++;
 		}

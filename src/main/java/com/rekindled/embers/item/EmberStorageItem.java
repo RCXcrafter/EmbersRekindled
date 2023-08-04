@@ -15,10 +15,8 @@ import com.rekindled.embers.util.Misc;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.color.item.ItemColor;
-import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -33,8 +31,8 @@ public abstract class EmberStorageItem extends Item {
 		super(properties);
 	}
 
-	public ItemStack withFill(double ember) {
-		ItemStack stack = new ItemStack(this);
+	public static ItemStack withFill(Item item, double ember) {
+		ItemStack stack = new ItemStack(item);
 		IEmberCapability cap = stack.getCapability(EmbersCapabilities.EMBER_CAPABILITY).orElse(null);
 		cap.setEmber(ember);
 		return stack;
@@ -58,7 +56,7 @@ public abstract class EmberStorageItem extends Item {
 
 	@Override
 	public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-		return slotChanged || !oldStack.sameItem(newStack);
+		return slotChanged || !ItemStack.matches(oldStack, newStack);
 	}
 
 	@Override
@@ -69,14 +67,6 @@ public abstract class EmberStorageItem extends Item {
 	@Override
 	public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
 		return new DefaultEmberItemCapability(stack, getCapacity());
-	}
-
-	@Override
-	public void fillItemCategory(CreativeModeTab pGroup, NonNullList<ItemStack> pItems) {
-		if (this.allowedIn(pGroup)) {
-			pItems.add(new ItemStack(this));
-			pItems.add(withFill(getCapacity()));
-		}
 	}
 
 	@Override

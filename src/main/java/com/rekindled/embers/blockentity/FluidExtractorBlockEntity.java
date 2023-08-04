@@ -5,8 +5,8 @@ import java.util.Random;
 import javax.annotation.Nullable;
 
 import org.jetbrains.annotations.NotNull;
+import org.joml.Vector3f;
 
-import com.mojang.math.Vector3f;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.block.PipeBlockBase;
 import com.rekindled.embers.block.PipeBlockBase.PipeConnection;

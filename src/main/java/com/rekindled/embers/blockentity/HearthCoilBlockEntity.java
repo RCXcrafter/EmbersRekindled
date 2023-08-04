@@ -7,8 +7,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
+import org.joml.Vector3f;
+
 import com.google.common.collect.Lists;
-import com.mojang.math.Vector3f;
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.capabilities.EmbersCapabilities;
@@ -201,7 +202,7 @@ public class HearthCoilBlockEntity extends BlockEntity implements ISoundControll
 				blockEntity.cachedRecipe = Misc.getRecipe(blockEntity.cachedRecipe, RecipeType.SMELTING, wrapper, level);
 
 				if (blockEntity.cachedRecipe != null) {
-					ArrayList<ItemStack> returns = Lists.newArrayList(blockEntity.cachedRecipe.assemble(wrapper));
+					ArrayList<ItemStack> returns = Lists.newArrayList(blockEntity.cachedRecipe.assemble(wrapper, level.registryAccess()));
 					//int inputCount = recipe.getInputConsumed();
 					UpgradeUtil.throwEvent(blockEntity, new MachineRecipeEvent.Success<>(blockEntity, blockEntity.cachedRecipe), blockEntity.upgrades);
 					UpgradeUtil.transformOutput(blockEntity, returns, blockEntity.upgrades);
@@ -248,8 +249,8 @@ public class HearthCoilBlockEntity extends BlockEntity implements ISoundControll
 		ItemStack stack = entityItem.getItem();
 		stack.shrink(inputCount);
 		entityItem.setItem(stack);
-		((ServerLevel) entityItem.level).sendParticles(new SmokeParticleOptions(SmokeParticleOptions.SMOKE_COLOR, 5.0f), entityItem.getX(), entityItem.getY(), entityItem.getZ(), 2, 0.07, 0.07, 0.07, 1.0);
-		((ServerLevel) entityItem.level).sendParticles(new SmokeParticleOptions(SmokeParticleOptions.SMOKE_COLOR, 2.0f), entityItem.getX(), entityItem.getY(), entityItem.getZ(), 3, 0.07, 0.07, 0.07, 1.0);
+		((ServerLevel) entityItem.level()).sendParticles(new SmokeParticleOptions(SmokeParticleOptions.SMOKE_COLOR, 5.0f), entityItem.getX(), entityItem.getY(), entityItem.getZ(), 2, 0.07, 0.07, 0.07, 1.0);
+		((ServerLevel) entityItem.level()).sendParticles(new SmokeParticleOptions(SmokeParticleOptions.SMOKE_COLOR, 2.0f), entityItem.getX(), entityItem.getY(), entityItem.getZ(), 3, 0.07, 0.07, 0.07, 1.0);
 		if (stack.isEmpty()) {
 			entityItem.discard();
 		}

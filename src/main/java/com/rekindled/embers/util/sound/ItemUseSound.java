@@ -15,7 +15,7 @@ public class ItemUseSound extends AbstractTickableSoundInstance {
 	Item itemType;
 
 	public ItemUseSound(LivingEntity linkedEntity, Item itemType, SoundEvent soundIn, SoundSource categoryIn, boolean repeatIn, float volumeIn, float pitchIn) {
-		super(soundIn, categoryIn, linkedEntity.level.getRandom());
+		super(soundIn, categoryIn, linkedEntity.level().getRandom());
 		this.linkedEntity = linkedEntity;
 		this.itemType = itemType;
 		this.volume = volumeIn;

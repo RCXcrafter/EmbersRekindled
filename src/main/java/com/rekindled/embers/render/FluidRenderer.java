@@ -2,10 +2,11 @@ package com.rekindled.embers.render;
 
 import java.util.List;
 
+import org.joml.Matrix4f;
+import org.joml.Vector3f;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Vector3f;
 import com.rekindled.embers.render.FluidCuboid.FluidFace;
 
 import net.minecraft.client.Minecraft;
@@ -325,11 +326,11 @@ public class FluidRenderer {
 		float maxY = to.y();
 		float height = (fluid.getAmount() - offset) / capacity;
 		if (isGas && flipGas) {
-			from = from.copy();
-			from.setY(maxY + (height * (minY - maxY)));
+			from = new Vector3f(from);
+			from.set(from.x(), maxY + (height * (minY - maxY)), from.z());
 		} else {
-			to = to.copy();
-			to.setY(minY + (height * (maxY - minY)));
+			to = new Vector3f(to);
+			to.set(to.x(), minY + (height * (maxY - minY)), to.z());
 		}
 
 		// draw cuboid

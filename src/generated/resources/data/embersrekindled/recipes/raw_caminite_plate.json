@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "X": {
       "item": "embersrekindled:caminite_blend"
@@ -11,5 +12,6 @@
   ],
   "result": {
     "item": "embersrekindled:raw_caminite_plate"
-  }
+  },
+  "show_notification": true
 }

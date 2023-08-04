@@ -8,7 +8,7 @@ import com.rekindled.embers.util.sound.ItemUseSound;
 import com.rekindled.embers.util.sound.MachineSound;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -173,12 +173,12 @@ public class EmbersSounds extends SoundDefinitionsProvider {
 	public static final SoundType MULTIBLOCK_EXTRA = new ForgeSoundType(1.0F, 1.5F, SILENCE, () -> SoundEvents.METAL_STEP, () -> SoundEvents.METAL_PLACE, () -> SoundEvents.METAL_HIT, () -> SoundEvents.METAL_FALL);
 
 
-	public EmbersSounds(DataGenerator generator, ExistingFileHelper helper) {
+	public EmbersSounds(PackOutput generator, ExistingFileHelper helper) {
 		super(generator, Embers.MODID, helper);
 	}
 
 	public static RegistryObject<SoundEvent> registerSound(String name) {
-		return RegistryManager.SOUND_EVENTS.register(name, () -> new SoundEvent(new ResourceLocation(Embers.MODID, name)));
+		return RegistryManager.SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Embers.MODID, name)));
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -187,7 +187,7 @@ public class EmbersSounds extends SoundDefinitionsProvider {
 	}
 
 	public static void playItemSound(LivingEntity entity, Item item, SoundEvent soundIn, SoundSource categoryIn, boolean repeat, float volume, float pitch) {
-		if (entity.level.isClientSide) {
+		if (entity.level().isClientSide()) {
 			Minecraft.getInstance().getSoundManager().play(new ItemUseSound(entity, item, soundIn, categoryIn, repeat, volume, pitch));
 		} else {
 			PacketHandler.INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), new MessageItemSound(entity, item, soundIn, categoryIn, repeat, volume, pitch));

@@ -3,7 +3,6 @@ package com.rekindled.embers.compat.jei;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.recipe.BoringRecipe;
@@ -20,6 +19,7 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -92,10 +92,10 @@ public class BoringCategory implements IRecipeCategory<BoringRecipe> {
 
 	@SuppressWarnings("resource")
 	@Override
-	public void draw(BoringRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX, double mouseY) { 
+	public void draw(BoringRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
 		Font fontRenderer = Minecraft.getInstance().font;
-		Misc.drawComponents(fontRenderer, stack, 28, 10, Component.translatable(Embers.MODID + ".jei.recipe.boring.weight", recipe.getDisplayOutput().getWeight()));
-		Misc.drawComponents(fontRenderer, stack, 28, 30, Component.translatable(Embers.MODID + ".jei.recipe.boring.required_blocks"));
+		Misc.drawComponents(fontRenderer, guiGraphics, 28, 10, Component.translatable(Embers.MODID + ".jei.recipe.boring.weight", recipe.getDisplayOutput().getWeight()));
+		Misc.drawComponents(fontRenderer, guiGraphics, 28, 30, Component.translatable(Embers.MODID + ".jei.recipe.boring.required_blocks"));
 		List<Component> text = new ArrayList<Component>();
 		if (recipe.minHeight != Integer.MIN_VALUE)
 			text.add(Component.translatable(Embers.MODID + ".jei.recipe.boring.min_height", recipe.minHeight));
@@ -117,6 +117,6 @@ public class BoringCategory implements IRecipeCategory<BoringRecipe> {
 		for (int i = 0; i < text.size(); i++) {
 			components[i] = text.get(i);
 		}
-		Misc.drawComponents(fontRenderer, stack, 10, 48, components);
+		Misc.drawComponents(fontRenderer, guiGraphics, 10, 48, components);
 	}
 }

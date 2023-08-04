@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "C": {
       "item": "embersrekindled:ancient_motive_core"
@@ -15,5 +16,6 @@
   ],
   "result": {
     "item": "embersrekindled:ancient_codex"
-  }
+  },
+  "show_notification": true
 }

@@ -2,17 +2,19 @@ package com.rekindled.embers.particle;
 
 import java.util.Locale;
 
+import org.joml.Vector3f;
+
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import com.mojang.math.Vector3f;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.rekindled.embers.RegistryManager;
 
-import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.util.ExtraCodecs;
 
 public class SmokeParticleOptions implements ParticleOptions {
 
@@ -24,7 +26,7 @@ public class SmokeParticleOptions implements ParticleOptions {
 	public static final SmokeParticleOptions SMOKE = new SmokeParticleOptions(SMOKE_COLOR, 2.0F);
 
 	public static final Codec<SmokeParticleOptions> CODEC = RecordCodecBuilder.create((p_175793_) -> {
-		return p_175793_.group(Vector3f.CODEC.fieldOf("color").forGetter((p_175797_) -> {
+		return p_175793_.group(ExtraCodecs.VECTOR3F.fieldOf("color").forGetter((p_175797_) -> {
 			return p_175797_.color;
 		}), Codec.FLOAT.fieldOf("scale").forGetter((p_175795_) -> {
 			return p_175795_.scale;
@@ -70,7 +72,7 @@ public class SmokeParticleOptions implements ParticleOptions {
 	}
 
 	public String writeToString() {
-		return String.format(Locale.ROOT, "%s %.2f %.2f %.2f %.2f", Registry.PARTICLE_TYPE.getKey(this.getType()), this.color.x(), this.color.y(), this.color.z(), this.scale);
+		return String.format(Locale.ROOT, "%s %.2f %.2f %.2f %.2f", BuiltInRegistries.PARTICLE_TYPE.getKey(this.getType()), this.color.x(), this.color.y(), this.color.z(), this.scale);
 	}
 
 	public Vector3f getColor() {

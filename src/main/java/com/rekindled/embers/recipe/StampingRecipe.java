@@ -5,6 +5,7 @@ import org.jetbrains.annotations.Nullable;
 import com.google.gson.JsonObject;
 import com.rekindled.embers.RegistryManager;
 
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -60,7 +61,7 @@ public class StampingRecipe implements Recipe<StampingContext> {
 	}
 
 	@Override
-	public ItemStack assemble(StampingContext context) {
+	public ItemStack assemble(StampingContext context, RegistryAccess registry) {
 		for (int i = 0; i < context.getContainerSize(); i++) {
 			if (input.test(context.getItem(i))) {
 				context.removeItem(i, 1);
@@ -97,6 +98,10 @@ public class StampingRecipe implements Recipe<StampingContext> {
 	}
 
 	@Override
+	public ItemStack getResultItem(RegistryAccess registry) {
+		return getResultItem();
+	}
+
 	public ItemStack getResultItem() {
 		return output;
 	}

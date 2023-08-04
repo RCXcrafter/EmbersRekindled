@@ -1,9 +1,10 @@
 package com.rekindled.embers.blockentity.render;
 
+import org.joml.Matrix4f;
+import org.joml.Vector3f;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Vector3f;
 import com.rekindled.embers.blockentity.ReservoirBlockEntity;
 import com.rekindled.embers.render.EmbersRenderTypes;
 import com.rekindled.embers.render.FluidRenderer;
@@ -99,7 +100,7 @@ public class ReservoirBlockEntityRenderer implements BlockEntityRenderer<Reservo
 					if (y == yd) FluidRenderer.putTexturedQuad(builder, matrix, still, from, to, Direction.UP,    color, brightness, 0, false);
 					if (y == 0) {
 						// increase Y position slightly to prevent z fighting on neighboring fluids
-						from.setY(from.y() + 0.001f);
+						from.set(from.x(), from.y() + 0.001f, from.z());
 						FluidRenderer.putTexturedQuad(builder, matrix, still,   from, to, Direction.DOWN,  color, brightness, 0, false);
 					}
 				}

@@ -11,6 +11,7 @@ import com.google.gson.JsonObject;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.misc.AlchemyResult;
 
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -104,7 +105,7 @@ public class AlchemyRecipe implements Recipe<AlchemyContext> {
 	}
 
 	@Override
-	public ItemStack assemble(AlchemyContext context) {
+	public ItemStack assemble(AlchemyContext context, RegistryAccess registry) {
 		getCode(context.seed);
 		int blackPins = 0;
 		int whitePins = 0;
@@ -204,6 +205,10 @@ public class AlchemyRecipe implements Recipe<AlchemyContext> {
 	}
 
 	@Override
+	public ItemStack getResultItem(RegistryAccess registry) {
+		return getResultItem();
+	}
+
 	public ItemStack getResultItem() {
 		return output;
 	}

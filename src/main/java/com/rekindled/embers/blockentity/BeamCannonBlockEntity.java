@@ -11,6 +11,7 @@ import com.rekindled.embers.api.power.IEmberPacketReceiver;
 import com.rekindled.embers.api.tile.ISparkable;
 import com.rekindled.embers.api.upgrades.IUpgradeProvider;
 import com.rekindled.embers.api.upgrades.UpgradeUtil;
+import com.rekindled.embers.datagen.EmbersDamageTypes;
 import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.network.PacketHandler;
 import com.rekindled.embers.network.message.MessageBeamCannonFX;
@@ -18,6 +19,7 @@ import com.rekindled.embers.power.DefaultEmberCapability;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -162,12 +164,13 @@ public class BeamCannonBlockEntity extends BlockEntity {
 				impactDist = i + 0.5;
 			}
 			if (!doContinue) {
-				level.playSound(null, hitPos, EmbersSounds.BEAM_CANNON_HIT.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
+				level.playSound(null, hitPos, EmbersSounds.BEAM_CANNON_HIT.get(), SoundSource.BLOCKS, 0.5f, 1.0f);
 			}
 		}
 		List<Entity> entities = level.getEntities((Entity) null, new AABB(worldPosition, hitPos), EntitySelector.NO_SPECTATORS);
 		for (Entity entity : entities) {
-			entity.hurt(new DamageSource("ember").setMagic(), (float)damage);
+			DamageSource damageSource = new DamageSource(level.registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(EmbersDamageTypes.EMBER_KEY), worldPosition.getCenter());
+			entity.hurt(damageSource, (float)damage);
 		}
 
 		PacketHandler.INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new MessageBeamCannonFX(worldPosition.getX()+0.5,worldPosition.getY()+0.5,worldPosition.getZ()+0.5,ray.x*impactDist,ray.y*impactDist,ray.z*impactDist,0XFF4010));
@@ -176,7 +179,7 @@ public class BeamCannonBlockEntity extends BlockEntity {
 		this.capability.setEmber(0);
 		this.setChanged();
 
-		level.playSound(null, worldPosition, EmbersSounds.BEAM_CANNON_FIRE.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
+		level.playSound(null, worldPosition, EmbersSounds.BEAM_CANNON_FIRE.get(), SoundSource.BLOCKS, 0.7f, 1.0f);
 	}
 
 	public boolean sparkTarget(BlockEntity target) {

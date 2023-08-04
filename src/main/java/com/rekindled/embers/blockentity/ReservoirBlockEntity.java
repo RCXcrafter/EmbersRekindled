@@ -4,8 +4,8 @@ import java.util.Random;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3f;
 
-import com.mojang.math.Vector3f;
 import com.rekindled.embers.ConfigManager;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.datagen.EmbersBlockTags;

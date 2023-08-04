@@ -1,9 +1,12 @@
 package com.rekindled.embers.datagen;
 
+import java.util.concurrent.CompletableFuture;
+
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 
-import net.minecraft.data.DataGenerator;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.FluidTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.FluidTags;
@@ -31,12 +34,12 @@ public class EmbersFluidTags extends FluidTagsProvider {
 	public static final TagKey<Fluid> INGOT_TOOLTIP = FluidTags.create(new ResourceLocation(Embers.MODID, "ingot_tooltip"));
 	public static final TagKey<Fluid> METAL_TOOLTIPS = FluidTags.create(new ResourceLocation("tconstruct", "tooltips/metal"));
 
-	public EmbersFluidTags(DataGenerator gen, ExistingFileHelper existingFileHelper) {
-		super(gen, Embers.MODID, existingFileHelper);
+	public EmbersFluidTags(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
+		super(output, lookupProvider, Embers.MODID, existingFileHelper);
 	}
 
 	@Override
-	public void addTags() {
+	public void addTags(HolderLookup.Provider provider) {
 		tag(MOLTEN_IRON).add(RegistryManager.MOLTEN_IRON.FLUID.get());
 		tag(MOLTEN_GOLD).add(RegistryManager.MOLTEN_GOLD.FLUID.get());
 		tag(MOLTEN_COPPER).add(RegistryManager.MOLTEN_COPPER.FLUID.get());
@@ -50,18 +53,18 @@ public class EmbersFluidTags extends FluidTagsProvider {
 		tag(MOLTEN_BRONZE).add(RegistryManager.MOLTEN_BRONZE.FLUID.get());
 		tag(MOLTEN_ELECTRUM).add(RegistryManager.MOLTEN_ELECTRUM.FLUID.get());
 
-		tag(INGOT_TOOLTIP).addOptionalTag(METAL_TOOLTIPS.location()).add(
-				RegistryManager.MOLTEN_IRON.FLUID.get(),
-				RegistryManager.MOLTEN_GOLD.FLUID.get(),
-				RegistryManager.MOLTEN_COPPER.FLUID.get(),
-				RegistryManager.MOLTEN_LEAD.FLUID.get(),
-				RegistryManager.MOLTEN_SILVER.FLUID.get(),
-				RegistryManager.MOLTEN_DAWNSTONE.FLUID.get(),
-				RegistryManager.MOLTEN_NICKEL.FLUID.get(),
-				RegistryManager.MOLTEN_TIN.FLUID.get(),
-				RegistryManager.MOLTEN_ALUMINUM.FLUID.get(),
-				RegistryManager.MOLTEN_BRONZE.FLUID.get(),
-				RegistryManager.MOLTEN_ELECTRUM.FLUID.get()
-				);
+		tag(INGOT_TOOLTIP)
+		.add(RegistryManager.MOLTEN_IRON.FLUID.get())
+		.add(RegistryManager.MOLTEN_GOLD.FLUID.get())
+		.add(RegistryManager.MOLTEN_COPPER.FLUID.get())
+		.add(RegistryManager.MOLTEN_LEAD.FLUID.get())
+		.add(RegistryManager.MOLTEN_SILVER.FLUID.get())
+		.add(RegistryManager.MOLTEN_DAWNSTONE.FLUID.get())
+		.add(RegistryManager.MOLTEN_NICKEL.FLUID.get())
+		.add(RegistryManager.MOLTEN_TIN.FLUID.get())
+		.add(RegistryManager.MOLTEN_ALUMINUM.FLUID.get())
+		.add(RegistryManager.MOLTEN_BRONZE.FLUID.get())
+		.add(RegistryManager.MOLTEN_ELECTRUM.FLUID.get())
+		.addOptionalTag(METAL_TOOLTIPS.location());
 	}
 }

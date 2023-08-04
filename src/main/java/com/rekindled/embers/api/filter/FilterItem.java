@@ -55,6 +55,6 @@ public class FilterItem implements IFilter {
 	}
 
 	private boolean equals(FilterItem other) {
-		return ItemStack.isSame(filterItem, other.filterItem);
+		return ItemStack.isSameItemSameTags(filterItem, other.filterItem);
 	}
 }

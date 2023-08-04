@@ -1,11 +1,21 @@
 package com.rekindled.embers.recipe;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
+
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -14,14 +24,6 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
-
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 //class copied from mantle
 public abstract class FluidIngredient {
@@ -349,7 +351,7 @@ public abstract class FluidIngredient {
 
 		@Override
 		public List<FluidStack> getAllFluids() {
-			return StreamSupport.stream(Registry.FLUID.getTagOrEmpty(tag).spliterator(), false)
+			return StreamSupport.stream(BuiltInRegistries.FLUID.getTagOrEmpty(tag).spliterator(), false)
 					.filter(Holder::isBound)
 					.map(fluid -> new FluidStack(fluid.value(), amount))
 					.toList();
@@ -369,7 +371,7 @@ public abstract class FluidIngredient {
 		 * @return Fluid ingredient instance
 		 */
 		private static TagMatch deserialize(JsonObject json) {
-			TagKey<Fluid> tag = TagKey.create(Registry.FLUID_REGISTRY, ResourceLocation.tryParse(GsonHelper.getAsString(json, "tag")));
+			TagKey<Fluid> tag = TagKey.create(Registries.FLUID, ResourceLocation.tryParse(GsonHelper.getAsString(json, "tag")));
 			int amount = GsonHelper.getAsInt(json, "amount");
 			return new TagMatch(tag, amount);
 		}

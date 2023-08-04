@@ -3,10 +3,8 @@ package com.rekindled.embers.particle;
 import com.rekindled.embers.render.EmbersRenderTypes;
 
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.ParticleRenderType;
-import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.particle.TextureSheetParticle;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
@@ -14,11 +12,11 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class VaporParticle extends TextureSheetParticle {
-	
+
 	public float minScale = 0.1f;
 	public float maxScale = 2.0f;
 
-	public VaporParticle(ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed, VaporParticleOptions pOptions, SpriteSet pSprites) {
+	public VaporParticle(ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed, VaporParticleOptions pOptions) {
 		super(pLevel, pX, pY, pZ, pXSpeed, pYSpeed, pZSpeed);
 		this.friction = 0.8F;
 		float speed = random.nextFloat() * 0.5f + 0.7f;
@@ -33,7 +31,6 @@ public class VaporParticle extends TextureSheetParticle {
 		this.quadSize *= 0.5F * pOptions.getScale();
 		double i = 6.0D / (this.random.nextDouble() * 0.5D + 0.5D);
 		this.lifetime = (int)(i * pOptions.getScale());
-		this.pickSprite(pSprites);
 	}
 
 	public float getQuadSize(float pScaleFactor) {
@@ -59,15 +56,9 @@ public class VaporParticle extends TextureSheetParticle {
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public static class Provider implements ParticleProvider<VaporParticleOptions> {
-		private final SpriteSet sprites;
-
-		public Provider(SpriteSet pSprites) {
-			this.sprites = pSprites;
-		}
-
-		public Particle createParticle(VaporParticleOptions pType, ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed) {
-			return new VaporParticle(pLevel, pX, pY, pZ, pXSpeed, pYSpeed, pZSpeed, pType, this.sprites);
+	public static class Provider implements ParticleProvider.Sprite<VaporParticleOptions> {
+		public TextureSheetParticle createParticle(VaporParticleOptions pType, ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed) {
+			return new VaporParticle(pLevel, pX, pY, pZ, pXSpeed, pYSpeed, pZSpeed, pType);
 		}
 	}
 }

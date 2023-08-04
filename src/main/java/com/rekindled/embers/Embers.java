@@ -1,10 +1,13 @@
 package com.rekindled.embers;
 
+import java.util.Set;
+import java.util.concurrent.CompletableFuture;
+
 import com.rekindled.embers.api.power.IEmberCapability;
 import com.rekindled.embers.api.upgrades.UpgradeUtil;
 import com.rekindled.embers.apiimpl.UpgradeUtilImpl;
-import com.rekindled.embers.blockentity.render.AlchemyPedestalTopBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.AlchemyPedestalBlockEntityRenderer;
+import com.rekindled.embers.blockentity.render.AlchemyPedestalTopBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.AlchemyTabletBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.BinBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.CopperChargerBlockEntityRenderer;
@@ -24,6 +27,8 @@ import com.rekindled.embers.datagen.EmbersBiomeModifiers;
 import com.rekindled.embers.datagen.EmbersBlockStates;
 import com.rekindled.embers.datagen.EmbersBlockTags;
 import com.rekindled.embers.datagen.EmbersConfiguredFeatures;
+import com.rekindled.embers.datagen.EmbersDamageTypeTags;
+import com.rekindled.embers.datagen.EmbersDamageTypes;
 import com.rekindled.embers.datagen.EmbersFluidTags;
 import com.rekindled.embers.datagen.EmbersItemModels;
 import com.rekindled.embers.datagen.EmbersItemTags;
@@ -53,13 +58,14 @@ import com.rekindled.embers.util.DecimalFormats;
 import com.rekindled.embers.util.Misc;
 
 import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.RegistrySetBuilder;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.data.PackOutput;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -70,6 +76,8 @@ import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
+import net.minecraftforge.common.data.BlockTagsProvider;
+import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.event.TagsUpdatedEvent;
@@ -82,19 +90,13 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.network.PacketDistributor;
+import net.minecraftforge.registries.ForgeRegistries;
 
 @Mod(Embers.MODID)
 public class Embers {
 
 	public static final String MODID = "embersrekindled";
-
-	public static final CreativeModeTab TAB_EMBERS = new CreativeModeTab(Embers.MODID) {
-		public ItemStack makeIcon() {
-			return new ItemStack(RegistryManager.EMBER_CRYSTAL.get());
-		}
-	};
 
 	public Embers() {
 		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -110,15 +112,12 @@ public class Embers {
 		RegistryManager.FLUIDS.register(modEventBus);
 		RegistryManager.ENTITY_TYPES.register(modEventBus);
 		RegistryManager.BLOCK_ENTITY_TYPES.register(modEventBus);
+		RegistryManager.CREATIVE_TABS.register(modEventBus);
 		RegistryManager.PARTICLE_TYPES.register(modEventBus);
 		RegistryManager.SOUND_EVENTS.register(modEventBus);
 		RegistryManager.RECIPE_TYPES.register(modEventBus);
 		RegistryManager.RECIPE_SERIALIZERS.register(modEventBus);
 		RegistryManager.LOOT_MODIFIERS.register(modEventBus);
-		if (FMLLoader.getLaunchHandler().isData()) {
-			EmbersConfiguredFeatures.CONFIGURED_FEATURES.register(modEventBus);
-			EmbersPlacedFeatures.PLACED_FEATURES.register(modEventBus);
-		}
 		EmbersSounds.init();
 		//TODO: move this to apiimpl when I port that
 		UpgradeUtil.IMPL = new UpgradeUtilImpl();
@@ -148,25 +147,31 @@ public class Embers {
 
 	public void gatherData(GatherDataEvent event) {
 		DataGenerator gen = event.getGenerator();
+		PackOutput output = gen.getPackOutput();
 		ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
+		CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
 
 		if (event.includeClient()) {
-			gen.addProvider(true, new EmbersLang(gen));
-			ItemModelProvider itemModels = new EmbersItemModels(gen, existingFileHelper);
+			gen.addProvider(true, new EmbersLang(output));
+			ItemModelProvider itemModels = new EmbersItemModels(output, existingFileHelper);
 			gen.addProvider(true, itemModels);
-			gen.addProvider(true, new EmbersBlockStates(gen, existingFileHelper));
-			gen.addProvider(true, new EmbersSounds(gen, existingFileHelper));
+			gen.addProvider(true, new EmbersBlockStates(output, existingFileHelper));
+			gen.addProvider(true, new EmbersSounds(output, existingFileHelper));
 		} if (event.includeServer()) {
-			gen.addProvider(true, new EmbersLootTables(gen));
-			gen.addProvider(true, new EmbersRecipes(gen));
-			BlockTagsProvider blockTags = new EmbersBlockTags(gen, existingFileHelper);
+			gen.addProvider(true, new EmbersLootTables(output));
+			gen.addProvider(true, new EmbersRecipes(output));
+			BlockTagsProvider blockTags = new EmbersBlockTags(output, lookupProvider, existingFileHelper);
 			gen.addProvider(true, blockTags);
-			gen.addProvider(true, new EmbersItemTags(gen, blockTags, existingFileHelper));
-			gen.addProvider(true, new EmbersFluidTags(gen, existingFileHelper));
-			gen.addProvider(true, new EmbersConfiguredFeatures(gen, existingFileHelper));
-			gen.addProvider(true, new EmbersPlacedFeatures(gen, existingFileHelper));
-			gen.addProvider(true, new EmbersBiomeModifiers(gen, existingFileHelper));
-			gen.addProvider(true, new EmbersLootModifiers(gen));
+			gen.addProvider(true, new EmbersItemTags(output, lookupProvider, blockTags.contentsGetter(), existingFileHelper));
+			gen.addProvider(true, new EmbersFluidTags(output, lookupProvider, existingFileHelper));
+			gen.addProvider(true, new DatapackBuiltinEntriesProvider(output, lookupProvider, new RegistrySetBuilder()
+					.add(Registries.CONFIGURED_FEATURE, bootstrap -> EmbersConfiguredFeatures.generate(bootstrap)) //it doesn't like this one for some reason
+					.add(Registries.PLACED_FEATURE, EmbersPlacedFeatures::generate)
+					.add(ForgeRegistries.Keys.BIOME_MODIFIERS, EmbersBiomeModifiers::generate)
+					.add(Registries.DAMAGE_TYPE, EmbersDamageTypes::generate),
+					Set.of(MODID)));
+			gen.addProvider(true, new EmbersDamageTypeTags(output, lookupProvider, existingFileHelper));
+			gen.addProvider(true, new EmbersLootModifiers(output));
 		}
 	}
 
@@ -206,12 +211,12 @@ public class Embers {
 		@OnlyIn(Dist.CLIENT)
 		@SubscribeEvent
 		static void addParticleProvider(RegisterParticleProvidersEvent event) {
-			event.register(RegistryManager.GLOW_PARTICLE.get(), GlowParticle.Provider::new);
-			event.register(RegistryManager.STAR_PARTICLE.get(), StarParticle.Provider::new);
-			event.register(RegistryManager.SPARK_PARTICLE.get(), SparkParticle.Provider::new);
-			event.register(RegistryManager.SMOKE_PARTICLE.get(), SmokeParticle.Provider::new);
-			event.register(RegistryManager.VAPOR_PARTICLE.get(), VaporParticle.Provider::new);
-			event.register(RegistryManager.ALCHEMY_CIRCLE_PARTICLE.get(), AlchemyCircleParticle.Provider::new);
+			event.registerSprite(RegistryManager.GLOW_PARTICLE.get(), new GlowParticle.Provider());
+			event.registerSprite(RegistryManager.STAR_PARTICLE.get(), new StarParticle.Provider());
+			event.registerSprite(RegistryManager.SPARK_PARTICLE.get(), new SparkParticle.Provider());
+			event.registerSprite(RegistryManager.SMOKE_PARTICLE.get(), new SmokeParticle.Provider());
+			event.registerSprite(RegistryManager.VAPOR_PARTICLE.get(), new VaporParticle.Provider());
+			event.registerSprite(RegistryManager.ALCHEMY_CIRCLE_PARTICLE.get(), new AlchemyCircleParticle.Provider());
 		}
 
 		@OnlyIn(Dist.CLIENT)

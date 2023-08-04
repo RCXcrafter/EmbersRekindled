@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.util.Misc;
 
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -96,13 +97,13 @@ public class MeltingRecipe implements Recipe<Container> {
 
 	@Override
 	@Deprecated
-	public ItemStack getResultItem() {
+	public ItemStack getResultItem(RegistryAccess registry) {
 		return ItemStack.EMPTY;
 	}
 
 	@Override
 	@Deprecated
-	public ItemStack assemble(Container context) {
+	public ItemStack assemble(Container context, RegistryAccess registry) {
 		return ItemStack.EMPTY;
 	}
 

@@ -1,17 +1,20 @@
 package com.rekindled.embers.datagen;
 
+import java.util.concurrent.CompletableFuture;
+
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.RegistryManager.StoneDecoBlocks;
 
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 public class EmbersBlockTags extends BlockTagsProvider {
@@ -61,13 +64,13 @@ public class EmbersBlockTags extends BlockTagsProvider {
 	public static final TagKey<Block> ALUMINUM_BLOCK = BlockTags.create(new ResourceLocation("forge", "storage_blocks/aluminium"));
 	public static final TagKey<Block> ELECTRUM_BLOCK = BlockTags.create(new ResourceLocation("forge", "storage_blocks/electrum"));
 
-	public EmbersBlockTags(DataGenerator gen, ExistingFileHelper existingFileHelper) {
-		super(gen, Embers.MODID, existingFileHelper);
+	public EmbersBlockTags(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
+		super(output, lookupProvider, Embers.MODID, existingFileHelper);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	protected void addTags() {
+	protected void addTags(HolderLookup.Provider provider) {
 		tag(EMITTER_CONNECTION).add(Blocks.LEVER, Blocks.LADDER, Blocks.IRON_BARS, Blocks.TRIPWIRE_HOOK, Blocks.WALL_TORCH, Blocks.SOUL_WALL_TORCH, Blocks.REDSTONE_WALL_TORCH, Blocks.BELL, Blocks.LANTERN, Blocks.SOUL_LANTERN, Blocks.END_ROD, Blocks.LIGHTNING_ROD, Blocks.CHAIN)
 		.add(RegistryManager.EMBER_DIAL.get(), RegistryManager.CAMINITE_LEVER.get(), RegistryManager.EMBER_EMITTER.get(), RegistryManager.EMBER_RECEIVER.get(), RegistryManager.EMBER_EJECTOR.get(), RegistryManager.EMBER_FUNNEL.get(), RegistryManager.EMBER_RELAY.get(), RegistryManager.MIRROR_RELAY.get(), RegistryManager.BEAM_SPLITTER.get())
 		.addTags(Tags.Blocks.GLASS_PANES, BlockTags.BUTTONS, Tags.Blocks.FENCES, BlockTags.WALLS, BlockTags.WALL_SIGNS)

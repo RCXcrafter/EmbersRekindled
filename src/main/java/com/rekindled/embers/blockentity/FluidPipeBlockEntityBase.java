@@ -3,7 +3,8 @@ package com.rekindled.embers.blockentity;
 import java.util.ArrayList;
 import java.util.Random;
 
-import com.mojang.math.Vector3f;
+import org.joml.Vector3f;
+
 import com.rekindled.embers.api.tile.IFluidPipePriority;
 import com.rekindled.embers.block.PipeBlockBase.PipeConnection;
 import com.rekindled.embers.particle.GlowParticleOptions;

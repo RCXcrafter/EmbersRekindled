@@ -1,24 +1,16 @@
 package com.rekindled.embers.datagen;
 
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
 
-import com.google.gson.JsonElement;
-import com.mojang.serialization.JsonOps;
 import com.rekindled.embers.Embers;
 
-import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.resources.RegistryOps;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.PackType;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
@@ -26,43 +18,19 @@ import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.common.data.JsonCodecProvider;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.RegistryObject;
 
-public class EmbersPlacedFeatures extends JsonCodecProvider<PlacedFeature> {
+public class EmbersPlacedFeatures {
 
-	public static final DeferredRegister<PlacedFeature> PLACED_FEATURES = DeferredRegister.create(Registry.PLACED_FEATURE_REGISTRY, Embers.MODID);
+	public static final ResourceKey<PlacedFeature> ORE_LEAD_KEY = ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(Embers.MODID, "ore_lead_placer"));
+	public static final List<PlacementModifier> ORE_LEAD_PLACEMENT = commonOrePlacement(8, HeightRangePlacement.triangle(VerticalAnchor.absolute(-28), VerticalAnchor.absolute(28)));
 
-	public static final RegistryObject<PlacedFeature> ORE_LEAD_PLACER = PLACED_FEATURES.register("ore_lead_placer", () -> new PlacedFeature(Holder.hackyErase(EmbersConfiguredFeatures.ORE_LEAD.getHolder().get()),
-			commonOrePlacement(8, HeightRangePlacement.triangle(VerticalAnchor.absolute(-28), VerticalAnchor.absolute(28)))));
+	public static final ResourceKey<PlacedFeature> ORE_SILVER_KEY = ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(Embers.MODID, "ore_silver_placer"));
+	public static final List<PlacementModifier> ORE_SILVER_PLACEMENT = commonOrePlacement(4, HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(64)));
 
-	public static final RegistryObject<PlacedFeature> ORE_SILVER_PLACER = PLACED_FEATURES.register("ore_silver_placer", () -> new PlacedFeature(Holder.hackyErase(EmbersConfiguredFeatures.ORE_SILVER.getHolder().get()),
-			commonOrePlacement(4, HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(64)))));
-
-	public EmbersPlacedFeatures(DataGenerator dataGenerator, ExistingFileHelper existingFileHelper) {
-		super(dataGenerator, existingFileHelper, Embers.MODID, RegistryOps.create(JsonOps.INSTANCE, RegistryAccess.builtinCopy()), PackType.SERVER_DATA, Registry.PLACED_FEATURE_REGISTRY.location().getPath(), PlacedFeature.DIRECT_CODEC, new HashMap<ResourceLocation, PlacedFeature>());
-	}
-
-	@Override
-	public void run(final CachedOutput cache) throws IOException {
-		this.add(ORE_LEAD_PLACER);
-		this.add(ORE_SILVER_PLACER);
-
-		super.run(cache);
-	}
-
-	public void add(RegistryObject<PlacedFeature> holder) {
-		Optional<? extends Registry<PlacedFeature>> registryOptional = ((RegistryOps<JsonElement>) dynamicOps).registry(Registry.PLACED_FEATURE_REGISTRY);
-		ResourceKey<PlacedFeature> key = holder.getKey();
-		if (registryOptional.isPresent() && key != null) {
-			this.entries.put(key.location(), registryOptional.get().getOrCreateHolderOrThrow(key).value());
-		}
-	}
-
-	public static ResourceLocation getResource(String name) {
-		return new ResourceLocation(Embers.MODID, name);
+	public static void generate(BootstapContext<PlacedFeature> bootstrap) {
+		HolderGetter<ConfiguredFeature<?, ?>> configured = bootstrap.lookup(Registries.CONFIGURED_FEATURE);
+		bootstrap.register(ORE_LEAD_KEY, new PlacedFeature(configured.getOrThrow(EmbersConfiguredFeatures.ORE_LEAD_KEY), ORE_LEAD_PLACEMENT));
+		bootstrap.register(ORE_SILVER_KEY, new PlacedFeature(configured.getOrThrow(EmbersConfiguredFeatures.ORE_SILVER_KEY), ORE_SILVER_PLACEMENT));
 	}
 
 	public static List<PlacementModifier> orePlacement(PlacementModifier p_195347_, PlacementModifier p_195348_) {

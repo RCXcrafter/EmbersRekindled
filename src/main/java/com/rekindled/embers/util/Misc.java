@@ -12,18 +12,18 @@ import java.util.function.Predicate;
 
 import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.NotNull;
+import org.joml.Vector3f;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
 import com.rekindled.embers.ConfigManager;
 
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -137,10 +137,9 @@ public class Misc {
 			return power * slope;
 	}
 
-	public static void drawComponents(Font fontRenderer, PoseStack stack, int x, int y, Component... components) {
+	public static void drawComponents(Font fontRenderer, GuiGraphics guiGraphics, int x, int y, Component... components) {
 		for (Component component : components) {
-			fontRenderer.drawShadow(stack, component, x, y, 0xFFFFFF);
-			fontRenderer.draw(stack, component, x, y, 0xFFFFFF);
+			guiGraphics.drawString(fontRenderer, component, x, y, 0xFFFFFF);
 			y += fontRenderer.lineHeight + 2;
 		}
 	}
@@ -175,9 +174,9 @@ public class Misc {
 		ItemStack output = ItemStack.EMPTY;
 		int index = Integer.MAX_VALUE;
 		List<? extends String> preferences = ConfigManager.TAG_PREFERENCES.get();
-		for (Holder<Item> holder : Registry.ITEM.getTagOrEmpty(tag)) {
+		for (Holder<Item> holder : BuiltInRegistries.ITEM.getTagOrEmpty(tag)) {
 			for (int i = 0; i < preferences.size(); i ++) {
-				if (i < index && preferences.get(i).equals(Registry.ITEM.getKey(holder.get()).getNamespace())) {
+				if (i < index && preferences.get(i).equals(BuiltInRegistries.ITEM.getKey(holder.get()).getNamespace())) {
 					output = new ItemStack(holder);
 					index = i;
 				}

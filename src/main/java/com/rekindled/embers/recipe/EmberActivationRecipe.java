@@ -5,6 +5,7 @@ import org.jetbrains.annotations.Nullable;
 import com.google.gson.JsonObject;
 import com.rekindled.embers.RegistryManager;
 
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -84,13 +85,13 @@ public class EmberActivationRecipe implements Recipe<Container> {
 
 	@Override
 	@Deprecated
-	public ItemStack getResultItem() {
+	public ItemStack getResultItem(RegistryAccess registry) {
 		return ItemStack.EMPTY;
 	}
 
 	@Override
 	@Deprecated
-	public ItemStack assemble(Container context) {
+	public ItemStack assemble(Container context, RegistryAccess registry) {
 		return ItemStack.EMPTY;
 	}
 

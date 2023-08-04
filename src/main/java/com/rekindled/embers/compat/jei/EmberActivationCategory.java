@@ -1,6 +1,5 @@
 package com.rekindled.embers.compat.jei;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.recipe.EmberActivationRecipe;
@@ -16,6 +15,7 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -59,7 +59,7 @@ public class EmberActivationCategory implements IRecipeCategory<EmberActivationR
 
 	@SuppressWarnings("resource")
 	@Override
-	public void draw(EmberActivationRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX, double mouseY) { 
-		Misc.drawComponents(Minecraft.getInstance().font, stack, 28, 10, Component.translatable(Embers.MODID + ".jei.recipe.ember_activation.ember", recipe.getDisplaOutput()));
+	public void draw(EmberActivationRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) { 
+		Misc.drawComponents(Minecraft.getInstance().font, guiGraphics, 28, 10, Component.translatable(Embers.MODID + ".jei.recipe.ember_activation.ember", recipe.getDisplaOutput()));
 	}
 }

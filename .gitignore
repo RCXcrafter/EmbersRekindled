@@ -25,3 +25,4 @@ classes
 /src/old
 /src/generated/resources/.cache
 /old_assets
+/run-data

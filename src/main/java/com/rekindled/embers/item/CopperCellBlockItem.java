@@ -6,6 +6,7 @@ import java.util.List;
 import org.jetbrains.annotations.Nullable;
 
 import com.rekindled.embers.Embers;
+import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.capabilities.EmbersCapabilities;
 import com.rekindled.embers.api.power.IEmberCapability;
 import com.rekindled.embers.power.DefaultEmberItemCapability;
@@ -13,12 +14,10 @@ import com.rekindled.embers.util.DecimalFormats;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -48,7 +47,7 @@ public class CopperCellBlockItem extends BlockItem {
 
 	@Override
 	public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-		return slotChanged || !oldStack.sameItem(newStack);
+		return slotChanged || !ItemStack.matches(oldStack, newStack);
 	}
 
 	@Override
@@ -61,16 +60,11 @@ public class CopperCellBlockItem extends BlockItem {
 		return new DefaultEmberItemCapability(stack, 24000);
 	}
 
-	@Override
-	public void fillItemCategory(CreativeModeTab pGroup, NonNullList<ItemStack> pItems) {
-		if (this.allowedIn(pGroup)) {
-			pItems.add(new ItemStack(this));
-
-			ItemStack chargedCell = new ItemStack(this);
-			IEmberCapability cap = chargedCell.getCapability(EmbersCapabilities.EMBER_CAPABILITY).orElse(null);
-			cap.setEmber(cap.getEmberCapacity());
-			pItems.add(chargedCell);
-		}
+	public static ItemStack getCharged() {
+		ItemStack chargedCell = new ItemStack(RegistryManager.COPPER_CELL_ITEM.get());
+		IEmberCapability cap = chargedCell.getCapability(EmbersCapabilities.EMBER_CAPABILITY).orElse(null);
+		cap.setEmber(cap.getEmberCapacity());
+		return chargedCell;
 	}
 
 	@Override

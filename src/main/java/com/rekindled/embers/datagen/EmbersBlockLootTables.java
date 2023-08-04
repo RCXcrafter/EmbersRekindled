@@ -1,6 +1,7 @@
 package com.rekindled.embers.datagen;
 
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.annotation.Nonnull;
@@ -9,23 +10,28 @@ import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.RegistryManager.StoneDecoBlocks;
 
-import net.minecraft.core.Registry;
-import net.minecraft.data.loot.BlockLoot;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.loot.BlockLootSubProvider;
+import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class EmbersBlockLootTables extends BlockLoot {
+public class EmbersBlockLootTables extends BlockLootSubProvider {
+
+	public EmbersBlockLootTables() {
+		super(Set.of(), FeatureFlags.VANILLA_SET);
+	}
 
 	@Nonnull
 	@Override
 	protected Iterable<Block> getKnownBlocks() {
 		return ForgeRegistries.BLOCKS.getValues().stream()
-				.filter((block) -> Embers.MODID.equals(Objects.requireNonNull(Registry.BLOCK.getKey(block)).getNamespace()))
+				.filter((block) -> Embers.MODID.equals(Objects.requireNonNull(BuiltInRegistries.BLOCK.getKey(block)).getNamespace()))
 				.collect(Collectors.toList());
 	}
 
 	@Override
-	protected void addTables() {
+	protected void generate() {
 		add(RegistryManager.LEAD_ORE.get(), (block) -> {
 			return createOreDrop(block, RegistryManager.RAW_LEAD.get());
 		});
@@ -111,7 +117,7 @@ public class EmbersBlockLootTables extends BlockLoot {
 		if (deco.stairs != null)
 			dropSelf(deco.stairs.get());
 		if (deco.slab != null)
-			add(deco.slab.get(), BlockLoot::createSlabItemTable);
+			add(deco.slab.get(), this::createSlabItemTable);
 		if (deco.wall != null)
 			dropSelf(deco.wall.get());
 	}

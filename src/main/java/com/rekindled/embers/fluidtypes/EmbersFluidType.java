@@ -3,9 +3,10 @@ package com.rekindled.embers.fluidtypes;
 import java.awt.Color;
 import java.util.function.Consumer;
 
+import org.joml.Vector3f;
+
 import com.mojang.blaze3d.shaders.FogShape;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.math.Vector3f;
 import com.rekindled.embers.Embers;
 
 import net.minecraft.client.Camera;

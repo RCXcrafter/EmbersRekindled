@@ -1,7 +1,8 @@
 package com.rekindled.embers.blockentity.render;
 
+import org.joml.Vector3f;
+
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
 import com.rekindled.embers.blockentity.FluidVesselBlockEntity;
 import com.rekindled.embers.render.FluidCuboid;
 import com.rekindled.embers.render.FluidRenderer;

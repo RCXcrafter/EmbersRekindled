@@ -1,21 +1,22 @@
 package com.rekindled.embers.util;
 
-import com.google.common.collect.ImmutableList;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-
-import net.minecraft.core.Registry;
-import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.common.crafting.conditions.ICondition;
-
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
+
+import javax.annotation.Nullable;
+
+import com.google.common.collect.ImmutableList;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraftforge.common.crafting.conditions.ICondition;
 
 /**
  * Builds a recipe consumer wrapper, which adds some extra properties to wrap the result of another recipe (stolen from mantle https://github.com/SlimeKnights/Mantle/blob/1.18.2/src/main/java/slimeknights/mantle/recipe/data/ConsumerWrapperBuilder.java)
@@ -113,7 +114,7 @@ public class ConsumerWrapperBuilder {
 			if (overrideName != null) {
 				json.addProperty("type", overrideName.toString());
 			} else {
-				json.addProperty("type", Objects.requireNonNull(Registry.RECIPE_SERIALIZER.getKey(getType())).toString());
+				json.addProperty("type", Objects.requireNonNull(BuiltInRegistries.RECIPE_SERIALIZER.getKey(getType())).toString());
 			}
 			this.serializeRecipeData(json);
 			return json;

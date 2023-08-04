@@ -1,9 +1,5 @@
 {
   "values": [
-    {
-      "id": "#tconstruct:tooltips/metal",
-      "required": false
-    },
     "embersrekindled:molten_iron",
     "embersrekindled:molten_gold",
     "embersrekindled:molten_copper",
@@ -14,6 +10,10 @@
     "embersrekindled:molten_tin",
     "embersrekindled:molten_aluminum",
     "embersrekindled:molten_bronze",
-    "embersrekindled:molten_electrum"
+    "embersrekindled:molten_electrum",
+    {
+      "id": "#tconstruct:tooltips/metal",
+      "required": false
+    }
   ]
 }

@@ -1,16 +1,5 @@
 package com.rekindled.embers.render;
 
-import com.google.common.collect.ImmutableList;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonSyntaxException;
-import com.mojang.math.Vector3f;
-import net.minecraft.core.Direction;
-import net.minecraft.util.GsonHelper;
-
-import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.List;
@@ -18,6 +7,20 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+
+import javax.annotation.Nullable;
+
+import org.joml.Vector3f;
+
+import com.google.common.collect.ImmutableList;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonSyntaxException;
+
+import net.minecraft.core.Direction;
+import net.minecraft.util.GsonHelper;
 
 //class copy pasted from mantle, that's why it's so well documented
 public class FluidCuboid {
@@ -77,7 +80,7 @@ public class FluidCuboid {
 	 */
 	public Vector3f getFromScaled() {
 		if (fromScaled == null) {
-			fromScaled = from.copy();
+			fromScaled = new Vector3f(from);
 			fromScaled.mul(1 / 16f);
 		}
 		return fromScaled;
@@ -89,7 +92,7 @@ public class FluidCuboid {
 	 */
 	public Vector3f getToScaled() {
 		if (toScaled == null) {
-			toScaled = to.copy();
+			toScaled = new Vector3f(to);
 			toScaled.mul(1 / 16f);
 		}
 		return toScaled;

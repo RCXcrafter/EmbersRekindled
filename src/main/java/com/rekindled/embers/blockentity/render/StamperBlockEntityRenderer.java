@@ -1,7 +1,7 @@
 package com.rekindled.embers.blockentity.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.block.StamperBlock;
 import com.rekindled.embers.blockentity.StamperBlockEntity;
@@ -10,13 +10,13 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.model.data.ModelData;
@@ -56,9 +56,9 @@ public class StamperBlockEntityRenderer implements BlockEntityRenderer<StamperBl
 				int seed = stack.isEmpty() ? 187 : Item.getId(stack.getItem()) + stack.getDamageValue();
 				BakedModel bakedmodel = this.itemRenderer.getModel(stack, blockEntity.getLevel(), null, seed);
 				poseStack.translate(0.5D, -0.0234375D, 0.5);
-				poseStack.mulPose(Vector3f.XP.rotationDegrees(90));
+				poseStack.mulPose(Axis.XP.rotationDegrees(90));
 				poseStack.scale(0.75f, 0.75f, 0.75f);
-				this.itemRenderer.render(stack, ItemTransforms.TransformType.FIXED, false, poseStack, bufferSource, packedLight, OverlayTexture.NO_OVERLAY, bakedmodel);
+				this.itemRenderer.render(stack, ItemDisplayContext.FIXED, false, poseStack, bufferSource, packedLight, OverlayTexture.NO_OVERLAY, bakedmodel);
 			}
 			poseStack.popPose();
 		}

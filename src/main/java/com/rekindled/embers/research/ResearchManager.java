@@ -227,7 +227,7 @@ public class ResearchManager {
 				.addPage(new ResearchShowItem("ember_funnel",new ItemStack(RegistryManager.EMBER_FUNNEL_ITEM.get()),0,0).addItem(new DisplayItem(new ItemStack(RegistryManager.EMBER_FUNNEL_ITEM.get()))));
 		charger = new ResearchBase("charger", new ItemStack(RegistryManager.COPPER_CHARGER_ITEM.get()), 4, 0);
 		ember_siphon = new ResearchBase("ember_siphon", new ItemStack(RegistryManager.EMBER_SIPHON_ITEM.get()), 2, 0).addAncestor(ResearchManager.charger);
-		ItemStack fullJar = ((EmberStorageItem)RegistryManager.EMBER_JAR.get()).withFill(((EmberStorageItem)RegistryManager.EMBER_JAR.get()).getCapacity());
+		ItemStack fullJar = EmberStorageItem.withFill(RegistryManager.EMBER_JAR.get(), ((EmberStorageItem)RegistryManager.EMBER_JAR.get()).getCapacity());
 		jars = new ResearchBase("jars", fullJar, 7, 1).addAncestor(charger);
 		clockwork_tools = new ResearchBase("clockwork_tools", new ItemStack(RegistryManager.CLOCKWORK_AXE.get()), 2, 2).addAncestor(jars)
 				.addPage(new ResearchShowItem("clockwork_pickaxe",ItemStack.EMPTY,0,0).addItem(new DisplayItem(new ItemStack(RegistryManager.CLOCKWORK_PICKAXE.get()))))

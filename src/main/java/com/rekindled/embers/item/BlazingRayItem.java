@@ -8,12 +8,15 @@ import com.rekindled.embers.api.projectile.EffectDamage;
 import com.rekindled.embers.api.projectile.IProjectilePreset;
 import com.rekindled.embers.api.projectile.ProjectileRay;
 import com.rekindled.embers.damage.DamageEmber;
+import com.rekindled.embers.datagen.EmbersDamageTypes;
 import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.util.EmberInventoryUtil;
 
+import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -52,7 +55,8 @@ public class BlazingRayItem extends Item implements IProjectileWeapon {
 			double targY = entity.getY() + entity.getLookAngle().y * MAX_DISTANCE + (MAX_SPREAD * (1.0 - charge) * (rand.nextFloat() - 0.5));
 			double targZ = entity.getZ() + entity.getLookAngle().z * MAX_DISTANCE + (MAX_SPREAD * (1.0 - charge) * (rand.nextFloat() - 0.5));
 
-			EffectDamage effect = new EffectDamage(DAMAGE, DamageEmber.EMBER_DAMAGE_SOURCE_FACTORY, 1, 1.0f);
+			DamageSource damage = new DamageEmber(level.registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(EmbersDamageTypes.EMBER_KEY), entity, true);
+			EffectDamage effect = new EffectDamage(DAMAGE, e -> damage, 1, 1.0f);
 			ProjectileRay ray = new ProjectileRay(entity, new Vec3(posX, posY, posZ), new Vec3(targX, targY, targZ), false, effect);
 
 			EmberProjectileEvent event = new EmberProjectileEvent(entity, stack, charge, ray);
@@ -70,7 +74,7 @@ public class BlazingRayItem extends Item implements IProjectileWeapon {
 
 	@Override
 	public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-		return slotChanged || !oldStack.sameItem(newStack);
+		return slotChanged || !ItemStack.matches(oldStack, newStack);
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "E": {
       "item": "embersrekindled:ember_shard"
@@ -19,5 +20,6 @@
   "result": {
     "count": 4,
     "item": "embersrekindled:ember_lantern"
-  }
+  },
+  "show_notification": true
 }

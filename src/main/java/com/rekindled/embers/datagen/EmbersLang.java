@@ -7,7 +7,7 @@ import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.RegistryManager.FluidStuff;
 import com.rekindled.embers.RegistryManager.StoneDecoBlocks;
 
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.common.data.LanguageProvider;
@@ -15,7 +15,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class EmbersLang extends LanguageProvider {
 
-	public EmbersLang(DataGenerator gen) {
+	public EmbersLang(PackOutput gen) {
 		super(gen, Embers.MODID, "en_us");
 	}
 
@@ -155,8 +155,10 @@ public class EmbersLang extends LanguageProvider {
 		addItem(RegistryManager.DAWNSTONE_PLATE, "Dawnstone Plate");
 
 		addItem(RegistryManager.ANCIENT_GOLEM_SPAWN_EGG, "Ancient Golem Spawn Egg");
+		addEntityType(RegistryManager.ANCIENT_GOLEM, "Ancient Golem");
 
 
+		//text
 		add(Embers.MODID + ".alchemy_hint", "Upon closer inspection, you notice %s in the waste");
 		add(Embers.MODID + ".alchemy_hint.none", "no differently colored spots");
 		add(Embers.MODID + ".alchemy_hint.black.one", "1 dark spot");
@@ -165,7 +167,9 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".alchemy_hint.white", "%s bright spots");
 		add(Embers.MODID + ".alchemy_hint.and", "%s and %s");
 
-		//tooltips
+		add("death.attack.ember", "%1$s was incinerated by %2$s");
+		add("death.attack.ember.item", "%1$s was incinerated by %2$s using %3$s");
+
 		add(Embers.MODID + ".decimal_format.ember", "0.#");
 		add(Embers.MODID + ".tooltip.emberdial.ember", "Ember: %s/%s");
 		add(Embers.MODID + ".tooltip.aiming_block", "Aiming: %s");

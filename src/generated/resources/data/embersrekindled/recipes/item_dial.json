@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "L": {
       "tag": "forge:plates/lead"
@@ -14,5 +15,6 @@
   ],
   "result": {
     "item": "embersrekindled:item_dial"
-  }
+  },
+  "show_notification": true
 }
