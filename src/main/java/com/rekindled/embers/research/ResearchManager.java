@@ -233,26 +233,26 @@ public class ResearchManager {
 				.addPage(new ResearchShowItem("clockwork_pickaxe",ItemStack.EMPTY,0,0).addItem(new DisplayItem(new ItemStack(RegistryManager.CLOCKWORK_PICKAXE.get()))))
 				.addPage(new ResearchShowItem("clockwork_hammer",ItemStack.EMPTY,0,0).addItem(new DisplayItem(new ItemStack(RegistryManager.GRANDHAMMER.get()))))
 				.addPage(new ResearchShowItem("clockwork_axe",ItemStack.EMPTY,0,0).addItem(new DisplayItem(new ItemStack(RegistryManager.CLOCKWORK_AXE.get()))));
-		splitter = new ResearchBase("splitter", new ItemStack(RegistryManager.BEAM_SPLITTER.get()), 0, 6).addAncestor(pulser);
+		splitter = new ResearchBase("splitter", new ItemStack(RegistryManager.BEAM_SPLITTER_ITEM.get()), 0, 6).addAncestor(pulser);
 		cinder_staff = new ResearchBase("cinder_staff", new ItemStack(RegistryManager.CINDER_STAFF.get()), 4, 4).addAncestor(jars);
 		blazing_ray = new ResearchBase("blazing_ray", new ItemStack(RegistryManager.BLAZING_RAY.get()), 6, 5).addAncestor(jars);
-		//aspecti = new ResearchBase("aspecti", new ItemStack(RegistryManager.aspectus_dawnstone), 12, 1);
+		aspecti = new ResearchBase("aspecti", new ItemStack(RegistryManager.DAWNSTONE_ASPECTUS.get()), 12, 1);
 		//cinder_plinth = new ResearchBase("cinder_plinth", new ItemStack(RegistryManager.cinder_plinth), 9, 0);
-		//beam_cannon = new ResearchBase("beam_cannon", new ItemStack(RegistryManager.beam_cannon), 9, 7);
-		//alchemy = new ResearchBase("alchemy", new ItemStack(RegistryManager.alchemy_tablet), 9, 4).addAncestor(cinder_plinth).addAncestor(aspecti).addAncestor(beam_cannon);
+		beam_cannon = new ResearchBase("beam_cannon", new ItemStack(RegistryManager.BEAM_CANNON_ITEM.get()), 9, 7);
+		alchemy = new ResearchBase("alchemy", new ItemStack(RegistryManager.ALCHEMY_TABLET_ITEM.get()), 9, 4).addAncestor(aspecti).addAncestor(beam_cannon);
 		//catalytic_plug = new ResearchBase("catalytic_plug", new ItemStack(RegistryManager.catalytic_plug), 12, 5).addAncestor(ResearchManager.alchemy);
-		/*
-		//TRANSMUTATION
-		waste = new ResearchBase("waste", new ItemStack(RegistryManager.alchemic_waste), 6, 2);
-		materia = new ResearchBase("materia", new ItemStack(RegistryManager.isolated_materia), 6, 5).addAncestor(waste);
-		cluster = new ResearchBase("cluster", new ItemStack(RegistryManager.ember_cluster), 3, 4).addAncestor(waste);
-		ashen_cloak = new ResearchShowItem("ashen_cloak", new ItemStack(RegistryManager.ashen_cloak_chest), 9, 4).addItem(new DisplayItem(new ItemStack(RegistryManager.ashen_cloak_head),new ItemStack(RegistryManager.ashen_cloak_chest),new ItemStack(RegistryManager.ashen_cloak_legs),new ItemStack(RegistryManager.ashen_cloak_boots))).addAncestor(waste);
-		field_chart = new ResearchBase("field_chart", new ItemStack(RegistryManager.field_chart), 0, 5).addAncestor(cluster);
-		inflictor = new ResearchBase("inflictor", new ItemStack(RegistryManager.inflictor_gem), 11, 7).addAncestor(ashen_cloak);
-		tyrfing = new ResearchBase("tyrfing", new ItemStack(RegistryManager.tyrfing), 8, 6).addAncestor(waste);
-		glimmer = new ResearchBase("glimmer", new ItemStack(RegistryManager.glimmer_shard), 9, 0).addAncestor(waste);
-		metallurgic_dust = new ResearchBase("metallurgic_dust", new ItemStack(RegistryManager.dust_metallurgic), 0, 2).addAncestor(waste);
 
+		//TRANSMUTATION
+		waste = new ResearchBase("waste", new ItemStack(RegistryManager.ALCHEMICAL_WASTE.get()), 6, 2);
+		//materia = new ResearchBase("materia", new ItemStack(RegistryManager.isolated_materia), 6, 5).addAncestor(waste);
+		//cluster = new ResearchBase("cluster", new ItemStack(RegistryManager.ember_cluster), 3, 4).addAncestor(waste);
+		//ashen_cloak = new ResearchShowItem("ashen_cloak", new ItemStack(RegistryManager.ashen_cloak_chest), 9, 4).addItem(new DisplayItem(new ItemStack(RegistryManager.ashen_cloak_head),new ItemStack(RegistryManager.ashen_cloak_chest),new ItemStack(RegistryManager.ashen_cloak_legs),new ItemStack(RegistryManager.ashen_cloak_boots))).addAncestor(waste);
+		//field_chart = new ResearchBase("field_chart", new ItemStack(RegistryManager.field_chart), 0, 5).addAncestor(cluster);
+		//inflictor = new ResearchBase("inflictor", new ItemStack(RegistryManager.inflictor_gem), 11, 7).addAncestor(ashen_cloak);
+		//tyrfing = new ResearchBase("tyrfing", new ItemStack(RegistryManager.tyrfing), 8, 6).addAncestor(waste);
+		//glimmer = new ResearchBase("glimmer", new ItemStack(RegistryManager.glimmer_shard), 9, 0).addAncestor(waste);
+		//metallurgic_dust = new ResearchBase("metallurgic_dust", new ItemStack(RegistryManager.dust_metallurgic), 0, 2).addAncestor(waste);
+		/*
 		adhesive = new ResearchBase("adhesive", new ItemStack(RegistryManager.adhesive), 10, 1);
 		hellish_synthesis = new ResearchBase("hellish_synthesis", new ItemStack(Blocks.NETHERRACK), 2, 1);
 		archaic_brick = new ResearchBase("archaic_brick", new ItemStack(RegistryManager.archaic_brick), 5, 2).addAncestor(hellish_synthesis);
@@ -431,26 +431,26 @@ public class ResearchManager {
 		.addResearch(jars)
 		.addResearch(clockwork_tools)
 		.addResearch(cinder_staff)
-		.addResearch(blazing_ray);
+		.addResearch(blazing_ray)
 		//.addResearch(cinder_plinth)
-		//.addResearch(aspecti)
-		//.addResearch(alchemy)
-		//.addResearch(beam_cannon)
+		.addResearch(aspecti)
+		.addResearch(alchemy)
+		.addResearch(beam_cannon);
 		//.addResearch(catalytic_plug);
-		/*categoryAlchemy
-		.addResearch(waste)
-		.addResearch(simpleAlchemySwitch)
-		.addResearch(cluster)
-		.addResearch(ashen_cloak)
-		.addResearch(inflictor)
-		.addResearch(field_chart)
-		.addResearch(materia)
-		.addResearch(tyrfing)
-		.addResearch(glimmer)
-		.addResearch(metallurgic_dust)
-		.addResearch(baublesSwitch)
-		.addResearch(wildfireSwitch);
-		categorySmithing
+		categoryAlchemy
+		.addResearch(waste);
+		//.addResearch(simpleAlchemySwitch)
+		//.addResearch(cluster)
+		//.addResearch(ashen_cloak)
+		//.addResearch(inflictor)
+		//.addResearch(field_chart)
+		//.addResearch(materia)
+		//.addResearch(tyrfing)
+		//.addResearch(glimmer)
+		//.addResearch(metallurgic_dust)
+		//.addResearch(baublesSwitch)
+		//.addResearch(wildfireSwitch);
+		/*categorySmithing
 		.addResearch(dawnstone_anvil)
 		.addResearch(autohammer)
 		.addResearch(heat)

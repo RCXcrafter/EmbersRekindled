@@ -1,6 +1,6 @@
 {
     "gui_light": "front",
-    "parent":"embers:item/handheld_model_base",
+    "parent":"embersrekindled:item/handheld_model_base",
     "textures": {
         "0": "embersrekindled:item/tool_parts_one",
         "1": "embersrekindled:item/tool_parts_three",

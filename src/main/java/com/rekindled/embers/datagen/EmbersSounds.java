@@ -186,12 +186,13 @@ public class EmbersSounds extends SoundDefinitionsProvider {
 		Minecraft.getInstance().getSoundManager().play(new MachineSound(tile, id, soundIn, categoryIn, repeat, volume, pitch, xIn, yIn, zIn));
 	}
 
+	@OnlyIn(Dist.CLIENT)
+	public static void playItemSoundClient(LivingEntity entity, Item item, SoundEvent soundIn, SoundSource categoryIn, boolean repeat, float volume, float pitch) {
+		Minecraft.getInstance().getSoundManager().play(new ItemUseSound(entity, item, soundIn, categoryIn, repeat, volume, pitch));
+	}
+
 	public static void playItemSound(LivingEntity entity, Item item, SoundEvent soundIn, SoundSource categoryIn, boolean repeat, float volume, float pitch) {
-		if (entity.level().isClientSide()) {
-			Minecraft.getInstance().getSoundManager().play(new ItemUseSound(entity, item, soundIn, categoryIn, repeat, volume, pitch));
-		} else {
-			PacketHandler.INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), new MessageItemSound(entity, item, soundIn, categoryIn, repeat, volume, pitch));
-		}
+		PacketHandler.INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), new MessageItemSound(entity, item, soundIn, categoryIn, repeat, volume, pitch));
 	}
 
 	@Override

@@ -106,7 +106,8 @@ public class CinderStaffItem extends Item implements IProjectileWeapon {
 
 		if (event.hasSound()) {
 			if (!soundPlaying) {
-				EmbersSounds.playItemSound(player, this, event.getSound(), SoundSource.PLAYERS, true, event.getVolume(), event.getPitch());
+				if (level.isClientSide())
+					EmbersSounds.playItemSoundClient(player, this, event.getSound(), SoundSource.PLAYERS, true, event.getVolume(), event.getPitch());
 				soundPlaying = true;
 			}
 		} else {
@@ -149,7 +150,10 @@ public class CinderStaffItem extends Item implements IProjectileWeapon {
 			if (EmberInventoryUtil.getEmberTotal(player) >= EMBER_COST || player.isCreative()) {
 				EmberInventoryUtil.removeEmber(player, EMBER_COST);
 				player.startUsingItem(hand);
-				EmbersSounds.playItemSound(player, this, EmbersSounds.CINDER_STAFF_CHARGE.get(), SoundSource.PLAYERS, false, 1.0f, 1.0f);
+				if (level.isClientSide())
+					EmbersSounds.playItemSoundClient(player, this, EmbersSounds.CINDER_STAFF_CHARGE.get(), SoundSource.PLAYERS, false, 1.0f, 1.0f);
+				else
+					EmbersSounds.playItemSound(player, this, EmbersSounds.CINDER_STAFF_CHARGE.get(), SoundSource.PLAYERS, false, 1.0f, 1.0f);
 				return InteractionResultHolder.consume(stack);
 			} else {
 				return InteractionResultHolder.fail(stack);

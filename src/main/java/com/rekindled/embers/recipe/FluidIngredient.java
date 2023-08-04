@@ -91,8 +91,8 @@ public abstract class FluidIngredient {
 		Collection<FluidStack> fluids = getAllFluids();
 		buffer.writeInt(fluids.size());
 		for (FluidStack stack : fluids) {
-			buffer.writeUtf(Objects.requireNonNull(ForgeRegistries.FLUIDS.getResourceKey(stack.getFluid()).get().location()).toString());
-			buffer.writeInt(stack.getAmount());
+			buffer.writeResourceLocation(ForgeRegistries.FLUIDS.getResourceKey(stack.getFluid()).get().location());
+			buffer.writeVarInt(stack.getAmount());
 		}
 	}
 
@@ -220,11 +220,11 @@ public abstract class FluidIngredient {
 		int count = buffer.readInt();
 		FluidIngredient[] ingredients = new FluidIngredient[count];
 		for (int i = 0; i < count; i++) {
-			Fluid fluid = ForgeRegistries.FLUIDS.getValue(new ResourceLocation(buffer.readUtf(32767)));
+			Fluid fluid = ForgeRegistries.FLUIDS.getValue(buffer.readResourceLocation());
 			if (fluid == null) {
 				fluid = Fluids.EMPTY;
 			}
-			int amount = buffer.readInt();
+			int amount = buffer.readVarInt();
 			ingredients[i] = of(fluid, amount);
 		}
 		// if a single ingredient, do not wrap in compound
@@ -307,8 +307,8 @@ public abstract class FluidIngredient {
 			// count
 			buffer.writeInt(1);
 			// single fluid
-			buffer.writeUtf(Objects.requireNonNull(ForgeRegistries.FLUIDS.getResourceKey(fluid).get().location()).toString());
-			buffer.writeInt(amount);
+			buffer.writeResourceLocation(ForgeRegistries.FLUIDS.getResourceKey(fluid).get().location());
+			buffer.writeVarInt(amount);
 		}
 
 		/**

@@ -4,7 +4,7 @@ import java.util.function.Supplier;
 
 import org.apache.commons.lang3.Validate;
 
-import com.rekindled.embers.util.sound.ItemUseSound;
+import com.rekindled.embers.datagen.EmbersSounds;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -58,8 +58,8 @@ public class MessageItemSound {
 	public static void handle(MessageItemSound msg, Supplier<NetworkEvent.Context> ctx) {
 		if (ctx.get().getDirection().getReceptionSide().isClient()) {
 			ctx.get().enqueueWork(() -> {
-				if (Minecraft.getInstance().level.getEntity(msg.id)instanceof LivingEntity entity)
-					Minecraft.getInstance().getSoundManager().play(new ItemUseSound(entity, msg.item, msg.sound, msg.source, msg.repeat, msg.volume, msg.pitch));
+				if (Minecraft.getInstance().level.getEntity(msg.id) instanceof LivingEntity entity)
+					EmbersSounds.playItemSoundClient(entity, msg.item, msg.sound, msg.source, msg.repeat, msg.volume, msg.pitch);
 			});
 		}
 		ctx.get().setPacketHandled(true);

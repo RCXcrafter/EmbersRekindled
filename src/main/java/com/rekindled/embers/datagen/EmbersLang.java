@@ -86,7 +86,7 @@ public class EmbersLang extends LanguageProvider {
 		addBlock(RegistryManager.ITEM_TRANSFER, "Item Transfer");
 		addBlock(RegistryManager.FLUID_TRANSFER, "Fluid Transfer");
 		addBlock(RegistryManager.ALCHEMY_PEDESTAL, "Alchemy Pedestal");
-		addBlock(RegistryManager.ALCHEMY_TABLET, "Alchemy Tablet");
+		addBlock(RegistryManager.ALCHEMY_TABLET, "Exchange Tablet");
 		addBlock(RegistryManager.BEAM_CANNON, "Beam Cannon");
 
 		addItem(RegistryManager.TINKER_HAMMER, "Tinker's Hammer");
@@ -575,12 +575,12 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".research.page.beam_cannon", "Beam Cannon");
 		add(Embers.MODID + ".research.page.beam_cannon.title", "Heat Ray");
 		add(Embers.MODID + ".research.page.beam_cannon.tags", "Alchemy;Weapon;Machine;Cannon;Projectile;Beam;Ray;Transmutation;");
-		add(Embers.MODID + ".research.page.beam_cannon.desc", "The Beam Cannon is perhaps your most dangerous device yet. Aim it by shift-right-clicking with a Tinker Hammer on a target block, then right-clicking the Cannon with the hammer. When it is given enough Ember, it will fire off a beam of pure radiant heat. This beam can kill nearly any unarmored creature, and also initiate transmutation at the Exchange Tablet.");
+		add(Embers.MODID + ".research.page.beam_cannon.desc", "The Beam Cannon is perhaps your most dangerous device yet. When it is given enough Ember, it will fire off a beam of pure radiant heat in the direction it's facing. This beam can kill nearly any unarmored creature, and also initiate transmutation at the Exchange Tablet.");
 
 		add(Embers.MODID + ".research.page.alchemy", "Energetic Alchemy");
 		add(Embers.MODID + ".research.page.alchemy.title", "Transmutation");
 		add(Embers.MODID + ".research.page.alchemy.tags", "Alchemy;Transmutation;Tablet;Exchange;Ash;Pedestal;Aspect;Aspectus;");
-		add(Embers.MODID + ".research.page.alchemy.desc", "Ember alchemy is truly a marvelous discovery. The first key is the Exchange Tablet: right-click on its various faces to insert items into their respective slots. The next is the Alchemy Pedestal: these bear aspecti and can contain ash. For an alchemy recipe, place a pedestal for each needed aspectus about the Tablet, fill it with ash within the determined range, and strike the Tablet with the Beam Cannon.");
+		add(Embers.MODID + ".research.page.alchemy.desc", "Ember alchemy is truly a marvelous discovery. The first key is the Exchange Tablet: right-click on it to insert an item into it. The next is the Alchemy Pedestal: these bear aspecti and can ingredients. For an alchemy recipe, place a pedestal for each needed ingredient about the Tablet, add one of the required aspecti, and strike the Tablet with the Beam Cannon.");
 
 		add(Embers.MODID + ".research.page.catalytic_plug", "Catalytic Plug");
 		add(Embers.MODID + ".research.page.catalytic_plug.title", "Overdrive Injection");

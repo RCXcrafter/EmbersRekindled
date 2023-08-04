@@ -162,7 +162,7 @@ public class MixingRecipe implements Recipe<MixingContext> {
 		@Override
 		public void toNetwork(FriendlyByteBuf buffer, MixingRecipe recipe) {
 			buffer.writeCollection(recipe.inputs, (buf, input) -> input.write(buf));
-			buffer.writeFluidStack(recipe.output);
+			recipe.output.writeToPacket(buffer);
 		}
 	}
 }

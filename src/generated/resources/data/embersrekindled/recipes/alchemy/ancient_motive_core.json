@@ -2,19 +2,10 @@
   "type": "embersrekindled:alchemy",
   "aspects": [
     {
-      "tag": "embersrekindled:aspectus/copper"
-    },
-    {
-      "tag": "embersrekindled:aspectus/iron"
+      "tag": "embersrekindled:aspectus/dawnstone"
     },
     {
       "tag": "embersrekindled:aspectus/lead"
-    },
-    {
-      "tag": "embersrekindled:aspectus/silver"
-    },
-    {
-      "tag": "embersrekindled:aspectus/dawnstone"
     }
   ],
   "inputs": [
@@ -22,13 +13,10 @@
       "item": "embersrekindled:archaic_brick"
     },
     {
-      "item": "embersrekindled:ember_grit"
+      "item": "embersrekindled:archaic_brick"
     },
     {
-      "item": "embersrekindled:lead_plate"
-    },
-    {
-      "item": "embersrekindled:copper_nugget"
+      "item": "embersrekindled:archaic_brick"
     }
   ],
   "output": {

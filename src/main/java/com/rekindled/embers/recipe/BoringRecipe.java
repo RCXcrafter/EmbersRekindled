@@ -172,7 +172,7 @@ public class BoringRecipe implements Recipe<BoringContext> {
 			HashSet<ResourceLocation> dimensions = buffer.readCollection((i) -> new HashSet<>(), FriendlyByteBuf::readResourceLocation);
 			HashSet<ResourceLocation> biomes = buffer.readCollection((i) -> new HashSet<>(), FriendlyByteBuf::readResourceLocation);
 			ResourceLocation requiredBlock = buffer.readResourceLocation();
-			int amountRequired = buffer.readInt();
+			int amountRequired = buffer.readVarInt();
 
 			return new BoringRecipe(recipeId, new WeightedItemStack(stack, weight), minHeight, maxHeight, dimensions, biomes, BlockTags.create(requiredBlock), amountRequired);
 		}
@@ -185,6 +185,8 @@ public class BoringRecipe implements Recipe<BoringContext> {
 			buffer.writeVarInt(recipe.maxHeight);
 			buffer.writeCollection(recipe.dimensions, FriendlyByteBuf::writeResourceLocation);
 			buffer.writeCollection(recipe.biomes, FriendlyByteBuf::writeResourceLocation);
+			buffer.writeResourceLocation(recipe.requiredBlock.location());
+			buffer.writeVarInt(recipe.amountRequired);
 		}
 	}
 }
