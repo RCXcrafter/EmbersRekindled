@@ -8,6 +8,7 @@ import com.rekindled.embers.datagen.EmbersSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -22,6 +23,7 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
@@ -53,6 +55,11 @@ public class AncientGolemEntity extends Monster {
 				.add(Attributes.MAX_HEALTH, 30.0D)
 				.add(Attributes.ARMOR, 6.0D)
 				.add(Attributes.KNOCKBACK_RESISTANCE, 1.0D);
+	}
+
+	public boolean checkSpawnObstruction(LevelReader level) {
+		BlockPos pos = new BlockPos(Mth.floor(position().x()), Mth.floor(position().y() - 0.5f), Mth.floor(position().z()));
+		return super.checkSpawnObstruction(level) && level.getBlockState(pos).isCollisionShapeFullBlock(level, pos);
 	}
 
 	public void tick() {
