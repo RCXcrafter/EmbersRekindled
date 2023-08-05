@@ -52,9 +52,9 @@ import net.minecraftforge.items.wrapper.RecipeWrapper;
 
 public class PressureRefineryBottomBlockEntity extends FluidHandlerBlockEntity implements IExtraDialInformation, IExtraCapabilityInformation {
 
-	public static final float BASE_MULTIPLIER = 1.5f;
+	public static final float BASE_MULTIPLIER = 1.25f;
 	public static final int FLUID_CONSUMED = 25;
-	public static final float PER_BLOCK_MULTIPLIER = 0.375f;
+	public static final float PER_BLOCK_MULTIPLIER = 0.25f;
 	public static final int PROCESS_TIME = 20;
 	public static int capacity = FluidType.BUCKET_VOLUME * 8;
 	int progress = -1;
@@ -118,11 +118,15 @@ public class PressureRefineryBottomBlockEntity extends FluidHandlerBlockEntity i
 		BlockStateContext context = new BlockStateContext(metalState);
 		cachedCoefficient = Misc.getRecipe(cachedCoefficient, RegistryManager.METAL_COEFFICIENT.get(), context, level);
 
-		double metalMultiplier = cachedCoefficient == null ? 0.0 : cachedCoefficient.getCoefficient(context);
+		double metalMultiplier = cachedCoefficient == null ? BASE_MULTIPLIER : cachedCoefficient.getCoefficient(context) - BASE_MULTIPLIER;
 		double totalMult = BASE_MULTIPLIER;
-		for (Direction facing : Misc.horizontals) {
-			if (level.getBlockState(worldPosition.below().relative(facing)).is(EmbersBlockTags.HEAT_SOURCES)) {
-				totalMult += PER_BLOCK_MULTIPLIER * metalMultiplier;
+		if (cachedCoefficient == null) {
+			totalMult = metalMultiplier;
+		} else {
+			for (Direction facing : Misc.horizontals) {
+				if (level.getBlockState(worldPosition.below().relative(facing)).is(EmbersBlockTags.HEAT_SOURCES)) {
+					totalMult += PER_BLOCK_MULTIPLIER * metalMultiplier;
+				}
 			}
 		}
 		return totalMult;
