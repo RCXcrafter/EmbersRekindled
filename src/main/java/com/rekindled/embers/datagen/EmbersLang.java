@@ -6,6 +6,7 @@ import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.RegistryManager.FluidStuff;
 import com.rekindled.embers.RegistryManager.StoneDecoBlocks;
+import com.rekindled.embers.RegistryManager.ToolSet;
 
 import net.minecraft.data.PackOutput;
 import net.minecraft.sounds.SoundEvent;
@@ -153,6 +154,10 @@ public class EmbersLang extends LanguageProvider {
 		addItem(RegistryManager.DAWNSTONE_INGOT, "Dawnstone Ingot");
 		addItem(RegistryManager.DAWNSTONE_NUGGET, "Dawnstone Nugget");
 		addItem(RegistryManager.DAWNSTONE_PLATE, "Dawnstone Plate");
+
+		addTools(RegistryManager.LEAD_TOOLS, "Lead");
+		addTools(RegistryManager.SILVER_TOOLS, "Silver");
+		addTools(RegistryManager.DAWNSTONE_TOOLS, "Dawnstone");
 
 		addItem(RegistryManager.ANCIENT_GOLEM_SPAWN_EGG, "Ancient Golem Spawn Egg");
 		addEntityType(RegistryManager.ANCIENT_GOLEM, "Ancient Golem");
@@ -959,5 +964,13 @@ public class EmbersLang extends LanguageProvider {
 			addBlock(deco.slab, name + " Slab");
 		if (deco.wall != null)
 			addBlock(deco.wall, name + " Wall");
+	}
+
+	public void addTools(ToolSet set, String name) {
+		addItem(set.SWORD, name + " Sword");
+		addItem(set.SHOVEL, name + " Shovel");
+		addItem(set.PICKAXE, name + " Pickaxe");
+		addItem(set.AXE, name + " Axe");
+		addItem(set.HOE, name + " Hoe");
 	}
 }

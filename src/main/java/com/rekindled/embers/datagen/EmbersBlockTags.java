@@ -39,6 +39,7 @@ public class EmbersBlockTags extends BlockTagsProvider {
 	public static final TagKey<Block> MINABLE_WITH_HAMMER = BlockTags.create(new ResourceLocation(Embers.MODID, "mineable/hammer"));
 
 	public static final TagKey<Block> NEEDS_LEAD_TOOL = BlockTags.create(new ResourceLocation(Embers.MODID, "needs_lead_tool"));
+	public static final TagKey<Block> NEEDS_TYRFING = BlockTags.create(new ResourceLocation(Embers.MODID, "needs_tyrfing"));
 	public static final TagKey<Block> NEEDS_SILVER_TOOL = BlockTags.create(new ResourceLocation(Embers.MODID, "needs_silver_tool"));
 	public static final TagKey<Block> NEEDS_DAWNSTONE_TOOL = BlockTags.create(new ResourceLocation(Embers.MODID, "needs_dawnstone_tool"));
 	public static final TagKey<Block> NEEDS_CLOCKWORK_TOOL = BlockTags.create(new ResourceLocation(Embers.MODID, "needs_clockwork_tool"));

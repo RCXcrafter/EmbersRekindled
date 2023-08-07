@@ -139,6 +139,7 @@ import com.rekindled.embers.recipe.MetalCoefficientRecipe;
 import com.rekindled.embers.recipe.MixingRecipe;
 import com.rekindled.embers.recipe.StampingRecipe;
 import com.rekindled.embers.recipe.TagStampingRecipe;
+import com.rekindled.embers.util.EmbersTiers;
 import com.rekindled.embers.util.GrandhammerLootModifier;
 import com.rekindled.embers.util.Misc;
 
@@ -155,14 +156,20 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.DispensibleContainerItem;
+import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.PickaxeItem;
+import net.minecraft.world.item.ShovelItem;
+import net.minecraft.world.item.SwordItem;
+import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -449,6 +456,10 @@ public class RegistryManager {
 	public static final RegistryObject<Item> DAWNSTONE_NUGGET = ITEMS.register("dawnstone_nugget", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> DAWNSTONE_PLATE = ITEMS.register("dawnstone_plate", () -> new Item(new Item.Properties()));
 
+	public static final ToolSet LEAD_TOOLS = new ToolSet("lead", EmbersTiers.LEAD);
+	public static final ToolSet SILVER_TOOLS = new ToolSet("silver", EmbersTiers.SILVER);
+	public static final ToolSet DAWNSTONE_TOOLS = new ToolSet("dawnstone", EmbersTiers.DAWNSTONE);
+
 	//fluids
 	public static final FluidStuff MOLTEN_IRON = addFluid("Molten Iron", new FluidInfo("molten_iron", 0xC72913, 0.1F, 1.5F), MoltenMetalFluidType::new, LiquidBlock::new,
 			prop -> prop.explosionResistance(1000F).tickRate(30).slopeFindDistance(2).levelDecreasePerBlock(2), moltenMetalProps());
@@ -677,6 +688,27 @@ public class RegistryManager {
 
 		public StoneDecoBlocks(String name, RegistryObject<Block> block, Properties properties) {
 			this(name, block, properties, true, true, true);
+		}
+	}
+
+	public static class ToolSet {
+
+		public String name;
+
+		public final RegistryObject<Item> SWORD;
+		public final RegistryObject<Item> SHOVEL;
+		public final RegistryObject<Item> PICKAXE;
+		public final RegistryObject<Item> AXE;
+		public final RegistryObject<Item> HOE;
+
+		public ToolSet(String name, Tier tier) {
+			this.name = name;
+
+			SWORD = ITEMS.register(name + "_sword", () -> new SwordItem(tier, 3, -2.4F, new Item.Properties()));
+			SHOVEL = ITEMS.register(name + "_shovel", () -> new ShovelItem(tier, 1.5F, -3.0F, new Item.Properties()));
+			PICKAXE = ITEMS.register(name + "_pickaxe", () -> new PickaxeItem(tier, 1, -2.8F, new Item.Properties()));
+			AXE = ITEMS.register(name + "_axe", () -> new AxeItem(tier, 6.0F, -3.0F, new Item.Properties()));
+			HOE = ITEMS.register(name + "_hoe", () -> new HoeItem(tier, (int) -tier.getAttackDamageBonus(), Math.min(0.0F, tier.getAttackDamageBonus() - 3.0F), new Item.Properties()));
 		}
 	}
 }

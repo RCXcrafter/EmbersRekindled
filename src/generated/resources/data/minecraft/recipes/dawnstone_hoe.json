@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "M": {
+      "tag": "forge:ingots/dawnstone"
+    },
+    "S": {
+      "tag": "forge:rods/wooden"
+    }
+  },
+  "pattern": [
+    "MM",
+    " S",
+    " S"
+  ],
+  "result": {
+    "item": "embersrekindled:dawnstone_hoe"
+  },
+  "show_notification": true
+}

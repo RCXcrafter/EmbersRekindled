@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.RegistryManager.FluidStuff;
+import com.rekindled.embers.RegistryManager.ToolSet;
 
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -79,6 +80,10 @@ public class EmbersItemModels extends ItemModelProvider {
 		itemWithTexture(RegistryManager.DAWNSTONE_NUGGET, "nugget_dawnstone");
 		itemWithTexture(RegistryManager.DAWNSTONE_PLATE, "plate_dawnstone");
 
+		toolModels(RegistryManager.LEAD_TOOLS);
+		toolModels(RegistryManager.SILVER_TOOLS);
+		toolModels(RegistryManager.DAWNSTONE_TOOLS);
+
 		spawnEgg(RegistryManager.ANCIENT_GOLEM_SPAWN_EGG);
 	}
 
@@ -120,5 +125,13 @@ public class EmbersItemModels extends ItemModelProvider {
 				return json;
 			}
 		});
+	}
+
+	public void toolModels(ToolSet set) {
+		itemWithTexture(set.SWORD, "sword_" + set.name);
+		itemWithTexture(set.SHOVEL, "shovel_" + set.name);
+		itemWithTexture(set.PICKAXE, "pickaxe_" + set.name);
+		itemWithTexture(set.AXE, "axe_" + set.name);
+		itemWithTexture(set.HOE, "hoe_" + set.name);
 	}
 }

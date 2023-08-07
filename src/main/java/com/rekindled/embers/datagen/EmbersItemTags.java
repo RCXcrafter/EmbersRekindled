@@ -4,6 +4,7 @@ import java.util.concurrent.CompletableFuture;
 
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
+import com.rekindled.embers.RegistryManager.ToolSet;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -84,6 +85,10 @@ public class EmbersItemTags extends ItemTagsProvider {
 		tag(SILVER_ASPECTUS).add(RegistryManager.SILVER_ASPECTUS.get());
 		tag(DAWNSTONE_ASPECTUS).add(RegistryManager.DAWNSTONE_ASPECTUS.get());
 
+		toolTags(RegistryManager.LEAD_TOOLS);
+		toolTags(RegistryManager.SILVER_TOOLS);
+		toolTags(RegistryManager.DAWNSTONE_TOOLS);
+
 		tag(Tags.Items.ORES).addTags(LEAD_ORE, SILVER_ORE);
 		tag(LEAD_ORE).add(RegistryManager.LEAD_ORE_ITEM.get()).add(RegistryManager.DEEPSLATE_LEAD_ORE_ITEM.get());
 		tag(SILVER_ORE).add(RegistryManager.SILVER_ORE_ITEM.get()).add(RegistryManager.DEEPSLATE_SILVER_ORE_ITEM.get());
@@ -136,5 +141,14 @@ public class EmbersItemTags extends ItemTagsProvider {
 		tag(TOOLS_HAMMERS).add(RegistryManager.TINKER_HAMMER.get(), RegistryManager.GRANDHAMMER.get());
 
 		copy(EmbersBlockTags.WORLD_BOTTOM, WORLD_BOTTOM);
+	}
+
+	public void toolTags(ToolSet set) {
+		tag(ItemTags.SWORDS).add(set.SWORD.get());
+		tag(ItemTags.SHOVELS).add(set.SHOVEL.get());
+		tag(ItemTags.PICKAXES).add(set.PICKAXE.get());
+		tag(ItemTags.AXES).add(set.AXE.get());
+		tag(ItemTags.HOES).add(set.HOE.get());
+		tag(ItemTags.TOOLS).add(set.SWORD.get(), set.SHOVEL.get(), set.PICKAXE.get(), set.AXE.get(), set.HOE.get());
 	}
 }

@@ -8,6 +8,7 @@ import com.google.common.collect.ImmutableList;
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.RegistryManager.StoneDecoBlocks;
+import com.rekindled.embers.RegistryManager.ToolSet;
 import com.rekindled.embers.recipe.AlchemyRecipeBuilder;
 import com.rekindled.embers.recipe.BoringRecipeBuilder;
 import com.rekindled.embers.recipe.EmberActivationRecipeBuilder;
@@ -381,6 +382,10 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('W', Tags.Items.RODS_WOODEN)
 		.unlockedBy("has_charger", has(RegistryManager.COPPER_CHARGER.get()))
 		.save(consumer, getResource("cinder_staff"));
+
+		toolRecipes(RegistryManager.LEAD_TOOLS, EmbersItemTags.LEAD_INGOT, consumer);
+		toolRecipes(RegistryManager.SILVER_TOOLS, EmbersItemTags.SILVER_INGOT, consumer);
+		toolRecipes(RegistryManager.DAWNSTONE_TOOLS, EmbersItemTags.DAWNSTONE_INGOT, consumer);
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.MECHANICAL_CORE.get())
 		.pattern("IBI")
@@ -939,6 +944,49 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 
 			stonecutterResultFromBase(consumer, RecipeCategory.DECORATIONS, deco.wall.get(), item);
 		}
+	}
+
+	public void toolRecipes(ToolSet set, TagKey<Item> material, Consumer<FinishedRecipe> consumer) {
+		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, set.SWORD.get())
+		.pattern("M")
+		.pattern("M")
+		.pattern("S")
+		.define('S', Tags.Items.RODS_WOODEN)
+		.define('M', material)
+		.unlockedBy("has_" + set.name, has(material))
+		.save(consumer, set.name + "_sword");
+		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, set.SHOVEL.get())
+		.pattern("M")
+		.pattern("S")
+		.pattern("S")
+		.define('S', Tags.Items.RODS_WOODEN)
+		.define('M', material)
+		.unlockedBy("has_" + set.name, has(material))
+		.save(consumer, set.name + "_shovel");
+		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, set.PICKAXE.get())
+		.pattern("MMM")
+		.pattern(" S ")
+		.pattern(" S ")
+		.define('S', Tags.Items.RODS_WOODEN)
+		.define('M', material)
+		.unlockedBy("has_" + set.name, has(material))
+		.save(consumer, set.name + "_pickaxe");
+		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, set.AXE.get())
+		.pattern("MM")
+		.pattern("MS")
+		.pattern(" S")
+		.define('S', Tags.Items.RODS_WOODEN)
+		.define('M', material)
+		.unlockedBy("has_" + set.name, has(material))
+		.save(consumer, set.name + "_axe");
+		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, set.HOE.get())
+		.pattern("MM")
+		.pattern(" S")
+		.pattern(" S")
+		.define('S', Tags.Items.RODS_WOODEN)
+		.define('M', material)
+		.unlockedBy("has_" + set.name, has(material))
+		.save(consumer, set.name + "_hoe");
 	}
 
 	public TagKey<Item> itemTag(String modId, String name) {
