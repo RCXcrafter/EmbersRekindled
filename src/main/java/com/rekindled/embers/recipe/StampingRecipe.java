@@ -142,6 +142,9 @@ public class StampingRecipe implements Recipe<StampingContext> {
 
 		@Override
 		public @Nullable StampingRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
+			if (buffer.readBoolean()) {
+				return TagStampingRecipe.SERIALIZER.fromNetwork(recipeId, buffer);
+			}
 			Ingredient stamp = Ingredient.fromNetwork(buffer);
 			Ingredient input = Ingredient.fromNetwork(buffer);
 			FluidIngredient fluid = FluidIngredient.read(buffer);
@@ -152,10 +155,16 @@ public class StampingRecipe implements Recipe<StampingContext> {
 
 		@Override
 		public void toNetwork(FriendlyByteBuf buffer, StampingRecipe recipe) {
-			recipe.stamp.toNetwork(buffer);
-			recipe.input.toNetwork(buffer);
-			recipe.fluid.write(buffer);
-			buffer.writeItemStack(recipe.output, false);
+			if (recipe instanceof TagStampingRecipe) {
+				buffer.writeBoolean(true);
+				TagStampingRecipe.SERIALIZER.toNetwork(buffer, (TagStampingRecipe) recipe);
+			} else {
+				buffer.writeBoolean(false);
+				recipe.stamp.toNetwork(buffer);
+				recipe.input.toNetwork(buffer);
+				recipe.fluid.write(buffer);
+				buffer.writeItemStack(recipe.output, false);
+			}
 		}
 	}
 }

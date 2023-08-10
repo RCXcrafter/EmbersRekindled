@@ -66,6 +66,9 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -83,6 +86,7 @@ import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.event.TagsUpdatedEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
+import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -105,6 +109,7 @@ public class Embers {
 		modEventBus.addListener(this::gatherData);
 		modEventBus.addListener(this::registerCaps);
 		modEventBus.addListener(this::entityAttributes);
+		modEventBus.addListener(this::spawnPlacements);
 
 		RegistryManager.BLOCKS.register(modEventBus);
 		RegistryManager.ITEMS.register(modEventBus);
@@ -143,6 +148,10 @@ public class Embers {
 
 	public void entityAttributes(EntityAttributeCreationEvent event) {
 		event.put(RegistryManager.ANCIENT_GOLEM.get(), AncientGolemEntity.createAttributes().build());
+	}
+
+	public void spawnPlacements(SpawnPlacementRegisterEvent event) {
+		event.register(RegistryManager.ANCIENT_GOLEM.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
 	}
 
 	public void gatherData(GatherDataEvent event) {

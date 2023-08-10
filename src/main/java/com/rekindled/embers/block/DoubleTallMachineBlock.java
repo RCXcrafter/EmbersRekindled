@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -48,10 +49,13 @@ public abstract class DoubleTallMachineBlock extends BaseEntityBlock implements 
 				if (below.getBlock() == this && below.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER)
 					level.destroyBlock(pos.below(), false);
 			}
-			IItemHandler handler = level.getBlockEntity(pos).getCapability(ForgeCapabilities.ITEM_HANDLER, null).orElse(null);
-			if (handler != null) {
-				Misc.spawnInventoryInWorld(level, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, handler);
-				level.updateNeighbourForOutputSignal(pos, this);
+			BlockEntity blockEntity = level.getBlockEntity(pos);
+			if (blockEntity != null) {
+				IItemHandler handler = blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, null).orElse(null);
+				if (handler != null) {
+					Misc.spawnInventoryInWorld(level, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, handler);
+					level.updateNeighbourForOutputSignal(pos, this);
+				}
 			}
 			super.onRemove(state, level, pos, newState, isMoving);
 		}

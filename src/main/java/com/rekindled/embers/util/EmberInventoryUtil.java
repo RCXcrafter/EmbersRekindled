@@ -6,6 +6,7 @@ import com.rekindled.embers.api.item.IHeldEmberCell;
 import com.rekindled.embers.api.item.IInventoryEmberCell;
 import com.rekindled.embers.api.power.IEmberCapability;
 
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -35,7 +36,7 @@ public class EmberInventoryUtil {
 
 	public static double getEmberTotal(Player player) {
 		double amount = 0;
-		for (int i = 0; i < 36; i++) {
+		for (int i = 0; i < Inventory.INVENTORY_SIZE; i++) {
 			IEmberCapability capability = player.getInventory().getItem(i).getCapability(EmbersCapabilities.EMBER_CAPABILITY, null).orElse(null);
 			if (capability != null && capability instanceof IInventoryEmberCell) {
 				amount += capability.getEmber();
@@ -77,7 +78,7 @@ public class EmberInventoryUtil {
 			if (temp <= 0)
 				return;
 		}*/
-		for (int i = 0; i < 36; i++) {
+		for (int i = 0; i < Inventory.INVENTORY_SIZE; i++) {
 			IEmberCapability capability = player.getInventory().getItem(i).getCapability(EmbersCapabilities.EMBER_CAPABILITY, null).orElse(null);
 			if (capability != null && capability instanceof IInventoryEmberCell) {
 				temp -= capability.removeAmount(temp, true);

@@ -51,10 +51,12 @@ public class EmberBoreBlock extends BaseEntityBlock implements SimpleWaterlogged
 				}
 			}
 			BlockEntity blockEntity = level.getBlockEntity(pos);
-			IItemHandler handler = blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, null).orElse(null);
-			if (handler != null) {
-				Misc.spawnInventoryInWorld(level, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, handler);
-				level.updateNeighbourForOutputSignal(pos, this);
+			if (blockEntity != null) {
+				IItemHandler handler = blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, null).orElse(null);
+				if (handler != null) {
+					Misc.spawnInventoryInWorld(level, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, handler);
+					level.updateNeighbourForOutputSignal(pos, this);
+				}
 			}
 			super.onRemove(state, level, pos, newState, isMoving);
 		}

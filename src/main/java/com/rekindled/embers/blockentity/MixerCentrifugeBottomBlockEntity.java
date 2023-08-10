@@ -198,7 +198,7 @@ public class MixerCentrifugeBottomBlockEntity extends BlockEntity implements IMe
 
 	@Override
 	public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
-		if (cap == ForgeCapabilities.FLUID_HANDLER) {
+		if (cap == ForgeCapabilities.FLUID_HANDLER && side != null) {
 			switch (side) {
 			case DOWN:
 				break;

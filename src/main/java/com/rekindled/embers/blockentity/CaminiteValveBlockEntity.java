@@ -86,13 +86,13 @@ public class CaminiteValveBlockEntity extends BlockEntity {
 
 	@Override
 	public <T> LazyOptional<T> getCapability(@NotNull Capability<T> capability, @Nullable Direction facing) {
-		if (!this.remove && capability == ForgeCapabilities.FLUID_HANDLER && facing.getAxis() != Direction.Axis.Y)
+		if (!this.remove && capability == ForgeCapabilities.FLUID_HANDLER && (facing == null || facing.getAxis() != Direction.Axis.Y))
 			return holder.cast();
 		return super.getCapability(capability, facing);
 	}
 
 	public void updateTank() {
-		if (isRemoved())
+		if (isRemoved() || !level.getBlockState(worldPosition).hasProperty(MechEdgeBlockBase.EDGE))
 			return;
 		reservoir = null;
 		BlockPos basePos = worldPosition.offset(level.getBlockState(worldPosition).getValue(MechEdgeBlockBase.EDGE).centerPos);

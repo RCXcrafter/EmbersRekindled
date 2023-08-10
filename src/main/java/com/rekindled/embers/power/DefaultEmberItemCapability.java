@@ -47,12 +47,16 @@ public class DefaultEmberItemCapability implements IEmberCapability {
 
 	@Override
 	public double getEmber() {
-		return ember;
+		if (stack.isEmpty())
+			return 0;
+		return stack.getOrCreateTagElement("ForgeCaps").getDouble(EMBER);
 	}
 
 	@Override
 	public double getEmberCapacity() {
-		return capacity;
+		if (stack.isEmpty())
+			return 0;
+		return stack.getOrCreateTagElement("ForgeCaps").getDouble(EMBER_CAPACITY);
 	}
 
 	@Override

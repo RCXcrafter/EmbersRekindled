@@ -101,15 +101,17 @@ public class ItemTransferBlock extends BaseEntityBlock implements SimpleWaterlog
 	}
 
 	@Override
-	public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
+	public void onRemove(BlockState pState, Level level, BlockPos pos, BlockState pNewState, boolean pIsMoving) {
 		if (!pState.is(pNewState.getBlock())) {
-			BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
-			IItemHandler handler = blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, null).orElse(null);
-			if (handler != null) {
-				Misc.spawnInventoryInWorld(pLevel, pPos.getX() + 0.5, pPos.getY() + 0.5, pPos.getZ() + 0.5, handler);
-				pLevel.updateNeighbourForOutputSignal(pPos, this);
+			BlockEntity blockEntity = level.getBlockEntity(pos);
+			if (blockEntity != null) {
+				IItemHandler handler = blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, null).orElse(null);
+				if (handler != null) {
+					Misc.spawnInventoryInWorld(level, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, handler);
+					level.updateNeighbourForOutputSignal(pos, this);
+				}
 			}
-			super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
+			super.onRemove(pState, level, pos, pNewState, pIsMoving);
 		}
 	}
 

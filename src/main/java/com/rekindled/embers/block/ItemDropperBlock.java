@@ -44,10 +44,13 @@ public class ItemDropperBlock extends BaseEntityBlock implements SimpleWaterlogg
 	@Override
 	public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
 		if (!state.is(newState.getBlock())) {
-			IItemHandler handler = level.getBlockEntity(pos).getCapability(ForgeCapabilities.ITEM_HANDLER, null).orElse(null);
-			if (handler != null) {
-				Misc.spawnInventoryInWorld(level, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, handler);
-				level.updateNeighbourForOutputSignal(pos, this);
+			BlockEntity blockEntity = level.getBlockEntity(pos);
+			if (blockEntity != null) {
+				IItemHandler handler = level.getBlockEntity(pos).getCapability(ForgeCapabilities.ITEM_HANDLER, null).orElse(null);
+				if (handler != null) {
+					Misc.spawnInventoryInWorld(level, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, handler);
+					level.updateNeighbourForOutputSignal(pos, this);
+				}
 			}
 			super.onRemove(state, level, pos, newState, isMoving);
 		}

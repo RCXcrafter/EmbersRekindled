@@ -86,18 +86,15 @@ public class ClockworkToolItem extends DiggerItem implements IEmberChargedTool {
 
 	@Override
 	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
-		if (!selected)
+		if (!selected || world.isClientSide())
 			return;
 		if (!stack.hasTag()) {
 			stack.getOrCreateTag();
-			stack.getTag().putInt("tickCount", 0);
 			stack.getTag().putBoolean("poweredOn", false);
 			stack.getTag().putBoolean("didUse", false);
 		} else {
 			if (entity instanceof Player player) {
-				stack.getTag().putInt("tickCount", stack.getTag().getInt("tickCount")+1);
-				if (stack.getTag().getInt("tickCount") >= 5){
-					stack.getTag().putInt("tickCount", 0);
+				if (world.getGameTime() % 5 == 0) {
 					if (EmberInventoryUtil.getEmberTotal(player) > 5.0) {
 						if (!stack.getTag().getBoolean("poweredOn")) {
 							stack.getTag().putBoolean("poweredOn", true);
