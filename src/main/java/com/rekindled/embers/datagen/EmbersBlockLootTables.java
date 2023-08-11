@@ -98,6 +98,8 @@ public class EmbersBlockLootTables extends BlockLootSubProvider {
 		add(RegistryManager.RESERVOIR_EDGE.get(), noDrop());
 		dropSelf(RegistryManager.CAMINITE_RING.get());
 		add(RegistryManager.CAMINITE_RING_EDGE.get(), noDrop());
+		dropSelf(RegistryManager.CAMINITE_GAUGE.get());
+		add(RegistryManager.CAMINITE_GAUGE_EDGE.get(), noDrop());
 		dropSelf(RegistryManager.CAMINITE_VALVE.get());
 		add(RegistryManager.CAMINITE_VALVE_EDGE.get(), noDrop());
 		dropSelf(RegistryManager.CRYSTAL_CELL.get());

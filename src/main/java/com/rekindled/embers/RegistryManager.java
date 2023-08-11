@@ -16,6 +16,8 @@ import com.rekindled.embers.block.ArchaicLightBlock;
 import com.rekindled.embers.block.BeamCannonBlock;
 import com.rekindled.embers.block.BeamSplitterBlock;
 import com.rekindled.embers.block.BinBlock;
+import com.rekindled.embers.block.CaminiteGaugeBlock;
+import com.rekindled.embers.block.CaminiteGaugeEdgeBlock;
 import com.rekindled.embers.block.CaminiteRingBlock;
 import com.rekindled.embers.block.CaminiteRingEdgeBlock;
 import com.rekindled.embers.block.CaminiteValveBlock;
@@ -321,6 +323,8 @@ public class RegistryManager {
 	public static final RegistryObject<Block> RESERVOIR_EDGE = BLOCKS.register("reservoir_edge", () -> new ReservoirEdgeBlock(Properties.of().mapColor(MapColor.WOOD).pushReaction(PushReaction.BLOCK).sound(EmbersSounds.MULTIBLOCK_EXTRA).requiresCorrectToolForDrops().strength(1.6f)));
 	public static final RegistryObject<Block> CAMINITE_RING = BLOCKS.register("caminite_ring", () -> new CaminiteRingBlock(Properties.of().mapColor(MapColor.NONE).pushReaction(PushReaction.BLOCK).noCollission().sound(SoundType.METAL).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
 	public static final RegistryObject<Block> CAMINITE_RING_EDGE = BLOCKS.register("caminite_ring_edge", () -> new CaminiteRingEdgeBlock(Properties.of().mapColor(MapColor.WOOD).pushReaction(PushReaction.BLOCK).sound(EmbersSounds.MULTIBLOCK_EXTRA).requiresCorrectToolForDrops().strength(1.6f)));
+	public static final RegistryObject<Block> CAMINITE_GAUGE = BLOCKS.register("caminite_gauge", () -> new CaminiteGaugeBlock(Properties.of().mapColor(MapColor.NONE).pushReaction(PushReaction.BLOCK).noCollission().sound(SoundType.METAL).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
+	public static final RegistryObject<Block> CAMINITE_GAUGE_EDGE = BLOCKS.register("caminite_gauge_edge", () -> new CaminiteGaugeEdgeBlock(Properties.of().mapColor(MapColor.WOOD).pushReaction(PushReaction.BLOCK).sound(EmbersSounds.MULTIBLOCK_EXTRA).requiresCorrectToolForDrops().strength(1.6f)));
 	public static final RegistryObject<Block> CAMINITE_VALVE = BLOCKS.register("caminite_valve", () -> new CaminiteValveBlock(Properties.of().mapColor(MapColor.NONE).pushReaction(PushReaction.BLOCK).noCollission().sound(SoundType.METAL).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
 	public static final RegistryObject<Block> CAMINITE_VALVE_EDGE = BLOCKS.register("caminite_valve_edge", () -> new CaminiteValveEdgeBlock(Properties.of().mapColor(MapColor.WOOD).pushReaction(PushReaction.BLOCK).sound(EmbersSounds.MULTIBLOCK_EXTRA).requiresCorrectToolForDrops().strength(1.6f)));
 	public static final RegistryObject<Block> CRYSTAL_CELL = BLOCKS.register("crystal_cell", () -> new CrystalCellBlock(Properties.of().mapColor(MapColor.WOOD).pushReaction(PushReaction.BLOCK).sound(SoundType.METAL).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
@@ -387,6 +391,7 @@ public class RegistryManager {
 	public static final RegistryObject<Item> HEARTH_COIL_ITEM = ITEMS.register("hearth_coil", () -> new BlockItem(HEARTH_COIL.get(), new Item.Properties()));
 	public static final RegistryObject<Item> RESERVOIR_ITEM = ITEMS.register("reservoir", () -> new BlockItem(RESERVOIR.get(), new Item.Properties()));
 	public static final RegistryObject<Item> CAMINITE_RING_ITEM = ITEMS.register("caminite_ring", () -> new BlockItem(CAMINITE_RING.get(), new Item.Properties()));
+	public static final RegistryObject<Item> CAMINITE_GAUGE_ITEM = ITEMS.register("caminite_gauge", () -> new BlockItem(CAMINITE_GAUGE.get(), new Item.Properties()));
 	public static final RegistryObject<Item> CAMINITE_VALVE_ITEM = ITEMS.register("caminite_valve", () -> new BlockItem(CAMINITE_VALVE.get(), new Item.Properties()));
 	public static final RegistryObject<Item> CRYSTAL_CELL_ITEM = ITEMS.register("crystal_cell", () -> new BlockItem(CRYSTAL_CELL.get(), new Item.Properties()));
 	public static final RegistryObject<Item> CLOCKWORK_ATTENUATOR_ITEM = ITEMS.register("clockwork_attenuator", () -> new BlockItem(CLOCKWORK_ATTENUATOR.get(), new Item.Properties()));

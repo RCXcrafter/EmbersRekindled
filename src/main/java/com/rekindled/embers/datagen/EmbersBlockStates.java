@@ -448,6 +448,20 @@ public class EmbersBlockStates extends BlockStateProvider {
 					.build();
 		});
 
+		simpleBlock(RegistryManager.CAMINITE_GAUGE.get(), models().getExistingFile(new ResourceLocation(Embers.MODID, "caminite_ring_center")));
+		flatItem(RegistryManager.CAMINITE_GAUGE, "caminite_gauge");
+
+		ExistingModelFile gaugeEdgeModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "caminite_gauge_edge"));
+		getVariantBuilder(RegistryManager.CAMINITE_GAUGE_EDGE.get()).forAllStates(state -> {
+			MechEdge edge = state.getValue(MechEdgeBlockBase.EDGE);
+
+			return ConfiguredModel.builder()
+					.modelFile(edge.corner ? ringCornerModel : gaugeEdgeModel)
+					.rotationY(edge.rotation)
+					.uvLock(false)
+					.build();
+		});
+
 		simpleBlock(RegistryManager.CAMINITE_VALVE.get(), models().getExistingFile(new ResourceLocation(Embers.MODID, "caminite_ring_center")));
 		flatItem(RegistryManager.CAMINITE_VALVE, "caminite_valve");
 

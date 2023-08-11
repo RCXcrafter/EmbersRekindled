@@ -682,6 +682,15 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_reservoir", has(RegistryManager.RESERVOIR.get()))
 		.save(consumer, getResource("caminite_ring"));
 
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.CAMINITE_GAUGE.get())
+		.pattern("BBB")
+		.pattern("G G")
+		.pattern("BBB")
+		.define('B', RegistryManager.CAMINITE_BRICKS.get())
+		.define('G', Tags.Items.GLASS_COLORLESS)
+		.unlockedBy("has_reservoir", has(RegistryManager.RESERVOIR.get()))
+		.save(consumer, getResource("caminite_gauge"));
+
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.CAMINITE_VALVE.get())
 		.pattern("BBB")
 		.pattern("P P")

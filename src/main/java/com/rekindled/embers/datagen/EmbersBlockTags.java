@@ -178,6 +178,7 @@ public class EmbersBlockTags extends BlockTagsProvider {
 
 		tag(RESERVOIR_EXPANSION).add(
 				RegistryManager.CAMINITE_RING.get(),
+				RegistryManager.CAMINITE_GAUGE.get(),
 				RegistryManager.CAMINITE_VALVE.get());
 
 		tag(FLUID_PIPE_CONNECTION).addTag(FLUID_PIPE_CONNECTION_TOGGLEABLE);

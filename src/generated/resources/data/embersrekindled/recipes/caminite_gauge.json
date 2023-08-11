@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "embersrekindled:caminite_bricks"
+    },
+    "G": {
+      "tag": "forge:glass/colorless"
+    }
+  },
+  "pattern": [
+    "BBB",
+    "G G",
+    "BBB"
+  ],
+  "result": {
+    "item": "embersrekindled:caminite_gauge"
+  },
+  "show_notification": true
+}
