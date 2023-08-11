@@ -61,7 +61,20 @@
         "model": "embersrekindled:block/fluid_pipe_end"
       },
       "when": {
-        "down": "true"
+        "AND": [
+          {
+            "OR": [
+              {
+                "facing": "east|west",
+                "front": "true"
+              },
+              {
+                "facing": "south|north",
+                "front": "true"
+              }
+            ]
+          }
+        ]
       }
     },
     {
@@ -70,26 +83,65 @@
         "x": 180
       },
       "when": {
-        "up": "true"
+        "AND": [
+          {
+            "OR": [
+              {
+                "facing": "east|west",
+                "right": "true"
+              },
+              {
+                "facing": "south|north",
+                "right": "true"
+              }
+            ]
+          }
+        ]
       }
     },
     {
       "apply": {
         "model": "embersrekindled:block/fluid_pipe_end",
-        "x": 90
+        "x": 90,
+        "y": 180
       },
       "when": {
-        "south": "true"
+        "AND": [
+          {
+            "OR": [
+              {
+                "back": "true",
+                "facing": "east|west"
+              },
+              {
+                "facing": "up|down",
+                "front": "true"
+              }
+            ]
+          }
+        ]
       }
     },
     {
       "apply": {
         "model": "embersrekindled:block/fluid_pipe_end_2",
-        "x": 90,
-        "y": 180
+        "x": 90
       },
       "when": {
-        "north": "true"
+        "AND": [
+          {
+            "OR": [
+              {
+                "facing": "east|west",
+                "left": "true"
+              },
+              {
+                "facing": "up|down",
+                "right": "true"
+              }
+            ]
+          }
+        ]
       }
     },
     {
@@ -99,7 +151,20 @@
         "y": 90
       },
       "when": {
-        "west": "true"
+        "AND": [
+          {
+            "OR": [
+              {
+                "back": "true",
+                "facing": "up|down"
+              },
+              {
+                "back": "true",
+                "facing": "south|north"
+              }
+            ]
+          }
+        ]
       }
     },
     {
@@ -109,7 +174,20 @@
         "y": 270
       },
       "when": {
-        "east": "true"
+        "AND": [
+          {
+            "OR": [
+              {
+                "facing": "up|down",
+                "left": "true"
+              },
+              {
+                "facing": "south|north",
+                "left": "true"
+              }
+            ]
+          }
+        ]
       }
     }
   ]

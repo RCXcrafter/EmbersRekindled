@@ -49,17 +49,44 @@ public class EmberEmitterBlock extends BaseEntityBlock implements SimpleWaterlog
 	protected static final VoxelShape SUPPORT_Z = Shapes.or(Shapes.box(0,0,0,1,0.1,1), Shapes.box(0,0.9,0,1,1,1), Shapes.box(0,0,0,0.1,1,1), Shapes.box(0.9,0,0,1,1,1));
 
 	public static final DirectionProperty FACING = BlockStateProperties.FACING;
-	public static final BooleanProperty[] DIRECTIONS = { BlockStateProperties.DOWN, BlockStateProperties.UP, BlockStateProperties.NORTH, BlockStateProperties.SOUTH, BlockStateProperties.WEST, BlockStateProperties.EAST };
+	public static final Direction[] X_DIRECTIONS = { Direction.DOWN, Direction.UP, Direction.NORTH, Direction.SOUTH };
+	public static final Direction[] Y_DIRECTIONS = { Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.EAST };
+	public static final Direction[] Z_DIRECTIONS = { Direction.DOWN, Direction.UP, Direction.WEST, Direction.EAST };
+	public static final BooleanProperty[] DIRECTIONS = { BooleanProperty.create("front"), BooleanProperty.create("right"), BooleanProperty.create("back"), BooleanProperty.create("left") };
+	public static final BooleanProperty[] ALL_DIRECTIONS = { BlockStateProperties.DOWN, BlockStateProperties.UP, BlockStateProperties.NORTH, BlockStateProperties.SOUTH, BlockStateProperties.WEST, BlockStateProperties.EAST };
 
 	public EmberEmitterBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP).setValue(BlockStateProperties.WATERLOGGED, false)
-				.setValue(DIRECTIONS[0], Boolean.valueOf(false))
-				.setValue(DIRECTIONS[1], Boolean.valueOf(false))
-				.setValue(DIRECTIONS[2], Boolean.valueOf(false))
-				.setValue(DIRECTIONS[3], Boolean.valueOf(false))
-				.setValue(DIRECTIONS[4], Boolean.valueOf(false))
-				.setValue(DIRECTIONS[5], Boolean.valueOf(false)));
+				.setValue(DIRECTIONS[0], false)
+				.setValue(DIRECTIONS[1], false)
+				.setValue(DIRECTIONS[2], false)
+				.setValue(DIRECTIONS[3], false));
+	}
+
+	public static int getIndexForDirection(Direction.Axis axis, Direction direction) {
+		int index = direction.get3DDataValue();
+		switch (axis) {
+		case Z:
+			return index > 1 ? index - 2 : index;
+		case Y:
+			return index - 2;
+		case X:
+		default:
+			return index;
+		}
+	}
+
+	public static Direction getDirectionForIndex(Direction.Axis axis, int index) {
+		switch (axis) {
+		case X:
+			return X_DIRECTIONS[index];
+		case Z:
+			return Z_DIRECTIONS[index];
+		case Y:
+		default:
+			return Y_DIRECTIONS[index];
+		}
 	}
 
 	@Override
@@ -98,12 +125,12 @@ public class EmberEmitterBlock extends BaseEntityBlock implements SimpleWaterlog
 	@Nullable
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext pContext) {
-		for(Direction direction : pContext.getNearestLookingDirections()) {
+		for (Direction direction : pContext.getNearestLookingDirections()) {
 			BlockState blockstate = this.defaultBlockState().setValue(FACING, direction.getOpposite());
 			if (blockstate.canSurvive(pContext.getLevel(), pContext.getClickedPos())) {
-				for (Direction direction2 : Direction.values()) {
-					if (direction2.getAxis() != direction.getAxis())
-						blockstate = blockstate.setValue(DIRECTIONS[direction2.get3DDataValue()], connected(direction2, pContext.getLevel().getBlockState(pContext.getClickedPos().relative(direction2))));
+				for (int i = 0; i < DIRECTIONS.length; i++) {
+					Direction facing = getDirectionForIndex(direction.getAxis(), i);
+					blockstate = blockstate.setValue(DIRECTIONS[i], connected(facing, pContext.getLevel().getBlockState(pContext.getClickedPos().relative(facing))));
 				}
 				return blockstate.setValue(BlockStateProperties.WATERLOGGED, Boolean.valueOf(pContext.getLevel().getFluidState(pContext.getClickedPos()).getType() == Fluids.WATER));
 			}
@@ -117,7 +144,7 @@ public class EmberEmitterBlock extends BaseEntityBlock implements SimpleWaterlog
 			pLevel.scheduleTick(pCurrentPos, Fluids.WATER, Fluids.WATER.getTickDelay(pLevel));
 		}
 		if (pState.getValue(FACING).getAxis() != pFacing.getAxis()) {
-			pState = pState.setValue(DIRECTIONS[pFacing.get3DDataValue()], connected(pFacing, pFacingState));
+			pState = pState.setValue(DIRECTIONS[getIndexForDirection(pState.getValue(FACING).getAxis(), pFacing)], connected(pFacing, pFacingState));
 		}
 		return pState.getValue(FACING).getOpposite() == pFacing && !pState.canSurvive(pLevel, pCurrentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
 	}
@@ -138,7 +165,7 @@ public class EmberEmitterBlock extends BaseEntityBlock implements SimpleWaterlog
 			return direction == Direction.UP;
 		}
 		//if the block has a side property, use that
-		BooleanProperty sideProp = DIRECTIONS[direction.getOpposite().get3DDataValue()];
+		BooleanProperty sideProp = ALL_DIRECTIONS[direction.getOpposite().get3DDataValue()];
 		if (state.hasProperty(sideProp) && state.getValue(sideProp)) {
 			return true;
 		}

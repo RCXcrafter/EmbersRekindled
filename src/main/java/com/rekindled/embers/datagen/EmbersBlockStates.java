@@ -7,6 +7,7 @@ import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.RegistryManager.FluidStuff;
 import com.rekindled.embers.RegistryManager.StoneDecoBlocks;
 import com.rekindled.embers.block.EmberBoreBlock;
+import com.rekindled.embers.block.EmberEmitterBlock;
 import com.rekindled.embers.block.ItemTransferBlock;
 import com.rekindled.embers.block.MechEdgeBlockBase;
 import com.rekindled.embers.block.MechEdgeBlockBase.MechEdge;
@@ -29,6 +30,8 @@ import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.ModelFile.ExistingModelFile;
 import net.minecraftforge.client.model.generators.ModelProvider;
+import net.minecraftforge.client.model.generators.MultiPartBlockStateBuilder;
+import net.minecraftforge.client.model.generators.ConfiguredModel.Builder;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -94,31 +97,20 @@ public class EmbersBlockStates extends BlockStateProvider {
 		ExistingModelFile emitterModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "ember_emitter"));
 		simpleBlockItem(RegistryManager.EMBER_EMITTER.get(), emitterModel);
 
-		getMultipartBuilder(RegistryManager.EMBER_EMITTER.get())
-		.part().modelFile(emitterModel).addModel()
-		.condition(BlockStateProperties.FACING, Direction.UP).end()
-		.part().modelFile(emitterModel).rotationX(180).addModel()
-		.condition(BlockStateProperties.FACING, Direction.DOWN).end()
-		.part().modelFile(emitterModel).rotationX(90).addModel()
-		.condition(BlockStateProperties.FACING, Direction.NORTH).end()
-		.part().modelFile(emitterModel).rotationX(90).rotationY(180).addModel()
-		.condition(BlockStateProperties.FACING, Direction.SOUTH).end()
-		.part().modelFile(emitterModel).rotationX(90).rotationY(90).addModel()
-		.condition(BlockStateProperties.FACING, Direction.EAST).end()
-		.part().modelFile(emitterModel).rotationX(90).rotationY(270).addModel()
-		.condition(BlockStateProperties.FACING, Direction.WEST).end()
-		.part().modelFile(fluidPipeEndModel).addModel()
-		.condition(BlockStateProperties.DOWN, true).end()
-		.part().modelFile(fluidPipeEndModel2).rotationX(180).addModel()
-		.condition(BlockStateProperties.UP, true).end()
-		.part().modelFile(fluidPipeEndModel).rotationX(90).addModel()
-		.condition(BlockStateProperties.SOUTH, true).end()
-		.part().modelFile(fluidPipeEndModel2).rotationX(90).rotationY(180).addModel()
-		.condition(BlockStateProperties.NORTH, true).end()
-		.part().modelFile(fluidPipeEndModel).rotationX(90).rotationY(90).addModel()
-		.condition(BlockStateProperties.WEST, true).end()
-		.part().modelFile(fluidPipeEndModel2).rotationX(90).rotationY(270).addModel()
-		.condition(BlockStateProperties.EAST, true).end();
+		MultiPartBlockStateBuilder emitterBuilder = getMultipartBuilder(RegistryManager.EMBER_EMITTER.get())
+				.part().modelFile(emitterModel).addModel()
+				.condition(BlockStateProperties.FACING, Direction.UP).end()
+				.part().modelFile(emitterModel).rotationX(180).addModel()
+				.condition(BlockStateProperties.FACING, Direction.DOWN).end()
+				.part().modelFile(emitterModel).rotationX(90).addModel()
+				.condition(BlockStateProperties.FACING, Direction.NORTH).end()
+				.part().modelFile(emitterModel).rotationX(90).rotationY(180).addModel()
+				.condition(BlockStateProperties.FACING, Direction.SOUTH).end()
+				.part().modelFile(emitterModel).rotationX(90).rotationY(90).addModel()
+				.condition(BlockStateProperties.FACING, Direction.EAST).end()
+				.part().modelFile(emitterModel).rotationX(90).rotationY(270).addModel()
+				.condition(BlockStateProperties.FACING, Direction.WEST).end();
+		addEmitterConnections(emitterBuilder, fluidPipeEndModel, fluidPipeEndModel2);
 
 		ExistingModelFile receiverModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "ember_receiver"));
 		directionalBlock(RegistryManager.EMBER_RECEIVER.get(), receiverModel);
@@ -212,7 +204,7 @@ public class EmbersBlockStates extends BlockStateProvider {
 
 		ExistingModelFile emberBoreModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "ember_bore_center"));
 		ExistingModelFile emberBoreBladesModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "ember_bore_blades"));
-		getVariantBuilder(RegistryManager.EMBER_BORE.get()).forAllStates(state -> {
+		getVariantBuilder(RegistryManager.EMBER_BORE.get()).forAllStates(state -> {//TODO: rotate the bore 90 degrees
 			Axis axis = state.getValue(BlockStateProperties.HORIZONTAL_AXIS);
 
 			return ConfiguredModel.builder()
@@ -367,31 +359,20 @@ public class EmbersBlockStates extends BlockStateProvider {
 		ExistingModelFile ejectorModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "ember_ejector"));
 		simpleBlockItem(RegistryManager.EMBER_EJECTOR.get(), ejectorModel);
 
-		getMultipartBuilder(RegistryManager.EMBER_EJECTOR.get())
-		.part().modelFile(ejectorModel).addModel()
-		.condition(BlockStateProperties.FACING, Direction.UP).end()
-		.part().modelFile(ejectorModel).rotationX(180).addModel()
-		.condition(BlockStateProperties.FACING, Direction.DOWN).end()
-		.part().modelFile(ejectorModel).rotationX(90).addModel()
-		.condition(BlockStateProperties.FACING, Direction.NORTH).end()
-		.part().modelFile(ejectorModel).rotationX(90).rotationY(180).addModel()
-		.condition(BlockStateProperties.FACING, Direction.SOUTH).end()
-		.part().modelFile(ejectorModel).rotationX(90).rotationY(90).addModel()
-		.condition(BlockStateProperties.FACING, Direction.EAST).end()
-		.part().modelFile(ejectorModel).rotationX(90).rotationY(270).addModel()
-		.condition(BlockStateProperties.FACING, Direction.WEST).end()
-		.part().modelFile(fluidPipeEndModel).addModel()
-		.condition(BlockStateProperties.DOWN, true).end()
-		.part().modelFile(fluidPipeEndModel2).rotationX(180).addModel()
-		.condition(BlockStateProperties.UP, true).end()
-		.part().modelFile(fluidPipeEndModel).rotationX(90).addModel()
-		.condition(BlockStateProperties.SOUTH, true).end()
-		.part().modelFile(fluidPipeEndModel2).rotationX(90).rotationY(180).addModel()
-		.condition(BlockStateProperties.NORTH, true).end()
-		.part().modelFile(fluidPipeEndModel).rotationX(90).rotationY(90).addModel()
-		.condition(BlockStateProperties.WEST, true).end()
-		.part().modelFile(fluidPipeEndModel2).rotationX(90).rotationY(270).addModel()
-		.condition(BlockStateProperties.EAST, true).end();
+		MultiPartBlockStateBuilder ejectorBuilder = getMultipartBuilder(RegistryManager.EMBER_EJECTOR.get())
+				.part().modelFile(ejectorModel).addModel()
+				.condition(BlockStateProperties.FACING, Direction.UP).end()
+				.part().modelFile(ejectorModel).rotationX(180).addModel()
+				.condition(BlockStateProperties.FACING, Direction.DOWN).end()
+				.part().modelFile(ejectorModel).rotationX(90).addModel()
+				.condition(BlockStateProperties.FACING, Direction.NORTH).end()
+				.part().modelFile(ejectorModel).rotationX(90).rotationY(180).addModel()
+				.condition(BlockStateProperties.FACING, Direction.SOUTH).end()
+				.part().modelFile(ejectorModel).rotationX(90).rotationY(90).addModel()
+				.condition(BlockStateProperties.FACING, Direction.EAST).end()
+				.part().modelFile(ejectorModel).rotationX(90).rotationY(270).addModel()
+				.condition(BlockStateProperties.FACING, Direction.WEST).end();
+		addEmitterConnections(ejectorBuilder, fluidPipeEndModel, fluidPipeEndModel2);
 
 		ExistingModelFile funnelModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "ember_funnel"));
 		directionalBlock(RegistryManager.EMBER_FUNNEL.get(), funnelModel);
@@ -538,31 +519,20 @@ public class EmbersBlockStates extends BlockStateProvider {
 		ExistingModelFile cannonModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "beam_cannon"));
 		simpleBlockItem(RegistryManager.BEAM_CANNON.get(), cannonModel);
 
-		getMultipartBuilder(RegistryManager.BEAM_CANNON.get())
-		.part().modelFile(cannonModel).addModel()
-		.condition(BlockStateProperties.FACING, Direction.UP).end()
-		.part().modelFile(cannonModel).rotationX(180).addModel()
-		.condition(BlockStateProperties.FACING, Direction.DOWN).end()
-		.part().modelFile(cannonModel).rotationX(90).addModel()
-		.condition(BlockStateProperties.FACING, Direction.NORTH).end()
-		.part().modelFile(cannonModel).rotationX(90).rotationY(180).addModel()
-		.condition(BlockStateProperties.FACING, Direction.SOUTH).end()
-		.part().modelFile(cannonModel).rotationX(90).rotationY(90).addModel()
-		.condition(BlockStateProperties.FACING, Direction.EAST).end()
-		.part().modelFile(cannonModel).rotationX(90).rotationY(270).addModel()
-		.condition(BlockStateProperties.FACING, Direction.WEST).end()
-		.part().modelFile(fluidPipeEndModel).addModel()
-		.condition(BlockStateProperties.DOWN, true).end()
-		.part().modelFile(fluidPipeEndModel2).rotationX(180).addModel()
-		.condition(BlockStateProperties.UP, true).end()
-		.part().modelFile(fluidPipeEndModel).rotationX(90).addModel()
-		.condition(BlockStateProperties.SOUTH, true).end()
-		.part().modelFile(fluidPipeEndModel2).rotationX(90).rotationY(180).addModel()
-		.condition(BlockStateProperties.NORTH, true).end()
-		.part().modelFile(fluidPipeEndModel).rotationX(90).rotationY(90).addModel()
-		.condition(BlockStateProperties.WEST, true).end()
-		.part().modelFile(fluidPipeEndModel2).rotationX(90).rotationY(270).addModel()
-		.condition(BlockStateProperties.EAST, true).end();
+		MultiPartBlockStateBuilder cannonBuilder = getMultipartBuilder(RegistryManager.BEAM_CANNON.get())
+				.part().modelFile(cannonModel).addModel()
+				.condition(BlockStateProperties.FACING, Direction.UP).end()
+				.part().modelFile(cannonModel).rotationX(180).addModel()
+				.condition(BlockStateProperties.FACING, Direction.DOWN).end()
+				.part().modelFile(cannonModel).rotationX(90).addModel()
+				.condition(BlockStateProperties.FACING, Direction.NORTH).end()
+				.part().modelFile(cannonModel).rotationX(90).rotationY(180).addModel()
+				.condition(BlockStateProperties.FACING, Direction.SOUTH).end()
+				.part().modelFile(cannonModel).rotationX(90).rotationY(90).addModel()
+				.condition(BlockStateProperties.FACING, Direction.EAST).end()
+				.part().modelFile(cannonModel).rotationX(90).rotationY(270).addModel()
+				.condition(BlockStateProperties.FACING, Direction.WEST).end();
+		addEmitterConnections(cannonBuilder, fluidPipeEndModel, fluidPipeEndModel2);
 	}
 
 	public void blockWithItem(RegistryObject<? extends Block> registryObject) {
@@ -676,6 +646,65 @@ public class EmbersBlockStates extends BlockStateProvider {
 		if (deco.wall != null) {
 			this.wallBlock(deco.wall.get(), resourceLocation);
 			this.itemModels().wallInventory(deco.wall.getId().getPath(), resourceLocation);
+		}
+	}
+
+	public static void addEmitterConnections(MultiPartBlockStateBuilder builder, ModelFile pipe1, ModelFile pipe2) {
+		for (Direction direction : Direction.values()) {
+			Axis axis1;
+			Axis axis2;
+
+			switch (direction.getAxis()) {
+			case X:
+				axis1 = Direction.Axis.Y;
+				axis2 = Direction.Axis.Z;
+				break;
+			case Y:
+				axis1 = Direction.Axis.X;
+				axis2 = Direction.Axis.Z;
+				break;
+			case Z:
+			default:
+				axis1 = Direction.Axis.X;
+				axis2 = Direction.Axis.Y;
+				break;
+			}
+
+			rotationsForDirection(builder.part().modelFile(direction.getAxisDirection() == Direction.AxisDirection.POSITIVE ? pipe2 : pipe1), direction).addModel()
+
+			.nestedGroup().useOr()
+
+			.nestedGroup()
+			.condition(BlockStateProperties.FACING, Direction.fromAxisAndDirection(axis1, Direction.AxisDirection.POSITIVE), Direction.fromAxisAndDirection(axis1, Direction.AxisDirection.NEGATIVE))
+			//AND
+			.condition(EmberEmitterBlock.DIRECTIONS[EmberEmitterBlock.getIndexForDirection(axis1, direction)], true)
+			.endNestedGroup()
+
+			.nestedGroup()
+			.condition(BlockStateProperties.FACING, Direction.fromAxisAndDirection(axis2, Direction.AxisDirection.POSITIVE), Direction.fromAxisAndDirection(axis2, Direction.AxisDirection.NEGATIVE))
+			//AND
+			.condition(EmberEmitterBlock.DIRECTIONS[EmberEmitterBlock.getIndexForDirection(axis2, direction)], true)
+			.endNestedGroup()
+
+			.end();
+		}
+	}
+
+	public static <T> Builder<T> rotationsForDirection(Builder<T> builder, Direction direction) {
+		switch (direction) {
+		case DOWN:
+		default:
+			return builder;
+		case UP:
+			return builder.rotationX(180);
+		case EAST:
+			return builder.rotationX(90).rotationY(270);
+		case WEST:
+			return builder.rotationX(90).rotationY(90);
+		case SOUTH:
+			return builder.rotationX(90);
+		case NORTH:
+			return builder.rotationX(90).rotationY(180);
 		}
 	}
 }
