@@ -92,7 +92,7 @@ public class CaminiteValveBlockEntity extends BlockEntity {
 	}
 
 	public void updateTank() {
-		if (isRemoved() || !level.getBlockState(worldPosition).hasProperty(MechEdgeBlockBase.EDGE))
+		if (isRemoved() || !level.getBlockState(worldPosition).hasProperty(MechEdgeBlockBase.EDGE))//TODO: why is this needed?
 			return;
 		reservoir = null;
 		BlockPos basePos = worldPosition.offset(level.getBlockState(worldPosition).getValue(MechEdgeBlockBase.EDGE).centerPos);

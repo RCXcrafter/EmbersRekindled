@@ -43,7 +43,7 @@ public class EmberBoreBlockEntityRenderer implements BlockEntityRenderer<EmberBo
 			bladeState = bladeState.setValue(EmberBoreBlock.BLADES, true);
 			poseStack.pushPose();
 			poseStack.translate(0.5D, -0.5D, 0.5D);
-			if (bladeState.getValue(BlockStateProperties.HORIZONTAL_AXIS) == Direction.Axis.Z) {
+			if (bladeState.getValue(BlockStateProperties.HORIZONTAL_AXIS) == Direction.Axis.X) {
 				poseStack.mulPose(Axis.ZP.rotationDegrees(partialTick * angle + (1 - partialTick) * lastAngle));
 			} else {
 				poseStack.mulPose(Axis.XP.rotationDegrees(partialTick * angle + (1 - partialTick) * lastAngle));

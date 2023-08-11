@@ -1,21 +1,21 @@
 {
   "variants": {
     "axis=x,edge=east,waterlogged=false": {
-      "model": "embersrekindled:block/ember_bore_edge",
+      "model": "embersrekindled:block/mech_edge_straight",
       "uvlock": true,
       "y": 90
     },
     "axis=x,edge=east,waterlogged=true": {
-      "model": "embersrekindled:block/ember_bore_edge",
+      "model": "embersrekindled:block/mech_edge_straight",
       "uvlock": true,
       "y": 90
     },
     "axis=x,edge=north,waterlogged=false": {
-      "model": "embersrekindled:block/mech_edge_straight",
+      "model": "embersrekindled:block/ember_bore_edge",
       "uvlock": true
     },
     "axis=x,edge=north,waterlogged=true": {
-      "model": "embersrekindled:block/mech_edge_straight",
+      "model": "embersrekindled:block/ember_bore_edge",
       "uvlock": true
     },
     "axis=x,edge=northeast,waterlogged=false": {
@@ -37,12 +37,12 @@
       "y": 270
     },
     "axis=x,edge=south,waterlogged=false": {
-      "model": "embersrekindled:block/mech_edge_straight",
+      "model": "embersrekindled:block/ember_bore_edge",
       "uvlock": true,
       "y": 180
     },
     "axis=x,edge=south,waterlogged=true": {
-      "model": "embersrekindled:block/mech_edge_straight",
+      "model": "embersrekindled:block/ember_bore_edge",
       "uvlock": true,
       "y": 180
     },
@@ -67,31 +67,31 @@
       "y": 180
     },
     "axis=x,edge=west,waterlogged=false": {
-      "model": "embersrekindled:block/ember_bore_edge",
+      "model": "embersrekindled:block/mech_edge_straight",
       "uvlock": true,
       "y": 270
     },
     "axis=x,edge=west,waterlogged=true": {
-      "model": "embersrekindled:block/ember_bore_edge",
+      "model": "embersrekindled:block/mech_edge_straight",
       "uvlock": true,
       "y": 270
     },
     "axis=z,edge=east,waterlogged=false": {
-      "model": "embersrekindled:block/mech_edge_straight",
+      "model": "embersrekindled:block/ember_bore_edge",
       "uvlock": true,
       "y": 90
     },
     "axis=z,edge=east,waterlogged=true": {
-      "model": "embersrekindled:block/mech_edge_straight",
+      "model": "embersrekindled:block/ember_bore_edge",
       "uvlock": true,
       "y": 90
     },
     "axis=z,edge=north,waterlogged=false": {
-      "model": "embersrekindled:block/ember_bore_edge",
+      "model": "embersrekindled:block/mech_edge_straight",
       "uvlock": true
     },
     "axis=z,edge=north,waterlogged=true": {
-      "model": "embersrekindled:block/ember_bore_edge",
+      "model": "embersrekindled:block/mech_edge_straight",
       "uvlock": true
     },
     "axis=z,edge=northeast,waterlogged=false": {
@@ -113,12 +113,12 @@
       "y": 270
     },
     "axis=z,edge=south,waterlogged=false": {
-      "model": "embersrekindled:block/ember_bore_edge",
+      "model": "embersrekindled:block/mech_edge_straight",
       "uvlock": true,
       "y": 180
     },
     "axis=z,edge=south,waterlogged=true": {
-      "model": "embersrekindled:block/ember_bore_edge",
+      "model": "embersrekindled:block/mech_edge_straight",
       "uvlock": true,
       "y": 180
     },
@@ -143,12 +143,12 @@
       "y": 180
     },
     "axis=z,edge=west,waterlogged=false": {
-      "model": "embersrekindled:block/mech_edge_straight",
+      "model": "embersrekindled:block/ember_bore_edge",
       "uvlock": true,
       "y": 270
     },
     "axis=z,edge=west,waterlogged=true": {
-      "model": "embersrekindled:block/mech_edge_straight",
+      "model": "embersrekindled:block/ember_bore_edge",
       "uvlock": true,
       "y": 270
     }

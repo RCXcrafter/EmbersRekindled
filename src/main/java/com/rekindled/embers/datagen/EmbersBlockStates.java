@@ -204,12 +204,12 @@ public class EmbersBlockStates extends BlockStateProvider {
 
 		ExistingModelFile emberBoreModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "ember_bore_center"));
 		ExistingModelFile emberBoreBladesModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "ember_bore_blades"));
-		getVariantBuilder(RegistryManager.EMBER_BORE.get()).forAllStates(state -> {//TODO: rotate the bore 90 degrees
+		getVariantBuilder(RegistryManager.EMBER_BORE.get()).forAllStates(state -> {
 			Axis axis = state.getValue(BlockStateProperties.HORIZONTAL_AXIS);
 
 			return ConfiguredModel.builder()
 					.modelFile(state.getValue(EmberBoreBlock.BLADES) ? emberBoreBladesModel : emberBoreModel)
-					.rotationY(axis == Axis.Z ? 0 : 90)
+					.rotationY(axis == Axis.Z ? 90 : 0)
 					.uvLock(false)
 					.build();
 		});
@@ -223,7 +223,7 @@ public class EmbersBlockStates extends BlockStateProvider {
 			Axis axis = state.getValue(BlockStateProperties.HORIZONTAL_AXIS);
 
 			return ConfiguredModel.builder()
-					.modelFile(edge.corner ? mechCornerModel : (edge == MechEdge.NORTH || edge == MechEdge.SOUTH) && axis == Axis.Z || (edge == MechEdge.EAST || edge == MechEdge.WEST) && axis == Axis.X ? boreEdgeModel : mechEdgeModel)
+					.modelFile(edge.corner ? mechCornerModel : (edge == MechEdge.NORTH || edge == MechEdge.SOUTH) && axis == Axis.Z || (edge == MechEdge.EAST || edge == MechEdge.WEST) && axis == Axis.X ? mechEdgeModel : boreEdgeModel)
 					.rotationY(edge.rotation)
 					.uvLock(true)
 					.build();
