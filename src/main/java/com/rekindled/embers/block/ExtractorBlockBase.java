@@ -1,11 +1,13 @@
 package com.rekindled.embers.block;
 
+import com.rekindled.embers.blockentity.PipeBlockEntityBase;
 import com.rekindled.embers.datagen.EmbersBlockTags;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.block.state.properties.BellAttachType;
@@ -35,7 +37,11 @@ public abstract class ExtractorBlockBase extends PipeBlockBase {
 
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-		return EXTRACTOR_SHAPES[getShapeIndex(state.getValue(DOWN), state.getValue(UP), state.getValue(NORTH), state.getValue(SOUTH), state.getValue(WEST), state.getValue(EAST))];
+		BlockEntity BE = level.getBlockEntity(pos);
+		if (BE instanceof PipeBlockEntityBase pipe) {
+			return EXTRACTOR_SHAPES[getShapeIndex(pipe.connections[0], pipe.connections[1], pipe.connections[2], pipe.connections[3], pipe.connections[4], pipe.connections[5])];
+		}
+		return CENTER_AABB;
 	}
 
 	@Override
@@ -51,7 +57,7 @@ public abstract class ExtractorBlockBase extends PipeBlockBase {
 			return direction == Direction.UP;
 		}
 		//if the block has a side property, use that
-		BooleanProperty sideProp = EmberEmitterBlock.DIRECTIONS[direction.getOpposite().get3DDataValue()];
+		BooleanProperty sideProp = EmberEmitterBlock.ALL_DIRECTIONS[direction.getOpposite().get3DDataValue()];
 		if (state.hasProperty(sideProp) && state.getValue(sideProp)) {
 			return true;
 		}

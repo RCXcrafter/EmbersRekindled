@@ -3,6 +3,8 @@ package com.rekindled.embers.block;
 import javax.annotation.Nullable;
 
 import com.rekindled.embers.api.block.IPipeConnection;
+import com.rekindled.embers.blockentity.PipeBlockEntityBase;
+import com.rekindled.embers.blockentity.PipeBlockEntityBase.PipeConnection;
 import com.rekindled.embers.datagen.EmbersItemTags;
 import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.util.Misc;
@@ -11,7 +13,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -28,7 +29,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
@@ -41,16 +41,6 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.IItemHandler;
 
 public abstract class PipeBlockBase extends BaseEntityBlock implements SimpleWaterloggedBlock {
-
-	public static final EnumProperty<PipeConnection> DOWN = EnumProperty.create("down", PipeConnection.class);
-	public static final EnumProperty<PipeConnection> UP = EnumProperty.create("up", PipeConnection.class);
-	public static final EnumProperty<PipeConnection> NORTH = EnumProperty.create("north", PipeConnection.class);
-	public static final EnumProperty<PipeConnection> SOUTH = EnumProperty.create("south", PipeConnection.class);
-	public static final EnumProperty<PipeConnection> WEST = EnumProperty.create("west", PipeConnection.class);
-	public static final EnumProperty<PipeConnection> EAST = EnumProperty.create("east", PipeConnection.class);
-
-	@SuppressWarnings("unchecked")
-	public static final EnumProperty<PipeConnection>[] DIRECTIONS = new EnumProperty[] { DOWN, UP, NORTH, SOUTH, WEST, EAST };
 
 	public static final VoxelShape CENTER_AABB = Block.box(6,6,6,10,10,10);
 	public static final VoxelShape PIPE_DOWN_AABB = Block.box(6,0,6,10,6,10);
@@ -83,13 +73,7 @@ public abstract class PipeBlockBase extends BaseEntityBlock implements SimpleWat
 
 	public PipeBlockBase(Properties pProperties) {
 		super(pProperties);
-		this.registerDefaultState(this.stateDefinition.any().setValue(BlockStateProperties.WATERLOGGED, false)
-				.setValue(DOWN, PipeConnection.NONE)
-				.setValue(UP, PipeConnection.NONE)
-				.setValue(NORTH, PipeConnection.NONE)
-				.setValue(SOUTH, PipeConnection.NONE)
-				.setValue(WEST, PipeConnection.NONE)
-				.setValue(EAST, PipeConnection.NONE));
+		this.registerDefaultState(this.stateDefinition.any().setValue(BlockStateProperties.WATERLOGGED, false));
 	}
 
 	@Override
@@ -101,80 +85,89 @@ public abstract class PipeBlockBase extends BaseEntityBlock implements SimpleWat
 			}
 			return InteractionResult.PASS;
 		}
-		double reach = player.getBlockReach();
-		Vec3 eyePosition = player.getEyePosition();
-		Vec3 lookVector = player.getLookAngle().multiply(reach, reach, reach).add(eyePosition);
+		BlockEntity BE = level.getBlockEntity(pos);
+		if (BE instanceof PipeBlockEntityBase pipe) {
+			double reach = player.getBlockReach();
+			Vec3 eyePosition = player.getEyePosition();
+			Vec3 lookVector = player.getLookAngle().multiply(reach, reach, reach).add(eyePosition);
 
-		Vec3[] hitPositions = new Vec3[6];
-		BlockHitResult centerHit = getCenterShape().clip(eyePosition, lookVector, pos);
+			Vec3[] hitPositions = new Vec3[6];
+			BlockHitResult centerHit = getCenterShape().clip(eyePosition, lookVector, pos);
 
-		for (int i = 0; i < 6; i++) {
-			BlockHitResult partHit = null;
-			if (state.getValue(DIRECTIONS[i]) == PipeConnection.END) {
-				partHit = END_AABBS[i].clip(eyePosition, lookVector, pos);
-			} else if (state.getValue(DIRECTIONS[i]) == PipeConnection.PIPE) {
-				partHit = PIPE_AABBS[i].clip(eyePosition, lookVector, pos);
-			}
-			if (partHit != null) {
-				hitPositions[i] = partHit.getLocation();
-			}
-		}
-		int closestHit = -1;
-		double closestDistance = reach;
-		if (centerHit != null)
-			closestDistance = eyePosition.distanceTo(centerHit.getLocation());
-		for (int i = 0; i < 6; i++) {
-			if (hitPositions[i] != null) {
-				double dist = eyePosition.distanceTo(hitPositions[i]);
-				if (dist < closestDistance) {
-					closestDistance = dist;
-					closestHit = i;
+			for (int i = 0; i < 6; i++) {
+				BlockHitResult partHit = null;
+				if (pipe.connections[i] == PipeConnection.END) {
+					partHit = END_AABBS[i].clip(eyePosition, lookVector, pos);
+				} else if (pipe.connections[i] == PipeConnection.PIPE) {
+					partHit = PIPE_AABBS[i].clip(eyePosition, lookVector, pos);
+				}
+				if (partHit != null) {
+					hitPositions[i] = partHit.getLocation();
 				}
 			}
-		}
-		if (closestHit == -1) {
-			Direction face = hit.getDirection();
-			if (state.getValue(DIRECTIONS[face.get3DDataValue()]) != PipeConnection.DISABLED)
-				return InteractionResult.PASS;
-			BlockPos facingPos = pos.relative(face);
-			BlockState facingState = level.getBlockState(facingPos);
+			int closestHit = -1;
+			double closestDistance = reach;
+			if (centerHit != null)
+				closestDistance = eyePosition.distanceTo(centerHit.getLocation());
+			for (int i = 0; i < 6; i++) {
+				if (hitPositions[i] != null) {
+					double dist = eyePosition.distanceTo(hitPositions[i]);
+					if (dist < closestDistance) {
+						closestDistance = dist;
+						closestHit = i;
+					}
+				}
+			}
+			if (closestHit == -1) {
+				Direction face = hit.getDirection();
+				if (pipe.getConnection(face) != PipeConnection.DISABLED)
+					return InteractionResult.PASS;
+				BlockPos facingPos = pos.relative(face);
+				BlockState facingState = level.getBlockState(facingPos);
 
-			if (facingState.is(getToggleConnectionTag())) {
-				level.setBlock(pos, state.setValue(DIRECTIONS[face.get3DDataValue()], PipeConnection.PIPE), Block.UPDATE_ALL);
-				level.setBlock(facingPos, facingState.setValue(DIRECTIONS[face.getOpposite().get3DDataValue()], PipeConnection.PIPE), Block.UPDATE_ALL);
-				level.playLocalSound(pos.getX() + 0.5 + face.getStepX() * 0.5, pos.getY() + 0.5 + face.getStepY() * 0.5, pos.getZ() + 0.5 + face.getStepZ() * 0.5, EmbersSounds.PIPE_CONNECT.get(), SoundSource.BLOCKS, 1.0f, 1.0f, false);
-				return InteractionResult.SUCCESS;
-			}
-			BlockEntity blockEntity = level.getBlockEntity(facingPos);
-			if (connectToTile(blockEntity, face)) {
-				level.setBlock(pos, state.setValue(DIRECTIONS[face.get3DDataValue()], PipeConnection.END), Block.UPDATE_ALL);
-				level.playLocalSound(pos.getX() + 0.5 + face.getStepX() * 0.4, pos.getY() + 0.5 + face.getStepY() * 0.4, pos.getZ() + 0.5 + face.getStepZ() * 0.4, EmbersSounds.PIPE_CONNECT.get(), SoundSource.BLOCKS, 1.0f, 1.0f, false);
-				return InteractionResult.SUCCESS;
-			}
-		} else {
-			Direction direction = Direction.from3DDataValue(closestHit);
-			if (!state.getValue(DIRECTIONS[direction.get3DDataValue()]).connected)
-				return InteractionResult.PASS;
-			BlockPos facingPos = pos.relative(direction);
-			BlockState facingState = level.getBlockState(facingPos);
+				if (facingState.is(getToggleConnectionTag()) && level.getBlockEntity(facingPos) instanceof PipeBlockEntityBase facingPipe) {
+					pipe.setConnection(face, PipeConnection.PIPE);
+					facingPipe.setConnection(face.getOpposite(), PipeConnection.PIPE);
+					level.updateNeighbourForOutputSignal(pos, this);
+					level.updateNeighbourForOutputSignal(facingPos, this);
+					level.playLocalSound(pos.getX() + 0.5 + face.getStepX() * 0.5, pos.getY() + 0.5 + face.getStepY() * 0.5, pos.getZ() + 0.5 + face.getStepZ() * 0.5, EmbersSounds.PIPE_CONNECT.get(), SoundSource.BLOCKS, 1.0f, 1.0f, false);
+					return InteractionResult.SUCCESS;
+				}
+				BlockEntity blockEntity = level.getBlockEntity(facingPos);
+				if (connectToTile(blockEntity, face)) {
+					pipe.setConnection(face, PipeConnection.END);
+					level.updateNeighbourForOutputSignal(pos, this);
+					level.playLocalSound(pos.getX() + 0.5 + face.getStepX() * 0.4, pos.getY() + 0.5 + face.getStepY() * 0.4, pos.getZ() + 0.5 + face.getStepZ() * 0.4, EmbersSounds.PIPE_CONNECT.get(), SoundSource.BLOCKS, 1.0f, 1.0f, false);
+					return InteractionResult.SUCCESS;
+				}
+			} else {
+				Direction direction = Direction.from3DDataValue(closestHit);
+				if (!pipe.getConnection(direction).transfer)
+					return InteractionResult.PASS;
+				BlockPos facingPos = pos.relative(direction);
+				BlockState facingState = level.getBlockState(facingPos);
 
-			if (state.getValue(DIRECTIONS[closestHit]) == PipeConnection.PIPE && facingState.is(getToggleConnectionTag())) {
-				level.setBlock(pos, state.setValue(DIRECTIONS[direction.get3DDataValue()], PipeConnection.DISABLED), Block.UPDATE_ALL);
-				level.setBlock(facingPos, facingState.setValue(DIRECTIONS[direction.getOpposite().get3DDataValue()], PipeConnection.DISABLED), Block.UPDATE_ALL);
-				level.playLocalSound(pos.getX() + 0.5 + direction.getStepX() * 0.5, pos.getY() + 0.5 + direction.getStepY() * 0.5, pos.getZ() + 0.5 + direction.getStepZ() * 0.5, EmbersSounds.PIPE_DISCONNECT.get(), SoundSource.BLOCKS, 1.0f, 1.0f, false);
-				return InteractionResult.SUCCESS;
-			}
-			if (state.getValue(DIRECTIONS[closestHit]) == PipeConnection.END && !facingState.is(getConnectionTag()) && !connected(direction, facingState)) {
-				level.setBlock(pos, state.setValue(DIRECTIONS[direction.get3DDataValue()], PipeConnection.DISABLED), Block.UPDATE_ALL);
-				level.playLocalSound(pos.getX() + 0.5 + direction.getStepX() * 0.4, pos.getY() + 0.5 + direction.getStepY() * 0.4, pos.getZ() + 0.5 + direction.getStepZ() * 0.4, EmbersSounds.PIPE_DISCONNECT.get(), SoundSource.BLOCKS, 1.0f, 1.0f, false);
-				return InteractionResult.SUCCESS;
+				if (pipe.getConnection(direction) == PipeConnection.PIPE && facingState.is(getToggleConnectionTag()) && level.getBlockEntity(facingPos) instanceof PipeBlockEntityBase facingPipe) {
+					pipe.setConnection(direction, PipeConnection.DISABLED);
+					facingPipe.setConnection(direction.getOpposite(), PipeConnection.DISABLED);
+					level.updateNeighbourForOutputSignal(pos, this);
+					level.updateNeighbourForOutputSignal(facingPos, this);
+					level.playLocalSound(pos.getX() + 0.5 + direction.getStepX() * 0.5, pos.getY() + 0.5 + direction.getStepY() * 0.5, pos.getZ() + 0.5 + direction.getStepZ() * 0.5, EmbersSounds.PIPE_DISCONNECT.get(), SoundSource.BLOCKS, 1.0f, 1.0f, false);
+					return InteractionResult.SUCCESS;
+				}
+				if (pipe.getConnection(direction) == PipeConnection.END && !facingState.is(getConnectionTag()) && !connected(direction, facingState)) {
+					pipe.setConnection(direction, PipeConnection.DISABLED);
+					level.updateNeighbourForOutputSignal(pos, this);
+					level.playLocalSound(pos.getX() + 0.5 + direction.getStepX() * 0.4, pos.getY() + 0.5 + direction.getStepY() * 0.4, pos.getZ() + 0.5 + direction.getStepZ() * 0.4, EmbersSounds.PIPE_DISCONNECT.get(), SoundSource.BLOCKS, 1.0f, 1.0f, false);
+					return InteractionResult.SUCCESS;
+				}
 			}
 		}
 		return InteractionResult.PASS;
 	}
 
 	public static int getShapeIndex(PipeConnection down, PipeConnection up, PipeConnection north, PipeConnection south, PipeConnection west, PipeConnection east) {
-		return (((((down.index * 3 + up.index) * 3 + north.index) * 3 + south.index) * 3 + west.index) * 3) + east.index;
+		return (((((down.visualIndex * 3 + up.visualIndex) * 3 + north.visualIndex) * 3 + south.visualIndex) * 3 + west.visualIndex) * 3) + east.visualIndex;
 	}
 
 	public VoxelShape getCenterShape() {
@@ -182,12 +175,12 @@ public abstract class PipeBlockBase extends BaseEntityBlock implements SimpleWat
 	}
 
 	public static void makeShapes(VoxelShape center, VoxelShape[] shapes) {
-		for (PipeConnection down : PipeConnection.values()) {
-			for (PipeConnection up : PipeConnection.values()) {
-				for (PipeConnection north : PipeConnection.values()) {
-					for (PipeConnection south : PipeConnection.values()) {
-						for (PipeConnection west : PipeConnection.values()) {
-							for (PipeConnection east : PipeConnection.values()) {
+		for (PipeConnection down : PipeConnection.visual()) {
+			for (PipeConnection up : PipeConnection.visual()) {
+				for (PipeConnection north : PipeConnection.visual()) {
+					for (PipeConnection south : PipeConnection.visual()) {
+						for (PipeConnection west : PipeConnection.visual()) {
+							for (PipeConnection east : PipeConnection.visual()) {
 								VoxelShape shape = center;
 								if (down == PipeConnection.PIPE)
 									shape = Shapes.joinUnoptimized(shape, PIPE_DOWN_AABB, BooleanOp.OR);
@@ -224,7 +217,11 @@ public abstract class PipeBlockBase extends BaseEntityBlock implements SimpleWat
 
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-		return SHAPES[getShapeIndex(state.getValue(DOWN), state.getValue(UP), state.getValue(NORTH), state.getValue(SOUTH), state.getValue(WEST), state.getValue(EAST))];
+		BlockEntity BE = level.getBlockEntity(pos);
+		if (BE instanceof PipeBlockEntityBase pipe) {
+			return SHAPES[getShapeIndex(pipe.connections[0], pipe.connections[1], pipe.connections[2], pipe.connections[3], pipe.connections[4], pipe.connections[5])];
+		}
+		return CENTER_AABB;
 	}
 
 	@Override
@@ -235,28 +232,7 @@ public abstract class PipeBlockBase extends BaseEntityBlock implements SimpleWat
 	@Nullable
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
-		BlockState blockstate = this.defaultBlockState();
-		for (Direction direction : Direction.values()) {
-			BlockState facingState = context.getLevel().getBlockState(context.getClickedPos().relative(direction));
-			if (!facingState.hasProperty(DIRECTIONS[direction.getOpposite().get3DDataValue()]) || facingState.getValue(DIRECTIONS[direction.getOpposite().get3DDataValue()]) != PipeConnection.DISABLED) {
-				if (facingState.is(getConnectionTag())) {
-					if (facingState.hasProperty(DIRECTIONS[direction.getOpposite().get3DDataValue()]) && facingState.getValue(DIRECTIONS[direction.getOpposite().get3DDataValue()]) == PipeConnection.DISABLED
-							|| facingState.getBlock() instanceof IPipeConnection && !((IPipeConnection) facingState.getBlock()).connectPipe(facingState, direction.getOpposite())) {
-						blockstate = blockstate.setValue(DIRECTIONS[direction.get3DDataValue()], PipeConnection.DISABLED);
-					} else {
-						blockstate = blockstate.setValue(DIRECTIONS[direction.get3DDataValue()], PipeConnection.PIPE);
-					}
-				} else {
-					BlockEntity blockEntity = context.getLevel().getBlockEntity(context.getClickedPos().relative(direction));
-					if (connected(direction, facingState) || connectToTile(blockEntity, direction)) {
-						blockstate = blockstate.setValue(DIRECTIONS[direction.get3DDataValue()], PipeConnection.END);
-					} else {
-						blockstate = blockstate.setValue(DIRECTIONS[direction.get3DDataValue()], PipeConnection.NONE);
-					}
-				}
-			}
-		}
-		return blockstate.setValue(BlockStateProperties.WATERLOGGED, Boolean.valueOf(context.getLevel().getFluidState(context.getClickedPos()).getType() == Fluids.WATER));
+		return this.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, Boolean.valueOf(context.getLevel().getFluidState(context.getClickedPos()).getType() == Fluids.WATER));
 	}
 
 	@Override
@@ -264,21 +240,28 @@ public abstract class PipeBlockBase extends BaseEntityBlock implements SimpleWat
 		if (pState.getValue(BlockStateProperties.WATERLOGGED)) {
 			pLevel.scheduleTick(pCurrentPos, Fluids.WATER, Fluids.WATER.getTickDelay(pLevel));
 		}
-		if (!pFacingState.hasProperty(DIRECTIONS[pFacing.getOpposite().get3DDataValue()]) || pFacingState.getValue(DIRECTIONS[pFacing.getOpposite().get3DDataValue()]) != PipeConnection.DISABLED) {
-			boolean enabled = pState.getValue(DIRECTIONS[pFacing.get3DDataValue()]) != PipeConnection.DISABLED;
-			if (pFacingState.is(getConnectionTag()) && enabled) {
-				if (pFacingState.hasProperty(DIRECTIONS[pFacing.getOpposite().get3DDataValue()]) && pFacingState.getValue(DIRECTIONS[pFacing.getOpposite().get3DDataValue()]) == PipeConnection.DISABLED
-						|| pFacingState.getBlock() instanceof IPipeConnection && !((IPipeConnection) pFacingState.getBlock()).connectPipe(pFacingState, pFacing.getOpposite())) {
-					pState = pState.setValue(DIRECTIONS[pFacing.get3DDataValue()], PipeConnection.DISABLED);
+
+		BlockEntity BE = pLevel.getBlockEntity(pCurrentPos);
+		if (BE instanceof PipeBlockEntityBase pipe) {
+			BlockEntity facingBE = pLevel.getBlockEntity(pFacingPos);
+			if (!(facingBE instanceof PipeBlockEntityBase) || ((PipeBlockEntityBase) facingBE).getConnection(pFacing.getOpposite()) != PipeConnection.DISABLED) {
+				boolean enabled = pipe.getConnection(pFacing) != PipeConnection.DISABLED;
+				if (pFacingState.is(getConnectionTag()) && enabled) {
+					if (facingBE instanceof PipeBlockEntityBase && ((PipeBlockEntityBase) facingBE).getConnection(pFacing.getOpposite()) == PipeConnection.DISABLED
+							|| pFacingState.getBlock() instanceof IPipeConnection && !((IPipeConnection) pFacingState.getBlock()).connectPipe(pFacingState, pFacing.getOpposite())) {
+						pipe.setConnection(pFacing, PipeConnection.DISABLED);
+					} else {
+						pipe.setConnection(pFacing, PipeConnection.PIPE);
+					}
 				} else {
-					pState = pState.setValue(DIRECTIONS[pFacing.get3DDataValue()], PipeConnection.PIPE);
-				}
-			} else {
-				BlockEntity blockEntity = pLevel.getBlockEntity(pFacingPos);
-				if (connected(pFacing, pFacingState) || (connectToTile(blockEntity, pFacing) && enabled)) {
-					pState = pState.setValue(DIRECTIONS[pFacing.get3DDataValue()], PipeConnection.END);
-				} else if (enabled) {
-					pState = pState.setValue(DIRECTIONS[pFacing.get3DDataValue()], PipeConnection.NONE);
+					BlockEntity blockEntity = pLevel.getBlockEntity(pFacingPos);
+					if (connected(pFacing, pFacingState)) {
+						pipe.setConnection(pFacing, PipeConnection.LEVER);
+					} else if ((connectToTile(blockEntity, pFacing) && enabled)) {
+						pipe.setConnection(pFacing, PipeConnection.END);
+					} else if (enabled) {
+						pipe.setConnection(pFacing, PipeConnection.NONE);
+					}
 				}
 			}
 		}
@@ -308,36 +291,11 @@ public abstract class PipeBlockBase extends BaseEntityBlock implements SimpleWat
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-		pBuilder.add(DIRECTIONS).add(BlockStateProperties.WATERLOGGED);
+		pBuilder.add(BlockStateProperties.WATERLOGGED);
 	}
 
 	@Override
 	public FluidState getFluidState(BlockState pState) {
 		return pState.getValue(BlockStateProperties.WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(pState);
-	}
-
-	public static enum PipeConnection implements StringRepresentable {
-		NONE("none", 0, false),
-		DISABLED("disabled", 0, false),
-		PIPE("pipe", 1, true),
-		END("end", 2, true);
-
-		private final String name;
-		public final int index;
-		public final boolean connected;
-
-		private PipeConnection(String name, int index, boolean connected) {
-			this.name = name;
-			this.index = index;
-			this.connected = connected;
-		}
-
-		public String toString() {
-			return this.name;
-		}
-
-		public String getSerializedName() {
-			return this.name;
-		}
 	}
 }

@@ -6,7 +6,6 @@ import java.util.Random;
 import org.joml.Vector3f;
 
 import com.rekindled.embers.api.tile.IFluidPipePriority;
-import com.rekindled.embers.block.PipeBlockBase.PipeConnection;
 import com.rekindled.embers.particle.GlowParticleOptions;
 import com.rekindled.embers.util.Misc;
 import com.rekindled.embers.util.PipePriorityMap;
@@ -35,7 +34,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 
-public abstract class FluidPipeBlockEntityBase extends BlockEntity implements IFluidPipePriority {
+public abstract class FluidPipeBlockEntityBase extends PipeBlockEntityBase implements IFluidPipePriority {
 
 	public static final int PRIORITY_BLOCK = 0;
 	public static final int PRIORITY_PIPE = PRIORITY_BLOCK;
@@ -86,14 +85,6 @@ public abstract class FluidPipeBlockEntityBase extends BlockEntity implements IF
 		return PRIORITY_PIPE;
 	}
 
-	public abstract PipeConnection getInternalConnection(Direction facing);
-
-	/**
-	 * @param facing
-	 * @return Whether items can be transferred through this side
-	 */
-	abstract boolean isConnected(Direction facing);
-
 	public void setFrom(Direction facing, boolean flag) {
 		from[facing.get3DDataValue()] = flag;
 	}
@@ -110,7 +101,7 @@ public abstract class FluidPipeBlockEntityBase extends BlockEntity implements IF
 
 	protected boolean isAnySideUnclogged() {
 		for (Direction facing : Direction.values()) {
-			if (!isConnected(facing))
+			if (!getConnection(facing).transfer)
 				continue;
 			BlockEntity tile = level.getBlockEntity(worldPosition.relative(facing));
 			if (tile instanceof FluidPipeBlockEntityBase && !((FluidPipeBlockEntityBase) tile).clogged)
@@ -125,6 +116,8 @@ public abstract class FluidPipeBlockEntityBase extends BlockEntity implements IF
 	}
 
 	public static void serverTick(Level level, BlockPos pos, BlockState state, FluidPipeBlockEntityBase blockEntity) {
+		if (!blockEntity.loaded)
+			blockEntity.initConnections();
 		blockEntity.ticksExisted++;
 		boolean fluidMoved = false;
 		FluidStack passStack = blockEntity.tank.drain(MAX_PUSH, FluidAction.SIMULATE);
@@ -133,7 +126,7 @@ public abstract class FluidPipeBlockEntityBase extends BlockEntity implements IF
 			IFluidHandler[] fluidHandlers = new IFluidHandler[Direction.values().length];
 
 			for (Direction facing : Direction.values()) {
-				if (!blockEntity.isConnected(facing))
+				if (!blockEntity.getConnection(facing).transfer)
 					continue;
 				if (blockEntity.isFrom(facing))
 					continue;
@@ -230,7 +223,7 @@ public abstract class FluidPipeBlockEntityBase extends BlockEntity implements IF
 	}
 
 	protected boolean requiresSync() {
-		return syncTank || syncCloggedFlag || syncTransfer;
+		return true;//syncTank || syncCloggedFlag || syncTransfer;
 	}
 
 	@Override

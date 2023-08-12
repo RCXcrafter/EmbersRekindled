@@ -8,8 +8,6 @@ import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
 
 import com.rekindled.embers.RegistryManager;
-import com.rekindled.embers.block.PipeBlockBase;
-import com.rekindled.embers.block.PipeBlockBase.PipeConnection;
 import com.rekindled.embers.particle.VaporParticleOptions;
 
 import net.minecraft.core.BlockPos;
@@ -98,7 +96,7 @@ public class ItemPipeBlockEntity extends ItemPipeBlockEntityBase {
 		if (!this.remove && cap == ForgeCapabilities.ITEM_HANDLER) {
 			if (side == null)
 				return ForgeCapabilities.ITEM_HANDLER.orEmpty(cap, holder);
-			else if (getInternalConnection(side).connected)
+			else if (getConnection(side).transfer)
 				return ForgeCapabilities.ITEM_HANDLER.orEmpty(cap, LazyOptional.of(() -> this.sideHandlers[side.get3DDataValue()]));
 		}
 		return super.getCapability(cap, side);
@@ -107,15 +105,5 @@ public class ItemPipeBlockEntity extends ItemPipeBlockEntityBase {
 	@Override
 	public int getCapacity() {
 		return 4;
-	}
-
-	@Override
-	public PipeConnection getInternalConnection(Direction facing) {
-		return level.getBlockState(worldPosition).getValue(PipeBlockBase.DIRECTIONS[facing.get3DDataValue()]);
-	}
-
-	@Override
-	boolean isConnected(Direction facing) {
-		return getInternalConnection(facing).connected;
 	}
 }

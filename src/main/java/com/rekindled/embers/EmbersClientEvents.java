@@ -2,6 +2,7 @@ package com.rekindled.embers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -17,6 +18,7 @@ import com.rekindled.embers.api.tile.IMechanicallyPowered;
 import com.rekindled.embers.blockentity.EmberEmitterBlockEntity;
 import com.rekindled.embers.datagen.EmbersBlockTags;
 import com.rekindled.embers.render.EmbersRenderTypes;
+import com.rekindled.embers.render.PipeModel;
 import com.rekindled.embers.util.EmberGenUtil;
 import com.rekindled.embers.util.Misc;
 
@@ -24,6 +26,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.resources.language.I18n;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
@@ -37,6 +41,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.client.event.RenderHighlightEvent;
 import net.minecraftforge.client.event.RenderLevelStageEvent;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
@@ -191,14 +196,9 @@ public class EmbersClientEvents {
 						}
 					}
 					if (!text.isEmpty()) {
-						//poseStack.pushPose();
 						for (int i = 0; i < text.size(); i++) {
 							graphics.drawString(mc.font, text.get(i), width / 2 - mc.font.width(text.get(i)) / 2, height / 2 + 40 + 11 * i, 0xFFFFFF);
-
-							//mc.font.drawShadow(poseStack, text.get(i), width / 2 - mc.font.width(text.get(i)) / 2, height / 2 + 40 + 11 * i, 0xFFFFFF);
-							//mc.font.draw(poseStack, text.get(i), width / 2 - mc.font.width(text.get(i)) / 2, height / 2 + 40 + 11 * i, 0xFFFFFF);
 						}
-						//poseStack.popPose();
 					}
 				}
 			}
@@ -209,7 +209,6 @@ public class EmbersClientEvents {
 			int y = height / 2;
 
 			graphics.pose().pushPose();
-			//RenderSystem.setShaderTexture(0, new ResourceLocation(Embers.MODID, "textures/gui/ember_meter_overlay.png"));
 
 			//int offsetX = 0;
 
@@ -230,7 +229,6 @@ public class EmbersClientEvents {
 				//}
 			}
 
-			//RenderSystem.setShaderTexture(0, new ResourceLocation(Embers.MODID, "textures/gui/ember_meter_pointer.png"));
 			graphics.pose().translate(x, y, 0);
 			graphics.pose().mulPose(Axis.ZP.rotationDegrees((float) gaugeAngle));
 			graphics.pose().translate(-2.5, -2.5, 0);
@@ -307,5 +305,68 @@ public class EmbersClientEvents {
 				text.add(IExtraCapabilityInformation.formatCapability(ioType, Embers.MODID + ".tooltip.goggles.ember", null));
 			}
 		}
+	}
+
+	public static final ModelResourceLocation ITEM_CENTER = new ModelResourceLocation(new ResourceLocation(Embers.MODID, "item_pipe_center"), "");
+	public static final ModelResourceLocation ITEM_EXTRACTOR = new ModelResourceLocation(new ResourceLocation(Embers.MODID, "item_extractor_center"), "");
+	public static final ModelResourceLocation ITEM_CONNECTION = new ModelResourceLocation(new ResourceLocation(Embers.MODID, "item_pipe_connection"), "");
+	public static final ModelResourceLocation ITEM_END = new ModelResourceLocation(new ResourceLocation(Embers.MODID, "item_pipe_end"), "");
+	public static final ModelResourceLocation ITEM_CONNECTION_2 = new ModelResourceLocation(new ResourceLocation(Embers.MODID, "item_pipe_connection_opposite"), "");
+	public static final ModelResourceLocation ITEM_END_2 = new ModelResourceLocation(new ResourceLocation(Embers.MODID, "item_pipe_end_opposite"), "");
+
+	public static final ModelResourceLocation FLUID_CENTER = new ModelResourceLocation(new ResourceLocation(Embers.MODID, "fluid_pipe_center"), "");
+	public static final ModelResourceLocation FLUID_EXTRACTOR = new ModelResourceLocation(new ResourceLocation(Embers.MODID, "fluid_extractor_center"), "");
+	public static final ModelResourceLocation FLUID_CONNECTION = new ModelResourceLocation(new ResourceLocation(Embers.MODID, "fluid_pipe_connection"), "");
+	public static final ModelResourceLocation FLUID_END = new ModelResourceLocation(new ResourceLocation(Embers.MODID, "fluid_pipe_end"), "");
+	public static final ModelResourceLocation FLUID_CONNECTION_2 = new ModelResourceLocation(new ResourceLocation(Embers.MODID, "fluid_pipe_connection_opposite"), "");
+	public static final ModelResourceLocation FLUID_END_2 = new ModelResourceLocation(new ResourceLocation(Embers.MODID, "fluid_pipe_end_opposite"), "");
+
+	public static PipeModel itemPipe;
+	public static PipeModel itemExtractor;
+	public static PipeModel fluidPipe;
+	public static PipeModel fluidExtractor;
+
+	public static void onModelRegister(ModelEvent.RegisterAdditional event) {
+		event.register(ITEM_CENTER);
+		event.register(ITEM_EXTRACTOR);
+		event.register(ITEM_CONNECTION);
+		event.register(ITEM_END);
+		event.register(ITEM_CONNECTION_2);
+		event.register(ITEM_END_2);
+
+		event.register(FLUID_CENTER);
+		event.register(FLUID_EXTRACTOR);
+		event.register(FLUID_CONNECTION);
+		event.register(FLUID_END);
+		event.register(FLUID_CONNECTION_2);
+		event.register(FLUID_END_2);
+	}
+
+	public static void onModelBake(ModelEvent.ModifyBakingResult event) {
+		Map<ResourceLocation, BakedModel> modelRegistry = event.getModels();
+		itemPipe = new PipeModel(modelRegistry.get(ITEM_CENTER), "item_pipe");
+		itemExtractor = new PipeModel(modelRegistry.get(ITEM_EXTRACTOR), "item_pipe");
+		fluidPipe = new PipeModel(modelRegistry.get(FLUID_CENTER), "fluid_pipe");
+		fluidExtractor = new PipeModel(modelRegistry.get(FLUID_EXTRACTOR), "fluid_pipe");
+		for (ResourceLocation resourceLocation : event.getModels().keySet()) {
+			if (resourceLocation.getNamespace().equals(Embers.MODID)) {
+				if (resourceLocation.getPath().equals("item_pipe") && !resourceLocation.toString().contains("inventory")) {
+					modelRegistry.put(resourceLocation, itemPipe);
+				} else if (resourceLocation.getPath().equals("item_extractor") && !resourceLocation.toString().contains("inventory")) {
+					modelRegistry.put(resourceLocation, itemExtractor);
+				} else if (resourceLocation.getPath().equals("fluid_pipe") && !resourceLocation.toString().contains("inventory")) {
+					modelRegistry.put(resourceLocation, fluidPipe);
+				} else if (resourceLocation.getPath().equals("fluid_extractor") && !resourceLocation.toString().contains("inventory")) {
+					modelRegistry.put(resourceLocation, fluidExtractor);
+				}
+			}
+		}
+	}
+
+	public static void afterModelBake(ModelEvent.BakingCompleted event) {
+		itemPipe.init(event.getModelManager());
+		itemExtractor.init(event.getModelManager());
+		fluidPipe.init(event.getModelManager());
+		fluidExtractor.init(event.getModelManager());
 	}
 }

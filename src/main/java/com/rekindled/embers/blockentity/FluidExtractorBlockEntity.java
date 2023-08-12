@@ -8,8 +8,6 @@ import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
 
 import com.rekindled.embers.RegistryManager;
-import com.rekindled.embers.block.PipeBlockBase;
-import com.rekindled.embers.block.PipeBlockBase.PipeConnection;
 import com.rekindled.embers.particle.VaporParticleOptions;
 
 import net.minecraft.core.BlockPos;
@@ -102,7 +100,7 @@ public class FluidExtractorBlockEntity extends FluidPipeBlockEntityBase {
 		}
 		blockEntity.active = level.hasNeighborSignal(pos);
 		for (Direction facing : Direction.values()) {
-			if (!blockEntity.isConnected(facing))
+			if (!blockEntity.getConnection(facing).transfer)
 				continue;
 			BlockEntity tile = level.getBlockEntity(pos.relative(facing));
 			if (tile != null && !(tile instanceof FluidPipeBlockEntityBase)) {
@@ -130,7 +128,7 @@ public class FluidExtractorBlockEntity extends FluidPipeBlockEntityBase {
 		if (!this.remove && cap == ForgeCapabilities.FLUID_HANDLER) {
 			if (side == null)
 				return ForgeCapabilities.FLUID_HANDLER.orEmpty(cap, holder);
-			else if (getInternalConnection(side).connected)
+			else if (getConnection(side).transfer)
 				return ForgeCapabilities.FLUID_HANDLER.orEmpty(cap, LazyOptional.of(() -> this.sideHandlers[side.get3DDataValue()]));
 		}
 		return super.getCapability(cap, side);
@@ -139,15 +137,5 @@ public class FluidExtractorBlockEntity extends FluidPipeBlockEntityBase {
 	@Override
 	public int getCapacity() {
 		return 240;
-	}
-
-	@Override
-	public PipeConnection getInternalConnection(Direction facing) {
-		return level.getBlockState(worldPosition).getValue(PipeBlockBase.DIRECTIONS[facing.get3DDataValue()]);
-	}
-
-	@Override
-	boolean isConnected(Direction facing) {
-		return getInternalConnection(facing).connected;
 	}
 }

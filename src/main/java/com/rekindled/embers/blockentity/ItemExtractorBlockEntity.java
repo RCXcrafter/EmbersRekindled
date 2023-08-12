@@ -16,8 +16,6 @@ import com.rekindled.embers.api.filter.IFilter;
 import com.rekindled.embers.api.tile.IOrderDestination;
 import com.rekindled.embers.api.tile.IOrderSource;
 import com.rekindled.embers.api.tile.OrderStack;
-import com.rekindled.embers.block.PipeBlockBase;
-import com.rekindled.embers.block.PipeBlockBase.PipeConnection;
 import com.rekindled.embers.particle.VaporParticleOptions;
 
 import net.minecraft.core.BlockPos;
@@ -148,7 +146,7 @@ public class ItemExtractorBlockEntity extends ItemPipeBlockEntityBase implements
 		}
 
 		for (Direction facing : Direction.values()) {
-			if (!blockEntity.isConnected(facing))
+			if (!blockEntity.getConnection(facing).transfer)
 				continue;
 			BlockEntity tile = level.getBlockEntity(pos.relative(facing));
 
@@ -185,7 +183,7 @@ public class ItemExtractorBlockEntity extends ItemPipeBlockEntityBase implements
 		if (!this.remove && cap == ForgeCapabilities.ITEM_HANDLER) {
 			if (side == null)
 				return ForgeCapabilities.ITEM_HANDLER.orEmpty(cap, holder);
-			else if (getInternalConnection(side).connected)
+			else if (getConnection(side).transfer)
 				return ForgeCapabilities.ITEM_HANDLER.orEmpty(cap, LazyOptional.of(() -> this.sideHandlers[side.get3DDataValue()]));
 		}
 		return super.getCapability(cap, side);
@@ -194,16 +192,6 @@ public class ItemExtractorBlockEntity extends ItemPipeBlockEntityBase implements
 	@Override
 	public int getCapacity() {
 		return 4;
-	}
-
-	@Override
-	public PipeConnection getInternalConnection(Direction facing) {
-		return level.getBlockState(worldPosition).getValue(PipeBlockBase.DIRECTIONS[facing.get3DDataValue()]);
-	}
-
-	@Override
-	boolean isConnected(Direction facing) {
-		return getInternalConnection(facing).connected;
 	}
 
 	@Override

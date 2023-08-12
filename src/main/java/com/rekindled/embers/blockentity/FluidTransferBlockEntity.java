@@ -5,7 +5,6 @@ import java.util.Random;
 import org.joml.Vector3f;
 
 import com.rekindled.embers.RegistryManager;
-import com.rekindled.embers.block.PipeBlockBase.PipeConnection;
 import com.rekindled.embers.particle.VaporParticleOptions;
 import com.rekindled.embers.util.Misc;
 
@@ -148,13 +147,8 @@ public class FluidTransferBlockEntity extends FluidPipeBlockEntityBase {
 	}
 
 	@Override
-	public PipeConnection getInternalConnection(Direction facing) {
-		return PipeConnection.NONE;
-	}
-
-	@Override
-	boolean isConnected(Direction facing) {
-		return level.getBlockState(this.getBlockPos()).getValue(BlockStateProperties.FACING).getAxis() == facing.getAxis();
+	public PipeConnection getConnection(Direction facing) {
+		return level.getBlockState(this.getBlockPos()).getValue(BlockStateProperties.FACING).getAxis() == facing.getAxis() ? PipeConnection.PIPE : PipeConnection.NONE;
 	}
 
 	@Override

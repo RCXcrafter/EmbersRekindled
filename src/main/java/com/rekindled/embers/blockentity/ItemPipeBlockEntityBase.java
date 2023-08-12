@@ -5,7 +5,6 @@ import java.util.Random;
 
 import org.joml.Vector3f;
 
-import com.rekindled.embers.block.PipeBlockBase.PipeConnection;
 import com.rekindled.embers.particle.GlowParticleOptions;
 import com.rekindled.embers.util.Misc;
 import com.rekindled.embers.util.PipePriorityMap;
@@ -33,7 +32,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
-public abstract class ItemPipeBlockEntityBase extends BlockEntity implements IItemPipePriority {
+public abstract class ItemPipeBlockEntityBase extends PipeBlockEntityBase implements IItemPipePriority {
 
 	public static final int PRIORITY_BLOCK = 0;
 	public static final int PRIORITY_PIPE = PRIORITY_BLOCK;
@@ -88,14 +87,6 @@ public abstract class ItemPipeBlockEntityBase extends BlockEntity implements IIt
 		return PRIORITY_PIPE;
 	}
 
-	public abstract PipeConnection getInternalConnection(Direction facing);
-
-	/**
-	 * @param facing
-	 * @return Whether items can be transferred through this side
-	 */
-	abstract boolean isConnected(Direction facing);
-
 	public void setFrom(Direction facing, boolean flag) {
 		from[facing.get3DDataValue()] = flag;
 	}
@@ -112,7 +103,7 @@ public abstract class ItemPipeBlockEntityBase extends BlockEntity implements IIt
 
 	protected boolean isAnySideUnclogged() {
 		for (Direction facing : Direction.values()) {
-			if (!isConnected(facing))
+			if (!getConnection(facing).transfer)
 				continue;
 			BlockEntity tile = level.getBlockEntity(worldPosition.relative(facing));
 			if (tile instanceof ItemPipeBlockEntityBase && !((ItemPipeBlockEntityBase) tile).clogged)
@@ -127,6 +118,8 @@ public abstract class ItemPipeBlockEntityBase extends BlockEntity implements IIt
 	}
 
 	public static void serverTick(Level level, BlockPos pos, BlockState state, ItemPipeBlockEntityBase blockEntity) {
+		if (!blockEntity.loaded)
+			blockEntity.initConnections();
 		blockEntity.ticksExisted++;
 		boolean itemsMoved = false;
 		ItemStack passStack = blockEntity.inventory.extractItem(0, 1, true);
@@ -135,7 +128,7 @@ public abstract class ItemPipeBlockEntityBase extends BlockEntity implements IIt
 			IItemHandler[] itemHandlers = new IItemHandler[Direction.values().length];
 
 			for (Direction facing : Direction.values()) {
-				if (!blockEntity.isConnected(facing))
+				if (!blockEntity.getConnection(facing).transfer)
 					continue;
 				if (blockEntity.isFrom(facing))
 					continue;
@@ -237,7 +230,7 @@ public abstract class ItemPipeBlockEntityBase extends BlockEntity implements IIt
 	}
 
 	protected boolean requiresSync() {
-		return syncInventory || syncCloggedFlag || syncTransfer;
+		return true;//syncInventory || syncCloggedFlag || syncTransfer;
 	}
 
 	@Override

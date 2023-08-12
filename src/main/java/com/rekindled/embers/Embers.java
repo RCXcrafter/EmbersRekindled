@@ -197,6 +197,10 @@ public class Embers {
 		@OnlyIn(Dist.CLIENT)
 		@SubscribeEvent
 		public static void clientSetup(FMLClientSetupEvent event) {
+			IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+			modEventBus.addListener(EmbersClientEvents::onModelRegister);
+			modEventBus.addListener(EmbersClientEvents::onModelBake);
+			modEventBus.addListener(EmbersClientEvents::afterModelBake);
 			MinecraftForge.EVENT_BUS.addListener(EmbersClientEvents::onClientTick);
 			MinecraftForge.EVENT_BUS.addListener(EmbersClientEvents::onBlockHighlight);
 			MinecraftForge.EVENT_BUS.addListener(EmbersClientEvents::onLevelRender);
