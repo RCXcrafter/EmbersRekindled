@@ -61,8 +61,8 @@ public class PipeBlockEntityBase extends BlockEntity {
 				}
 			}
 			level.getChunkAt(worldPosition).setUnsaved(true);
-			
-			
+
+
 			level.updateNeighbourForOutputSignal(worldPosition, block);
 		}
 		loaded = true;
@@ -100,11 +100,11 @@ public class PipeBlockEntityBase extends BlockEntity {
 
 	@Override
 	public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
-        super.onDataPacket(net, pkt);
-        if (level.isClientSide()) {
-        	level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
-        }
-    }
+		super.onDataPacket(net, pkt);
+		if (level.isClientSide()) {
+			level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
+		}
+	}
 
 	@Override
 	public void load(CompoundTag nbt) {

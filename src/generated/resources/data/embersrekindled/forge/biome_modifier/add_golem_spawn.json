@@ -11,7 +11,13 @@
       },
       {
         "type": "forge:not",
-        "value": "#forge:is_mushroom"
+        "value": {
+          "type": "forge:or",
+          "values": [
+            "#forge:is_mushroom",
+            "minecraft:deep_dark"
+          ]
+        }
       }
     ]
   },
@@ -19,6 +25,6 @@
     "type": "embersrekindled:ancient_golem",
     "maxCount": 1,
     "minCount": 1,
-    "weight": 10
+    "weight": 15
   }
 }
