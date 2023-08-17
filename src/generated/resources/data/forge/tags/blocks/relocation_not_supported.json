@@ -1,0 +1,23 @@
+{
+  "values": [
+    "embersrekindled:ember_bore",
+    "embersrekindled:ember_bore_edge",
+    "embersrekindled:ember_activator",
+    "embersrekindled:melter",
+    "embersrekindled:mixer_centrifuge",
+    "embersrekindled:pressure_refinery",
+    "embersrekindled:hearth_coil",
+    "embersrekindled:hearth_coil_edge",
+    "embersrekindled:reservoir",
+    "embersrekindled:reservoir_edge",
+    "embersrekindled:caminite_ring",
+    "embersrekindled:caminite_ring_edge",
+    "embersrekindled:caminite_gauge",
+    "embersrekindled:caminite_gauge_edge",
+    "embersrekindled:caminite_valve",
+    "embersrekindled:caminite_valve_edge",
+    "embersrekindled:crystal_cell",
+    "embersrekindled:crystal_cell_edge",
+    "embersrekindled:alchemy_pedestal"
+  ]
+}

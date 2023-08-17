@@ -29,6 +29,8 @@ public class EmbersBlockTags extends BlockTagsProvider {
 	public static final TagKey<Block> FLUID_PIPE_CONNECTION = BlockTags.create(new ResourceLocation(Embers.MODID, "fluid_pipe_connection"));
 	public static final TagKey<Block> FLUID_PIPE_CONNECTION_TOGGLEABLE = BlockTags.create(new ResourceLocation(Embers.MODID, "fluid_pipe_connection/toggleable"));
 
+	public static final TagKey<Block> RELOCATION_NOT_SUPPORTED = BlockTags.create(new ResourceLocation("forge", "relocation_not_supported"));
+
 	public static final TagKey<Block> MECH_CORE_PROXYABLE = BlockTags.create(new ResourceLocation(Embers.MODID, "mech_core_proxyable"));
 
 	public static final TagKey<Block> HEAT_SOURCES = BlockTags.create(new ResourceLocation(Embers.MODID, "heat_sources"));
@@ -166,6 +168,28 @@ public class EmbersBlockTags extends BlockTagsProvider {
 				RegistryManager.RAW_SILVER_BLOCK.get(),
 				RegistryManager.SILVER_BLOCK.get(),
 				RegistryManager.DAWNSTONE_BLOCK.get());
+
+		tag(RELOCATION_NOT_SUPPORTED).add(
+				RegistryManager.EMBER_BORE.get(),
+				RegistryManager.EMBER_BORE_EDGE.get(),
+				RegistryManager.EMBER_ACTIVATOR.get(),
+				RegistryManager.MELTER.get(),
+				RegistryManager.MIXER_CENTRIFUGE.get(),
+				RegistryManager.PRESSURE_REFINERY.get(),
+				RegistryManager.HEARTH_COIL.get(),
+				RegistryManager.HEARTH_COIL_EDGE.get(),
+				RegistryManager.RESERVOIR.get(),
+				RegistryManager.RESERVOIR_EDGE.get(),
+				RegistryManager.CAMINITE_RING.get(),
+				RegistryManager.CAMINITE_RING_EDGE.get(),
+				RegistryManager.CAMINITE_GAUGE.get(),
+				RegistryManager.CAMINITE_GAUGE_EDGE.get(),
+				RegistryManager.CAMINITE_VALVE.get(),
+				RegistryManager.CAMINITE_VALVE_EDGE.get(),
+				RegistryManager.CRYSTAL_CELL.get(),
+				RegistryManager.CRYSTAL_CELL_EDGE.get(),
+				RegistryManager.ALCHEMY_PEDESTAL.get()
+				);
 
 		tag(MECH_CORE_PROXYABLE).add(
 				RegistryManager.EMBER_BORE.get(),

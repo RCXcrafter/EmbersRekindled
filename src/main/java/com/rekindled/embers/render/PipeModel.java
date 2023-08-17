@@ -29,6 +29,7 @@ public class PipeModel implements BakedModel {
 	private final BakedModel centerModel;
 	private BakedModel[] connectionModel;
 	private BakedModel[] endModel;
+	public static final List<BakedQuad> EMPTY = new ArrayList<BakedQuad>();
 
 	@SuppressWarnings("unchecked")
 	public final List<BakedQuad>[] QUAD_CACHE = new List[729];
@@ -68,6 +69,8 @@ public class PipeModel implements BakedModel {
 
 	@Override
 	public List<BakedQuad> getQuads(BlockState state, Direction side, RandomSource rand, ModelData data, RenderType renderType) {
+		if (side != null)
+			return EMPTY;
 		int[] sides = data.get(PipeBlockEntityBase.DATA_TYPE);
 
 		if (sides != null) {
