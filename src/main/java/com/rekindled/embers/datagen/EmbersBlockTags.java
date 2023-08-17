@@ -144,6 +144,8 @@ public class EmbersBlockTags extends BlockTagsProvider {
 				RegistryManager.RESERVOIR_EDGE.get(),
 				RegistryManager.CAMINITE_RING.get(),
 				RegistryManager.CAMINITE_RING_EDGE.get(),
+				RegistryManager.CAMINITE_GAUGE.get(),
+				RegistryManager.CAMINITE_GAUGE_EDGE.get(),
 				RegistryManager.CAMINITE_VALVE.get(),
 				RegistryManager.CAMINITE_VALVE_EDGE.get(),
 				RegistryManager.CRYSTAL_CELL.get(),
