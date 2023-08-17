@@ -1,5 +1,5 @@
 {
   "type": "embersrekindled:metal_coefficient",
-  "block_tag": "forge:storage_blocks/copper",
+  "block_tag": "embersrekindled:pristine_copper",
   "coefficient": 3.0
 }

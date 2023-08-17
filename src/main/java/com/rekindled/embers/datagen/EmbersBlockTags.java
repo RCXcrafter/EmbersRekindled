@@ -10,7 +10,9 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
@@ -49,6 +51,11 @@ public class EmbersBlockTags extends BlockTagsProvider {
 
 	//tags shared with items
 	public static final TagKey<Block> WORLD_BOTTOM = BlockTags.create(new ResourceLocation(Embers.MODID, "world_bottom"));
+
+	public static final TagKey<Block> PRISTINE_COPPER = BlockTags.create(new ResourceLocation(Embers.MODID, "pristine_copper"));
+	public static final TagKey<Block> EXPOSED_COPPER = BlockTags.create(new ResourceLocation(Embers.MODID, "exposed_copper"));
+	public static final TagKey<Block> WEATHERED_COPPER = BlockTags.create(new ResourceLocation(Embers.MODID, "weathered_copper"));
+	public static final TagKey<Block> OXIDIZED_COPPER = BlockTags.create(new ResourceLocation(Embers.MODID, "oxidized_copper"));
 
 	public static final TagKey<Block> LEAD_ORE = BlockTags.create(new ResourceLocation("forge", "ores/lead"));
 	public static final TagKey<Block> RAW_LEAD_BLOCK = BlockTags.create(new ResourceLocation("forge", "storage_blocks/raw_lead"));
@@ -215,6 +222,11 @@ public class EmbersBlockTags extends BlockTagsProvider {
 
 		//tags shared with items
 		tag(WORLD_BOTTOM).add(Blocks.BEDROCK);
+
+		tag(PRISTINE_COPPER).addTag(Tags.Blocks.STORAGE_BLOCKS_COPPER).add(Blocks.CUT_COPPER);
+		tag(EXPOSED_COPPER).add(Blocks.EXPOSED_COPPER).add(Blocks.EXPOSED_CUT_COPPER);
+		tag(WEATHERED_COPPER).add(Blocks.WEATHERED_COPPER).add(Blocks.WEATHERED_CUT_COPPER);
+		tag(OXIDIZED_COPPER).add(Blocks.OXIDIZED_COPPER).add(Blocks.OXIDIZED_CUT_COPPER);
 
 		tag(Tags.Blocks.ORES).addTags(LEAD_ORE);
 		tag(LEAD_ORE).add(RegistryManager.LEAD_ORE.get()).add(RegistryManager.DEEPSLATE_LEAD_ORE.get());

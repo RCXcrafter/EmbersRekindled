@@ -131,7 +131,10 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		MetalCoefficientRecipeBuilder.create(EmbersBlockTags.ALUMINUM_BLOCK).folder(coefficientFolder).coefficient(2.85).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(EmbersBlockTags.ALUMINUM_BLOCK)).build(consumer));
 		MetalCoefficientRecipeBuilder.create(EmbersBlockTags.SILVER_BLOCK).folder(coefficientFolder).coefficient(3.0).save(consumer);
 		MetalCoefficientRecipeBuilder.create(EmbersBlockTags.ELECTRUM_BLOCK).folder(coefficientFolder).coefficient(3.0).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(EmbersBlockTags.ELECTRUM_BLOCK)).build(consumer));
-		MetalCoefficientRecipeBuilder.create(Tags.Blocks.STORAGE_BLOCKS_COPPER).folder(coefficientFolder).coefficient(3.0).save(consumer);
+		MetalCoefficientRecipeBuilder.create(EmbersBlockTags.PRISTINE_COPPER).folder(coefficientFolder).coefficient(3.0).save(consumer);
+		MetalCoefficientRecipeBuilder.create(EmbersBlockTags.EXPOSED_COPPER).folder(coefficientFolder).coefficient(2.5).save(consumer);
+		MetalCoefficientRecipeBuilder.create(EmbersBlockTags.WEATHERED_COPPER).folder(coefficientFolder).coefficient(2.0).save(consumer);
+		MetalCoefficientRecipeBuilder.create(EmbersBlockTags.OXIDIZED_COPPER).folder(coefficientFolder).coefficient(1.5).save(consumer);
 		MetalCoefficientRecipeBuilder.create(Tags.Blocks.STORAGE_BLOCKS_GOLD).folder(coefficientFolder).coefficient(3.0).save(consumer);
 
 		//alchemy
@@ -383,9 +386,9 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_charger", has(RegistryManager.COPPER_CHARGER.get()))
 		.save(consumer, getResource("cinder_staff"));
 
-		toolRecipes(RegistryManager.LEAD_TOOLS, EmbersItemTags.LEAD_INGOT, consumer);
-		toolRecipes(RegistryManager.SILVER_TOOLS, EmbersItemTags.SILVER_INGOT, consumer);
-		toolRecipes(RegistryManager.DAWNSTONE_TOOLS, EmbersItemTags.DAWNSTONE_INGOT, consumer);
+		toolRecipes(RegistryManager.LEAD_TOOLS, EmbersItemTags.LEAD_INGOT, RegistryManager.LEAD_NUGGET.get(), consumer);
+		toolRecipes(RegistryManager.SILVER_TOOLS, EmbersItemTags.SILVER_INGOT, RegistryManager.SILVER_NUGGET.get(), consumer);
+		toolRecipes(RegistryManager.DAWNSTONE_TOOLS, EmbersItemTags.DAWNSTONE_INGOT, RegistryManager.DAWNSTONE_NUGGET.get(), consumer);
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.MECHANICAL_CORE.get())
 		.pattern("IBI")
@@ -955,7 +958,32 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		}
 	}
 
-	public void toolRecipes(ToolSet set, TagKey<Item> material, Consumer<FinishedRecipe> consumer) {
+	public void toolRecipes(ToolSet set, TagKey<Item> material, Item nugget, Consumer<FinishedRecipe> consumer) {
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(set.SWORD.get()), RecipeCategory.TOOLS, nugget, 0.1F, 200)
+		.unlockedBy("has_" + set.name + "_sword", has(set.SWORD.get())).save(consumer, getResource(set.name + "_sword_smelting"));
+		SimpleCookingRecipeBuilder.blasting(Ingredient.of(set.SWORD.get()), RecipeCategory.TOOLS, nugget, 0.1F, 100)
+		.unlockedBy("has_" + set.name + "_sword", has(set.SWORD.get())).save(consumer, getResource(set.name + "_sword_blasting"));
+
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(set.SHOVEL.get()), RecipeCategory.TOOLS, nugget, 0.1F, 200)
+		.unlockedBy("has_" + set.name + "_shovel", has(set.SHOVEL.get())).save(consumer, getResource(set.name + "_shovel_smelting"));
+		SimpleCookingRecipeBuilder.blasting(Ingredient.of(set.SHOVEL.get()), RecipeCategory.TOOLS, nugget, 0.1F, 100)
+		.unlockedBy("has_" + set.name + "_shovel", has(set.SHOVEL.get())).save(consumer, getResource(set.name + "_shovel_blasting"));
+
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(set.PICKAXE.get()), RecipeCategory.TOOLS, nugget, 0.1F, 200)
+		.unlockedBy("has_" + set.name + "_pickaxe", has(set.PICKAXE.get())).save(consumer, getResource(set.name + "_pickaxe_smelting"));
+		SimpleCookingRecipeBuilder.blasting(Ingredient.of(set.PICKAXE.get()), RecipeCategory.TOOLS, nugget, 0.1F, 100)
+		.unlockedBy("has_" + set.name + "_pickaxe", has(set.PICKAXE.get())).save(consumer, getResource(set.name + "_pickaxe_blasting"));
+
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(set.AXE.get()), RecipeCategory.TOOLS, nugget, 0.1F, 200)
+		.unlockedBy("has_" + set.name + "_axe", has(set.AXE.get())).save(consumer, getResource(set.name + "_axe_smelting"));
+		SimpleCookingRecipeBuilder.blasting(Ingredient.of(set.AXE.get()), RecipeCategory.TOOLS, nugget, 0.1F, 100)
+		.unlockedBy("has_" + set.name + "_axe", has(set.AXE.get())).save(consumer, getResource(set.name + "_axe_blasting"));
+
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(set.HOE.get()), RecipeCategory.TOOLS, nugget, 0.1F, 200)
+		.unlockedBy("has_" + set.name + "_hoe", has(set.HOE.get())).save(consumer, getResource(set.name + "_hoe_smelting"));
+		SimpleCookingRecipeBuilder.blasting(Ingredient.of(set.HOE.get()), RecipeCategory.TOOLS, nugget, 0.1F, 100)
+		.unlockedBy("has_" + set.name + "_hoe", has(set.HOE.get())).save(consumer, getResource(set.name + "_hoe_blasting"));
+
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, set.SWORD.get())
 		.pattern("M")
 		.pattern("M")

@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_lead_hoe": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "embersrekindled:lead_hoe"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "embersrekindled:lead_hoe_blasting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_lead_hoe",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "embersrekindled:lead_hoe_blasting"
+    ]
+  },
+  "sends_telemetry_event": false
+}

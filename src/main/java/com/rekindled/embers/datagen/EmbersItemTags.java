@@ -68,6 +68,11 @@ public class EmbersItemTags extends ItemTagsProvider {
 
 	public static final TagKey<Item> WORLD_BOTTOM = ItemTags.create(new ResourceLocation(Embers.MODID, "world_bottom"));
 
+	public static final TagKey<Item> PRISTINE_COPPER = ItemTags.create(new ResourceLocation(Embers.MODID, "pristine_copper"));
+	public static final TagKey<Item> EXPOSED_COPPER = ItemTags.create(new ResourceLocation(Embers.MODID, "exposed_copper"));
+	public static final TagKey<Item> WEATHERED_COPPER = ItemTags.create(new ResourceLocation(Embers.MODID, "weathered_copper"));
+	public static final TagKey<Item> OXIDIZED_COPPER = ItemTags.create(new ResourceLocation(Embers.MODID, "oxidized_copper"));
+
 	public EmbersItemTags(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<Block>> blockTagProvider, ExistingFileHelper existingFileHelper) {
 		super(output, lookupProvider, blockTagProvider, Embers.MODID, existingFileHelper);
 	}
@@ -141,6 +146,11 @@ public class EmbersItemTags extends ItemTagsProvider {
 		tag(TOOLS_HAMMERS).add(RegistryManager.TINKER_HAMMER.get(), RegistryManager.GRANDHAMMER.get());
 
 		copy(EmbersBlockTags.WORLD_BOTTOM, WORLD_BOTTOM);
+
+		copy(EmbersBlockTags.PRISTINE_COPPER, PRISTINE_COPPER);
+		copy(EmbersBlockTags.EXPOSED_COPPER, EXPOSED_COPPER);
+		copy(EmbersBlockTags.WEATHERED_COPPER, WEATHERED_COPPER);
+		copy(EmbersBlockTags.OXIDIZED_COPPER, OXIDIZED_COPPER);
 	}
 
 	public void toolTags(ToolSet set) {
