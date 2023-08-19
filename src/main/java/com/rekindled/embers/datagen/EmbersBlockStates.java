@@ -83,14 +83,14 @@ public class EmbersBlockStates extends BlockStateProvider {
 				.texture("pipe", new ResourceLocation(Embers.MODID, "block/fluid_pipe_tex"))
 				.texture("particle", new ResourceLocation(Embers.MODID, "block/fluid_pipe_tex"));
 		models().withExistingParent("fluid_pipe_connection", new ResourceLocation(Embers.MODID, "pipe_connection"))
-				.texture("pipe", new ResourceLocation(Embers.MODID, "block/fluid_pipe_tex"))
-				.texture("particle", new ResourceLocation(Embers.MODID, "block/fluid_pipe_tex"));
+		.texture("pipe", new ResourceLocation(Embers.MODID, "block/fluid_pipe_tex"))
+		.texture("particle", new ResourceLocation(Embers.MODID, "block/fluid_pipe_tex"));
 		ModelFile fluidPipeEndModel2 = models().withExistingParent("fluid_pipe_end_2", new ResourceLocation(Embers.MODID, "pipe_end_2"))
 				.texture("pipe", new ResourceLocation(Embers.MODID, "block/fluid_pipe_tex"))
 				.texture("particle", new ResourceLocation(Embers.MODID, "block/fluid_pipe_tex"));
 		models().withExistingParent("fluid_pipe_connection_2", new ResourceLocation(Embers.MODID, "pipe_connection_2"))
-				.texture("pipe", new ResourceLocation(Embers.MODID, "block/fluid_pipe_tex"))
-				.texture("particle", new ResourceLocation(Embers.MODID, "block/fluid_pipe_tex"));
+		.texture("pipe", new ResourceLocation(Embers.MODID, "block/fluid_pipe_tex"))
+		.texture("particle", new ResourceLocation(Embers.MODID, "block/fluid_pipe_tex"));
 
 		ExistingModelFile emitterModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "ember_emitter"));
 		simpleBlockItem(RegistryManager.EMBER_EMITTER.get(), emitterModel);
@@ -122,21 +122,21 @@ public class EmbersBlockStates extends BlockStateProvider {
 				.texture("pipe", new ResourceLocation(Embers.MODID, "block/item_pipe_tex"))
 				.texture("particle", new ResourceLocation(Embers.MODID, "block/item_pipe_tex"));
 		models().withExistingParent("item_pipe_end", new ResourceLocation(Embers.MODID, "pipe_end"))
-				.texture("pipe", new ResourceLocation(Embers.MODID, "block/item_pipe_tex"))
-				.texture("particle", new ResourceLocation(Embers.MODID, "block/item_pipe_tex"));
+		.texture("pipe", new ResourceLocation(Embers.MODID, "block/item_pipe_tex"))
+		.texture("particle", new ResourceLocation(Embers.MODID, "block/item_pipe_tex"));
 		models().withExistingParent("item_pipe_connection", new ResourceLocation(Embers.MODID, "pipe_connection"))
-				.texture("pipe", new ResourceLocation(Embers.MODID, "block/item_pipe_tex"))
-				.texture("particle", new ResourceLocation(Embers.MODID, "block/item_pipe_tex"));
+		.texture("pipe", new ResourceLocation(Embers.MODID, "block/item_pipe_tex"))
+		.texture("particle", new ResourceLocation(Embers.MODID, "block/item_pipe_tex"));
 		models().withExistingParent("item_pipe_end_2", new ResourceLocation(Embers.MODID, "pipe_end_2"))
-				.texture("pipe", new ResourceLocation(Embers.MODID, "block/item_pipe_tex"))
-				.texture("particle", new ResourceLocation(Embers.MODID, "block/item_pipe_tex"));
+		.texture("pipe", new ResourceLocation(Embers.MODID, "block/item_pipe_tex"))
+		.texture("particle", new ResourceLocation(Embers.MODID, "block/item_pipe_tex"));
 		models().withExistingParent("item_pipe_connection_2", new ResourceLocation(Embers.MODID, "pipe_connection_2"))
-				.texture("pipe", new ResourceLocation(Embers.MODID, "block/item_pipe_tex"))
-				.texture("particle", new ResourceLocation(Embers.MODID, "block/item_pipe_tex"));
+		.texture("pipe", new ResourceLocation(Embers.MODID, "block/item_pipe_tex"))
+		.texture("particle", new ResourceLocation(Embers.MODID, "block/item_pipe_tex"));
 
 		simpleBlockItem(RegistryManager.ITEM_PIPE.get(), models().withExistingParent("item_pipe_inventory", new ResourceLocation(Embers.MODID, "pipe_inventory"))
 				.texture("pipe", new ResourceLocation(Embers.MODID, "block/item_pipe_tex")));
-		
+
 		simpleBlock(RegistryManager.ITEM_PIPE.get(), itemPipeCenterModel);
 		/*getMultipartBuilder(RegistryManager.ITEM_PIPE.get())
 		.part().modelFile(itemPipeCenterModel).addModel().end()
@@ -454,15 +454,34 @@ public class EmbersBlockStates extends BlockStateProvider {
 		flatItem(RegistryManager.CAMINITE_GAUGE, "caminite_gauge");
 
 		ExistingModelFile gaugeEdgeModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "caminite_gauge_edge"));
-		getVariantBuilder(RegistryManager.CAMINITE_GAUGE_EDGE.get()).forAllStates(state -> {
-			MechEdge edge = state.getValue(MechEdgeBlockBase.EDGE);
+		ExistingModelFile gaugeEdgeGlassModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "caminite_gauge_edge_glass"));
+		getMultipartBuilder(RegistryManager.CAMINITE_GAUGE_EDGE.get())
+		.part().modelFile(gaugeEdgeModel).addModel()
+		.condition(MechEdgeBlockBase.EDGE, MechEdge.NORTH).end()
+		.part().modelFile(gaugeEdgeModel).rotationY(90).addModel()
+		.condition(MechEdgeBlockBase.EDGE, MechEdge.EAST).end()
+		.part().modelFile(gaugeEdgeModel).rotationY(180).addModel()
+		.condition(MechEdgeBlockBase.EDGE, MechEdge.SOUTH).end()
+		.part().modelFile(gaugeEdgeModel).rotationY(270).addModel()
+		.condition(MechEdgeBlockBase.EDGE, MechEdge.WEST).end()
 
-			return ConfiguredModel.builder()
-					.modelFile(edge.corner ? ringCornerModel : gaugeEdgeModel)
-					.rotationY(edge.rotation)
-					.uvLock(false)
-					.build();
-		});
+		.part().modelFile(gaugeEdgeGlassModel).addModel()
+		.condition(MechEdgeBlockBase.EDGE, MechEdge.NORTH).end()
+		.part().modelFile(gaugeEdgeGlassModel).rotationY(90).addModel()
+		.condition(MechEdgeBlockBase.EDGE, MechEdge.EAST).end()
+		.part().modelFile(gaugeEdgeGlassModel).rotationY(180).addModel()
+		.condition(MechEdgeBlockBase.EDGE, MechEdge.SOUTH).end()
+		.part().modelFile(gaugeEdgeGlassModel).rotationY(270).addModel()
+		.condition(MechEdgeBlockBase.EDGE, MechEdge.WEST).end()
+
+		.part().modelFile(ringCornerModel).addModel()
+		.condition(MechEdgeBlockBase.EDGE, MechEdge.NORTHEAST).end()
+		.part().modelFile(ringCornerModel).rotationY(90).addModel()
+		.condition(MechEdgeBlockBase.EDGE, MechEdge.SOUTHEAST).end()
+		.part().modelFile(ringCornerModel).rotationY(180).addModel()
+		.condition(MechEdgeBlockBase.EDGE, MechEdge.SOUTHWEST).end()
+		.part().modelFile(ringCornerModel).rotationY(270).addModel()
+		.condition(MechEdgeBlockBase.EDGE, MechEdge.NORTHWEST).end();
 
 		simpleBlock(RegistryManager.CAMINITE_VALVE.get(), models().getExistingFile(new ResourceLocation(Embers.MODID, "caminite_ring_center")));
 		flatItem(RegistryManager.CAMINITE_VALVE, "caminite_valve");
