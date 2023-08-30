@@ -56,7 +56,7 @@ public abstract class EmberStorageItem extends Item {
 
 	@Override
 	public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-		return slotChanged || !ItemStack.matches(oldStack, newStack);
+		return slotChanged || !ItemStack.isSameItem(oldStack, newStack);
 	}
 
 	@Override

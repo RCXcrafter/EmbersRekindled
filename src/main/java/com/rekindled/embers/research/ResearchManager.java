@@ -42,7 +42,7 @@ public class ResearchManager {
 	public static ResearchBase dials, pressureRefinery, mini_boiler, ores, hammer, ancient_golem, gauge, caminite, bore, crystals, activator, tinker_lens, reaction_chamber,//WORLD
 	copper_cell, emitters, relays, dawnstone, melter, stamper, mixer, breaker, hearth_coil, access, pump, clockwork_attenuator, geo_separator, //MECHANISMS
 	beam_cannon, pulser, splitter, crystal_cell, cinder_staff, clockwork_tools, blazing_ray, charger, jars, alchemy, cinder_plinth, aspecti, catalytic_plug, ember_siphon, //METALLURGY
-	tyrfing, waste, cluster, ashen_cloak, inflictor, materia, field_chart, glimmer, metallurgic_dust, //ALCHEMY
+	tyrfing, waste, slate, cluster, ashen_cloak, inflictor, materia, field_chart, glimmer, metallurgic_dust, //ALCHEMY
 	modifiers, inferno_forge, heat, dawnstone_anvil, autohammer, dismantling //SMITHING
 	;
 	public static ResearchBase pipes, tank, bin, dropper, reservoir, vacuum, transfer, golem_eye, requisition; //PIPES
@@ -243,7 +243,9 @@ public class ResearchManager {
 		//catalytic_plug = new ResearchBase("catalytic_plug", new ItemStack(RegistryManager.catalytic_plug), 12, 5).addAncestor(ResearchManager.alchemy);
 
 		//TRANSMUTATION
-		waste = new ResearchBase("waste", new ItemStack(RegistryManager.ALCHEMICAL_WASTE.get()), 6, 2);
+		waste = new ResearchBase("waste", new ItemStack(RegistryManager.ALCHEMICAL_WASTE.get()), 6, 2)
+				.addPage(new ResearchBase("waste_page_2", new ItemStack(RegistryManager.ALCHEMICAL_WASTE.get()), 0, 0));
+		slate = new ResearchBase("slate", new ItemStack(RegistryManager.CODEBREAKING_SLATE.get()), 6, 6).addAncestor(waste);
 		//materia = new ResearchBase("materia", new ItemStack(RegistryManager.isolated_materia), 6, 5).addAncestor(waste);
 		//cluster = new ResearchBase("cluster", new ItemStack(RegistryManager.ember_cluster), 3, 4).addAncestor(waste);
 		//ashen_cloak = new ResearchShowItem("ashen_cloak", new ItemStack(RegistryManager.ashen_cloak_chest), 9, 4).addItem(new DisplayItem(new ItemStack(RegistryManager.ashen_cloak_head),new ItemStack(RegistryManager.ashen_cloak_chest),new ItemStack(RegistryManager.ashen_cloak_legs),new ItemStack(RegistryManager.ashen_cloak_boots))).addAncestor(waste);
@@ -438,7 +440,8 @@ public class ResearchManager {
 		.addResearch(beam_cannon);
 		//.addResearch(catalytic_plug);
 		categoryAlchemy
-		.addResearch(waste);
+		.addResearch(waste)
+		.addResearch(slate);
 		//.addResearch(simpleAlchemySwitch)
 		//.addResearch(cluster)
 		//.addResearch(ashen_cloak)
@@ -470,7 +473,7 @@ public class ResearchManager {
 		researches.add(categoryWorld);
 		researches.add(categoryMechanisms);
 		researches.add(categoryMetallurgy);
-		//researches.add(categoryAlchemy);
+		researches.add(categoryAlchemy);
 		//researches.add(categorySmithing);
 		//researches.add(new ResearchCategory("materia", 80));
 		//researches.add(new ResearchCategory("core", 96));

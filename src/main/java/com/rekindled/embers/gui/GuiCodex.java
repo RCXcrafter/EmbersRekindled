@@ -138,6 +138,7 @@ public class GuiCodex extends Screen {
 	public void renderItemStackMinusTooltipAt(GuiGraphics graphics, ItemStack stack, int x, int y){
 		if (!stack.isEmpty()) {
 			graphics.renderFakeItem(stack, x, y);
+			//rendering an item disables this
 			RenderSystem.enableBlend();
 			//this.itemRenderer.renderGuiItemDecorations(font, stack, x, y, stack.getCount() != 1 ? Integer.toString(stack.getCount()) : "");
 		}

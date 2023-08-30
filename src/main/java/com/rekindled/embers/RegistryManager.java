@@ -112,6 +112,7 @@ import com.rekindled.embers.entity.EmberPacketEntity;
 import com.rekindled.embers.entity.EmberProjectileEntity;
 import com.rekindled.embers.fluidtypes.EmbersFluidType.FluidInfo;
 import com.rekindled.embers.fluidtypes.MoltenMetalFluidType;
+import com.rekindled.embers.gui.SlateMenu;
 import com.rekindled.embers.item.AlchemyHintItem;
 import com.rekindled.embers.item.AncientCodexItem;
 import com.rekindled.embers.item.BlazingRayItem;
@@ -119,6 +120,7 @@ import com.rekindled.embers.item.CinderStaffItem;
 import com.rekindled.embers.item.ClockworkAxeItem;
 import com.rekindled.embers.item.ClockworkHammerItem;
 import com.rekindled.embers.item.ClockworkPickaxeItem;
+import com.rekindled.embers.item.CodebreakingSlateItem;
 import com.rekindled.embers.item.CopperCellBlockItem;
 import com.rekindled.embers.item.EmberCartridgeItem;
 import com.rekindled.embers.item.EmberJarItem;
@@ -158,6 +160,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.BucketItem;
@@ -194,6 +197,7 @@ import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.common.SoundActions;
+import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.common.loot.IGlobalLootModifier;
 import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
@@ -216,6 +220,7 @@ public class RegistryManager {
 	public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(ForgeRegistries.RECIPE_TYPES, Embers.MODID);
 	public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, Embers.MODID);
 	public static final DeferredRegister<Codec<? extends IGlobalLootModifier>> LOOT_MODIFIERS = DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, Embers.MODID);
+	public static final DeferredRegister<MenuType<?>> MENU_TYPES = DeferredRegister.create(ForgeRegistries.MENU_TYPES, Embers.MODID);
 
 	public static List<FluidStuff> fluidList = new ArrayList<FluidStuff>();
 
@@ -417,6 +422,7 @@ public class RegistryManager {
 	public static final RegistryObject<Item> BLAZING_RAY = ITEMS.register("blazing_ray", () -> new BlazingRayItem(new Item.Properties().stacksTo(1)));
 	public static final RegistryObject<Item> CINDER_STAFF = ITEMS.register("cinder_staff", () -> new CinderStaffItem(new Item.Properties().stacksTo(1)));
 	public static final RegistryObject<Item> ALCHEMICAL_WASTE = ITEMS.register("alchemical_waste", () -> new AlchemyHintItem(new Item.Properties().stacksTo(1)));
+	public static final RegistryObject<Item> CODEBREAKING_SLATE = ITEMS.register("codebreaking_slate", () -> new CodebreakingSlateItem(new Item.Properties().stacksTo(1)));
 
 	public static final RegistryObject<Item> EMBER_CRYSTAL = ITEMS.register("ember_crystal", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> EMBER_SHARD = ITEMS.register("ember_shard", () -> new Item(new Item.Properties()));
@@ -597,6 +603,9 @@ public class RegistryManager {
 
 	//loot modifiers
 	public static final RegistryObject<Codec<GrandhammerLootModifier>> GRANDHAMMER_MODIFIER = LOOT_MODIFIERS.register("grandhammer", () -> GrandhammerLootModifier.CODEC);
+
+	//menu types
+	public static final RegistryObject<MenuType<SlateMenu>> SLATE_MENU = MENU_TYPES.register("codebreaking_slate", () -> IForgeMenuType.create(SlateMenu::fromBuffer));
 
 	public static void registerDispenserBehaviour(final FMLCommonSetupEvent event) {
 		DispenseItemBehavior dispenseBucket = new DefaultDispenseItemBehavior() {

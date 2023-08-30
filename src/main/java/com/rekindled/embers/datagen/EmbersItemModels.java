@@ -36,6 +36,7 @@ public class EmbersItemModels extends ItemModelProvider {
 		layeredItem(RegistryManager.EMBER_JAR, "ember_jar_glass", "ember_jar_glass_shine", "ember_jar");
 		layeredItem(RegistryManager.EMBER_CARTRIDGE, "ember_cartridge_glass", "ember_cartridge_glass_shine", "ember_cartridge");
 		basicItem(RegistryManager.ALCHEMICAL_WASTE.get());
+		basicItem(RegistryManager.CODEBREAKING_SLATE.get());
 
 		basicItem(RegistryManager.EMBER_CRYSTAL.get());
 		basicItem(RegistryManager.EMBER_SHARD.get());

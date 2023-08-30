@@ -37,25 +37,25 @@ public class AlchemyHintItem extends Item {
 	}
 
 	public static ArrayList<ItemStack> getAspects(ItemStack stack) {
+		ArrayList<ItemStack> items = new ArrayList<ItemStack>();
 		if (stack.hasTag() && stack.getTag().contains("aspects")) {
-			ArrayList<ItemStack> items = new ArrayList<ItemStack>();
 			ListTag list = stack.getTag().getList("aspects", Tag.TAG_COMPOUND);
 			for (Tag nbt : list) {
 				items.add(ItemStack.of((CompoundTag) nbt));
 			}
 		}
-		return new ArrayList<ItemStack>();
+		return items;
 	}
 
 	public static ArrayList<ItemStack> getInputs(ItemStack stack) {
+		ArrayList<ItemStack> items = new ArrayList<ItemStack>();
 		if (stack.hasTag() && stack.getTag().contains("inputs")) {
-			ArrayList<ItemStack> items = new ArrayList<ItemStack>();
 			ListTag list = stack.getTag().getList("inputs", Tag.TAG_COMPOUND);
 			for (Tag nbt : list) {
 				items.add(ItemStack.of((CompoundTag) nbt));
 			}
 		}
-		return new ArrayList<ItemStack>();
+		return items;
 	}
 
 	@Override

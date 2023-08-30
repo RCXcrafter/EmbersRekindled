@@ -42,6 +42,7 @@ import com.rekindled.embers.entity.AncientGolemEntity;
 import com.rekindled.embers.entity.render.AncientGolemRenderer;
 import com.rekindled.embers.entity.render.EmberPacketRenderer;
 import com.rekindled.embers.entity.render.EmberProjectileRenderer;
+import com.rekindled.embers.gui.SlateScreen;
 import com.rekindled.embers.item.EmberStorageItem;
 import com.rekindled.embers.model.AncientGolemModel;
 import com.rekindled.embers.network.PacketHandler;
@@ -57,7 +58,7 @@ import com.rekindled.embers.research.capability.IResearchCapability;
 import com.rekindled.embers.util.DecimalFormats;
 import com.rekindled.embers.util.Misc;
 
-import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
@@ -123,6 +124,7 @@ public class Embers {
 		RegistryManager.RECIPE_TYPES.register(modEventBus);
 		RegistryManager.RECIPE_SERIALIZERS.register(modEventBus);
 		RegistryManager.LOOT_MODIFIERS.register(modEventBus);
+		RegistryManager.MENU_TYPES.register(modEventBus);
 		EmbersSounds.init();
 		//TODO: move this to apiimpl when I port that
 		UpgradeUtil.IMPL = new UpgradeUtilImpl();
@@ -204,9 +206,7 @@ public class Embers {
 			MinecraftForge.EVENT_BUS.addListener(EmbersClientEvents::onClientTick);
 			MinecraftForge.EVENT_BUS.addListener(EmbersClientEvents::onBlockHighlight);
 			MinecraftForge.EVENT_BUS.addListener(EmbersClientEvents::onLevelRender);
-			EntityRenderers.register(RegistryManager.EMBER_PACKET.get(), EmberPacketRenderer::new);
-			EntityRenderers.register(RegistryManager.EMBER_PROJECTILE.get(), EmberProjectileRenderer::new);
-			EntityRenderers.register(RegistryManager.ANCIENT_GOLEM.get(), AncientGolemRenderer::new);
+			event.enqueueWork(() -> MenuScreens.register(RegistryManager.SLATE_MENU.get(), SlateScreen::new));
 		}
 
 		@OnlyIn(Dist.CLIENT)
@@ -235,6 +235,10 @@ public class Embers {
 		@OnlyIn(Dist.CLIENT)
 		@SubscribeEvent
 		static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
+			event.registerEntityRenderer(RegistryManager.EMBER_PACKET.get(), EmberPacketRenderer::new);
+			event.registerEntityRenderer(RegistryManager.EMBER_PROJECTILE.get(), EmberProjectileRenderer::new);
+			event.registerEntityRenderer(RegistryManager.ANCIENT_GOLEM.get(), AncientGolemRenderer::new);
+
 			event.registerBlockEntityRenderer(RegistryManager.EMBER_BORE_ENTITY.get(), EmberBoreBlockEntityRenderer::new);
 			event.registerBlockEntityRenderer(RegistryManager.MELTER_TOP_ENTITY.get(), MelterTopBlockEntityRenderer::new);
 			event.registerBlockEntityRenderer(RegistryManager.FLUID_VESSEL_ENTITY.get(), FluidVesselBlockEntityRenderer::new);

@@ -104,6 +104,7 @@ public class EmbersLang extends LanguageProvider {
 		addItem(RegistryManager.BLAZING_RAY, "Blazing Ray");
 		addItem(RegistryManager.CINDER_STAFF, "Cinder Staff");
 		addItem(RegistryManager.ALCHEMICAL_WASTE, "Alchemical Waste");
+		addItem(RegistryManager.CODEBREAKING_SLATE, "Codebreaking Slate");
 
 		addItem(RegistryManager.EMBER_CRYSTAL, "Ember Crystal");
 		addItem(RegistryManager.EMBER_SHARD, "Ember Shard");
@@ -168,10 +169,10 @@ public class EmbersLang extends LanguageProvider {
 		//text
 		add(Embers.MODID + ".alchemy_hint", "Upon closer inspection, you notice %s in the waste");
 		add(Embers.MODID + ".alchemy_hint.none", "no differently colored spots");
-		add(Embers.MODID + ".alchemy_hint.black.one", "1 dark spot");
-		add(Embers.MODID + ".alchemy_hint.black", "%s dark spots");
-		add(Embers.MODID + ".alchemy_hint.white.one", "1 bright spot");
-		add(Embers.MODID + ".alchemy_hint.white", "%s bright spots");
+		add(Embers.MODID + ".alchemy_hint.black.one", "1 glowing spot");
+		add(Embers.MODID + ".alchemy_hint.black", "%s glowing spots");
+		add(Embers.MODID + ".alchemy_hint.white.one", "1 pale spot");
+		add(Embers.MODID + ".alchemy_hint.white", "%s pale spots");
 		add(Embers.MODID + ".alchemy_hint.and", "%s and %s");
 
 		add("death.attack.ember", "%1$s was incinerated by %2$s");
@@ -604,7 +605,13 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".research.page.waste", "Experimentation");
 		add(Embers.MODID + ".research.page.waste.title", "Alchemical Process");
 		add(Embers.MODID + ".research.page.waste.tags", "Waste;Alchemy;Transmutation;Experiment;Ash;Stamp;");
-		add(Embers.MODID + ".research.page.waste.desc", "You have quickly discovered that alchemical transmutations do not always work. For all but one particular combination of ash values, your alchemy will fail and result in Alchemic Waste. This waste can be placed in the Stamper to reclaim some of the Ash used in the alchemy, and can be visibly analyzed to determine how far off you were from the true recipe of your desired product.");
+		add(Embers.MODID + ".research.page.waste.desc", "You have quickly discovered that alchemical transmutations do not always work. For all but one particular combination of aspecti, your alchemy will fail and result in Alchemic Waste. This waste can be visibly analyzed to determine how far off you were from the true recipe of your desired product.");
+		add(Embers.MODID + ".research.page.waste_page_2.desc", "You've noticed that the number of glowing spots in the waste correspond to aspecti that were placed on the correct ingredient. A pale spot indicates an aspectus that is found in the recipe but not placed on the correct ingredient");
+
+		add(Embers.MODID + ".research.page.slate", "Codebreaking Slate");
+		add(Embers.MODID + ".research.page.slate.title", "Cracking The Code");
+		add(Embers.MODID + ".research.page.slate.tags", "Waste;Alchemy;Code;Experiment;Master;Mind;Mastermind;");
+		add(Embers.MODID + ".research.page.slate.desc", "It can be difficult to keep track of your guesses and which aspectus is in the correct spot when researching an alchemy recipe. The Codebreaking Slate can store up to 7 pieces of alchemical waste and will display your guess along with the differently colored spots in the waste so you can focus on cracking the code.");
 
 		add(Embers.MODID + ".research.page.hellish_synthesis", "Assorted Syntheses");
 		add(Embers.MODID + ".research.page.hellish_synthesis.title", "Strange Materials");

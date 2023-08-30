@@ -1,6 +1,7 @@
 package com.rekindled.embers.recipe;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import org.jetbrains.annotations.Nullable;
@@ -181,7 +182,21 @@ public class AlchemyRecipe implements Recipe<AlchemyContext> {
 			}
 		}
 		whitePins -= blackPins;
-		return new AlchemyResult(context.contents, blackPins, whitePins);
+
+		//ensure that the ingredient order matches the recipe
+		List<PedestalContents> contents = new ArrayList<PedestalContents>(context.contents);
+		List<PedestalContents> sortedContents = new ArrayList<PedestalContents>();
+		for (Ingredient input : inputs) {
+			for (PedestalContents pedestal : contents) {
+				if (input.test(pedestal.input)) {
+					sortedContents.add(pedestal);
+					contents.remove(pedestal);
+					break;
+				}
+			}
+		}
+
+		return new AlchemyResult(sortedContents, blackPins, whitePins);
 	}
 
 	@Override
