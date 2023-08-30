@@ -45,13 +45,19 @@ public class EmbersItemModels extends ItemModelProvider {
 		basicItem(RegistryManager.CAMINITE_BRICK.get());
 		basicItem(RegistryManager.ARCHAIC_BRICK.get());
 		basicItem(RegistryManager.ANCIENT_MOTIVE_CORE.get());
+		basicItem(RegistryManager.ASH.get());
+		basicItem(RegistryManager.ASHEN_FABRIC.get());
+		basicItem(RegistryManager.EMBER_CRYSTAL_CLUSTER.get());
+		basicItem(RegistryManager.WILDFIRE_CORE.get());
 
 		itemWithTexture(RegistryManager.RAW_CAMINITE_PLATE, "plate_caminite_raw");
+		itemWithTexture(RegistryManager.RAW_FLAT_STAMP, "flat_stamp_raw");
 		itemWithTexture(RegistryManager.RAW_INGOT_STAMP, "ingot_stamp_raw");
 		itemWithTexture(RegistryManager.RAW_NUGGET_STAMP, "nugget_stamp_raw");
 		itemWithTexture(RegistryManager.RAW_PLATE_STAMP, "plate_stamp_raw");
 
 		itemWithTexture(RegistryManager.CAMINITE_PLATE, "plate_caminite");
+		basicItem(RegistryManager.FLAT_STAMP.get());
 		basicItem(RegistryManager.INGOT_STAMP.get());
 		basicItem(RegistryManager.NUGGET_STAMP.get());
 		basicItem(RegistryManager.PLATE_STAMP.get());

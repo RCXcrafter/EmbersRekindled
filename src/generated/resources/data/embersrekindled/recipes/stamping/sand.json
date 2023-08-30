@@ -1,0 +1,12 @@
+{
+  "type": "embersrekindled:stamping",
+  "input": {
+    "item": "minecraft:gravel"
+  },
+  "output": {
+    "item": "minecraft:sand"
+  },
+  "stamp": {
+    "item": "embersrekindled:flat_stamp"
+  }
+}

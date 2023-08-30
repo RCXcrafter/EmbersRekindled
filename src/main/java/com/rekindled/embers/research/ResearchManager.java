@@ -247,22 +247,22 @@ public class ResearchManager {
 				.addPage(new ResearchBase("waste_page_2", new ItemStack(RegistryManager.ALCHEMICAL_WASTE.get()), 0, 0));
 		slate = new ResearchBase("slate", new ItemStack(RegistryManager.CODEBREAKING_SLATE.get()), 6, 6).addAncestor(waste);
 		//materia = new ResearchBase("materia", new ItemStack(RegistryManager.isolated_materia), 6, 5).addAncestor(waste);
-		//cluster = new ResearchBase("cluster", new ItemStack(RegistryManager.ember_cluster), 3, 4).addAncestor(waste);
+		cluster = new ResearchBase("cluster", new ItemStack(RegistryManager.EMBER_CRYSTAL_CLUSTER.get()), 3, 4).addAncestor(waste);
 		//ashen_cloak = new ResearchShowItem("ashen_cloak", new ItemStack(RegistryManager.ashen_cloak_chest), 9, 4).addItem(new DisplayItem(new ItemStack(RegistryManager.ashen_cloak_head),new ItemStack(RegistryManager.ashen_cloak_chest),new ItemStack(RegistryManager.ashen_cloak_legs),new ItemStack(RegistryManager.ashen_cloak_boots))).addAncestor(waste);
 		//field_chart = new ResearchBase("field_chart", new ItemStack(RegistryManager.field_chart), 0, 5).addAncestor(cluster);
 		//inflictor = new ResearchBase("inflictor", new ItemStack(RegistryManager.inflictor_gem), 11, 7).addAncestor(ashen_cloak);
 		//tyrfing = new ResearchBase("tyrfing", new ItemStack(RegistryManager.tyrfing), 8, 6).addAncestor(waste);
 		//glimmer = new ResearchBase("glimmer", new ItemStack(RegistryManager.glimmer_shard), 9, 0).addAncestor(waste);
 		//metallurgic_dust = new ResearchBase("metallurgic_dust", new ItemStack(RegistryManager.dust_metallurgic), 0, 2).addAncestor(waste);
-		/*
-		adhesive = new ResearchBase("adhesive", new ItemStack(RegistryManager.adhesive), 10, 1);
-		hellish_synthesis = new ResearchBase("hellish_synthesis", new ItemStack(Blocks.NETHERRACK), 2, 1);
-		archaic_brick = new ResearchBase("archaic_brick", new ItemStack(RegistryManager.archaic_brick), 5, 2).addAncestor(hellish_synthesis);
-		motive_core = new ResearchBase("motive_core", new ItemStack(RegistryManager.ancient_motive_core), 4, 4).addAncestor(archaic_brick);
-		dwarven_oil = new ResearchBase("dwarven_oil", FluidUtil.getFilledBucket(new FluidStack(RegistryManager.fluid_oil, Fluid.BUCKET_VOLUME)), 1, 4).addAncestor(hellish_synthesis);
 
-		wildfire = new ResearchBase("wildfire", new ItemStack(RegistryManager.wildfire_core), 1, 5);
-		injector = new ResearchBase("injector", new ItemStack(RegistryManager.ember_injector), 0, 7).addAncestor(wildfire)
+		//adhesive = new ResearchBase("adhesive", new ItemStack(RegistryManager.adhesive), 10, 1);
+		hellish_synthesis = new ResearchBase("hellish_synthesis", new ItemStack(Items.NETHERRACK), 2, 1);
+		archaic_brick = new ResearchBase("archaic_brick", new ItemStack(RegistryManager.ARCHAIC_BRICK.get()), 5, 2).addAncestor(hellish_synthesis);
+		motive_core = new ResearchBase("motive_core", new ItemStack(RegistryManager.ANCIENT_MOTIVE_CORE.get()), 4, 4).addAncestor(archaic_brick);
+		//dwarven_oil = new ResearchBase("dwarven_oil", FluidUtil.getFilledBucket(new FluidStack(RegistryManager.fluid_oil, Fluid.BUCKET_VOLUME)), 1, 4).addAncestor(hellish_synthesis);
+
+		wildfire = new ResearchBase("wildfire", new ItemStack(RegistryManager.WILDFIRE_CORE.get()), 1, 5);
+		/*injector = new ResearchBase("injector", new ItemStack(RegistryManager.ember_injector), 0, 7).addAncestor(wildfire)
 				.addPage(new ResearchShowItem("crystal_level",ItemStack.EMPTY,0,0)
 						.addItem(new DisplayItem(new ItemStack(RegistryManager.seed_iron), new ItemStack(RegistryManager.seed_gold), new ItemStack(RegistryManager.seed_copper), new ItemStack(RegistryManager.seed_tin)))
 						.addItem(new DisplayItem(new ItemStack(RegistryManager.seed_silver), new ItemStack(RegistryManager.seed_lead), new ItemStack(RegistryManager.seed_nickel), new ItemStack(RegistryManager.seed_aluminum))));
@@ -349,15 +349,15 @@ public class ResearchManager {
 		subCategoryPipes.addResearch(dropper);
 		//subCategoryPipes.addResearch(requisition);
 		//subCategoryPipes.addResearch(golem_eye);
-		/*
+
 		subCategorySimpleAlchemy.addResearch(hellish_synthesis);
 		subCategorySimpleAlchemy.addResearch(archaic_brick);
 		subCategorySimpleAlchemy.addResearch(motive_core);
-		subCategorySimpleAlchemy.addResearch(adhesive);
-		subCategorySimpleAlchemy.addResearch(dwarven_oil);
+		//subCategorySimpleAlchemy.addResearch(adhesive);
+		//subCategorySimpleAlchemy.addResearch(dwarven_oil);
 
 		subCategoryWildfire.addResearch(wildfire);
-		subCategoryWildfire.addResearch(injector);
+		/*subCategoryWildfire.addResearch(injector);
 		subCategoryWildfire.addResearch(combustor);
 		subCategoryWildfire.addResearch(catalyzer);
 		subCategoryWildfire.addResearch(reactor);
@@ -391,8 +391,8 @@ public class ResearchManager {
 		//ResearchBase armorAugmentSwitch = makeCategorySwitch(subCategoryArmorAugments, 1, 3, ItemStack.EMPTY, 2, 1).setMinEntries(2).addAncestor(inferno_forge);
 		//ResearchBase projectileAugmentSwitch = makeCategorySwitch(subCategoryProjectileAugments, 11, 3, ItemStack.EMPTY, 3, 1).setMinEntries(2).addAncestor(inferno_forge);
 		//ResearchBase miscAugmentSwitch = makeCategorySwitch(subCategoryMiscAugments, 10, 1, ItemStack.EMPTY, 0, 1).setMinEntries(2).addAncestor(inferno_forge);
-		//ResearchBase wildfireSwitch = makeCategorySwitch(subCategoryWildfire, 1, 7, new ItemStack(RegistryManager.wildfire_core), 0, 1).addAncestor(cluster);
-		//ResearchBase simpleAlchemySwitch = makeCategorySwitch(subCategorySimpleAlchemy, 12, 1, new ItemStack(Blocks.SOUL_SAND), 0, 1).addAncestor(waste);
+		ResearchBase wildfireSwitch = makeCategorySwitch(subCategoryWildfire, 1, 7, new ItemStack(RegistryManager.WILDFIRE_CORE.get()), 0, 1).addAncestor(cluster);
+		ResearchBase simpleAlchemySwitch = makeCategorySwitch(subCategorySimpleAlchemy, 12, 1, new ItemStack(Items.SOUL_SAND), 0, 1).addAncestor(waste);
 
 		categoryWorld
 		.addResearch(ores)
@@ -441,9 +441,9 @@ public class ResearchManager {
 		//.addResearch(catalytic_plug);
 		categoryAlchemy
 		.addResearch(waste)
-		.addResearch(slate);
-		//.addResearch(simpleAlchemySwitch)
-		//.addResearch(cluster)
+		.addResearch(slate)
+		.addResearch(simpleAlchemySwitch)
+		.addResearch(cluster)
 		//.addResearch(ashen_cloak)
 		//.addResearch(inflictor)
 		//.addResearch(field_chart)
@@ -452,7 +452,7 @@ public class ResearchManager {
 		//.addResearch(glimmer)
 		//.addResearch(metallurgic_dust)
 		//.addResearch(baublesSwitch)
-		//.addResearch(wildfireSwitch);
+		.addResearch(wildfireSwitch);
 		/*categorySmithing
 		.addResearch(dawnstone_anvil)
 		.addResearch(autohammer)

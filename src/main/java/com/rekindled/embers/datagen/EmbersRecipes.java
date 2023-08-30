@@ -29,6 +29,7 @@ import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -73,6 +74,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		EmberActivationRecipeBuilder.create(RegistryManager.EMBER_CRYSTAL.get()).folder(activationFolder).ember(2400).save(consumer);
 		EmberActivationRecipeBuilder.create(RegistryManager.EMBER_SHARD.get()).folder(activationFolder).ember(400).save(consumer);
 		EmberActivationRecipeBuilder.create(RegistryManager.EMBER_GRIT.get()).folder(activationFolder).ember(0).save(consumer);
+		EmberActivationRecipeBuilder.create(RegistryManager.EMBER_CRYSTAL_CLUSTER.get()).folder(activationFolder).ember(4400).save(consumer);
 
 		//metals
 		fullOreRecipes("lead", ImmutableList.of(RegistryManager.LEAD_ORE_ITEM.get(), RegistryManager.DEEPSLATE_LEAD_ORE_ITEM.get(), RegistryManager.RAW_LEAD.get()), RegistryManager.MOLTEN_LEAD.FLUID.get(), RegistryManager.RAW_LEAD.get(), RegistryManager.RAW_LEAD_BLOCK_ITEM.get(), RegistryManager.LEAD_BLOCK_ITEM.get(), RegistryManager.LEAD_INGOT.get(), RegistryManager.LEAD_NUGGET.get(), RegistryManager.LEAD_PLATE.get(), consumer, MeltingBonus.SILVER);
@@ -109,6 +111,13 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		fullMeltingStampingRecipes("bronze", RegistryManager.MOLTEN_BRONZE.FLUID.get(), consumer);
 		fullMeltingStampingRecipes("electrum", RegistryManager.MOLTEN_ELECTRUM.FLUID.get(), consumer);
 
+		//stamper crushing
+		StampingRecipeBuilder.create(RegistryManager.EMBER_GRIT.get()).domain(Embers.MODID).folder(stampingFolder).stamp(RegistryManager.FLAT_STAMP.get()).input(RegistryManager.EMBER_SHARD.get()).save(ConsumerWrapperBuilder.wrap().build(consumer)); //today is the day
+		StampingRecipeBuilder.create(new ItemStack(RegistryManager.EMBER_SHARD.get(), 6)).domain(Embers.MODID).folder(stampingFolder).stamp(RegistryManager.FLAT_STAMP.get()).input(RegistryManager.EMBER_CRYSTAL.get()).save(ConsumerWrapperBuilder.wrap().build(consumer));
+		StampingRecipeBuilder.create(new ItemStack(RegistryManager.ASH.get(), 8)).domain(Embers.MODID).folder(stampingFolder).stamp(RegistryManager.FLAT_STAMP.get()).input(RegistryManager.ALCHEMICAL_WASTE.get()).save(ConsumerWrapperBuilder.wrap().build(consumer));
+		StampingRecipeBuilder.create(new ItemStack(Items.BLAZE_POWDER, 4)).domain(Embers.MODID).folder(stampingFolder).stamp(RegistryManager.FLAT_STAMP.get()).input(Tags.Items.RODS_BLAZE).save(ConsumerWrapperBuilder.wrap().build(consumer));
+		StampingRecipeBuilder.create(Items.SAND).domain(Embers.MODID).folder(stampingFolder).stamp(RegistryManager.FLAT_STAMP.get()).input(Items.GRAVEL).save(ConsumerWrapperBuilder.wrap().build(consumer));
+
 		//aspectus recipes
 		StampingRecipeBuilder.create(RegistryManager.IRON_ASPECTUS.get()).domain(Embers.MODID).folder(stampingFolder).stamp(RegistryManager.INGOT_STAMP.get()).input(RegistryManager.EMBER_SHARD.get()).fluid(fluidTag("forge", "molten_iron"), FluidAmounts.INGOT_AMOUNT).save(ConsumerWrapperBuilder.wrap().build(consumer));
 		StampingRecipeBuilder.create(RegistryManager.COPPER_ASPECTUS.get()).domain(Embers.MODID).folder(stampingFolder).stamp(RegistryManager.INGOT_STAMP.get()).input(RegistryManager.EMBER_SHARD.get()).fluid(fluidTag("forge", "molten_copper"), FluidAmounts.INGOT_AMOUNT).save(ConsumerWrapperBuilder.wrap().build(consumer));
@@ -138,10 +147,10 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		MetalCoefficientRecipeBuilder.create(Tags.Blocks.STORAGE_BLOCKS_GOLD).folder(coefficientFolder).coefficient(3.0).save(consumer);
 
 		//alchemy
-		AlchemyRecipeBuilder.create(new ItemStack(Items.NETHERRACK, 2)).tablet(Tags.Items.DUSTS_REDSTONE).domain(Embers.MODID).folder(alchemyFolder)
-		.inputs(Items.COBBLESTONE, Items.COBBLESTONE)
+		AlchemyRecipeBuilder.create(new ItemStack(Items.NETHERRACK, 4)).tablet(RegistryManager.EMBER_GRIT.get()).domain(Embers.MODID).folder(alchemyFolder)
+		.inputs(Items.COBBLESTONE, Items.COBBLESTONE, Items.COBBLESTONE, Items.COBBLESTONE)
 		.aspects(EmbersItemTags.COPPER_ASPECTUS, EmbersItemTags.IRON_ASPECTUS).save(consumer);
-		AlchemyRecipeBuilder.create(new ItemStack(Items.SOUL_SAND, 4)).tablet(Tags.Items.DUSTS_REDSTONE).domain(Embers.MODID).folder(alchemyFolder)
+		AlchemyRecipeBuilder.create(new ItemStack(Items.SOUL_SAND, 4)).tablet(RegistryManager.ASH.get()).domain(Embers.MODID).folder(alchemyFolder)
 		.inputs(Items.SAND, Items.SAND, Items.SAND, Items.SAND)
 		.aspects(EmbersItemTags.COPPER_ASPECTUS, EmbersItemTags.IRON_ASPECTUS).save(consumer);
 		AlchemyRecipeBuilder.create(new ItemStack(RegistryManager.ARCHAIC_BRICK.get(), 5)).tablet(RegistryManager.ARCHAIC_BRICK.get()).domain(Embers.MODID).folder(alchemyFolder)
@@ -153,6 +162,15 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		AlchemyRecipeBuilder.create(RegistryManager.CODEBREAKING_SLATE.get()).tablet(RegistryManager.EMBER_GRIT.get()).domain(Embers.MODID).folder(alchemyFolder)
 		.inputs(RegistryManager.CAMINITE_PLATE.get(), RegistryManager.ARCHAIC_BRICK.get(), RegistryManager.ARCHAIC_BRICK.get())
 		.aspects(EmbersItemTags.COPPER_ASPECTUS, EmbersItemTags.LEAD_ASPECTUS).save(consumer);
+		AlchemyRecipeBuilder.create(RegistryManager.ASHEN_FABRIC.get()).tablet(ItemTags.WOOL).domain(Embers.MODID).folder(alchemyFolder)
+		.inputs(EmbersItemTags.ASH_DUST, EmbersItemTags.ASH_DUST, Tags.Items.STRING, Tags.Items.STRING)
+		.aspects(EmbersItemTags.IRON_ASPECTUS, EmbersItemTags.LEAD_ASPECTUS, EmbersItemTags.DAWNSTONE_ASPECTUS).save(consumer);
+		AlchemyRecipeBuilder.create(RegistryManager.EMBER_CRYSTAL_CLUSTER.get()).tablet(RegistryManager.EMBER_CRYSTAL.get()).domain(Embers.MODID).folder(alchemyFolder)
+		.inputs(Ingredient.of(Tags.Items.GUNPOWDER), Ingredient.of(RegistryManager.EMBER_SHARD.get()), Ingredient.of(RegistryManager.EMBER_SHARD.get()), Ingredient.of(RegistryManager.EMBER_SHARD.get()))
+		.aspects(EmbersItemTags.COPPER_ASPECTUS, EmbersItemTags.IRON_ASPECTUS, EmbersItemTags.DAWNSTONE_ASPECTUS).save(consumer);
+		AlchemyRecipeBuilder.create(RegistryManager.WILDFIRE_CORE.get()).tablet(RegistryManager.ANCIENT_MOTIVE_CORE.get()).domain(Embers.MODID).folder(alchemyFolder)
+		.inputs(Ingredient.of(EmbersItemTags.DAWNSTONE_INGOT), Ingredient.of(RegistryManager.EMBER_CRYSTAL_CLUSTER.get()), Ingredient.of(EmbersItemTags.DAWNSTONE_INGOT), Ingredient.of(EmbersItemTags.COPPER_PLATE))
+		.aspects(EmbersItemTags.COPPER_ASPECTUS, EmbersItemTags.IRON_ASPECTUS, EmbersItemTags.SILVER_ASPECTUS, EmbersItemTags.DAWNSTONE_ASPECTUS).save(consumer);
 
 		//crafting
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.EMBER_CRYSTAL.get())
@@ -180,6 +198,13 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('X', RegistryManager.CAMINITE_BLEND.get())
 		.unlockedBy("has_caminite", has(RegistryManager.CAMINITE_BLEND.get()))
 		.save(consumer, getResource("raw_caminite_plate"));
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.RAW_FLAT_STAMP.get())
+		.pattern("XXX")
+		.pattern("X X")
+		.pattern("XXX")
+		.define('X', RegistryManager.CAMINITE_BLEND.get())
+		.unlockedBy("has_caminite", has(RegistryManager.CAMINITE_BLEND.get()))
+		.save(consumer, getResource("raw_flat_stamp"));
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.RAW_INGOT_STAMP.get())
 		.pattern(" X ")
 		.pattern("X X")
@@ -214,6 +239,8 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_caminite", has(RegistryManager.CAMINITE_BLEND.get())).save(consumer, getResource("caminite_brick"));
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(RegistryManager.RAW_CAMINITE_PLATE.get()), RecipeCategory.MISC, RegistryManager.CAMINITE_PLATE.get(), 0.1F, 200)
 		.unlockedBy("has_raw_plate", has(RegistryManager.RAW_CAMINITE_PLATE.get())).save(consumer, getResource("caminite_plate"));
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(RegistryManager.RAW_FLAT_STAMP.get()), RecipeCategory.MISC, RegistryManager.FLAT_STAMP.get(), 0.1F, 200)
+		.unlockedBy("has_raw_flat_stamp", has(RegistryManager.RAW_FLAT_STAMP.get())).save(consumer, getResource("flat_stamp"));
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(RegistryManager.RAW_INGOT_STAMP.get()), RecipeCategory.MISC, RegistryManager.INGOT_STAMP.get(), 0.1F, 200)
 		.unlockedBy("has_raw_ingot_stamp", has(RegistryManager.RAW_INGOT_STAMP.get())).save(consumer, getResource("ingot_stamp"));
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(RegistryManager.RAW_NUGGET_STAMP.get()), RecipeCategory.MISC, RegistryManager.NUGGET_STAMP.get(), 0.1F, 200)

@@ -113,13 +113,19 @@ public class EmbersLang extends LanguageProvider {
 		addItem(RegistryManager.CAMINITE_BRICK, "Caminite Brick");
 		addItem(RegistryManager.ARCHAIC_BRICK, "Archaic Brick");
 		addItem(RegistryManager.ANCIENT_MOTIVE_CORE, "Ancient Motive Core");
+		addItem(RegistryManager.ASH, "Ash");
+		addItem(RegistryManager.ASHEN_FABRIC, "Ashen Fabric");
+		addItem(RegistryManager.EMBER_CRYSTAL_CLUSTER, "Ember Crystal Cluster");
+		addItem(RegistryManager.WILDFIRE_CORE, "Wildfire Core");
 
 		addItem(RegistryManager.RAW_CAMINITE_PLATE, "Raw Caminite Plate");
+		addItem(RegistryManager.RAW_FLAT_STAMP, "Raw Flat Stamp");
 		addItem(RegistryManager.RAW_INGOT_STAMP, "Raw Ingot Stamp");
 		addItem(RegistryManager.RAW_NUGGET_STAMP, "Raw Nugget Stamp");
 		addItem(RegistryManager.RAW_PLATE_STAMP, "Raw Plate Stamp");
 
 		addItem(RegistryManager.CAMINITE_PLATE, "Caminite Plate");
+		addItem(RegistryManager.FLAT_STAMP, "Flat Stamp");
 		addItem(RegistryManager.INGOT_STAMP, "Ingot Stamp");
 		addItem(RegistryManager.NUGGET_STAMP, "Nugget Stamp");
 		addItem(RegistryManager.PLATE_STAMP, "Plate Stamp");

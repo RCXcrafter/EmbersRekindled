@@ -65,6 +65,7 @@ public class EmbersItemTags extends ItemTagsProvider {
 
 	public static final TagKey<Item> CAMINITE_BRICK = ItemTags.create(new ResourceLocation("forge", "ingots/caminite_brick"));
 	public static final TagKey<Item> ARCHAIC_BRICK = ItemTags.create(new ResourceLocation("forge", "ingots/archaic_brick"));
+	public static final TagKey<Item> ASH_DUST = ItemTags.create(new ResourceLocation("forge", "dusts/ash"));
 
 	public static final TagKey<Item> WORLD_BOTTOM = ItemTags.create(new ResourceLocation(Embers.MODID, "world_bottom"));
 
@@ -139,6 +140,9 @@ public class EmbersItemTags extends ItemTagsProvider {
 		tag(CAMINITE_BRICK).add(RegistryManager.CAMINITE_BRICK.get());
 		tag(Tags.Items.INGOTS).addTags(ARCHAIC_BRICK);
 		tag(ARCHAIC_BRICK).add(RegistryManager.ARCHAIC_BRICK.get());
+
+		tag(Tags.Items.DUSTS).addTag(ASH_DUST);
+		tag(ASH_DUST).add(RegistryManager.ASH.get());
 
 		tag(ItemTags.PICKAXES).add(RegistryManager.CLOCKWORK_PICKAXE.get());
 		tag(ItemTags.AXES).add(RegistryManager.CLOCKWORK_AXE.get());

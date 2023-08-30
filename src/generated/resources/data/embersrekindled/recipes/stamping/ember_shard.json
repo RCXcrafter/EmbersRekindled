@@ -1,0 +1,13 @@
+{
+  "type": "embersrekindled:stamping",
+  "input": {
+    "item": "embersrekindled:ember_crystal"
+  },
+  "output": {
+    "count": 6,
+    "item": "embersrekindled:ember_shard"
+  },
+  "stamp": {
+    "item": "embersrekindled:flat_stamp"
+  }
+}

@@ -431,13 +431,19 @@ public class RegistryManager {
 	public static final RegistryObject<Item> CAMINITE_BRICK = ITEMS.register("caminite_brick", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> ARCHAIC_BRICK = ITEMS.register("archaic_brick", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> ANCIENT_MOTIVE_CORE = ITEMS.register("ancient_motive_core", () -> new Item(new Item.Properties()));
+	public static final RegistryObject<Item> ASH = ITEMS.register("ash", () -> new FuelItem(new Item.Properties(), 200));
+	public static final RegistryObject<Item> ASHEN_FABRIC = ITEMS.register("ashen_fabric", () -> new Item(new Item.Properties()));
+	public static final RegistryObject<Item> EMBER_CRYSTAL_CLUSTER = ITEMS.register("ember_crystal_cluster", () -> new Item(new Item.Properties()));
+	public static final RegistryObject<Item> WILDFIRE_CORE = ITEMS.register("wildfire_core", () -> new Item(new Item.Properties()));
 
 	public static final RegistryObject<Item> RAW_CAMINITE_PLATE = ITEMS.register("raw_caminite_plate", () -> new Item(new Item.Properties()));
+	public static final RegistryObject<Item> RAW_FLAT_STAMP = ITEMS.register("raw_flat_stamp", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> RAW_INGOT_STAMP = ITEMS.register("raw_ingot_stamp", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> RAW_NUGGET_STAMP = ITEMS.register("raw_nugget_stamp", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> RAW_PLATE_STAMP = ITEMS.register("raw_plate_stamp", () -> new Item(new Item.Properties()));
 
 	public static final RegistryObject<Item> CAMINITE_PLATE = ITEMS.register("caminite_plate", () -> new Item(new Item.Properties()));
+	public static final RegistryObject<Item> FLAT_STAMP = ITEMS.register("flat_stamp", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> INGOT_STAMP = ITEMS.register("ingot_stamp", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> NUGGET_STAMP = ITEMS.register("nugget_stamp", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> PLATE_STAMP = ITEMS.register("plate_stamp", () -> new Item(new Item.Properties()));

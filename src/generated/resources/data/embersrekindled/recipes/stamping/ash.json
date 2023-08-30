@@ -1,0 +1,13 @@
+{
+  "type": "embersrekindled:stamping",
+  "input": {
+    "item": "embersrekindled:alchemical_waste"
+  },
+  "output": {
+    "count": 8,
+    "item": "embersrekindled:ash"
+  },
+  "stamp": {
+    "item": "embersrekindled:flat_stamp"
+  }
+}
