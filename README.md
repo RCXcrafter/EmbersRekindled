@@ -22,11 +22,13 @@ I've decided to port Embers Rekindled to a Minecraft version beyond 1.12.2, I do
 - The checkmarks in the codex have been replaced with a dawnstone dot on uncompleted entries
 - The mixer centrifuge now has small holes on the side to show what fluids are inside
 - Stampers now stop working when they're trying to output to a bin that's full
+- The pressure refinery now gives a maximum of 3x multiplication instead of 6x
+- The ember bore now requires at least 3 bedrock touching the blades to mine ember
+- The ember cluster is now worth 4400 ember instead of 3600
+- Alchemy has been completely redesigned, you now have to match aspecti to ingredients and alchemical waste gives hints similar to the ones you get in the game mastermind
 
 ## Things I want to change:
 - There's a cool document with some of Elucent's plans for Embers, quite a bit of it has already been implemented by bord but there's also some ideas for some major changes and a port would be an ideal moment to implement them: https://github.com/RCXcrafter/EmbersRekindled/blob/rekindled/docs/elucent-plans.txt
-- The current alchemy system isn't very fun, there is an easy strategy to figure out the right amounts of ash for every recipe after just a single failed attempt and placing the ash in the pedestals isn't great either. I want to change alchemy to a mastermind minigame where you have to figure out the correct order to put the aspectusses in.
-- Note from Bord: the ember cluster should be worth more than the sum of its parts
 - The extra metals should be more useful or they should be removed
 - More alloys? Without external mods the mixer centrifuge is just a dawnstone machine
 - Don't port overworld quartz ore, Embers doesn't require quartz for anything early game
