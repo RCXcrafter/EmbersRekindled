@@ -13,8 +13,6 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.network.NetworkHooks;
 
 public class CodebreakingSlateItem extends Item implements MenuProvider {
@@ -24,7 +22,6 @@ public class CodebreakingSlateItem extends Item implements MenuProvider {
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
 	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
 		if (!level.isClientSide) {
 			NetworkHooks.openScreen((ServerPlayer) player, this, buf -> {

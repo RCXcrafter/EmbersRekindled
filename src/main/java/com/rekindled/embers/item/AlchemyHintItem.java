@@ -61,7 +61,7 @@ public class AlchemyHintItem extends Item {
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
-		if (level.isClientSide)
+		if (!level.isClientSide)
 			return InteractionResultHolder.consume(stack);
 		int blackPins = getBlackPins(stack);
 		int whitePins = getWhitePins(stack);
