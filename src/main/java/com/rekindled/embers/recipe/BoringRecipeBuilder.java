@@ -28,6 +28,7 @@ public class BoringRecipeBuilder {
 	public HashSet<ResourceLocation> biomes = new HashSet<>();
 	public TagKey<Block> requiredBlock = null;
 	public int amountRequired = 0;
+	public double chance = -1.0;
 
 	public static BoringRecipeBuilder create(ItemStack itemStack) {
 		BoringRecipeBuilder builder = new BoringRecipeBuilder();
@@ -93,8 +94,13 @@ public class BoringRecipeBuilder {
 		return this;
 	}
 
+	public BoringRecipeBuilder chance(double chance) {
+		this.chance = chance;
+		return this;
+	}
+
 	public BoringRecipe build() {
-		return new BoringRecipe(id, new WeightedItemStack(result, weight), minHeight, maxHeight, dimensions, biomes, requiredBlock, amountRequired);
+		return new BoringRecipe(id, new WeightedItemStack(result, weight), minHeight, maxHeight, dimensions, biomes, requiredBlock, amountRequired, chance);
 	}
 
 	public void save(Consumer<FinishedRecipe> consumer) {
@@ -135,6 +141,9 @@ public class BoringRecipeBuilder {
 				blockJson.addProperty("block_tag", recipe.requiredBlock.location().toString());
 				blockJson.addProperty("amount", recipe.amountRequired);
 				json.add("required_block", blockJson);
+			}
+			if (recipe.chance != -1.0) {
+				json.addProperty("chance", recipe.chance);
 			}
 			JsonObject resultJson = new JsonObject();
 			resultJson.addProperty("item", ForgeRegistries.ITEMS.getKey(recipe.result.getStack().getItem()).toString());

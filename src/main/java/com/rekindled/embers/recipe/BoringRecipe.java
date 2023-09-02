@@ -42,8 +42,9 @@ public class BoringRecipe implements Recipe<BoringContext> {
 	public final HashSet<ResourceLocation> biomes;
 	public final TagKey<Block> requiredBlock;
 	public final int amountRequired;
+	public final double chance;
 
-	public BoringRecipe(ResourceLocation id, WeightedItemStack result, int minHeight, int maxHeight, HashSet<ResourceLocation> dimensions, HashSet<ResourceLocation> biomes, TagKey<Block> requiredBlock, int amountRequired) {
+	public BoringRecipe(ResourceLocation id, WeightedItemStack result, int minHeight, int maxHeight, HashSet<ResourceLocation> dimensions, HashSet<ResourceLocation> biomes, TagKey<Block> requiredBlock, int amountRequired, double chance) {
 		this.id = id;
 		this.result = result;
 		this.maxHeight = maxHeight;
@@ -52,6 +53,7 @@ public class BoringRecipe implements Recipe<BoringContext> {
 		this.biomes = biomes;
 		this.requiredBlock = requiredBlock;
 		this.amountRequired = amountRequired;
+		this.chance = chance;
 	}
 
 	@Override
@@ -138,6 +140,7 @@ public class BoringRecipe implements Recipe<BoringContext> {
 			int maxHeight = GsonHelper.getAsInt(json, "max_height", Integer.MAX_VALUE);
 			HashSet<ResourceLocation> dimensions = new HashSet<>();
 			HashSet<ResourceLocation> biomes = new HashSet<>();
+			double chance = GsonHelper.getAsDouble(json, "chance", -1.0);
 
 			JsonArray dimJson = GsonHelper.getAsJsonArray(json, "dimensions", null);
 			if (dimJson != null) {
@@ -159,7 +162,7 @@ public class BoringRecipe implements Recipe<BoringContext> {
 				amountRequired = GsonHelper.getAsInt(blockJson, "amount", 0);
 			}
 
-			return new BoringRecipe(recipeId, new WeightedItemStack(stack, weight), minHeight, maxHeight, dimensions, biomes, BlockTags.create(requiredBlock), amountRequired);
+			return new BoringRecipe(recipeId, new WeightedItemStack(stack, weight), minHeight, maxHeight, dimensions, biomes, BlockTags.create(requiredBlock), amountRequired, chance);
 		}
 
 		@Override
@@ -173,8 +176,9 @@ public class BoringRecipe implements Recipe<BoringContext> {
 			HashSet<ResourceLocation> biomes = buffer.readCollection((i) -> new HashSet<>(), FriendlyByteBuf::readResourceLocation);
 			ResourceLocation requiredBlock = buffer.readResourceLocation();
 			int amountRequired = buffer.readVarInt();
+			double chance = buffer.readDouble();
 
-			return new BoringRecipe(recipeId, new WeightedItemStack(stack, weight), minHeight, maxHeight, dimensions, biomes, BlockTags.create(requiredBlock), amountRequired);
+			return new BoringRecipe(recipeId, new WeightedItemStack(stack, weight), minHeight, maxHeight, dimensions, biomes, BlockTags.create(requiredBlock), amountRequired, chance);
 		}
 
 		@Override
@@ -187,6 +191,7 @@ public class BoringRecipe implements Recipe<BoringContext> {
 			buffer.writeCollection(recipe.biomes, FriendlyByteBuf::writeResourceLocation);
 			buffer.writeResourceLocation(recipe.requiredBlock.location());
 			buffer.writeVarInt(recipe.amountRequired);
+			buffer.writeDouble(recipe.chance);
 		}
 	}
 }

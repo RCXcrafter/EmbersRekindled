@@ -192,25 +192,27 @@ public class EmberBoreBlockEntity extends BlockEntity implements ISoundControlle
 				//multiply with the config value here so the bore isn't visually or audibly different at higher speeds
 				int boreTime = (int) Math.ceil(BORE_TIME / (blockEntity.speedMod * ConfigManager.EMBER_BORE_SPEED_MOD.get()));
 				if (blockEntity.ticksExisted % boreTime == 0) {
-					if (blockEntity.random.nextFloat() < EmberGenUtil.getEmberDensity(((ServerLevel) level).getSeed(), pos.getX(), pos.getZ())) {
-						ResourceKey<Biome> biome = level.getBiome(pos).unwrapKey().get();
-						if (biome != null) {
-							BoringContext context = new BoringContext(level.dimension().location(), biome.location(), pos.getY(), level.getBlockStatesIfLoaded(blockEntity.getBladeBoundingBox()).toArray(i -> new BlockState[i]));
-							List<BoringRecipe> recipes = level.getRecipeManager().getRecipesFor(RegistryManager.BORING.get(), context, level);
-							ArrayList<WeightedItemStack> stacks = new ArrayList<>();
-							for (BoringRecipe recipe : recipes) {
+					ResourceKey<Biome> biome = level.getBiome(pos).unwrapKey().get();
+					if (biome != null) {
+						BoringContext context = new BoringContext(level.dimension().location(), biome.location(), pos.getY(), level.getBlockStatesIfLoaded(blockEntity.getBladeBoundingBox()).toArray(i -> new BlockState[i]));
+						List<BoringRecipe> recipes = level.getRecipeManager().getRecipesFor(RegistryManager.BORING.get(), context, level);
+						ArrayList<WeightedItemStack> stacks = new ArrayList<>();
+						float rand = blockEntity.random.nextFloat();
+						double chance = EmberGenUtil.getEmberDensity(((ServerLevel) level).getSeed(), pos.getX(), pos.getZ());
+						for (BoringRecipe recipe : recipes) {
+							if (rand < (recipe.chance == -1.0 ? chance : recipe.chance)) {
 								stacks.add(recipe.getOutput(context));
 							}
+						}
 
-							ArrayList<ItemStack> returns = new ArrayList<>();
-							if (!stacks.isEmpty()) {
-								Optional<WeightedItemStack> picked = WeightedRandom.getRandomItem(level.getRandom(), stacks);
-								returns.add(picked.get().getStack().copy());
-							}
-							UpgradeUtil.transformOutput(blockEntity, returns, blockEntity.upgrades);
-							if (blockEntity.canInsert(returns)) {
-								blockEntity.insert(returns);
-							}
+						ArrayList<ItemStack> returns = new ArrayList<>();
+						if (!stacks.isEmpty()) {
+							Optional<WeightedItemStack> picked = WeightedRandom.getRandomItem(level.getRandom(), stacks);
+							returns.add(picked.get().getStack().copy());
+						}
+						UpgradeUtil.transformOutput(blockEntity, returns, blockEntity.upgrades);
+						if (blockEntity.canInsert(returns)) {
+							blockEntity.insert(returns);
 						}
 					}
 				}
