@@ -93,7 +93,7 @@ public class SlateScreen extends AbstractContainerScreen<SlateMenu> {
 				}
 			} else { //9 pin slots
 				for (int h = 0; h < 3; ++h) {
-					for (int v = 0; v < 2; ++v) {
+					for (int v = 0; v < 3; ++v) {
 						if (blackPins > 0) {
 							graphics.blit(slate, hintX + 1 + v * 6, hintY + 1 + h * 6, 198, 50, 6, 6);
 							blackPins--;

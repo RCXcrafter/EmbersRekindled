@@ -172,6 +172,18 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.inputs(Ingredient.of(EmbersItemTags.DAWNSTONE_INGOT), Ingredient.of(RegistryManager.EMBER_CRYSTAL_CLUSTER.get()), Ingredient.of(EmbersItemTags.DAWNSTONE_INGOT), Ingredient.of(EmbersItemTags.COPPER_PLATE))
 		.aspects(EmbersItemTags.COPPER_ASPECTUS, EmbersItemTags.IRON_ASPECTUS, EmbersItemTags.SILVER_ASPECTUS, EmbersItemTags.DAWNSTONE_ASPECTUS).save(consumer);
 
+		//example recipes
+		AlchemyRecipeBuilder.create(Items.DIAMOND).tablet(Items.DIRT).domain(Embers.MODID).folder(alchemyFolder)
+		.inputs(RegistryManager.EMBER_CRYSTAL_CLUSTER.get(), Items.GHAST_TEAR, Items.SUGAR, Items.EMERALD, Items.STICK, Items.BLAZE_ROD)
+		.aspects(EmbersItemTags.COPPER_ASPECTUS, EmbersItemTags.IRON_ASPECTUS, EmbersItemTags.LEAD_ASPECTUS, EmbersItemTags.SILVER_ASPECTUS, EmbersItemTags.DAWNSTONE_ASPECTUS).save(consumer);
+		AlchemyRecipeBuilder.create(Items.FLINT).tablet(Items.GRAVEL).domain(Embers.MODID).folder(alchemyFolder)
+		.inputs(Items.GRAVEL, Items.GRAVEL)
+		.aspects(EmbersItemTags.LEAD_ASPECTUS, EmbersItemTags.SILVER_ASPECTUS, EmbersItemTags.DAWNSTONE_ASPECTUS).save(consumer);
+		AlchemyRecipeBuilder.create(Items.TRIDENT).tablet(Items.DRAGON_EGG).domain(Embers.MODID).folder(alchemyFolder)
+		.inputs(Items.DIAMOND_SWORD, Items.DIAMOND_SWORD, Items.BAMBOO, Items.LIGHTNING_ROD, Items.DIAMOND_SWORD)
+		.aspects(EmbersItemTags.IRON_ASPECTUS, EmbersItemTags.SILVER_ASPECTUS, EmbersItemTags.DAWNSTONE_ASPECTUS).save(consumer);
+
+
 		//crafting
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.EMBER_CRYSTAL.get())
 		.pattern("XXX")

@@ -1,0 +1,28 @@
+{
+  "type": "embersrekindled:alchemy",
+  "aspects": [
+    {
+      "tag": "embersrekindled:aspectus/lead"
+    },
+    {
+      "tag": "embersrekindled:aspectus/silver"
+    },
+    {
+      "tag": "embersrekindled:aspectus/dawnstone"
+    }
+  ],
+  "inputs": [
+    {
+      "item": "minecraft:gravel"
+    },
+    {
+      "item": "minecraft:gravel"
+    }
+  ],
+  "output": {
+    "item": "minecraft:flint"
+  },
+  "tablet": {
+    "item": "minecraft:gravel"
+  }
+}
