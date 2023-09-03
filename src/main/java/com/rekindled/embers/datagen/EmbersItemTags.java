@@ -94,6 +94,7 @@ public class EmbersItemTags extends ItemTagsProvider {
 		toolTags(RegistryManager.LEAD_TOOLS);
 		toolTags(RegistryManager.SILVER_TOOLS);
 		toolTags(RegistryManager.DAWNSTONE_TOOLS);
+		tag(ItemTags.SWORDS).add(RegistryManager.TYRFING.get());
 
 		tag(Tags.Items.ORES).addTags(LEAD_ORE, SILVER_ORE);
 		tag(LEAD_ORE).add(RegistryManager.LEAD_ORE_ITEM.get()).add(RegistryManager.DEEPSLATE_LEAD_ORE_ITEM.get());

@@ -105,6 +105,7 @@ public class EmbersLang extends LanguageProvider {
 		addItem(RegistryManager.CINDER_STAFF, "Cinder Staff");
 		addItem(RegistryManager.ALCHEMICAL_WASTE, "Alchemical Waste");
 		addItem(RegistryManager.CODEBREAKING_SLATE, "Codebreaking Slate");
+		addItem(RegistryManager.TYRFING, "Tyrfing");
 
 		addItem(RegistryManager.EMBER_CRYSTAL, "Ember Crystal");
 		addItem(RegistryManager.EMBER_SHARD, "Ember Shard");
@@ -250,6 +251,8 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".tooltip.goggles.upgrade", "• Machine Upgrade");
 		add(Embers.MODID + ".tooltip.goggles.accessor_slot", "• Machine Accessor Slot");
 		add(Embers.MODID + ".tooltip.goggles.actuator_slot", "• Actuator Slot");
+
+		add(Embers.MODID + ".tooltip.tyrfing", "Deals damage based on the target's armor.");
 
 
 		//jei stuff
@@ -536,7 +539,7 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".research.page.dawnstone_anvil", "Dawnstone Anvil");
 		add(Embers.MODID + ".research.page.dawnstone_anvil.title", "Repairs");
 		add(Embers.MODID + ".research.page.dawnstone_anvil.tags", "Dawnstone;Anvil;Repair;Break;Damage;Hammer;");
-		add(Embers.MODID + ".research.page.dawnstone_anvil.desc", "The resilience of Dawnstone lends itself well to use in and Anvil. The Dawnstone Anvil may be used to both repair items, or break down items into their component parts. Place a damaged item on the anvil, then its repair material, then give it a good couple whacks with the Tinker Hammer to repair it. Place the damaged item alone and give it some strong blows, and it will break apart into its component pieces.");
+		add(Embers.MODID + ".research.page.dawnstone_anvil.desc", "The resilience of Dawnstone lends itself well to use in an Anvil. The Dawnstone Anvil may be used to both repair items, or break down items into their component parts. Place a damaged item on the anvil, then its repair material, then give it a good couple whacks with the Tinker Hammer to repair it. Place the damaged item alone and give it some strong blows, and it will break apart into its component pieces.");
 
 		add(Embers.MODID + ".research.page.autohammer", "Automatic Hammer");
 		add(Embers.MODID + ".research.page.autohammer.title", "Automatic Hammer");

@@ -33,10 +33,11 @@ public class EmbersItemModels extends ItemModelProvider {
 		basicItem(RegistryManager.TINKER_LENS.get());
 		basicItem(RegistryManager.ANCIENT_CODEX.get());
 		basicItem(RegistryManager.ATMOSPHERIC_GAUGE.get());
-		layeredItem(RegistryManager.EMBER_JAR, "ember_jar_glass", "ember_jar_glass_shine", "ember_jar");
-		layeredItem(RegistryManager.EMBER_CARTRIDGE, "ember_cartridge_glass", "ember_cartridge_glass_shine", "ember_cartridge");
+		layeredItem(RegistryManager.EMBER_JAR, "item/generated", "ember_jar_glass", "ember_jar_glass_shine", "ember_jar");
+		layeredItem(RegistryManager.EMBER_CARTRIDGE, "item/generated", "ember_cartridge_glass", "ember_cartridge_glass_shine", "ember_cartridge");
 		basicItem(RegistryManager.ALCHEMICAL_WASTE.get());
 		basicItem(RegistryManager.CODEBREAKING_SLATE.get());
+		layeredItem(RegistryManager.TYRFING, "item/handheld", "tyrfing", "tyrfing_gem");
 
 		basicItem(RegistryManager.EMBER_CRYSTAL.get());
 		basicItem(RegistryManager.EMBER_SHARD.get());
@@ -105,15 +106,19 @@ public class EmbersItemModels extends ItemModelProvider {
 	}
 
 	public void itemWithTexture(RegistryObject<? extends Item> registryObject, String texture) {
-		ResourceLocation id = registryObject.getId();
-		ResourceLocation textureLocation = new ResourceLocation(id.getNamespace(), "item/" + texture);
-		singleTexture(id.getPath(), new ResourceLocation("item/generated"), "layer0", textureLocation);
+		itemWithTexture(registryObject, "item/generated", texture);
 	}
 
-	public void layeredItem(RegistryObject<? extends Item> registryObject, String... textures) {
+	public void itemWithTexture(RegistryObject<? extends Item> registryObject, String model, String texture) {
+		ResourceLocation id = registryObject.getId();
+		ResourceLocation textureLocation = new ResourceLocation(id.getNamespace(), "item/" + texture);
+		singleTexture(id.getPath(), new ResourceLocation(model), "layer0", textureLocation);
+	}
+
+	public void layeredItem(RegistryObject<? extends Item> registryObject, String model, String... textures) {
 		ResourceLocation id = registryObject.getId();
 
-		ModelBuilder<?> builder = withExistingParent(id.getPath(), new ResourceLocation("item/generated"));
+		ModelBuilder<?> builder = withExistingParent(id.getPath(), new ResourceLocation(model));
 		for (int i = 0; i < textures.length; i ++) {
 			builder.texture("layer" + i, new ResourceLocation(id.getNamespace(), "item/" + textures[i]));
 		}
@@ -135,10 +140,10 @@ public class EmbersItemModels extends ItemModelProvider {
 	}
 
 	public void toolModels(ToolSet set) {
-		itemWithTexture(set.SWORD, "sword_" + set.name);
-		itemWithTexture(set.SHOVEL, "shovel_" + set.name);
-		itemWithTexture(set.PICKAXE, "pickaxe_" + set.name);
-		itemWithTexture(set.AXE, "axe_" + set.name);
-		itemWithTexture(set.HOE, "hoe_" + set.name);
+		itemWithTexture(set.SWORD, "item/handheld", "sword_" + set.name);
+		itemWithTexture(set.SHOVEL, "item/handheld", "shovel_" + set.name);
+		itemWithTexture(set.PICKAXE, "item/handheld", "pickaxe_" + set.name);
+		itemWithTexture(set.AXE, "item/handheld", "axe_" + set.name);
+		itemWithTexture(set.HOE, "item/handheld", "hoe_" + set.name);
 	}
 }

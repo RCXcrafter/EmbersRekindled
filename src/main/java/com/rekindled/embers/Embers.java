@@ -3,6 +3,7 @@ package com.rekindled.embers;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
+import com.rekindled.embers.api.item.ITyrfingWeapon;
 import com.rekindled.embers.api.power.IEmberCapability;
 import com.rekindled.embers.api.upgrades.UpgradeUtil;
 import com.rekindled.embers.apiimpl.UpgradeUtilImpl;
@@ -44,6 +45,7 @@ import com.rekindled.embers.entity.render.EmberPacketRenderer;
 import com.rekindled.embers.entity.render.EmberProjectileRenderer;
 import com.rekindled.embers.gui.SlateScreen;
 import com.rekindled.embers.item.EmberStorageItem;
+import com.rekindled.embers.item.TyrfingItem;
 import com.rekindled.embers.model.AncientGolemModel;
 import com.rekindled.embers.network.PacketHandler;
 import com.rekindled.embers.network.message.MessageWorldSeed;
@@ -52,6 +54,7 @@ import com.rekindled.embers.particle.GlowParticle;
 import com.rekindled.embers.particle.SmokeParticle;
 import com.rekindled.embers.particle.SparkParticle;
 import com.rekindled.embers.particle.StarParticle;
+import com.rekindled.embers.particle.TyrfingParticle;
 import com.rekindled.embers.particle.VaporParticle;
 import com.rekindled.embers.research.ResearchManager;
 import com.rekindled.embers.research.capability.IResearchCapability;
@@ -67,8 +70,11 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -88,6 +94,7 @@ import net.minecraftforge.event.TagsUpdatedEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -140,6 +147,7 @@ public class Embers {
 		MinecraftForge.EVENT_BUS.addListener(ResearchManager::onClone);
 		ResearchManager.initResearches();
 		MinecraftForge.EVENT_BUS.addListener(Embers::onJoin);
+		MinecraftForge.EVENT_BUS.addListener(EventPriority.LOW, Embers::onEntityDamaged);
 		MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, TagsUpdatedEvent.class, e -> Misc.tagItems.clear());
 	}
 
@@ -193,6 +201,18 @@ public class Embers {
 		}
 	}
 
+	public static void onEntityDamaged(LivingHurtEvent event) {
+		final Entity source = event.getSource().getEntity();
+		if (source instanceof LivingEntity livingSource) {
+			final ItemStack heldStack = livingSource.getMainHandItem();
+			if (heldStack.isEmpty())
+				return;
+			if (heldStack.getItem() instanceof ITyrfingWeapon tyrfing) {
+				tyrfing.attack(event, event.getEntity().getAttribute(Attributes.ARMOR).getValue());
+			}
+		}
+	}
+
 	@Mod.EventBusSubscriber(modid = Embers.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 	public static class ClientModEvents {
 
@@ -230,6 +250,7 @@ public class Embers {
 			event.registerSprite(RegistryManager.SMOKE_PARTICLE.get(), new SmokeParticle.Provider());
 			event.registerSprite(RegistryManager.VAPOR_PARTICLE.get(), new VaporParticle.Provider());
 			event.registerSprite(RegistryManager.ALCHEMY_CIRCLE_PARTICLE.get(), new AlchemyCircleParticle.Provider());
+			event.registerSprite(RegistryManager.TYRFING_PARTICLE.get(), new TyrfingParticle.Provider());
 		}
 
 		@OnlyIn(Dist.CLIENT)
@@ -268,6 +289,7 @@ public class Embers {
 		@SubscribeEvent
 		static void registerItemColorHandlers(RegisterColorHandlersEvent.Item event) {
 			event.register(new EmberStorageItem.ColorHandler(), RegistryManager.EMBER_JAR.get(), RegistryManager.EMBER_CARTRIDGE.get());
+			event.register(new TyrfingItem.ColorHandler(), RegistryManager.TYRFING.get());
 		}
 	}
 }

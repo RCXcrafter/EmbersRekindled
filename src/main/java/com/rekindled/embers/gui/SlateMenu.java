@@ -125,7 +125,7 @@ public class SlateMenu extends AbstractContainerMenu {
 			ArrayList<ItemStack> inputs = AlchemyHintItem.getInputs(stack);
 			if (masterInputs.size() != inputs.size())
 				return false;
-			for (int i = 0; i < 3; ++i) {
+			for (int i = 0; i < masterInputs.size(); ++i) {
 				if (!ItemStack.isSameItem(masterInputs.get(i), inputs.get(i)))
 					return false;
 			}
