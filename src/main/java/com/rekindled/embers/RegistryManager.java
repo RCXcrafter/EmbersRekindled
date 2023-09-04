@@ -438,6 +438,7 @@ public class RegistryManager {
 	public static final RegistryObject<Item> ASHEN_FABRIC = ITEMS.register("ashen_fabric", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> EMBER_CRYSTAL_CLUSTER = ITEMS.register("ember_crystal_cluster", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> WILDFIRE_CORE = ITEMS.register("wildfire_core", () -> new Item(new Item.Properties()));
+	public static final RegistryObject<Item> ISOLATED_MATERIA = ITEMS.register("isolated_materia", () -> new Item(new Item.Properties()));
 
 	public static final RegistryObject<Item> RAW_CAMINITE_PLATE = ITEMS.register("raw_caminite_plate", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> RAW_FLAT_STAMP = ITEMS.register("raw_flat_stamp", () -> new Item(new Item.Properties()));

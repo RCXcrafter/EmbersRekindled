@@ -118,6 +118,7 @@ public class EmbersLang extends LanguageProvider {
 		addItem(RegistryManager.ASHEN_FABRIC, "Ashen Fabric");
 		addItem(RegistryManager.EMBER_CRYSTAL_CLUSTER, "Ember Crystal Cluster");
 		addItem(RegistryManager.WILDFIRE_CORE, "Wildfire Core");
+		addItem(RegistryManager.ISOLATED_MATERIA, "Isolated Materia");
 
 		addItem(RegistryManager.RAW_CAMINITE_PLATE, "Raw Caminite Plate");
 		addItem(RegistryManager.RAW_FLAT_STAMP, "Raw Flat Stamp");
@@ -724,7 +725,7 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".research.page.materia", "Isolated Materia");
 		add(Embers.MODID + ".research.page.materia.title", "Universal Repair");
 		add(Embers.MODID + ".research.page.materia.tags", "Alchemy;Transmutation;Repair;Metal;Materia;Isolated;Matter;Anvil;");
-		add(Embers.MODID + ".research.page.materia.desc", "The Isolated Materia is a peculiar material. It has the property of being able to transform into the materials of other items in certain circumstances. For your purposes at the moment, it will enable you to repair items at the Dawnstone Anvil, replacing their repair material with the Materia. You can foresee it having uses in the future as well...");
+		add(Embers.MODID + ".research.page.materia.desc", "The Isolated Materia is a peculiar material. It has the property of being able to transform into the materials of other items in certain circumstances. For your purposes at the moment, it will enable you to repair items, replacing their repair material with the Materia. You can foresee it having uses in the future as well...");
 
 		add(Embers.MODID + ".research.page.stirling", "Wildfire Stirling");
 		add(Embers.MODID + ".research.page.stirling.title", "Reductio Ad Absurdum");

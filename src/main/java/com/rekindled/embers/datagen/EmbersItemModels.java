@@ -50,6 +50,7 @@ public class EmbersItemModels extends ItemModelProvider {
 		basicItem(RegistryManager.ASHEN_FABRIC.get());
 		basicItem(RegistryManager.EMBER_CRYSTAL_CLUSTER.get());
 		basicItem(RegistryManager.WILDFIRE_CORE.get());
+		basicItem(RegistryManager.ISOLATED_MATERIA.get());
 
 		itemWithTexture(RegistryManager.RAW_CAMINITE_PLATE, "plate_caminite_raw");
 		itemWithTexture(RegistryManager.RAW_FLAT_STAMP, "flat_stamp_raw");

@@ -246,7 +246,7 @@ public class ResearchManager {
 		waste = new ResearchBase("waste", new ItemStack(RegistryManager.ALCHEMICAL_WASTE.get()), 6, 0)
 				.addPage(new ResearchBase("waste_page_2", new ItemStack(RegistryManager.ALCHEMICAL_WASTE.get()), 0, 0));
 		slate = new ResearchBase("slate", new ItemStack(RegistryManager.CODEBREAKING_SLATE.get()), 6, 2).addAncestor(waste);
-		//materia = new ResearchBase("materia", new ItemStack(RegistryManager.isolated_materia), 6, 5).addAncestor(waste);
+		materia = new ResearchBase("materia", new ItemStack(RegistryManager.ISOLATED_MATERIA.get()), 6, 5).addAncestor(waste);
 		cluster = new ResearchBase("cluster", new ItemStack(RegistryManager.EMBER_CRYSTAL_CLUSTER.get()), 3, 4).addAncestor(slate);
 		//ashen_cloak = new ResearchShowItem("ashen_cloak", new ItemStack(RegistryManager.ashen_cloak_chest), 9, 4).addItem(new DisplayItem(new ItemStack(RegistryManager.ashen_cloak_head),new ItemStack(RegistryManager.ashen_cloak_chest),new ItemStack(RegistryManager.ashen_cloak_legs),new ItemStack(RegistryManager.ashen_cloak_boots))).addAncestor(slate);
 		//field_chart = new ResearchBase("field_chart", new ItemStack(RegistryManager.field_chart), 0, 5).addAncestor(cluster);
@@ -447,7 +447,7 @@ public class ResearchManager {
 		//.addResearch(ashen_cloak)
 		//.addResearch(inflictor)
 		//.addResearch(field_chart)
-		//.addResearch(materia)
+		.addResearch(materia)
 		.addResearch(tyrfing)
 		//.addResearch(glimmer)
 		//.addResearch(metallurgic_dust)

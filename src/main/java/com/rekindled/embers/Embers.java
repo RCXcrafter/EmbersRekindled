@@ -61,12 +61,14 @@ import com.rekindled.embers.research.capability.IResearchCapability;
 import com.rekindled.embers.util.DecimalFormats;
 import com.rekindled.embers.util.Misc;
 
+import net.minecraft.Util;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -90,6 +92,7 @@ import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
+import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.event.TagsUpdatedEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
@@ -148,6 +151,7 @@ public class Embers {
 		ResearchManager.initResearches();
 		MinecraftForge.EVENT_BUS.addListener(Embers::onJoin);
 		MinecraftForge.EVENT_BUS.addListener(EventPriority.LOW, Embers::onEntityDamaged);
+		MinecraftForge.EVENT_BUS.addListener(Embers::onAnvilUpdate);
 		MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, TagsUpdatedEvent.class, e -> Misc.tagItems.clear());
 	}
 
@@ -210,6 +214,61 @@ public class Embers {
 			if (heldStack.getItem() instanceof ITyrfingWeapon tyrfing) {
 				tyrfing.attack(event, event.getEntity().getAttribute(Attributes.ARMOR).getValue());
 			}
+		}
+	}
+
+	public static void onAnvilUpdate(AnvilUpdateEvent event) {
+		if (event.getLeft().isRepairable() && !event.getLeft().is(EmbersItemTags.MATERIA_BLACKLIST) && event.getRight().getItem() == RegistryManager.ISOLATED_MATERIA.get()) {
+			int i = 0;
+			int j = 0;
+			int k = 0;
+			int l2 = Math.min(event.getLeft().getDamageValue(), event.getLeft().getMaxDamage() / 4);
+			if (l2 <= 0) {
+				event.setOutput(ItemStack.EMPTY);
+				event.setCost(0);
+				return;
+			}
+			int i3;
+			ItemStack copy = event.getLeft().copy();
+			for (i3 = 0; l2 > 0 && i3 < event.getRight().getCount(); ++i3) {
+				int j3 = copy.getDamageValue() - l2;
+				copy.setDamageValue(j3);
+				i++;
+				l2 = Math.min(event.getLeft().getDamageValue(), event.getLeft().getMaxDamage() / 4);
+			}
+			event.setMaterialCost(i3);
+
+			if (event.getName() != null && !Util.isBlank(event.getName())) {
+				if (!event.getName().equals(event.getLeft().getHoverName().getString())) {
+					k = 1;
+					i += k;
+					copy.setHoverName(Component.literal(event.getName()));
+				}
+			} else if (event.getLeft().hasCustomHoverName()) {
+				k = 1;
+				i += k;
+				copy.resetHoverName();
+			}
+			event.setCost(j + i);
+			if (i <= 0) {
+				copy = ItemStack.EMPTY;
+			}
+			if (k == i && k > 0 && event.getCost() >= 40) {
+				event.setCost(39);
+			}
+			if (event.getCost() >= 40 && !event.getPlayer().getAbilities().instabuild) {
+				copy = ItemStack.EMPTY;
+			}
+			if (!copy.isEmpty()) {
+				int k2 = copy.getBaseRepairCost();
+
+				if (k != i || k == 0) {
+					k2 = k2 * 2 + 1;
+				}
+
+				copy.setRepairCost(k2);
+			}
+			event.setOutput(copy);
 		}
 	}
 
