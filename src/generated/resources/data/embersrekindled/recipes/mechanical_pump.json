@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "embersrekindled:caminite_brick"
+    },
+    "E": {
+      "item": "embersrekindled:fluid_pipe"
+    },
+    "I": {
+      "item": "embersrekindled:fluid_extractor"
+    },
+    "P": {
+      "tag": "forge:plates/iron"
+    }
+  },
+  "pattern": [
+    "EPE",
+    "PPP",
+    "BIB"
+  ],
+  "result": {
+    "item": "embersrekindled:mechanical_pump"
+  },
+  "show_notification": true
+}

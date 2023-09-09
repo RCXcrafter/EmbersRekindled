@@ -54,6 +54,7 @@ import com.rekindled.embers.block.ItemPipeBlock;
 import com.rekindled.embers.block.ItemTransferBlock;
 import com.rekindled.embers.block.ItemVacuumBlock;
 import com.rekindled.embers.block.MechanicalCoreBlock;
+import com.rekindled.embers.block.MechanicalPumpBlock;
 import com.rekindled.embers.block.MelterBlock;
 import com.rekindled.embers.block.MirrorRelayBlock;
 import com.rekindled.embers.block.MixerCentrifugeBlock;
@@ -96,6 +97,8 @@ import com.rekindled.embers.blockentity.ItemPipeBlockEntity;
 import com.rekindled.embers.blockentity.ItemTransferBlockEntity;
 import com.rekindled.embers.blockentity.ItemVacuumBlockEntity;
 import com.rekindled.embers.blockentity.MechanicalCoreBlockEntity;
+import com.rekindled.embers.blockentity.MechanicalPumpBottomBlockEntity;
+import com.rekindled.embers.blockentity.MechanicalPumpTopBlockEntity;
 import com.rekindled.embers.blockentity.MelterBottomBlockEntity;
 import com.rekindled.embers.blockentity.MelterTopBlockEntity;
 import com.rekindled.embers.blockentity.MirrorRelayBlockEntity;
@@ -345,6 +348,7 @@ public class RegistryManager {
 	public static final RegistryObject<Block> ALCHEMY_PEDESTAL = BLOCKS.register("alchemy_pedestal", () -> new AlchemyPedestalBlock(Properties.of().mapColor(MapColor.TERRACOTTA_YELLOW).sound(SoundType.STONE).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
 	public static final RegistryObject<Block> ALCHEMY_TABLET = BLOCKS.register("alchemy_tablet", () -> new AlchemyTabletBlock(Properties.of().mapColor(MapColor.TERRACOTTA_YELLOW).sound(SoundType.METAL).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
 	public static final RegistryObject<Block> BEAM_CANNON = BLOCKS.register("beam_cannon", () -> new BeamCannonBlock(Properties.of().mapColor(MapColor.NONE).sound(SoundType.METAL).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
+	public static final RegistryObject<Block> MECHANICAL_PUMP = BLOCKS.register("mechanical_pump", () -> new MechanicalPumpBlock(Properties.of().mapColor(MapColor.COLOR_GRAY).sound(SoundType.METAL).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
 
 	//itemblocks
 	public static final RegistryObject<Item> LEAD_ORE_ITEM = ITEMS.register("lead_ore", () -> new BlockItem(LEAD_ORE.get(), new Item.Properties()));
@@ -410,6 +414,7 @@ public class RegistryManager {
 	public static final RegistryObject<Item> ALCHEMY_PEDESTAL_ITEM = ITEMS.register("alchemy_pedestal", () -> new BlockItem(ALCHEMY_PEDESTAL.get(), new Item.Properties()));
 	public static final RegistryObject<Item> ALCHEMY_TABLET_ITEM = ITEMS.register("alchemy_tablet", () -> new BlockItem(ALCHEMY_TABLET.get(), new Item.Properties()));
 	public static final RegistryObject<Item> BEAM_CANNON_ITEM = ITEMS.register("beam_cannon", () -> new BlockItem(BEAM_CANNON.get(), new Item.Properties()));
+	public static final RegistryObject<Item> MECHANICAL_PUMP_ITEM = ITEMS.register("mechanical_pump", () -> new BlockItem(MECHANICAL_PUMP.get(), new Item.Properties()));
 
 	//items
 	public static final RegistryObject<Item> TINKER_HAMMER = ITEMS.register("tinker_hammer", () -> new TinkerHammerItem(new Item.Properties().stacksTo(1)));
@@ -559,6 +564,8 @@ public class RegistryManager {
 	public static final RegistryObject<BlockEntityType<AlchemyPedestalTopBlockEntity>> ALCHEMY_PEDESTAL_TOP_ENTITY = BLOCK_ENTITY_TYPES.register("alchemy_pedestal_top", () -> BlockEntityType.Builder.of(AlchemyPedestalTopBlockEntity::new, ALCHEMY_PEDESTAL.get()).build(null));
 	public static final RegistryObject<BlockEntityType<AlchemyTabletBlockEntity>> ALCHEMY_TABLET_ENTITY = BLOCK_ENTITY_TYPES.register("alchemy_tablet", () -> BlockEntityType.Builder.of(AlchemyTabletBlockEntity::new, ALCHEMY_TABLET.get()).build(null));
 	public static final RegistryObject<BlockEntityType<BeamCannonBlockEntity>> BEAM_CANNON_ENTITY = BLOCK_ENTITY_TYPES.register("beam_cannon", () -> BlockEntityType.Builder.of(BeamCannonBlockEntity::new, BEAM_CANNON.get()).build(null));
+	public static final RegistryObject<BlockEntityType<MechanicalPumpBottomBlockEntity>> MECHANICAL_PUMP_BOTTOM_ENTITY = BLOCK_ENTITY_TYPES.register("mechanical_pump_bottom", () -> BlockEntityType.Builder.of(MechanicalPumpBottomBlockEntity::new, MECHANICAL_PUMP.get()).build(null));
+	public static final RegistryObject<BlockEntityType<MechanicalPumpTopBlockEntity>> MECHANICAL_PUMP_TOP_ENTITY = BLOCK_ENTITY_TYPES.register("mechanical_pump_top", () -> BlockEntityType.Builder.of(MechanicalPumpTopBlockEntity::new, MECHANICAL_PUMP.get()).build(null));
 
 	//creative tabs
 	public static final RegistryObject<CreativeModeTab> EMBERS_TAB = CREATIVE_TABS.register("main_tab", () -> CreativeModeTab.builder()

@@ -163,7 +163,8 @@ public class EmbersBlockTags extends BlockTagsProvider {
 				RegistryManager.FLUID_TRANSFER.get(),
 				RegistryManager.ALCHEMY_PEDESTAL.get(),
 				RegistryManager.ALCHEMY_TABLET.get(),
-				RegistryManager.BEAM_CANNON.get());
+				RegistryManager.BEAM_CANNON.get(),
+				RegistryManager.MECHANICAL_PUMP.get());
 
 		tag(BlockTags.NEEDS_IRON_TOOL).add(
 				RegistryManager.LEAD_ORE.get(),
@@ -195,8 +196,8 @@ public class EmbersBlockTags extends BlockTagsProvider {
 				RegistryManager.CAMINITE_VALVE_EDGE.get(),
 				RegistryManager.CRYSTAL_CELL.get(),
 				RegistryManager.CRYSTAL_CELL_EDGE.get(),
-				RegistryManager.ALCHEMY_PEDESTAL.get()
-				);
+				RegistryManager.ALCHEMY_PEDESTAL.get(),
+				RegistryManager.MECHANICAL_PUMP.get());
 
 		tag(MECH_CORE_PROXYABLE).add(
 				RegistryManager.EMBER_BORE.get(),

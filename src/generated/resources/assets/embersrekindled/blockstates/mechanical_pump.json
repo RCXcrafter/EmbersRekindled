@@ -1,0 +1,60 @@
+{
+  "variants": {
+    "axis=x,half=lower,piston=false,waterlogged=false": {
+      "model": "embersrekindled:block/mechanical_pump_bottom",
+      "y": 90
+    },
+    "axis=x,half=lower,piston=false,waterlogged=true": {
+      "model": "embersrekindled:block/mechanical_pump_bottom",
+      "y": 90
+    },
+    "axis=x,half=lower,piston=true,waterlogged=false": {
+      "model": "embersrekindled:block/mechanical_pump_piston_bottom",
+      "y": 90
+    },
+    "axis=x,half=lower,piston=true,waterlogged=true": {
+      "model": "embersrekindled:block/mechanical_pump_piston_bottom",
+      "y": 90
+    },
+    "axis=x,half=upper,piston=false,waterlogged=false": {
+      "model": "embersrekindled:block/mechanical_pump_top",
+      "y": 90
+    },
+    "axis=x,half=upper,piston=false,waterlogged=true": {
+      "model": "embersrekindled:block/mechanical_pump_top",
+      "y": 90
+    },
+    "axis=x,half=upper,piston=true,waterlogged=false": {
+      "model": "embersrekindled:block/mechanical_pump_piston_top",
+      "y": 90
+    },
+    "axis=x,half=upper,piston=true,waterlogged=true": {
+      "model": "embersrekindled:block/mechanical_pump_piston_top",
+      "y": 90
+    },
+    "axis=z,half=lower,piston=false,waterlogged=false": {
+      "model": "embersrekindled:block/mechanical_pump_bottom"
+    },
+    "axis=z,half=lower,piston=false,waterlogged=true": {
+      "model": "embersrekindled:block/mechanical_pump_bottom"
+    },
+    "axis=z,half=lower,piston=true,waterlogged=false": {
+      "model": "embersrekindled:block/mechanical_pump_piston_bottom"
+    },
+    "axis=z,half=lower,piston=true,waterlogged=true": {
+      "model": "embersrekindled:block/mechanical_pump_piston_bottom"
+    },
+    "axis=z,half=upper,piston=false,waterlogged=false": {
+      "model": "embersrekindled:block/mechanical_pump_top"
+    },
+    "axis=z,half=upper,piston=false,waterlogged=true": {
+      "model": "embersrekindled:block/mechanical_pump_top"
+    },
+    "axis=z,half=upper,piston=true,waterlogged=false": {
+      "model": "embersrekindled:block/mechanical_pump_piston_top"
+    },
+    "axis=z,half=upper,piston=true,waterlogged=true": {
+      "model": "embersrekindled:block/mechanical_pump_piston_top"
+    }
+  }
+}

@@ -18,6 +18,7 @@ import com.rekindled.embers.blockentity.render.FluidTransferBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.FluidVesselBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.GeologicSeparatorBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.ItemTransferBlockEntityRenderer;
+import com.rekindled.embers.blockentity.render.MechanicalPumpBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.MelterTopBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.MixerCentrifugeBottomBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.MixerCentrifugeTopBlockEntityRenderer;
@@ -336,6 +337,7 @@ public class Embers {
 			event.registerBlockEntityRenderer(RegistryManager.ALCHEMY_PEDESTAL_TOP_ENTITY.get(), AlchemyPedestalTopBlockEntityRenderer::new);
 			event.registerBlockEntityRenderer(RegistryManager.ALCHEMY_PEDESTAL_ENTITY.get(), AlchemyPedestalBlockEntityRenderer::new);
 			event.registerBlockEntityRenderer(RegistryManager.ALCHEMY_TABLET_ENTITY.get(), AlchemyTabletBlockEntityRenderer::new);
+			event.registerBlockEntityRenderer(RegistryManager.MECHANICAL_PUMP_BOTTOM_ENTITY.get(), MechanicalPumpBlockEntityRenderer::new);
 		}
 
 		@OnlyIn(Dist.CLIENT)

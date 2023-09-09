@@ -846,6 +846,17 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('S', RegistryManager.EMBER_CRYSTAL.get())
 		.unlockedBy("has_dawnstone", has(itemTag("forge", "ingots/dawnstone")))
 		.save(consumer, getResource("beam_cannon"));
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.MECHANICAL_PUMP.get())
+		.pattern("EPE")
+		.pattern("PPP")
+		.pattern("BIB")
+		.define('E', RegistryManager.FLUID_PIPE.get())
+		.define('I', RegistryManager.FLUID_EXTRACTOR.get())
+		.define('P', itemTag("forge", "plates/iron"))
+		.define('B', RegistryManager.CAMINITE_BRICK.get())
+		.unlockedBy("has_extractor", has(RegistryManager.FLUID_EXTRACTOR.get()))
+		.save(consumer, getResource("mechanical_pump"));
 	}
 
 	public void fullOreRecipes(String name, ImmutableList<ItemLike> ores, Fluid fluid, Item raw, Item rawBlock, Item block, Item ingot, Item nugget, Item plate, Consumer<FinishedRecipe> consumer, MeltingBonus... bonusses) {

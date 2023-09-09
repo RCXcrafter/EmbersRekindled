@@ -11,6 +11,7 @@ import com.rekindled.embers.block.EmberEmitterBlock;
 import com.rekindled.embers.block.ItemTransferBlock;
 import com.rekindled.embers.block.MechEdgeBlockBase;
 import com.rekindled.embers.block.MechEdgeBlockBase.MechEdge;
+import com.rekindled.embers.block.MechanicalPumpBlock;
 import com.rekindled.embers.block.StamperBlock;
 
 import net.minecraft.core.Direction;
@@ -568,6 +569,22 @@ public class EmbersBlockStates extends BlockStateProvider {
 				.part().modelFile(cannonModel).rotationX(90).rotationY(270).addModel()
 				.condition(BlockStateProperties.FACING, Direction.WEST).end();
 		addEmitterConnections(cannonBuilder, fluidPipeEndModel, fluidPipeEndModel2);
+
+		ExistingModelFile pumpBottomModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "mechanical_pump_bottom"));
+		ExistingModelFile pumpTopModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "mechanical_pump_top"));
+		ExistingModelFile pumpPistonBottomModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "mechanical_pump_piston_bottom"));
+		ExistingModelFile pumpPistonTopModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "mechanical_pump_piston_top"));
+		getVariantBuilder(RegistryManager.MECHANICAL_PUMP.get()).forAllStates(state -> {
+			Axis axis = state.getValue(BlockStateProperties.HORIZONTAL_AXIS);
+			boolean piston = state.getValue(MechanicalPumpBlock.PISTON);
+
+			return ConfiguredModel.builder()
+					.modelFile(state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER ? piston ? pumpPistonBottomModel : pumpBottomModel : piston ? pumpPistonTopModel : pumpTopModel)
+					.rotationY(axis == Axis.Z ? 0 : 90)
+					.uvLock(false)
+					.build();
+		});
+		simpleBlockItem(RegistryManager.MECHANICAL_PUMP.get(), pumpBottomModel);
 	}
 
 	public void blockWithItem(RegistryObject<? extends Block> registryObject) {

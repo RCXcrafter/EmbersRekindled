@@ -91,6 +91,7 @@ public class EmbersLang extends LanguageProvider {
 		addBlock(RegistryManager.ALCHEMY_PEDESTAL, "Alchemy Pedestal");
 		addBlock(RegistryManager.ALCHEMY_TABLET, "Exchange Tablet");
 		addBlock(RegistryManager.BEAM_CANNON, "Beam Cannon");
+		addBlock(RegistryManager.MECHANICAL_PUMP, "Mechanical Pump");
 
 		addItem(RegistryManager.TINKER_HAMMER, "Tinker's Hammer");
 		addItem(RegistryManager.TINKER_LENS, "Tinker's Lens");
