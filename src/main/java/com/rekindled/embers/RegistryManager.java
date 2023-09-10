@@ -115,6 +115,7 @@ import com.rekindled.embers.entity.EmberPacketEntity;
 import com.rekindled.embers.entity.EmberProjectileEntity;
 import com.rekindled.embers.fluidtypes.EmbersFluidType.FluidInfo;
 import com.rekindled.embers.fluidtypes.MoltenMetalFluidType;
+import com.rekindled.embers.fluidtypes.SteamFluidType;
 import com.rekindled.embers.gui.SlateMenu;
 import com.rekindled.embers.item.AlchemyHintItem;
 import com.rekindled.embers.item.AncientCodexItem;
@@ -520,6 +521,22 @@ public class RegistryManager {
 	public static final FluidStuff MOLTEN_ELECTRUM = addFluid("Molten Electrum", new FluidInfo("molten_electrum", 0xFAE176, 0.1F, 1.5F), MoltenMetalFluidType::new, LiquidBlock::new,
 			prop -> prop.explosionResistance(1000F).tickRate(30).slopeFindDistance(2).levelDecreasePerBlock(2), moltenMetalProps());
 
+	public static final FluidStuff STEAM = addFluid("Steam", new FluidInfo("steam", 0xFFFCFC, 0.1F, 1.5F), SteamFluidType::new, LiquidBlock::new,
+			prop -> prop.explosionResistance(1000F).tickRate(3),
+			FluidType.Properties.create()
+			.canSwim(false)
+			.canDrown(false)
+			.pathType(BlockPathTypes.LAVA)
+			.adjacentPathType(null)
+			.motionScale(0.0005D)
+			.canPushEntity(false)
+			.canHydrate(true)
+			.sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY_LAVA)
+			.sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL_LAVA)
+			.density(-1000)
+			.viscosity(100)
+			.temperature(400));
+
 	//block entities
 	public static final RegistryObject<BlockEntityType<CopperCellBlockEntity>> COPPER_CELL_ENTITY = BLOCK_ENTITY_TYPES.register("copper_cell", () -> BlockEntityType.Builder.of(CopperCellBlockEntity::new, COPPER_CELL.get()).build(null));
 	public static final RegistryObject<BlockEntityType<CreativeEmberBlockEntity>> CREATIVE_EMBER_ENTITY = BLOCK_ENTITY_TYPES.register("creative_ember_source", () -> BlockEntityType.Builder.of(CreativeEmberBlockEntity::new, CREATIVE_EMBER.get()).build(null));
@@ -678,7 +695,7 @@ public class RegistryManager {
 			if (fluidProperties != null)
 				fluidProperties.accept(PROPERTIES);
 
-			FLUID_BLOCK = BLOCKS.register(name + "_block", () -> block.apply(FLUID, Block.Properties.of().liquid().pushReaction(PushReaction.DESTROY).lightLevel((state) -> { return type.getLightLevel(); }).randomTicks().strength(100.0F).noLootTable()));
+			FLUID_BLOCK = BLOCKS.register(name + "_block", () -> block.apply(FLUID, Block.Properties.of().liquid().pushReaction(PushReaction.DESTROY).lightLevel((state) -> { return type.getLightLevel(); }).randomTicks().replaceable().strength(100.0F).noLootTable()));
 			FLUID_BUCKET = ITEMS.register(name + "_bucket", () -> new BucketItem(FLUID, new BucketItem.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
 
 			PROPERTIES.bucket(FLUID_BUCKET).block(FLUID_BLOCK);

@@ -64,6 +64,8 @@ import com.rekindled.embers.util.Misc;
 
 import net.minecraft.Util;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
@@ -287,6 +289,8 @@ public class Embers {
 			MinecraftForge.EVENT_BUS.addListener(EmbersClientEvents::onBlockHighlight);
 			MinecraftForge.EVENT_BUS.addListener(EmbersClientEvents::onLevelRender);
 			event.enqueueWork(() -> MenuScreens.register(RegistryManager.SLATE_MENU.get(), SlateScreen::new));
+			ItemBlockRenderTypes.setRenderLayer(RegistryManager.STEAM.FLUID.get(), RenderType.translucent());
+			ItemBlockRenderTypes.setRenderLayer(RegistryManager.STEAM.FLUID_FLOW.get(), RenderType.translucent());
 		}
 
 		@OnlyIn(Dist.CLIENT)
