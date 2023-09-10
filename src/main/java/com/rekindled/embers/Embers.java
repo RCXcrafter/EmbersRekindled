@@ -74,6 +74,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.SpawnPlacements;
@@ -209,6 +210,12 @@ public class Embers {
 	}
 
 	public static void onEntityDamaged(LivingHurtEvent event) {
+		if (event.getSource().type().equals(event.getEntity().level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(EmbersDamageTypes.EMBER_KEY).get())) {
+			if (event.getEntity().fireImmune() || event.getEntity().hasEffect(MobEffects.FIRE_RESISTANCE)) {
+				event.setAmount(event.getAmount() * 0.5f);
+			}
+		}
+
 		final Entity source = event.getSource().getEntity();
 		if (source instanceof LivingEntity livingSource) {
 			final ItemStack heldStack = livingSource.getMainHandItem();

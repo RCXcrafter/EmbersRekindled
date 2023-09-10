@@ -21,7 +21,7 @@ public class EmbersDamageTypeTags extends TagsProvider<DamageType> {
 	@Override
 	protected void addTags(HolderLookup.Provider provider) {
 		tag(DamageTypeTags.BYPASSES_ARMOR).addOptional(EmbersDamageTypes.EMBER_KEY.location());
-		tag(DamageTypeTags.IS_FIRE).addOptional(EmbersDamageTypes.EMBER_KEY.location());
+		//tag(DamageTypeTags.IS_FIRE).addOptional(EmbersDamageTypes.EMBER_KEY.location());
 		tag(DamageTypeTags.WITCH_RESISTANT_TO).addOptional(EmbersDamageTypes.EMBER_KEY.location());
 	}
 }
