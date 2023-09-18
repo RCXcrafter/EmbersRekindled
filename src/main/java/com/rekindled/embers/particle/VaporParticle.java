@@ -19,6 +19,7 @@ public class VaporParticle extends TextureSheetParticle {
 	public VaporParticle(ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed, VaporParticleOptions pOptions) {
 		super(pLevel, pX, pY, pZ, pXSpeed, pYSpeed, pZSpeed);
 		this.friction = 0.8F;
+		this.hasPhysics = false;
 		float speed = random.nextFloat() * 0.5f + 0.7f;
 		this.speedUpWhenYMotionIsBlocked = true;
 		if (!pOptions.getMotion().equals(Vec3.ZERO))

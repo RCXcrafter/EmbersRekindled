@@ -6,6 +6,7 @@ import java.util.List;
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.recipe.AlchemyRecipe;
+import com.rekindled.embers.recipe.BoilingRecipe;
 import com.rekindled.embers.recipe.BoringRecipe;
 import com.rekindled.embers.recipe.EmberActivationRecipe;
 import com.rekindled.embers.recipe.MeltingRecipe;
@@ -39,6 +40,7 @@ public class JEIPlugin implements IModPlugin {
 	public static final RecipeType<MixingRecipe> MIXING = RecipeType.create(Embers.MODID, "mixing", MixingRecipe.class);
 	public static final RecipeType<MetalCoefficientRecipe> METAL_COEFFICIENT = RecipeType.create(Embers.MODID, "metal_coefficient", MetalCoefficientRecipe.class);
 	public static final RecipeType<AlchemyRecipe> ALCHEMY = RecipeType.create(Embers.MODID, "alchemy", AlchemyRecipe.class);
+	public static final RecipeType<BoilingRecipe> BOILING = RecipeType.create(Embers.MODID, "boiling", BoilingRecipe.class);
 
 	@Override
 	public ResourceLocation getPluginUid() {
@@ -57,6 +59,7 @@ public class JEIPlugin implements IModPlugin {
 		registry.addRecipeCategories(new MixingCategory(guiHelper));
 		registry.addRecipeCategories(new MetalCoefficientCategory(guiHelper));
 		registry.addRecipeCategories(new AlchemyCategory(guiHelper));
+		registry.addRecipeCategories(new BoilingCategory(guiHelper));
 	}
 
 
@@ -93,6 +96,9 @@ public class JEIPlugin implements IModPlugin {
 
 		List<AlchemyRecipe> alchemyRecipes = manager.getAllRecipesFor(RegistryManager.ALCHEMY.get());
 		register.addRecipes(ALCHEMY, alchemyRecipes);
+
+		List<BoilingRecipe> boilingRecipes = manager.getAllRecipesFor(RegistryManager.BOILING.get());
+		register.addRecipes(BOILING, boilingRecipes);
 	}
 
 
@@ -111,5 +117,6 @@ public class JEIPlugin implements IModPlugin {
 		registry.addRecipeCatalyst(new ItemStack(RegistryManager.ALCHEMY_PEDESTAL_ITEM.get()), ALCHEMY);
 		registry.addRecipeCatalyst(new ItemStack(RegistryManager.ALCHEMY_TABLET_ITEM.get()), ALCHEMY);
 		registry.addRecipeCatalyst(new ItemStack(RegistryManager.BEAM_CANNON_ITEM.get()), ALCHEMY);
+		registry.addRecipeCatalyst(new ItemStack(RegistryManager.MINI_BOILER_ITEM.get()), BOILING);
 	}
 }

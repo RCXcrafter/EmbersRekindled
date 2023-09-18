@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": {
+      "tag": "forge:ingots/copper"
+    },
+    "P": {
+      "tag": "forge:plates/iron"
+    }
+  },
+  "pattern": [
+    "PPP",
+    "E P",
+    "PPP"
+  ],
+  "result": {
+    "item": "embersrekindled:mini_boiler"
+  },
+  "show_notification": true
+}

@@ -23,6 +23,8 @@ public class EmbersFluidTags extends FluidTagsProvider {
 	public static final TagKey<Fluid> MOLTEN_SILVER = FluidTags.create(new ResourceLocation("forge", "molten_silver"));
 	public static final TagKey<Fluid> MOLTEN_DAWNSTONE = FluidTags.create(new ResourceLocation("forge", "molten_dawnstone"));
 
+	public static final TagKey<Fluid> STEAM = FluidTags.create(new ResourceLocation("forge", "steam"));
+
 	//compatibility fluids
 	public static final TagKey<Fluid> MOLTEN_NICKEL = FluidTags.create(new ResourceLocation("forge", "molten_nickel"));
 	public static final TagKey<Fluid> MOLTEN_TIN = FluidTags.create(new ResourceLocation("forge", "molten_tin"));
@@ -46,6 +48,8 @@ public class EmbersFluidTags extends FluidTagsProvider {
 		tag(MOLTEN_LEAD).add(RegistryManager.MOLTEN_LEAD.FLUID.get());
 		tag(MOLTEN_SILVER).add(RegistryManager.MOLTEN_SILVER.FLUID.get());
 		tag(MOLTEN_DAWNSTONE).add(RegistryManager.MOLTEN_DAWNSTONE.FLUID.get());
+
+		tag(STEAM).add(RegistryManager.STEAM.FLUID.get());
 
 		tag(MOLTEN_NICKEL).add(RegistryManager.MOLTEN_NICKEL.FLUID.get());
 		tag(MOLTEN_TIN).add(RegistryManager.MOLTEN_TIN.FLUID.get());

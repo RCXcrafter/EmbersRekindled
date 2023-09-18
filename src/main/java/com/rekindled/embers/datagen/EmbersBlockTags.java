@@ -164,7 +164,8 @@ public class EmbersBlockTags extends BlockTagsProvider {
 				RegistryManager.ALCHEMY_PEDESTAL.get(),
 				RegistryManager.ALCHEMY_TABLET.get(),
 				RegistryManager.BEAM_CANNON.get(),
-				RegistryManager.MECHANICAL_PUMP.get());
+				RegistryManager.MECHANICAL_PUMP.get(),
+				RegistryManager.MINI_BOILER.get());
 
 		tag(BlockTags.NEEDS_IRON_TOOL).add(
 				RegistryManager.LEAD_ORE.get(),

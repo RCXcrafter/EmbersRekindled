@@ -585,6 +585,10 @@ public class EmbersBlockStates extends BlockStateProvider {
 					.build();
 		});
 		simpleBlockItem(RegistryManager.MECHANICAL_PUMP.get(), pumpBottomModel);
+
+		ExistingModelFile boilerModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "mini_boiler"));
+		horizontalBlock(RegistryManager.MINI_BOILER.get(), boilerModel);
+		simpleBlockItem(RegistryManager.MINI_BOILER.get(), boilerModel);
 	}
 
 	public void blockWithItem(RegistryObject<? extends Block> registryObject) {

@@ -92,6 +92,7 @@ public class EmbersLang extends LanguageProvider {
 		addBlock(RegistryManager.ALCHEMY_TABLET, "Exchange Tablet");
 		addBlock(RegistryManager.BEAM_CANNON, "Beam Cannon");
 		addBlock(RegistryManager.MECHANICAL_PUMP, "Mechanical Pump");
+		addBlock(RegistryManager.MINI_BOILER, "Mini Boiler");
 
 		addItem(RegistryManager.TINKER_HAMMER, "Tinker's Hammer");
 		addItem(RegistryManager.TINKER_LENS, "Tinker's Lens");
@@ -273,6 +274,7 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".jei.recipe.mixing", "Mixing");
 		add(Embers.MODID + ".jei.recipe.metal_coefficient", "Production Multiplier");
 		add(Embers.MODID + ".jei.recipe.alchemy", "Alchemy");
+		add(Embers.MODID + ".jei.recipe.boiling", "Boiling");
 
 
 		//ancient codex

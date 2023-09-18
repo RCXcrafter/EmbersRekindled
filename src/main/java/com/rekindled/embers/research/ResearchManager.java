@@ -181,7 +181,7 @@ public class ResearchManager {
 		crystals = new ResearchBase("crystals", new ItemStack(RegistryManager.EMBER_CRYSTAL.get()), 12, 3).addAncestor(bore);
 		activator = new ResearchBase("activator", new ItemStack(RegistryManager.EMBER_ACTIVATOR_ITEM.get()), 9, 5).addAncestor(crystals);
 		pressureRefinery = new ResearchBase("pressure_refinery", new ItemStack(RegistryManager.PRESSURE_REFINERY_ITEM.get()), 9, 7).addAncestor(activator);
-		//mini_boiler = new ResearchBase("mini_boiler", new ItemStack(RegistryManager.mini_boiler), 11, 7).addAncestor(activator);
+		mini_boiler = new ResearchBase("mini_boiler", new ItemStack(RegistryManager.MINI_BOILER_ITEM.get()), 11, 7).addAncestor(activator);
 		dials = new ResearchBase("dials", new ItemStack(RegistryManager.EMBER_DIAL_ITEM.get()), 5, 5).addAncestor(hammer);
 		tinker_lens = new ResearchBase("tinker_lens", new ItemStack(RegistryManager.TINKER_LENS.get()),4,7).addAncestor(hammer);
 		//reaction_chamber = new ResearchBase("reaction_chamber", new ItemStack(RegistryManager.reaction_chamber), 12, 5).addAncestor(mini_boiler);
@@ -215,7 +215,7 @@ public class ResearchManager {
 		access = new ResearchBase("access", new ItemStack(RegistryManager.MECHANICAL_CORE_ITEM.get()), 7, 5).addAncestor(stamper);
 		hearth_coil = new ResearchBase("hearth_coil", new ItemStack(RegistryManager.HEARTH_COIL.get()), 10, 1).addAncestor(access);
 		mixer = new ResearchBase("mixer", new ItemStack(RegistryManager.MIXER_CENTRIFUGE_ITEM.get()), 5, 2).addAncestor(stamper).addAncestor(melter);
-		//pump = new ResearchBase("pump", new ItemStack(RegistryManager.mechanical_pump), 8, 0).addAncestor(mixer);
+		pump = new ResearchBase("pump", new ItemStack(RegistryManager.MECHANICAL_PUMP_ITEM.get()), 8, 0).addAncestor(mixer);
 		//breaker = new ResearchBase("breaker", new ItemStack(RegistryManager.breaker), 4, 7).addAncestor(stamper);
 		dawnstone = new ResearchBase("dawnstone", new ItemStack(RegistryManager.DAWNSTONE_INGOT.get()), 11, 4).addAncestor(mixer);
 		copper_cell = new ResearchBase("copper_cell", new ItemStack(RegistryManager.COPPER_CELL_ITEM.get()), 0, 5).addAncestor(emitters);
@@ -406,7 +406,7 @@ public class ResearchManager {
 		.addResearch(crystals)
 		.addResearch(activator)
 		.addResearch(pressureRefinery)
-		//.addResearch(mini_boiler)
+		.addResearch(mini_boiler)
 		//.addResearch(reaction_chamber)
 		.addResearch(dials);
 		categoryMechanisms
@@ -414,7 +414,7 @@ public class ResearchManager {
 		.addResearch(stamper)
 		.addResearch(hearth_coil)
 		.addResearch(mixer)
-		//.addResearch(pump)
+		.addResearch(pump)
 		.addResearch(access)
 		//.addResearch(mechanicalPowerSwitch)
 		//.addResearch(breaker)

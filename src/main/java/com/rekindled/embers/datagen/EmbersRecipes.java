@@ -10,6 +10,7 @@ import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.RegistryManager.StoneDecoBlocks;
 import com.rekindled.embers.RegistryManager.ToolSet;
 import com.rekindled.embers.recipe.AlchemyRecipeBuilder;
+import com.rekindled.embers.recipe.BoilingRecipeBuilder;
 import com.rekindled.embers.recipe.BoringRecipeBuilder;
 import com.rekindled.embers.recipe.EmberActivationRecipeBuilder;
 import com.rekindled.embers.recipe.MeltingRecipeBuilder;
@@ -29,6 +30,7 @@ import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -53,6 +55,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 	public static String mixingFolder = "mixing";
 	public static String coefficientFolder = "metal_coefficient";
 	public static String alchemyFolder = "alchemy";
+	public static String boilingFolder = "boiling";
 
 	public EmbersRecipes(PackOutput gen) {
 		super(gen);
@@ -189,6 +192,8 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.inputs(Items.DIAMOND_SWORD, Items.DIAMOND_SWORD, Items.BAMBOO, Items.LIGHTNING_ROD, Items.DIAMOND_SWORD)
 		.aspects(EmbersItemTags.IRON_ASPECTUS, EmbersItemTags.SILVER_ASPECTUS, EmbersItemTags.DAWNSTONE_ASPECTUS).save(consumer);
 
+		//boiling
+		BoilingRecipeBuilder.create(RegistryManager.STEAM.FLUID.get(), 5).folder(boilingFolder).input(FluidTags.WATER, 1).save(consumer);
 
 		//crafting
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.EMBER_CRYSTAL.get())
@@ -857,6 +862,15 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('B', RegistryManager.CAMINITE_BRICK.get())
 		.unlockedBy("has_extractor", has(RegistryManager.FLUID_EXTRACTOR.get()))
 		.save(consumer, getResource("mechanical_pump"));
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.MINI_BOILER.get())
+		.pattern("PPP")
+		.pattern("E P")
+		.pattern("PPP")
+		.define('E', itemTag("forge", "ingots/copper"))
+		.define('P', itemTag("forge", "plates/iron"))
+		.unlockedBy("has_iron_plate", has(itemTag("forge", "plates/iron")))
+		.save(consumer, getResource("mini_boiler"));
 	}
 
 	public void fullOreRecipes(String name, ImmutableList<ItemLike> ores, Fluid fluid, Item raw, Item rawBlock, Item block, Item ingot, Item nugget, Item plate, Consumer<FinishedRecipe> consumer, MeltingBonus... bonusses) {
