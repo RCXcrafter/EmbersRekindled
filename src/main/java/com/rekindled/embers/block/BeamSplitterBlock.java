@@ -3,6 +3,7 @@ package com.rekindled.embers.block;
 import javax.annotation.Nullable;
 
 import com.rekindled.embers.RegistryManager;
+import com.rekindled.embers.util.Misc;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -87,7 +88,7 @@ public class BeamSplitterBlock extends BaseEntityBlock implements SimpleWaterlog
 				Axis axis = Axis.Z;
 				for (Direction facing : Direction.orderedByNearest(pContext.getPlayer())) {
 					if (facing.getAxis() != direction.getAxis()) {
-						axis = facing.getAxis();
+						axis = Misc.getOtherAxis(direction.getAxis(), facing.getAxis());
 						break;
 					}
 				}

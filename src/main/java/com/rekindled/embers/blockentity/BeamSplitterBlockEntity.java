@@ -5,6 +5,7 @@ import java.util.Random;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.power.IEmberPacketProducer;
 import com.rekindled.embers.api.power.IEmberPacketReceiver;
+import com.rekindled.embers.api.tile.ISparkable;
 import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.entity.EmberPacketEntity;
 
@@ -22,7 +23,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
 
-public class BeamSplitterBlockEntity extends BlockEntity implements IEmberPacketProducer, IEmberPacketReceiver {
+public class BeamSplitterBlockEntity extends BlockEntity implements IEmberPacketProducer, IEmberPacketReceiver, ISparkable {
 
 	public BlockPos target1 = null;
 	public BlockPos target2 = null;
@@ -101,16 +102,26 @@ public class BeamSplitterBlockEntity extends BlockEntity implements IEmberPacket
 	}
 
 	@Override
+	public void sparkProgress(BlockEntity tile, double ember) {
+		split(ember);
+	}
+
+	@Override
 	public boolean onReceive(EmberPacketEntity packet) {
-		if (target1 != null && target2 != null && packet.pos != getBlockPos() && packet.value > 0.1) {
+		if (packet.pos != getBlockPos()) {
+			split(packet.value);
+		}
+		return true;
+	}
+
+	public void split(double ember) {
+		if ((target1 != null || target2 != null) && ember > 0.1) {
 			Axis axis = level.getBlockState(worldPosition).getValue(BlockStateProperties.AXIS);
-
-
-			double value = packet.value / 2.0;
-			boolean room1 = hasRoomTarget(target1, value);
-			boolean room2 = hasRoomTarget(target2, value);
+			double value = ember / 2.0;
+			boolean room1 = hasRoomTarget(target1, value) || target2 == null;
+			boolean room2 = hasRoomTarget(target2, value) || target1 == null;
 			if (room1 != room2)
-				value = packet.value;
+				value = ember;
 
 			if (room1 || (!room1 && !room2)) {
 				EmberPacketEntity packet1 = RegistryManager.EMBER_PACKET.get().create(level);
@@ -124,10 +135,8 @@ public class BeamSplitterBlockEntity extends BlockEntity implements IEmberPacket
 				packet2.initCustom(worldPosition, target2, velocity2.x, velocity2.y, velocity2.z, value);
 				level.addFreshEntity(packet2);
 			}
-
-			level.playSound(null, worldPosition, packet.value >= 100 ? EmbersSounds.EMBER_EMIT_BIG.get() : EmbersSounds.EMBER_EMIT.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
+			level.playSound(null, worldPosition, ember >= 100 ? EmbersSounds.EMBER_EMIT_BIG.get() : EmbersSounds.EMBER_EMIT.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
 		}
-		return true;
 	}
 
 	@Override

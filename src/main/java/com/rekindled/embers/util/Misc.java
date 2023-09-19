@@ -302,4 +302,29 @@ public class Misc {
 			}
 		};
 	}
+
+	public static Direction.Axis getOtherAxis(Direction.Axis axis1, Direction.Axis axis2) {
+		switch (axis1) {
+		default:
+			return axis2;
+		case X:
+			switch (axis2) {
+			case Y: return Direction.Axis.Z;
+			case Z: return Direction.Axis.Y;
+			default: return axis2;
+			}
+		case Y:
+			switch (axis2) {
+			case X: return Direction.Axis.Z;
+			case Z: return Direction.Axis.X;
+			default: return axis2;
+			}
+		case Z:
+			switch (axis2) {
+			case X: return Direction.Axis.Y;
+			case Y: return Direction.Axis.X;
+			default: return axis2;
+			}
+		}
+	}
 }
