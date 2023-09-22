@@ -72,6 +72,8 @@ public class EmbersRenderTypes extends RenderType {
 			.setShaderState(POSITION_COLOR_TEX_LIGHTMAP_SHADER)
 			.setTextureState(BLOCK_SHEET_MIPPED)
 			.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
+			.setCullState(CULL)
+			.setOutputState(TRANSLUCENT_TARGET)
 			.createCompositeState(false));
 
 	public static final RenderStateShard.ShaderStateShard PTLC_SHADER = new RenderStateShard.ShaderStateShard(GameRenderer::getPositionTexLightmapColorShader);

@@ -41,8 +41,8 @@ public class ResearchManager {
 
 	public static ResearchBase dials, pressureRefinery, mini_boiler, ores, hammer, ancient_golem, gauge, caminite, bore, crystals, activator, tinker_lens, reaction_chamber,//WORLD
 	copper_cell, emitters, relays, dawnstone, melter, stamper, mixer, breaker, hearth_coil, access, pump, clockwork_attenuator, geo_separator, //MECHANISMS
-	beam_cannon, pulser, splitter, crystal_cell, cinder_staff, clockwork_tools, blazing_ray, charger, jars, alchemy, cinder_plinth, aspecti, catalytic_plug, ember_siphon, //METALLURGY
-	tyrfing, waste, slate, cluster, ashen_cloak, inflictor, materia, field_chart, glimmer, metallurgic_dust, //ALCHEMY
+	beam_cannon, pulser, splitter, crystal_cell, cinder_staff, clockwork_tools, blazing_ray, charger, jars, alchemy, cinder_plinth, aspecti, ember_siphon, //METALLURGY
+	tyrfing, waste, slate, catalytic_plug, cluster, ashen_cloak, inflictor, materia, field_chart, glimmer, metallurgic_dust, //ALCHEMY
 	modifiers, inferno_forge, heat, dawnstone_anvil, autohammer, dismantling //SMITHING
 	;
 	public static ResearchBase pipes, tank, bin, dropper, reservoir, vacuum, transfer, golem_eye, requisition; //PIPES
@@ -240,13 +240,13 @@ public class ResearchManager {
 		//cinder_plinth = new ResearchBase("cinder_plinth", new ItemStack(RegistryManager.cinder_plinth), 9, 0);
 		beam_cannon = new ResearchBase("beam_cannon", new ItemStack(RegistryManager.BEAM_CANNON_ITEM.get()), 9, 7);
 		alchemy = new ResearchBase("alchemy", new ItemStack(RegistryManager.ALCHEMY_TABLET_ITEM.get()), 9, 4).addAncestor(aspecti).addAncestor(beam_cannon);
-		//catalytic_plug = new ResearchBase("catalytic_plug", new ItemStack(RegistryManager.catalytic_plug), 12, 5).addAncestor(ResearchManager.alchemy);
 
 		//TRANSMUTATION
 		waste = new ResearchBase("waste", new ItemStack(RegistryManager.ALCHEMICAL_WASTE.get()), 6, 0)
 				.addPage(new ResearchBase("waste_page_2", new ItemStack(RegistryManager.ALCHEMICAL_WASTE.get()), 0, 0));
 		slate = new ResearchBase("slate", new ItemStack(RegistryManager.CODEBREAKING_SLATE.get()), 6, 2).addAncestor(waste);
-		materia = new ResearchBase("materia", new ItemStack(RegistryManager.ISOLATED_MATERIA.get()), 6, 5).addAncestor(waste);
+		catalytic_plug = new ResearchBase("catalytic_plug", new ItemStack(RegistryManager.CATALYTIC_PLUG_ITEM.get()), 12, 5).addAncestor(slate);
+		materia = new ResearchBase("materia", new ItemStack(RegistryManager.ISOLATED_MATERIA.get()), 6, 5).addAncestor(slate);
 		cluster = new ResearchBase("cluster", new ItemStack(RegistryManager.EMBER_CRYSTAL_CLUSTER.get()), 3, 4).addAncestor(slate);
 		//ashen_cloak = new ResearchShowItem("ashen_cloak", new ItemStack(RegistryManager.ashen_cloak_chest), 9, 4).addItem(new DisplayItem(new ItemStack(RegistryManager.ashen_cloak_head),new ItemStack(RegistryManager.ashen_cloak_chest),new ItemStack(RegistryManager.ashen_cloak_legs),new ItemStack(RegistryManager.ashen_cloak_boots))).addAncestor(slate);
 		//field_chart = new ResearchBase("field_chart", new ItemStack(RegistryManager.field_chart), 0, 5).addAncestor(cluster);
@@ -278,9 +278,9 @@ public class ResearchManager {
 				.addItem(new DisplayItem("catalyzer_gunpowder",new ItemStack(Items.GUNPOWDER)))
 				.addItem(new DisplayItem("catalyzer_glowstone",new ItemStack(Items.GLOWSTONE_DUST)))
 				);
-		reactor = new ResearchBase("reactor", new ItemStack(RegistryManager.reactor), 9, 7).addAncestor(combustor).addAncestor(catalyzer);
-		stirling = new ResearchBase("stirling", new ItemStack(RegistryManager.stirling), 0, 2).addAncestor(ResearchManager.wildfire);
-		ember_pipe = new ResearchBase("ember_pipe", new ItemStack(RegistryManager.ember_pipe), 12, 6).addAncestor(ResearchManager.reactor);
+		reactor = new ResearchBase("reactor", new ItemStack(RegistryManager.reactor), 9, 7).addAncestor(combustor).addAncestor(catalyzer);*/
+		stirling = new ResearchBase("stirling", new ItemStack(RegistryManager.WILDFIRE_STIRLING_ITEM.get()), 0, 2).addAncestor(ResearchManager.wildfire);
+		/*ember_pipe = new ResearchBase("ember_pipe", new ItemStack(RegistryManager.ember_pipe), 12, 6).addAncestor(ResearchManager.reactor);
 
 		//SMITHING
 		dawnstone_anvil = new ResearchBase("dawnstone_anvil", new ItemStack(RegistryManager.dawnstone_anvil), 12, 7);
@@ -357,14 +357,14 @@ public class ResearchManager {
 		//subCategorySimpleAlchemy.addResearch(dwarven_oil);
 
 		subCategoryWildfire.addResearch(wildfire);
-		/*subCategoryWildfire.addResearch(injector);
-		subCategoryWildfire.addResearch(combustor);
-		subCategoryWildfire.addResearch(catalyzer);
-		subCategoryWildfire.addResearch(reactor);
+		//subCategoryWildfire.addResearch(injector);
+		//subCategoryWildfire.addResearch(combustor);
+		//subCategoryWildfire.addResearch(catalyzer);
+		//subCategoryWildfire.addResearch(reactor);
 		subCategoryWildfire.addResearch(stirling);
-		subCategoryWildfire.addResearch(ember_pipe);
+		//subCategoryWildfire.addResearch(ember_pipe);
 
-
+		/*
 		ResearchBase mechanicalPowerSwitch;
 		if (ConfigManager.isMysticalMechanicsIntegrationEnabled()) {
 			mechanicalPowerSwitch = makeCategorySwitch(subCategoryMechanicalPower, 8, 7, ItemStack.EMPTY, 4, 1);
@@ -438,11 +438,11 @@ public class ResearchManager {
 		.addResearch(aspecti)
 		.addResearch(alchemy)
 		.addResearch(beam_cannon);
-		//.addResearch(catalytic_plug);
 		categoryAlchemy
 		.addResearch(waste)
 		.addResearch(slate)
 		.addResearch(simpleAlchemySwitch)
+		.addResearch(catalytic_plug)
 		.addResearch(cluster)
 		//.addResearch(ashen_cloak)
 		//.addResearch(inflictor)

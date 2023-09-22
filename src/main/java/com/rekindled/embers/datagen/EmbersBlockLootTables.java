@@ -115,6 +115,8 @@ public class EmbersBlockLootTables extends BlockLootSubProvider {
 		dropSelf(RegistryManager.BEAM_CANNON.get());
 		dropSelf(RegistryManager.MECHANICAL_PUMP.get());
 		dropSelf(RegistryManager.MINI_BOILER.get());
+		dropSelf(RegistryManager.CATALYTIC_PLUG.get());
+		dropSelf(RegistryManager.WILDFIRE_STIRLING.get());
 	}
 
 	public void decoDrops(StoneDecoBlocks deco) {

@@ -13,13 +13,14 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class VaporParticle extends TextureSheetParticle {
 
-	public float minScale = 0.1f;
+	public float minScale = 0.5f;
 	public float maxScale = 2.0f;
 
 	public VaporParticle(ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed, VaporParticleOptions pOptions) {
 		super(pLevel, pX, pY, pZ, pXSpeed, pYSpeed, pZSpeed);
-		this.friction = 0.8F;
+		this.friction = 0.8f;
 		this.hasPhysics = false;
+		this.gravity = 0.0f;
 		float speed = random.nextFloat() * 0.5f + 0.7f;
 		this.speedUpWhenYMotionIsBlocked = true;
 		if (!pOptions.getMotion().equals(Vec3.ZERO))
@@ -29,7 +30,7 @@ public class VaporParticle extends TextureSheetParticle {
 		this.bCol = pOptions.getColor().z();
 		this.oRoll = 2.0f * (float) Math.PI;
 		this.roll = this.oRoll + 0.5f;
-		this.quadSize *= 0.5F * pOptions.getScale();
+		this.maxScale = pOptions.getScale();
 		double i = 6.0D / (this.random.nextDouble() * 0.5D + 0.5D);
 		this.lifetime = (int)(i * pOptions.getScale());
 	}
@@ -43,7 +44,7 @@ public class VaporParticle extends TextureSheetParticle {
 		this.alpha = 1.0f - (float)this.age / (float)this.lifetime;
 		this.oRoll = this.roll;
 		this.roll += 0.5f;
-		this.yd += 0.04D;
+		//this.yd += 0.04D;
 	}
 
 	@Override

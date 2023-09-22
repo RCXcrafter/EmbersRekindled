@@ -165,7 +165,9 @@ public class EmbersBlockTags extends BlockTagsProvider {
 				RegistryManager.ALCHEMY_TABLET.get(),
 				RegistryManager.BEAM_CANNON.get(),
 				RegistryManager.MECHANICAL_PUMP.get(),
-				RegistryManager.MINI_BOILER.get());
+				RegistryManager.MINI_BOILER.get(),
+				RegistryManager.CATALYTIC_PLUG.get(),
+				RegistryManager.WILDFIRE_STIRLING.get());
 
 		tag(BlockTags.NEEDS_IRON_TOOL).add(
 				RegistryManager.LEAD_ORE.get(),
@@ -215,7 +217,7 @@ public class EmbersBlockTags extends BlockTagsProvider {
 				RegistryManager.CAMINITE_VALVE.get());
 
 		tag(FLUID_PIPE_CONNECTION).addTag(FLUID_PIPE_CONNECTION_TOGGLEABLE);
-		tag(FLUID_PIPE_CONNECTION).add(RegistryManager.FLUID_TRANSFER.get());
+		tag(FLUID_PIPE_CONNECTION).add(RegistryManager.FLUID_TRANSFER.get(), RegistryManager.CATALYTIC_PLUG.get());
 		tag(FLUID_PIPE_CONNECTION_TOGGLEABLE).add(RegistryManager.FLUID_PIPE.get(), RegistryManager.FLUID_EXTRACTOR.get());
 
 		tag(HEAT_SOURCES).add(Blocks.LAVA, Blocks.FIRE);

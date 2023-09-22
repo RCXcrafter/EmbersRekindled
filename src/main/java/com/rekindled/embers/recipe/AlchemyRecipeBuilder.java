@@ -33,7 +33,7 @@ public class AlchemyRecipeBuilder {
 		return builder;
 	}
 
-	public static AlchemyRecipeBuilder create(Item item) {
+	public static AlchemyRecipeBuilder create(ItemLike item) {
 		return create(new ItemStack(item));
 	}
 

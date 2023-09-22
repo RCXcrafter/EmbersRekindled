@@ -180,6 +180,9 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		AlchemyRecipeBuilder.create(new ItemStack(RegistryManager.ISOLATED_MATERIA.get(), 4)).tablet(Tags.Items.INGOTS_IRON).domain(Embers.MODID).folder(alchemyFolder)
 		.inputs(Ingredient.of(Tags.Items.GEMS_QUARTZ), Ingredient.of(Items.CLAY_BALL), Ingredient.of(Tags.Items.GEMS_LAPIS))
 		.aspects(EmbersItemTags.COPPER_ASPECTUS, EmbersItemTags.IRON_ASPECTUS, EmbersItemTags.LEAD_ASPECTUS, EmbersItemTags.SILVER_ASPECTUS).save(consumer);
+		AlchemyRecipeBuilder.create(RegistryManager.CATALYTIC_PLUG.get()).tablet(EmbersItemTags.SILVER_INGOT).domain(Embers.MODID).folder(alchemyFolder)
+		.inputs(Ingredient.of(RegistryManager.FLUID_PIPE.get()), Ingredient.of(Tags.Items.GLASS_SILICA), Ingredient.of(RegistryManager.FLUID_PIPE.get()))
+		.aspects(EmbersItemTags.DAWNSTONE_ASPECTUS, EmbersItemTags.SILVER_ASPECTUS).save(consumer);
 
 		//example recipes
 		AlchemyRecipeBuilder.create(Items.DIAMOND).tablet(Items.DIRT).domain(Embers.MODID).folder(alchemyFolder)
@@ -346,7 +349,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('E', itemTag("forge", "nuggets/lead"))
 		.define('I', itemTag("forge", "plates/lead"))
 		.define('B', itemTag("forge", "ingots/iron"))
-		.define('P', Tags.Items.GLASS_PANES_COLORLESS)
+		.define('P', Tags.Items.GLASS_SILICA)
 		.unlockedBy("has_lead_plate", has(itemTag("forge", "plates/lead")))
 		.save(consumer, getResource("tinker_lens"));
 
@@ -367,7 +370,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('I', itemTag("forge", "ingots/iron"))
 		.define('C', itemTag("forge", "ingots/copper"))
 		.define('S', RegistryManager.EMBER_SHARD.get())
-		.define('G', Tags.Items.GLASS_COLORLESS)
+		.define('G', Tags.Items.GLASS_SILICA)
 		.unlockedBy("has_charger", has(RegistryManager.COPPER_CHARGER.get()))
 		.save(consumer, getResource("ember_jar"));
 
@@ -378,7 +381,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('I', itemTag("forge", "ingots/iron"))
 		.define('C', itemTag("forge", "ingots/copper"))
 		.define('S', RegistryManager.EMBER_CRYSTAL.get())
-		.define('G', Tags.Items.GLASS_COLORLESS)
+		.define('G', Tags.Items.GLASS_SILICA)
 		.unlockedBy("has_charger", has(RegistryManager.COPPER_CHARGER.get()))
 		.save(consumer, getResource("ember_cartridge"));
 
@@ -743,7 +746,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.pattern("G G")
 		.pattern("BBB")
 		.define('B', RegistryManager.CAMINITE_BRICKS.get())
-		.define('G', Tags.Items.GLASS_COLORLESS)
+		.define('G', Tags.Items.GLASS_SILICA)
 		.unlockedBy("has_reservoir", has(RegistryManager.RESERVOIR.get()))
 		.save(consumer, getResource("caminite_gauge"));
 
@@ -871,6 +874,17 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('P', itemTag("forge", "plates/iron"))
 		.unlockedBy("has_iron_plate", has(itemTag("forge", "plates/iron")))
 		.save(consumer, getResource("mini_boiler"));
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.WILDFIRE_STIRLING.get())
+		.pattern("XGX")
+		.pattern("XGX")
+		.pattern("BPB")
+		.define('G', itemTag("forge", "storage_blocks/copper"))
+		.define('X', itemTag("forge", "plates/dawnstone"))
+		.define('P', RegistryManager.WILDFIRE_CORE.get())
+		.define('B', RegistryManager.EMBER_SHARD.get())
+		.unlockedBy("has_wildfire_core", has(RegistryManager.WILDFIRE_CORE.get()))
+		.save(consumer, getResource("wildfire_stirling"));
 	}
 
 	public void fullOreRecipes(String name, ImmutableList<ItemLike> ores, Fluid fluid, Item raw, Item rawBlock, Item block, Item ingot, Item nugget, Item plate, Consumer<FinishedRecipe> consumer, MeltingBonus... bonusses) {

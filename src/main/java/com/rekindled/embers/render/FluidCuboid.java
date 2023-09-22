@@ -20,15 +20,24 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
 
 import net.minecraft.core.Direction;
+import net.minecraft.core.Direction.Axis;
 import net.minecraft.util.GsonHelper;
 
 //class copy pasted from mantle, that's why it's so well documented
 public class FluidCuboid {
+
 	public static final Map<Direction, FluidFace> DEFAULT_FACES;
+	public static final Map<Direction, FluidFace> FLOWING_DOWN_FACES;
 	static {
 		DEFAULT_FACES = new EnumMap<>(Direction.class);
+		FLOWING_DOWN_FACES = new EnumMap<>(Direction.class);
 		for (Direction direction : Direction.values()) {
 			DEFAULT_FACES.put(direction, FluidFace.NORMAL);
+			if (direction.getAxis() != Axis.Y) {
+				FLOWING_DOWN_FACES.put(direction, FluidFace.NORMAL);
+			} else {
+				FLOWING_DOWN_FACES.put(direction, FluidFace.DOWN);
+			}
 		}
 	}
 
@@ -243,5 +252,6 @@ public class FluidCuboid {
 	/** Represents a single fluid face in the model */
 	public record FluidFace(boolean isFlowing, int rotation) {
 		public static final FluidFace NORMAL = new FluidFace(false, 0);
+		public static final FluidFace DOWN = new FluidFace(true, 0);
 	}
 }

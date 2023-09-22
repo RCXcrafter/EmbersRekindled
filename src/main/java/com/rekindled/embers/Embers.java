@@ -11,6 +11,7 @@ import com.rekindled.embers.blockentity.render.AlchemyPedestalBlockEntityRendere
 import com.rekindled.embers.blockentity.render.AlchemyPedestalTopBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.AlchemyTabletBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.BinBlockEntityRenderer;
+import com.rekindled.embers.blockentity.render.CatalyticPlugBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.CopperChargerBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.CrystalCellBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.EmberBoreBlockEntityRenderer;
@@ -349,6 +350,7 @@ public class Embers {
 			event.registerBlockEntityRenderer(RegistryManager.ALCHEMY_PEDESTAL_ENTITY.get(), AlchemyPedestalBlockEntityRenderer::new);
 			event.registerBlockEntityRenderer(RegistryManager.ALCHEMY_TABLET_ENTITY.get(), AlchemyTabletBlockEntityRenderer::new);
 			event.registerBlockEntityRenderer(RegistryManager.MECHANICAL_PUMP_BOTTOM_ENTITY.get(), MechanicalPumpBlockEntityRenderer::new);
+			event.registerBlockEntityRenderer(RegistryManager.CATALYTIC_PLUG_ENTITY.get(), CatalyticPlugBlockEntityRenderer::new);
 		}
 
 		@OnlyIn(Dist.CLIENT)

@@ -1,0 +1,28 @@
+{
+  "type": "embersrekindled:alchemy",
+  "aspects": [
+    {
+      "tag": "embersrekindled:aspectus/dawnstone"
+    },
+    {
+      "tag": "embersrekindled:aspectus/silver"
+    }
+  ],
+  "inputs": [
+    {
+      "item": "embersrekindled:fluid_pipe"
+    },
+    {
+      "tag": "forge:glass/silica"
+    },
+    {
+      "item": "embersrekindled:fluid_pipe"
+    }
+  ],
+  "output": {
+    "item": "embersrekindled:catalytic_plug"
+  },
+  "tablet": {
+    "tag": "forge:ingots/silver"
+  }
+}

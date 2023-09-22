@@ -22,6 +22,7 @@ import com.rekindled.embers.block.CaminiteRingBlock;
 import com.rekindled.embers.block.CaminiteRingEdgeBlock;
 import com.rekindled.embers.block.CaminiteValveBlock;
 import com.rekindled.embers.block.CaminiteValveEdgeBlock;
+import com.rekindled.embers.block.CatalyticPlugBlock;
 import com.rekindled.embers.block.ClockworkAttenuatorBlock;
 import com.rekindled.embers.block.CopperCellBlock;
 import com.rekindled.embers.block.CopperChargerBlock;
@@ -65,6 +66,7 @@ import com.rekindled.embers.block.ReservoirEdgeBlock;
 import com.rekindled.embers.block.StampBaseBlock;
 import com.rekindled.embers.block.StamperBlock;
 import com.rekindled.embers.block.WaterloggableLeverBlock;
+import com.rekindled.embers.block.WildfireStirlingBlock;
 import com.rekindled.embers.blockentity.AlchemyPedestalBlockEntity;
 import com.rekindled.embers.blockentity.AlchemyPedestalTopBlockEntity;
 import com.rekindled.embers.blockentity.AlchemyTabletBlockEntity;
@@ -72,6 +74,7 @@ import com.rekindled.embers.blockentity.BeamCannonBlockEntity;
 import com.rekindled.embers.blockentity.BeamSplitterBlockEntity;
 import com.rekindled.embers.blockentity.BinBlockEntity;
 import com.rekindled.embers.blockentity.CaminiteValveBlockEntity;
+import com.rekindled.embers.blockentity.CatalyticPlugBlockEntity;
 import com.rekindled.embers.blockentity.ClockworkAttenuatorBlockEntity;
 import com.rekindled.embers.blockentity.CopperCellBlockEntity;
 import com.rekindled.embers.blockentity.CopperChargerBlockEntity;
@@ -111,6 +114,7 @@ import com.rekindled.embers.blockentity.PressureRefineryTopBlockEntity;
 import com.rekindled.embers.blockentity.ReservoirBlockEntity;
 import com.rekindled.embers.blockentity.StampBaseBlockEntity;
 import com.rekindled.embers.blockentity.StamperBlockEntity;
+import com.rekindled.embers.blockentity.WildfireStirlingBlockEntity;
 import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.entity.AncientGolemEntity;
 import com.rekindled.embers.entity.EmberPacketEntity;
@@ -354,6 +358,8 @@ public class RegistryManager {
 	public static final RegistryObject<Block> BEAM_CANNON = BLOCKS.register("beam_cannon", () -> new BeamCannonBlock(Properties.of().mapColor(MapColor.NONE).sound(SoundType.METAL).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
 	public static final RegistryObject<Block> MECHANICAL_PUMP = BLOCKS.register("mechanical_pump", () -> new MechanicalPumpBlock(Properties.of().mapColor(MapColor.COLOR_GRAY).sound(SoundType.METAL).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
 	public static final RegistryObject<Block> MINI_BOILER = BLOCKS.register("mini_boiler", () -> new MiniBoilerBlock(Properties.of().mapColor(MapColor.COLOR_GRAY).sound(SoundType.METAL).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
+	public static final RegistryObject<Block> CATALYTIC_PLUG = BLOCKS.register("catalytic_plug", () -> new CatalyticPlugBlock(Properties.of().mapColor(MapColor.NONE).sound(SoundType.GLASS).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
+	public static final RegistryObject<Block> WILDFIRE_STIRLING = BLOCKS.register("wildfire_stirling", () -> new WildfireStirlingBlock(Properties.of().mapColor(MapColor.TERRACOTTA_YELLOW).sound(SoundType.METAL).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
 
 	//itemblocks
 	public static final RegistryObject<Item> LEAD_ORE_ITEM = ITEMS.register("lead_ore", () -> new BlockItem(LEAD_ORE.get(), new Item.Properties()));
@@ -421,6 +427,8 @@ public class RegistryManager {
 	public static final RegistryObject<Item> BEAM_CANNON_ITEM = ITEMS.register("beam_cannon", () -> new BlockItem(BEAM_CANNON.get(), new Item.Properties()));
 	public static final RegistryObject<Item> MECHANICAL_PUMP_ITEM = ITEMS.register("mechanical_pump", () -> new BlockItem(MECHANICAL_PUMP.get(), new Item.Properties()));
 	public static final RegistryObject<Item> MINI_BOILER_ITEM = ITEMS.register("mini_boiler", () -> new BlockItem(MINI_BOILER.get(), new Item.Properties()));
+	public static final RegistryObject<Item> CATALYTIC_PLUG_ITEM = ITEMS.register("catalytic_plug", () -> new BlockItem(CATALYTIC_PLUG.get(), new Item.Properties()));
+	public static final RegistryObject<Item> WILDFIRE_STIRLING_ITEM = ITEMS.register("wildfire_stirling", () -> new BlockItem(WILDFIRE_STIRLING.get(), new Item.Properties()));
 
 	//items
 	public static final RegistryObject<Item> TINKER_HAMMER = ITEMS.register("tinker_hammer", () -> new TinkerHammerItem(new Item.Properties().stacksTo(1)));
@@ -589,6 +597,8 @@ public class RegistryManager {
 	public static final RegistryObject<BlockEntityType<MechanicalPumpBottomBlockEntity>> MECHANICAL_PUMP_BOTTOM_ENTITY = BLOCK_ENTITY_TYPES.register("mechanical_pump_bottom", () -> BlockEntityType.Builder.of(MechanicalPumpBottomBlockEntity::new, MECHANICAL_PUMP.get()).build(null));
 	public static final RegistryObject<BlockEntityType<MechanicalPumpTopBlockEntity>> MECHANICAL_PUMP_TOP_ENTITY = BLOCK_ENTITY_TYPES.register("mechanical_pump_top", () -> BlockEntityType.Builder.of(MechanicalPumpTopBlockEntity::new, MECHANICAL_PUMP.get()).build(null));
 	public static final RegistryObject<BlockEntityType<MiniBoilerBlockEntity>> MINI_BOILER_ENTITY = BLOCK_ENTITY_TYPES.register("mini_boiler", () -> BlockEntityType.Builder.of(MiniBoilerBlockEntity::new, MINI_BOILER.get()).build(null));
+	public static final RegistryObject<BlockEntityType<CatalyticPlugBlockEntity>> CATALYTIC_PLUG_ENTITY = BLOCK_ENTITY_TYPES.register("catalytic_plug", () -> BlockEntityType.Builder.of(CatalyticPlugBlockEntity::new, CATALYTIC_PLUG.get()).build(null));
+	public static final RegistryObject<BlockEntityType<WildfireStirlingBlockEntity>> WILDFIRE_STIRLING_ENTITY = BLOCK_ENTITY_TYPES.register("wildfire_stirling", () -> BlockEntityType.Builder.of(WildfireStirlingBlockEntity::new, WILDFIRE_STIRLING.get()).build(null));
 
 	//creative tabs
 	public static final RegistryObject<CreativeModeTab> EMBERS_TAB = CREATIVE_TABS.register("main_tab", () -> CreativeModeTab.builder()

@@ -31,6 +31,7 @@ import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.ModelFile.ExistingModelFile;
 import net.minecraftforge.client.model.generators.ModelProvider;
 import net.minecraftforge.client.model.generators.MultiPartBlockStateBuilder;
+import net.minecraftforge.client.model.generators.loaders.CompositeModelBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -454,35 +455,18 @@ public class EmbersBlockStates extends BlockStateProvider {
 		simpleBlock(RegistryManager.CAMINITE_GAUGE.get(), models().getExistingFile(new ResourceLocation(Embers.MODID, "caminite_ring_center")));
 		flatItem(RegistryManager.CAMINITE_GAUGE, "caminite_gauge");
 
-		ExistingModelFile gaugeEdgeModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "caminite_gauge_edge"));
-		ExistingModelFile gaugeEdgeGlassModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "caminite_gauge_edge_glass"));
-		getMultipartBuilder(RegistryManager.CAMINITE_GAUGE_EDGE.get())
-		.part().modelFile(gaugeEdgeModel).addModel()
-		.condition(MechEdgeBlockBase.EDGE, MechEdge.NORTH).end()
-		.part().modelFile(gaugeEdgeModel).rotationY(90).addModel()
-		.condition(MechEdgeBlockBase.EDGE, MechEdge.EAST).end()
-		.part().modelFile(gaugeEdgeModel).rotationY(180).addModel()
-		.condition(MechEdgeBlockBase.EDGE, MechEdge.SOUTH).end()
-		.part().modelFile(gaugeEdgeModel).rotationY(270).addModel()
-		.condition(MechEdgeBlockBase.EDGE, MechEdge.WEST).end()
+		ModelFile gaugeEdgeModel = models().withExistingParent("caminite_gauge_edge", new ResourceLocation(Embers.MODID, "caminite_gauge_edge_base")).customLoader(CompositeModelBuilder::begin)
+				.child("base", models().nested().parent(models().getExistingFile(new ResourceLocation(Embers.MODID, "caminite_gauge_edge_base"))))
+				.child("glass", models().nested().parent(models().getExistingFile(new ResourceLocation(Embers.MODID, "caminite_gauge_edge_glass")))).end();
+		getVariantBuilder(RegistryManager.CAMINITE_GAUGE_EDGE.get()).forAllStates(state -> {
+			MechEdge edge = state.getValue(MechEdgeBlockBase.EDGE);
 
-		.part().modelFile(gaugeEdgeGlassModel).addModel()
-		.condition(MechEdgeBlockBase.EDGE, MechEdge.NORTH).end()
-		.part().modelFile(gaugeEdgeGlassModel).rotationY(90).addModel()
-		.condition(MechEdgeBlockBase.EDGE, MechEdge.EAST).end()
-		.part().modelFile(gaugeEdgeGlassModel).rotationY(180).addModel()
-		.condition(MechEdgeBlockBase.EDGE, MechEdge.SOUTH).end()
-		.part().modelFile(gaugeEdgeGlassModel).rotationY(270).addModel()
-		.condition(MechEdgeBlockBase.EDGE, MechEdge.WEST).end()
-
-		.part().modelFile(ringCornerModel).addModel()
-		.condition(MechEdgeBlockBase.EDGE, MechEdge.NORTHEAST).end()
-		.part().modelFile(ringCornerModel).rotationY(90).addModel()
-		.condition(MechEdgeBlockBase.EDGE, MechEdge.SOUTHEAST).end()
-		.part().modelFile(ringCornerModel).rotationY(180).addModel()
-		.condition(MechEdgeBlockBase.EDGE, MechEdge.SOUTHWEST).end()
-		.part().modelFile(ringCornerModel).rotationY(270).addModel()
-		.condition(MechEdgeBlockBase.EDGE, MechEdge.NORTHWEST).end();
+			return ConfiguredModel.builder()
+					.modelFile(edge.corner ? ringCornerModel : gaugeEdgeModel)
+					.rotationY(edge.rotation)
+					.uvLock(false)
+					.build();
+		});
 
 		simpleBlock(RegistryManager.CAMINITE_VALVE.get(), models().getExistingFile(new ResourceLocation(Embers.MODID, "caminite_ring_center")));
 		flatItem(RegistryManager.CAMINITE_VALVE, "caminite_valve");
@@ -589,6 +573,17 @@ public class EmbersBlockStates extends BlockStateProvider {
 		ExistingModelFile boilerModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "mini_boiler"));
 		horizontalBlock(RegistryManager.MINI_BOILER.get(), boilerModel);
 		simpleBlockItem(RegistryManager.MINI_BOILER.get(), boilerModel);
+
+		ModelFile catalyticPlugModel = models().withExistingParent("catalytic_plug", new ResourceLocation(Embers.MODID, "catalytic_plug_base")).customLoader(CompositeModelBuilder::begin)
+				.child("base", models().nested().parent(models().getExistingFile(new ResourceLocation(Embers.MODID, "catalytic_plug_base"))))
+				.child("glass", models().nested().parent(models().getExistingFile(new ResourceLocation(Embers.MODID, "catalytic_plug_glass")))).end();
+
+		directionalBlock(RegistryManager.CATALYTIC_PLUG.get(), catalyticPlugModel);
+		simpleBlockItem(RegistryManager.CATALYTIC_PLUG.get(), catalyticPlugModel);
+
+		ExistingModelFile stirlingModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "wildfire_stirling"));
+		directionalBlock(RegistryManager.WILDFIRE_STIRLING.get(), stirlingModel);
+		simpleBlockItem(RegistryManager.WILDFIRE_STIRLING.get(), stirlingModel);
 	}
 
 	public void blockWithItem(RegistryObject<? extends Block> registryObject) {

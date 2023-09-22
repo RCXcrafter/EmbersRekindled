@@ -1,6 +1,7 @@
 {
   "values": [
     "#embersrekindled:fluid_pipe_connection/toggleable",
-    "embersrekindled:fluid_transfer"
+    "embersrekindled:fluid_transfer",
+    "embersrekindled:catalytic_plug"
   ]
 }

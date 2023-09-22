@@ -93,6 +93,8 @@ public class EmbersLang extends LanguageProvider {
 		addBlock(RegistryManager.BEAM_CANNON, "Beam Cannon");
 		addBlock(RegistryManager.MECHANICAL_PUMP, "Mechanical Pump");
 		addBlock(RegistryManager.MINI_BOILER, "Mini Boiler");
+		addBlock(RegistryManager.CATALYTIC_PLUG, "Catalytic Plug");
+		addBlock(RegistryManager.WILDFIRE_STIRLING, "Wildfire Stirling");
 
 		addItem(RegistryManager.TINKER_HAMMER, "Tinker's Hammer");
 		addItem(RegistryManager.TINKER_LENS, "Tinker's Lens");
@@ -195,7 +197,10 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".tooltip.attenuator.on", "When active: %s Speed");
 		add(Embers.MODID + ".tooltip.attenuator.off", "When inactive: %s Speed");
 
+		add(Embers.MODID + ".tooltip.upgrade.catalytic_plug", "Catalytic Plug Speed: %s");
+
 		add(Embers.MODID + ".decimal_format.item_amount", "0x");
+		add(Embers.MODID + ".decimal_format.speed_multiplier", "0.##x");
 		add(Embers.MODID + ".decimal_format.ember_multiplier", "0.##x");
 		add(Embers.MODID + ".decimal_format.heat", "0.#");
 		add(Embers.MODID + ".decimal_format.attenuator_multiplier", "0.##x");
@@ -605,8 +610,8 @@ public class EmbersLang extends LanguageProvider {
 
 		add(Embers.MODID + ".research.page.catalytic_plug", "Catalytic Plug");
 		add(Embers.MODID + ".research.page.catalytic_plug.title", "Overdrive Injection");
-		add(Embers.MODID + ".research.page.catalytic_plug.tags", "Speed;Upgrade;Redstone;Alchemy;Alchemical Redstone;");
-		add(Embers.MODID + ".research.page.catalytic_plug.desc", "Catalytic Plugs are fantastic devices for the impatient. When hooked up to a machine the plug doubles the speed of the machine, but only if also supplied with Alchemical Slurry from the back, which is consumed in the process. Up to 2 Catalytic Plugs can be attached to a single machine, to quadruple its speed.");
+		add(Embers.MODID + ".research.page.catalytic_plug.tags", "Speed;Upgrade;Alchemy;Steam;");
+		add(Embers.MODID + ".research.page.catalytic_plug.desc", "Catalytic Plugs are fantastic devices for the impatient. When hooked up to a machine the plug doubles the speed of the machine, but only if also supplied with Steam from the back, which is consumed in the process. Up to 2 Catalytic Plugs can be attached to a single machine, to quadruple its speed.");
 
 		add(Embers.MODID + ".research.page.ember_siphon", "Ember Siphon");
 		add(Embers.MODID + ".research.page.ember_siphon.title", "Reversing The Flow");
