@@ -3,7 +3,11 @@ package com.rekindled.embers.block;
 import javax.annotation.Nullable;
 
 import com.rekindled.embers.RegistryManager;
+import com.rekindled.embers.api.block.IPipeConnection;
 import com.rekindled.embers.blockentity.MiniBoilerBlockEntity;
+import com.rekindled.embers.blockentity.PipeBlockEntityBase;
+import com.rekindled.embers.blockentity.PipeBlockEntityBase.PipeConnection;
+import com.rekindled.embers.datagen.EmbersBlockTags;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -28,7 +32,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class MiniBoilerBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
+public class MiniBoilerBlock extends BaseEntityBlock implements SimpleWaterloggedBlock, IPipeConnection {
 
 	protected static final VoxelShape BOILER_AABB = Shapes.or(Block.box(3,0,3,13,16,13), Block.box(2,2,2,14,14,14));
 
@@ -74,6 +78,19 @@ public class MiniBoilerBlock extends BaseEntityBlock implements SimpleWaterlogge
 		if (pState.getValue(BlockStateProperties.WATERLOGGED)) {
 			pLevel.scheduleTick(pCurrentPos, Fluids.WATER, Fluids.WATER.getTickDelay(pLevel));
 		}
+
+		if (pFacing.getAxis() != Axis.Y && pLevel.getBlockEntity(pCurrentPos) instanceof PipeBlockEntityBase pipe) {
+			BlockEntity facingBE = pLevel.getBlockEntity(pFacingPos);
+			if (pFacingState.is(EmbersBlockTags.FLUID_PIPE_CONNECTION)) {
+				if (facingBE instanceof PipeBlockEntityBase && ((PipeBlockEntityBase) facingBE).getConnection(pFacing.getOpposite()) == PipeConnection.DISABLED) {
+					pipe.setConnection(pFacing, PipeConnection.NONE);
+				} else {
+					pipe.setConnection(pFacing, PipeConnection.PIPE);
+				}
+			} else {
+				pipe.setConnection(pFacing, PipeConnection.NONE);
+			}
+		}
 		return super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
 	}
 
@@ -85,5 +102,10 @@ public class MiniBoilerBlock extends BaseEntityBlock implements SimpleWaterlogge
 	@Override
 	public FluidState getFluidState(BlockState pState) {
 		return pState.getValue(BlockStateProperties.WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(pState);
+	}
+
+	@Override
+	public PipeConnection getPipeConnection(BlockState state, Direction direction) {
+		return direction.getAxis() == Axis.Y ? PipeConnection.END : PipeConnection.PIPE;
 	}
 }

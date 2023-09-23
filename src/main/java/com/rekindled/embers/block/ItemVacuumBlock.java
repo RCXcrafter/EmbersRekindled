@@ -5,6 +5,7 @@ import javax.annotation.Nullable;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.block.IPipeConnection;
 import com.rekindled.embers.blockentity.ItemVacuumBlockEntity;
+import com.rekindled.embers.blockentity.PipeBlockEntityBase.PipeConnection;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -113,7 +114,7 @@ public class ItemVacuumBlock extends BaseEntityBlock implements SimpleWaterlogge
 	}
 
 	@Override
-	public boolean connectPipe(BlockState state, Direction direction) {
-		return state.getValue(BlockStateProperties.FACING).getOpposite() == direction;
+	public PipeConnection getPipeConnection(BlockState state, Direction direction) {
+		return PipeConnection.PIPE;
 	}
 }

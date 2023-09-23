@@ -325,6 +325,7 @@ public class EmbersClientEvents {
 	public static PipeModel itemExtractor;
 	public static PipeModel fluidPipe;
 	public static PipeModel fluidExtractor;
+	public static ArrayList<PipeModel> miniBoiler = new ArrayList<PipeModel>();
 
 	public static void onModelRegister(ModelEvent.RegisterAdditional event) {
 		event.register(ITEM_CENTER);
@@ -358,6 +359,10 @@ public class EmbersClientEvents {
 					modelRegistry.put(resourceLocation, fluidPipe);
 				} else if (resourceLocation.getPath().equals("fluid_extractor") && !resourceLocation.toString().contains("inventory")) {
 					modelRegistry.put(resourceLocation, fluidExtractor);
+				} else if (resourceLocation.getPath().equals("mini_boiler") && !resourceLocation.toString().contains("inventory")) {
+					PipeModel model = new PipeModel(modelRegistry.get(resourceLocation), "fluid_pipe");
+					miniBoiler.add(model);
+					modelRegistry.put(resourceLocation, model);
 				}
 			}
 		}
@@ -368,5 +373,7 @@ public class EmbersClientEvents {
 		itemExtractor.init(event.getModelManager());
 		fluidPipe.init(event.getModelManager());
 		fluidExtractor.init(event.getModelManager());
+		for (PipeModel model : miniBoiler)
+			model.init(event.getModelManager());
 	}
 }

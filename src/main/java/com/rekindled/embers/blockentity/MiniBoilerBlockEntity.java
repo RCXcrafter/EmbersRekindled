@@ -12,6 +12,7 @@ import com.rekindled.embers.api.projectile.EffectDamage;
 import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
 import com.rekindled.embers.api.tile.IExtraDialInformation;
 import com.rekindled.embers.block.FluidDialBlock;
+import com.rekindled.embers.datagen.EmbersBlockTags;
 import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.entity.EmberProjectileEntity;
 import com.rekindled.embers.particle.VaporParticleOptions;
@@ -36,6 +37,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.Level.ExplosionInteraction;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -48,7 +50,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 
-public class MiniBoilerBlockEntity extends BlockEntity implements ISoundController, IExtraDialInformation, IExtraCapabilityInformation {
+public class MiniBoilerBlockEntity extends PipeBlockEntityBase implements ISoundController, IExtraDialInformation, IExtraCapabilityInformation {
 
 	public static final int SOUND_SLOW = 1;
 	public static final int SOUND_MEDIUM = 2;
@@ -129,6 +131,27 @@ public class MiniBoilerBlockEntity extends BlockEntity implements ISoundControll
 	@Override
 	public Packet<ClientGamePacketListener> getUpdatePacket() {
 		return ClientboundBlockEntityDataPacket.create(this);
+	}
+
+	public void initConnections() {
+		Block block = level.getBlockState(worldPosition).getBlock();
+		for (Direction direction : Misc.horizontals) {
+			BlockState facingState = level.getBlockState(worldPosition.relative(direction));
+			BlockEntity facingBE = level.getBlockEntity(worldPosition.relative(direction));
+			if (facingState.is(EmbersBlockTags.FLUID_PIPE_CONNECTION)) {
+				if (facingBE instanceof PipeBlockEntityBase && !((PipeBlockEntityBase) facingBE).getConnection(direction.getOpposite()).transfer) {
+					connections[direction.get3DDataValue()] = PipeConnection.NONE;
+				} else {
+					connections[direction.get3DDataValue()] = PipeConnection.PIPE;
+				}
+			} else {
+				connections[direction.get3DDataValue()] = PipeConnection.NONE;
+			}
+		}
+		loaded = true;
+		setChanged();
+		level.getChunkAt(worldPosition).setUnsaved(true);
+		level.updateNeighbourForOutputSignal(worldPosition, block);
 	}
 
 	public int getCapacity() {
@@ -219,6 +242,8 @@ public class MiniBoilerBlockEntity extends BlockEntity implements ISoundControll
 	}
 
 	public static void serverTick(Level level, BlockPos pos, BlockState state, MiniBoilerBlockEntity blockEntity) {
+		if (!blockEntity.loaded)
+			blockEntity.initConnections();
 		if (blockEntity.boilTime > 0) {
 			blockEntity.boilTime--;
 			blockEntity.setChanged();

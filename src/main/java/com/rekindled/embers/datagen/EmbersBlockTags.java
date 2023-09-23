@@ -88,7 +88,7 @@ public class EmbersBlockTags extends BlockTagsProvider {
 		tag(EMITTER_CONNECTION_CEILING).add(Blocks.POINTED_DRIPSTONE);
 
 		tag(ITEM_PIPE_CONNECTION).addTag(ITEM_PIPE_CONNECTION_TOGGLEABLE);
-		tag(ITEM_PIPE_CONNECTION).add(RegistryManager.ITEM_DROPPER.get(), RegistryManager.ITEM_VACUUM.get(), RegistryManager.ITEM_TRANSFER.get());
+		//tag(ITEM_PIPE_CONNECTION).add(RegistryManager.ITEM_DROPPER.get(), RegistryManager.ITEM_VACUUM.get(), RegistryManager.ITEM_TRANSFER.get());
 		tag(ITEM_PIPE_CONNECTION_TOGGLEABLE).add(RegistryManager.ITEM_PIPE.get(), RegistryManager.ITEM_EXTRACTOR.get());
 
 		decoTags(RegistryManager.CAMINITE_BRICKS_DECO);
@@ -217,7 +217,7 @@ public class EmbersBlockTags extends BlockTagsProvider {
 				RegistryManager.CAMINITE_VALVE.get());
 
 		tag(FLUID_PIPE_CONNECTION).addTag(FLUID_PIPE_CONNECTION_TOGGLEABLE);
-		tag(FLUID_PIPE_CONNECTION).add(RegistryManager.FLUID_TRANSFER.get(), RegistryManager.CATALYTIC_PLUG.get());
+		//tag(FLUID_PIPE_CONNECTION).add(RegistryManager.FLUID_TRANSFER.get(), RegistryManager.CATALYTIC_PLUG.get());
 		tag(FLUID_PIPE_CONNECTION_TOGGLEABLE).add(RegistryManager.FLUID_PIPE.get(), RegistryManager.FLUID_EXTRACTOR.get());
 
 		tag(HEAT_SOURCES).add(Blocks.LAVA, Blocks.FIRE);

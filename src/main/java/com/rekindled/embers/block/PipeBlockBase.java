@@ -135,8 +135,13 @@ public abstract class PipeBlockBase extends BaseEntityBlock implements SimpleWat
 				}
 				BlockEntity blockEntity = level.getBlockEntity(facingPos);
 				if (connectToTile(blockEntity, face)) {
-					pipe.setConnection(face, PipeConnection.END);
+					if (facingState.getBlock() instanceof IPipeConnection) {
+						pipe.setConnection(face, ((IPipeConnection) facingState.getBlock()).getPipeConnection(facingState, face.getOpposite()));
+					} else {
+						pipe.setConnection(face, PipeConnection.END);
+					}
 					level.updateNeighbourForOutputSignal(pos, this);
+					facingState.updateShape(face.getOpposite(), state, level, facingPos, pos);
 					level.playLocalSound(pos.getX() + 0.5 + face.getStepX() * 0.4, pos.getY() + 0.5 + face.getStepY() * 0.4, pos.getZ() + 0.5 + face.getStepZ() * 0.4, EmbersSounds.PIPE_CONNECT.get(), SoundSource.BLOCKS, 1.0f, 1.0f, false);
 					return InteractionResult.SUCCESS;
 				}
@@ -155,9 +160,10 @@ public abstract class PipeBlockBase extends BaseEntityBlock implements SimpleWat
 					level.playLocalSound(pos.getX() + 0.5 + direction.getStepX() * 0.5, pos.getY() + 0.5 + direction.getStepY() * 0.5, pos.getZ() + 0.5 + direction.getStepZ() * 0.5, EmbersSounds.PIPE_DISCONNECT.get(), SoundSource.BLOCKS, 1.0f, 1.0f, false);
 					return InteractionResult.SUCCESS;
 				}
-				if (pipe.getConnection(direction) == PipeConnection.END && !facingState.is(getConnectionTag()) && !connected(direction, facingState)) {
+				if (pipe.getConnection(direction).transfer && !facingState.is(getConnectionTag()) && !connected(direction, facingState)) {
 					pipe.setConnection(direction, PipeConnection.DISABLED);
 					level.updateNeighbourForOutputSignal(pos, this);
+					facingState.updateShape(direction.getOpposite(), state, level, facingPos, pos);
 					level.playLocalSound(pos.getX() + 0.5 + direction.getStepX() * 0.4, pos.getY() + 0.5 + direction.getStepY() * 0.4, pos.getZ() + 0.5 + direction.getStepZ() * 0.4, EmbersSounds.PIPE_DISCONNECT.get(), SoundSource.BLOCKS, 1.0f, 1.0f, false);
 					return InteractionResult.SUCCESS;
 				}
@@ -247,8 +253,7 @@ public abstract class PipeBlockBase extends BaseEntityBlock implements SimpleWat
 			if (!(facingBE instanceof PipeBlockEntityBase) || ((PipeBlockEntityBase) facingBE).getConnection(pFacing.getOpposite()) != PipeConnection.DISABLED) {
 				boolean enabled = pipe.getConnection(pFacing) != PipeConnection.DISABLED;
 				if (pFacingState.is(getConnectionTag()) && enabled) {
-					if (facingBE instanceof PipeBlockEntityBase && ((PipeBlockEntityBase) facingBE).getConnection(pFacing.getOpposite()) == PipeConnection.DISABLED
-							|| pFacingState.getBlock() instanceof IPipeConnection && !((IPipeConnection) pFacingState.getBlock()).connectPipe(pFacingState, pFacing.getOpposite())) {
+					if (facingBE instanceof PipeBlockEntityBase && ((PipeBlockEntityBase) facingBE).getConnection(pFacing.getOpposite()) == PipeConnection.DISABLED) {
 						pipe.setConnection(pFacing, PipeConnection.DISABLED);
 					} else {
 						pipe.setConnection(pFacing, PipeConnection.PIPE);
@@ -258,7 +263,11 @@ public abstract class PipeBlockBase extends BaseEntityBlock implements SimpleWat
 					if (connected(pFacing, pFacingState)) {
 						pipe.setConnection(pFacing, PipeConnection.LEVER);
 					} else if ((connectToTile(blockEntity, pFacing) && enabled)) {
-						pipe.setConnection(pFacing, PipeConnection.END);
+						if (pFacingState.getBlock() instanceof IPipeConnection) {
+							pipe.setConnection(pFacing, ((IPipeConnection) pFacingState.getBlock()).getPipeConnection(pFacingState, pFacing.getOpposite()));
+						} else {
+							pipe.setConnection(pFacing, PipeConnection.END);
+						}
 					} else if (enabled) {
 						pipe.setConnection(pFacing, PipeConnection.NONE);
 					}

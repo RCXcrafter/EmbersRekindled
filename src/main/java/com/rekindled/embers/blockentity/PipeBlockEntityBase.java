@@ -36,15 +36,14 @@ public class PipeBlockEntityBase extends BlockEntity {
 	}
 
 	public void initConnections() {
+		Block block = level.getBlockState(worldPosition).getBlock();
 		for (Direction direction : Direction.values()) {
-			Block block = level.getBlockState(worldPosition).getBlock();
 			if (block instanceof PipeBlockBase pipeBlock) {
 				BlockState facingState = level.getBlockState(worldPosition.relative(direction));
 				BlockEntity facingBE = level.getBlockEntity(worldPosition.relative(direction));
 				if (!(facingBE instanceof PipeBlockEntityBase) || ((PipeBlockEntityBase) facingBE).getConnection(direction.getOpposite()) != PipeConnection.DISABLED) {
 					if (facingState.is(pipeBlock.getConnectionTag())) {
-						if (facingBE instanceof PipeBlockEntityBase && ((PipeBlockEntityBase) facingBE).getConnection(direction.getOpposite()) == PipeConnection.DISABLED
-								|| facingState.getBlock() instanceof IPipeConnection && !((IPipeConnection) facingState.getBlock()).connectPipe(facingState, direction.getOpposite())) {
+						if (facingBE instanceof PipeBlockEntityBase && ((PipeBlockEntityBase) facingBE).getConnection(direction.getOpposite()) == PipeConnection.DISABLED) {
 							connections[direction.get3DDataValue()] = PipeConnection.DISABLED;
 						} else {
 							connections[direction.get3DDataValue()] = PipeConnection.PIPE;
@@ -53,20 +52,22 @@ public class PipeBlockEntityBase extends BlockEntity {
 						if (pipeBlock.connected(direction, facingState)) {
 							connections[direction.get3DDataValue()] = PipeConnection.LEVER;
 						} else if (pipeBlock.connectToTile(facingBE, direction)) {
-							connections[direction.get3DDataValue()] = PipeConnection.END;
+							if (facingState.getBlock() instanceof IPipeConnection) {
+								connections[direction.get3DDataValue()] = ((IPipeConnection) facingState.getBlock()).getPipeConnection(facingState, direction.getOpposite());
+							} else {
+								connections[direction.get3DDataValue()] = PipeConnection.END;
+							}
 						} else {
 							connections[direction.get3DDataValue()] = PipeConnection.NONE;
 						}
 					}
 				}
 			}
-			level.getChunkAt(worldPosition).setUnsaved(true);
-
-
-			level.updateNeighbourForOutputSignal(worldPosition, block);
 		}
 		loaded = true;
 		setChanged();
+		level.getChunkAt(worldPosition).setUnsaved(true);
+		level.updateNeighbourForOutputSignal(worldPosition, block);
 	}
 
 	@Override

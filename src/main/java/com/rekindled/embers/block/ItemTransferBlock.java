@@ -5,6 +5,7 @@ import javax.annotation.Nullable;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.block.IPipeConnection;
 import com.rekindled.embers.blockentity.ItemTransferBlockEntity;
+import com.rekindled.embers.blockentity.PipeBlockEntityBase.PipeConnection;
 import com.rekindled.embers.util.Misc;
 
 import net.minecraft.core.BlockPos;
@@ -165,7 +166,7 @@ public class ItemTransferBlock extends BaseEntityBlock implements SimpleWaterlog
 	}
 
 	@Override
-	public boolean connectPipe(BlockState state, Direction direction) {
-		return state.getValue(BlockStateProperties.FACING).getAxis() == direction.getAxis();
+	public PipeConnection getPipeConnection(BlockState state, Direction direction) {
+		return PipeConnection.PIPE;
 	}
 }
