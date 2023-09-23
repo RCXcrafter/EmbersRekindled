@@ -11,6 +11,7 @@ import net.minecraftforge.fml.config.ModConfig;
 
 public class ConfigManager {
 
+	public static ConfigValue<Integer> MAX_PROXY_DISTANCE;
 	public static ConfigValue<Double> EMBER_BORE_SPEED_MOD;
 	public static ConfigValue<Integer> RESERVOIR_CAPACITY;
 	public static ConfigValue<Integer> MINI_BOILER_CAPACITY;
@@ -34,6 +35,8 @@ public class ConfigManager {
 	public static void registerCommonConfigs() {
 		ForgeConfigSpec.Builder COMMON = new ForgeConfigSpec.Builder();
 		COMMON.comment("Settings for machine/item/misc parameters").push("parameters");
+
+		MAX_PROXY_DISTANCE = COMMON.comment("The mamimum distance that mechanical cores can proxy capabilities and upgrades.").define("parameters.mechanical_core.max_distance", 3);
 
 		EMBER_BORE_SPEED_MOD = COMMON.comment("The speed modifier of the Ember Bore before upgrades.").define("parameters.emberBore.speedMod", 1.0);
 

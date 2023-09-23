@@ -611,7 +611,7 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".research.page.catalytic_plug", "Catalytic Plug");
 		add(Embers.MODID + ".research.page.catalytic_plug.title", "Overdrive Injection");
 		add(Embers.MODID + ".research.page.catalytic_plug.tags", "Speed;Upgrade;Alchemy;Steam;");
-		add(Embers.MODID + ".research.page.catalytic_plug.desc", "Catalytic Plugs are fantastic devices for the impatient. When hooked up to a machine the plug doubles the speed of the machine, but only if also supplied with Steam from the back, which is consumed in the process. Up to 2 Catalytic Plugs can be attached to a single machine, to quadruple its speed.");
+		add(Embers.MODID + ".research.page.catalytic_plug.desc", "Catalytic Plugs are fantastic devices for the impatient. When hooked up to a machine the plug doubles the speed of the machine, but only if also supplied with Steam from the back, which is consumed in the process. Up to 2 Catalytic Plugs can be attached to a single machine, to quadruple its speed. Attaching more will decrease their efficiency. The plugs also decrease in efficiency if attached through more than 1 Mechanical Core.");
 
 		add(Embers.MODID + ".research.page.ember_siphon", "Ember Siphon");
 		add(Embers.MODID + ".research.page.ember_siphon.title", "Reversing The Flow");
@@ -738,7 +738,7 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".research.page.stirling", "Wildfire Stirling");
 		add(Embers.MODID + ".research.page.stirling.title", "Reductio Ad Absurdum");
 		add(Embers.MODID + ".research.page.stirling.tags", "Wildfire;Stirling;Ember;Upgrade;Steam;");
-		add(Embers.MODID + ".research.page.stirling.desc", "This piece of machinery is the counterpart of the Catalytic Plug. When attached to a machine and supplied with steam, the Wildfire Stirling will reduce the ember cost of all machine operations by half. A second Stirling can be attached to quarter the cost.");
+		add(Embers.MODID + ".research.page.stirling.desc", "This piece of machinery is the counterpart of the Catalytic Plug. When attached to a machine and supplied with steam, the Wildfire Stirling will reduce the ember cost of all machine operations by half. A second Stirling can be attached to quarter the cost. Attaching more will decrease their efficiency. The stirling also decreases in efficiency if attached through more than 1 Mechanical Core.");
 
 
 

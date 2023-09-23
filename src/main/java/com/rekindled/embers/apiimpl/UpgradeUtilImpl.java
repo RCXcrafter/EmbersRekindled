@@ -6,13 +6,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import com.rekindled.embers.ConfigManager;
 import com.rekindled.embers.api.capabilities.EmbersCapabilities;
 import com.rekindled.embers.api.event.UpgradeEvent;
 import com.rekindled.embers.api.upgrades.IUpgradeProvider;
 import com.rekindled.embers.api.upgrades.IUpgradeProxy;
 import com.rekindled.embers.api.upgrades.IUpgradeUtil;
 import com.rekindled.embers.api.upgrades.UpgradeContext;
-import com.rekindled.embers.blockentity.MechanicalCoreBlockEntity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -51,7 +51,7 @@ public class UpgradeUtilImpl implements IUpgradeUtil {
 	}
 
 	public void collectUpgrades(Level world, BlockPos pos, Direction side, List<UpgradeContext> upgrades) {
-		collectUpgrades(world, pos, side, upgrades, MechanicalCoreBlockEntity.MAX_DISTANCE);
+		collectUpgrades(world, pos, side, upgrades, ConfigManager.MAX_PROXY_DISTANCE.get());
 	}
 
 	public void collectUpgrades(Level world, BlockPos pos, Direction side, List<UpgradeContext> upgrades, int distanceLeft) {
@@ -62,7 +62,7 @@ public class UpgradeUtilImpl implements IUpgradeUtil {
 		if (te != null) {
 			IUpgradeProvider cap = te.getCapability(EmbersCapabilities.UPGRADE_PROVIDER_CAPABILITY, side).orElse(null);
 			if (cap != null)
-				upgrades.add(new UpgradeContext(cap, MechanicalCoreBlockEntity.MAX_DISTANCE - distanceLeft));
+				upgrades.add(new UpgradeContext(cap, ConfigManager.MAX_PROXY_DISTANCE.get() - distanceLeft));
 		}
 		if (te instanceof IUpgradeProxy) {
 			IUpgradeProxy proxy = (IUpgradeProxy) te;

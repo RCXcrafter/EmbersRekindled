@@ -180,6 +180,10 @@ public class HearthCoilBlockEntity extends BlockEntity implements ISoundControll
 				if (blockEntity.ticksExisted % 20 == 0) {
 					blockEntity.heat += UpgradeUtil.getOtherParameter(blockEntity, "heating_speed", HEATING_SPEED, blockEntity.upgrades);
 				}
+			} else {
+				if (blockEntity.ticksExisted % 20 == 0) {
+					blockEntity.heat -= UpgradeUtil.getOtherParameter(blockEntity, "cooling_speed", COOLING_SPEED, blockEntity.upgrades);
+				}
 			}
 		} else {
 			if (blockEntity.ticksExisted % 20 == 0) {

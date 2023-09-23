@@ -2,6 +2,7 @@ package com.rekindled.embers.blockentity;
 
 import java.util.List;
 
+import com.rekindled.embers.ConfigManager;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
 import com.rekindled.embers.api.tile.IExtraDialInformation;
@@ -19,8 +20,6 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 
 public class MechanicalCoreBlockEntity extends BlockEntity implements IExtraDialInformation, IExtraCapabilityInformation, IUpgradeProxy {
-
-	public static final int MAX_DISTANCE = 3;
 
 	public MechanicalCoreBlockEntity(BlockPos pPos, BlockState pBlockState) {
 		super(RegistryManager.MECHANICAL_CORE_ENTITY.get(), pPos, pBlockState);
@@ -64,7 +63,7 @@ public class MechanicalCoreBlockEntity extends BlockEntity implements IExtraDial
 
 	@Override
 	public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
-		BlockEntityDirection multiblock = getAttachedMultiblock(MAX_DISTANCE);
+		BlockEntityDirection multiblock = getAttachedMultiblock(ConfigManager.MAX_PROXY_DISTANCE.get());
 		if(multiblock != null)
 			return multiblock.blockEntity.getCapability(cap, multiblock.direction);
 		return super.getCapability(cap, side);
@@ -72,14 +71,14 @@ public class MechanicalCoreBlockEntity extends BlockEntity implements IExtraDial
 
 	@Override
 	public void addDialInformation(Direction facing, List<String> information, String dialType) {
-		BlockEntityDirection multiblock = getAttachedMultiblock(MAX_DISTANCE);
+		BlockEntityDirection multiblock = getAttachedMultiblock(ConfigManager.MAX_PROXY_DISTANCE.get());
 		if(multiblock != null && multiblock.blockEntity instanceof IExtraDialInformation)
 			((IExtraDialInformation) multiblock.blockEntity).addDialInformation(multiblock.direction, information, dialType);
 	}
 
 	@Override
 	public boolean hasCapabilityDescription(Capability<?> capability) {
-		BlockEntity multiblock = getAttachedBlockEntity(MAX_DISTANCE);
+		BlockEntity multiblock = getAttachedBlockEntity(ConfigManager.MAX_PROXY_DISTANCE.get());
 		if(multiblock instanceof IExtraCapabilityInformation)
 			return ((IExtraCapabilityInformation) multiblock).hasCapabilityDescription(capability);
 		return false;
@@ -87,14 +86,14 @@ public class MechanicalCoreBlockEntity extends BlockEntity implements IExtraDial
 
 	@Override
 	public void addCapabilityDescription(List<String> strings, Capability<?> capability, Direction facing) {
-		BlockEntityDirection multiblock = getAttachedMultiblock(MAX_DISTANCE);
+		BlockEntityDirection multiblock = getAttachedMultiblock(ConfigManager.MAX_PROXY_DISTANCE.get());
 		if(multiblock != null && multiblock.blockEntity instanceof IExtraCapabilityInformation)
 			((IExtraCapabilityInformation) multiblock.blockEntity).addCapabilityDescription(strings, capability, multiblock.direction);
 	}
 
 	@Override
 	public void addOtherDescription(List<String> strings, Direction facing) {
-		BlockEntityDirection multiblock = getAttachedMultiblock(MAX_DISTANCE);
+		BlockEntityDirection multiblock = getAttachedMultiblock(ConfigManager.MAX_PROXY_DISTANCE.get());
 		if(multiblock != null && multiblock.blockEntity instanceof IExtraCapabilityInformation)
 			((IExtraCapabilityInformation) multiblock.blockEntity).addOtherDescription(strings, multiblock.direction);
 	}
