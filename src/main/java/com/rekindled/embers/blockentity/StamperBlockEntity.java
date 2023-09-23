@@ -16,7 +16,7 @@ import com.rekindled.embers.api.tile.IBin;
 import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
 import com.rekindled.embers.api.tile.IExtraDialInformation;
 import com.rekindled.embers.api.tile.IMechanicallyPowered;
-import com.rekindled.embers.api.upgrades.IUpgradeProvider;
+import com.rekindled.embers.api.upgrades.UpgradeContext;
 import com.rekindled.embers.api.upgrades.UpgradeUtil;
 import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.particle.GlowParticleOptions;
@@ -78,7 +78,7 @@ public class StamperBlockEntity extends BlockEntity implements IMechanicallyPowe
 		}
 	};
 	public LazyOptional<IItemHandler> holder = LazyOptional.of(() -> stamp);
-	private List<IUpgradeProvider> upgrades = new ArrayList<>();
+	protected List<UpgradeContext> upgrades = new ArrayList<>();
 	public StampingRecipe cachedRecipe = null;
 
 	public StamperBlockEntity(BlockPos pPos, BlockState pBlockState) {
@@ -121,6 +121,10 @@ public class StamperBlockEntity extends BlockEntity implements IMechanicallyPowe
 
 	public static void clientTick(Level level, BlockPos pos, BlockState state, StamperBlockEntity blockEntity) {
 		blockEntity.prevPowered = blockEntity.powered;
+		if (level.getBlockState(pos.below(2)).getBlock() == RegistryManager.STAMP_BASE.get()) {
+			blockEntity.upgrades = UpgradeUtil.getUpgrades(level, pos, Misc.horizontals);
+			UpgradeUtil.verifyUpgrades(blockEntity, blockEntity.upgrades);
+		}
 	}
 
 	public static void serverTick(Level level, BlockPos pos, BlockState state, StamperBlockEntity blockEntity) {
@@ -246,7 +250,7 @@ public class StamperBlockEntity extends BlockEntity implements IMechanicallyPowe
 
 	@Override
 	public void addDialInformation(Direction facing, List<String> information, String dialType) {
-		UpgradeUtil.throwEvent(this,new DialInformationEvent(this,information,dialType),upgrades);
+		UpgradeUtil.throwEvent(this, new DialInformationEvent(this, information, dialType), upgrades);
 	}
 
 	@Override

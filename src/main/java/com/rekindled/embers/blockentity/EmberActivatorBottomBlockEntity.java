@@ -9,7 +9,7 @@ import com.rekindled.embers.api.event.DialInformationEvent;
 import com.rekindled.embers.api.event.EmberEvent;
 import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
 import com.rekindled.embers.api.tile.IExtraDialInformation;
-import com.rekindled.embers.api.upgrades.IUpgradeProvider;
+import com.rekindled.embers.api.upgrades.UpgradeContext;
 import com.rekindled.embers.api.upgrades.UpgradeUtil;
 import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.particle.GlowParticleOptions;
@@ -58,7 +58,7 @@ public class EmberActivatorBottomBlockEntity extends BlockEntity implements IExt
 		}
 	};
 	public LazyOptional<IItemHandler> holder = LazyOptional.of(() -> inventory);
-	private List<IUpgradeProvider> upgrades = new ArrayList<>();
+	protected List<UpgradeContext> upgrades = new ArrayList<>();
 	public EmberActivationRecipe cachedRecipe = null;
 
 	public EmberActivatorBottomBlockEntity(BlockPos pPos, BlockState pBlockState) {
@@ -89,6 +89,11 @@ public class EmberActivatorBottomBlockEntity extends BlockEntity implements IExt
 	@Override
 	public Packet<ClientGamePacketListener> getUpdatePacket() {
 		return ClientboundBlockEntityDataPacket.create(this);
+	}
+
+	public static void clientTick(Level level, BlockPos pos, BlockState state, EmberActivatorBottomBlockEntity blockEntity) {
+		blockEntity.upgrades = UpgradeUtil.getUpgrades(level, pos, Misc.horizontals);
+		UpgradeUtil.verifyUpgrades(blockEntity, blockEntity.upgrades);
 	}
 
 	public static void serverTick(Level level, BlockPos pos, BlockState state, EmberActivatorBottomBlockEntity blockEntity) {

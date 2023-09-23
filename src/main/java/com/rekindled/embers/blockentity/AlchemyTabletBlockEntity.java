@@ -10,7 +10,7 @@ import com.rekindled.embers.api.event.AlchemyResultEvent;
 import com.rekindled.embers.api.event.MachineRecipeEvent;
 import com.rekindled.embers.api.misc.AlchemyResult;
 import com.rekindled.embers.api.tile.ISparkable;
-import com.rekindled.embers.api.upgrades.IUpgradeProvider;
+import com.rekindled.embers.api.upgrades.UpgradeContext;
 import com.rekindled.embers.api.upgrades.UpgradeUtil;
 import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.particle.AlchemyCircleParticleOptions;
@@ -74,6 +74,7 @@ public class AlchemyTabletBlockEntity extends BlockEntity implements ISparkable,
 	public int process = 0;
 	static Random rand = new Random();
 	public AlchemyRecipe cachedRecipe = null;
+	protected List<UpgradeContext> upgrades;
 
 	public static final int SOUND_PROCESS = 1;
 	public static final int[] SOUND_IDS = new int[]{SOUND_PROCESS};
@@ -152,8 +153,8 @@ public class AlchemyTabletBlockEntity extends BlockEntity implements ISparkable,
 	}
 
 	public static void serverTick(Level level, BlockPos pos, BlockState state, AlchemyTabletBlockEntity blockEntity) {
-		List<IUpgradeProvider> upgrades = UpgradeUtil.getUpgrades(level, pos, UPGRADE_SIDES); //Defer to when events are added to the upgrade system
-		UpgradeUtil.verifyUpgrades(blockEntity, upgrades);
+		blockEntity.upgrades = UpgradeUtil.getUpgrades(level, pos, UPGRADE_SIDES); //Defer to when events are added to the upgrade system
+		UpgradeUtil.verifyUpgrades(blockEntity, blockEntity.upgrades);
 		if (blockEntity.progress > 0) {
 			if (level.getGameTime() % 10 == 0) {
 				List<AlchemyPedestalTopBlockEntity> pedestals = getNearbyPedestals(level, pos);
@@ -168,14 +169,14 @@ public class AlchemyTabletBlockEntity extends BlockEntity implements ISparkable,
 						AlchemyResult result = blockEntity.cachedRecipe.getResult(context);
 
 						AlchemyResultEvent event = new AlchemyResultEvent(blockEntity, blockEntity.cachedRecipe, result, CONSUME_AMOUNT);
-						UpgradeUtil.throwEvent(blockEntity, event, upgrades);
+						UpgradeUtil.throwEvent(blockEntity, event, blockEntity.upgrades);
 
 						ItemStack stack = event.isFailure() ? event.getResult().createResultStack(event.getResultStack().copy()) : event.getResultStack().copy();
 						SoundEvent finishSound = event.isFailure() ? EmbersSounds.ALCHEMY_FAIL.get() : EmbersSounds.ALCHEMY_SUCCESS.get();
 						level.playSound(null, pos, finishSound, SoundSource.BLOCKS, 1.0f, 1.0f);
 
 						if (!event.isFailure()) {
-							UpgradeUtil.throwEvent(blockEntity, new MachineRecipeEvent.Success<>(blockEntity, blockEntity.cachedRecipe), upgrades);
+							UpgradeUtil.throwEvent(blockEntity, new MachineRecipeEvent.Success<>(blockEntity, blockEntity.cachedRecipe), blockEntity.upgrades);
 							for (AlchemyPedestalTopBlockEntity pedestal : pedestals) {
 								pedestal.inventory.setStackInSlot(0, ItemStack.EMPTY);
 							}

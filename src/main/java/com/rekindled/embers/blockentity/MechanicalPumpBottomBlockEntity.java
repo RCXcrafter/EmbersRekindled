@@ -9,7 +9,7 @@ import com.rekindled.embers.api.event.EmberEvent;
 import com.rekindled.embers.api.power.IEmberCapability;
 import com.rekindled.embers.api.tile.IExtraDialInformation;
 import com.rekindled.embers.api.tile.IMechanicallyPowered;
-import com.rekindled.embers.api.upgrades.IUpgradeProvider;
+import com.rekindled.embers.api.upgrades.UpgradeContext;
 import com.rekindled.embers.api.upgrades.UpgradeUtil;
 import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.power.DefaultEmberCapability;
@@ -50,7 +50,7 @@ public class MechanicalPumpBottomBlockEntity extends BlockEntity implements IMec
 	public int progress;
 	public int totalProgress;
 	public int lastProgress;
-	private List<IUpgradeProvider> upgrades;
+	private List<UpgradeContext> upgrades;
 
 	public MechanicalPumpBottomBlockEntity(BlockPos pPos, BlockState pBlockState) {
 		super(RegistryManager.MECHANICAL_PUMP_BOTTOM_ENTITY.get(), pPos, pBlockState);

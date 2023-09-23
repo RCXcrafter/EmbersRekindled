@@ -9,7 +9,7 @@ import com.rekindled.embers.api.event.EmberEvent;
 import com.rekindled.embers.api.power.IEmberCapability;
 import com.rekindled.embers.api.power.IEmberPacketReceiver;
 import com.rekindled.embers.api.tile.ISparkable;
-import com.rekindled.embers.api.upgrades.IUpgradeProvider;
+import com.rekindled.embers.api.upgrades.UpgradeContext;
 import com.rekindled.embers.api.upgrades.UpgradeUtil;
 import com.rekindled.embers.datagen.EmbersDamageTypes;
 import com.rekindled.embers.datagen.EmbersSounds;
@@ -62,7 +62,7 @@ public class BeamCannonBlockEntity extends BlockEntity {
 	public boolean lastPowered = false;
 	public Random random = new Random();
 	public int offset = random.nextInt(40);
-	private List<IUpgradeProvider> upgrades;
+	protected List<UpgradeContext> upgrades;
 
 	public BeamCannonBlockEntity(BlockPos pPos, BlockState pBlockState) {
 		super(RegistryManager.BEAM_CANNON_ENTITY.get(), pPos, pBlockState);
@@ -175,7 +175,7 @@ public class BeamCannonBlockEntity extends BlockEntity {
 
 		PacketHandler.INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new MessageBeamCannonFX(worldPosition.getX()+0.5,worldPosition.getY()+0.5,worldPosition.getZ()+0.5,ray.x*impactDist,ray.y*impactDist,ray.z*impactDist,0XFF4010));
 
-		UpgradeUtil.throwEvent(this, new EmberEvent(this, EmberEvent.EnumType.CONSUME, this.capability.getEmber()), upgrades);
+		UpgradeUtil.throwEvent(this, new EmberEvent(this, EmberEvent.EnumType.TRANSFER, this.capability.getEmber()), upgrades);
 		this.capability.setEmber(0);
 		this.setChanged();
 

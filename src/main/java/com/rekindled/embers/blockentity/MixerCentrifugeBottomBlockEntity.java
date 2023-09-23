@@ -5,12 +5,13 @@ import java.util.List;
 
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
+import com.rekindled.embers.api.event.DialInformationEvent;
 import com.rekindled.embers.api.event.EmberEvent;
 import com.rekindled.embers.api.event.MachineRecipeEvent;
 import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
 import com.rekindled.embers.api.tile.IExtraDialInformation;
 import com.rekindled.embers.api.tile.IMechanicallyPowered;
-import com.rekindled.embers.api.upgrades.IUpgradeProvider;
+import com.rekindled.embers.api.upgrades.UpgradeContext;
 import com.rekindled.embers.api.upgrades.UpgradeUtil;
 import com.rekindled.embers.block.FluidDialBlock;
 import com.rekindled.embers.datagen.EmbersFluidTags;
@@ -66,7 +67,7 @@ public class MixerCentrifugeBottomBlockEntity extends BlockEntity implements IMe
 	public static final int[] SOUND_IDS = new int[]{SOUND_PROCESS};
 
 	HashSet<Integer> soundsPlaying = new HashSet<>();
-	private List<IUpgradeProvider> upgrades;
+	protected List<UpgradeContext> upgrades;
 	private double powerRatio;
 	public MixingRecipe cachedRecipe = null;
 
@@ -111,6 +112,8 @@ public class MixerCentrifugeBottomBlockEntity extends BlockEntity implements IMe
 	}
 
 	public static void clientTick(Level level, BlockPos pos, BlockState state, MixerCentrifugeBottomBlockEntity blockEntity) {
+		blockEntity.upgrades = UpgradeUtil.getUpgrades(level, pos.above(), Direction.values());
+		UpgradeUtil.verifyUpgrades(blockEntity, blockEntity.upgrades);
 		blockEntity.handleSound();
 		//I know I'm supposed to use onLoad for stuff on the first tick but the tanks aren't synced to the client yet when that happens
 		if (!blockEntity.loaded) {
@@ -146,7 +149,7 @@ public class MixerCentrifugeBottomBlockEntity extends BlockEntity implements IMe
 			double emberCost = UpgradeUtil.getTotalEmberConsumption(blockEntity, EMBER_COST, blockEntity.upgrades);
 			if (top.capability.getEmber() >= emberCost && blockEntity.cachedRecipe != null) {
 				boolean cancel = UpgradeUtil.doWork(blockEntity, blockEntity.upgrades);
-				if(!cancel) {
+				if (!cancel) {
 					IFluidHandler tank = top.getCapability(ForgeCapabilities.FLUID_HANDLER).orElse(null);
 					FluidStack output = blockEntity.cachedRecipe.getOutput(context);
 					output = UpgradeUtil.transformOutput(blockEntity, output, blockEntity.upgrades);
@@ -258,6 +261,7 @@ public class MixerCentrifugeBottomBlockEntity extends BlockEntity implements IMe
 			if (west.getFluid().getFluid().is(EmbersFluidTags.INGOT_TOOLTIP) && west.getFluid().getAmount() >= FluidAmounts.NUGGET_AMOUNT)
 				information.add(FluidAmounts.getIngotTooltip(west.getFluid().getAmount()));
 		}
+		UpgradeUtil.throwEvent(this, new DialInformationEvent(this, information, dialType), upgrades);
 	}
 
 	@Override

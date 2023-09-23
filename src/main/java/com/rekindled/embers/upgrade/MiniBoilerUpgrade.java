@@ -2,48 +2,43 @@ package com.rekindled.embers.upgrade;
 
 import java.util.List;
 
+import com.rekindled.embers.Embers;
 import com.rekindled.embers.api.event.EmberEvent;
 import com.rekindled.embers.api.event.UpgradeEvent;
 import com.rekindled.embers.api.tile.IMechanicallyPowered;
-import com.rekindled.embers.api.upgrades.IUpgradeProvider;
+import com.rekindled.embers.api.upgrades.UpgradeContext;
 import com.rekindled.embers.blockentity.MiniBoilerBlockEntity;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class MiniBoilerUpgrade extends DefaultUpgradeProvider {
 
 	public MiniBoilerUpgrade(BlockEntity tile) {
-		super("mini_boiler", tile);
+		super(new ResourceLocation(Embers.MODID, "mini_boiler"), tile);
 	}
 
-	boolean active;
-	double heat;
+	@Override
+	public int getPriority() {
+		return 100; //after everything else
+	}
 
 	@Override
 	public int getLimit(BlockEntity tile) {
-		return tile instanceof IMechanicallyPowered ? 0 : 4;
+		return tile instanceof IMechanicallyPowered ? 0 : super.getLimit(tile);
 	}
 
 	@Override
-	public void throwEvent(BlockEntity tile, UpgradeEvent event) {
-		if (event instanceof EmberEvent) {
-			setHeat(((EmberEvent) event).getAmount());
+	public void throwEvent(BlockEntity tile, List<UpgradeContext> upgrades, UpgradeEvent event, int distance, int count) {
+		if (this.tile instanceof MiniBoilerBlockEntity && event instanceof EmberEvent emberEvent && emberEvent.getType() != EmberEvent.EnumType.TRANSFER) {
+			double multiplier = 1.0;
+			if (distance > 1) {
+				multiplier /= distance * 0.75;
+			}
+			if (count > 3) {
+				multiplier /= (count - 2.0) * 0.75;
+			}
+			((MiniBoilerBlockEntity) this.tile).boil(emberEvent.getAmount() * multiplier);
 		}
-	}
-
-	public void setHeat(double heat) {
-		this.heat = heat;
-		this.active = true;
-	}
-
-	@Override
-	public boolean doWork(BlockEntity tile, List<IUpgradeProvider> upgrades) {
-		if (active) {
-			if (this.tile instanceof MiniBoilerBlockEntity)
-				((MiniBoilerBlockEntity) this.tile).boil(heat);
-			active = false;
-		}
-
-		return false; //No cancel
 	}
 }

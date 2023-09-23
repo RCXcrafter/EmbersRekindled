@@ -5,8 +5,8 @@ import java.util.List;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
 import com.rekindled.embers.api.tile.IExtraDialInformation;
-import com.rekindled.embers.api.upgrades.IUpgradeProvider;
 import com.rekindled.embers.api.upgrades.IUpgradeProxy;
+import com.rekindled.embers.api.upgrades.UpgradeContext;
 import com.rekindled.embers.api.upgrades.UpgradeUtil;
 import com.rekindled.embers.datagen.EmbersBlockTags;
 
@@ -100,9 +100,9 @@ public class MechanicalCoreBlockEntity extends BlockEntity implements IExtraDial
 	}
 
 	@Override
-	public void collectUpgrades(List<IUpgradeProvider> upgrades, int distanceLeft) {
+	public void collectUpgrades(List<UpgradeContext> upgrades, int distanceLeft) {
 		for (Direction facing : Direction.values()) {
-			if(isSocket(facing))
+			if (isSocket(facing))
 				UpgradeUtil.collectUpgrades(level, worldPosition.relative(facing), facing.getOpposite(), upgrades, distanceLeft);
 		}
 	}

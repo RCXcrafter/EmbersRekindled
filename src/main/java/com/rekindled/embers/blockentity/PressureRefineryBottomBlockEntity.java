@@ -10,7 +10,7 @@ import com.rekindled.embers.api.event.DialInformationEvent;
 import com.rekindled.embers.api.event.EmberEvent;
 import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
 import com.rekindled.embers.api.tile.IExtraDialInformation;
-import com.rekindled.embers.api.upgrades.IUpgradeProvider;
+import com.rekindled.embers.api.upgrades.UpgradeContext;
 import com.rekindled.embers.api.upgrades.UpgradeUtil;
 import com.rekindled.embers.block.EmberDialBlock;
 import com.rekindled.embers.datagen.EmbersBlockTags;
@@ -73,7 +73,7 @@ public class PressureRefineryBottomBlockEntity extends FluidHandlerBlockEntity i
 		}
 	};
 	public LazyOptional<IItemHandler> holder = LazyOptional.of(() -> inventory);
-	private List<IUpgradeProvider> upgrades = new ArrayList<>();
+	protected List<UpgradeContext> upgrades = new ArrayList<>();
 	public EmberActivationRecipe cachedRecipe = null;
 	public MetalCoefficientRecipe cachedCoefficient = null;
 
@@ -130,6 +130,11 @@ public class PressureRefineryBottomBlockEntity extends FluidHandlerBlockEntity i
 			}
 		}
 		return totalMult;
+	}
+
+	public static void clientTick(Level level, BlockPos pos, BlockState state, PressureRefineryBottomBlockEntity blockEntity) {
+		blockEntity.upgrades = UpgradeUtil.getUpgrades(level, pos, Misc.horizontals);
+		UpgradeUtil.verifyUpgrades(blockEntity, blockEntity.upgrades);
 	}
 
 	public static void serverTick(Level level, BlockPos pos, BlockState state, PressureRefineryBottomBlockEntity blockEntity) {

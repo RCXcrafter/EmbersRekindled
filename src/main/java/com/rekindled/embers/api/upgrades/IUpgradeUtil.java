@@ -12,41 +12,41 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.fluids.FluidStack;
 
 public interface IUpgradeUtil {
-	List<IUpgradeProvider> getUpgrades(Level world, BlockPos pos, Direction[] facings);
+	List<UpgradeContext> getUpgrades(Level world, BlockPos pos, Direction[] facings);
 
-	void getUpgrades(Level world, BlockPos pos, Direction[] facings, List<IUpgradeProvider> upgrades);
+	void getUpgrades(Level world, BlockPos pos, Direction[] facings, List<UpgradeContext> upgrades);
 
-	void collectUpgrades(Level world, BlockPos pos, Direction side, List<IUpgradeProvider> upgrades);
+	void collectUpgrades(Level world, BlockPos pos, Direction side, List<UpgradeContext> upgrades);
 
-	void collectUpgrades(Level world, BlockPos pos, Direction side, List<IUpgradeProvider> upgrades, int distanceLeft);
+	void collectUpgrades(Level world, BlockPos pos, Direction side, List<UpgradeContext> upgrades, int distanceLeft);
 
-	void verifyUpgrades(BlockEntity tile, List<IUpgradeProvider> list);
+	void verifyUpgrades(BlockEntity tile, List<UpgradeContext> list);
 
-	int getWorkTime(BlockEntity tile, int time, List<IUpgradeProvider> list);
+	int getWorkTime(BlockEntity tile, int time, List<UpgradeContext> list);
 
-	double getTotalSpeedModifier(BlockEntity tile, List<IUpgradeProvider> list);
+	double getTotalSpeedModifier(BlockEntity tile, List<UpgradeContext> list);
 
-	boolean doTick(BlockEntity tile, List<IUpgradeProvider> list);
+	boolean doTick(BlockEntity tile, List<UpgradeContext> list);
 
-	boolean doWork(BlockEntity tile, List<IUpgradeProvider> list);
+	boolean doWork(BlockEntity tile, List<UpgradeContext> list);
 
-	double getTotalEmberConsumption(BlockEntity tile, double ember, List<IUpgradeProvider> list);
+	double getTotalEmberConsumption(BlockEntity tile, double ember, List<UpgradeContext> list);
 
-	double getTotalEmberProduction(BlockEntity tile, double ember, List<IUpgradeProvider> list);
+	double getTotalEmberProduction(BlockEntity tile, double ember, List<UpgradeContext> list);
 
-	void transformOutput(BlockEntity tile, List<ItemStack> outputs, List<IUpgradeProvider> list);
+	void transformOutput(BlockEntity tile, List<ItemStack> outputs, List<UpgradeContext> list);
 
-	FluidStack transformOutput(BlockEntity tile, FluidStack output, List<IUpgradeProvider> list);
+	FluidStack transformOutput(BlockEntity tile, FluidStack output, List<UpgradeContext> list);
 
-	boolean getOtherParameter(BlockEntity tile, String type, boolean initial, List<IUpgradeProvider> list);
+	boolean getOtherParameter(BlockEntity tile, String type, boolean initial, List<UpgradeContext> list);
 
-	double getOtherParameter(BlockEntity tile, String type, double initial, List<IUpgradeProvider> list);
+	double getOtherParameter(BlockEntity tile, String type, double initial, List<UpgradeContext> list);
 
-	int getOtherParameter(BlockEntity tile, String type, int initial, List<IUpgradeProvider> list);
+	int getOtherParameter(BlockEntity tile, String type, int initial, List<UpgradeContext> list);
 
-	String getOtherParameter(BlockEntity tile, String type, String initial, List<IUpgradeProvider> list);
+	String getOtherParameter(BlockEntity tile, String type, String initial, List<UpgradeContext> list);
 
-	<T> T getOtherParameter(BlockEntity tile, String type, T initial, List<IUpgradeProvider> list);
+	<T> T getOtherParameter(BlockEntity tile, String type, T initial, List<UpgradeContext> list);
 
-	void throwEvent(BlockEntity tile, UpgradeEvent event, List<IUpgradeProvider> list);
+	void throwEvent(BlockEntity tile, UpgradeEvent event, List<UpgradeContext> list);
 }

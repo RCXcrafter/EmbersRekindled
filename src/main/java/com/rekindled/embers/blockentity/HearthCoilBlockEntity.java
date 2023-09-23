@@ -13,13 +13,14 @@ import com.google.common.collect.Lists;
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.capabilities.EmbersCapabilities;
+import com.rekindled.embers.api.event.DialInformationEvent;
 import com.rekindled.embers.api.event.EmberEvent;
 import com.rekindled.embers.api.event.HeatCoilVisualEvent;
 import com.rekindled.embers.api.event.MachineRecipeEvent;
 import com.rekindled.embers.api.power.IEmberCapability;
 import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
 import com.rekindled.embers.api.tile.IExtraDialInformation;
-import com.rekindled.embers.api.upgrades.IUpgradeProvider;
+import com.rekindled.embers.api.upgrades.UpgradeContext;
 import com.rekindled.embers.api.upgrades.UpgradeUtil;
 import com.rekindled.embers.block.EmberDialBlock;
 import com.rekindled.embers.datagen.EmbersSounds;
@@ -94,7 +95,7 @@ public class HearthCoilBlockEntity extends BlockEntity implements ISoundControll
 
 	HashSet<Integer> soundsPlaying = new HashSet<>();
 	boolean isWorking;
-	private List<IUpgradeProvider> upgrades;
+	protected List<UpgradeContext> upgrades;
 	public SmeltingRecipe cachedRecipe = null;
 
 	public HearthCoilBlockEntity(BlockPos pPos, BlockState pBlockState) {
@@ -170,11 +171,15 @@ public class HearthCoilBlockEntity extends BlockEntity implements ISoundControll
 
 		double emberCost = UpgradeUtil.getTotalEmberConsumption(blockEntity, EMBER_COST, blockEntity.upgrades);
 		double prevHeat = blockEntity.heat;
+		Boolean cancel = null;
 		if (blockEntity.capability.getEmber() >= emberCost) {
-			UpgradeUtil.throwEvent(blockEntity, new EmberEvent(blockEntity, EmberEvent.EnumType.CONSUME, emberCost), blockEntity.upgrades);
-			blockEntity.capability.removeAmount(emberCost, true);
-			if (blockEntity.ticksExisted % 20 == 0) {
-				blockEntity.heat += UpgradeUtil.getOtherParameter(blockEntity, "heating_speed", HEATING_SPEED, blockEntity.upgrades);
+			cancel = UpgradeUtil.doWork(blockEntity, blockEntity.upgrades);
+			if (!cancel) {
+				UpgradeUtil.throwEvent(blockEntity, new EmberEvent(blockEntity, EmberEvent.EnumType.CONSUME, emberCost), blockEntity.upgrades);
+				blockEntity.capability.removeAmount(emberCost, true);
+				if (blockEntity.ticksExisted % 20 == 0) {
+					blockEntity.heat += UpgradeUtil.getOtherParameter(blockEntity, "heating_speed", HEATING_SPEED, blockEntity.upgrades);
+				}
 			}
 		} else {
 			if (blockEntity.ticksExisted % 20 == 0) {
@@ -187,30 +192,33 @@ public class HearthCoilBlockEntity extends BlockEntity implements ISoundControll
 		if (blockEntity.heat != prevHeat)
 			blockEntity.setChanged();
 
-		boolean cancel = UpgradeUtil.doWork(blockEntity, blockEntity.upgrades);
 		int cookTime = UpgradeUtil.getWorkTime(blockEntity,(int)Math.ceil(Mth.clampedLerp(MIN_COOK_TIME,MAX_COOK_TIME, 1.0 - (blockEntity.heat / maxHeat))), blockEntity.upgrades);
-		if (!cancel && blockEntity.heat > 0 && blockEntity.ticksExisted % cookTime == 0) {
-			List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(pos.getX()-1, pos.getY(), pos.getZ()-1, pos.getX()+2, pos.getY()+2, pos.getZ()+2));
-			for (ItemEntity item : items) {
-				item.setUnlimitedLifetime();
-				item.lifespan = 10800;
-			}
-			if (items.size() > 0) {
-				int i = random.nextInt(items.size());
-				ItemEntity entityItem = items.get(i);
-				SingleItemContainer wrapper = new SingleItemContainer(entityItem.getItem());
-				blockEntity.cachedRecipe = Misc.getRecipe(blockEntity.cachedRecipe, RecipeType.SMELTING, wrapper, level);
+		if (blockEntity.heat > 0 && blockEntity.ticksExisted % cookTime == 0) {
+			if (cancel == null)
+				cancel = UpgradeUtil.doWork(blockEntity, blockEntity.upgrades);
+			if (!cancel) {
+				List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(pos.getX()-1, pos.getY(), pos.getZ()-1, pos.getX()+2, pos.getY()+2, pos.getZ()+2));
+				for (ItemEntity item : items) {
+					item.setUnlimitedLifetime();
+					item.lifespan = 10800;
+				}
+				if (items.size() > 0) {
+					int i = random.nextInt(items.size());
+					ItemEntity entityItem = items.get(i);
+					SingleItemContainer wrapper = new SingleItemContainer(entityItem.getItem());
+					blockEntity.cachedRecipe = Misc.getRecipe(blockEntity.cachedRecipe, RecipeType.SMELTING, wrapper, level);
 
-				if (blockEntity.cachedRecipe != null) {
-					ArrayList<ItemStack> returns = Lists.newArrayList(blockEntity.cachedRecipe.assemble(wrapper, level.registryAccess()));
-					//int inputCount = recipe.getInputConsumed();
-					UpgradeUtil.throwEvent(blockEntity, new MachineRecipeEvent.Success<>(blockEntity, blockEntity.cachedRecipe), blockEntity.upgrades);
-					UpgradeUtil.transformOutput(blockEntity, returns, blockEntity.upgrades);
-					depleteItem(entityItem, 1);
-					for(ItemStack stack : returns) {
-						ItemStack remainder = blockEntity.inventory.insertItem(0, stack, false);
-						if (!remainder.isEmpty())
-							level.addFreshEntity(new ItemEntity(level, entityItem.getX(), entityItem.getY(), entityItem.getZ(), remainder));
+					if (blockEntity.cachedRecipe != null) {
+						ArrayList<ItemStack> returns = Lists.newArrayList(blockEntity.cachedRecipe.assemble(wrapper, level.registryAccess()));
+						//int inputCount = recipe.getInputConsumed();
+						UpgradeUtil.throwEvent(blockEntity, new MachineRecipeEvent.Success<>(blockEntity, blockEntity.cachedRecipe), blockEntity.upgrades);
+						UpgradeUtil.transformOutput(blockEntity, returns, blockEntity.upgrades);
+						depleteItem(entityItem, 1);
+						for(ItemStack stack : returns) {
+							ItemStack remainder = blockEntity.inventory.insertItem(0, stack, false);
+							if (!remainder.isEmpty())
+								level.addFreshEntity(new ItemEntity(level, entityItem.getX(), entityItem.getY(), entityItem.getZ(), remainder));
+						}
 					}
 				}
 			}
@@ -331,6 +339,7 @@ public class HearthCoilBlockEntity extends BlockEntity implements ISoundControll
 			double heat = Mth.clamp(this.heat, 0, maxHeat);
 			information.add(I18n.get(Embers.MODID + ".tooltip.dial.heat", heatFormat.format(heat), heatFormat.format(maxHeat)));
 		}
+		UpgradeUtil.throwEvent(this, new DialInformationEvent(this, information, dialType), upgrades);
 	}
 
 	@Override

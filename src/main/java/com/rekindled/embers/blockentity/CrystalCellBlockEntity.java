@@ -7,9 +7,11 @@ import java.util.Random;
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.capabilities.EmbersCapabilities;
+import com.rekindled.embers.api.event.DialInformationEvent;
 import com.rekindled.embers.api.power.IEmberCapability;
 import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
-import com.rekindled.embers.api.upgrades.IUpgradeProvider;
+import com.rekindled.embers.api.tile.IExtraDialInformation;
+import com.rekindled.embers.api.upgrades.UpgradeContext;
 import com.rekindled.embers.api.upgrades.UpgradeUtil;
 import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.particle.GlowParticleOptions;
@@ -42,7 +44,7 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 
-public class CrystalCellBlockEntity extends BlockEntity implements ISoundController, IExtraCapabilityInformation {
+public class CrystalCellBlockEntity extends BlockEntity implements ISoundController, IExtraDialInformation, IExtraCapabilityInformation {
 	public static final int MAX_CAPACITY = 1440000;
 	Random random = new Random();
 	public long ticksExisted = 0;
@@ -78,6 +80,7 @@ public class CrystalCellBlockEntity extends BlockEntity implements ISoundControl
 	};
 	public LazyOptional<IItemHandler> holder = LazyOptional.of(() -> inventory);
 	public EmberActivationRecipe cachedRecipe = null;
+	protected List<UpgradeContext> upgrades;
 
 	public static final int SOUND_AMBIENT = 1;
 	public static final int[] SOUND_IDS = new int[]{SOUND_AMBIENT};
@@ -124,9 +127,9 @@ public class CrystalCellBlockEntity extends BlockEntity implements ISoundControl
 	}
 
 	public static void commonTick(Level level, BlockPos pos, BlockState state, CrystalCellBlockEntity blockEntity) {
-		List<IUpgradeProvider> upgrades = UpgradeUtil.getUpgrades(level, pos, new Direction[]{Direction.DOWN});
-		UpgradeUtil.verifyUpgrades(blockEntity, upgrades);
-		if (UpgradeUtil.doTick(blockEntity, upgrades))
+		blockEntity.upgrades = UpgradeUtil.getUpgrades(level, pos, new Direction[]{Direction.DOWN});
+		UpgradeUtil.verifyUpgrades(blockEntity, blockEntity.upgrades);
+		if (UpgradeUtil.doTick(blockEntity, blockEntity.upgrades))
 			return;
 		if (level.isClientSide)
 			blockEntity.handleSound();
@@ -137,7 +140,7 @@ public class CrystalCellBlockEntity extends BlockEntity implements ISoundControl
 		else
 			blockEntity.renderCapacity -= Math.min(10000, blockEntity.renderCapacity - blockEntity.capability.getEmberCapacity());
 		if (!blockEntity.inventory.getStackInSlot(0).isEmpty() && blockEntity.ticksExisted % 4 == 0) {
-			boolean cancel = UpgradeUtil.doWork(blockEntity, upgrades);
+			boolean cancel = UpgradeUtil.doWork(blockEntity, blockEntity.upgrades);
 			if (!cancel) {
 				RecipeWrapper wrapper = new RecipeWrapper(blockEntity.inventory);
 				blockEntity.cachedRecipe = Misc.getRecipe(blockEntity.cachedRecipe, RegistryManager.EMBER_ACTIVATION.get(), wrapper, level);
@@ -145,7 +148,7 @@ public class CrystalCellBlockEntity extends BlockEntity implements ISoundControl
 					double emberValue = blockEntity.cachedRecipe.process(wrapper);
 					if (!level.isClientSide) {
 						blockEntity.inventory.extractItem(0, 1, false);
-						int maxCapacity = UpgradeUtil.getOtherParameter(blockEntity, "max_capacity", MAX_CAPACITY, upgrades);
+						int maxCapacity = UpgradeUtil.getOtherParameter(blockEntity, "max_capacity", MAX_CAPACITY, blockEntity.upgrades);
 						if (blockEntity.capability.getEmberCapacity() < maxCapacity) {
 							blockEntity.capability.setEmberCapacity(Math.min(maxCapacity, blockEntity.capability.getEmberCapacity() + emberValue * 10));
 							blockEntity.setChanged();
@@ -242,6 +245,11 @@ public class CrystalCellBlockEntity extends BlockEntity implements ISoundControl
 	@Override
 	public boolean shouldPlaySound(int id) {
 		return id == SOUND_AMBIENT;
+	}
+
+	@Override
+	public void addDialInformation(Direction facing, List<String> information, String dialType) {
+		UpgradeUtil.throwEvent(this, new DialInformationEvent(this, information, dialType), upgrades);
 	}
 
 	@Override

@@ -1,13 +1,20 @@
 package com.rekindled.embers.upgrade;
 
+import com.rekindled.embers.Embers;
 import com.rekindled.embers.blockentity.CopperChargerBlockEntity;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class EmberSiphonUpgrade extends DefaultUpgradeProvider {
 
 	public EmberSiphonUpgrade(BlockEntity tile) {
-		super("ember_siphon", tile);
+		super(new ResourceLocation(Embers.MODID, "ember_siphon"), tile);
+	}
+
+	@Override
+	public int getPriority() {
+		return -100; //before everything else
 	}
 
 	@Override
@@ -16,7 +23,7 @@ public class EmberSiphonUpgrade extends DefaultUpgradeProvider {
 	}
 
 	@Override
-	public double getSpeed(BlockEntity tile, double speed) {
+	public double getSpeed(BlockEntity tile, double speed, int distance, int count) {
 		return speed * -1;
 	}
 }

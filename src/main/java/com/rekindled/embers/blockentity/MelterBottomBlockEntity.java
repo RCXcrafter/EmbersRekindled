@@ -6,10 +6,12 @@ import java.util.Random;
 
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.capabilities.EmbersCapabilities;
+import com.rekindled.embers.api.event.DialInformationEvent;
 import com.rekindled.embers.api.event.EmberEvent;
 import com.rekindled.embers.api.event.MachineRecipeEvent;
 import com.rekindled.embers.api.power.IEmberCapability;
-import com.rekindled.embers.api.upgrades.IUpgradeProvider;
+import com.rekindled.embers.api.tile.IExtraDialInformation;
+import com.rekindled.embers.api.upgrades.UpgradeContext;
 import com.rekindled.embers.api.upgrades.UpgradeUtil;
 import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.particle.GlowParticleOptions;
@@ -39,7 +41,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 
-public class MelterBottomBlockEntity extends BlockEntity implements ISoundController {
+public class MelterBottomBlockEntity extends BlockEntity implements ISoundController, IExtraDialInformation {
 
 	public IEmberCapability capability = new DefaultEmberCapability() {
 		@Override
@@ -58,7 +60,7 @@ public class MelterBottomBlockEntity extends BlockEntity implements ISoundContro
 
 	HashSet<Integer> soundsPlaying = new HashSet<>();
 	public boolean isWorking;
-	public List<IUpgradeProvider> upgrades;
+	public List<UpgradeContext> upgrades;
 	public MeltingRecipe cachedRecipe = null;
 
 	public MelterBottomBlockEntity(BlockPos pPos, BlockState pBlockState) {
@@ -103,6 +105,8 @@ public class MelterBottomBlockEntity extends BlockEntity implements ISoundContro
 	}
 
 	public static void clientTick(Level level, BlockPos pos, BlockState state, MelterBottomBlockEntity blockEntity) {
+		blockEntity.upgrades = UpgradeUtil.getUpgrades(level, pos, Misc.horizontals);
+		UpgradeUtil.verifyUpgrades(blockEntity, blockEntity.upgrades);
 		blockEntity.handleSound();
 	}
 
@@ -203,6 +207,11 @@ public class MelterBottomBlockEntity extends BlockEntity implements ISoundContro
 	public void invalidateCaps() {
 		super.invalidateCaps();
 		capability.invalidate();
+	}
+
+	@Override
+	public void addDialInformation(Direction facing, List<String> information, String dialType) {
+		UpgradeUtil.throwEvent(this, new DialInformationEvent(this, information, dialType), upgrades);
 	}
 
 	@Override

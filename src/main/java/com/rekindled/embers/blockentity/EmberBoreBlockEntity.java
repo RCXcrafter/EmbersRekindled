@@ -13,7 +13,7 @@ import com.rekindled.embers.api.event.DialInformationEvent;
 import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
 import com.rekindled.embers.api.tile.IExtraDialInformation;
 import com.rekindled.embers.api.tile.IMechanicallyPowered;
-import com.rekindled.embers.api.upgrades.IUpgradeProvider;
+import com.rekindled.embers.api.upgrades.UpgradeContext;
 import com.rekindled.embers.api.upgrades.UpgradeUtil;
 import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.recipe.BoringContext;
@@ -69,7 +69,7 @@ public class EmberBoreBlockEntity extends BlockEntity implements ISoundControlle
 	boolean isRunning;
 
 	HashSet<Integer> soundsPlaying = new HashSet<>();
-	private List<IUpgradeProvider> upgrades = new ArrayList<>();
+	protected List<UpgradeContext> upgrades = new ArrayList<>();
 	private double speedMod;
 
 	public EmberBoreInventory inventory = new EmberBoreInventory(9);

@@ -22,6 +22,7 @@ public class EmberEvent extends UpgradeEvent {
 
 	public enum EnumType {
 		PRODUCE,
-		CONSUME
+		CONSUME,
+		TRANSFER
 	}
 }

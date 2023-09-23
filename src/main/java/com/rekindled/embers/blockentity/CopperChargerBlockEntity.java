@@ -7,10 +7,12 @@ import java.util.Random;
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.capabilities.EmbersCapabilities;
+import com.rekindled.embers.api.event.DialInformationEvent;
+import com.rekindled.embers.api.event.EmberEvent;
 import com.rekindled.embers.api.power.IEmberCapability;
 import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
 import com.rekindled.embers.api.tile.IExtraDialInformation;
-import com.rekindled.embers.api.upgrades.IUpgradeProvider;
+import com.rekindled.embers.api.upgrades.UpgradeContext;
 import com.rekindled.embers.api.upgrades.UpgradeUtil;
 import com.rekindled.embers.block.EmberDialBlock;
 import com.rekindled.embers.block.ItemDialBlock;
@@ -68,6 +70,7 @@ public class CopperChargerBlockEntity extends BlockEntity implements ISoundContr
 	public boolean isWorking;
 	public boolean wasWorking;
 	public boolean dirty = false;
+	protected List<UpgradeContext> upgrades;
 
 	public static final int SOUND_PROCESS = 1;
 	public static final int[] SOUND_IDS = new int[]{SOUND_PROCESS};
@@ -109,6 +112,8 @@ public class CopperChargerBlockEntity extends BlockEntity implements ISoundContr
 	}
 
 	public static void clientTick(Level level, BlockPos pos, BlockState state, CopperChargerBlockEntity blockEntity) {
+		blockEntity.upgrades = UpgradeUtil.getUpgrades(level, pos, Direction.values());
+		UpgradeUtil.verifyUpgrades(blockEntity, blockEntity.upgrades);
 		blockEntity.handleSound();
 		blockEntity.angle += blockEntity.turnRate;
 
@@ -121,9 +126,9 @@ public class CopperChargerBlockEntity extends BlockEntity implements ISoundContr
 	}
 
 	public static void serverTick(Level level, BlockPos pos, BlockState state, CopperChargerBlockEntity blockEntity) {
-		List<IUpgradeProvider> upgrades = UpgradeUtil.getUpgrades(level, pos, Direction.values());
-		UpgradeUtil.verifyUpgrades(blockEntity, upgrades);
-		if (UpgradeUtil.doTick(blockEntity, upgrades))
+		blockEntity.upgrades = UpgradeUtil.getUpgrades(level, pos, Direction.values());
+		UpgradeUtil.verifyUpgrades(blockEntity, blockEntity.upgrades);
+		if (UpgradeUtil.doTick(blockEntity, blockEntity.upgrades))
 			return;
 
 		ItemStack stack = blockEntity.inventory.getStackInSlot(0);
@@ -131,9 +136,9 @@ public class CopperChargerBlockEntity extends BlockEntity implements ISoundContr
 		blockEntity.isWorking = false;
 
 		IEmberCapability itemCapability = stack.getCapability(EmbersCapabilities.EMBER_CAPABILITY, null).orElse(null);
-		boolean cancel = UpgradeUtil.doWork(blockEntity, upgrades);
+		boolean cancel = UpgradeUtil.doWork(blockEntity, blockEntity.upgrades);
 		if (!cancel && itemCapability != null) {
-			double transferRate = UpgradeUtil.getTotalSpeedModifier(blockEntity, upgrades) * MAX_TRANSFER;
+			double transferRate = UpgradeUtil.getTotalSpeedModifier(blockEntity, blockEntity.upgrades) * MAX_TRANSFER;
 			double emberAdded;
 			if (transferRate > 0) {
 				emberAdded = itemCapability.addAmount(Math.min(Math.abs(transferRate), blockEntity.capability.getEmber()), true);
@@ -142,8 +147,10 @@ public class CopperChargerBlockEntity extends BlockEntity implements ISoundContr
 				emberAdded = blockEntity.capability.addAmount(Math.min(Math.abs(transferRate), itemCapability.getEmber()), true);
 				itemCapability.removeAmount(emberAdded, true);
 			}
-			if (emberAdded > 0)
+			if (emberAdded > 0) {
+				UpgradeUtil.throwEvent(blockEntity, new EmberEvent(blockEntity, EmberEvent.EnumType.TRANSFER, emberAdded), blockEntity.upgrades);
 				blockEntity.isWorking = true;
+			}
 		}
 		if (blockEntity.wasWorking != blockEntity.isWorking) {
 			blockEntity.setChanged();
@@ -213,7 +220,7 @@ public class CopperChargerBlockEntity extends BlockEntity implements ISoundContr
 
 	@Override
 	public void addDialInformation(Direction facing, List<String> information, String dialType) {
-		if(EmberDialBlock.DIAL_TYPE.equals(dialType)) {
+		if (EmberDialBlock.DIAL_TYPE.equals(dialType)) {
 			ItemStack stack = inventory.getStackInSlot(0);
 			IEmberCapability itemCapability = stack.getCapability(EmbersCapabilities.EMBER_CAPABILITY,null).orElse(null);
 			if (itemCapability != null) {
@@ -221,6 +228,7 @@ public class CopperChargerBlockEntity extends BlockEntity implements ISoundContr
 				information.add(EmberDialBlock.formatEmber(itemCapability.getEmber(),itemCapability.getEmberCapacity()));
 			}
 		}
+		UpgradeUtil.throwEvent(this, new DialInformationEvent(this, information, dialType), upgrades);
 	}
 
 	@Override
