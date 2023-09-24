@@ -60,6 +60,12 @@ public class EmbersBlockLootTables extends BlockLootSubProvider {
 		dropSelf(RegistryManager.ARCHAIC_TILE.get());
 		decoDrops(RegistryManager.ARCHAIC_TILE_DECO);
 		dropSelf(RegistryManager.ARCHAIC_LIGHT.get());
+		dropSelf(RegistryManager.ASHEN_STONE.get());
+		decoDrops(RegistryManager.ASHEN_STONE_DECO);
+		dropSelf(RegistryManager.ASHEN_BRICK.get());
+		decoDrops(RegistryManager.ASHEN_BRICK_DECO);
+		dropSelf(RegistryManager.ASHEN_TILE.get());
+		decoDrops(RegistryManager.ASHEN_TILE_DECO);
 		dropSelf(RegistryManager.EMBER_LANTERN.get());
 
 		dropSelf(RegistryManager.COPPER_CELL.get());

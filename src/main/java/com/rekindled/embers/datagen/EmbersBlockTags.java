@@ -94,6 +94,9 @@ public class EmbersBlockTags extends BlockTagsProvider {
 		decoTags(RegistryManager.CAMINITE_BRICKS_DECO);
 		decoTags(RegistryManager.ARCHAIC_BRICKS_DECO);
 		decoTags(RegistryManager.ARCHAIC_TILE_DECO);
+		decoTags(RegistryManager.ASHEN_STONE_DECO);
+		decoTags(RegistryManager.ASHEN_BRICK_DECO);
+		decoTags(RegistryManager.ASHEN_TILE_DECO);
 
 		tag(MINABLE_WITH_PICKAXE_SHOVEL).addTags(BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.MINEABLE_WITH_SHOVEL);
 		tag(MINABLE_WITH_HAMMER).addTags(BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.MINEABLE_WITH_SHOVEL, BlockTags.MINEABLE_WITH_AXE);
@@ -113,6 +116,9 @@ public class EmbersBlockTags extends BlockTagsProvider {
 				RegistryManager.ARCHAIC_EDGE.get(),
 				RegistryManager.ARCHAIC_TILE.get(),
 				RegistryManager.ARCHAIC_LIGHT.get(),
+				RegistryManager.ASHEN_STONE.get(),
+				RegistryManager.ASHEN_BRICK.get(),
+				RegistryManager.ASHEN_TILE.get(),
 				RegistryManager.EMBER_LANTERN.get(),
 				RegistryManager.COPPER_CELL.get(),
 				RegistryManager.CREATIVE_EMBER.get(),

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "embersrekindled:ashen_tile"
+  },
+  "result": "embersrekindled:ashen_tile_wall"
+}

@@ -184,17 +184,6 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.inputs(Ingredient.of(RegistryManager.FLUID_PIPE.get()), Ingredient.of(Tags.Items.GLASS_SILICA), Ingredient.of(RegistryManager.FLUID_PIPE.get()))
 		.aspects(EmbersItemTags.DAWNSTONE_ASPECTUS, EmbersItemTags.SILVER_ASPECTUS).save(consumer);
 
-		//example recipes
-		AlchemyRecipeBuilder.create(Items.DIAMOND).tablet(Items.DIRT).domain(Embers.MODID).folder(alchemyFolder)
-		.inputs(RegistryManager.EMBER_CRYSTAL_CLUSTER.get(), Items.GHAST_TEAR, Items.SUGAR, Items.EMERALD, Items.STICK, Items.BLAZE_ROD)
-		.aspects(EmbersItemTags.COPPER_ASPECTUS, EmbersItemTags.IRON_ASPECTUS, EmbersItemTags.LEAD_ASPECTUS, EmbersItemTags.SILVER_ASPECTUS, EmbersItemTags.DAWNSTONE_ASPECTUS).save(consumer);
-		AlchemyRecipeBuilder.create(Items.FLINT).tablet(Items.GRAVEL).domain(Embers.MODID).folder(alchemyFolder)
-		.inputs(Items.GRAVEL, Items.GRAVEL)
-		.aspects(EmbersItemTags.LEAD_ASPECTUS, EmbersItemTags.SILVER_ASPECTUS, EmbersItemTags.DAWNSTONE_ASPECTUS).save(consumer);
-		AlchemyRecipeBuilder.create(Items.TRIDENT).tablet(Items.DRAGON_EGG).domain(Embers.MODID).folder(alchemyFolder)
-		.inputs(Items.DIAMOND_SWORD, Items.DIAMOND_SWORD, Items.BAMBOO, Items.LIGHTNING_ROD, Items.DIAMOND_SWORD)
-		.aspects(EmbersItemTags.IRON_ASPECTUS, EmbersItemTags.SILVER_ASPECTUS, EmbersItemTags.DAWNSTONE_ASPECTUS).save(consumer);
-
 		//boiling
 		BoilingRecipeBuilder.create(RegistryManager.STEAM.FLUID.get(), 5).folder(boilingFolder).input(FluidTags.WATER, 1).save(consumer);
 
@@ -312,6 +301,50 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, RegistryManager.ARCHAIC_BRICKS.get(), RegistryManager.ARCHAIC_TILE.get());
 		decoRecipes(RegistryManager.ARCHAIC_BRICKS_DECO, consumer);
 		decoRecipes(RegistryManager.ARCHAIC_TILE_DECO, consumer);
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegistryManager.ASHEN_STONE.get(), 4)
+		.pattern(" S ")
+		.pattern("SAS")
+		.pattern(" S ")
+		.define('S', Tags.Items.STONE)
+		.define('A', EmbersItemTags.ASH_DUST)
+		.unlockedBy("has_ash", has(EmbersItemTags.ASH_DUST))
+		.save(consumer, getResource("ashen_stone"));
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegistryManager.ASHEN_BRICK.get(), 4)
+		.pattern(" S ")
+		.pattern("SAS")
+		.pattern(" S ")
+		.define('S', ItemTags.STONE_BRICKS)
+		.define('A', EmbersItemTags.ASH_DUST)
+		.unlockedBy("has_ash", has(EmbersItemTags.ASH_DUST))
+		.save(consumer, getResource("ashen_brick"));
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegistryManager.ASHEN_BRICK.get(), 4)
+		.pattern("SS")
+		.pattern("SS")
+		.define('S', RegistryManager.ASHEN_STONE.get())
+		.unlockedBy("has_ash", has(EmbersItemTags.ASH_DUST))
+		.save(consumer, getResource("ashen_brick_2"));
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegistryManager.ASHEN_TILE.get(), 4)
+		.pattern("SS")
+		.pattern("SS")
+		.define('S', RegistryManager.ASHEN_BRICK.get())
+		.unlockedBy("has_ash", has(EmbersItemTags.ASH_DUST))
+		.save(consumer, getResource("ashen_tile"));
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegistryManager.ASHEN_STONE.get(), 4)
+		.pattern("SS")
+		.pattern("SS")
+		.define('S', RegistryManager.ASHEN_TILE.get())
+		.unlockedBy("has_ash", has(EmbersItemTags.ASH_DUST))
+		.save(consumer, getResource("ashen_stone_2"));
+		stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, RegistryManager.ASHEN_BRICK.get(), RegistryManager.ASHEN_STONE.get());
+		stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, RegistryManager.ASHEN_TILE.get(), RegistryManager.ASHEN_STONE.get());
+		stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, RegistryManager.ASHEN_STONE.get(), RegistryManager.ASHEN_BRICK.get());
+		stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, RegistryManager.ASHEN_TILE.get(), RegistryManager.ASHEN_BRICK.get());
+		stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, RegistryManager.ASHEN_STONE.get(), RegistryManager.ASHEN_TILE.get());
+		stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, RegistryManager.ASHEN_BRICK.get(), RegistryManager.ASHEN_TILE.get());
+		decoRecipes(RegistryManager.ASHEN_STONE_DECO, consumer);
+		decoRecipes(RegistryManager.ASHEN_BRICK_DECO, consumer);
+		decoRecipes(RegistryManager.ASHEN_TILE_DECO, consumer);
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, RegistryManager.EMBER_LANTERN.get(), 4)
 		.pattern("P")

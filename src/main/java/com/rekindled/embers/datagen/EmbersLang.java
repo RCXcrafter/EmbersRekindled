@@ -38,6 +38,12 @@ public class EmbersLang extends LanguageProvider {
 		addBlock(RegistryManager.ARCHAIC_TILE, "Archaic Tile");
 		addDeco(RegistryManager.ARCHAIC_TILE_DECO, "Archaic Tile");
 		addBlock(RegistryManager.ARCHAIC_LIGHT, "Archaic Light");
+		addBlock(RegistryManager.ASHEN_STONE, "Ashen Stone");
+		addDeco(RegistryManager.ASHEN_STONE_DECO, "Ashen Stone");
+		addBlock(RegistryManager.ASHEN_BRICK, "Ashen Brick");
+		addDeco(RegistryManager.ASHEN_BRICK_DECO, "Ashen Brick");
+		addBlock(RegistryManager.ASHEN_TILE, "Ashen Tile");
+		addDeco(RegistryManager.ASHEN_TILE_DECO, "Ashen Tile");
 		addBlock(RegistryManager.EMBER_LANTERN, "Ember Lantern");
 
 		addBlock(RegistryManager.COPPER_CELL, "Copper Cell");

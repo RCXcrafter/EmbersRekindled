@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "embersrekindled:block/ashen_tile",
+    "side": "embersrekindled:block/ashen_tile",
+    "top": "embersrekindled:block/ashen_tile"
+  }
+}

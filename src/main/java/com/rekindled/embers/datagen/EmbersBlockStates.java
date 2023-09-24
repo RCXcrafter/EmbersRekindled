@@ -69,6 +69,12 @@ public class EmbersBlockStates extends BlockStateProvider {
 		blockWithItem(RegistryManager.ARCHAIC_TILE);
 		decoBlocks(RegistryManager.ARCHAIC_TILE_DECO);
 		blockWithItem(RegistryManager.ARCHAIC_LIGHT, "archaic_light");
+		blockWithItem(RegistryManager.ASHEN_STONE);
+		decoBlocks(RegistryManager.ASHEN_STONE_DECO);
+		blockWithItem(RegistryManager.ASHEN_BRICK);
+		decoBlocks(RegistryManager.ASHEN_BRICK_DECO);
+		blockWithItem(RegistryManager.ASHEN_TILE);
+		decoBlocks(RegistryManager.ASHEN_TILE_DECO);
 		blockWithItem(RegistryManager.EMBER_LANTERN, "ember_lantern");
 
 		blockWithItem(RegistryManager.COPPER_CELL, "copper_cell");
