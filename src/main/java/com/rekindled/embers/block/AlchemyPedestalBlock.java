@@ -13,6 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -32,8 +33,8 @@ public class AlchemyPedestalBlock extends DoubleTallMachineBlock {
 			Block.box(3,0,3,13,4,13), Block.box(4,4,4,12,6,12), Block.box(2,6,2,14,8,14)),
 			Block.box(6,4,6,10,16,10), BooleanOp.ONLY_FIRST);
 
-	public AlchemyPedestalBlock(Properties properties) {
-		super(properties);
+	public AlchemyPedestalBlock(Properties properties, SoundType topSound) {
+		super(properties, topSound);
 	}
 
 	@Override

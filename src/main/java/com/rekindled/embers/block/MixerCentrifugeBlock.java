@@ -8,6 +8,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -23,8 +24,8 @@ public class MixerCentrifugeBlock extends DoubleTallMachineBlock {
 	protected static final VoxelShape BASE_AABB = Shapes.or(Block.box(0,0,0,16,4,16), Block.box(2,0,2,14,16,14));
 	protected static final VoxelShape TOP_AABB = Shapes.or(Block.box(2,0,2,14,12,14), Block.box(4,12,4,12,14,12), Block.box(2,14,2,14,16,14));
 
-	public MixerCentrifugeBlock(Properties properties) {
-		super(properties);
+	public MixerCentrifugeBlock(Properties properties, SoundType topSound) {
+		super(properties, topSound);
 	}
 
 	@Override

@@ -13,6 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -33,8 +34,8 @@ public class MelterBlock extends DoubleTallMachineBlock {
 	protected static final VoxelShape BASE_AABB = Shapes.or(Block.box(2,0,2,14,16,14), Block.box(0,8,0,4,16,4), Block.box(0,8,12,4,16,16), Block.box(12,8,0,16,16,4), Block.box(12,8,12,16,16,16), Block.box(1,0,1,4,8,4), Block.box(1,0,12,4,8,15), Block.box(12,0,1,15,8,4), Block.box(12,0,12,15,8,15));
 	protected static final VoxelShape TOP_AABB = Shapes.join(Shapes.block(), Block.box(4,0,4,12,16,12), BooleanOp.ONLY_FIRST);
 
-	public MelterBlock(Properties properties) {
-		super(properties);
+	public MelterBlock(Properties properties, SoundType topSound) {
+		super(properties, topSound);
 	}
 
 	@Override

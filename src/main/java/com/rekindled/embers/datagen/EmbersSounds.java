@@ -4,6 +4,7 @@ import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.network.PacketHandler;
 import com.rekindled.embers.network.message.MessageItemSound;
+import com.rekindled.embers.util.MultiblockSoundType;
 import com.rekindled.embers.util.sound.ItemUseSound;
 import com.rekindled.embers.util.sound.MachineSound;
 
@@ -74,6 +75,7 @@ public class EmbersSounds extends SoundDefinitionsProvider {
 	public static final RegistryObject<SoundEvent> MELTER_LOOP = registerSound("block.melter.loop");
 	public static final RegistryObject<SoundEvent> MIXER_LOOP = registerSound("block.mixer.loop");
 	public static final RegistryObject<SoundEvent> COPPER_CHARGER_LOOP = registerSound("block.copper_charger.loop");
+	public static final RegistryObject<SoundEvent> COPPER_CHARGER_SIPHON_LOOP = registerSound("block.copper_charger_siphon.loop");
 	public static final RegistryObject<SoundEvent> INJECTOR_LOOP = registerSound("block.injector.loop");
 
 	public static final RegistryObject<SoundEvent> METAL_SEED_LOOP = registerSound("block.metal_seed.loop");
@@ -114,6 +116,7 @@ public class EmbersSounds extends SoundDefinitionsProvider {
 
 	public static final RegistryObject<SoundEvent> PIPE_CONNECT = registerSound("block.pipe.connect");
 	public static final RegistryObject<SoundEvent> PIPE_DISCONNECT = registerSound("block.pipe.disconnect");
+	public static final RegistryObject<SoundEvent> PIPE_VENT_LOOP = registerSound("block.pipe.vent");
 
 	public static final RegistryObject<SoundEvent> FIREBALL_BIG = registerSound("fireball.big.fire");
 	public static final RegistryObject<SoundEvent> FIREBALL_BIG_HIT = registerSound("fireball.big.hit");
@@ -167,10 +170,38 @@ public class EmbersSounds extends SoundDefinitionsProvider {
 	public static final RegistryObject<SoundEvent> ANCIENT_GOLEM_PUNCH = registerSound("entity.ancient_golem.punch");
 	public static final RegistryObject<SoundEvent> ANCIENT_GOLEM_DEATH = registerSound("entity.ancient_golem.death");
 
-	public static final RegistryObject<SoundEvent> SILENCE = registerSound("silence");
+	public static final RegistryObject<SoundEvent> MULTIBLOCK_PACK = registerSound("block.multiblock.pack");
+	public static final RegistryObject<SoundEvent> MULTIBLOCK_UNPACK = registerSound("block.multiblock.unpack");
+
+	public static final RegistryObject<SoundEvent> CAMINITE_BREAK = registerSound("block.caminite.break");
+	public static final RegistryObject<SoundEvent> CAMINITE_STEP = registerSound("block.caminite.step");
+	public static final RegistryObject<SoundEvent> CAMINITE_PLACE = registerSound("block.caminite.place");
+	public static final RegistryObject<SoundEvent> CAMINITE_HIT = registerSound("block.caminite.hit");
+	public static final RegistryObject<SoundEvent> CAMINITE_FALL = registerSound("block.caminite.fall");
+
+	public static final RegistryObject<SoundEvent> ASHEN_STONE_BREAK = registerSound("block.ashen_stone.break");
+	public static final RegistryObject<SoundEvent> ASHEN_STONE_STEP = registerSound("block.ashen_stone.step");
+	public static final RegistryObject<SoundEvent> ASHEN_STONE_PLACE = registerSound("block.ashen_stone.place");
+	public static final RegistryObject<SoundEvent> ASHEN_STONE_HIT = registerSound("block.ashen_stone.hit");
+	public static final RegistryObject<SoundEvent> ASHEN_STONE_FALL = registerSound("block.ashen_stone.fall");
+
+	public static final RegistryObject<SoundEvent> SOLID_METAL_BREAK = registerSound("block.solid_metal.break");
+	public static final RegistryObject<SoundEvent> SOLID_METAL_PLACE = registerSound("block.solid_metal.place");
+
+	public static final RegistryObject<SoundEvent> MACHINE_BREAK = registerSound("block.machine.break");
+	public static final RegistryObject<SoundEvent> MACHINE_PLACE = registerSound("block.machine.place");
 
 	//sound types
-	public static final SoundType MULTIBLOCK_EXTRA = new ForgeSoundType(1.0F, 1.5F, SILENCE, () -> SoundEvents.METAL_STEP, () -> SoundEvents.METAL_PLACE, () -> SoundEvents.METAL_HIT, () -> SoundEvents.METAL_FALL);
+	public static final SoundType CAMINITE = new ForgeSoundType(1.0F, 1.0F, CAMINITE_BREAK, CAMINITE_STEP, CAMINITE_PLACE, CAMINITE_HIT, CAMINITE_FALL);
+	public static final SoundType ASHEN_STONE = new ForgeSoundType(1.0F, 1.0F, ASHEN_STONE_BREAK, ASHEN_STONE_STEP, ASHEN_STONE_PLACE, ASHEN_STONE_HIT, ASHEN_STONE_FALL);
+	public static final SoundType LIGHT_METAL = new ForgeSoundType(1.0F, 1.5F, () -> SoundEvents.NETHERITE_BLOCK_BREAK, () -> SoundEvents.NETHERITE_BLOCK_STEP, () -> SoundEvents.NETHERITE_BLOCK_PLACE, () -> SoundEvents.NETHERITE_BLOCK_HIT, () -> SoundEvents.NETHERITE_BLOCK_FALL);
+	public static final SoundType SOLID_METAL = new ForgeSoundType(1.0F, 1.0F, SOLID_METAL_BREAK, () -> SoundEvents.NETHERITE_BLOCK_STEP, SOLID_METAL_PLACE, () -> SoundEvents.NETHERITE_BLOCK_HIT, () -> SoundEvents.NETHERITE_BLOCK_FALL);
+	public static final SoundType MACHINE = new ForgeSoundType(1.0F, 1.0F, MACHINE_BREAK, () -> SoundEvents.NETHERITE_BLOCK_STEP, MACHINE_PLACE, () -> SoundEvents.NETHERITE_BLOCK_HIT, () -> SoundEvents.NETHERITE_BLOCK_FALL);
+	public static final SoundType LIGHT_MACHINE = new ForgeSoundType(1.0F, 1.5F, MACHINE_BREAK, () -> SoundEvents.NETHERITE_BLOCK_STEP, MACHINE_PLACE, () -> SoundEvents.NETHERITE_BLOCK_HIT, () -> SoundEvents.NETHERITE_BLOCK_FALL);
+
+	public static final SoundType MULTIBLOCK_CENTER = new ForgeSoundType(1.0F, 1.0F, MULTIBLOCK_PACK, () -> SoundEvents.NETHERITE_BLOCK_STEP, MULTIBLOCK_UNPACK, () -> SoundEvents.NETHERITE_BLOCK_HIT, () -> SoundEvents.NETHERITE_BLOCK_FALL);
+	public static final SoundType MULTIBLOCK_EXTRA = new MultiblockSoundType(SoundType.NETHERITE_BLOCK);
+	public static final SoundType CAMINITE_MULTIBLOCK_EXTRA = new MultiblockSoundType(CAMINITE);
 
 
 	public EmbersSounds(PackOutput generator, ExistingFileHelper helper) {
@@ -283,6 +314,8 @@ public class EmbersSounds extends SoundDefinitionsProvider {
 				sound(resource("mixer_loop"))));
 		add(COPPER_CHARGER_LOOP, definition().with(
 				sound(resource("copper_charger_loop"))));
+		add(COPPER_CHARGER_SIPHON_LOOP, definition().with(
+				sound(resource("charger_siphon_loop"))));
 		add(INJECTOR_LOOP, definition().with(
 				sound(resource("injector_loop"))));
 
@@ -378,6 +411,8 @@ public class EmbersSounds extends SoundDefinitionsProvider {
 		withSubtitle(PIPE_DISCONNECT, definition().with(
 				sound(resource("pipe_disconnect1")),
 				sound(resource("pipe_disconnect2"))));
+		add(PIPE_VENT_LOOP, definition().with(
+				sound(resource("pipe_vent"))));
 
 		withSubtitle(FIREBALL_BIG, definition().with(
 				sound(resource("fireball_big_launch1")),
@@ -502,6 +537,85 @@ public class EmbersSounds extends SoundDefinitionsProvider {
 				sound(resource("agolem/punch4"))));
 		withSubtitle(ANCIENT_GOLEM_DEATH, definition().with(
 				sound(resource("agolem/die"))));
+
+		add(MULTIBLOCK_PACK, definition().subtitle("subtitles.block.generic.break").with(
+				sound(resource("multiblock_pack"))));
+		add(MULTIBLOCK_UNPACK, definition().subtitle("subtitles.block.generic.place").with(
+				sound(resource("multiblock_unpack"))));
+
+		add(CAMINITE_BREAK, definition().subtitle("subtitles.block.generic.break").with(
+				sound(resource("block/caminite/break1")),
+				sound(resource("block/caminite/break2")),
+				sound(resource("block/caminite/break3")),
+				sound(resource("block/caminite/break4"))));
+		add(CAMINITE_STEP, definition().subtitle("subtitles.block.generic.footsteps").with(
+				sound(resource("block/caminite/step1")),
+				sound(resource("block/caminite/step2")),
+				sound(resource("block/caminite/step3")),
+				sound(resource("block/caminite/step4"))));
+		add(CAMINITE_PLACE, definition().subtitle("subtitles.block.generic.place").with(
+				sound(resource("block/caminite/break1")),
+				sound(resource("block/caminite/break2")),
+				sound(resource("block/caminite/break3")),
+				sound(resource("block/caminite/break4"))));
+		add(CAMINITE_HIT, definition().subtitle("subtitles.block.generic.hit").with(
+				sound(resource("block/caminite/step1")),
+				sound(resource("block/caminite/step2")),
+				sound(resource("block/caminite/step3")),
+				sound(resource("block/caminite/step4"))));
+		add(CAMINITE_FALL, definition().with(
+				sound(resource("block/caminite/step1")),
+				sound(resource("block/caminite/step2")),
+				sound(resource("block/caminite/step3")),
+				sound(resource("block/caminite/step4"))));
+
+		add(ASHEN_STONE_BREAK, definition().subtitle("subtitles.block.generic.break").with(
+				sound(resource("block/ashen_stone/break1")),
+				sound(resource("block/ashen_stone/break2")),
+				sound(resource("block/ashen_stone/break3")),
+				sound(resource("block/ashen_stone/break4"))));
+		add(ASHEN_STONE_STEP, definition().subtitle("subtitles.block.generic.footsteps").with(
+				sound(resource("block/ashen_stone/step1")),
+				sound(resource("block/ashen_stone/step2")),
+				sound(resource("block/ashen_stone/step3")),
+				sound(resource("block/ashen_stone/step4"))));
+		add(ASHEN_STONE_PLACE, definition().subtitle("subtitles.block.generic.place").with(
+				sound(resource("block/ashen_stone/break1")),
+				sound(resource("block/ashen_stone/break2")),
+				sound(resource("block/ashen_stone/break3")),
+				sound(resource("block/ashen_stone/break4"))));
+		add(ASHEN_STONE_HIT, definition().subtitle("subtitles.block.generic.hit").with(
+				sound(resource("block/ashen_stone/step1")),
+				sound(resource("block/ashen_stone/step2")),
+				sound(resource("block/ashen_stone/step3")),
+				sound(resource("block/ashen_stone/step4"))));
+		add(ASHEN_STONE_FALL, definition().with(
+				sound(resource("block/ashen_stone/step1")),
+				sound(resource("block/ashen_stone/step2")),
+				sound(resource("block/ashen_stone/step3")),
+				sound(resource("block/ashen_stone/step4"))));
+
+		add(SOLID_METAL_BREAK, definition().subtitle("subtitles.block.generic.break").with(
+				sound(resource("block/solid_metal/break1")),
+				sound(resource("block/solid_metal/break2")),
+				sound(resource("block/solid_metal/break3")),
+				sound(resource("block/solid_metal/break4"))));
+		add(SOLID_METAL_PLACE, definition().subtitle("subtitles.block.generic.place").with(
+				sound(resource("block/solid_metal/break1")),
+				sound(resource("block/solid_metal/break2")),
+				sound(resource("block/solid_metal/break3")),
+				sound(resource("block/solid_metal/break4"))));
+
+		add(MACHINE_BREAK, definition().subtitle("subtitles.block.generic.break").with(
+				sound(resource("block/machine/break1")),
+				sound(resource("block/machine/break2")),
+				sound(resource("block/machine/break3")),
+				sound(resource("block/machine/break4"))));
+		add(MACHINE_PLACE, definition().subtitle("subtitles.block.generic.place").with(
+				sound(resource("block/machine/break1")),
+				sound(resource("block/machine/break2")),
+				sound(resource("block/machine/break3")),
+				sound(resource("block/machine/break4"))));
 	}
 
 	public void withSubtitle(RegistryObject<SoundEvent> soundEvent, SoundDefinition definition) {

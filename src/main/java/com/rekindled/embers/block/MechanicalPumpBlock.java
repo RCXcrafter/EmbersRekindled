@@ -9,6 +9,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -30,8 +31,8 @@ public class MechanicalPumpBlock extends DoubleTallMachineBlock {
 	protected static final VoxelShape BOTTOM_X_AABB = Shapes.or(Block.box(0,0,0,16,9,16), Block.box(0,9,1,16,11,15), Block.box(0,11,2,16,16,14));
 	protected static final VoxelShape TOP_AABB = Block.box(1,0,1,15,12,15);
 
-	public MechanicalPumpBlock(Properties properties) {
-		super(properties);
+	public MechanicalPumpBlock(Properties properties, SoundType topSound) {
+		super(properties, topSound);
 		this.registerDefaultState(this.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_AXIS, Axis.Z).setValue(PISTON, false));
 	}
 

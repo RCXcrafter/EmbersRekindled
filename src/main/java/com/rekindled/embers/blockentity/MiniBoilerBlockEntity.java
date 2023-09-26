@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
+import org.joml.Vector3f;
+
 import com.rekindled.embers.ConfigManager;
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
@@ -23,6 +25,8 @@ import com.rekindled.embers.util.Misc;
 import com.rekindled.embers.util.sound.ISoundController;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -42,6 +46,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
@@ -281,6 +287,8 @@ public class MiniBoilerBlockEntity extends PipeBlockEntityBase implements ISound
 		else if(gasRatio > 0.25)
 			spouts = 1;
 
+		@SuppressWarnings("resource")
+		Vector3f color = IClientFluidTypeExtensions.of(getGas().getFluidType()).modifyFogColor(Minecraft.getInstance().gameRenderer.getMainCamera(), 0, (ClientLevel) level, 6, 0, new Vector3f(1, 1, 1));
 		Random posRand = new Random(worldPosition.asLong());
 		for (int i = 0; i < spouts; i++) {
 			double angleA = posRand.nextDouble() * Math.PI * 2;
@@ -288,11 +296,11 @@ public class MiniBoilerBlockEntity extends PipeBlockEntityBase implements ISound
 			float xOffset = (float) (Math.cos(angleA) * Math.cos(angleB));
 			float yOffset = (float) (Math.sin(angleA) * Math.cos(angleB));
 			float zOffset = (float) Math.sin(angleB);
-			float speed = 1.3875f;
+			float speed = 0.13875f;
 			float vx = xOffset * speed + posRand.nextFloat() * speed * 0.3f;
 			float vy = yOffset * speed + posRand.nextFloat() * speed * 0.3f;
 			float vz = zOffset * speed + posRand.nextFloat() * speed * 0.3f;
-			level.addParticle(VaporParticleOptions.VAPOR, worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5, vx, vy, vz);
+			level.addParticle(new VaporParticleOptions(color, new Vec3(vx, vy, vz), 1.0F), worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5, 0, 0, 0);
 		}
 	}
 

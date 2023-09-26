@@ -29,6 +29,50 @@
     ],
     "subtitle": "subtitles.embersrekindled.block.alchemy.success"
   },
+  "block.ashen_stone.break": {
+    "sounds": [
+      "embersrekindled:block/ashen_stone/break1",
+      "embersrekindled:block/ashen_stone/break2",
+      "embersrekindled:block/ashen_stone/break3",
+      "embersrekindled:block/ashen_stone/break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.ashen_stone.fall": {
+    "sounds": [
+      "embersrekindled:block/ashen_stone/step1",
+      "embersrekindled:block/ashen_stone/step2",
+      "embersrekindled:block/ashen_stone/step3",
+      "embersrekindled:block/ashen_stone/step4"
+    ]
+  },
+  "block.ashen_stone.hit": {
+    "sounds": [
+      "embersrekindled:block/ashen_stone/step1",
+      "embersrekindled:block/ashen_stone/step2",
+      "embersrekindled:block/ashen_stone/step3",
+      "embersrekindled:block/ashen_stone/step4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.ashen_stone.place": {
+    "sounds": [
+      "embersrekindled:block/ashen_stone/break1",
+      "embersrekindled:block/ashen_stone/break2",
+      "embersrekindled:block/ashen_stone/break3",
+      "embersrekindled:block/ashen_stone/break4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.ashen_stone.step": {
+    "sounds": [
+      "embersrekindled:block/ashen_stone/step1",
+      "embersrekindled:block/ashen_stone/step2",
+      "embersrekindled:block/ashen_stone/step3",
+      "embersrekindled:block/ashen_stone/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "block.beam_cannon.fire": {
     "sounds": [
       "embersrekindled:beam_cannon/fire"
@@ -81,6 +125,50 @@
     ],
     "subtitle": "subtitles.embersrekindled.block.bore.stop"
   },
+  "block.caminite.break": {
+    "sounds": [
+      "embersrekindled:block/caminite/break1",
+      "embersrekindled:block/caminite/break2",
+      "embersrekindled:block/caminite/break3",
+      "embersrekindled:block/caminite/break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.caminite.fall": {
+    "sounds": [
+      "embersrekindled:block/caminite/step1",
+      "embersrekindled:block/caminite/step2",
+      "embersrekindled:block/caminite/step3",
+      "embersrekindled:block/caminite/step4"
+    ]
+  },
+  "block.caminite.hit": {
+    "sounds": [
+      "embersrekindled:block/caminite/step1",
+      "embersrekindled:block/caminite/step2",
+      "embersrekindled:block/caminite/step3",
+      "embersrekindled:block/caminite/step4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.caminite.place": {
+    "sounds": [
+      "embersrekindled:block/caminite/break1",
+      "embersrekindled:block/caminite/break2",
+      "embersrekindled:block/caminite/break3",
+      "embersrekindled:block/caminite/break4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.caminite.step": {
+    "sounds": [
+      "embersrekindled:block/caminite/step1",
+      "embersrekindled:block/caminite/step2",
+      "embersrekindled:block/caminite/step3",
+      "embersrekindled:block/caminite/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "block.catalytic_plug.loop": {
     "sounds": [
       "embersrekindled:catalytic_plug/run_loop"
@@ -106,6 +194,11 @@
   "block.copper_charger.loop": {
     "sounds": [
       "embersrekindled:copper_charger_loop"
+    ]
+  },
+  "block.copper_charger_siphon.loop": {
+    "sounds": [
+      "embersrekindled:charger_siphon_loop"
     ]
   },
   "block.crystal_cell.grow": {
@@ -244,6 +337,24 @@
       "embersrekindled:injector_loop"
     ]
   },
+  "block.machine.break": {
+    "sounds": [
+      "embersrekindled:block/machine/break1",
+      "embersrekindled:block/machine/break2",
+      "embersrekindled:block/machine/break3",
+      "embersrekindled:block/machine/break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.machine.place": {
+    "sounds": [
+      "embersrekindled:block/machine/break1",
+      "embersrekindled:block/machine/break2",
+      "embersrekindled:block/machine/break3",
+      "embersrekindled:block/machine/break4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
   "block.melter.loop": {
     "sounds": [
       "embersrekindled:melter_loop"
@@ -308,6 +419,18 @@
       "embersrekindled:mixer_loop"
     ]
   },
+  "block.multiblock.pack": {
+    "sounds": [
+      "embersrekindled:multiblock_pack"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.multiblock.unpack": {
+    "sounds": [
+      "embersrekindled:multiblock_unpack"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
   "block.pedestal.loop": {
     "sounds": [
       "embersrekindled:pedestal_loop"
@@ -326,6 +449,11 @@
       "embersrekindled:pipe_disconnect2"
     ],
     "subtitle": "subtitles.embersrekindled.block.pipe.disconnect"
+  },
+  "block.pipe.vent": {
+    "sounds": [
+      "embersrekindled:pipe_vent"
+    ]
   },
   "block.pump.fast": {
     "sounds": [
@@ -348,6 +476,24 @@
       "embersrekindled:pump/slow"
     ],
     "subtitle": "subtitles.embersrekindled.block.pump.slow"
+  },
+  "block.solid_metal.break": {
+    "sounds": [
+      "embersrekindled:block/solid_metal/break1",
+      "embersrekindled:block/solid_metal/break2",
+      "embersrekindled:block/solid_metal/break3",
+      "embersrekindled:block/solid_metal/break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.solid_metal.place": {
+    "sounds": [
+      "embersrekindled:block/solid_metal/break1",
+      "embersrekindled:block/solid_metal/break2",
+      "embersrekindled:block/solid_metal/break3",
+      "embersrekindled:block/solid_metal/break4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
   },
   "block.stamper.down": {
     "sounds": [

@@ -69,11 +69,13 @@ public class CopperChargerBlockEntity extends BlockEntity implements ISoundContr
 	static Random random = new Random();
 	public boolean isWorking;
 	public boolean wasWorking;
+	public boolean reverse = false;
 	public boolean dirty = false;
 	protected List<UpgradeContext> upgrades;
 
 	public static final int SOUND_PROCESS = 1;
-	public static final int[] SOUND_IDS = new int[]{SOUND_PROCESS};
+	public static final int SOUND_REVERSE = 2;
+	public static final int[] SOUND_IDS = new int[]{SOUND_PROCESS, SOUND_REVERSE};
 
 	HashSet<Integer> soundsPlaying = new HashSet<>();
 
@@ -89,6 +91,7 @@ public class CopperChargerBlockEntity extends BlockEntity implements ISoundContr
 		capability.deserializeNBT(nbt);
 		inventory.deserializeNBT(nbt.getCompound("inventory"));
 		isWorking = nbt.getBoolean("working");
+		reverse = nbt.getBoolean("reverse");
 	}
 
 	@Override
@@ -103,6 +106,7 @@ public class CopperChargerBlockEntity extends BlockEntity implements ISoundContr
 		CompoundTag nbt = super.getUpdateTag();
 		saveAdditional(nbt);
 		nbt.putBoolean("working", isWorking);
+		nbt.putBoolean("reverse", reverse);
 		return nbt;
 	}
 
@@ -143,9 +147,11 @@ public class CopperChargerBlockEntity extends BlockEntity implements ISoundContr
 			if (transferRate > 0) {
 				emberAdded = itemCapability.addAmount(Math.min(Math.abs(transferRate), blockEntity.capability.getEmber()), true);
 				blockEntity.capability.removeAmount(emberAdded, true);
+				blockEntity.reverse = false;
 			} else {
 				emberAdded = blockEntity.capability.addAmount(Math.min(Math.abs(transferRate), itemCapability.getEmber()), true);
 				itemCapability.removeAmount(emberAdded, true);
+				blockEntity.reverse = true;
 			}
 			if (emberAdded > 0) {
 				UpgradeUtil.throwEvent(blockEntity, new EmberEvent(blockEntity, EmberEvent.EnumType.TRANSFER, emberAdded), blockEntity.upgrades);
@@ -181,6 +187,9 @@ public class CopperChargerBlockEntity extends BlockEntity implements ISoundContr
 		case SOUND_PROCESS:
 			EmbersSounds.playMachineSound(this, SOUND_PROCESS, EmbersSounds.COPPER_CHARGER_LOOP.get(), SoundSource.BLOCKS, true, 1.0f, 1.0f, (float)worldPosition.getX()+0.5f,(float)worldPosition.getY()+0.5f,(float)worldPosition.getZ()+0.5f);
 			break;
+		case SOUND_REVERSE:
+			EmbersSounds.playMachineSound(this, SOUND_REVERSE, EmbersSounds.COPPER_CHARGER_SIPHON_LOOP.get(), SoundSource.BLOCKS, true, 1.0f, 1.0f, (float)worldPosition.getX()+0.5f,(float)worldPosition.getY()+0.5f,(float)worldPosition.getZ()+0.5f);
+			break;
 		}
 		soundsPlaying.add(id);
 	}
@@ -202,7 +211,7 @@ public class CopperChargerBlockEntity extends BlockEntity implements ISoundContr
 
 	@Override
 	public boolean shouldPlaySound(int id) {
-		return id == SOUND_PROCESS && isWorking;
+		return isWorking && (reverse ? id == SOUND_REVERSE : id == SOUND_PROCESS);
 	}
 
 	@Override

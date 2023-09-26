@@ -2,7 +2,6 @@ package com.rekindled.embers.block;
 
 import javax.annotation.Nullable;
 
-import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.util.Misc;
 
 import net.minecraft.core.BlockPos;
@@ -27,9 +26,12 @@ import net.minecraftforge.items.IItemHandler;
 
 public abstract class DoubleTallMachineBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
 
-	public DoubleTallMachineBlock(Properties properties) {
+	public SoundType topSound;
+
+	public DoubleTallMachineBlock(Properties properties, SoundType topSound) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER).setValue(BlockStateProperties.WATERLOGGED, false));
+		this.topSound = topSound;
 	}
 
 	@Override
@@ -63,7 +65,7 @@ public abstract class DoubleTallMachineBlock extends BaseEntityBlock implements 
 
 	@Override
 	public SoundType getSoundType(BlockState state) {
-		return state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER ? super.getSoundType(state) : EmbersSounds.MULTIBLOCK_EXTRA;
+		return state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER ? super.getSoundType(state) : topSound;
 	}
 
 	@Nullable

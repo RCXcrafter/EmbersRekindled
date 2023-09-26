@@ -138,7 +138,7 @@ public class ItemTransferBlockEntity extends ItemPipeBlockEntityBase {
 			float xOffset = (float) (Math.cos(angleA) * Math.cos(angleB));
 			float yOffset = (float) (Math.sin(angleA) * Math.cos(angleB));
 			float zOffset = (float) Math.sin(angleB);
-			float speed = 0.1875f;
+			float speed = 0.1f;
 			float vx = xOffset * speed + posRand.nextFloat() * speed * 0.3f;
 			float vy = yOffset * speed + posRand.nextFloat() * speed * 0.3f;
 			float vz = zOffset * speed + posRand.nextFloat() * speed * 0.3f;

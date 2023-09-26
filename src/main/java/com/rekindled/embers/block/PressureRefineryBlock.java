@@ -9,6 +9,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -26,8 +27,8 @@ public class PressureRefineryBlock extends DoubleTallMachineBlock {
 
 	protected static final VoxelShape TOP_AABB = Shapes.or(Shapes.joinUnoptimized(Block.box(3,4,3,13,16,13), Block.box(5,5,5,11,16,11), BooleanOp.ONLY_FIRST), Block.box(0,0,0,16,4,16));
 
-	public PressureRefineryBlock(Properties properties) {
-		super(properties);
+	public PressureRefineryBlock(Properties properties, SoundType topSound) {
+		super(properties, topSound);
 	}
 
 	@Override

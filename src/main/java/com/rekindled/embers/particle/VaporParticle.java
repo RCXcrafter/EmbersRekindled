@@ -18,7 +18,7 @@ public class VaporParticle extends TextureSheetParticle {
 
 	public VaporParticle(ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed, VaporParticleOptions pOptions) {
 		super(pLevel, pX, pY, pZ, pXSpeed, pYSpeed, pZSpeed);
-		this.friction = 0.8f;
+		this.friction = 0.93f;
 		this.hasPhysics = false;
 		this.gravity = 0.0f;
 		float speed = random.nextFloat() * 0.5f + 0.7f;
@@ -31,7 +31,7 @@ public class VaporParticle extends TextureSheetParticle {
 		this.oRoll = 2.0f * (float) Math.PI;
 		this.roll = this.oRoll + 0.5f;
 		this.maxScale = pOptions.getScale();
-		double i = 6.0D / (this.random.nextDouble() * 0.5D + 0.5D);
+		double i = 8.0D / (this.random.nextDouble() * 0.5D + 0.5D);
 		this.lifetime = (int)(i * pOptions.getScale());
 	}
 
