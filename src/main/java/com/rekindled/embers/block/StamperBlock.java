@@ -26,7 +26,6 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
@@ -35,11 +34,9 @@ import net.minecraftforge.items.IItemHandler;
 
 public class StamperBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
 
-	public static final BooleanProperty ARM = BooleanProperty.create("arm");
-
 	public StamperBlock(Properties properties) {
 		super(properties);
-		this.registerDefaultState(this.stateDefinition.any().setValue(BlockStateProperties.WATERLOGGED, false).setValue(ARM, false));
+		this.registerDefaultState(this.stateDefinition.any().setValue(BlockStateProperties.WATERLOGGED, false));
 	}
 
 	@Override
@@ -109,7 +106,7 @@ public class StamperBlock extends BaseEntityBlock implements SimpleWaterloggedBl
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-		pBuilder.add(BlockStateProperties.WATERLOGGED).add(ARM);
+		pBuilder.add(BlockStateProperties.WATERLOGGED);
 	}
 
 	@Override

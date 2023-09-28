@@ -6,13 +6,10 @@ import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.RegistryManager.FluidStuff;
 import com.rekindled.embers.RegistryManager.StoneDecoBlocks;
-import com.rekindled.embers.block.EmberBoreBlock;
 import com.rekindled.embers.block.EmberEmitterBlock;
 import com.rekindled.embers.block.ItemTransferBlock;
 import com.rekindled.embers.block.MechEdgeBlockBase;
 import com.rekindled.embers.block.MechEdgeBlockBase.MechEdge;
-import com.rekindled.embers.block.MechanicalPumpBlock;
-import com.rekindled.embers.block.StamperBlock;
 
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -211,12 +208,11 @@ public class EmbersBlockStates extends BlockStateProvider {
 		.condition(PipeBlockBase.EAST, PipeConnection.PIPE).end();*/
 
 		ExistingModelFile emberBoreModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "ember_bore_center"));
-		ExistingModelFile emberBoreBladesModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "ember_bore_blades"));
 		getVariantBuilder(RegistryManager.EMBER_BORE.get()).forAllStates(state -> {
 			Axis axis = state.getValue(BlockStateProperties.HORIZONTAL_AXIS);
 
 			return ConfiguredModel.builder()
-					.modelFile(state.getValue(EmberBoreBlock.BLADES) ? emberBoreBladesModel : emberBoreModel)
+					.modelFile(emberBoreModel)
 					.rotationY(axis == Axis.Z ? 90 : 0)
 					.uvLock(false)
 					.build();
@@ -330,13 +326,8 @@ public class EmbersBlockStates extends BlockStateProvider {
 		blockWithItem(RegistryManager.FLUID_VESSEL, "fluid_vessel");
 
 		ExistingModelFile stamperModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "stamper"));
+		simpleBlock(RegistryManager.STAMPER.get(), stamperModel);
 		simpleBlockItem(RegistryManager.STAMPER.get(), stamperModel);
-		getVariantBuilder(RegistryManager.STAMPER.get()).forAllStates(state -> {
-			return ConfiguredModel.builder()
-					.modelFile(state.getValue(StamperBlock.ARM) ? models().getExistingFile(new ResourceLocation(Embers.MODID, "stamper_arm")) : stamperModel)
-					.uvLock(false)
-					.build();
-		});
 
 		blockWithItem(RegistryManager.STAMP_BASE, "stamp_base");
 
@@ -562,14 +553,11 @@ public class EmbersBlockStates extends BlockStateProvider {
 
 		ExistingModelFile pumpBottomModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "mechanical_pump_bottom"));
 		ExistingModelFile pumpTopModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "mechanical_pump_top"));
-		ExistingModelFile pumpPistonBottomModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "mechanical_pump_piston_bottom"));
-		ExistingModelFile pumpPistonTopModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "mechanical_pump_piston_top"));
 		getVariantBuilder(RegistryManager.MECHANICAL_PUMP.get()).forAllStates(state -> {
 			Axis axis = state.getValue(BlockStateProperties.HORIZONTAL_AXIS);
-			boolean piston = state.getValue(MechanicalPumpBlock.PISTON);
 
 			return ConfiguredModel.builder()
-					.modelFile(state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER ? piston ? pumpPistonBottomModel : pumpBottomModel : piston ? pumpPistonTopModel : pumpTopModel)
+					.modelFile(state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER ? pumpBottomModel : pumpTopModel)
 					.rotationY(axis == Axis.Z ? 0 : 90)
 					.uvLock(false)
 					.build();

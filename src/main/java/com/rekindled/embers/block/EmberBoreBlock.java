@@ -21,7 +21,6 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
@@ -29,11 +28,9 @@ import net.minecraftforge.items.IItemHandler;
 
 public class EmberBoreBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
 
-	public static final BooleanProperty BLADES = BooleanProperty.create("blades");
-
 	public EmberBoreBlock(Properties pProperties) {
 		super(pProperties);
-		this.registerDefaultState(this.stateDefinition.any().setValue(BlockStateProperties.WATERLOGGED, false).setValue(BlockStateProperties.HORIZONTAL_AXIS, Axis.Z).setValue(BLADES, false));
+		this.registerDefaultState(this.stateDefinition.any().setValue(BlockStateProperties.WATERLOGGED, false).setValue(BlockStateProperties.HORIZONTAL_AXIS, Axis.Z));
 	}
 
 	@Override
@@ -101,7 +98,7 @@ public class EmberBoreBlock extends BaseEntityBlock implements SimpleWaterlogged
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-		pBuilder.add(BlockStateProperties.WATERLOGGED).add(BlockStateProperties.HORIZONTAL_AXIS).add(BLADES);
+		pBuilder.add(BlockStateProperties.WATERLOGGED).add(BlockStateProperties.HORIZONTAL_AXIS);
 	}
 
 	@Override

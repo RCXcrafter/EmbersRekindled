@@ -16,7 +16,6 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -25,15 +24,13 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class MechanicalPumpBlock extends DoubleTallMachineBlock {
 
-	public static final BooleanProperty PISTON = BooleanProperty.create("piston");
-
 	protected static final VoxelShape BOTTOM_Z_AABB = Shapes.or(Block.box(0,0,0,16,9,16), Block.box(1,9,0,15,11,16), Block.box(2,11,0,14,16,16));
 	protected static final VoxelShape BOTTOM_X_AABB = Shapes.or(Block.box(0,0,0,16,9,16), Block.box(0,9,1,16,11,15), Block.box(0,11,2,16,16,14));
 	protected static final VoxelShape TOP_AABB = Block.box(1,0,1,15,12,15);
 
 	public MechanicalPumpBlock(Properties properties, SoundType topSound) {
 		super(properties, topSound);
-		this.registerDefaultState(this.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_AXIS, Axis.Z).setValue(PISTON, false));
+		this.registerDefaultState(this.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_AXIS, Axis.Z));
 	}
 
 	@Override
@@ -71,6 +68,6 @@ public class MechanicalPumpBlock extends DoubleTallMachineBlock {
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
 		super.createBlockStateDefinition(pBuilder);
-		pBuilder.add(BlockStateProperties.HORIZONTAL_AXIS).add(PISTON);
+		pBuilder.add(BlockStateProperties.HORIZONTAL_AXIS);
 	}
 }

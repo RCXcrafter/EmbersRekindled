@@ -16,6 +16,9 @@ import com.rekindled.embers.api.power.IEmberPacketReceiver;
 import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
 import com.rekindled.embers.api.tile.IMechanicallyPowered;
 import com.rekindled.embers.blockentity.EmberEmitterBlockEntity;
+import com.rekindled.embers.blockentity.render.EmberBoreBlockEntityRenderer;
+import com.rekindled.embers.blockentity.render.MechanicalPumpBlockEntityRenderer;
+import com.rekindled.embers.blockentity.render.StamperBlockEntityRenderer;
 import com.rekindled.embers.datagen.EmbersBlockTags;
 import com.rekindled.embers.render.EmbersRenderTypes;
 import com.rekindled.embers.render.PipeModel;
@@ -27,7 +30,12 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.resources.model.BlockModelRotation;
+import net.minecraft.client.resources.model.Material;
+import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.resources.model.UnbakedModel;
+import net.minecraft.client.resources.model.ModelBakery.ModelBakerImpl;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
@@ -375,5 +383,18 @@ public class EmbersClientEvents {
 		fluidExtractor.init(event.getModelManager());
 		for (PipeModel model : miniBoiler)
 			model.init(event.getModelManager());
+
+		ModelBakery bakery = event.getModelManager().getModelBakery();
+		EmberBoreBlockEntityRenderer.blades = getModel(bakery, "ember_bore_blades");
+		MechanicalPumpBlockEntityRenderer.pistonBottom = getModel(bakery, "mechanical_pump_piston_bottom");
+		MechanicalPumpBlockEntityRenderer.pistonTop = getModel(bakery, "mechanical_pump_piston_top");
+		StamperBlockEntityRenderer.arm = getModel(bakery, "stamper_arm");
+	}
+
+	public static BakedModel getModel(ModelBakery bakery, String name) {
+		ResourceLocation location = new ResourceLocation(Embers.MODID, "block/" + name);
+		ModelBakerImpl bakerImpl = bakery.new ModelBakerImpl((modelLoc, material) -> material.sprite(), location);
+		UnbakedModel model = bakery.getModel(location);
+		return model.bake(bakerImpl, Material::sprite, BlockModelRotation.X0_Y0, location);
 	}
 }

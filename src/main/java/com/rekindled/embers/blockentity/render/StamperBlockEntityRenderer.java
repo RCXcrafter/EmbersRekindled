@@ -3,7 +3,6 @@ package com.rekindled.embers.blockentity.render;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.rekindled.embers.RegistryManager;
-import com.rekindled.embers.block.StamperBlock;
 import com.rekindled.embers.blockentity.StamperBlockEntity;
 
 import net.minecraft.client.Minecraft;
@@ -23,6 +22,7 @@ import net.minecraftforge.client.model.data.ModelData;
 
 public class StamperBlockEntityRenderer implements BlockEntityRenderer<StamperBlockEntity> {
 
+	public static BakedModel arm;
 	private final ItemRenderer itemRenderer;
 
 	public StamperBlockEntityRenderer(BlockEntityRendererProvider.Context pContext) {
@@ -32,9 +32,8 @@ public class StamperBlockEntityRenderer implements BlockEntityRenderer<StamperBl
 	@Override
 	public void render(StamperBlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
 		BlockRenderDispatcher blockrendererdispatcher = Minecraft.getInstance().getBlockRenderer();
-		BlockState armState = blockEntity.getLevel().getBlockState(blockEntity.getBlockPos());
-		if (armState.getBlock() == RegistryManager.STAMPER.get()) {
-			armState = armState.setValue(StamperBlock.ARM, true);
+		BlockState blockState = blockEntity.getLevel().getBlockState(blockEntity.getBlockPos());
+		if (blockState.getBlock() == RegistryManager.STAMPER.get()) {
 			poseStack.pushPose();
 			float magnitude = 0;
 			if (!blockEntity.powered){
@@ -49,7 +48,8 @@ public class StamperBlockEntityRenderer implements BlockEntityRenderer<StamperBl
 				}
 			}
 			poseStack.translate(0, -0.001D - magnitude, 0);
-			blockrendererdispatcher.getModelRenderer().renderModel(poseStack.last(), bufferSource.getBuffer(Sheets.solidBlockSheet()), armState, blockrendererdispatcher.getBlockModel(armState), 0.0f, 0.0f, 0.0f, packedLight, packedOverlay, ModelData.EMPTY, Sheets.solidBlockSheet());
+			if (arm != null)
+				blockrendererdispatcher.getModelRenderer().renderModel(poseStack.last(), bufferSource.getBuffer(Sheets.solidBlockSheet()), blockState, arm, 0.0f, 0.0f, 0.0f, packedLight, packedOverlay, ModelData.EMPTY, Sheets.solidBlockSheet());
 
 			if (!blockEntity.stamp.getStackInSlot(0).isEmpty()) {
 				ItemStack stack = blockEntity.stamp.getStackInSlot(0);

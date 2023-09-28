@@ -1,7 +1,5 @@
 package com.rekindled.embers.util;
 
-import org.jetbrains.annotations.NotNull;
-
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.block.SoundType;
