@@ -5,7 +5,7 @@
   "experience": 0.7,
   "group": "lead_ingot",
   "ingredient": {
-    "item": "embersrekindled:deepslate_lead_ore"
+    "item": "embers:deepslate_lead_ore"
   },
-  "result": "embersrekindled:lead_ingot"
+  "result": "embers:lead_ingot"
 }

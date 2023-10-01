@@ -5,7 +5,7 @@
   "experience": 0.7,
   "group": "silver_ingot",
   "ingredient": {
-    "item": "embersrekindled:raw_silver"
+    "item": "embers:raw_silver"
   },
-  "result": "embersrekindled:silver_ingot"
+  "result": "embers:silver_ingot"
 }

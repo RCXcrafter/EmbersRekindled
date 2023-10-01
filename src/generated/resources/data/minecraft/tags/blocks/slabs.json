@@ -1,10 +1,10 @@
 {
   "values": [
-    "embersrekindled:caminite_bricks_slab",
-    "embersrekindled:archaic_bricks_slab",
-    "embersrekindled:archaic_tile_slab",
-    "embersrekindled:ashen_stone_slab",
-    "embersrekindled:ashen_brick_slab",
-    "embersrekindled:ashen_tile_slab"
+    "embers:caminite_bricks_slab",
+    "embers:archaic_bricks_slab",
+    "embers:archaic_tile_slab",
+    "embers:ashen_stone_slab",
+    "embers:ashen_brick_slab",
+    "embers:ashen_tile_slab"
   ]
 }

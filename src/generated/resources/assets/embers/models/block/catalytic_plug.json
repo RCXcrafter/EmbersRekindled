@@ -1,0 +1,16 @@
+{
+  "parent": "embers:block/catalytic_plug_base",
+  "children": {
+    "base": {
+      "parent": "embers:block/catalytic_plug_base"
+    },
+    "glass": {
+      "parent": "embers:block/catalytic_plug_glass"
+    }
+  },
+  "item_render_order": [
+    "base",
+    "glass"
+  ],
+  "loader": "forge:composite"
+}

@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "C": {
+      "tag": "forge:plates/copper"
+    },
+    "I": {
+      "tag": "forge:ingots/dawnstone"
+    },
+    "P": {
+      "tag": "forge:plates/dawnstone"
+    },
+    "S": {
+      "item": "embers:ember_shard"
+    },
+    "W": {
+      "tag": "forge:rods/wooden"
+    }
+  },
+  "pattern": [
+    "PCP",
+    "ISI",
+    " W "
+  ],
+  "result": {
+    "item": "embers:clockwork_axe"
+  },
+  "show_notification": true
+}

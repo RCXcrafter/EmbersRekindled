@@ -1,0 +1,34 @@
+{
+  "type": "embers:alchemy",
+  "aspects": [
+    {
+      "tag": "embers:aspectus/copper"
+    },
+    {
+      "tag": "embers:aspectus/iron"
+    },
+    {
+      "tag": "embers:aspectus/dawnstone"
+    }
+  ],
+  "inputs": [
+    {
+      "tag": "forge:gunpowder"
+    },
+    {
+      "item": "embers:ember_shard"
+    },
+    {
+      "item": "embers:ember_shard"
+    },
+    {
+      "item": "embers:ember_shard"
+    }
+  ],
+  "output": {
+    "item": "embers:ember_crystal_cluster"
+  },
+  "tablet": {
+    "item": "embers:ember_crystal"
+  }
+}

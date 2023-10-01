@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "X": {
+      "tag": "forge:ingots/dawnstone"
+    },
+    "Y": {
+      "item": "embers:dawnstone_ingot"
+    }
+  },
+  "pattern": [
+    "XXX",
+    "XYX",
+    "XXX"
+  ],
+  "result": {
+    "item": "embers:dawnstone_block"
+  },
+  "show_notification": true
+}

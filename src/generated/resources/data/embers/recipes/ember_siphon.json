@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "embers:caminite_brick"
+    },
+    "G": {
+      "tag": "forge:ingots/copper"
+    },
+    "X": {
+      "tag": "forge:plates/silver"
+    }
+  },
+  "pattern": [
+    "BGB",
+    "XGX",
+    "BBB"
+  ],
+  "result": {
+    "item": "embers:ember_siphon"
+  },
+  "show_notification": true
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "embers:caminite_bricks"
+    },
+    "P": {
+      "item": "embers:fluid_pipe"
+    }
+  },
+  "pattern": [
+    "BBB",
+    "P P",
+    "BBB"
+  ],
+  "result": {
+    "item": "embers:caminite_valve"
+  },
+  "show_notification": true
+}

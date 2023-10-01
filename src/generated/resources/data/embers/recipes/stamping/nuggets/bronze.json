@@ -1,0 +1,20 @@
+{
+  "type": "embers:tag_stamping",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:nuggets/bronze"
+      }
+    }
+  ],
+  "fluid": {
+    "amount": 10,
+    "tag": "forge:molten_bronze"
+  },
+  "output": "forge:nuggets/bronze",
+  "stamp": {
+    "item": "embers:nugget_stamp"
+  }
+}

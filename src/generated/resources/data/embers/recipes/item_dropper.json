@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "tag": "forge:ingots/lead"
+    },
+    "P": {
+      "item": "embers:item_pipe"
+    }
+  },
+  "pattern": [
+    " P ",
+    "I I"
+  ],
+  "result": {
+    "item": "embers:item_dropper"
+  },
+  "show_notification": true
+}

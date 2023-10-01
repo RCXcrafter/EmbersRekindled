@@ -1,0 +1,31 @@
+{
+  "type": "embers:alchemy",
+  "aspects": [
+    {
+      "tag": "embers:aspectus/lead"
+    },
+    {
+      "tag": "embers:aspectus/silver"
+    }
+  ],
+  "inputs": [
+    {
+      "tag": "forge:storage_blocks/coal"
+    },
+    {
+      "tag": "forge:obsidian"
+    },
+    {
+      "tag": "forge:ingots/lead"
+    },
+    {
+      "tag": "forge:ingots/lead"
+    }
+  ],
+  "output": {
+    "item": "embers:tyrfing"
+  },
+  "tablet": {
+    "item": "embers:lead_sword"
+  }
+}

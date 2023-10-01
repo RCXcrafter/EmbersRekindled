@@ -1,0 +1,5 @@
+{
+  "type": "embers:metal_coefficient",
+  "block_tag": "embers:oxidized_copper",
+  "coefficient": 1.5
+}

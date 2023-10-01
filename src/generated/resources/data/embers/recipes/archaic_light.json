@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "S": {
+      "item": "embers:ember_shard"
+    },
+    "X": {
+      "item": "embers:archaic_brick"
+    }
+  },
+  "pattern": [
+    " X ",
+    "XSX",
+    " X "
+  ],
+  "result": {
+    "item": "embers:archaic_light"
+  },
+  "show_notification": true
+}

@@ -163,6 +163,7 @@ import com.rekindled.embers.recipe.StampingRecipe;
 import com.rekindled.embers.recipe.TagStampingRecipe;
 import com.rekindled.embers.util.EmbersTiers;
 import com.rekindled.embers.util.GrandhammerLootModifier;
+import com.rekindled.embers.util.LegacyDeferredRegister;
 import com.rekindled.embers.util.Misc;
 
 import net.minecraft.core.BlockPos;
@@ -231,7 +232,9 @@ public class RegistryManager {
 	public static final DeferredRegister<FluidType> FLUIDTYPES = DeferredRegister.create(ForgeRegistries.Keys.FLUID_TYPES, Embers.MODID);
 	public static final DeferredRegister<Fluid> FLUIDS = DeferredRegister.create(ForgeRegistries.FLUIDS, Embers.MODID);
 	public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, Embers.MODID);
-	public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, Embers.MODID);
+	public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES_NEW = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, Embers.MODID);
+	public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES_OLD = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, Embers.MODID_OLD);
+	public static final LegacyDeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES = new LegacyDeferredRegister<BlockEntityType<?>>(BLOCK_ENTITY_TYPES_NEW, BLOCK_ENTITY_TYPES_OLD);
 	public static final DeferredRegister<CreativeModeTab> CREATIVE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Embers.MODID);
 	public static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, Embers.MODID);
 	public static final DeferredRegister<SoundEvent> SOUND_EVENTS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, Embers.MODID);

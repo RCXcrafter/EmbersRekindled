@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "half=lower,waterlogged=false": {
+      "model": "embers:block/activator_bottom"
+    },
+    "half=lower,waterlogged=true": {
+      "model": "embers:block/activator_bottom"
+    },
+    "half=upper,waterlogged=false": {
+      "model": "embers:block/activator_top"
+    },
+    "half=upper,waterlogged=true": {
+      "model": "embers:block/activator_top"
+    }
+  }
+}

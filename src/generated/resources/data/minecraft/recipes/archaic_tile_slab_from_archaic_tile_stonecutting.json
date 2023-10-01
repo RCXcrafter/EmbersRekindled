@@ -2,7 +2,7 @@
   "type": "minecraft:stonecutting",
   "count": 2,
   "ingredient": {
-    "item": "embersrekindled:archaic_tile"
+    "item": "embers:archaic_tile"
   },
-  "result": "embersrekindled:archaic_tile_slab"
+  "result": "embers:archaic_tile_slab"
 }

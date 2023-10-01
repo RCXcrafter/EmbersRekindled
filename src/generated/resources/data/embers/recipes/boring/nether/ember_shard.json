@@ -1,0 +1,15 @@
+{
+  "type": "embers:boring",
+  "dimensions": [
+    "minecraft:the_nether"
+  ],
+  "max_height": 7,
+  "output": {
+    "item": "embers:ember_shard"
+  },
+  "required_block": {
+    "amount": 3,
+    "block_tag": "embers:world_bottom"
+  },
+  "weight": 60
+}

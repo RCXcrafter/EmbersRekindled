@@ -1,0 +1,108 @@
+{
+  "variants": {
+    "facing=down,filter=false,waterlogged=false": {
+      "model": "embers:block/fluid_transfer",
+      "x": 180
+    },
+    "facing=down,filter=false,waterlogged=true": {
+      "model": "embers:block/fluid_transfer",
+      "x": 180
+    },
+    "facing=down,filter=true,waterlogged=false": {
+      "model": "embers:block/fluid_transfer_filtered",
+      "x": 180
+    },
+    "facing=down,filter=true,waterlogged=true": {
+      "model": "embers:block/fluid_transfer_filtered",
+      "x": 180
+    },
+    "facing=east,filter=false,waterlogged=false": {
+      "model": "embers:block/fluid_transfer",
+      "x": 90,
+      "y": 90
+    },
+    "facing=east,filter=false,waterlogged=true": {
+      "model": "embers:block/fluid_transfer",
+      "x": 90,
+      "y": 90
+    },
+    "facing=east,filter=true,waterlogged=false": {
+      "model": "embers:block/fluid_transfer_filtered",
+      "x": 90,
+      "y": 90
+    },
+    "facing=east,filter=true,waterlogged=true": {
+      "model": "embers:block/fluid_transfer_filtered",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north,filter=false,waterlogged=false": {
+      "model": "embers:block/fluid_transfer",
+      "x": 90
+    },
+    "facing=north,filter=false,waterlogged=true": {
+      "model": "embers:block/fluid_transfer",
+      "x": 90
+    },
+    "facing=north,filter=true,waterlogged=false": {
+      "model": "embers:block/fluid_transfer_filtered",
+      "x": 90
+    },
+    "facing=north,filter=true,waterlogged=true": {
+      "model": "embers:block/fluid_transfer_filtered",
+      "x": 90
+    },
+    "facing=south,filter=false,waterlogged=false": {
+      "model": "embers:block/fluid_transfer",
+      "x": 90,
+      "y": 180
+    },
+    "facing=south,filter=false,waterlogged=true": {
+      "model": "embers:block/fluid_transfer",
+      "x": 90,
+      "y": 180
+    },
+    "facing=south,filter=true,waterlogged=false": {
+      "model": "embers:block/fluid_transfer_filtered",
+      "x": 90,
+      "y": 180
+    },
+    "facing=south,filter=true,waterlogged=true": {
+      "model": "embers:block/fluid_transfer_filtered",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up,filter=false,waterlogged=false": {
+      "model": "embers:block/fluid_transfer"
+    },
+    "facing=up,filter=false,waterlogged=true": {
+      "model": "embers:block/fluid_transfer"
+    },
+    "facing=up,filter=true,waterlogged=false": {
+      "model": "embers:block/fluid_transfer_filtered"
+    },
+    "facing=up,filter=true,waterlogged=true": {
+      "model": "embers:block/fluid_transfer_filtered"
+    },
+    "facing=west,filter=false,waterlogged=false": {
+      "model": "embers:block/fluid_transfer",
+      "x": 90,
+      "y": 270
+    },
+    "facing=west,filter=false,waterlogged=true": {
+      "model": "embers:block/fluid_transfer",
+      "x": 90,
+      "y": 270
+    },
+    "facing=west,filter=true,waterlogged=false": {
+      "model": "embers:block/fluid_transfer_filtered",
+      "x": 90,
+      "y": 270
+    },
+    "facing=west,filter=true,waterlogged=true": {
+      "model": "embers:block/fluid_transfer_filtered",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

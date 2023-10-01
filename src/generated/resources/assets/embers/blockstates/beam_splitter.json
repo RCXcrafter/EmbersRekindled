@@ -1,0 +1,160 @@
+{
+  "variants": {
+    "axis=x,facing=down,waterlogged=false": {
+      "model": "embers:block/beam_splitter_x",
+      "x": 180
+    },
+    "axis=x,facing=down,waterlogged=true": {
+      "model": "embers:block/beam_splitter_x",
+      "x": 180
+    },
+    "axis=x,facing=east,waterlogged=false": {
+      "model": "embers:block/beam_splitter_x",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,facing=east,waterlogged=true": {
+      "model": "embers:block/beam_splitter_x",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,facing=north,waterlogged=false": {
+      "model": "embers:block/beam_splitter_x",
+      "x": 90
+    },
+    "axis=x,facing=north,waterlogged=true": {
+      "model": "embers:block/beam_splitter_x",
+      "x": 90
+    },
+    "axis=x,facing=south,waterlogged=false": {
+      "model": "embers:block/beam_splitter_x",
+      "x": 90,
+      "y": 180
+    },
+    "axis=x,facing=south,waterlogged=true": {
+      "model": "embers:block/beam_splitter_x",
+      "x": 90,
+      "y": 180
+    },
+    "axis=x,facing=up,waterlogged=false": {
+      "model": "embers:block/beam_splitter_x"
+    },
+    "axis=x,facing=up,waterlogged=true": {
+      "model": "embers:block/beam_splitter_x"
+    },
+    "axis=x,facing=west,waterlogged=false": {
+      "model": "embers:block/beam_splitter_x",
+      "x": 90,
+      "y": 270
+    },
+    "axis=x,facing=west,waterlogged=true": {
+      "model": "embers:block/beam_splitter_x",
+      "x": 90,
+      "y": 270
+    },
+    "axis=y,facing=down,waterlogged=false": {
+      "model": "embers:block/beam_splitter_z",
+      "x": 180
+    },
+    "axis=y,facing=down,waterlogged=true": {
+      "model": "embers:block/beam_splitter_z",
+      "x": 180
+    },
+    "axis=y,facing=east,waterlogged=false": {
+      "model": "embers:block/beam_splitter_z",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,facing=east,waterlogged=true": {
+      "model": "embers:block/beam_splitter_z",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,facing=north,waterlogged=false": {
+      "model": "embers:block/beam_splitter_z",
+      "x": 90
+    },
+    "axis=y,facing=north,waterlogged=true": {
+      "model": "embers:block/beam_splitter_z",
+      "x": 90
+    },
+    "axis=y,facing=south,waterlogged=false": {
+      "model": "embers:block/beam_splitter_z",
+      "x": 90,
+      "y": 180
+    },
+    "axis=y,facing=south,waterlogged=true": {
+      "model": "embers:block/beam_splitter_z",
+      "x": 90,
+      "y": 180
+    },
+    "axis=y,facing=up,waterlogged=false": {
+      "model": "embers:block/beam_splitter_z"
+    },
+    "axis=y,facing=up,waterlogged=true": {
+      "model": "embers:block/beam_splitter_z"
+    },
+    "axis=y,facing=west,waterlogged=false": {
+      "model": "embers:block/beam_splitter_z",
+      "x": 90,
+      "y": 270
+    },
+    "axis=y,facing=west,waterlogged=true": {
+      "model": "embers:block/beam_splitter_z",
+      "x": 90,
+      "y": 270
+    },
+    "axis=z,facing=down,waterlogged=false": {
+      "model": "embers:block/beam_splitter_z",
+      "x": 180
+    },
+    "axis=z,facing=down,waterlogged=true": {
+      "model": "embers:block/beam_splitter_z",
+      "x": 180
+    },
+    "axis=z,facing=east,waterlogged=false": {
+      "model": "embers:block/beam_splitter_x",
+      "x": 90,
+      "y": 90
+    },
+    "axis=z,facing=east,waterlogged=true": {
+      "model": "embers:block/beam_splitter_x",
+      "x": 90,
+      "y": 90
+    },
+    "axis=z,facing=north,waterlogged=false": {
+      "model": "embers:block/beam_splitter_x",
+      "x": 90
+    },
+    "axis=z,facing=north,waterlogged=true": {
+      "model": "embers:block/beam_splitter_x",
+      "x": 90
+    },
+    "axis=z,facing=south,waterlogged=false": {
+      "model": "embers:block/beam_splitter_x",
+      "x": 90,
+      "y": 180
+    },
+    "axis=z,facing=south,waterlogged=true": {
+      "model": "embers:block/beam_splitter_x",
+      "x": 90,
+      "y": 180
+    },
+    "axis=z,facing=up,waterlogged=false": {
+      "model": "embers:block/beam_splitter_z"
+    },
+    "axis=z,facing=up,waterlogged=true": {
+      "model": "embers:block/beam_splitter_z"
+    },
+    "axis=z,facing=west,waterlogged=false": {
+      "model": "embers:block/beam_splitter_x",
+      "x": 90,
+      "y": 270
+    },
+    "axis=z,facing=west,waterlogged=true": {
+      "model": "embers:block/beam_splitter_x",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

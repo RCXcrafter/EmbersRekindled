@@ -1,0 +1,28 @@
+{
+  "type": "embers:alchemy",
+  "aspects": [
+    {
+      "tag": "embers:aspectus/copper"
+    },
+    {
+      "tag": "embers:aspectus/lead"
+    }
+  ],
+  "inputs": [
+    {
+      "item": "embers:caminite_plate"
+    },
+    {
+      "item": "embers:archaic_brick"
+    },
+    {
+      "item": "embers:archaic_brick"
+    }
+  ],
+  "output": {
+    "item": "embers:codebreaking_slate"
+  },
+  "tablet": {
+    "item": "embers:ember_grit"
+  }
+}

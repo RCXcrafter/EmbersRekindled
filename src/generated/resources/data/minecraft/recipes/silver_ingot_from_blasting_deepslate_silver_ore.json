@@ -5,7 +5,7 @@
   "experience": 0.7,
   "group": "silver_ingot",
   "ingredient": {
-    "item": "embersrekindled:deepslate_silver_ore"
+    "item": "embers:deepslate_silver_ore"
   },
-  "result": "embersrekindled:silver_ingot"
+  "result": "embers:silver_ingot"
 }

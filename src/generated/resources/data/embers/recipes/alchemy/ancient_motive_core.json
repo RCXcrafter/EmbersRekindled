@@ -1,0 +1,28 @@
+{
+  "type": "embers:alchemy",
+  "aspects": [
+    {
+      "tag": "embers:aspectus/dawnstone"
+    },
+    {
+      "tag": "embers:aspectus/lead"
+    }
+  ],
+  "inputs": [
+    {
+      "item": "embers:archaic_brick"
+    },
+    {
+      "item": "embers:archaic_brick"
+    },
+    {
+      "item": "embers:archaic_brick"
+    }
+  ],
+  "output": {
+    "item": "embers:ancient_motive_core"
+  },
+  "tablet": {
+    "item": "embers:ember_shard"
+  }
+}

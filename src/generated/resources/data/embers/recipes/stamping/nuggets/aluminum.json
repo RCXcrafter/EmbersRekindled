@@ -1,0 +1,20 @@
+{
+  "type": "embers:tag_stamping",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:nuggets/aluminum"
+      }
+    }
+  ],
+  "fluid": {
+    "amount": 10,
+    "tag": "forge:molten_aluminum"
+  },
+  "output": "forge:nuggets/aluminum",
+  "stamp": {
+    "item": "embers:nugget_stamp"
+  }
+}

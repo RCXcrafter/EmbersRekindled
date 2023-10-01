@@ -1,0 +1,7 @@
+{
+  "type": "embers:ember_activation",
+  "ember": 400,
+  "input": {
+    "item": "embers:ember_shard"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "embers:block/fluid_pipe_connection"
+    }
+  }
+}

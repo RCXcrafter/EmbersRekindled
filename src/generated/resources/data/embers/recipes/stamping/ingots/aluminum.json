@@ -1,0 +1,20 @@
+{
+  "type": "embers:tag_stamping",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/aluminum"
+      }
+    }
+  ],
+  "fluid": {
+    "amount": 90,
+    "tag": "forge:molten_aluminum"
+  },
+  "output": "forge:ingots/aluminum",
+  "stamp": {
+    "item": "embers:ingot_stamp"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "type": "embers:melting",
+  "bonus": {
+    "amount": 10,
+    "fluid": "embers:molten_gold"
+  },
+  "conditions": [
+    {
+      "type": "forge:and",
+      "values": [
+        {
+          "type": "forge:not",
+          "value": {
+            "type": "forge:tag_empty",
+            "tag": "forge:raw_materials/copper"
+          }
+        }
+      ]
+    }
+  ],
+  "input": {
+    "tag": "forge:raw_materials/copper"
+  },
+  "output": {
+    "amount": 120,
+    "fluid": "embers:molten_copper"
+  }
+}

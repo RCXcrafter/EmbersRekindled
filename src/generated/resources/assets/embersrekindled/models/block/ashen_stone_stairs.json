@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/stairs",
-  "textures": {
-    "bottom": "embersrekindled:block/ashen_stone",
-    "side": "embersrekindled:block/ashen_stone",
-    "top": "embersrekindled:block/ashen_stone"
-  }
-}

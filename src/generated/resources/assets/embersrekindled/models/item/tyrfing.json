@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:item/handheld",
-  "textures": {
-    "layer0": "embersrekindled:item/tyrfing",
-    "layer1": "embersrekindled:item/tyrfing_gem"
-  }
-}

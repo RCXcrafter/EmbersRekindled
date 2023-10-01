@@ -70,20 +70,26 @@ import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -113,11 +119,15 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.ForgeRegistries.Keys;
+import net.minecraftforge.registries.MissingMappingsEvent;
+import net.minecraftforge.registries.MissingMappingsEvent.Mapping;
 
 @Mod(Embers.MODID)
 public class Embers {
 
-	public static final String MODID = "embersrekindled";
+	public static final String MODID_OLD = "embersrekindled";
+	public static final String MODID = "embers";
 
 	public Embers() {
 		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -133,7 +143,8 @@ public class Embers {
 		RegistryManager.FLUIDTYPES.register(modEventBus);
 		RegistryManager.FLUIDS.register(modEventBus);
 		RegistryManager.ENTITY_TYPES.register(modEventBus);
-		RegistryManager.BLOCK_ENTITY_TYPES.register(modEventBus);
+		RegistryManager.BLOCK_ENTITY_TYPES_NEW.register(modEventBus);
+		RegistryManager.BLOCK_ENTITY_TYPES_OLD.register(modEventBus);
 		RegistryManager.CREATIVE_TABS.register(modEventBus);
 		RegistryManager.PARTICLE_TYPES.register(modEventBus);
 		RegistryManager.SOUND_EVENTS.register(modEventBus);
@@ -155,6 +166,7 @@ public class Embers {
 		MinecraftForge.EVENT_BUS.addGenericListener(Entity.class, ResearchManager::attachCapability);
 		MinecraftForge.EVENT_BUS.addListener(ResearchManager::onClone);
 		ResearchManager.initResearches();
+		MinecraftForge.EVENT_BUS.addListener(Embers::fixMappings);
 		MinecraftForge.EVENT_BUS.addListener(Embers::onJoin);
 		MinecraftForge.EVENT_BUS.addListener(EventPriority.LOW, Embers::onEntityDamaged);
 		MinecraftForge.EVENT_BUS.addListener(Embers::onAnvilUpdate);
@@ -201,6 +213,21 @@ public class Embers {
 					Set.of(MODID)));
 			gen.addProvider(true, new EmbersDamageTypeTags(output, lookupProvider, existingFileHelper));
 			gen.addProvider(true, new EmbersLootModifiers(output));
+		}
+	}
+
+	public static void fixMappings(MissingMappingsEvent event) {
+		for (Mapping<Block> mapping : event.getMappings(Keys.BLOCKS, "embersrekindled")) {
+			mapping.remap(BuiltInRegistries.BLOCK.get(new ResourceLocation(MODID, mapping.getKey().getPath())));
+		}
+		for (Mapping<Item> mapping : event.getMappings(Keys.ITEMS, "embersrekindled")) {
+			mapping.remap(BuiltInRegistries.ITEM.get(new ResourceLocation(MODID, mapping.getKey().getPath())));
+		}
+		for (Mapping<Fluid> mapping : event.getMappings(Keys.FLUIDS, "embersrekindled")) {
+			mapping.remap(ForgeRegistries.FLUIDS.getValue(new ResourceLocation(MODID, mapping.getKey().getPath())));
+		}
+		for (Mapping<EntityType<?>> mapping : event.getMappings(Keys.ENTITY_TYPES, "embersrekindled")) {
+			mapping.remap(ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(MODID, mapping.getKey().getPath())));
 		}
 	}
 

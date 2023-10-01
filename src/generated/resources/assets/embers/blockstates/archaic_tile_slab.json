@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "embers:block/archaic_tile_slab"
+    },
+    "type=double": {
+      "model": "embers:block/archaic_tile"
+    },
+    "type=top": {
+      "model": "embers:block/archaic_tile_slab_top"
+    }
+  }
+}

@@ -2,7 +2,7 @@
   "type": "minecraft:stonecutting",
   "count": 2,
   "ingredient": {
-    "item": "embersrekindled:caminite_bricks"
+    "item": "embers:caminite_bricks"
   },
-  "result": "embersrekindled:caminite_bricks_slab"
+  "result": "embers:caminite_bricks_slab"
 }

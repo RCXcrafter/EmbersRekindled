@@ -1,0 +1,20 @@
+{
+  "type": "embers:tag_stamping",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:plates/copper"
+      }
+    }
+  ],
+  "fluid": {
+    "amount": 90,
+    "tag": "forge:molten_copper"
+  },
+  "output": "forge:plates/copper",
+  "stamp": {
+    "item": "embers:plate_stamp"
+  }
+}

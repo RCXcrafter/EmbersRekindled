@@ -1,19 +1,19 @@
 {
   "values": [
-    "embersrekindled:lead_sword",
-    "embersrekindled:lead_shovel",
-    "embersrekindled:lead_pickaxe",
-    "embersrekindled:lead_axe",
-    "embersrekindled:lead_hoe",
-    "embersrekindled:silver_sword",
-    "embersrekindled:silver_shovel",
-    "embersrekindled:silver_pickaxe",
-    "embersrekindled:silver_axe",
-    "embersrekindled:silver_hoe",
-    "embersrekindled:dawnstone_sword",
-    "embersrekindled:dawnstone_shovel",
-    "embersrekindled:dawnstone_pickaxe",
-    "embersrekindled:dawnstone_axe",
-    "embersrekindled:dawnstone_hoe"
+    "embers:lead_sword",
+    "embers:lead_shovel",
+    "embers:lead_pickaxe",
+    "embers:lead_axe",
+    "embers:lead_hoe",
+    "embers:silver_sword",
+    "embers:silver_shovel",
+    "embers:silver_pickaxe",
+    "embers:silver_axe",
+    "embers:silver_hoe",
+    "embers:dawnstone_sword",
+    "embers:dawnstone_shovel",
+    "embers:dawnstone_pickaxe",
+    "embers:dawnstone_axe",
+    "embers:dawnstone_hoe"
   ]
 }

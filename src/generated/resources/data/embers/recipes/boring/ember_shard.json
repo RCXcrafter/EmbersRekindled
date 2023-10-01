@@ -1,0 +1,15 @@
+{
+  "type": "embers:boring",
+  "dimensions": [
+    "minecraft:overworld"
+  ],
+  "max_height": -57,
+  "output": {
+    "item": "embers:ember_shard"
+  },
+  "required_block": {
+    "amount": 3,
+    "block_tag": "embers:world_bottom"
+  },
+  "weight": 60
+}

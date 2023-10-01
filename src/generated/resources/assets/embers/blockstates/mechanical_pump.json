@@ -1,0 +1,32 @@
+{
+  "variants": {
+    "axis=x,half=lower,waterlogged=false": {
+      "model": "embers:block/mechanical_pump_bottom",
+      "y": 90
+    },
+    "axis=x,half=lower,waterlogged=true": {
+      "model": "embers:block/mechanical_pump_bottom",
+      "y": 90
+    },
+    "axis=x,half=upper,waterlogged=false": {
+      "model": "embers:block/mechanical_pump_top",
+      "y": 90
+    },
+    "axis=x,half=upper,waterlogged=true": {
+      "model": "embers:block/mechanical_pump_top",
+      "y": 90
+    },
+    "axis=z,half=lower,waterlogged=false": {
+      "model": "embers:block/mechanical_pump_bottom"
+    },
+    "axis=z,half=lower,waterlogged=true": {
+      "model": "embers:block/mechanical_pump_bottom"
+    },
+    "axis=z,half=upper,waterlogged=false": {
+      "model": "embers:block/mechanical_pump_top"
+    },
+    "axis=z,half=upper,waterlogged=true": {
+      "model": "embers:block/mechanical_pump_top"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "embers:ember_shard"
+    },
+    "G": {
+      "tag": "forge:storage_blocks/copper"
+    },
+    "P": {
+      "item": "embers:wildfire_core"
+    },
+    "X": {
+      "tag": "forge:plates/dawnstone"
+    }
+  },
+  "pattern": [
+    "XGX",
+    "XGX",
+    "BPB"
+  ],
+  "result": {
+    "item": "embers:wildfire_stirling"
+  },
+  "show_notification": true
+}

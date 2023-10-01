@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "forge:ingots/dawnstone"
+    },
+    {
+      "tag": "forge:ingots/dawnstone"
+    },
+    {
+      "tag": "embers:tinker_hammer"
+    }
+  ],
+  "result": {
+    "item": "embers:dawnstone_plate"
+  }
+}

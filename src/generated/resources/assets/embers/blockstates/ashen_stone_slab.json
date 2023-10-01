@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "embers:block/ashen_stone_slab"
+    },
+    "type=double": {
+      "model": "embers:block/ashen_stone"
+    },
+    "type=top": {
+      "model": "embers:block/ashen_stone_slab_top"
+    }
+  }
+}

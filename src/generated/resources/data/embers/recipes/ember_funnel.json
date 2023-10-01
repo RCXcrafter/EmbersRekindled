@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "tag": "forge:ingots/copper"
+    },
+    "P": {
+      "tag": "forge:plates/dawnstone"
+    },
+    "R": {
+      "item": "embers:ember_receiver"
+    }
+  },
+  "pattern": [
+    "P P",
+    "CRC",
+    " P "
+  ],
+  "result": {
+    "item": "embers:ember_funnel"
+  },
+  "show_notification": true
+}

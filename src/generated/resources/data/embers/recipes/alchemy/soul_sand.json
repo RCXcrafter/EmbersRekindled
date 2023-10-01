@@ -1,0 +1,32 @@
+{
+  "type": "embers:alchemy",
+  "aspects": [
+    {
+      "tag": "embers:aspectus/copper"
+    },
+    {
+      "tag": "embers:aspectus/iron"
+    }
+  ],
+  "inputs": [
+    {
+      "item": "minecraft:sand"
+    },
+    {
+      "item": "minecraft:sand"
+    },
+    {
+      "item": "minecraft:sand"
+    },
+    {
+      "item": "minecraft:sand"
+    }
+  ],
+  "output": {
+    "count": 4,
+    "item": "minecraft:soul_sand"
+  },
+  "tablet": {
+    "item": "embers:ash"
+  }
+}

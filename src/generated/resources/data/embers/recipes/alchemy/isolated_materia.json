@@ -1,0 +1,35 @@
+{
+  "type": "embers:alchemy",
+  "aspects": [
+    {
+      "tag": "embers:aspectus/copper"
+    },
+    {
+      "tag": "embers:aspectus/iron"
+    },
+    {
+      "tag": "embers:aspectus/lead"
+    },
+    {
+      "tag": "embers:aspectus/silver"
+    }
+  ],
+  "inputs": [
+    {
+      "tag": "forge:gems/quartz"
+    },
+    {
+      "item": "minecraft:clay_ball"
+    },
+    {
+      "tag": "forge:gems/lapis"
+    }
+  ],
+  "output": {
+    "count": 4,
+    "item": "embers:isolated_materia"
+  },
+  "tablet": {
+    "tag": "forge:ingots/iron"
+  }
+}

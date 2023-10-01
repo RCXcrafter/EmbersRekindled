@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "tag": "forge:ingots/copper"
+    },
+    "D": {
+      "tag": "forge:ingots/dawnstone"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "P": {
+      "tag": "forge:plates/iron"
+    }
+  },
+  "pattern": [
+    " D ",
+    "CPC",
+    " I "
+  ],
+  "result": {
+    "item": "embers:beam_splitter"
+  },
+  "show_notification": true
+}

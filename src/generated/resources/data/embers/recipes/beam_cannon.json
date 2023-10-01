@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "embers:caminite_bricks"
+    },
+    "I": {
+      "tag": "forge:ingots/dawnstone"
+    },
+    "P": {
+      "tag": "forge:plates/copper"
+    },
+    "S": {
+      "item": "embers:ember_crystal"
+    }
+  },
+  "pattern": [
+    "PSP",
+    "PSP",
+    "IBI"
+  ],
+  "result": {
+    "item": "embers:beam_cannon"
+  },
+  "show_notification": true
+}

@@ -1,0 +1,33 @@
+{
+	"parent": "block/block",
+	"textures": {
+		"5": "embers:block/pump_piston",
+		"particle": "embers:block/pump_bottom"
+	},
+	"elements": [
+		{
+			"from": [3, 11, 3],
+			"to": [13, 13, 13],
+			"faces": {
+				"north": {"uv": [0, 10, 10, 8], "texture": "#5"},
+				"east": {"uv": [0, 10, 10, 8], "texture": "#5"},
+				"south": {"uv": [0, 10, 10, 8], "texture": "#5"},
+				"west": {"uv": [0, 10, 10, 8], "texture": "#5"},
+				"up": {"uv": [0, 0, 10, 10], "texture": "#5"},
+				"down": {"uv": [0, 0, 10, 10], "texture": "#5"}
+			}
+		},
+		{
+			"from": [6, 7, 6],
+			"to": [10, 12, 10],
+			"faces": {
+				"north": {"uv": [10, 0, 14, 5], "texture": "#5"},
+				"east": {"uv": [10, 0, 14, 5], "texture": "#5"},
+				"south": {"uv": [10, 0, 14, 5], "texture": "#5"},
+				"west": {"uv": [10, 0, 14, 5], "texture": "#5"},
+				"up": {"uv": [10, 4, 14, 8], "texture": "#5"},
+				"down": {"uv": [10, 4, 14, 8], "texture": "#5"}
+			}
+		}
+	]
+}

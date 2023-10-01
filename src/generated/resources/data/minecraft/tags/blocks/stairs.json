@@ -1,10 +1,10 @@
 {
   "values": [
-    "embersrekindled:caminite_bricks_stairs",
-    "embersrekindled:archaic_bricks_stairs",
-    "embersrekindled:archaic_tile_stairs",
-    "embersrekindled:ashen_stone_stairs",
-    "embersrekindled:ashen_brick_stairs",
-    "embersrekindled:ashen_tile_stairs"
+    "embers:caminite_bricks_stairs",
+    "embers:archaic_bricks_stairs",
+    "embers:archaic_tile_stairs",
+    "embers:ashen_stone_stairs",
+    "embers:ashen_brick_stairs",
+    "embers:ashen_tile_stairs"
   ]
 }

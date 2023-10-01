@@ -1,0 +1,7 @@
+{
+  "parent": "embers:block/pipe_center",
+  "textures": {
+    "particle": "embers:block/item_pipe_tex",
+    "pipe": "embers:block/item_pipe_tex"
+  }
+}

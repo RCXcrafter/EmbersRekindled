@@ -1,0 +1,9 @@
+{
+  "parent": "embers:block/item_transfer_filtered",
+  "textures": {
+    "bottom": "embers:block/fluid_transfer_bottom",
+    "particle": "embers:block/fluid_transfer_side",
+    "side": "embers:block/fluid_transfer_side",
+    "top": "embers:block/fluid_transfer_top"
+  }
+}

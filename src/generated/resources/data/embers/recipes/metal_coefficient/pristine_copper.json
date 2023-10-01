@@ -1,0 +1,5 @@
+{
+  "type": "embers:metal_coefficient",
+  "block_tag": "embers:pristine_copper",
+  "coefficient": 3.0
+}

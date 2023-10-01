@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "half=lower,waterlogged=false": {
+      "model": "embers:block/refinery_bottom"
+    },
+    "half=lower,waterlogged=true": {
+      "model": "embers:block/refinery_bottom"
+    },
+    "half=upper,waterlogged=false": {
+      "model": "embers:block/refinery_top"
+    },
+    "half=upper,waterlogged=true": {
+      "model": "embers:block/refinery_top"
+    }
+  }
+}

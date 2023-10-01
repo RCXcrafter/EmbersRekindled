@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#minecraft:is_overworld",
+  "features": "embers:ore_lead_placer",
+  "step": "underground_ores"
+}

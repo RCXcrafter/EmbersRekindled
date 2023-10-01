@@ -1,0 +1,64 @@
+{
+  "variants": {
+    "edge=east,waterlogged=false": {
+      "model": "embers:block/caminite_gauge_edge",
+      "y": 90
+    },
+    "edge=east,waterlogged=true": {
+      "model": "embers:block/caminite_gauge_edge",
+      "y": 90
+    },
+    "edge=north,waterlogged=false": {
+      "model": "embers:block/caminite_gauge_edge"
+    },
+    "edge=north,waterlogged=true": {
+      "model": "embers:block/caminite_gauge_edge"
+    },
+    "edge=northeast,waterlogged=false": {
+      "model": "embers:block/caminite_ring_corner"
+    },
+    "edge=northeast,waterlogged=true": {
+      "model": "embers:block/caminite_ring_corner"
+    },
+    "edge=northwest,waterlogged=false": {
+      "model": "embers:block/caminite_ring_corner",
+      "y": 270
+    },
+    "edge=northwest,waterlogged=true": {
+      "model": "embers:block/caminite_ring_corner",
+      "y": 270
+    },
+    "edge=south,waterlogged=false": {
+      "model": "embers:block/caminite_gauge_edge",
+      "y": 180
+    },
+    "edge=south,waterlogged=true": {
+      "model": "embers:block/caminite_gauge_edge",
+      "y": 180
+    },
+    "edge=southeast,waterlogged=false": {
+      "model": "embers:block/caminite_ring_corner",
+      "y": 90
+    },
+    "edge=southeast,waterlogged=true": {
+      "model": "embers:block/caminite_ring_corner",
+      "y": 90
+    },
+    "edge=southwest,waterlogged=false": {
+      "model": "embers:block/caminite_ring_corner",
+      "y": 180
+    },
+    "edge=southwest,waterlogged=true": {
+      "model": "embers:block/caminite_ring_corner",
+      "y": 180
+    },
+    "edge=west,waterlogged=false": {
+      "model": "embers:block/caminite_gauge_edge",
+      "y": 270
+    },
+    "edge=west,waterlogged=true": {
+      "model": "embers:block/caminite_gauge_edge",
+      "y": 270
+    }
+  }
+}

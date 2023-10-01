@@ -1,6 +1,0 @@
-{
-  "parent": "embersrekindled:item/bucket_fluid",
-  "cover_is_mask": false,
-  "fluid": "embersrekindled:steam",
-  "loader": "forge:fluid_container"
-}

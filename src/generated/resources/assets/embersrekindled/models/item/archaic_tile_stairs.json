@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/stairs",
-  "textures": {
-    "bottom": "embersrekindled:block/archaic_tile",
-    "side": "embersrekindled:block/archaic_tile",
-    "top": "embersrekindled:block/archaic_tile"
-  }
-}

@@ -1,0 +1,7 @@
+{
+  "parent": "embers:block/dial",
+  "textures": {
+    "dial": "embers:block/ember_dial",
+    "particle": "embers:block/ember_dial"
+  }
+}

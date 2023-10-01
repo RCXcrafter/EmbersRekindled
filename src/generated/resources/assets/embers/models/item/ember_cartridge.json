@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "embers:item/ember_cartridge_glass",
+    "layer1": "embers:item/ember_cartridge_glass_shine",
+    "layer2": "embers:item/ember_cartridge"
+  }
+}

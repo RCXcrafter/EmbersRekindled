@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "D": {
+      "tag": "forge:plates/dawnstone"
+    },
+    "I": {
+      "tag": "forge:ingots/dawnstone"
+    },
+    "S": {
+      "item": "embers:caminite_bricks"
+    },
+    "X": {
+      "tag": "forge:plates/copper"
+    }
+  },
+  "pattern": [
+    " D ",
+    "SXS",
+    "SIS"
+  ],
+  "result": {
+    "item": "embers:alchemy_tablet"
+  },
+  "show_notification": true
+}

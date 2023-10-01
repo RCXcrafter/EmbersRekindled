@@ -1,0 +1,20 @@
+{
+  "type": "embers:tag_stamping",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:plates/silver"
+      }
+    }
+  ],
+  "fluid": {
+    "amount": 90,
+    "tag": "forge:molten_silver"
+  },
+  "output": "forge:plates/silver",
+  "stamp": {
+    "item": "embers:plate_stamp"
+  }
+}

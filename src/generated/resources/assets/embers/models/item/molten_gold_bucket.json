@@ -1,0 +1,6 @@
+{
+  "parent": "embers:item/bucket_fluid",
+  "cover_is_mask": false,
+  "fluid": "embers:molten_gold",
+  "loader": "forge:fluid_container"
+}

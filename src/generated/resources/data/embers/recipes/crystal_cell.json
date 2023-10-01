@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "tag": "forge:storage_blocks/dawnstone"
+    },
+    "C": {
+      "tag": "forge:storage_blocks/copper"
+    },
+    "D": {
+      "tag": "forge:plates/dawnstone"
+    },
+    "E": {
+      "item": "embers:ember_crystal"
+    }
+  },
+  "pattern": [
+    " E ",
+    "DED",
+    "CBC"
+  ],
+  "result": {
+    "item": "embers:crystal_cell"
+  },
+  "show_notification": true
+}

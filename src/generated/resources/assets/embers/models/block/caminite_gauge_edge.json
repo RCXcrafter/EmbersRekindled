@@ -1,0 +1,16 @@
+{
+  "parent": "embers:block/caminite_gauge_edge_base",
+  "children": {
+    "base": {
+      "parent": "embers:block/caminite_gauge_edge_base"
+    },
+    "glass": {
+      "parent": "embers:block/caminite_gauge_edge_glass"
+    }
+  },
+  "item_render_order": [
+    "base",
+    "glass"
+  ],
+  "loader": "forge:composite"
+}

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "tag": "forge:storage_blocks/iron"
+    },
+    "C": {
+      "tag": "forge:ingots/copper"
+    },
+    "X": {
+      "item": "embers:caminite_brick"
+    }
+  },
+  "pattern": [
+    "XCX",
+    "XBX",
+    "X X"
+  ],
+  "result": {
+    "item": "embers:stamper"
+  },
+  "show_notification": true
+}

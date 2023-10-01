@@ -1,0 +1,35 @@
+{
+  "parent": "block/block",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "particle": "embers:block/archaic_light_side",
+    "end": "embers:block/archaic_light_top",
+    "overlay_end": "embers:block/archaic_light_top_overlay",
+    "side": "embers:block/archaic_light_side",
+    "overlay_side": "embers:block/archaic_light_side_overlay"
+  },
+  "elements": [
+	  {   "from": [ 0, 0, 0 ],
+            "to": [ 16, 16, 16 ],
+            "faces": {
+                "down":  { "texture": "#end", "cullface": "down" },
+                "up":    { "texture": "#end", "cullface": "up" },
+                "north": { "texture": "#side", "cullface": "north" },
+                "south": { "texture": "#side", "cullface": "south" },
+                "west":  { "texture": "#side", "cullface": "west" },
+                "east":  { "texture": "#side", "cullface": "east" }
+            }
+        },
+	  {   "from": [ 0, 0, 0 ],
+            "to": [ 16, 16, 16 ],
+            "faces": {
+                "down":  { "texture": "#overlay_end", "emissivity": 15, "cullface": "down" },
+                "up":    { "texture": "#overlay_end", "emissivity": 15, "cullface": "up" },
+                "north": { "texture": "#overlay_side", "emissivity": 15, "cullface": "north" },
+                "south": { "texture": "#overlay_side", "emissivity": 15, "cullface": "south" },
+                "west":  { "texture": "#overlay_side", "emissivity": 15, "cullface": "west" },
+                "east":  { "texture": "#overlay_side", "emissivity": 15, "cullface": "east" }
+            }
+        }
+  ]
+}

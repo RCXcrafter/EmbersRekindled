@@ -1,7 +1,0 @@
-{
-  "parent": "embersrekindled:block/dial",
-  "textures": {
-    "dial": "embersrekindled:block/clockwork_attenuator",
-    "particle": "embersrekindled:block/clockwork_attenuator"
-  }
-}

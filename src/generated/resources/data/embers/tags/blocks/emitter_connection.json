@@ -1,0 +1,33 @@
+{
+  "values": [
+    "minecraft:lever",
+    "minecraft:ladder",
+    "minecraft:iron_bars",
+    "minecraft:tripwire_hook",
+    "minecraft:wall_torch",
+    "minecraft:soul_wall_torch",
+    "minecraft:redstone_wall_torch",
+    "minecraft:bell",
+    "minecraft:lantern",
+    "minecraft:soul_lantern",
+    "minecraft:end_rod",
+    "minecraft:lightning_rod",
+    "minecraft:chain",
+    "embers:ember_dial",
+    "embers:caminite_lever",
+    "embers:ember_emitter",
+    "embers:ember_receiver",
+    "embers:ember_ejector",
+    "embers:ember_funnel",
+    "embers:ember_relay",
+    "embers:mirror_relay",
+    "embers:beam_splitter",
+    "#forge:glass_panes",
+    "#minecraft:buttons",
+    "#forge:fences",
+    "#minecraft:walls",
+    "#minecraft:wall_signs",
+    "#embers:emitter_connection/floor",
+    "#embers:emitter_connection/ceiling"
+  ]
+}

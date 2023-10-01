@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": {
+      "item": "embers:ember_emitter"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "P": {
+      "tag": "forge:plates/dawnstone"
+    }
+  },
+  "pattern": [
+    "P",
+    "E",
+    "I"
+  ],
+  "result": {
+    "item": "embers:ember_ejector"
+  },
+  "show_notification": true
+}

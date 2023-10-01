@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "D": {
+      "tag": "forge:ingots/dawnstone"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "P": {
+      "tag": "forge:plates/dawnstone"
+    },
+    "S": {
+      "item": "embers:ember_shard"
+    },
+    "W": {
+      "tag": "forge:rods/wooden"
+    }
+  },
+  "pattern": [
+    " DP",
+    "DPI",
+    "SW "
+  ],
+  "result": {
+    "item": "embers:blazing_ray"
+  },
+  "show_notification": true
+}

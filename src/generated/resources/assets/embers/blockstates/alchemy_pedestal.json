@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "half=lower,waterlogged=false": {
+      "model": "embers:block/alchemy_pedestal_bottom"
+    },
+    "half=lower,waterlogged=true": {
+      "model": "embers:block/alchemy_pedestal_bottom"
+    },
+    "half=upper,waterlogged=false": {
+      "model": "embers:block/alchemy_pedestal_top"
+    },
+    "half=upper,waterlogged=true": {
+      "model": "embers:block/alchemy_pedestal_top"
+    }
+  }
+}

@@ -1,6 +1,0 @@
-{
-  "parent": "embersrekindled:block/pipe_inventory",
-  "textures": {
-    "pipe": "embersrekindled:block/item_pipe_tex"
-  }
-}

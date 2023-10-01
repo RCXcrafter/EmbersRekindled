@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "C": {
+      "tag": "forge:ingots/copper"
+    },
+    "G": {
+      "tag": "forge:glass/silica"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "S": {
+      "item": "embers:ember_shard"
+    }
+  },
+  "pattern": [
+    " C ",
+    "ISI",
+    " G "
+  ],
+  "result": {
+    "item": "embers:ember_jar"
+  },
+  "show_notification": true
+}

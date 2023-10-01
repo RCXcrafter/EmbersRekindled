@@ -1,0 +1,5 @@
+{
+  "type": "embers:metal_coefficient",
+  "block_tag": "embers:weathered_copper",
+  "coefficient": 2.0
+}

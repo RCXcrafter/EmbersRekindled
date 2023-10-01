@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "L": {
+      "item": "embers:fluid_pipe"
+    },
+    "P": {
+      "tag": "forge:plates/iron"
+    }
+  },
+  "pattern": [
+    "PLP",
+    "ILI",
+    "I I"
+  ],
+  "result": {
+    "item": "embers:fluid_transfer"
+  },
+  "show_notification": true
+}

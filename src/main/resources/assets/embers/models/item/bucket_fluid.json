@@ -1,0 +1,8 @@
+{
+    "parent": "forge:item/default",
+	"textures": {
+        "base": "embers:item/bucket_base",
+        "cover": "embers:item/bucket_cover",
+        "fluid": "embers:item/bucket_fluid"
+  	}
+}

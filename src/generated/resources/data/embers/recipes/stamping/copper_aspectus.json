@@ -1,0 +1,16 @@
+{
+  "type": "embers:stamping",
+  "fluid": {
+    "amount": 90,
+    "tag": "forge:molten_copper"
+  },
+  "input": {
+    "item": "embers:ember_shard"
+  },
+  "output": {
+    "item": "embers:copper_aspectus"
+  },
+  "stamp": {
+    "item": "embers:ingot_stamp"
+  }
+}

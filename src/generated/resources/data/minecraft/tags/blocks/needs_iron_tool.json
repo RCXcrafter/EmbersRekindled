@@ -1,13 +1,13 @@
 {
   "values": [
-    "embersrekindled:lead_ore",
-    "embersrekindled:deepslate_lead_ore",
-    "embersrekindled:raw_lead_block",
-    "embersrekindled:lead_block",
-    "embersrekindled:silver_ore",
-    "embersrekindled:deepslate_silver_ore",
-    "embersrekindled:raw_silver_block",
-    "embersrekindled:silver_block",
-    "embersrekindled:dawnstone_block"
+    "embers:lead_ore",
+    "embers:deepslate_lead_ore",
+    "embers:raw_lead_block",
+    "embers:lead_block",
+    "embers:silver_ore",
+    "embers:deepslate_silver_ore",
+    "embers:raw_silver_block",
+    "embers:silver_block",
+    "embers:dawnstone_block"
   ]
 }

@@ -2,7 +2,7 @@
   "type": "minecraft:stonecutting",
   "count": 1,
   "ingredient": {
-    "item": "embersrekindled:ashen_brick"
+    "item": "embers:ashen_brick"
   },
-  "result": "embersrekindled:ashen_brick_wall"
+  "result": "embers:ashen_brick_wall"
 }

@@ -1,0 +1,11 @@
+{
+  "type": "embers:boiling",
+  "input": {
+    "amount": 1,
+    "tag": "minecraft:water"
+  },
+  "output": {
+    "amount": 5,
+    "fluid": "embers:steam"
+  }
+}

@@ -1,9 +1,9 @@
 {
   "values": [
-    "embersrekindled:caminite_bricks_wall",
-    "embersrekindled:archaic_bricks_wall",
-    "embersrekindled:ashen_stone_wall",
-    "embersrekindled:ashen_brick_wall",
-    "embersrekindled:ashen_tile_wall"
+    "embers:caminite_bricks_wall",
+    "embers:archaic_bricks_wall",
+    "embers:ashen_stone_wall",
+    "embers:ashen_brick_wall",
+    "embers:ashen_tile_wall"
   ]
 }

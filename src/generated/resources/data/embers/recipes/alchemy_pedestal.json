@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "tag": "forge:storage_blocks/copper"
+    },
+    "C": {
+      "item": "embers:ember_crystal"
+    },
+    "D": {
+      "tag": "forge:plates/dawnstone"
+    },
+    "I": {
+      "tag": "forge:ingots/dawnstone"
+    },
+    "S": {
+      "item": "embers:caminite_bricks"
+    }
+  },
+  "pattern": [
+    "D D",
+    "ICI",
+    "SBS"
+  ],
+  "result": {
+    "item": "embers:alchemy_pedestal"
+  },
+  "show_notification": true
+}
