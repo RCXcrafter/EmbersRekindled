@@ -123,6 +123,16 @@ public class EmbersBlockLootTables extends BlockLootSubProvider {
 		dropSelf(RegistryManager.MINI_BOILER.get());
 		dropSelf(RegistryManager.CATALYTIC_PLUG.get());
 		dropSelf(RegistryManager.WILDFIRE_STIRLING.get());
+		dropSelf(RegistryManager.EMBER_INJECTOR.get());
+		dropSelf(RegistryManager.COPPER_CRYSTAL_SEED.BLOCK.get());
+		dropSelf(RegistryManager.IRON_CRYSTAL_SEED.BLOCK.get());
+		dropSelf(RegistryManager.GOLD_CRYSTAL_SEED.BLOCK.get());
+		dropSelf(RegistryManager.LEAD_CRYSTAL_SEED.BLOCK.get());
+		dropSelf(RegistryManager.SILVER_CRYSTAL_SEED.BLOCK.get());
+		dropSelf(RegistryManager.ALUMINUM_CRYSTAL_SEED.BLOCK.get());
+		dropSelf(RegistryManager.NICKEL_CRYSTAL_SEED.BLOCK.get());
+		dropSelf(RegistryManager.TIN_CRYSTAL_SEED.BLOCK.get());
+		dropSelf(RegistryManager.DAWNSTONE_CRYSTAL_SEED.BLOCK.get());
 	}
 
 	public void decoDrops(StoneDecoBlocks deco) {

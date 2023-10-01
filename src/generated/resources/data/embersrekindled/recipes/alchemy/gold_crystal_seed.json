@@ -1,0 +1,28 @@
+{
+  "type": "embersrekindled:alchemy",
+  "aspects": [
+    {
+      "tag": "embersrekindled:aspectus/iron"
+    },
+    {
+      "tag": "embersrekindled:aspectus/dawnstone"
+    }
+  ],
+  "inputs": [
+    {
+      "tag": "forge:ingots/gold"
+    },
+    {
+      "tag": "forge:ingots/gold"
+    },
+    {
+      "tag": "forge:ingots/gold"
+    }
+  ],
+  "output": {
+    "item": "embersrekindled:gold_crystal_seed"
+  },
+  "tablet": {
+    "tag": "embersrekindled:crystal_seeds"
+  }
+}

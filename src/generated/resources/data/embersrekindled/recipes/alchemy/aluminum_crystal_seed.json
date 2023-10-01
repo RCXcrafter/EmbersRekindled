@@ -1,0 +1,49 @@
+{
+  "type": "embersrekindled:alchemy",
+  "aspects": [
+    {
+      "tag": "embersrekindled:aspectus/iron"
+    },
+    {
+      "tag": "embersrekindled:aspectus/copper"
+    }
+  ],
+  "conditions": [
+    {
+      "type": "forge:and",
+      "values": [
+        {
+          "type": "forge:not",
+          "value": {
+            "type": "forge:tag_empty",
+            "tag": "forge:ingots/aluminum"
+          }
+        },
+        {
+          "type": "forge:not",
+          "value": {
+            "type": "forge:tag_empty",
+            "tag": "forge:nuggets/aluminum"
+          }
+        }
+      ]
+    }
+  ],
+  "inputs": [
+    {
+      "tag": "forge:ingots/aluminum"
+    },
+    {
+      "tag": "forge:ingots/aluminum"
+    },
+    {
+      "tag": "forge:ingots/aluminum"
+    }
+  ],
+  "output": {
+    "item": "embersrekindled:aluminum_crystal_seed"
+  },
+  "tablet": {
+    "tag": "embersrekindled:crystal_seeds"
+  }
+}

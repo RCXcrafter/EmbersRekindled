@@ -1,0 +1,28 @@
+{
+  "type": "embersrekindled:alchemy",
+  "aspects": [
+    {
+      "tag": "embersrekindled:aspectus/iron"
+    },
+    {
+      "tag": "embersrekindled:aspectus/silver"
+    }
+  ],
+  "inputs": [
+    {
+      "tag": "forge:ingots/silver"
+    },
+    {
+      "tag": "forge:ingots/silver"
+    },
+    {
+      "tag": "forge:ingots/silver"
+    }
+  ],
+  "output": {
+    "item": "embersrekindled:silver_crystal_seed"
+  },
+  "tablet": {
+    "tag": "embersrekindled:crystal_seeds"
+  }
+}

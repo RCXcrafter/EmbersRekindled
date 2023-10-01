@@ -77,6 +77,7 @@ public class EmbersRenderTypes extends RenderType {
 			.createCompositeState(false));
 
 	public static final RenderStateShard.ShaderStateShard PTLC_SHADER = new RenderStateShard.ShaderStateShard(GameRenderer::getPositionTexLightmapColorShader);
+	public static final RenderStateShard.ShaderStateShard PTCN_SHADER = new RenderStateShard.ShaderStateShard(GameRenderer::getPositionTexColorNormalShader);
 
 	//render type used for the crystal cell
 	public static final RenderType CRYSTAL = create(
@@ -87,6 +88,18 @@ public class EmbersRenderTypes extends RenderType {
 			.setTextureState(new RenderStateShard.TextureStateShard(new ResourceLocation(Embers.MODID + ":textures/block/crystal_material.png"), false, false))
 			.setTransparencyState(LIGHTNING_TRANSPARENCY)
 			.setCullState(NO_CULL)
+			.setOutputState(TRANSLUCENT_TARGET)
+			.createCompositeState(false));
+
+	//unused render type for the crystal cell
+	public static final RenderType CRYSTAL_SEED = create(
+			Embers.MODID + ":crystal_seed_render_type",
+			DefaultVertexFormat.POSITION_TEX_COLOR_NORMAL, VertexFormat.Mode.TRIANGLES, 256, false, true,
+			RenderType.CompositeState.builder()
+			.setShaderState(PTCN_SHADER)
+			.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
+			.setCullState(NO_CULL)
+			.setLightmapState(LIGHTMAP)
 			.setOutputState(TRANSLUCENT_TARGET)
 			.createCompositeState(false));
 
@@ -102,7 +115,7 @@ public class EmbersRenderTypes extends RenderType {
 			//.setDepthTestState(NO_DEPTH_TEST)
 			.setLayeringState(VIEW_OFFSET_Z_LAYERING)
 			.setWriteMaskState(COLOR_DEPTH_WRITE)
-			
+
 			.setOutputState(TRANSLUCENT_TARGET)
 			.createCompositeState(false));
 

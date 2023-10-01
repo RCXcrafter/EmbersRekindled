@@ -64,6 +64,14 @@ public class EmbersItemTags extends ItemTagsProvider {
 	public static final TagKey<Item> DAWNSTONE_NUGGET = ItemTags.create(new ResourceLocation("forge", "nuggets/dawnstone"));
 	public static final TagKey<Item> DAWNSTONE_PLATE = ItemTags.create(new ResourceLocation("forge", "plates/dawnstone"));
 
+	public static final TagKey<Item> ALUMINUM_INGOT = ItemTags.create(new ResourceLocation("forge", "ingots/aluminum"));
+	public static final TagKey<Item> NICKEL_INGOT = ItemTags.create(new ResourceLocation("forge", "ingots/nickel"));
+	public static final TagKey<Item> TIN_INGOT = ItemTags.create(new ResourceLocation("forge", "ingots/tin"));
+
+	public static final TagKey<Item> ALUMINUM_NUGGET = ItemTags.create(new ResourceLocation("forge", "nuggets/aluminum"));
+	public static final TagKey<Item> NICKEL_NUGGET = ItemTags.create(new ResourceLocation("forge", "nuggets/nickel"));
+	public static final TagKey<Item> TIN_NUGGET = ItemTags.create(new ResourceLocation("forge", "nuggets/tin"));
+
 	public static final TagKey<Item> CAMINITE_BRICK = ItemTags.create(new ResourceLocation("forge", "ingots/caminite_brick"));
 	public static final TagKey<Item> ARCHAIC_BRICK = ItemTags.create(new ResourceLocation("forge", "ingots/archaic_brick"));
 	public static final TagKey<Item> ASH_DUST = ItemTags.create(new ResourceLocation("forge", "dusts/ash"));
@@ -74,6 +82,17 @@ public class EmbersItemTags extends ItemTagsProvider {
 	public static final TagKey<Item> EXPOSED_COPPER = ItemTags.create(new ResourceLocation(Embers.MODID, "exposed_copper"));
 	public static final TagKey<Item> WEATHERED_COPPER = ItemTags.create(new ResourceLocation(Embers.MODID, "weathered_copper"));
 	public static final TagKey<Item> OXIDIZED_COPPER = ItemTags.create(new ResourceLocation(Embers.MODID, "oxidized_copper"));
+
+	public static final TagKey<Item> CRYSTAL_SEEDS = ItemTags.create(new ResourceLocation(Embers.MODID, "crystal_seeds"));
+	public static final TagKey<Item> COPPER_SEED = ItemTags.create(new ResourceLocation(Embers.MODID, "crystal_seeds/copper"));
+	public static final TagKey<Item> IRON_SEED = ItemTags.create(new ResourceLocation(Embers.MODID, "crystal_seeds/iron"));
+	public static final TagKey<Item> GOLD_SEED = ItemTags.create(new ResourceLocation(Embers.MODID, "crystal_seeds/gold"));
+	public static final TagKey<Item> LEAD_SEED = ItemTags.create(new ResourceLocation(Embers.MODID, "crystal_seeds/lead"));
+	public static final TagKey<Item> SILVER_SEED = ItemTags.create(new ResourceLocation(Embers.MODID, "crystal_seeds/silver"));
+	public static final TagKey<Item> ALUMINUM_SEED = ItemTags.create(new ResourceLocation(Embers.MODID, "crystal_seeds/aluminum"));
+	public static final TagKey<Item> NICKEL_SEED = ItemTags.create(new ResourceLocation(Embers.MODID, "crystal_seeds/nickel"));
+	public static final TagKey<Item> TIN_SEED = ItemTags.create(new ResourceLocation(Embers.MODID, "crystal_seeds/tin"));
+	public static final TagKey<Item> DAWNSTONE_SEED = ItemTags.create(new ResourceLocation(Embers.MODID, "crystal_seeds/dawnstone"));
 
 	public EmbersItemTags(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<Block>> blockTagProvider, ExistingFileHelper existingFileHelper) {
 		super(output, lookupProvider, blockTagProvider, Embers.MODID, existingFileHelper);
@@ -157,6 +176,17 @@ public class EmbersItemTags extends ItemTagsProvider {
 		copy(EmbersBlockTags.EXPOSED_COPPER, EXPOSED_COPPER);
 		copy(EmbersBlockTags.WEATHERED_COPPER, WEATHERED_COPPER);
 		copy(EmbersBlockTags.OXIDIZED_COPPER, OXIDIZED_COPPER);
+
+		copy(EmbersBlockTags.CRYSTAL_SEEDS, CRYSTAL_SEEDS);
+		copy(EmbersBlockTags.COPPER_SEED, COPPER_SEED);
+		copy(EmbersBlockTags.IRON_SEED, IRON_SEED);
+		copy(EmbersBlockTags.GOLD_SEED, GOLD_SEED);
+		copy(EmbersBlockTags.LEAD_SEED, LEAD_SEED);
+		copy(EmbersBlockTags.SILVER_SEED, SILVER_SEED);
+		copy(EmbersBlockTags.ALUMINUM_SEED, ALUMINUM_SEED);
+		copy(EmbersBlockTags.NICKEL_SEED, NICKEL_SEED);
+		copy(EmbersBlockTags.TIN_SEED, TIN_SEED);
+		copy(EmbersBlockTags.DAWNSTONE_SEED, DAWNSTONE_SEED);
 	}
 
 	public void toolTags(ToolSet set) {

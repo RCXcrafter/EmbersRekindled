@@ -5,6 +5,7 @@ import java.util.function.Function;
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.RegistryManager.FluidStuff;
+import com.rekindled.embers.RegistryManager.MetalCrystalSeed;
 import com.rekindled.embers.RegistryManager.StoneDecoBlocks;
 import com.rekindled.embers.block.EmberEmitterBlock;
 import com.rekindled.embers.block.ItemTransferBlock;
@@ -578,6 +579,20 @@ public class EmbersBlockStates extends BlockStateProvider {
 		ExistingModelFile stirlingModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "wildfire_stirling"));
 		directionalBlock(RegistryManager.WILDFIRE_STIRLING.get(), stirlingModel);
 		simpleBlockItem(RegistryManager.WILDFIRE_STIRLING.get(), stirlingModel);
+
+		ExistingModelFile injectorModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "ember_injector"));
+		directionalBlock(RegistryManager.EMBER_INJECTOR.get(), injectorModel);
+		simpleBlockItem(RegistryManager.EMBER_INJECTOR.get(), injectorModel);
+
+		metalSeed(RegistryManager.COPPER_CRYSTAL_SEED);
+		metalSeed(RegistryManager.IRON_CRYSTAL_SEED);
+		metalSeed(RegistryManager.GOLD_CRYSTAL_SEED);
+		metalSeed(RegistryManager.LEAD_CRYSTAL_SEED);
+		metalSeed(RegistryManager.SILVER_CRYSTAL_SEED);
+		metalSeed(RegistryManager.ALUMINUM_CRYSTAL_SEED);
+		metalSeed(RegistryManager.NICKEL_CRYSTAL_SEED);
+		metalSeed(RegistryManager.TIN_CRYSTAL_SEED);
+		metalSeed(RegistryManager.DAWNSTONE_CRYSTAL_SEED);
 	}
 
 	public void blockWithItem(RegistryObject<? extends Block> registryObject) {
@@ -692,6 +707,11 @@ public class EmbersBlockStates extends BlockStateProvider {
 			this.wallBlock(deco.wall.get(), resourceLocation);
 			this.itemModels().wallInventory(deco.wall.getId().getPath(), resourceLocation);
 		}
+	}
+
+	public void metalSeed(MetalCrystalSeed seed) {
+		simpleBlock(seed.BLOCK.get(), models().cubeAll(seed.name, new ResourceLocation(Embers.MODID, ModelProvider.BLOCK_FOLDER + "/material_" + seed.name)));
+		flatItem(seed.BLOCK, "seed_" + seed.name);
 	}
 
 	public static void addEmitterConnections(MultiPartBlockStateBuilder builder, ModelFile pipe1, ModelFile pipe2) {

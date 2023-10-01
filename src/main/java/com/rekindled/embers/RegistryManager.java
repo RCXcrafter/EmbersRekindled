@@ -1,6 +1,7 @@
 package com.rekindled.embers;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
@@ -29,6 +30,7 @@ import com.rekindled.embers.block.CopperChargerBlock;
 import com.rekindled.embers.block.CreativeEmberBlock;
 import com.rekindled.embers.block.CrystalCellBlock;
 import com.rekindled.embers.block.CrystalCellEdgeBlock;
+import com.rekindled.embers.block.CrystalSeedBlock;
 import com.rekindled.embers.block.EmberActivatorBlock;
 import com.rekindled.embers.block.EmberBoreBlock;
 import com.rekindled.embers.block.EmberBoreEdgeBlock;
@@ -36,6 +38,7 @@ import com.rekindled.embers.block.EmberDialBlock;
 import com.rekindled.embers.block.EmberEjectorBlock;
 import com.rekindled.embers.block.EmberEmitterBlock;
 import com.rekindled.embers.block.EmberFunnelBlock;
+import com.rekindled.embers.block.EmberInjectorBlock;
 import com.rekindled.embers.block.EmberLanternBlock;
 import com.rekindled.embers.block.EmberReceiverBlock;
 import com.rekindled.embers.block.EmberRelayBlock;
@@ -80,12 +83,14 @@ import com.rekindled.embers.blockentity.CopperCellBlockEntity;
 import com.rekindled.embers.blockentity.CopperChargerBlockEntity;
 import com.rekindled.embers.blockentity.CreativeEmberBlockEntity;
 import com.rekindled.embers.blockentity.CrystalCellBlockEntity;
+import com.rekindled.embers.blockentity.CrystalSeedBlockEntity;
 import com.rekindled.embers.blockentity.EmberActivatorBottomBlockEntity;
 import com.rekindled.embers.blockentity.EmberActivatorTopBlockEntity;
 import com.rekindled.embers.blockentity.EmberBoreBlockEntity;
 import com.rekindled.embers.blockentity.EmberEjectorBlockEntity;
 import com.rekindled.embers.blockentity.EmberEmitterBlockEntity;
 import com.rekindled.embers.blockentity.EmberFunnelBlockEntity;
+import com.rekindled.embers.blockentity.EmberInjectorBlockEntity;
 import com.rekindled.embers.blockentity.EmberReceiverBlockEntity;
 import com.rekindled.embers.blockentity.EmberRelayBlockEntity;
 import com.rekindled.embers.blockentity.EmberSiphonBlockEntity;
@@ -366,6 +371,16 @@ public class RegistryManager {
 	public static final RegistryObject<Block> MINI_BOILER = BLOCKS.register("mini_boiler", () -> new MiniBoilerBlock(Properties.of().mapColor(MapColor.COLOR_GRAY).sound(SoundType.NETHERITE_BLOCK).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
 	public static final RegistryObject<Block> CATALYTIC_PLUG = BLOCKS.register("catalytic_plug", () -> new CatalyticPlugBlock(Properties.of().mapColor(MapColor.NONE).sound(EmbersSounds.SOLID_METAL).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
 	public static final RegistryObject<Block> WILDFIRE_STIRLING = BLOCKS.register("wildfire_stirling", () -> new WildfireStirlingBlock(Properties.of().mapColor(MapColor.TERRACOTTA_YELLOW).sound(EmbersSounds.SOLID_METAL).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
+	public static final RegistryObject<Block> EMBER_INJECTOR = BLOCKS.register("ember_injector", () -> new EmberInjectorBlock(Properties.of().mapColor(MapColor.COLOR_ORANGE).sound(EmbersSounds.MACHINE).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
+	public static final MetalCrystalSeed COPPER_CRYSTAL_SEED = new MetalCrystalSeed("copper");
+	public static final MetalCrystalSeed IRON_CRYSTAL_SEED = new MetalCrystalSeed("iron");
+	public static final MetalCrystalSeed GOLD_CRYSTAL_SEED = new MetalCrystalSeed("gold");
+	public static final MetalCrystalSeed LEAD_CRYSTAL_SEED = new MetalCrystalSeed("lead");
+	public static final MetalCrystalSeed SILVER_CRYSTAL_SEED = new MetalCrystalSeed("silver");
+	public static final MetalCrystalSeed ALUMINUM_CRYSTAL_SEED = new MetalCrystalSeed("aluminum");
+	public static final MetalCrystalSeed NICKEL_CRYSTAL_SEED = new MetalCrystalSeed("nickel");
+	public static final MetalCrystalSeed TIN_CRYSTAL_SEED = new MetalCrystalSeed("tin");
+	public static final MetalCrystalSeed DAWNSTONE_CRYSTAL_SEED = new MetalCrystalSeed("dawnstone");
 
 	//itemblocks
 	public static final RegistryObject<Item> LEAD_ORE_ITEM = ITEMS.register("lead_ore", () -> new BlockItem(LEAD_ORE.get(), new Item.Properties()));
@@ -438,6 +453,7 @@ public class RegistryManager {
 	public static final RegistryObject<Item> MINI_BOILER_ITEM = ITEMS.register("mini_boiler", () -> new BlockItem(MINI_BOILER.get(), new Item.Properties()));
 	public static final RegistryObject<Item> CATALYTIC_PLUG_ITEM = ITEMS.register("catalytic_plug", () -> new BlockItem(CATALYTIC_PLUG.get(), new Item.Properties()));
 	public static final RegistryObject<Item> WILDFIRE_STIRLING_ITEM = ITEMS.register("wildfire_stirling", () -> new BlockItem(WILDFIRE_STIRLING.get(), new Item.Properties()));
+	public static final RegistryObject<Item> EMBER_INJECTOR_ITEM = ITEMS.register("ember_injector", () -> new BlockItem(EMBER_INJECTOR.get(), new Item.Properties()));
 
 	//items
 	public static final RegistryObject<Item> TINKER_HAMMER = ITEMS.register("tinker_hammer", () -> new TinkerHammerItem(new Item.Properties().stacksTo(1)));
@@ -608,6 +624,7 @@ public class RegistryManager {
 	public static final RegistryObject<BlockEntityType<MiniBoilerBlockEntity>> MINI_BOILER_ENTITY = BLOCK_ENTITY_TYPES.register("mini_boiler", () -> BlockEntityType.Builder.of(MiniBoilerBlockEntity::new, MINI_BOILER.get()).build(null));
 	public static final RegistryObject<BlockEntityType<CatalyticPlugBlockEntity>> CATALYTIC_PLUG_ENTITY = BLOCK_ENTITY_TYPES.register("catalytic_plug", () -> BlockEntityType.Builder.of(CatalyticPlugBlockEntity::new, CATALYTIC_PLUG.get()).build(null));
 	public static final RegistryObject<BlockEntityType<WildfireStirlingBlockEntity>> WILDFIRE_STIRLING_ENTITY = BLOCK_ENTITY_TYPES.register("wildfire_stirling", () -> BlockEntityType.Builder.of(WildfireStirlingBlockEntity::new, WILDFIRE_STIRLING.get()).build(null));
+	public static final RegistryObject<BlockEntityType<EmberInjectorBlockEntity>> EMBER_INJECTOR_ENTITY = BLOCK_ENTITY_TYPES.register("ember_injector", () -> BlockEntityType.Builder.of(EmberInjectorBlockEntity::new, EMBER_INJECTOR.get()).build(null));
 
 	//creative tabs
 	public static final RegistryObject<CreativeModeTab> EMBERS_TAB = CREATIVE_TABS.register("main_tab", () -> CreativeModeTab.builder()
@@ -785,6 +802,26 @@ public class RegistryManager {
 			PICKAXE = ITEMS.register(name + "_pickaxe", () -> new PickaxeItem(tier, 1, -2.8F, new Item.Properties()));
 			AXE = ITEMS.register(name + "_axe", () -> new AxeItem(tier, 6.0F, -3.0F, new Item.Properties()));
 			HOE = ITEMS.register(name + "_hoe", () -> new HoeItem(tier, (int) -tier.getAttackDamageBonus(), Math.min(0.0F, tier.getAttackDamageBonus() - 3.0F), new Item.Properties()));
+		}
+	}
+
+	public static class MetalCrystalSeed {
+
+		public static HashMap<String, MetalCrystalSeed> seeds = new HashMap<String, MetalCrystalSeed>();
+
+		public String name;
+
+		public final RegistryObject<Block> BLOCK;
+		public final RegistryObject<Item> ITEM;
+		public final RegistryObject<BlockEntityType<CrystalSeedBlockEntity>> BLOCKENTITY;
+
+		public MetalCrystalSeed(String type) {
+			this.name = type;
+
+			BLOCK = BLOCKS.register(type + "_crystal_seed", () -> new CrystalSeedBlock(Properties.of().mapColor(MapColor.NONE).sound(SoundType.AMETHYST).requiresCorrectToolForDrops().strength(1.6f).noOcclusion(), type));
+			ITEM = ITEMS.register(type + "_crystal_seed", () -> new BlockItem(BLOCK.get(), new Item.Properties()));
+			BLOCKENTITY = BLOCK_ENTITY_TYPES.register(type + "_crystal_seed", () -> BlockEntityType.Builder.of((pos, state) -> new CrystalSeedBlockEntity(pos, state, type), BLOCK.get()).build(null));
+			seeds.put(type, this);
 		}
 	}
 }

@@ -101,6 +101,16 @@ public class EmbersLang extends LanguageProvider {
 		addBlock(RegistryManager.MINI_BOILER, "Mini Boiler");
 		addBlock(RegistryManager.CATALYTIC_PLUG, "Catalytic Plug");
 		addBlock(RegistryManager.WILDFIRE_STIRLING, "Wildfire Stirling");
+		addBlock(RegistryManager.EMBER_INJECTOR, "Ember Injector");
+		addBlock(RegistryManager.COPPER_CRYSTAL_SEED.BLOCK, "Copper Crystal Seed");
+		addBlock(RegistryManager.IRON_CRYSTAL_SEED.BLOCK, "Iron Crystal Seed");
+		addBlock(RegistryManager.GOLD_CRYSTAL_SEED.BLOCK, "Gold Crystal Seed");
+		addBlock(RegistryManager.LEAD_CRYSTAL_SEED.BLOCK, "Lead Crystal Seed");
+		addBlock(RegistryManager.SILVER_CRYSTAL_SEED.BLOCK, "Silver Crystal Seed");
+		addBlock(RegistryManager.ALUMINUM_CRYSTAL_SEED.BLOCK, "Aluminum Crystal Seed");
+		addBlock(RegistryManager.NICKEL_CRYSTAL_SEED.BLOCK, "Nickel Crystal Seed");
+		addBlock(RegistryManager.TIN_CRYSTAL_SEED.BLOCK, "Tin Crystal Seed");
+		addBlock(RegistryManager.DAWNSTONE_CRYSTAL_SEED.BLOCK,  "Dawnstone Crystal Seed");
 
 		addItem(RegistryManager.TINKER_HAMMER, "Tinker's Hammer");
 		addItem(RegistryManager.TINKER_LENS, "Tinker's Lens");
@@ -265,6 +275,9 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".tooltip.goggles.upgrade", "• Machine Upgrade");
 		add(Embers.MODID + ".tooltip.goggles.accessor_slot", "• Machine Accessor Slot");
 		add(Embers.MODID + ".tooltip.goggles.actuator_slot", "• Actuator Slot");
+
+		add(Embers.MODID + ".tooltip.crystal.level", "Level %s");
+		add(Embers.MODID + ".tooltip.crystal.xp", "Refinement %s/%s");
 
 		add(Embers.MODID + ".tooltip.tyrfing", "Deals damage based on the target's armor.");
 

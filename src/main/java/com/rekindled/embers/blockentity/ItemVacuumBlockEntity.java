@@ -2,6 +2,8 @@ package com.rekindled.embers.blockentity;
 
 import java.util.List;
 
+import org.jetbrains.annotations.NotNull;
+
 import com.rekindled.embers.RegistryManager;
 
 import net.minecraft.core.BlockPos;
@@ -15,10 +17,21 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
 
 public class ItemVacuumBlockEntity extends BlockEntity {
+
+	public ItemStackHandler inventory = new ItemStackHandler(1) {
+		@Override
+		public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+			return false;
+		}
+	};
+	public LazyOptional<IItemHandler> holder = LazyOptional.of(() -> inventory);
 
 	public ItemVacuumBlockEntity(BlockPos pPos, BlockState pBlockState) {
 		super(RegistryManager.ITEM_VACUUM_ENTITY.get(), pPos, pBlockState);
@@ -61,6 +74,21 @@ public class ItemVacuumBlockEntity extends BlockEntity {
 				}
 			}
 		}
+	}
+
+	@Override
+	public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
+		Direction facing = level.getBlockState(worldPosition).getValue(BlockStateProperties.FACING);
+		if (!this.remove && cap == ForgeCapabilities.ITEM_HANDLER && side == facing.getOpposite()) {
+			return ForgeCapabilities.ITEM_HANDLER.orEmpty(cap, holder);
+		}
+		return super.getCapability(cap, side);
+	}
+
+	@Override
+	public void invalidateCaps() {
+		super.invalidateCaps();
+		holder.invalidate();
 	}
 
 	static int getInsertedSlot(ItemStack stack, IItemHandler inventory) {

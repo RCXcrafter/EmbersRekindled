@@ -88,6 +88,16 @@
     "embersrekindled:mechanical_pump",
     "embersrekindled:mini_boiler",
     "embersrekindled:catalytic_plug",
-    "embersrekindled:wildfire_stirling"
+    "embersrekindled:wildfire_stirling",
+    "embersrekindled:ember_injector",
+    "embersrekindled:copper_crystal_seed",
+    "embersrekindled:iron_crystal_seed",
+    "embersrekindled:gold_crystal_seed",
+    "embersrekindled:lead_crystal_seed",
+    "embersrekindled:silver_crystal_seed",
+    "embersrekindled:aluminum_crystal_seed",
+    "embersrekindled:nickel_crystal_seed",
+    "embersrekindled:tin_crystal_seed",
+    "embersrekindled:dawnstone_crystal_seed"
   ]
 }

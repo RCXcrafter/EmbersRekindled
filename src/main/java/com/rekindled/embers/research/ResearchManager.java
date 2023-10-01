@@ -262,11 +262,11 @@ public class ResearchManager {
 		//dwarven_oil = new ResearchBase("dwarven_oil", FluidUtil.getFilledBucket(new FluidStack(RegistryManager.fluid_oil, Fluid.BUCKET_VOLUME)), 1, 4).addAncestor(hellish_synthesis);
 
 		wildfire = new ResearchBase("wildfire", new ItemStack(RegistryManager.WILDFIRE_CORE.get()), 1, 5);
-		/*injector = new ResearchBase("injector", new ItemStack(RegistryManager.ember_injector), 0, 7).addAncestor(wildfire)
+		injector = new ResearchBase("injector", new ItemStack(RegistryManager.EMBER_INJECTOR_ITEM.get()), 0, 7).addAncestor(wildfire)
 				.addPage(new ResearchShowItem("crystal_level",ItemStack.EMPTY,0,0)
-						.addItem(new DisplayItem(new ItemStack(RegistryManager.seed_iron), new ItemStack(RegistryManager.seed_gold), new ItemStack(RegistryManager.seed_copper), new ItemStack(RegistryManager.seed_tin)))
-						.addItem(new DisplayItem(new ItemStack(RegistryManager.seed_silver), new ItemStack(RegistryManager.seed_lead), new ItemStack(RegistryManager.seed_nickel), new ItemStack(RegistryManager.seed_aluminum))));
-		combustor = new ResearchBase("combustor", new ItemStack(RegistryManager.combustor), 6, 5).addAncestor(wildfire);
+						.addItem(new DisplayItem(new ItemStack(RegistryManager.IRON_CRYSTAL_SEED.ITEM.get()), new ItemStack(RegistryManager.GOLD_CRYSTAL_SEED.ITEM.get()), new ItemStack(RegistryManager.COPPER_CRYSTAL_SEED.ITEM.get()), new ItemStack(RegistryManager.TIN_CRYSTAL_SEED.ITEM.get())))
+						.addItem(new DisplayItem(new ItemStack(RegistryManager.SILVER_CRYSTAL_SEED.ITEM.get()), new ItemStack(RegistryManager.LEAD_CRYSTAL_SEED.ITEM.get()), new ItemStack(RegistryManager.NICKEL_CRYSTAL_SEED.ITEM.get()), new ItemStack(RegistryManager.ALUMINUM_CRYSTAL_SEED.ITEM.get()))));
+		/*combustor = new ResearchBase("combustor", new ItemStack(RegistryManager.combustor), 6, 5).addAncestor(wildfire);
 		combustor.addPage(new ResearchShowItem("empty", ItemStack.EMPTY, 0, 0)
 				.addItem(new DisplayItem("combustor_coal",new ItemStack(Items.COAL)))
 				.addItem(new DisplayItem("combustor_nether_brick",new ItemStack(Items.NETHERBRICK)))
@@ -357,7 +357,7 @@ public class ResearchManager {
 		//subCategorySimpleAlchemy.addResearch(dwarven_oil);
 
 		subCategoryWildfire.addResearch(wildfire);
-		//subCategoryWildfire.addResearch(injector);
+		subCategoryWildfire.addResearch(injector);
 		//subCategoryWildfire.addResearch(combustor);
 		//subCategoryWildfire.addResearch(catalyzer);
 		//subCategoryWildfire.addResearch(reactor);

@@ -65,6 +65,17 @@ public class EmbersBlockTags extends BlockTagsProvider {
 	public static final TagKey<Block> SILVER_BLOCK = BlockTags.create(new ResourceLocation("forge", "storage_blocks/silver"));
 	public static final TagKey<Block> DAWNSTONE_BLOCK = BlockTags.create(new ResourceLocation("forge", "storage_blocks/dawnstone"));
 
+	public static final TagKey<Block> CRYSTAL_SEEDS = BlockTags.create(new ResourceLocation(Embers.MODID, "crystal_seeds"));
+	public static final TagKey<Block> COPPER_SEED = BlockTags.create(new ResourceLocation(Embers.MODID, "crystal_seeds/copper"));
+	public static final TagKey<Block> IRON_SEED = BlockTags.create(new ResourceLocation(Embers.MODID, "crystal_seeds/iron"));
+	public static final TagKey<Block> GOLD_SEED = BlockTags.create(new ResourceLocation(Embers.MODID, "crystal_seeds/gold"));
+	public static final TagKey<Block> LEAD_SEED = BlockTags.create(new ResourceLocation(Embers.MODID, "crystal_seeds/lead"));
+	public static final TagKey<Block> SILVER_SEED = BlockTags.create(new ResourceLocation(Embers.MODID, "crystal_seeds/silver"));
+	public static final TagKey<Block> ALUMINUM_SEED = BlockTags.create(new ResourceLocation(Embers.MODID, "crystal_seeds/aluminum"));
+	public static final TagKey<Block> NICKEL_SEED = BlockTags.create(new ResourceLocation(Embers.MODID, "crystal_seeds/nickel"));
+	public static final TagKey<Block> TIN_SEED = BlockTags.create(new ResourceLocation(Embers.MODID, "crystal_seeds/tin"));
+	public static final TagKey<Block> DAWNSTONE_SEED = BlockTags.create(new ResourceLocation(Embers.MODID, "crystal_seeds/dawnstone"));
+
 	//tags not used in this class
 	public static final TagKey<Block> BRONZE_BLOCK = BlockTags.create(new ResourceLocation("forge", "storage_blocks/bronze"));
 	public static final TagKey<Block> NICKEL_BLOCK = BlockTags.create(new ResourceLocation("forge", "storage_blocks/nickel"));
@@ -173,7 +184,17 @@ public class EmbersBlockTags extends BlockTagsProvider {
 				RegistryManager.MECHANICAL_PUMP.get(),
 				RegistryManager.MINI_BOILER.get(),
 				RegistryManager.CATALYTIC_PLUG.get(),
-				RegistryManager.WILDFIRE_STIRLING.get());
+				RegistryManager.WILDFIRE_STIRLING.get(),
+				RegistryManager.EMBER_INJECTOR.get(),
+				RegistryManager.COPPER_CRYSTAL_SEED.BLOCK.get(),
+				RegistryManager.IRON_CRYSTAL_SEED.BLOCK.get(),
+				RegistryManager.GOLD_CRYSTAL_SEED.BLOCK.get(),
+				RegistryManager.LEAD_CRYSTAL_SEED.BLOCK.get(),
+				RegistryManager.SILVER_CRYSTAL_SEED.BLOCK.get(),
+				RegistryManager.ALUMINUM_CRYSTAL_SEED.BLOCK.get(),
+				RegistryManager.NICKEL_CRYSTAL_SEED.BLOCK.get(),
+				RegistryManager.TIN_CRYSTAL_SEED.BLOCK.get(),
+				RegistryManager.DAWNSTONE_CRYSTAL_SEED.BLOCK.get());
 
 		tag(BlockTags.NEEDS_IRON_TOOL).add(
 				RegistryManager.LEAD_ORE.get(),
@@ -258,8 +279,18 @@ public class EmbersBlockTags extends BlockTagsProvider {
 		tag(LEAD_BLOCK).add(RegistryManager.LEAD_BLOCK.get());
 		tag(SILVER_BLOCK).add(RegistryManager.SILVER_BLOCK.get());
 		tag(DAWNSTONE_BLOCK).add(RegistryManager.DAWNSTONE_BLOCK.get());
-	}
 
+		tag(CRYSTAL_SEEDS).addTags(COPPER_SEED, IRON_SEED, GOLD_SEED, LEAD_SEED, SILVER_SEED, ALUMINUM_SEED, NICKEL_SEED, TIN_SEED, DAWNSTONE_SEED);
+		tag(COPPER_SEED).add(RegistryManager.COPPER_CRYSTAL_SEED.BLOCK.get());
+		tag(IRON_SEED).add(RegistryManager.IRON_CRYSTAL_SEED.BLOCK.get());
+		tag(GOLD_SEED).add(RegistryManager.GOLD_CRYSTAL_SEED.BLOCK.get());
+		tag(LEAD_SEED).add(RegistryManager.LEAD_CRYSTAL_SEED.BLOCK.get());
+		tag(SILVER_SEED).add(RegistryManager.SILVER_CRYSTAL_SEED.BLOCK.get());
+		tag(ALUMINUM_SEED).add(RegistryManager.ALUMINUM_CRYSTAL_SEED.BLOCK.get());
+		tag(NICKEL_SEED).add(RegistryManager.NICKEL_CRYSTAL_SEED.BLOCK.get());
+		tag(TIN_SEED).add(RegistryManager.TIN_CRYSTAL_SEED.BLOCK.get());
+		tag(DAWNSTONE_SEED).add(RegistryManager.DAWNSTONE_CRYSTAL_SEED.BLOCK.get());
+	}
 	public void decoTags(StoneDecoBlocks deco) {
 		if (deco.stairs != null) {
 			tag(BlockTags.STAIRS).add(deco.stairs.get());
