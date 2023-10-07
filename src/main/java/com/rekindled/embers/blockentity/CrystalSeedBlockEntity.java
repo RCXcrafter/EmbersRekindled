@@ -42,9 +42,9 @@ public class CrystalSeedBlockEntity extends BlockEntity implements IEmberInjecta
 	public boolean[] willSpawn;
 	public int size = 0;
 	public int xp = 0;
-	public int bonusParts = 0;
+	public static int bonusParts = 0;
 	public int ticksExisted = 0;
-	protected Random random = new Random();
+	protected static Random random = new Random();
 
 	public static final int SOUND_AMBIENT = 1;
 	public static final int[] SOUND_IDS = new int[]{SOUND_AMBIENT};
@@ -57,22 +57,23 @@ public class CrystalSeedBlockEntity extends BlockEntity implements IEmberInjecta
 
 	public CrystalSeedBlockEntity(BlockEntityType<?> entityType, BlockPos pos, BlockState blockState, String type) {
 		super(entityType, pos, blockState);
-		resetSpawns();
+		willSpawn = getSpawns(xp);
 		this.type = type;
 		this.texture = new ResourceLocation(Embers.MODID + ":textures/block/material_" + type + ".png");
 		this.tag = ItemTags.create(new ResourceLocation("forge", "nuggets/" + type));
 	}
 
-	public void resetSpawns() {
+	public static boolean[] getSpawns(int xp) {
 		int segments = Math.max(6 + bonusParts, 1);
 		segments += getLevelBonus(getLevel(xp));
-		willSpawn = new boolean[segments];
+		boolean[] willSpawn = new boolean[segments];
 		for (int i = 0; i < willSpawn.length; i ++){
 			willSpawn[i] = random.nextInt(3) == 0;
 		}
+		return willSpawn;
 	}
 
-	private int getLevelBonus(int level) {
+	public static int getLevelBonus(int level) {
 		if (level > 50) {
 			return getLevelBonus(50) + (level-50)/25;
 		} else if (level > 20) {
@@ -86,7 +87,7 @@ public class CrystalSeedBlockEntity extends BlockEntity implements IEmberInjecta
 		}
 	}
 
-	public String getSpawnString() {
+	public static String getSpawnString(boolean[] willSpawn) {
 		String result = "";
 		for (int i = 0; i < willSpawn.length; i ++) {
 			result += willSpawn[i] ? "1" : "0";
@@ -112,7 +113,7 @@ public class CrystalSeedBlockEntity extends BlockEntity implements IEmberInjecta
 	@Override
 	public void saveAdditional(CompoundTag nbt) {
 		super.saveAdditional(nbt);
-		nbt.putString("spawns", getSpawnString());
+		nbt.putString("spawns", getSpawnString(willSpawn));
 		nbt.putInt("size", size);
 		nbt.putInt("xp", xp);
 	}
@@ -150,7 +151,7 @@ public class CrystalSeedBlockEntity extends BlockEntity implements IEmberInjecta
 				}
 			}
 			blockEntity.setChanged();
-			blockEntity.resetSpawns();
+			blockEntity.willSpawn = getSpawns(blockEntity.xp);
 		}
 	}
 
@@ -166,7 +167,7 @@ public class CrystalSeedBlockEntity extends BlockEntity implements IEmberInjecta
 		return ((level*(level+1))/2)*1000;
 	}
 
-	public int getLevel(int xp) {
+	public static int getLevel(int xp) {
 		return (int)Math.floor((Math.sqrt(5)*Math.sqrt(xp+125)-25)/50);
 	}
 

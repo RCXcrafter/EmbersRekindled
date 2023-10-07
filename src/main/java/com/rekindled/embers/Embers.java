@@ -153,6 +153,7 @@ public class Embers {
 		RegistryManager.RECIPE_SERIALIZERS.register(modEventBus);
 		RegistryManager.LOOT_MODIFIERS.register(modEventBus);
 		RegistryManager.MENU_TYPES.register(modEventBus);
+		RegistryManager.STRUCTURE_PROCESSOR_TYPES.register(modEventBus);
 		EmbersSounds.init();
 		//TODO: move this to apiimpl when I port that
 		UpgradeUtil.IMPL = new UpgradeUtilImpl();
@@ -211,6 +212,7 @@ public class Embers {
 					.add(Registries.PLACED_FEATURE, EmbersPlacedFeatures::generate)
 					.add(ForgeRegistries.Keys.BIOME_MODIFIERS, EmbersBiomeModifiers::generate)
 					.add(Registries.DAMAGE_TYPE, EmbersDamageTypes::generate)
+					.add(Registries.PROCESSOR_LIST, EmbersStructures::generateProcessors)
 					.add(Registries.TEMPLATE_POOL, EmbersStructures::generatePools)
 					.add(Registries.STRUCTURE, EmbersStructures::generateStructures)
 					.add(Registries.STRUCTURE_SET, EmbersStructures::generateSets),

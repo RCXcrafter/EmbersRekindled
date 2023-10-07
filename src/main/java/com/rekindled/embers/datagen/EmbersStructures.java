@@ -8,6 +8,8 @@ import com.mojang.datafixers.util.Pair;
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.datagen.EmbersBiomeModifiers.NotHolderSetWrapper;
+import com.rekindled.embers.worldgen.CrystalSeedStructureProcessor;
+import com.rekindled.embers.worldgen.EntityMobilizerStructureProcessor;
 
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
@@ -36,24 +38,33 @@ import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType;
 import net.minecraft.world.level.levelgen.structure.pools.SinglePoolElement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraft.world.level.levelgen.structure.structures.JigsawStructure;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.holdersets.AndHolderSet;
 import net.minecraftforge.registries.holdersets.OrHolderSet;
 
 public class EmbersStructures {
 
+	public static final ResourceKey<StructureProcessorList> RUIN_PROCESSORS = ResourceKey.create(Registries.PROCESSOR_LIST, new ResourceLocation(Embers.MODID, "small_ruin"));
+
+	public static void generateProcessors(BootstapContext<StructureProcessorList> bootstrap) {
+		bootstrap.register(RUIN_PROCESSORS, new StructureProcessorList(Lists.newArrayList(new CrystalSeedStructureProcessor(210000, 5050000, 900), EntityMobilizerStructureProcessor.INSTANCE)));
+	}
+
 	public static final ResourceKey<StructureTemplatePool> SMALL_RUIN_POOL = ResourceKey.create(Registries.TEMPLATE_POOL, new ResourceLocation(Embers.MODID, "small_ruin"));
 
 	public static void generatePools(BootstapContext<StructureTemplatePool> bootstrap) {
 		HolderGetter<StructureTemplatePool> templatePool = bootstrap.lookup(Registries.TEMPLATE_POOL);
+		HolderGetter<StructureProcessorList> processor = bootstrap.lookup(Registries.PROCESSOR_LIST);
 		Holder<StructureTemplatePool> empty = templatePool.getOrThrow(Pools.EMPTY);
+		Holder<StructureProcessorList> ruinProcessor = processor.getOrThrow(RUIN_PROCESSORS);
 
 		bootstrap.register(SMALL_RUIN_POOL, new StructureTemplatePool(empty, Lists.newArrayList(
-				Pair.of(SinglePoolElement.single(Embers.MODID + ":small_ruin_copper"), 2),
-				Pair.of(SinglePoolElement.single(Embers.MODID + ":small_ruin_iron"), 2),
-				Pair.of(SinglePoolElement.single(Embers.MODID + ":small_ruin_gold"), 1),
-				Pair.of(SinglePoolElement.single(Embers.MODID + ":small_ruin_lead"), 2),
-				Pair.of(SinglePoolElement.single(Embers.MODID + ":small_ruin_silver"), 1)),
+				Pair.of(SinglePoolElement.single(Embers.MODID + ":small_ruin_copper", ruinProcessor), 2),
+				Pair.of(SinglePoolElement.single(Embers.MODID + ":small_ruin_iron", ruinProcessor), 2),
+				Pair.of(SinglePoolElement.single(Embers.MODID + ":small_ruin_gold", ruinProcessor), 1),
+				Pair.of(SinglePoolElement.single(Embers.MODID + ":small_ruin_lead", ruinProcessor), 2),
+				Pair.of(SinglePoolElement.single(Embers.MODID + ":small_ruin_silver", ruinProcessor), 1)),
 				StructureTemplatePool.Projection.RIGID));
 	}
 

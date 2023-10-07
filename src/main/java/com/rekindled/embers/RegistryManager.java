@@ -165,6 +165,8 @@ import com.rekindled.embers.util.EmbersTiers;
 import com.rekindled.embers.util.GrandhammerLootModifier;
 import com.rekindled.embers.util.LegacyDeferredRegister;
 import com.rekindled.embers.util.Misc;
+import com.rekindled.embers.worldgen.CrystalSeedStructureProcessor;
+import com.rekindled.embers.worldgen.EntityMobilizerStructureProcessor;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockSource;
@@ -209,6 +211,7 @@ import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorType;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.MapColor;
@@ -242,6 +245,7 @@ public class RegistryManager {
 	public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, Embers.MODID);
 	public static final DeferredRegister<Codec<? extends IGlobalLootModifier>> LOOT_MODIFIERS = DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, Embers.MODID);
 	public static final DeferredRegister<MenuType<?>> MENU_TYPES = DeferredRegister.create(ForgeRegistries.MENU_TYPES, Embers.MODID);
+	public static final DeferredRegister<StructureProcessorType<?>> STRUCTURE_PROCESSOR_TYPES = DeferredRegister.create(Registries.STRUCTURE_PROCESSOR, Embers.MODID);
 
 	public static List<FluidStuff> fluidList = new ArrayList<FluidStuff>();
 
@@ -688,6 +692,10 @@ public class RegistryManager {
 
 	//menu types
 	public static final RegistryObject<MenuType<SlateMenu>> SLATE_MENU = MENU_TYPES.register("codebreaking_slate", () -> IForgeMenuType.create(SlateMenu::fromBuffer));
+
+	//structure processor types
+	public static final RegistryObject<StructureProcessorType<CrystalSeedStructureProcessor>> CRYSTAL_SEED_PROCESSOR = STRUCTURE_PROCESSOR_TYPES.register("crystal_seed_processor", () -> () -> CrystalSeedStructureProcessor.CODEC);
+	public static final RegistryObject<StructureProcessorType<EntityMobilizerStructureProcessor>> ENTITY_MOBILIZER_PROCESSOR = STRUCTURE_PROCESSOR_TYPES.register("entity_mobilizer", () -> () -> EntityMobilizerStructureProcessor.CODEC);
 
 	public static void registerDispenserBehaviour(final FMLCommonSetupEvent event) {
 		DispenseItemBehavior dispenseBucket = new DefaultDispenseItemBehavior() {

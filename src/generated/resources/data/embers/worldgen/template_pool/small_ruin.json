@@ -4,9 +4,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "embers:small_ruin_copper",
-        "processors": {
-          "processors": []
-        },
+        "processors": "embers:small_ruin",
         "projection": "rigid"
       },
       "weight": 2
@@ -15,9 +13,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "embers:small_ruin_iron",
-        "processors": {
-          "processors": []
-        },
+        "processors": "embers:small_ruin",
         "projection": "rigid"
       },
       "weight": 2
@@ -26,9 +22,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "embers:small_ruin_gold",
-        "processors": {
-          "processors": []
-        },
+        "processors": "embers:small_ruin",
         "projection": "rigid"
       },
       "weight": 1
@@ -37,9 +31,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "embers:small_ruin_lead",
-        "processors": {
-          "processors": []
-        },
+        "processors": "embers:small_ruin",
         "projection": "rigid"
       },
       "weight": 2
@@ -48,9 +40,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "embers:small_ruin_silver",
-        "processors": {
-          "processors": []
-        },
+        "processors": "embers:small_ruin",
         "projection": "rigid"
       },
       "weight": 1
