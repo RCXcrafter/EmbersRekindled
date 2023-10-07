@@ -334,6 +334,6 @@ public class FluidRenderer {
 		}
 
 		// draw cuboid
-		renderCuboid(matrices, buffer.getBuffer(EmbersRenderTypes.FLUID), cube, still, flowing, from, to, clientType.getTintColor(fluid), light, isGas);
+		renderCuboid(matrices, buffer.getBuffer(EmbersRenderTypes.FLUID), cube, still, flowing, from, to, clientType.getTintColor(fluid), light, isGas && flipGas);
 	}
 }

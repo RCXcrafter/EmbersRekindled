@@ -11,17 +11,15 @@ import com.rekindled.embers.api.event.UpgradeEvent;
 import com.rekindled.embers.api.upgrades.UpgradeContext;
 import com.rekindled.embers.block.EmberDialBlock;
 import com.rekindled.embers.blockentity.CatalyticPlugBlockEntity;
+import com.rekindled.embers.recipe.FluidHandlerContext;
 import com.rekindled.embers.util.DecimalFormats;
+import com.rekindled.embers.util.Misc;
 
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 
 public class UpgradeCatalyticPlug extends DefaultUpgradeProvider {
 
@@ -71,16 +69,28 @@ public class UpgradeCatalyticPlug extends DefaultUpgradeProvider {
 	}
 
 	private boolean hasCatalyst() {
-		IFluidHandler handler = tile.getCapability(ForgeCapabilities.FLUID_HANDLER, null).orElse(null);
-		if (handler != null)
-			return !handler.drain(new FluidStack(RegistryManager.STEAM.FLUID.get(), 1), FluidAction.SIMULATE).isEmpty();
+		if (this.tile instanceof CatalyticPlugBlockEntity plug) {
+			if (plug.burnTime > 0)
+				return true;
+			plug.cachedRecipe = Misc.getRecipe(plug.cachedRecipe, RegistryManager.GASEOUS_FUEL.get(), new FluidHandlerContext(plug.tank), plug.getLevel());
+			return plug.cachedRecipe != null;
+		}
 		return false;
 	}
 
 	private void depleteCatalyst(int amt) {
-		IFluidHandler handler = tile.getCapability(ForgeCapabilities.FLUID_HANDLER, null).orElse(null);
-		if (handler != null)
-			handler.drain(new FluidStack(RegistryManager.STEAM.FLUID.get(), amt), FluidAction.EXECUTE);
+		if (this.tile instanceof CatalyticPlugBlockEntity plug) {
+			plug.burnTime -= amt;
+			if (plug.burnTime < 0) {
+				FluidHandlerContext context = new FluidHandlerContext(plug.tank);
+				plug.cachedRecipe = Misc.getRecipe(plug.cachedRecipe, RegistryManager.GASEOUS_FUEL.get(), context, plug.getLevel());
+				while (plug.burnTime < 0 && plug.cachedRecipe != null && plug.cachedRecipe.matches(context, plug.getLevel())) {
+					plug.burnTime += plug.cachedRecipe.process(context, 1);
+				}
+				if (plug.burnTime < 0)
+					plug.burnTime = 0;
+			}
+		}
 	}
 
 	@Override

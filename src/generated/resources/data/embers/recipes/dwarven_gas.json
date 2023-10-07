@@ -1,0 +1,9 @@
+{
+  "type": "embers:gaseous_fuel",
+  "burn_time": 5,
+  "input": {
+    "amount": 1,
+    "name": "embers:dwarven_gas"
+  },
+  "power_multiplier": 2.5
+}

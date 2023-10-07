@@ -10,6 +10,7 @@ import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.capabilities.EmbersCapabilities;
 import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
 import com.rekindled.embers.particle.VaporParticleOptions;
+import com.rekindled.embers.recipe.GaseousFuelRecipe;
 import com.rekindled.embers.upgrade.UpgradeWildfireStirling;
 
 import net.minecraft.client.resources.language.I18n;
@@ -40,14 +41,16 @@ public class WildfireStirlingBlockEntity extends BlockEntity implements /*ISound
 	public static final int[] SOUND_IDS = new int[]{SOUND_OFF,SOUND_ON};*/
 
 	public int activeTicks = 0;
+	public int burnTime = 0;
 	public UpgradeWildfireStirling upgrade;
-	public FluidTank tank = new FluidTank(FluidType.BUCKET_VOLUME * 4, stack -> stack.getFluid().equals(RegistryManager.STEAM.FLUID.get())) {
+	public FluidTank tank = new FluidTank(FluidType.BUCKET_VOLUME * 4) {
 		@Override
 		public void onContentsChanged() {
 			WildfireStirlingBlockEntity.this.setChanged();
 		}
 	};
 	private static Random random = new Random();
+	public GaseousFuelRecipe cachedRecipe = null;
 
 	//HashSet<Integer> soundsPlaying = new HashSet<>();
 	public LazyOptional<IFluidHandler> holder = LazyOptional.of(() -> tank);
@@ -62,6 +65,7 @@ public class WildfireStirlingBlockEntity extends BlockEntity implements /*ISound
 		super.load(nbt);
 		tank.readFromNBT(nbt.getCompound("tank"));
 		activeTicks = nbt.getInt("active");
+		burnTime = nbt.getInt("burnTime");
 	}
 
 	@Override
@@ -69,6 +73,7 @@ public class WildfireStirlingBlockEntity extends BlockEntity implements /*ISound
 		super.saveAdditional(nbt);
 		nbt.put("tank", tank.writeToNBT(new CompoundTag()));
 		nbt.putInt("active", activeTicks);
+		nbt.putInt("burnTime", burnTime);
 	}
 
 	@Override

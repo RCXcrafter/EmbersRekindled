@@ -4,7 +4,6 @@ import org.jetbrains.annotations.Nullable;
 
 import com.google.gson.JsonObject;
 import com.rekindled.embers.RegistryManager;
-import com.rekindled.embers.util.Misc;
 
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
@@ -18,19 +17,21 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 
-public class BoilingRecipe implements Recipe<FluidHandlerContext> {
+public class GaseousFuelRecipe implements Recipe<FluidHandlerContext> {
 
 	public static final Serializer SERIALIZER = new Serializer(); 
 
 	public final ResourceLocation id;
 
 	public final FluidIngredient input;
-	public final FluidStack output;
+	public final int burnTime;
+	public final double powerMultiplier;
 
-	public BoilingRecipe(ResourceLocation id, FluidIngredient input, FluidStack output) {
+	public GaseousFuelRecipe(ResourceLocation id, FluidIngredient input, int burnTime, double powerMultiplier) {
 		this.id = id;
 		this.input = input;
-		this.output = output;
+		this.burnTime = burnTime;
+		this.powerMultiplier = powerMultiplier;
 	}
 
 	@Override
@@ -43,11 +44,15 @@ public class BoilingRecipe implements Recipe<FluidHandlerContext> {
 		return false;
 	}
 
-	public FluidStack getOutput(FluidHandlerContext context) {
-		return output;
+	public int getBurnTime(FluidHandlerContext context) {
+		return burnTime;
 	}
 
-	public FluidStack process(FluidHandlerContext context, int amount) {
+	public double getPowerMultiplier(FluidHandlerContext context) {
+		return powerMultiplier;
+	}
+
+	public int process(FluidHandlerContext context, int amount) {
 		int trueAmount = amount;
 		for (FluidStack stack : input.getAllFluids()) {
 			FluidStack drainStack = new FluidStack(stack, stack.getAmount() * amount);
@@ -56,12 +61,12 @@ public class BoilingRecipe implements Recipe<FluidHandlerContext> {
 				break;
 			}
 		}
-		return new FluidStack(output, output.getAmount() * trueAmount);
+		return burnTime * trueAmount;
 	}
 
 	@Override
 	public ItemStack getToastSymbol() {
-		return new ItemStack(RegistryManager.MINI_BOILER_ITEM.get());
+		return new ItemStack(RegistryManager.WILDFIRE_STIRLING_ITEM.get());
 	}
 
 	@Override
@@ -76,15 +81,11 @@ public class BoilingRecipe implements Recipe<FluidHandlerContext> {
 
 	@Override
 	public RecipeType<?> getType() {
-		return RegistryManager.BOILING.get();
+		return RegistryManager.GASEOUS_FUEL.get();
 	}
 
 	public FluidIngredient getDisplayInput() {
 		return input;
-	}
-
-	public FluidStack getDisplayOutput() {
-		return output;
 	}
 
 	@Override
@@ -105,28 +106,31 @@ public class BoilingRecipe implements Recipe<FluidHandlerContext> {
 		return true;
 	}
 
-	public static class Serializer implements RecipeSerializer<BoilingRecipe> {
+	public static class Serializer implements RecipeSerializer<GaseousFuelRecipe> {
 
 		@Override
-		public BoilingRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
-			FluidStack output = Misc.deserializeFluidStack(GsonHelper.getAsJsonObject(json, "output"));
+		public GaseousFuelRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
 			FluidIngredient input = FluidIngredient.deserialize(json, "input");
+			int burnTime = GsonHelper.getAsInt(json, "burn_time");
+			double powerMultiplier = GsonHelper.getAsDouble(json, "power_multiplier");
 
-			return new BoilingRecipe(recipeId, input, output);
+			return new GaseousFuelRecipe(recipeId, input, burnTime, powerMultiplier);
 		}
 
 		@Override
-		public @Nullable BoilingRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
+		public @Nullable GaseousFuelRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
 			FluidIngredient input = FluidIngredient.read(buffer);
-			FluidStack output = FluidStack.readFromPacket(buffer);
+			int burnTime = buffer.readInt();
+			double powerMultiplier = buffer.readDouble();
 
-			return new BoilingRecipe(recipeId, input, output);
+			return new GaseousFuelRecipe(recipeId, input, burnTime, powerMultiplier);
 		}
 
 		@Override
-		public void toNetwork(FriendlyByteBuf buffer, BoilingRecipe recipe) {
+		public void toNetwork(FriendlyByteBuf buffer, GaseousFuelRecipe recipe) {
 			recipe.input.write(buffer);
-			recipe.output.writeToPacket(buffer);
+			buffer.writeInt(recipe.burnTime);
+			buffer.writeDouble(recipe.powerMultiplier);
 		}
 	}
 }

@@ -7,13 +7,11 @@ import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.upgrades.UpgradeContext;
 import com.rekindled.embers.blockentity.WildfireStirlingBlockEntity;
+import com.rekindled.embers.recipe.FluidHandlerContext;
+import com.rekindled.embers.util.Misc;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 
 public class UpgradeWildfireStirling extends DefaultUpgradeProvider {
 
@@ -26,7 +24,7 @@ public class UpgradeWildfireStirling extends DefaultUpgradeProvider {
 	public UpgradeWildfireStirling(BlockEntity tile) {
 		super(new ResourceLocation(Embers.MODID, "wildfire_stirling"), tile);
 	}
-	
+
 	public static double getMultiplier(int distance, int count) {
 		double multiplier = 2.0;
 		if (distance > 1) {
@@ -58,15 +56,27 @@ public class UpgradeWildfireStirling extends DefaultUpgradeProvider {
 	}
 
 	private boolean hasCatalyst() {
-		IFluidHandler handler = tile.getCapability(ForgeCapabilities.FLUID_HANDLER, null).orElse(null);
-		if (handler != null)
-			return !handler.drain(new FluidStack(RegistryManager.STEAM.FLUID.get(), 1), FluidAction.SIMULATE).isEmpty();
+		if (this.tile instanceof WildfireStirlingBlockEntity stirling) {
+			if (stirling.burnTime > 0)
+				return true;
+			stirling.cachedRecipe = Misc.getRecipe(stirling.cachedRecipe, RegistryManager.GASEOUS_FUEL.get(), new FluidHandlerContext(stirling.tank), stirling.getLevel());
+			return stirling.cachedRecipe != null;
+		}
 		return false;
 	}
 
 	private void depleteCatalyst(int amt) {
-		IFluidHandler handler = tile.getCapability(ForgeCapabilities.FLUID_HANDLER, null).orElse(null);
-		if (handler != null)
-			handler.drain(new FluidStack(RegistryManager.STEAM.FLUID.get(), amt), FluidAction.EXECUTE);
+		if (this.tile instanceof WildfireStirlingBlockEntity stirling) {
+			stirling.burnTime -= amt;
+			if (stirling.burnTime < 0) {
+				FluidHandlerContext context = new FluidHandlerContext(stirling.tank);
+				stirling.cachedRecipe = Misc.getRecipe(stirling.cachedRecipe, RegistryManager.GASEOUS_FUEL.get(), context, stirling.getLevel());
+				while (stirling.burnTime < 0 && stirling.cachedRecipe != null && stirling.cachedRecipe.matches(context, stirling.getLevel())) {
+					stirling.burnTime += stirling.cachedRecipe.process(context, 1);
+				}
+				if (stirling.burnTime < 0)
+					stirling.burnTime = 0;
+			}
+		}
 	}
 }

@@ -1,0 +1,9 @@
+{
+  "type": "embers:gaseous_fuel",
+  "burn_time": 1,
+  "input": {
+    "amount": 1,
+    "name": "embers:steam"
+  },
+  "power_multiplier": 2.0
+}

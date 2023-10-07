@@ -5,11 +5,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 
-public class BoilingContext implements Container {
+public class FluidHandlerContext implements Container {
 
 	public IFluidHandler fluid;
 
-	public BoilingContext(IFluidHandler fluid) {
+	public FluidHandlerContext(IFluidHandler fluid) {
 		this.fluid = fluid;
 	}
 

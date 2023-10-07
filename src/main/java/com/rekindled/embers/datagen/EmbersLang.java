@@ -299,6 +299,8 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".jei.recipe.metal_coefficient", "Production Multiplier");
 		add(Embers.MODID + ".jei.recipe.alchemy", "Alchemy");
 		add(Embers.MODID + ".jei.recipe.boiling", "Boiling");
+		add(Embers.MODID + ".jei.recipe.gaseous_fuel", "Gaseous Fuel");
+		add(Embers.MODID + ".jei.recipe.gaseous_fuel.burn_time", "Burn Time: %s");
 
 
 		//ancient codex
@@ -718,7 +720,7 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".research.page.injector", "Metal Crystals");
 		add(Embers.MODID + ".research.page.injector.title", "Seeds of the World");
 		add(Embers.MODID + ".research.page.injector.tags", "Alchemy;Transmutation;Crystal;Seed;Metal;Ember;Injector;Machine;Grow;Processing;");
-		add(Embers.MODID + ".research.page.injector.desc", "You have discovered a means of synthesizing metal Crystal Seeds for various metal types through alchemy, as well as the Ember Injector, a machine designed to control them. By placing a Crystal Seed in the world, then placing Ember Injectors facing it and powering them with Ember, the Seed will begin to be fed and grow slowly. At a certain threshold, the Seed will let loose several metal nuggets which can be collected.");
+		add(Embers.MODID + ".research.page.injector.desc", "You have discovered a means of utilizing metal Crystal Seeds for various metal types found in small ruins. It come in the form of the Ember Injector, a machine designed to control them. By placing a Crystal Seed in the world, then placing Ember Injectors facing it and powering them with Ember, the Seed will begin to be fed and grow slowly. At a certain threshold, the Seed will let loose several metal nuggets which can be collected.");
 		add(Embers.MODID + ".research.page.crystal_level.desc", "By injecting Ember into a seed, it not only grows and produces metal, but will also become more pure over time. The more pure a crystal is, the more metal it produces when fully grown. You can see a crystal's current purity level by examining it with a Tinker's Lens. Note that all purity is lost when the seed is broken and moved elsewhere.");
 
 		add(Embers.MODID + ".research.page.combustor", "Combustion Chamber");

@@ -18,7 +18,7 @@ import com.rekindled.embers.datagen.EmbersBlockTags;
 import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.entity.EmberProjectileEntity;
 import com.rekindled.embers.particle.VaporParticleOptions;
-import com.rekindled.embers.recipe.BoilingContext;
+import com.rekindled.embers.recipe.FluidHandlerContext;
 import com.rekindled.embers.recipe.BoilingRecipe;
 import com.rekindled.embers.upgrade.MiniBoilerUpgrade;
 import com.rekindled.embers.util.Misc;
@@ -204,7 +204,7 @@ public class MiniBoilerBlockEntity extends PipeBlockEntityBase implements ISound
 
 	public void boil(double heat) {
 		FluidStack fluid = getFluidStack();
-		BoilingContext context = new BoilingContext(fluidTank);
+		FluidHandlerContext context = new FluidHandlerContext(fluidTank);
 		cachedRecipe = Misc.getRecipe(cachedRecipe, RegistryManager.BOILING.get(), context, level);
 
 		if (cachedRecipe != null && fluid.getAmount() > 0 && heat > 0) {

@@ -127,6 +127,7 @@ import com.rekindled.embers.entity.EmberProjectileEntity;
 import com.rekindled.embers.fluidtypes.EmbersFluidType.FluidInfo;
 import com.rekindled.embers.fluidtypes.MoltenMetalFluidType;
 import com.rekindled.embers.fluidtypes.SteamFluidType;
+import com.rekindled.embers.fluidtypes.ViscousFluidType;
 import com.rekindled.embers.gui.SlateMenu;
 import com.rekindled.embers.item.AlchemyHintItem;
 import com.rekindled.embers.item.AncientCodexItem;
@@ -156,6 +157,7 @@ import com.rekindled.embers.recipe.AlchemyRecipe;
 import com.rekindled.embers.recipe.BoilingRecipe;
 import com.rekindled.embers.recipe.BoringRecipe;
 import com.rekindled.embers.recipe.EmberActivationRecipe;
+import com.rekindled.embers.recipe.GaseousFuelRecipe;
 import com.rekindled.embers.recipe.MeltingRecipe;
 import com.rekindled.embers.recipe.MetalCoefficientRecipe;
 import com.rekindled.embers.recipe.MixingRecipe;
@@ -582,6 +584,45 @@ public class RegistryManager {
 			.viscosity(100)
 			.temperature(400));
 
+	public static final FluidStuff SOUL_CRUDE = addFluid("Soul Crude", new FluidInfo("soul_crude", 0x35261D, 0.1F, 1.5F), ViscousFluidType::new, LiquidBlock::new,
+			prop -> prop.explosionResistance(1000F).tickRate(30).slopeFindDistance(2).levelDecreasePerBlock(2),
+			FluidType.Properties.create()
+			.canSwim(false)
+			.canDrown(true)
+			.motionScale(0.0023333333333333335D)
+			.sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY_LAVA)
+			.sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL_LAVA)
+			.density(3000)
+			.viscosity(4000)
+			.temperature(330));
+
+	public static final FluidStuff DWARVEN_OIL = addFluid("Dwarven Oil", new FluidInfo("dwarven_oil", 0xffDB18, 0.1F, 1.5F), ViscousFluidType::new, LiquidBlock::new,
+			prop -> prop.explosionResistance(1000F).tickRate(8).slopeFindDistance(2).levelDecreasePerBlock(2),
+			FluidType.Properties.create()
+			.canSwim(false)
+			.canDrown(true)
+			.motionScale(0.0023333333333333335D)
+			.sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY_LAVA)
+			.sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL_LAVA)
+			.density(2000)
+			.viscosity(2000)
+			.temperature(330));
+
+	public static final FluidStuff DWARVEN_GAS = addFluid("Dwarven Gas", new FluidInfo("dwarven_gas", 0x99DC4D, 0.1F, 1.5F), SteamFluidType::new, LiquidBlock::new,
+			prop -> prop.explosionResistance(1000F).tickRate(3).slopeFindDistance(2).levelDecreasePerBlock(2),
+			FluidType.Properties.create()
+			.canSwim(false)
+			.canDrown(false)
+			.pathType(BlockPathTypes.LAVA)
+			.adjacentPathType(null)
+			.motionScale(0.0005D)
+			.canPushEntity(false)
+			.sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY_LAVA)
+			.sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL_LAVA)
+			.density(-100)
+			.viscosity(100)
+			.temperature(400));
+
 	//block entities
 	public static final RegistryObject<BlockEntityType<CopperCellBlockEntity>> COPPER_CELL_ENTITY = BLOCK_ENTITY_TYPES.register("copper_cell", () -> BlockEntityType.Builder.of(CopperCellBlockEntity::new, COPPER_CELL.get()).build(null));
 	public static final RegistryObject<BlockEntityType<CreativeEmberBlockEntity>> CREATIVE_EMBER_ENTITY = BLOCK_ENTITY_TYPES.register("creative_ember_source", () -> BlockEntityType.Builder.of(CreativeEmberBlockEntity::new, CREATIVE_EMBER.get()).build(null));
@@ -675,6 +716,7 @@ public class RegistryManager {
 	public static final RegistryObject<RecipeType<MetalCoefficientRecipe>> METAL_COEFFICIENT = registerRecipeType("metal_coefficient");
 	public static final RegistryObject<RecipeType<AlchemyRecipe>> ALCHEMY = registerRecipeType("alchemy");
 	public static final RegistryObject<RecipeType<BoilingRecipe>> BOILING = registerRecipeType("boiling");
+	public static final RegistryObject<RecipeType<GaseousFuelRecipe>> GASEOUS_FUEL = registerRecipeType("gaseous_fuel");
 
 	//recipe serializers
 	public static final RegistryObject<RecipeSerializer<BoringRecipe>> BORING_SERIALIZER = RECIPE_SERIALIZERS.register("boring", () -> BoringRecipe.SERIALIZER);
@@ -686,6 +728,7 @@ public class RegistryManager {
 	public static final RegistryObject<RecipeSerializer<MetalCoefficientRecipe>> METAL_COEFFICIENT_SERIALIZER = RECIPE_SERIALIZERS.register("metal_coefficient", () -> MetalCoefficientRecipe.SERIALIZER);
 	public static final RegistryObject<RecipeSerializer<AlchemyRecipe>> ALCHEMY_SERIALIZER = RECIPE_SERIALIZERS.register("alchemy", () -> AlchemyRecipe.SERIALIZER);
 	public static final RegistryObject<RecipeSerializer<BoilingRecipe>> BOILING_SERIALIZER = RECIPE_SERIALIZERS.register("boiling", () -> BoilingRecipe.SERIALIZER);
+	public static final RegistryObject<RecipeSerializer<GaseousFuelRecipe>> GASEOUS_FUEL_SERIALIZER = RECIPE_SERIALIZERS.register("gaseous_fuel", () -> GaseousFuelRecipe.SERIALIZER);
 
 	//loot modifiers
 	public static final RegistryObject<Codec<GrandhammerLootModifier>> GRANDHAMMER_MODIFIER = LOOT_MODIFIERS.register("grandhammer", () -> GrandhammerLootModifier.CODEC);

@@ -259,7 +259,7 @@ public class ResearchManager {
 		hellish_synthesis = new ResearchBase("hellish_synthesis", new ItemStack(Items.NETHERRACK), 2, 1);
 		archaic_brick = new ResearchBase("archaic_brick", new ItemStack(RegistryManager.ARCHAIC_BRICK.get()), 5, 2).addAncestor(hellish_synthesis);
 		motive_core = new ResearchBase("motive_core", new ItemStack(RegistryManager.ANCIENT_MOTIVE_CORE.get()), 4, 4).addAncestor(archaic_brick);
-		//dwarven_oil = new ResearchBase("dwarven_oil", FluidUtil.getFilledBucket(new FluidStack(RegistryManager.fluid_oil, Fluid.BUCKET_VOLUME)), 1, 4).addAncestor(hellish_synthesis);
+		dwarven_oil = new ResearchBase("dwarven_oil", new ItemStack(RegistryManager.DWARVEN_OIL.FLUID_BUCKET.get()), 1, 4).addAncestor(hellish_synthesis);
 
 		wildfire = new ResearchBase("wildfire", new ItemStack(RegistryManager.WILDFIRE_CORE.get()), 1, 5);
 		injector = new ResearchBase("injector", new ItemStack(RegistryManager.EMBER_INJECTOR_ITEM.get()), 0, 7).addAncestor(wildfire)
@@ -354,7 +354,7 @@ public class ResearchManager {
 		subCategorySimpleAlchemy.addResearch(archaic_brick);
 		subCategorySimpleAlchemy.addResearch(motive_core);
 		//subCategorySimpleAlchemy.addResearch(adhesive);
-		//subCategorySimpleAlchemy.addResearch(dwarven_oil);
+		subCategorySimpleAlchemy.addResearch(dwarven_oil);
 
 		subCategoryWildfire.addResearch(wildfire);
 		subCategoryWildfire.addResearch(injector);

@@ -33,7 +33,7 @@ public class FluidCuboid {
 		FLOWING_DOWN_FACES = new EnumMap<>(Direction.class);
 		for (Direction direction : Direction.values()) {
 			DEFAULT_FACES.put(direction, FluidFace.NORMAL);
-			if (direction.getAxis() != Axis.Y) {
+			if (direction.getAxis() == Axis.Y) {
 				FLOWING_DOWN_FACES.put(direction, FluidFace.NORMAL);
 			} else {
 				FLOWING_DOWN_FACES.put(direction, FluidFace.DOWN);
