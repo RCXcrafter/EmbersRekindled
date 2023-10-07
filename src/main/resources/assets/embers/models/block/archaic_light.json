@@ -23,12 +23,12 @@
 	  {   "from": [ 0, 0, 0 ],
             "to": [ 16, 16, 16 ],
             "faces": {
-                "down":  { "texture": "#overlay_end", "emissivity": 15, "cullface": "down" },
-                "up":    { "texture": "#overlay_end", "emissivity": 15, "cullface": "up" },
-                "north": { "texture": "#overlay_side", "emissivity": 15, "cullface": "north" },
-                "south": { "texture": "#overlay_side", "emissivity": 15, "cullface": "south" },
-                "west":  { "texture": "#overlay_side", "emissivity": 15, "cullface": "west" },
-                "east":  { "texture": "#overlay_side", "emissivity": 15, "cullface": "east" }
+                "down":  { "texture": "#overlay_end", "cullface": "down", "forge_data": { "block_light": 15 } },
+                "up":    { "texture": "#overlay_end", "cullface": "up", "forge_data": { "block_light": 15 } },
+                "north": { "texture": "#overlay_side", "cullface": "north", "forge_data": { "block_light": 15 } },
+                "south": { "texture": "#overlay_side", "cullface": "south", "forge_data": { "block_light": 15 } },
+                "west":  { "texture": "#overlay_side", "cullface": "west", "forge_data": { "block_light": 15 } },
+                "east":  { "texture": "#overlay_side", "cullface": "east", "forge_data": { "block_light": 15 } }
             }
         }
   ]
