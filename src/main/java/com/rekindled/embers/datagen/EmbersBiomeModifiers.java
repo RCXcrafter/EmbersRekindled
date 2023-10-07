@@ -39,16 +39,16 @@ public class EmbersBiomeModifiers {
 		HolderGetter<Biome> biome = bootstrap.lookup(ForgeRegistries.Keys.BIOMES);
 		HolderSet<Biome> overworldBiomes = biome.getOrThrow(BiomeTags.IS_OVERWORLD);
 		List<HolderSet<Biome>> biomeBlackList = List.of(biome.getOrThrow(Tags.Biomes.IS_MUSHROOM), HolderSet.direct(biome.getOrThrow(Biomes.DEEP_DARK)));
-		HolderSet<Biome> holtileSpawns = new AndHolderSet<Biome>(List.of(overworldBiomes, new NotHolderSetWrapper<Biome>(new OrHolderSet<Biome>(biomeBlackList))));
+		HolderSet<Biome> hostileSpawns = new AndHolderSet<Biome>(List.of(overworldBiomes, new NotHolderSetWrapper<Biome>(new OrHolderSet<Biome>(biomeBlackList))));
 
 		bootstrap.register(ORE_LEAD_KEY, new AddFeaturesBiomeModifier(overworldBiomes, HolderSet.direct(placed.getOrThrow(EmbersPlacedFeatures.ORE_LEAD_KEY)), Decoration.UNDERGROUND_ORES));
 		bootstrap.register(ORE_SILVER_KEY, new AddFeaturesBiomeModifier(overworldBiomes, HolderSet.direct(placed.getOrThrow(EmbersPlacedFeatures.ORE_SILVER_KEY)), Decoration.UNDERGROUND_ORES));
 
-		bootstrap.register(GOLEM_SPAWN, new AddSpawnsBiomeModifier(holtileSpawns, List.of(new MobSpawnSettings.SpawnerData(RegistryManager.ANCIENT_GOLEM.get(), 15, 1, 1))));
+		bootstrap.register(GOLEM_SPAWN, new AddSpawnsBiomeModifier(hostileSpawns, List.of(new MobSpawnSettings.SpawnerData(RegistryManager.ANCIENT_GOLEM.get(), 15, 1, 1))));
 	}
 
 	//wow this is stupid
-	private static class NotHolderSetWrapper<T> extends NotHolderSet<T> {
+	public static class NotHolderSetWrapper<T> extends NotHolderSet<T> {
 		public NotHolderSetWrapper(HolderSet<T> value) {
 			super(null, value);
 		}

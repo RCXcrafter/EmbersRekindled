@@ -42,6 +42,7 @@ import com.rekindled.embers.datagen.EmbersLootTables;
 import com.rekindled.embers.datagen.EmbersPlacedFeatures;
 import com.rekindled.embers.datagen.EmbersRecipes;
 import com.rekindled.embers.datagen.EmbersSounds;
+import com.rekindled.embers.datagen.EmbersStructures;
 import com.rekindled.embers.entity.AncientGolemEntity;
 import com.rekindled.embers.entity.render.AncientGolemRenderer;
 import com.rekindled.embers.entity.render.EmberPacketRenderer;
@@ -209,7 +210,10 @@ public class Embers {
 					.add(Registries.CONFIGURED_FEATURE, bootstrap -> EmbersConfiguredFeatures.generate(bootstrap)) //it doesn't like this one for some reason
 					.add(Registries.PLACED_FEATURE, EmbersPlacedFeatures::generate)
 					.add(ForgeRegistries.Keys.BIOME_MODIFIERS, EmbersBiomeModifiers::generate)
-					.add(Registries.DAMAGE_TYPE, EmbersDamageTypes::generate),
+					.add(Registries.DAMAGE_TYPE, EmbersDamageTypes::generate)
+					.add(Registries.TEMPLATE_POOL, EmbersStructures::generatePools)
+					.add(Registries.STRUCTURE, EmbersStructures::generateStructures)
+					.add(Registries.STRUCTURE_SET, EmbersStructures::generateSets),
 					Set.of(MODID)));
 			gen.addProvider(true, new EmbersDamageTypeTags(output, lookupProvider, existingFileHelper));
 			gen.addProvider(true, new EmbersLootModifiers(output));

@@ -227,7 +227,8 @@ public class EmbersBlockTags extends BlockTagsProvider {
 				RegistryManager.CRYSTAL_CELL.get(),
 				RegistryManager.CRYSTAL_CELL_EDGE.get(),
 				RegistryManager.ALCHEMY_PEDESTAL.get(),
-				RegistryManager.MECHANICAL_PUMP.get());
+				RegistryManager.MECHANICAL_PUMP.get())
+		.addTag(CRYSTAL_SEEDS);
 
 		tag(MECH_CORE_PROXYABLE).add(
 				RegistryManager.EMBER_BORE.get(),
