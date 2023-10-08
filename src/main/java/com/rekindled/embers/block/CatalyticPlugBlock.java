@@ -28,17 +28,13 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class CatalyticPlugBlock extends BaseEntityBlock implements SimpleWaterloggedBlock, IPipeConnection {
 
-	protected static final VoxelShape UP_AABB = Shapes.or(Block.box(3, 0, 3, 13, 4, 13), Block.box(6, 4, 6, 10, 16, 10), Block.box(1, 1, 6, 15, 4, 10), Block.box(6, 1, 1, 10, 4, 15), Block.box(6, 4, 0, 10, 12, 16), Block.box(0, 4, 6, 16, 12, 10));
-	protected static final VoxelShape DOWN_AABB = Shapes.or(Block.box(3, 12, 3, 13, 16, 13), Block.box(6, 0, 6, 10, 12, 10), Block.box(1, 12, 6, 15, 15, 10), Block.box(6, 12, 1, 10, 15, 15), Block.box(6, 4, 0, 10, 12, 16), Block.box(0, 4, 6, 16, 12, 10));
-	protected static final VoxelShape NORTH_AABB = Shapes.or(Block.box(3, 3, 12, 13, 13, 16), Block.box(6, 6, 0, 10, 10, 12), Block.box(1, 6, 12, 15, 10, 15), Block.box(6, 1, 12, 10, 15, 15), Block.box(6, 0, 4, 10, 16, 12), Block.box(0, 6, 4, 16, 10, 12));
-	protected static final VoxelShape SOUTH_AABB = Shapes.or(Block.box(3, 3, 0, 13, 13, 4), Block.box(6, 6, 4, 10, 10, 16), Block.box(1, 6, 1, 15, 10, 4), Block.box(6, 1, 1, 10, 15, 4), Block.box(6, 0, 4, 10, 16, 12), Block.box(0, 6, 4, 16, 10, 12));
-	protected static final VoxelShape WEST_AABB = Shapes.or(Block.box(12, 3, 3, 16, 13, 13), Block.box(0, 6, 6, 12, 10, 10), Block.box(12, 6, 1, 15, 10, 15), Block.box(12, 1, 6, 15, 15, 10), Block.box(4, 0, 6, 12, 16, 10), Block.box(4, 6, 0, 12, 10, 16));
-	protected static final VoxelShape EAST_AABB = Shapes.or(Block.box(0, 3, 3, 4, 13, 13), Block.box(4, 6, 6, 16, 10, 10), Block.box(1, 6, 1, 4, 10, 15), Block.box(1, 1, 6, 4, 15, 10), Block.box(4, 0, 6, 12, 16, 10), Block.box(4, 6, 0, 12, 10, 16));
+	protected static final VoxelShape X_AABB = Block.box(0, 3, 3, 16, 13, 13);
+	protected static final VoxelShape Y_AABB = Block.box(3, 0, 3, 13, 16, 13);
+	protected static final VoxelShape Z_AABB = Block.box(3, 3, 0, 13, 13, 16);
 
 	public CatalyticPlugBlock(Properties properties) {
 		super(properties);
@@ -47,20 +43,14 @@ public class CatalyticPlugBlock extends BaseEntityBlock implements SimpleWaterlo
 
 	@Override
 	public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-		switch (pState.getValue(BlockStateProperties.FACING)) {
-		case UP:
-			return UP_AABB;
-		case DOWN:
-			return DOWN_AABB;
-		case EAST:
-			return EAST_AABB;
-		case WEST:
-			return WEST_AABB;
-		case SOUTH:
-			return SOUTH_AABB;
-		case NORTH:
+		switch (pState.getValue(BlockStateProperties.FACING).getAxis()) {
+		case X:
+			return X_AABB;
+		case Y:
+			return Y_AABB;
+		case Z:
 		default:
-			return NORTH_AABB;
+			return Z_AABB;
 		}
 	}
 
