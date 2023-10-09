@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "inverted=false,waterlogged=false": {
+      "model": "embers:block/field_chart_center"
+    },
+    "inverted=false,waterlogged=true": {
+      "model": "embers:block/field_chart_center"
+    },
+    "inverted=true,waterlogged=false": {
+      "model": "embers:block/field_chart_center_inverted"
+    },
+    "inverted=true,waterlogged=true": {
+      "model": "embers:block/field_chart_center_inverted"
+    }
+  }
+}

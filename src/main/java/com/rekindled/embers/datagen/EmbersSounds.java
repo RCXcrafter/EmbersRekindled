@@ -200,8 +200,11 @@ public class EmbersSounds extends SoundDefinitionsProvider {
 	public static final SoundType LIGHT_MACHINE = new ForgeSoundType(1.0F, 1.5F, MACHINE_BREAK, () -> SoundEvents.NETHERITE_BLOCK_STEP, MACHINE_PLACE, () -> SoundEvents.NETHERITE_BLOCK_HIT, () -> SoundEvents.NETHERITE_BLOCK_FALL);
 
 	public static final SoundType MULTIBLOCK_CENTER = new ForgeSoundType(1.0F, 1.0F, MULTIBLOCK_PACK, () -> SoundEvents.NETHERITE_BLOCK_STEP, MULTIBLOCK_UNPACK, () -> SoundEvents.NETHERITE_BLOCK_HIT, () -> SoundEvents.NETHERITE_BLOCK_FALL);
+	public static final SoundType CAMINITE_MULTIBLOCK_CENTER = new ForgeSoundType(1.0F, 1.0F, MULTIBLOCK_PACK, CAMINITE_STEP, MULTIBLOCK_UNPACK, () -> SoundEvents.NETHERITE_BLOCK_HIT, () -> SoundEvents.NETHERITE_BLOCK_FALL);
+	public static final SoundType ARCHAIC_MULTIBLOCK_CENTER = new ForgeSoundType(1.0F, 1.0F, MULTIBLOCK_PACK, () -> SoundEvents.NETHER_BRICKS_STEP, MULTIBLOCK_UNPACK, () -> SoundEvents.NETHER_BRICKS_HIT, () -> SoundEvents.NETHER_BRICKS_FALL);
 	public static final SoundType MULTIBLOCK_EXTRA = new MultiblockSoundType(SoundType.NETHERITE_BLOCK);
 	public static final SoundType CAMINITE_MULTIBLOCK_EXTRA = new MultiblockSoundType(CAMINITE);
+	public static final SoundType ARCHAIC_MULTIBLOCK_EXTRA = new MultiblockSoundType(SoundType.NETHER_BRICKS);
 
 
 	public EmbersSounds(PackOutput generator, ExistingFileHelper helper) {

@@ -1,0 +1,33 @@
+{
+	"parent": "block/block",
+	"render_type": "minecraft:cutout",
+	"textures": {
+        "particle": "embers:block/field_chart_center_base",
+		"side": "embers:block/field_chart_edge_side",
+		"base": "embers:block/field_chart_center_base",
+		"overlay": "embers:block/field_chart_center_overlay"
+	},
+	"elements": [
+		{
+			"__comment": "Cube9",
+			"from": [ 0, 0, 0 ],
+			"to": [ 16, 6, 16 ],
+			"faces": {
+				"down": { "uv": [ 0, 0, 16, 16 ], "texture": "#base" },
+				"up": { "uv": [ 0, 0, 16, 16 ], "texture": "#base" },
+				"north": { "uv": [ 0, 4, 16, 10 ], "texture": "#side" },
+				"south": { "uv": [ 0, 4, 16, 10 ], "texture": "#side" },
+				"west": { "uv": [ 0, 4, 16, 10 ], "texture": "#side" },
+				"east": { "uv": [ 0, 4, 16, 10 ], "texture": "#side" }
+			}
+		},
+		{
+			"from": [ 0, 0, 0 ],
+			"to": [ 16, 6, 16 ],
+			"faces": {
+				"down": { "uv": [ 0, 0, 16, 16 ], "texture": "#overlay", "forge_data": { "block_light": 15 } },
+				"up": { "uv": [ 0, 0, 16, 16 ], "texture": "#overlay", "forge_data": { "block_light": 15 } }
+			}
+		}
+	]
+}

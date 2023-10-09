@@ -78,6 +78,7 @@ public class EmbersRenderTypes extends RenderType {
 
 	public static final RenderStateShard.ShaderStateShard PTLC_SHADER = new RenderStateShard.ShaderStateShard(GameRenderer::getPositionTexLightmapColorShader);
 	public static final RenderStateShard.ShaderStateShard PTCN_SHADER = new RenderStateShard.ShaderStateShard(GameRenderer::getPositionTexColorNormalShader);
+	public static final RenderStateShard.ShaderStateShard PTC_SHADER = new RenderStateShard.ShaderStateShard(GameRenderer::getPositionTexColorShader);
 
 	//render type used for the crystal cell
 	public static final RenderType CRYSTAL = create(
@@ -91,7 +92,19 @@ public class EmbersRenderTypes extends RenderType {
 			.setOutputState(TRANSLUCENT_TARGET)
 			.createCompositeState(false));
 
-	//unused render type for the crystal cell
+	//render type used for the field chart
+	public static final RenderType FIELD_CHART = create(
+			Embers.MODID + ":field_chart_render_type",
+			DefaultVertexFormat.POSITION_TEX_COLOR, VertexFormat.Mode.QUADS, 256, false, true,
+			RenderType.CompositeState.builder()
+			.setShaderState(PTC_SHADER)
+			.setTextureState(new RenderStateShard.TextureStateShard(new ResourceLocation(Embers.MODID + ":textures/block/field_square.png"), false, false))
+			.setTransparencyState(LIGHTNING_TRANSPARENCY)
+			.setCullState(NO_CULL)
+			.setOutputState(TRANSLUCENT_TARGET)
+			.createCompositeState(false));
+
+	//unused render type for the crystal seeds
 	public static final RenderType CRYSTAL_SEED = create(
 			Embers.MODID + ":crystal_seed_render_type",
 			DefaultVertexFormat.POSITION_TEX_COLOR_NORMAL, VertexFormat.Mode.TRIANGLES, 256, false, true,

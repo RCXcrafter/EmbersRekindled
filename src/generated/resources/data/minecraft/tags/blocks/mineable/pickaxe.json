@@ -98,6 +98,8 @@
     "embers:aluminum_crystal_seed",
     "embers:nickel_crystal_seed",
     "embers:tin_crystal_seed",
-    "embers:dawnstone_crystal_seed"
+    "embers:dawnstone_crystal_seed",
+    "embers:field_chart",
+    "embers:field_chart_edge"
   ]
 }

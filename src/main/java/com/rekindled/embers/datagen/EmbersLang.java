@@ -111,6 +111,8 @@ public class EmbersLang extends LanguageProvider {
 		addBlock(RegistryManager.NICKEL_CRYSTAL_SEED.BLOCK, "Nickel Crystal Seed");
 		addBlock(RegistryManager.TIN_CRYSTAL_SEED.BLOCK, "Tin Crystal Seed");
 		addBlock(RegistryManager.DAWNSTONE_CRYSTAL_SEED.BLOCK,  "Dawnstone Crystal Seed");
+		addBlock(RegistryManager.FIELD_CHART, "Field Chart");
+		addBlock(RegistryManager.FIELD_CHART_EDGE, "Field Chart");
 
 		addItem(RegistryManager.TINKER_HAMMER, "Tinker's Hammer");
 		addItem(RegistryManager.TINKER_LENS, "Tinker's Lens");
@@ -710,7 +712,7 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".research.page.field_chart", "Field Chart");
 		add(Embers.MODID + ".research.page.field_chart.title", "Tactical Overview");
 		add(Embers.MODID + ".research.page.field_chart.tags", "Field;Chart;Ember;Gauge;Info;");
-		add(Embers.MODID + ".research.page.field_chart.desc", "Finding spots with High Ember concentration can be tedious when your only measurement device is an Atmospheric Gauge. However, it seems that Ember resonates with itself, and by suitable manufacture you've devised the Field Chart, a map of Ember concentrations for a larger area than can be covered on foot.");
+		add(Embers.MODID + ".research.page.field_chart.desc", "Finding spots with High Ember concentration can be tedious when your only measurement device is an Atmospheric Gauge. However, it seems that Ember resonates with itself, and by suitable manufacture you've devised the Field Chart, a map of Ember concentrations for a larger area than can be covered on foot. Upon a right-click, the Field Chart can even display the base Ember in the area.");
 
 		add(Embers.MODID + ".research.page.wildfire", "Wildfire Core");
 		add(Embers.MODID + ".research.page.wildfire.title", "Controlling the Flame");

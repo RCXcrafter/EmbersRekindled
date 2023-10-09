@@ -327,4 +327,39 @@ public class Misc {
 			}
 		}
 	}
+
+	//Setup light animation tables. 'a' is total darkness, 'z' is maxbright.
+	public static String lightstyle[] = {
+			// 0 normal
+			"m",
+			// 1 FLICKER (first variety)
+			"mmnmmommommnonmmonqnmmo",
+			// 2 SLOW STRONG PULSE
+			"abcdefghijklmnopqrstuvwxyzyxwvutsrqponmlkjihgfedcba",
+			// 3 CANDLE (first variety)
+			"mmmmmaaaaammmmmaaaaaabcdefgabcdefg",
+			// 4 FAST STROBE
+			"mamamamamama",
+			// 5 GENTLE PULSE 1
+			"jklmnopqrstuvwxyzyxwvutsrqponmlkj",
+			// 6 FLICKER (second variety)
+			"nmonqnmomnmomomno",
+			// 7 CANDLE (second variety)
+			"mmmaaaabcdefgmmmmaaaammmaamm",
+			// 8 CANDLE (third variety)
+			"mmmaaammmaaammmabcdefaaaammmmabcdefmmmaaaa",
+			// 9 SLOW STROBE (fourth variety)
+			"aaaaaaaazzzzzzzz",
+			// 10 FLUORESCENT FLICKER
+			"mmamammmmammamamaaamammma",
+			// 11 SLOW PULSE NOT FADE TO BLACK
+			"abcdefghijklmnopqrrqponmlkjihgfedcba",
+			// 12 testing
+			"a"
+	};
+
+	public static float getLightBrightness(int style, int ticks) {
+		String table = lightstyle[style];
+		return (table.charAt((ticks / 2) % table.length()) - 'a') / 25.0f;
+	}
 }

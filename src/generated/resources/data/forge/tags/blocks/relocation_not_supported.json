@@ -20,6 +20,8 @@
     "embers:crystal_cell_edge",
     "embers:alchemy_pedestal",
     "embers:mechanical_pump",
+    "embers:field_chart",
+    "embers:field_chart_edge",
     "#embers:crystal_seeds"
   ]
 }

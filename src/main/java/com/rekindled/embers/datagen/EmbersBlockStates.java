@@ -8,6 +8,7 @@ import com.rekindled.embers.RegistryManager.FluidStuff;
 import com.rekindled.embers.RegistryManager.MetalCrystalSeed;
 import com.rekindled.embers.RegistryManager.StoneDecoBlocks;
 import com.rekindled.embers.block.EmberEmitterBlock;
+import com.rekindled.embers.block.FieldChartBlock;
 import com.rekindled.embers.block.ItemTransferBlock;
 import com.rekindled.embers.block.MechEdgeBlockBase;
 import com.rekindled.embers.block.MechEdgeBlockBase.MechEdge;
@@ -593,6 +594,27 @@ public class EmbersBlockStates extends BlockStateProvider {
 		metalSeed(RegistryManager.NICKEL_CRYSTAL_SEED);
 		metalSeed(RegistryManager.TIN_CRYSTAL_SEED);
 		metalSeed(RegistryManager.DAWNSTONE_CRYSTAL_SEED);
+
+		ExistingModelFile chartModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "field_chart_center"));
+		ExistingModelFile invertedChartModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "field_chart_center_inverted"));
+		getVariantBuilder(RegistryManager.FIELD_CHART.get()).forAllStates(state -> {
+			return ConfiguredModel.builder()
+					.modelFile(state.getValue(FieldChartBlock.INVERTED) ? invertedChartModel : chartModel)
+					.build();
+		});
+		simpleBlockItem(RegistryManager.FIELD_CHART.get(), models().cubeAll("field_chart", new ResourceLocation(Embers.MODID, "block/crate_chart")));
+
+		ExistingModelFile chartEdgeModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "field_chart_edge"));
+		ExistingModelFile chartCornerModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "field_chart_corner"));
+		getVariantBuilder(RegistryManager.FIELD_CHART_EDGE.get()).forAllStates(state -> {
+			MechEdge edge = state.getValue(MechEdgeBlockBase.EDGE);
+
+			return ConfiguredModel.builder()
+					.modelFile(edge.corner ? chartCornerModel : chartEdgeModel)
+					.rotationY(edge.rotation)
+					.uvLock(false)
+					.build();
+		});
 	}
 
 	public void blockWithItem(RegistryObject<? extends Block> registryObject) {

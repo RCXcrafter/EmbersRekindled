@@ -963,6 +963,15 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('B', RegistryManager.CAMINITE_BRICKS.get())
 		.unlockedBy("has_wildfire_core", has(RegistryManager.WILDFIRE_CORE.get()))
 		.save(consumer, getResource("ember_injector"));
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.FIELD_CHART.get())
+		.pattern("BBB")
+		.pattern("BCB")
+		.pattern("BBB")
+		.define('C', RegistryManager.EMBER_CRYSTAL_CLUSTER.get())
+		.define('B', RegistryManager.ARCHAIC_BRICK.get())
+		.unlockedBy("has_cluster", has(RegistryManager.EMBER_CRYSTAL_CLUSTER.get()))
+		.save(consumer, getResource("field_chart"));
 	}
 
 	public void fullOreRecipes(String name, ImmutableList<ItemLike> ores, Fluid fluid, Item raw, Item rawBlock, Item block, Item ingot, Item nugget, Item plate, Consumer<FinishedRecipe> consumer, MeltingBonus... bonusses) {

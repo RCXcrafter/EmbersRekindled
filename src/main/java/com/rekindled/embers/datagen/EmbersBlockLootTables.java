@@ -133,6 +133,8 @@ public class EmbersBlockLootTables extends BlockLootSubProvider {
 		dropSelf(RegistryManager.NICKEL_CRYSTAL_SEED.BLOCK.get());
 		dropSelf(RegistryManager.TIN_CRYSTAL_SEED.BLOCK.get());
 		dropSelf(RegistryManager.DAWNSTONE_CRYSTAL_SEED.BLOCK.get());
+		dropSelf(RegistryManager.FIELD_CHART.get());
+		add(RegistryManager.FIELD_CHART_EDGE.get(), noDrop());
 	}
 
 	public void decoDrops(StoneDecoBlocks deco) {

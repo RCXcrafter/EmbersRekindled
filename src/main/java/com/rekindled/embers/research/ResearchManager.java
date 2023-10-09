@@ -249,7 +249,7 @@ public class ResearchManager {
 		materia = new ResearchBase("materia", new ItemStack(RegistryManager.ISOLATED_MATERIA.get()), 6, 5).addAncestor(slate);
 		cluster = new ResearchBase("cluster", new ItemStack(RegistryManager.EMBER_CRYSTAL_CLUSTER.get()), 3, 4).addAncestor(slate);
 		//ashen_cloak = new ResearchShowItem("ashen_cloak", new ItemStack(RegistryManager.ashen_cloak_chest), 9, 4).addItem(new DisplayItem(new ItemStack(RegistryManager.ashen_cloak_head),new ItemStack(RegistryManager.ashen_cloak_chest),new ItemStack(RegistryManager.ashen_cloak_legs),new ItemStack(RegistryManager.ashen_cloak_boots))).addAncestor(slate);
-		//field_chart = new ResearchBase("field_chart", new ItemStack(RegistryManager.field_chart), 0, 5).addAncestor(cluster);
+		field_chart = new ResearchBase("field_chart", new ItemStack(RegistryManager.FIELD_CHART_ITEM.get()), 0, 5).addAncestor(cluster);
 		//inflictor = new ResearchBase("inflictor", new ItemStack(RegistryManager.inflictor_gem), 11, 7).addAncestor(ashen_cloak);
 		tyrfing = new ResearchBase("tyrfing", new ItemStack(RegistryManager.TYRFING.get()), 8, 6).addAncestor(slate);
 		//glimmer = new ResearchBase("glimmer", new ItemStack(RegistryManager.glimmer_shard), 9, 0).addAncestor(slate);
@@ -446,7 +446,7 @@ public class ResearchManager {
 		.addResearch(cluster)
 		//.addResearch(ashen_cloak)
 		//.addResearch(inflictor)
-		//.addResearch(field_chart)
+		.addResearch(field_chart)
 		.addResearch(materia)
 		.addResearch(tyrfing)
 		//.addResearch(glimmer)

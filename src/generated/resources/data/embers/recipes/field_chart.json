@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "embers:archaic_brick"
+    },
+    "C": {
+      "item": "embers:ember_crystal_cluster"
+    }
+  },
+  "pattern": [
+    "BBB",
+    "BCB",
+    "BBB"
+  ],
+  "result": {
+    "item": "embers:field_chart"
+  },
+  "show_notification": true
+}
