@@ -26,6 +26,12 @@ I've decided to port Embers Rekindled to a Minecraft version beyond 1.12.2, I do
 - The ember bore now requires at least 3 bedrock touching the blades to mine ember
 - The ember cluster is now worth 4400 ember instead of 3600
 - Alchemy has been completely redesigned, you now have to match aspecti to ingredients and alchemical waste gives hints similar to the ones you get in the game mastermind
+- The ember injector can now be placed up to one block away from a crystal seed to allow picking up drops with 6 injectors on one crystal
+- Metal crystal seeds now generate in small ruins instead of being craftable, their metal type can be changed with an alchemy recipe
+- Catalytic plugs now run on steam or dwarven gas, wildfire stirlings can run on dwarven gas too
+- The limit on most machine upgrades has been removed and replaced with decreased effectiveness above a certain amount
+- Machine upgrades can now be proxied up to 3 blocks away from a machine with mechanical cores, most upgrades lose effectiveness with distance
+- The field chart can now be toggled between displaying the current ember and base ember instead of displaying both at the same time
 
 ## Things I want to change:
 - There's a cool document with some of Elucent's plans for Embers, quite a bit of it has already been implemented by bord but there's also some ideas for some major changes and a port would be an ideal moment to implement them: https://github.com/RCXcrafter/EmbersRekindled/blob/rekindled/docs/elucent-plans.txt
