@@ -146,6 +146,7 @@ public class EmbersLang extends LanguageProvider {
 		addItem(RegistryManager.EMBER_CRYSTAL_CLUSTER, "Ember Crystal Cluster");
 		addItem(RegistryManager.WILDFIRE_CORE, "Wildfire Core");
 		addItem(RegistryManager.ISOLATED_MATERIA, "Isolated Materia");
+		addItem(RegistryManager.ADHESIVE, "Adhesive");
 
 		addItem(RegistryManager.RAW_CAMINITE_PLATE, "Raw Caminite Plate");
 		addItem(RegistryManager.RAW_FLAT_STAMP, "Raw Flat Stamp");

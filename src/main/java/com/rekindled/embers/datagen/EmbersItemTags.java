@@ -170,6 +170,13 @@ public class EmbersItemTags extends ItemTagsProvider {
 		tag(Tags.Items.TOOLS).addTag(TOOLS_HAMMERS);
 		tag(TOOLS_HAMMERS).add(RegistryManager.TINKER_HAMMER.get(), RegistryManager.GRANDHAMMER.get());
 
+		tag(Tags.Items.ARMORS_HELMETS).add(RegistryManager.ASHEN_GOGGLES.get());
+		tag(Tags.Items.ARMORS_CHESTPLATES).add(RegistryManager.ASHEN_CLOAK.get());
+		tag(Tags.Items.ARMORS_LEGGINGS).add(RegistryManager.ASHEN_LEGGINGS.get());
+		tag(Tags.Items.ARMORS_BOOTS).add(RegistryManager.ASHEN_BOOTS.get());
+
+		tag(Tags.Items.SLIMEBALLS).add(RegistryManager.ADHESIVE.get());
+
 		copy(EmbersBlockTags.WORLD_BOTTOM, WORLD_BOTTOM);
 
 		copy(EmbersBlockTags.PRISTINE_COPPER, PRISTINE_COPPER);

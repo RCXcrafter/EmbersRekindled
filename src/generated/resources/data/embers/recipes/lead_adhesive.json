@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "B": {
+      "tag": "forge:slimeballs"
+    },
+    "S": {
+      "tag": "forge:string"
+    }
+  },
+  "pattern": [
+    "SS ",
+    "SB ",
+    "  S"
+  ],
+  "result": {
+    "count": 2,
+    "item": "minecraft:lead"
+  },
+  "show_notification": true
+}

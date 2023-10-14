@@ -231,16 +231,16 @@ public class Embers {
 	}
 
 	public static void fixMappings(MissingMappingsEvent event) {
-		for (Mapping<Block> mapping : event.getMappings(Keys.BLOCKS, "embersrekindled")) {
+		for (Mapping<Block> mapping : event.getMappings(Keys.BLOCKS, MODID_OLD)) {
 			mapping.remap(BuiltInRegistries.BLOCK.get(new ResourceLocation(MODID, mapping.getKey().getPath())));
 		}
-		for (Mapping<Item> mapping : event.getMappings(Keys.ITEMS, "embersrekindled")) {
+		for (Mapping<Item> mapping : event.getMappings(Keys.ITEMS, MODID_OLD)) {
 			mapping.remap(BuiltInRegistries.ITEM.get(new ResourceLocation(MODID, mapping.getKey().getPath())));
 		}
-		for (Mapping<Fluid> mapping : event.getMappings(Keys.FLUIDS, "embersrekindled")) {
+		for (Mapping<Fluid> mapping : event.getMappings(Keys.FLUIDS, MODID_OLD)) {
 			mapping.remap(ForgeRegistries.FLUIDS.getValue(new ResourceLocation(MODID, mapping.getKey().getPath())));
 		}
-		for (Mapping<EntityType<?>> mapping : event.getMappings(Keys.ENTITY_TYPES, "embersrekindled")) {
+		for (Mapping<EntityType<?>> mapping : event.getMappings(Keys.ENTITY_TYPES, MODID_OLD)) {
 			mapping.remap(ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(MODID, mapping.getKey().getPath())));
 		}
 	}

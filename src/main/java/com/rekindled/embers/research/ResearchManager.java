@@ -255,7 +255,7 @@ public class ResearchManager {
 		//glimmer = new ResearchBase("glimmer", new ItemStack(RegistryManager.glimmer_shard), 9, 0).addAncestor(slate);
 		//metallurgic_dust = new ResearchBase("metallurgic_dust", new ItemStack(RegistryManager.dust_metallurgic), 0, 2).addAncestor(slate);
 
-		//adhesive = new ResearchBase("adhesive", new ItemStack(RegistryManager.adhesive), 10, 1);
+		adhesive = new ResearchBase("adhesive", new ItemStack(RegistryManager.ADHESIVE.get()), 10, 1);
 		hellish_synthesis = new ResearchBase("hellish_synthesis", new ItemStack(Items.NETHERRACK), 2, 1);
 		archaic_brick = new ResearchBase("archaic_brick", new ItemStack(RegistryManager.ARCHAIC_BRICK.get()), 5, 2).addAncestor(hellish_synthesis);
 		motive_core = new ResearchBase("motive_core", new ItemStack(RegistryManager.ANCIENT_MOTIVE_CORE.get()), 4, 4).addAncestor(archaic_brick);
@@ -353,7 +353,7 @@ public class ResearchManager {
 		subCategorySimpleAlchemy.addResearch(hellish_synthesis);
 		subCategorySimpleAlchemy.addResearch(archaic_brick);
 		subCategorySimpleAlchemy.addResearch(motive_core);
-		//subCategorySimpleAlchemy.addResearch(adhesive);
+		subCategorySimpleAlchemy.addResearch(adhesive);
 		subCategorySimpleAlchemy.addResearch(dwarven_oil);
 
 		subCategoryWildfire.addResearch(wildfire);

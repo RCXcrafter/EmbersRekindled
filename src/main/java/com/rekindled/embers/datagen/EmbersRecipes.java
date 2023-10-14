@@ -162,60 +162,63 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		AlchemyRecipeBuilder.create(new ItemStack(Items.SOUL_SAND, 4)).tablet(RegistryManager.ASH.get()).domain(Embers.MODID).folder(alchemyFolder)
 		.inputs(Items.SAND, Items.SAND, Items.SAND, Items.SAND)
 		.aspects(EmbersItemTags.COPPER_ASPECTUS, EmbersItemTags.IRON_ASPECTUS).save(consumer);
-		AlchemyRecipeBuilder.create(new ItemStack(RegistryManager.ARCHAIC_BRICK.get(), 5)).tablet(RegistryManager.ARCHAIC_BRICK.get()).domain(Embers.MODID).folder(alchemyFolder)
+		AlchemyRecipeBuilder.create(new ItemStack(RegistryManager.ARCHAIC_BRICK.get(), 5)).tablet(RegistryManager.ARCHAIC_BRICK.get()).folder(alchemyFolder)
 		.inputs(Items.SOUL_SAND, Items.CLAY_BALL, Items.CLAY_BALL)
 		.aspects(EmbersItemTags.IRON_ASPECTUS, EmbersItemTags.SILVER_ASPECTUS).save(consumer);
-		AlchemyRecipeBuilder.create(RegistryManager.ANCIENT_MOTIVE_CORE.get()).tablet(RegistryManager.EMBER_SHARD.get()).domain(Embers.MODID).folder(alchemyFolder)
+		AlchemyRecipeBuilder.create(RegistryManager.ANCIENT_MOTIVE_CORE.get()).tablet(RegistryManager.EMBER_SHARD.get()).folder(alchemyFolder)
 		.inputs(RegistryManager.ARCHAIC_BRICK.get(), RegistryManager.ARCHAIC_BRICK.get(), RegistryManager.ARCHAIC_BRICK.get())
 		.aspects(EmbersItemTags.DAWNSTONE_ASPECTUS, EmbersItemTags.LEAD_ASPECTUS).save(consumer);
-		AlchemyRecipeBuilder.create(RegistryManager.CODEBREAKING_SLATE.get()).tablet(RegistryManager.EMBER_GRIT.get()).domain(Embers.MODID).folder(alchemyFolder)
+		AlchemyRecipeBuilder.create(RegistryManager.CODEBREAKING_SLATE.get()).tablet(RegistryManager.EMBER_GRIT.get()).folder(alchemyFolder)
 		.inputs(RegistryManager.CAMINITE_PLATE.get(), RegistryManager.ARCHAIC_BRICK.get(), RegistryManager.ARCHAIC_BRICK.get())
 		.aspects(EmbersItemTags.COPPER_ASPECTUS, EmbersItemTags.LEAD_ASPECTUS).save(consumer);
-		AlchemyRecipeBuilder.create(RegistryManager.ASHEN_FABRIC.get()).tablet(ItemTags.WOOL).domain(Embers.MODID).folder(alchemyFolder)
+		AlchemyRecipeBuilder.create(RegistryManager.ASHEN_FABRIC.get()).tablet(ItemTags.WOOL).folder(alchemyFolder)
 		.inputs(EmbersItemTags.ASH_DUST, EmbersItemTags.ASH_DUST, Tags.Items.STRING, Tags.Items.STRING)
 		.aspects(EmbersItemTags.IRON_ASPECTUS, EmbersItemTags.LEAD_ASPECTUS, EmbersItemTags.DAWNSTONE_ASPECTUS).save(consumer);
-		AlchemyRecipeBuilder.create(RegistryManager.EMBER_CRYSTAL_CLUSTER.get()).tablet(RegistryManager.EMBER_CRYSTAL.get()).domain(Embers.MODID).folder(alchemyFolder)
+		AlchemyRecipeBuilder.create(RegistryManager.EMBER_CRYSTAL_CLUSTER.get()).tablet(RegistryManager.EMBER_CRYSTAL.get()).folder(alchemyFolder)
 		.inputs(Ingredient.of(Tags.Items.GUNPOWDER), Ingredient.of(RegistryManager.EMBER_SHARD.get()), Ingredient.of(RegistryManager.EMBER_SHARD.get()), Ingredient.of(RegistryManager.EMBER_SHARD.get()))
 		.aspects(EmbersItemTags.COPPER_ASPECTUS, EmbersItemTags.IRON_ASPECTUS, EmbersItemTags.DAWNSTONE_ASPECTUS).save(consumer);
-		AlchemyRecipeBuilder.create(RegistryManager.WILDFIRE_CORE.get()).tablet(RegistryManager.ANCIENT_MOTIVE_CORE.get()).domain(Embers.MODID).folder(alchemyFolder)
+		AlchemyRecipeBuilder.create(RegistryManager.WILDFIRE_CORE.get()).tablet(RegistryManager.ANCIENT_MOTIVE_CORE.get()).folder(alchemyFolder)
 		.inputs(Ingredient.of(EmbersItemTags.DAWNSTONE_INGOT), Ingredient.of(RegistryManager.EMBER_CRYSTAL_CLUSTER.get()), Ingredient.of(EmbersItemTags.DAWNSTONE_INGOT), Ingredient.of(EmbersItemTags.COPPER_PLATE))
 		.aspects(EmbersItemTags.COPPER_ASPECTUS, EmbersItemTags.IRON_ASPECTUS, EmbersItemTags.SILVER_ASPECTUS, EmbersItemTags.DAWNSTONE_ASPECTUS).save(consumer);
-		AlchemyRecipeBuilder.create(RegistryManager.TYRFING.get()).tablet(RegistryManager.LEAD_TOOLS.SWORD.get()).domain(Embers.MODID).folder(alchemyFolder)
+		AlchemyRecipeBuilder.create(RegistryManager.TYRFING.get()).tablet(RegistryManager.LEAD_TOOLS.SWORD.get()).folder(alchemyFolder)
 		.inputs(Tags.Items.STORAGE_BLOCKS_COAL, Tags.Items.OBSIDIAN, EmbersItemTags.LEAD_INGOT, EmbersItemTags.LEAD_INGOT)
 		.aspects(EmbersItemTags.LEAD_ASPECTUS, EmbersItemTags.SILVER_ASPECTUS).save(consumer);
-		AlchemyRecipeBuilder.create(new ItemStack(RegistryManager.ISOLATED_MATERIA.get(), 4)).tablet(Tags.Items.INGOTS_IRON).domain(Embers.MODID).folder(alchemyFolder)
+		AlchemyRecipeBuilder.create(new ItemStack(RegistryManager.ISOLATED_MATERIA.get(), 4)).tablet(Tags.Items.INGOTS_IRON).folder(alchemyFolder)
 		.inputs(Ingredient.of(Tags.Items.GEMS_QUARTZ), Ingredient.of(Items.CLAY_BALL), Ingredient.of(Tags.Items.GEMS_LAPIS))
 		.aspects(EmbersItemTags.COPPER_ASPECTUS, EmbersItemTags.IRON_ASPECTUS, EmbersItemTags.LEAD_ASPECTUS, EmbersItemTags.SILVER_ASPECTUS).save(consumer);
-		AlchemyRecipeBuilder.create(RegistryManager.CATALYTIC_PLUG.get()).tablet(EmbersItemTags.SILVER_INGOT).domain(Embers.MODID).folder(alchemyFolder)
+		AlchemyRecipeBuilder.create(RegistryManager.CATALYTIC_PLUG.get()).tablet(EmbersItemTags.SILVER_INGOT).folder(alchemyFolder)
 		.inputs(Ingredient.of(RegistryManager.FLUID_PIPE.get()), Ingredient.of(Tags.Items.GLASS_SILICA), Ingredient.of(RegistryManager.FLUID_PIPE.get()))
 		.aspects(EmbersItemTags.DAWNSTONE_ASPECTUS, EmbersItemTags.SILVER_ASPECTUS).save(consumer);
-		AlchemyRecipeBuilder.create(RegistryManager.COPPER_CRYSTAL_SEED.ITEM.get()).tablet(EmbersItemTags.CRYSTAL_SEEDS).domain(Embers.MODID).folder(alchemyFolder)
+		AlchemyRecipeBuilder.create(RegistryManager.COPPER_CRYSTAL_SEED.ITEM.get()).tablet(EmbersItemTags.CRYSTAL_SEEDS).folder(alchemyFolder)
 		.inputs(Tags.Items.INGOTS_COPPER, Tags.Items.INGOTS_COPPER, Tags.Items.INGOTS_COPPER)
 		.aspects(EmbersItemTags.IRON_ASPECTUS, EmbersItemTags.COPPER_ASPECTUS).save(consumer);
-		AlchemyRecipeBuilder.create(RegistryManager.IRON_CRYSTAL_SEED.ITEM.get()).tablet(EmbersItemTags.CRYSTAL_SEEDS).domain(Embers.MODID).folder(alchemyFolder)
+		AlchemyRecipeBuilder.create(RegistryManager.IRON_CRYSTAL_SEED.ITEM.get()).tablet(EmbersItemTags.CRYSTAL_SEEDS).folder(alchemyFolder)
 		.inputs(Tags.Items.INGOTS_IRON, Tags.Items.INGOTS_IRON, Tags.Items.INGOTS_IRON)
 		.aspects(EmbersItemTags.IRON_ASPECTUS, EmbersItemTags.SILVER_ASPECTUS).save(consumer);
-		AlchemyRecipeBuilder.create(RegistryManager.GOLD_CRYSTAL_SEED.ITEM.get()).tablet(EmbersItemTags.CRYSTAL_SEEDS).domain(Embers.MODID).folder(alchemyFolder)
+		AlchemyRecipeBuilder.create(RegistryManager.GOLD_CRYSTAL_SEED.ITEM.get()).tablet(EmbersItemTags.CRYSTAL_SEEDS).folder(alchemyFolder)
 		.inputs(Tags.Items.INGOTS_GOLD, Tags.Items.INGOTS_GOLD, Tags.Items.INGOTS_GOLD)
 		.aspects(EmbersItemTags.IRON_ASPECTUS, EmbersItemTags.DAWNSTONE_ASPECTUS).save(consumer);
-		AlchemyRecipeBuilder.create(RegistryManager.LEAD_CRYSTAL_SEED.ITEM.get()).tablet(EmbersItemTags.CRYSTAL_SEEDS).domain(Embers.MODID).folder(alchemyFolder)
+		AlchemyRecipeBuilder.create(RegistryManager.LEAD_CRYSTAL_SEED.ITEM.get()).tablet(EmbersItemTags.CRYSTAL_SEEDS).folder(alchemyFolder)
 		.inputs(EmbersItemTags.LEAD_INGOT, EmbersItemTags.LEAD_INGOT, EmbersItemTags.LEAD_INGOT)
 		.aspects(EmbersItemTags.IRON_ASPECTUS, EmbersItemTags.LEAD_ASPECTUS).save(consumer);
-		AlchemyRecipeBuilder.create(RegistryManager.SILVER_CRYSTAL_SEED.ITEM.get()).tablet(EmbersItemTags.CRYSTAL_SEEDS).domain(Embers.MODID).folder(alchemyFolder)
+		AlchemyRecipeBuilder.create(RegistryManager.SILVER_CRYSTAL_SEED.ITEM.get()).tablet(EmbersItemTags.CRYSTAL_SEEDS).folder(alchemyFolder)
 		.inputs(EmbersItemTags.SILVER_INGOT, EmbersItemTags.SILVER_INGOT, EmbersItemTags.SILVER_INGOT)
 		.aspects(EmbersItemTags.IRON_ASPECTUS, EmbersItemTags.SILVER_ASPECTUS).save(consumer);
-		AlchemyRecipeBuilder.create(RegistryManager.ALUMINUM_CRYSTAL_SEED.ITEM.get()).tablet(EmbersItemTags.CRYSTAL_SEEDS).domain(Embers.MODID).folder(alchemyFolder)
+		AlchemyRecipeBuilder.create(RegistryManager.ALUMINUM_CRYSTAL_SEED.ITEM.get()).tablet(EmbersItemTags.CRYSTAL_SEEDS).folder(alchemyFolder)
 		.inputs(EmbersItemTags.ALUMINUM_INGOT, EmbersItemTags.ALUMINUM_INGOT, EmbersItemTags.ALUMINUM_INGOT)
 		.aspects(EmbersItemTags.IRON_ASPECTUS, EmbersItemTags.COPPER_ASPECTUS).save(ConsumerWrapperBuilder.wrap().addCondition(new AndCondition(tagReal(EmbersItemTags.ALUMINUM_INGOT), tagReal(EmbersItemTags.ALUMINUM_NUGGET))).build(consumer));
-		AlchemyRecipeBuilder.create(RegistryManager.NICKEL_CRYSTAL_SEED.ITEM.get()).tablet(EmbersItemTags.CRYSTAL_SEEDS).domain(Embers.MODID).folder(alchemyFolder)
+		AlchemyRecipeBuilder.create(RegistryManager.NICKEL_CRYSTAL_SEED.ITEM.get()).tablet(EmbersItemTags.CRYSTAL_SEEDS).folder(alchemyFolder)
 		.inputs(EmbersItemTags.NICKEL_INGOT, EmbersItemTags.NICKEL_INGOT, EmbersItemTags.NICKEL_INGOT)
 		.aspects(EmbersItemTags.IRON_ASPECTUS, EmbersItemTags.LEAD_ASPECTUS).save(ConsumerWrapperBuilder.wrap().addCondition(new AndCondition(tagReal(EmbersItemTags.NICKEL_INGOT), tagReal(EmbersItemTags.NICKEL_NUGGET))).build(consumer));
-		AlchemyRecipeBuilder.create(RegistryManager.TIN_CRYSTAL_SEED.ITEM.get()).tablet(EmbersItemTags.CRYSTAL_SEEDS).domain(Embers.MODID).folder(alchemyFolder)
+		AlchemyRecipeBuilder.create(RegistryManager.TIN_CRYSTAL_SEED.ITEM.get()).tablet(EmbersItemTags.CRYSTAL_SEEDS).folder(alchemyFolder)
 		.inputs(EmbersItemTags.TIN_INGOT, EmbersItemTags.TIN_INGOT, EmbersItemTags.TIN_INGOT)
 		.aspects(EmbersItemTags.IRON_ASPECTUS, EmbersItemTags.SILVER_ASPECTUS).save(ConsumerWrapperBuilder.wrap().addCondition(new AndCondition(tagReal(EmbersItemTags.TIN_INGOT), tagReal(EmbersItemTags.TIN_NUGGET))).build(consumer));
-		AlchemyRecipeBuilder.create(RegistryManager.INFLICTOR_GEM.get()).tablet(Tags.Items.GEMS_DIAMOND).domain(Embers.MODID).folder(alchemyFolder)
+		AlchemyRecipeBuilder.create(RegistryManager.INFLICTOR_GEM.get()).tablet(Tags.Items.GEMS_DIAMOND).folder(alchemyFolder)
 		.inputs(EmbersItemTags.DAWNSTONE_INGOT, ItemTags.COALS, ItemTags.COALS, ItemTags.COALS)
 		.aspects(EmbersItemTags.DAWNSTONE_ASPECTUS, EmbersItemTags.SILVER_ASPECTUS, EmbersItemTags.LEAD_ASPECTUS).save(consumer);
+		AlchemyRecipeBuilder.create(new ItemStack(RegistryManager.ADHESIVE.get(), 6)).tablet(Items.CLAY_BALL).folder(alchemyFolder)
+		.inputs(Items.BONE_MEAL, Items.BONE_MEAL)
+		.aspects(EmbersItemTags.IRON_ASPECTUS, EmbersItemTags.LEAD_ASPECTUS).save(consumer);
 
 		//boiling
 		BoilingRecipeBuilder.create(RegistryManager.STEAM.FLUID.get(), 5).folder(boilingFolder).input(FluidTags.WATER, 1).save(consumer);
@@ -1018,6 +1021,23 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('B', RegistryManager.ARCHAIC_BRICK.get())
 		.unlockedBy("has_cluster", has(RegistryManager.EMBER_CRYSTAL_CLUSTER.get()))
 		.save(consumer, getResource("field_chart"));
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, Items.LEAD, 2)
+		.pattern("SS ")
+		.pattern("SB ")
+		.pattern("  S")
+		.define('S', Tags.Items.STRING)
+		.define('B', Tags.Items.SLIMEBALLS)
+		.unlockedBy("has_slime", has(Tags.Items.SLIMEBALLS))
+		.save(consumer, getResource("lead_adhesive"));
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, Items.STICKY_PISTON)
+		.pattern("B")
+		.pattern("P")
+		.define('P', Items.PISTON)
+		.define('B', Tags.Items.SLIMEBALLS)
+		.unlockedBy("has_slime", has(Tags.Items.SLIMEBALLS))
+		.save(consumer, getResource("sticky_piston_adhesive"));
 	}
 
 	public void fullOreRecipes(String name, ImmutableList<ItemLike> ores, Fluid fluid, Item raw, Item rawBlock, Item block, Item ingot, Item nugget, Item plate, Consumer<FinishedRecipe> consumer, MeltingBonus... bonusses) {
