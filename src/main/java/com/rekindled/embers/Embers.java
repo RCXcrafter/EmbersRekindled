@@ -3,6 +3,8 @@ package com.rekindled.embers;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
+import com.rekindled.embers.api.item.IInflictorGem;
+import com.rekindled.embers.api.item.IInflictorGemHolder;
 import com.rekindled.embers.api.item.ITyrfingWeapon;
 import com.rekindled.embers.api.power.IEmberCapability;
 import com.rekindled.embers.api.upgrades.UpgradeUtil;
@@ -52,6 +54,7 @@ import com.rekindled.embers.gui.SlateScreen;
 import com.rekindled.embers.item.EmberStorageItem;
 import com.rekindled.embers.item.TyrfingItem;
 import com.rekindled.embers.model.AncientGolemModel;
+import com.rekindled.embers.model.AshenArmorModel;
 import com.rekindled.embers.network.PacketHandler;
 import com.rekindled.embers.network.message.MessageWorldSeed;
 import com.rekindled.embers.particle.AlchemyCircleParticle;
@@ -68,8 +71,10 @@ import com.rekindled.embers.util.Misc;
 
 import net.minecraft.Util;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -80,9 +85,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -252,6 +259,14 @@ public class Embers {
 			}
 		}
 
+		attuneInflictorGem(event.getEntity(), event.getSource(), event.getEntity().getMainHandItem());
+		attuneInflictorGem(event.getEntity(), event.getSource(), event.getEntity().getOffhandItem());
+
+		applyInflictorGemResistance(event, event.getEntity().getItemBySlot(EquipmentSlot.HEAD));
+		applyInflictorGemResistance(event, event.getEntity().getItemBySlot(EquipmentSlot.CHEST)); //only chest is used but call the other ones too for the sake of the api
+		applyInflictorGemResistance(event, event.getEntity().getItemBySlot(EquipmentSlot.LEGS));
+		applyInflictorGemResistance(event, event.getEntity().getItemBySlot(EquipmentSlot.FEET));
+
 		final Entity source = event.getSource().getEntity();
 		if (source instanceof LivingEntity livingSource) {
 			final ItemStack heldStack = livingSource.getMainHandItem();
@@ -260,6 +275,24 @@ public class Embers {
 			if (heldStack.getItem() instanceof ITyrfingWeapon tyrfing) {
 				tyrfing.attack(event, event.getEntity().getAttribute(Attributes.ARMOR).getValue());
 			}
+		}
+	}
+
+	public static void attuneInflictorGem(LivingEntity entityLiving, DamageSource source, ItemStack stack) {
+		if (stack.getItem() instanceof IInflictorGem) {
+			((IInflictorGem) stack.getItem()).attuneSource(stack, entityLiving, source);
+		}
+	}
+
+	public static void applyInflictorGemResistance(LivingHurtEvent event, ItemStack stack) {
+		Item item = stack.getItem();
+		if (item instanceof IInflictorGemHolder) {
+			IInflictorGemHolder inflictorGemHolder = (IInflictorGemHolder) item;
+			float mult = Math.max(0, 1.0f - inflictorGemHolder.getTotalDamageResistance(event.getEntity(), event.getSource(), stack));
+			if (mult == 0) {
+				event.setCanceled(true);
+			}
+			event.setAmount(event.getAmount() * mult);
 		}
 	}
 
@@ -338,6 +371,9 @@ public class Embers {
 			ItemBlockRenderTypes.setRenderLayer(RegistryManager.DWARVEN_OIL.FLUID_FLOW.get(), RenderType.translucent());
 			ItemBlockRenderTypes.setRenderLayer(RegistryManager.DWARVEN_GAS.FLUID.get(), RenderType.translucent());
 			ItemBlockRenderTypes.setRenderLayer(RegistryManager.DWARVEN_GAS.FLUID_FLOW.get(), RenderType.translucent());
+			event.enqueueWork(() -> ItemProperties.register(RegistryManager.INFLICTOR_GEM.get(), new ResourceLocation(Embers.MODID, "charged"), (stack, level, entity, seed) -> {
+				return stack.getOrCreateTag().contains("type") ? 1.0F : 0.0F;
+			}));
 		}
 
 		@OnlyIn(Dist.CLIENT)
@@ -406,6 +442,10 @@ public class Embers {
 		@SubscribeEvent
 		static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
 			event.registerLayerDefinition(AncientGolemRenderer.LAYER_LOCATION, AncientGolemModel::createLayer);
+			event.registerLayerDefinition(AshenArmorModel.ASHEN_ARMOR_HEAD, () -> LayerDefinition.create(AshenArmorModel.createHeadMesh(), 64, 64));
+			event.registerLayerDefinition(AshenArmorModel.ASHEN_ARMOR_CHEST, () -> LayerDefinition.create(AshenArmorModel.createChestMesh(), 64, 64));
+			event.registerLayerDefinition(AshenArmorModel.ASHEN_ARMOR_LEGS, () -> LayerDefinition.create(AshenArmorModel.createLegsMesh(), 64, 64));
+			event.registerLayerDefinition(AshenArmorModel.ASHEN_ARMOR_FEET, () -> LayerDefinition.create(AshenArmorModel.createFeetMesh(), 64, 64));
 		}
 
 		@OnlyIn(Dist.CLIENT)

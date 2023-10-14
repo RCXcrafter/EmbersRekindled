@@ -14,6 +14,8 @@ import com.rekindled.embers.recipe.BoilingRecipeBuilder;
 import com.rekindled.embers.recipe.BoringRecipeBuilder;
 import com.rekindled.embers.recipe.EmberActivationRecipeBuilder;
 import com.rekindled.embers.recipe.GaseousFuelRecipeBuilder;
+import com.rekindled.embers.recipe.GemSocketRecipeBuilder;
+import com.rekindled.embers.recipe.GemUnsocketRecipeBuilder;
 import com.rekindled.embers.recipe.MeltingRecipeBuilder;
 import com.rekindled.embers.recipe.MetalCoefficientRecipeBuilder;
 import com.rekindled.embers.recipe.MixingRecipeBuilder;
@@ -211,6 +213,9 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		AlchemyRecipeBuilder.create(RegistryManager.TIN_CRYSTAL_SEED.ITEM.get()).tablet(EmbersItemTags.CRYSTAL_SEEDS).domain(Embers.MODID).folder(alchemyFolder)
 		.inputs(EmbersItemTags.TIN_INGOT, EmbersItemTags.TIN_INGOT, EmbersItemTags.TIN_INGOT)
 		.aspects(EmbersItemTags.IRON_ASPECTUS, EmbersItemTags.SILVER_ASPECTUS).save(ConsumerWrapperBuilder.wrap().addCondition(new AndCondition(tagReal(EmbersItemTags.TIN_INGOT), tagReal(EmbersItemTags.TIN_NUGGET))).build(consumer));
+		AlchemyRecipeBuilder.create(RegistryManager.INFLICTOR_GEM.get()).tablet(Tags.Items.GEMS_DIAMOND).domain(Embers.MODID).folder(alchemyFolder)
+		.inputs(EmbersItemTags.DAWNSTONE_INGOT, ItemTags.COALS, ItemTags.COALS, ItemTags.COALS)
+		.aspects(EmbersItemTags.DAWNSTONE_ASPECTUS, EmbersItemTags.SILVER_ASPECTUS, EmbersItemTags.LEAD_ASPECTUS).save(consumer);
 
 		//boiling
 		BoilingRecipeBuilder.create(RegistryManager.STEAM.FLUID.get(), 5).folder(boilingFolder).input(FluidTags.WATER, 1).save(consumer);
@@ -219,6 +224,10 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		//gaseous fuel
 		GaseousFuelRecipeBuilder.create(RegistryManager.STEAM.FLUID.get(), 1).burnTime(1).powerMultiplier(2.0).save(consumer);
 		GaseousFuelRecipeBuilder.create(RegistryManager.DWARVEN_GAS.FLUID.get(), 1).burnTime(5).powerMultiplier(2.5).save(consumer);
+
+		//special recipes
+		GemSocketRecipeBuilder.create(Tags.Items.STRING).id(new ResourceLocation(Embers.MODID, "gem_socketing")).save(consumer);
+		GemUnsocketRecipeBuilder.create(new ResourceLocation(Embers.MODID, "gem_unsocketing")).save(consumer);
 
 		//crafting
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.EMBER_CRYSTAL.get())
@@ -485,7 +494,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_charger", has(RegistryManager.COPPER_CHARGER.get()))
 		.save(consumer, getResource("grandhammer"));
 
-		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, RegistryManager.BLAZING_RAY.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, RegistryManager.BLAZING_RAY.get())
 		.pattern(" DP")
 		.pattern("DPI")
 		.pattern("SW ")
@@ -497,7 +506,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_charger", has(RegistryManager.COPPER_CHARGER.get()))
 		.save(consumer, getResource("blazing_ray"));
 
-		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, RegistryManager.CINDER_STAFF.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, RegistryManager.CINDER_STAFF.get())
 		.pattern("SES")
 		.pattern("IWI")
 		.pattern(" W ")
@@ -507,6 +516,43 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('W', Tags.Items.RODS_WOODEN)
 		.unlockedBy("has_charger", has(RegistryManager.COPPER_CHARGER.get()))
 		.save(consumer, getResource("cinder_staff"));
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, RegistryManager.ASHEN_GOGGLES.get())
+		.pattern(" S ")
+		.pattern("C C")
+		.pattern("DCD")
+		.define('S', Tags.Items.STRING)
+		.define('D', itemTag("forge", "ingots/dawnstone"))
+		.define('C', RegistryManager.ASHEN_FABRIC.get())
+		.unlockedBy("has_ashen_fabric", has(RegistryManager.ASHEN_FABRIC.get()))
+		.save(consumer, getResource("ashen_goggles"));
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, RegistryManager.ASHEN_CLOAK.get())
+		.pattern("P P")
+		.pattern("CDC")
+		.pattern("CDC")
+		.define('D', itemTag("forge", "ingots/dawnstone"))
+		.define('P', itemTag("forge", "plates/dawnstone"))
+		.define('C', RegistryManager.ASHEN_FABRIC.get())
+		.unlockedBy("has_ashen_fabric", has(RegistryManager.ASHEN_FABRIC.get()))
+		.save(consumer, getResource("ashen_cloak"));
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, RegistryManager.ASHEN_LEGGINGS.get())
+		.pattern("CCC")
+		.pattern("D D")
+		.pattern("D D")
+		.define('D', itemTag("forge", "ingots/dawnstone"))
+		.define('C', RegistryManager.ASHEN_FABRIC.get())
+		.unlockedBy("has_ashen_fabric", has(RegistryManager.ASHEN_FABRIC.get()))
+		.save(consumer, getResource("ashen_leggings"));
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, RegistryManager.ASHEN_BOOTS.get())
+		.pattern("C C")
+		.pattern("C C")
+		.pattern("C C")
+		.define('C', RegistryManager.ASHEN_FABRIC.get())
+		.unlockedBy("has_ashen_fabric", has(RegistryManager.ASHEN_FABRIC.get()))
+		.save(consumer, getResource("ashen_boots"));
 
 		toolRecipes(RegistryManager.LEAD_TOOLS, EmbersItemTags.LEAD_INGOT, RegistryManager.LEAD_NUGGET.get(), consumer);
 		toolRecipes(RegistryManager.SILVER_TOOLS, EmbersItemTags.SILVER_INGOT, RegistryManager.SILVER_NUGGET.get(), consumer);

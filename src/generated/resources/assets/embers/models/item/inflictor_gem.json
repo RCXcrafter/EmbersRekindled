@@ -1,0 +1,14 @@
+{
+  "parent": "minecraft:item/generated",
+  "overrides": [
+    {
+      "model": "embers:item/inflictor_gem_charged",
+      "predicate": {
+        "embers:charged": 1.0
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "embers:item/inflictor_gem"
+  }
+}

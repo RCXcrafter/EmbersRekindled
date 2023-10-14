@@ -1,6 +1,5 @@
 package com.rekindled.embers.datagen;
 
-import com.google.gson.JsonObject;
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.RegistryManager.FluidStuff;
@@ -10,9 +9,11 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.client.model.generators.CustomLoaderBuilder;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelBuilder;
+import net.minecraftforge.client.model.generators.loaders.DynamicFluidContainerModelBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -25,7 +26,7 @@ public class EmbersItemModels extends ItemModelProvider {
 	@Override
 	protected void registerModels() {
 		for (FluidStuff fluid : RegistryManager.fluidList) {
-			bucketModel(fluid.FLUID_BUCKET, fluid.name);
+			bucketModel(fluid.FLUID_BUCKET, fluid.FLUID.get());
 			//itemWithModel(fluid.FLUID_BUCKET, "item/generated");
 		}
 
@@ -38,6 +39,14 @@ public class EmbersItemModels extends ItemModelProvider {
 		basicItem(RegistryManager.ALCHEMICAL_WASTE.get());
 		basicItem(RegistryManager.CODEBREAKING_SLATE.get());
 		layeredItem(RegistryManager.TYRFING, "item/handheld", "tyrfing", "tyrfing_gem");
+		withExistingParent(RegistryManager.INFLICTOR_GEM.getId().getPath(), new ResourceLocation("item/generated"))
+		.texture("layer0", new ResourceLocation(Embers.MODID, "item/inflictor_gem"))
+		.override().predicate(new ResourceLocation(Embers.MODID, "charged"), 1)
+		.model(singleTexture("inflictor_gem_charged", new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Embers.MODID, "item/inflictor_gem_charged")));
+		basicItem(RegistryManager.ASHEN_GOGGLES.get());
+		basicItem(RegistryManager.ASHEN_CLOAK.get());
+		basicItem(RegistryManager.ASHEN_LEGGINGS.get());
+		basicItem(RegistryManager.ASHEN_BOOTS.get());
 
 		basicItem(RegistryManager.EMBER_CRYSTAL.get());
 		basicItem(RegistryManager.EMBER_SHARD.get());
@@ -125,19 +134,9 @@ public class EmbersItemModels extends ItemModelProvider {
 		}
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public void bucketModel(RegistryObject<? extends BucketItem> registryObject, String name) {
-		ModelBuilder builder = getBuilder(registryObject.getId().getPath()).parent(getExistingFile(new ResourceLocation(Embers.MODID, "item/bucket_fluid")));
-
-		//I'm not sure how this works but it works
-		builder.customLoader((t, u) ->  new CustomLoaderBuilder(((ModelBuilder) t).getLocation(), (ModelBuilder) t, (ExistingFileHelper) u) {
-			public JsonObject toJson(JsonObject json) {
-				json.addProperty("loader", "forge:fluid_container");
-				json.addProperty("cover_is_mask", false);
-				json.addProperty("fluid", Embers.MODID + ":" + name);
-				return json;
-			}
-		});
+	public void bucketModel(RegistryObject<? extends BucketItem> registryObject, Fluid fluid) {
+		ModelBuilder<ItemModelBuilder> builder = withExistingParent(registryObject.getId().getPath(), new ResourceLocation(Embers.MODID, "item/bucket_fluid"));
+		builder.customLoader(DynamicFluidContainerModelBuilder::begin).fluid(fluid).coverIsMask(false).flipGas(true).end();
 	}
 
 	public void toolModels(ToolSet set) {

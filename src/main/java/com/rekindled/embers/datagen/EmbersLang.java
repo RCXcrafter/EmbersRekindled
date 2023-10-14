@@ -128,6 +128,11 @@ public class EmbersLang extends LanguageProvider {
 		addItem(RegistryManager.ALCHEMICAL_WASTE, "Alchemical Waste");
 		addItem(RegistryManager.CODEBREAKING_SLATE, "Codebreaking Slate");
 		addItem(RegistryManager.TYRFING, "Tyrfing");
+		addItem(RegistryManager.INFLICTOR_GEM, "Inflictor Gem");
+		addItem(RegistryManager.ASHEN_GOGGLES, "Ashen Goggles");
+		addItem(RegistryManager.ASHEN_CLOAK, "Ashen Cloak");
+		addItem(RegistryManager.ASHEN_LEGGINGS, "Ashen Leggings");
+		addItem(RegistryManager.ASHEN_BOOTS, "Ashen Boots");
 
 		addItem(RegistryManager.EMBER_CRYSTAL, "Ember Crystal");
 		addItem(RegistryManager.EMBER_SHARD, "Ember Shard");
@@ -282,6 +287,9 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".tooltip.crystal.xp", "Refinement %s/%s");
 
 		add(Embers.MODID + ".tooltip.tyrfing", "Deals damage based on the target's armor.");
+		add(Embers.MODID + ".tooltip.broken", "Broken");
+		add(Embers.MODID + ".tooltip.inflictor", "Attuned Damage: %s");
+		add(Embers.MODID + ".tooltip.inflictor.none", "Attuned Damage: none");
 
 
 		//jei stuff
@@ -687,7 +695,7 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".research.page.ashen_cloak", "Ashen Armor");
 		add(Embers.MODID + ".research.page.ashen_cloak.title", "Cloak of the Mage");
 		add(Embers.MODID + ".research.page.ashen_cloak.tags", "Alchemy;Transmutation;Ash;Ashen;Cloak;Inflictor;Gem;Fabric;");
-		add(Embers.MODID + ".research.page.ashen_cloak.desc", "By imbuing mundane cloth with alchemical ash, you have managed to synthesize a flexible yet strong Ashen fabric, with which you have designed armor. The armor on its own is fairly strong, and you believe it looks quite dashing, but you have a feeling it may be able to upgraded far further...");
+		add(Embers.MODID + ".research.page.ashen_cloak.desc", "By imbuing mundane cloth with alchemical ash, you have managed to synthesize a flexible yet strong Ashen fabric, with which you have designed armor. The armor on its own is fairly strong, and you believe it looks quite dashing, but you have a feeling it may be able to be upgraded far further...");
 
 		add(Embers.MODID + ".research.page.inflictor", "Inflictor Gems");
 		add(Embers.MODID + ".research.page.inflictor.title", "Absorbing Pain");

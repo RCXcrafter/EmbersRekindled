@@ -1,6 +1,7 @@
 {
   "parent": "embers:item/bucket_fluid",
   "cover_is_mask": false,
+  "flip_gas": true,
   "fluid": "embers:dwarven_gas",
   "loader": "forge:fluid_container"
 }

@@ -3,6 +3,7 @@ package com.rekindled.embers.entity.render;
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.entity.AncientGolemEntity;
 import com.rekindled.embers.model.AncientGolemModel;
+import com.rekindled.embers.model.AshenArmorModel;
 
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -20,6 +21,8 @@ public class AncientGolemRenderer extends MobRenderer<AncientGolemEntity, Ancien
 	public AncientGolemRenderer(EntityRendererProvider.Context context) {
 		super(context, new AncientGolemModel<AncientGolemEntity>(context.bakeLayer(LAYER_LOCATION)), 0.5f);
 		this.addLayer(new AncientGolemEyeLayer<>(this));
+		//I just need to get this context from somewhere
+		AshenArmorModel.init(context);
 	}
 
 	@Override

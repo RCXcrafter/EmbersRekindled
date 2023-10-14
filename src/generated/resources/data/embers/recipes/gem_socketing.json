@@ -1,0 +1,6 @@
+{
+  "type": "embers:gem_socket",
+  "ingredient": {
+    "tag": "forge:string"
+  }
+}

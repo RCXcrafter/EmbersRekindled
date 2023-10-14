@@ -248,9 +248,9 @@ public class ResearchManager {
 		catalytic_plug = new ResearchBase("catalytic_plug", new ItemStack(RegistryManager.CATALYTIC_PLUG_ITEM.get()), 12, 5).addAncestor(slate);
 		materia = new ResearchBase("materia", new ItemStack(RegistryManager.ISOLATED_MATERIA.get()), 6, 5).addAncestor(slate);
 		cluster = new ResearchBase("cluster", new ItemStack(RegistryManager.EMBER_CRYSTAL_CLUSTER.get()), 3, 4).addAncestor(slate);
-		//ashen_cloak = new ResearchShowItem("ashen_cloak", new ItemStack(RegistryManager.ashen_cloak_chest), 9, 4).addItem(new DisplayItem(new ItemStack(RegistryManager.ashen_cloak_head),new ItemStack(RegistryManager.ashen_cloak_chest),new ItemStack(RegistryManager.ashen_cloak_legs),new ItemStack(RegistryManager.ashen_cloak_boots))).addAncestor(slate);
+		ashen_cloak = new ResearchShowItem("ashen_cloak", new ItemStack(RegistryManager.ASHEN_CLOAK.get()), 9, 4).addItem(new DisplayItem(new ItemStack(RegistryManager.ASHEN_GOGGLES.get()),new ItemStack(RegistryManager.ASHEN_CLOAK.get()),new ItemStack(RegistryManager.ASHEN_LEGGINGS.get()),new ItemStack(RegistryManager.ASHEN_BOOTS.get()))).addAncestor(slate);
 		field_chart = new ResearchBase("field_chart", new ItemStack(RegistryManager.FIELD_CHART_ITEM.get()), 0, 5).addAncestor(cluster);
-		//inflictor = new ResearchBase("inflictor", new ItemStack(RegistryManager.inflictor_gem), 11, 7).addAncestor(ashen_cloak);
+		inflictor = new ResearchBase("inflictor", new ItemStack(RegistryManager.INFLICTOR_GEM.get()), 11, 7).addAncestor(ashen_cloak);
 		tyrfing = new ResearchBase("tyrfing", new ItemStack(RegistryManager.TYRFING.get()), 8, 6).addAncestor(slate);
 		//glimmer = new ResearchBase("glimmer", new ItemStack(RegistryManager.glimmer_shard), 9, 0).addAncestor(slate);
 		//metallurgic_dust = new ResearchBase("metallurgic_dust", new ItemStack(RegistryManager.dust_metallurgic), 0, 2).addAncestor(slate);
@@ -444,8 +444,8 @@ public class ResearchManager {
 		.addResearch(simpleAlchemySwitch)
 		.addResearch(catalytic_plug)
 		.addResearch(cluster)
-		//.addResearch(ashen_cloak)
-		//.addResearch(inflictor)
+		.addResearch(ashen_cloak)
+		.addResearch(inflictor)
 		.addResearch(field_chart)
 		.addResearch(materia)
 		.addResearch(tyrfing)

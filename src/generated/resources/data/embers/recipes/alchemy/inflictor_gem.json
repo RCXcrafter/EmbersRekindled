@@ -1,0 +1,34 @@
+{
+  "type": "embers:alchemy",
+  "aspects": [
+    {
+      "tag": "embers:aspectus/dawnstone"
+    },
+    {
+      "tag": "embers:aspectus/silver"
+    },
+    {
+      "tag": "embers:aspectus/lead"
+    }
+  ],
+  "inputs": [
+    {
+      "tag": "forge:ingots/dawnstone"
+    },
+    {
+      "tag": "minecraft:coals"
+    },
+    {
+      "tag": "minecraft:coals"
+    },
+    {
+      "tag": "minecraft:coals"
+    }
+  ],
+  "output": {
+    "item": "embers:inflictor_gem"
+  },
+  "tablet": {
+    "tag": "forge:gems/diamond"
+  }
+}
