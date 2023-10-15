@@ -5,6 +5,7 @@ import java.util.Random;
 
 import org.joml.Vector3f;
 
+import com.rekindled.embers.ConfigManager;
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.capabilities.EmbersCapabilities;
@@ -32,12 +33,10 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 
 public class GeologicSeparatorBlockEntity extends OpenTankBlockEntity implements IExtraCapabilityInformation {
 
-	public static int capacity = FluidType.BUCKET_VOLUME;
 	int ticksExisted = 0;
 	public float renderOffset;
 	int previousFluid;
@@ -46,7 +45,7 @@ public class GeologicSeparatorBlockEntity extends OpenTankBlockEntity implements
 
 	public GeologicSeparatorBlockEntity(BlockPos pPos, BlockState pBlockState) {
 		super(RegistryManager.GEOLOGIC_SEPARATOR_ENTITY.get(), pPos, pBlockState);
-		tank = new FluidTank(capacity) {
+		tank = new FluidTank(ConfigManager.GEO_SEPARATOR_CAPACITY.get()) {
 			@Override
 			public void onContentsChanged() {
 				GeologicSeparatorBlockEntity.this.setChanged();

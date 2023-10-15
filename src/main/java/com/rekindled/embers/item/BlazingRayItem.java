@@ -2,6 +2,7 @@ package com.rekindled.embers.item;
 
 import java.util.Random;
 
+import com.rekindled.embers.ConfigManager;
 import com.rekindled.embers.api.event.EmberProjectileEvent;
 import com.rekindled.embers.api.item.IProjectileWeapon;
 import com.rekindled.embers.api.projectile.EffectDamage;
@@ -29,12 +30,6 @@ import net.minecraftforge.common.MinecraftForge;
 
 public class BlazingRayItem extends Item implements IProjectileWeapon {
 
-	public static double EMBER_COST = 25.0;
-	public static int COOLDOWN = 10;
-	public static double MAX_CHARGE = 20;
-	public static float DAMAGE = 7.0f;
-	public static double MAX_SPREAD = 30.0;
-	public static float MAX_DISTANCE = 96.0f;
 	public static Random rand = new Random();
 
 	public BlazingRayItem(Properties pProperties) {
@@ -44,19 +39,19 @@ public class BlazingRayItem extends Item implements IProjectileWeapon {
 	@Override
 	public void releaseUsing(ItemStack stack, Level level, LivingEntity entity, int timeLeft) {
 		if (!level.isClientSide) {
-			double charge = (Math.min(MAX_CHARGE, getUseDuration(stack) - timeLeft)) / MAX_CHARGE;
+			double charge = (Math.min(ConfigManager.BLAZING_RAY_MAX_CHARGE.get(), getUseDuration(stack) - timeLeft)) / ConfigManager.BLAZING_RAY_MAX_CHARGE.get();
 			double handmod = entity.getUsedItemHand() == InteractionHand.MAIN_HAND ? 1.0 : -1.0;
 			handmod *= entity.getMainArm() == HumanoidArm.RIGHT ? 1.0 : -1.0;
 			double posX = entity.getX() + entity.getLookAngle().x + handmod * (entity.getBbWidth() / 2.0) * Math.sin(Math.toRadians(-entity.getYHeadRot() - 90));
 			double posY = entity.getY() + entity.getEyeHeight() - 0.2 + entity.getLookAngle().y;
 			double posZ = entity.getZ() + entity.getLookAngle().z + handmod * (entity.getBbWidth() / 2.0) * Math.cos(Math.toRadians(-entity.getYHeadRot() - 90));
 
-			double targX = entity.getX() + entity.getLookAngle().x * MAX_DISTANCE + (MAX_SPREAD * (1.0 - charge) * (rand.nextFloat() - 0.5));
-			double targY = entity.getY() + entity.getLookAngle().y * MAX_DISTANCE + (MAX_SPREAD * (1.0 - charge) * (rand.nextFloat() - 0.5));
-			double targZ = entity.getZ() + entity.getLookAngle().z * MAX_DISTANCE + (MAX_SPREAD * (1.0 - charge) * (rand.nextFloat() - 0.5));
+			double targX = entity.getX() + entity.getLookAngle().x * ConfigManager.BLAZING_RAY_MAX_DISTANCE.get() + (ConfigManager.BLAZING_RAY_MAX_SPREAD.get() * (1.0 - charge) * (rand.nextFloat() - 0.5));
+			double targY = entity.getY() + entity.getLookAngle().y * ConfigManager.BLAZING_RAY_MAX_DISTANCE.get() + (ConfigManager.BLAZING_RAY_MAX_SPREAD.get() * (1.0 - charge) * (rand.nextFloat() - 0.5));
+			double targZ = entity.getZ() + entity.getLookAngle().z * ConfigManager.BLAZING_RAY_MAX_DISTANCE.get() + (ConfigManager.BLAZING_RAY_MAX_SPREAD.get() * (1.0 - charge) * (rand.nextFloat() - 0.5));
 
 			DamageSource damage = new DamageEmber(level.registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(EmbersDamageTypes.EMBER_KEY), entity, true);
-			EffectDamage effect = new EffectDamage(DAMAGE, e -> damage, 1, 1.0f);
+			EffectDamage effect = new EffectDamage(ConfigManager.BLAZING_RAY_DAMAGE.get(), e -> damage, 1, 1.0f);
 			ProjectileRay ray = new ProjectileRay(entity, new Vec3(posX, posY, posZ), new Vec3(targX, targY, targZ), false, effect);
 
 			EmberProjectileEvent event = new EmberProjectileEvent(entity, stack, charge, ray);
@@ -90,9 +85,9 @@ public class BlazingRayItem extends Item implements IProjectileWeapon {
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
-		if (!stack.hasTag() || stack.getTag().getLong("lastUse") + COOLDOWN <= level.getGameTime() || player.isCreative()) {
-			if (EmberInventoryUtil.getEmberTotal(player) >= EMBER_COST || player.isCreative()) {
-				EmberInventoryUtil.removeEmber(player, EMBER_COST);
+		if (!stack.hasTag() || stack.getTag().getLong("lastUse") + ConfigManager.BLAZING_RAY_COOLDOWN.get() <= level.getGameTime() || player.isCreative()) {
+			if (EmberInventoryUtil.getEmberTotal(player) >= ConfigManager.BLAZING_RAY_COST.get() || player.isCreative()) {
+				EmberInventoryUtil.removeEmber(player, ConfigManager.BLAZING_RAY_COST.get());
 				player.startUsingItem(hand);
 				return InteractionResultHolder.consume(stack);
 			} else {

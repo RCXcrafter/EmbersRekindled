@@ -5,6 +5,7 @@ import java.util.Random;
 
 import org.joml.Vector3f;
 
+import com.rekindled.embers.ConfigManager;
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
@@ -29,14 +30,12 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
 public class StampBaseBlockEntity extends OpenTankBlockEntity implements IExtraCapabilityInformation {
 
-	public static int capacity = (FluidType.BUCKET_VOLUME * 3) /2;
 	int ticksExisted = 0;
 	public float renderOffset;
 	int previousFluid;
@@ -51,7 +50,7 @@ public class StampBaseBlockEntity extends OpenTankBlockEntity implements IExtraC
 
 	public StampBaseBlockEntity(BlockPos pPos, BlockState pBlockState) {
 		super(RegistryManager.STAMP_BASE_ENTITY.get(), pPos, pBlockState);
-		tank = new FluidTank(capacity) {
+		tank = new FluidTank(ConfigManager.STAMP_BASE_CAPACITY.get()) {
 			@Override
 			public void onContentsChanged() {
 				StampBaseBlockEntity.this.setChanged();

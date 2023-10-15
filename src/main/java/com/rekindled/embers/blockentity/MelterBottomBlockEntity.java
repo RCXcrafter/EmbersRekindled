@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
+import com.rekindled.embers.ConfigManager;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.capabilities.EmbersCapabilities;
 import com.rekindled.embers.api.event.DialInformationEvent;
@@ -50,10 +51,8 @@ public class MelterBottomBlockEntity extends BlockEntity implements ISoundContro
 			MelterBottomBlockEntity.this.setChanged();
 		}
 	};
-	public static int PROCESS_TIME = 200;
 	static Random random = new Random();
 	int progress = -1;
-	public static double EMBER_COST = 1.0;
 
 	public static final int SOUND_PROCESS = 1;
 	public static final int[] SOUND_IDS = new int[]{SOUND_PROCESS};
@@ -117,7 +116,7 @@ public class MelterBottomBlockEntity extends BlockEntity implements ISoundContro
 		if (UpgradeUtil.doTick(blockEntity, blockEntity.upgrades))
 			return;
 		if(top != null && !top.inventory.getStackInSlot(0).isEmpty()) {
-			double emberCost = UpgradeUtil.getTotalEmberConsumption(blockEntity, EMBER_COST, blockEntity.upgrades);
+			double emberCost = UpgradeUtil.getTotalEmberConsumption(blockEntity, ConfigManager.MELTER_EMBER_COST.get(), blockEntity.upgrades);
 			if (blockEntity.capability.getEmber() >= emberCost) {
 				boolean cancel = UpgradeUtil.doWork(blockEntity, blockEntity.upgrades);
 				if(!cancel) {
@@ -135,7 +134,7 @@ public class MelterBottomBlockEntity extends BlockEntity implements ISoundContro
 
 					blockEntity.isWorking = true;
 					blockEntity.progress++;
-					if (blockEntity.progress >= UpgradeUtil.getWorkTime(blockEntity, PROCESS_TIME, blockEntity.upgrades)) {
+					if (blockEntity.progress >= UpgradeUtil.getWorkTime(blockEntity, ConfigManager.MELTER_PROCESS_TIME.get(), blockEntity.upgrades)) {
 						RecipeWrapper wrapper = new RecipeWrapper(top.inventory);
 						blockEntity.cachedRecipe = Misc.getRecipe(blockEntity.cachedRecipe, RegistryManager.MELTING.get(), wrapper, level);
 						if (blockEntity.cachedRecipe != null) {

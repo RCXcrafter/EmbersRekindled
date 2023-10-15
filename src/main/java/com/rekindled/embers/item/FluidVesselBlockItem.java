@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.jetbrains.annotations.Nullable;
 
+import com.rekindled.embers.ConfigManager;
 import com.rekindled.embers.block.FluidDialBlock;
-import com.rekindled.embers.blockentity.FluidVesselBlockEntity;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -39,7 +39,7 @@ public class FluidVesselBlockItem extends BlockItem {
 
 	@Override
 	public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
-		return new FluidHandlerItemStack(stack, FluidVesselBlockEntity.capacity);
+		return new FluidHandlerItemStack(stack, ConfigManager.FLUID_VESSEL_CAPACITY.get());
 	}
 
 	@Override

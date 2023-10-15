@@ -4,6 +4,7 @@ import java.util.Random;
 
 import org.joml.Vector3f;
 
+import com.rekindled.embers.ConfigManager;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.particle.VaporParticleOptions;
 import com.rekindled.embers.util.Misc;
@@ -21,19 +22,17 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 
 public class FluidVesselBlockEntity extends OpenTankBlockEntity {
 
-	public static int capacity = FluidType.BUCKET_VOLUME * 16;
 	int ticksExisted = 0;
 	public float renderOffset;
 	int previousFluid;
 
 	public FluidVesselBlockEntity(BlockPos pPos, BlockState pBlockState) {
 		super(RegistryManager.FLUID_VESSEL_ENTITY.get(), pPos, pBlockState);
-		tank = new FluidTank(capacity) {
+		tank = new FluidTank(ConfigManager.FLUID_VESSEL_CAPACITY.get()) {
 			@Override
 			public void onContentsChanged() {
 				FluidVesselBlockEntity.this.setChanged();

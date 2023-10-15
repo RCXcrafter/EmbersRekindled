@@ -50,9 +50,7 @@ import net.minecraftforge.items.ItemStackHandler;
 
 public class EmberBoreBlockEntity extends BlockEntity implements ISoundController, IMechanicallyPowered, IExtraDialInformation, IExtraCapabilityInformation {
 
-	public static int BORE_TIME = 200;
 	public static final int SLOT_FUEL = 8;
-	public static double FUEL_CONSUMPTION = 3;
 
 	public static final double SUPERSPEED_THRESHOLD = 2.5;
 	public static final int SOUND_ON = 1;
@@ -164,7 +162,7 @@ public class EmberBoreBlockEntity extends BlockEntity implements ISoundControlle
 		blockEntity.isRunning = false;
 		blockEntity.ticksExisted++;
 
-		double fuelConsumption = UpgradeUtil.getOtherParameter(blockEntity, "fuel_consumption", FUEL_CONSUMPTION, blockEntity.upgrades);
+		double fuelConsumption = UpgradeUtil.getOtherParameter(blockEntity, "fuel_consumption", ConfigManager.EMBER_BORE_FUEL_CONSUMPTION.get(), blockEntity.upgrades);
 		boolean cancel = false;
 		if (blockEntity.ticksFueled >= fuelConsumption) {
 			blockEntity.isRunning = true;
@@ -190,7 +188,7 @@ public class EmberBoreBlockEntity extends BlockEntity implements ISoundControlle
 				}
 			} else {
 				//multiply with the config value here so the bore isn't visually or audibly different at higher speeds
-				int boreTime = (int) Math.ceil(BORE_TIME / (blockEntity.speedMod * ConfigManager.EMBER_BORE_SPEED_MOD.get()));
+				int boreTime = (int) Math.ceil(ConfigManager.EMBER_BORE_TIME.get() / (blockEntity.speedMod * ConfigManager.EMBER_BORE_SPEED_MOD.get()));
 				if (blockEntity.ticksExisted % boreTime == 0) {
 					ResourceKey<Biome> biome = level.getBiome(pos).unwrapKey().get();
 					if (biome != null) {

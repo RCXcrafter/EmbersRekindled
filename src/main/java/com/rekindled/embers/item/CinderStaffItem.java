@@ -6,6 +6,7 @@ import java.util.function.Function;
 
 import org.joml.Vector3f;
 
+import com.rekindled.embers.ConfigManager;
 import com.rekindled.embers.api.event.EmberProjectileEvent;
 import com.rekindled.embers.api.event.ItemVisualEvent;
 import com.rekindled.embers.api.item.IProjectileWeapon;
@@ -39,14 +40,6 @@ import net.minecraftforge.common.MinecraftForge;
 
 public class CinderStaffItem extends Item implements IProjectileWeapon {
 
-	public static double EMBER_COST = 25.0;
-	public static int COOLDOWN = 10;
-	public static double MAX_CHARGE = 60;
-	public static float DAMAGE = 17;
-	public static float SIZE = 17;
-	public static float AOE_SIZE = 17 * 0.125f;
-	public static int LIFETIME = 160;
-
 	public static boolean soundPlaying = false; //Clientside anyway so whatever
 	public static Random rand = new Random();
 
@@ -57,17 +50,17 @@ public class CinderStaffItem extends Item implements IProjectileWeapon {
 	@Override
 	public void releaseUsing(ItemStack stack, Level level, LivingEntity entity, int timeLeft) {
 		if (!level.isClientSide) {
-			double charge = (Math.min(MAX_CHARGE, getUseDuration(stack) - timeLeft)) / MAX_CHARGE;
+			double charge = (Math.min(ConfigManager.CINDER_STAFF_MAX_CHARGE.get(), getUseDuration(stack) - timeLeft)) / ConfigManager.CINDER_STAFF_MAX_CHARGE.get();
 			float spawnDistance = 2.0f;//Math.max(1.0f, (float)charge/5.0f);
 			Vec3 eyesPos = entity.getEyePosition();
 			HitResult traceResult = getPlayerPOVHitResult(entity.level(), (Player) entity, ClipContext.Fluid.NONE);
 			if (traceResult.getType() == HitResult.Type.BLOCK)
 				spawnDistance = (float) Math.min(spawnDistance, traceResult.getLocation().distanceTo(eyesPos));
 			Vec3 launchPos = eyesPos.add(entity.getLookAngle().scale(spawnDistance));
-			float damage = (float) Math.max(charge * DAMAGE, 0.5f);
-			float size = (float) Math.max(charge * SIZE, 0.5f);
-			float aoeSize = (float) charge * AOE_SIZE;
-			int lifetime = charge * DAMAGE >= 1.0 ? LIFETIME : 5;
+			float damage = (float) Math.max(charge * ConfigManager.CINDER_STAFF_DAMAGE.get(), 0.5f);
+			float size = (float) Math.max(charge * ConfigManager.CINDER_STAFF_SIZE.get(), 0.5f);
+			float aoeSize = (float) charge * ConfigManager.CINDER_STAFF_AOE_SIZE.get();
+			int lifetime = charge * ConfigManager.CINDER_STAFF_DAMAGE.get() >= 1.0 ? ConfigManager.CINDER_STAFF_LIFETIME.get() : 5;
 
 			Function<Entity, DamageSource> damageSource = e -> new DamageSource(level.registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(EmbersDamageTypes.EMBER_KEY), e, entity);
 			EffectArea effect = new EffectArea(new EffectDamage(damage, damageSource, 1, 1.0), aoeSize, false);
@@ -81,9 +74,9 @@ public class CinderStaffItem extends Item implements IProjectileWeapon {
 			}
 
 			SoundEvent sound;
-			if (charge * DAMAGE >= 10.0)
+			if (charge * ConfigManager.CINDER_STAFF_DAMAGE.get() >= 10.0)
 				sound = EmbersSounds.FIREBALL_BIG.get();
-			else if (charge * DAMAGE >= 1.0)
+			else if (charge * ConfigManager.CINDER_STAFF_DAMAGE.get() >= 1.0)
 				sound = EmbersSounds.FIREBALL.get();
 			else
 				sound = EmbersSounds.CINDER_STAFF_FAIL.get();
@@ -96,7 +89,7 @@ public class CinderStaffItem extends Item implements IProjectileWeapon {
 
 	@Override
 	public void onUseTick(Level level, LivingEntity player, ItemStack stack, int count) {
-		if (stack.hasTag() && stack.getTag().getLong("lastUse") + COOLDOWN > level.getGameTime())
+		if (stack.hasTag() && stack.getTag().getLong("lastUse") + ConfigManager.CINDER_STAFF_COOLDOWN.get() > level.getGameTime())
 			player.stopUsingItem();
 		double charge = ((Math.min(60, 72000 - count)) / 60.0) * 15.0;
 		boolean fullCharge = charge >= 15.0;
@@ -146,9 +139,9 @@ public class CinderStaffItem extends Item implements IProjectileWeapon {
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
-		if (!stack.hasTag() || stack.getTag().getLong("lastUse") + COOLDOWN <= level.getGameTime() || player.isCreative()) {
-			if (EmberInventoryUtil.getEmberTotal(player) >= EMBER_COST || player.isCreative()) {
-				EmberInventoryUtil.removeEmber(player, EMBER_COST);
+		if (!stack.hasTag() || stack.getTag().getLong("lastUse") + ConfigManager.CINDER_STAFF_COOLDOWN.get() <= level.getGameTime() || player.isCreative()) {
+			if (EmberInventoryUtil.getEmberTotal(player) >= ConfigManager.CINDER_STAFF_COST.get() || player.isCreative()) {
+				EmberInventoryUtil.removeEmber(player, ConfigManager.CINDER_STAFF_COST.get());
 				player.startUsingItem(hand);
 				if (level.isClientSide())
 					EmbersSounds.playItemSoundClient(player, this, EmbersSounds.CINDER_STAFF_CHARGE.get(), SoundSource.PLAYERS, false, 1.0f, 1.0f);

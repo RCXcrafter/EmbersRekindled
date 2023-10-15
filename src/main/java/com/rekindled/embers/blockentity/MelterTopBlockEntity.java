@@ -5,6 +5,7 @@ import java.util.Random;
 
 import org.joml.Vector3f;
 
+import com.rekindled.embers.ConfigManager;
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
@@ -33,14 +34,12 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
 public class MelterTopBlockEntity extends OpenTankBlockEntity implements IExtraCapabilityInformation {
 
-	public static int capacity = FluidType.BUCKET_VOLUME * 4;
 	public double angle = 0;
 	int ticksExisted = 0;
 	public float renderOffset;
@@ -56,7 +55,7 @@ public class MelterTopBlockEntity extends OpenTankBlockEntity implements IExtraC
 
 	public MelterTopBlockEntity(BlockPos pPos, BlockState pBlockState) {
 		super(RegistryManager.MELTER_TOP_ENTITY.get(), pPos, pBlockState);
-		tank = new FluidTank(capacity) {
+		tank = new FluidTank(ConfigManager.MELTER_CAPACITY.get()) {
 			@Override
 			public void onContentsChanged() {
 				MelterTopBlockEntity.this.setChanged();

@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
+import com.rekindled.embers.ConfigManager;
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.capabilities.EmbersCapabilities;
@@ -63,7 +64,6 @@ public class CopperChargerBlockEntity extends BlockEntity implements ISoundContr
 	};
 	public LazyOptional<IItemHandler> holder = LazyOptional.of(() -> inventory);
 
-	public static double MAX_TRANSFER = 10.0;
 	public int angle = 0;
 	public int turnRate = 1;
 	static Random random = new Random();
@@ -142,7 +142,7 @@ public class CopperChargerBlockEntity extends BlockEntity implements ISoundContr
 		IEmberCapability itemCapability = stack.getCapability(EmbersCapabilities.EMBER_CAPABILITY, null).orElse(null);
 		boolean cancel = UpgradeUtil.doWork(blockEntity, blockEntity.upgrades);
 		if (!cancel && itemCapability != null) {
-			double transferRate = UpgradeUtil.getTotalSpeedModifier(blockEntity, blockEntity.upgrades) * MAX_TRANSFER;
+			double transferRate = UpgradeUtil.getTotalSpeedModifier(blockEntity, blockEntity.upgrades) * ConfigManager.CHARGER_MAX_TRANSFER.get();
 			double emberAdded;
 			if (transferRate > 0) {
 				emberAdded = itemCapability.addAmount(Math.min(Math.abs(transferRate), blockEntity.capability.getEmber()), true);

@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
+import com.rekindled.embers.ConfigManager;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.capabilities.EmbersCapabilities;
 import com.rekindled.embers.api.event.EmberEvent;
@@ -45,7 +46,6 @@ public class EmberInjectorBlockEntity extends BlockEntity implements ISoundContr
 	protected int progress = -1;
 	static Random random = new Random();
 	public static final double EMBER_COST = 1.0;
-	public static final int MAX_DISTANCE = 2;
 
 	public static final int SOUND_PROCESS = 1;
 	public static final int[] SOUND_IDS = new int[]{SOUND_PROCESS};
@@ -108,10 +108,10 @@ public class EmberInjectorBlockEntity extends BlockEntity implements ISoundContr
 		int previousDist = blockEntity.distance;
 		if (!UpgradeUtil.doTick(blockEntity, upgrades)) {
 			Direction facing = state.getValue(BlockStateProperties.FACING);
-			int maxDist = UpgradeUtil.getOtherParameter(blockEntity, "distance", MAX_DISTANCE, upgrades);
+			int maxDist = UpgradeUtil.getOtherParameter(blockEntity, "distance", ConfigManager.INJECTOR_MAX_DISTANCE.get(), upgrades);
 			BlockPos hitPos = pos;
 			BlockEntity tile = null;
-			for (int i = 1; i <= maxDist; i++) {
+			for (int i = 1; i <= maxDist + 1; i++) {
 				hitPos = hitPos.relative(facing);
 				BlockState hitState = level.getBlockState(hitPos);
 				if (!hitState.getCollisionShape(level, hitPos).isEmpty()) {
@@ -122,7 +122,7 @@ public class EmberInjectorBlockEntity extends BlockEntity implements ISoundContr
 			}
 			blockEntity.isWorking = false;
 			double emberCost = UpgradeUtil.getTotalEmberConsumption(blockEntity, EMBER_COST, upgrades);
-			if (tile instanceof IEmberInjectable injectable && injectable.isValid() && blockEntity.capability.getEmber() > emberCost) {
+			if (tile instanceof IEmberInjectable injectable && injectable.isValid() && blockEntity.capability.getEmber() >= emberCost) {
 				boolean cancel = UpgradeUtil.doWork(blockEntity, upgrades);
 				if (!cancel) {
 					double enberInjected = EMBER_COST * UpgradeUtil.getTotalSpeedModifier(blockEntity, upgrades);
