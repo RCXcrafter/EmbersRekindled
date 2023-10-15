@@ -56,6 +56,7 @@ import com.rekindled.embers.item.TyrfingItem;
 import com.rekindled.embers.model.AncientGolemModel;
 import com.rekindled.embers.model.AshenArmorModel;
 import com.rekindled.embers.network.PacketHandler;
+import com.rekindled.embers.network.message.MessageEmberGenOffset;
 import com.rekindled.embers.network.message.MessageWorldSeed;
 import com.rekindled.embers.particle.AlchemyCircleParticle;
 import com.rekindled.embers.particle.GlowParticle;
@@ -67,6 +68,8 @@ import com.rekindled.embers.particle.VaporParticle;
 import com.rekindled.embers.research.ResearchManager;
 import com.rekindled.embers.research.capability.IResearchCapability;
 import com.rekindled.embers.util.DecimalFormats;
+import com.rekindled.embers.util.EmberGenUtil;
+import com.rekindled.embers.util.EmberWorldData;
 import com.rekindled.embers.util.Misc;
 
 import net.minecraft.Util;
@@ -115,10 +118,12 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.event.TagsUpdatedEvent;
+import net.minecraftforge.event.TickEvent.LevelTickEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.level.LevelEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -131,6 +136,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistries.Keys;
 import net.minecraftforge.registries.MissingMappingsEvent;
 import net.minecraftforge.registries.MissingMappingsEvent.Mapping;
+import net.minecraftforge.server.ServerLifecycleHooks;
 
 @Mod(Embers.MODID)
 public class Embers {
@@ -181,6 +187,8 @@ public class Embers {
 		MinecraftForge.EVENT_BUS.addListener(EventPriority.LOW, Embers::onEntityDamaged);
 		MinecraftForge.EVENT_BUS.addListener(Embers::onAnvilUpdate);
 		MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, TagsUpdatedEvent.class, e -> Misc.tagItems.clear());
+		MinecraftForge.EVENT_BUS.addListener(Embers::onLevelLoad);
+		MinecraftForge.EVENT_BUS.addListener(Embers::onServerTick);
 	}
 
 	public void registerCaps(RegisterCapabilitiesEvent event) {
@@ -249,6 +257,7 @@ public class Embers {
 		if (event.getEntity() instanceof ServerPlayer && !event.getLevel().isClientSide()) {
 			ServerPlayer player = (ServerPlayer) event.getEntity();
 			PacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), new MessageWorldSeed(((ServerLevel) event.getLevel()).getSeed()));
+			PacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), new MessageEmberGenOffset(EmberGenUtil.offX, EmberGenUtil.offZ));
 		}
 	}
 
@@ -348,6 +357,28 @@ public class Embers {
 				copy.setRepairCost(k2);
 			}
 			event.setOutput(copy);
+		}
+	}
+
+	public static void onLevelLoad(LevelEvent.Load event) {
+		EmberWorldData.get(ServerLifecycleHooks.getCurrentServer().overworld());
+	}
+
+	public static void onServerTick(LevelTickEvent event) {
+		if (event.side.isServer()) {
+			boolean changed = false;
+			if (Misc.random.nextInt(400) == 0) {
+				EmberGenUtil.offX++;
+				changed = true;
+			}
+			if (Misc.random.nextInt(400) == 0) {
+				EmberGenUtil.offZ++;
+				changed = true;
+			}
+			if (changed) {
+				PacketHandler.INSTANCE.send(PacketDistributor.ALL.noArg(), new MessageEmberGenOffset(EmberGenUtil.offX, EmberGenUtil.offZ));
+				EmberWorldData.get(ServerLifecycleHooks.getCurrentServer().overworld()).setDirty();
+			}
 		}
 	}
 
