@@ -19,6 +19,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class ResearchCategory {
+
 	public static final ArrayList<ResearchBase> NO_PREREQUISITES = Lists.newArrayList();
 
 	public String name = "";
@@ -30,36 +31,42 @@ public class ResearchCategory {
 	public ArrayList<ResearchBase> prerequisites = new ArrayList<>();
 	public LinkedList<Vec2i> goodLocations = new LinkedList<>();
 
-	public ResearchCategory(String name, double v){
+	public ResearchCategory(String name, double v) {
 		this.name = name;
 		this.v = v;
 	}
-	public ResearchCategory(String name, ResourceLocation loc, double u, double v){
+
+	public ResearchCategory(String name, double u, double v) {
+		this.name = name;
+		this.u = u;
+		this.v = v;
+	}
+
+	public ResearchCategory(String name, ResourceLocation loc, double u, double v) {
 		this.name = name;
 		this.v = v;
 		this.u = u;
 		this.texture = loc;
 	}
 
-	public ResearchCategory addResearch(ResearchBase base){
+	public ResearchCategory addResearch(ResearchBase base) {
 		researches.add(base);
 		return this;
 	}
 
-	public ResearchCategory pushGoodLocations(Vec2i... locations){
+	public ResearchCategory pushGoodLocations(Vec2i... locations) {
 		Collections.addAll(goodLocations, locations);
 		return this;
 	}
 
-	public Vec2i popGoodLocation(){
-		if(goodLocations.isEmpty())
+	public Vec2i popGoodLocation() {
+		if (goodLocations.isEmpty())
 			return null;
 		return goodLocations.removeFirst();
 	}
 
-	public void findByTag(String match,Map<ResearchBase,Integer> result, Set<ResearchCategory> categories)
-	{
-		if(categories.contains(this))
+	public void findByTag(String match,Map<ResearchBase,Integer> result, Set<ResearchCategory> categories) {
+		if (categories.contains(this))
 			return;
 		categories.add(this);
 		for (ResearchBase research : researches) {
@@ -67,14 +74,13 @@ public class ResearchCategory {
 		}
 	}
 
-	public ResearchCategory addPrerequisite(ResearchBase base)
-	{
+	public ResearchCategory addPrerequisite(ResearchBase base) {
 		prerequisites.add(base);
 		return this;
 	}
 
 	public List<ResearchBase> getPrerequisites() {
-		if(ConfigManager.CODEX_PROGRESSION.get())
+		if (ConfigManager.CODEX_PROGRESSION.get())
 			return prerequisites;
 		else
 			return NO_PREREQUISITES;
@@ -85,7 +91,7 @@ public class ResearchCategory {
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public String getName(){
+	public String getName() {
 		return I18n.get(Embers.MODID + ".research." + name);
 	}
 
@@ -93,7 +99,7 @@ public class ResearchCategory {
 	public List<Component> getTooltip(boolean showTooltips) {
 		ArrayList<Component> tooltip = new ArrayList<>();
 		boolean isChecked = isChecked();
-		if(showTooltips || !isChecked)
+		if (showTooltips || !isChecked)
 			for (ResearchBase prerequisite : getPrerequisites()) {
 				//String checkmark;
 				if (prerequisite.isChecked()) {

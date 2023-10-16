@@ -59,6 +59,8 @@ public class ResearchManager {
 	public static ResearchCategory categoryMetallurgy;
 	public static ResearchCategory categoryAlchemy;
 	public static ResearchCategory categorySmithing;
+	public static ResearchCategory categoryMateria;
+	public static ResearchCategory categoryCore;
 
 	public static ResearchCategory subCategoryPipes;
 	public static ResearchCategory subCategoryWeaponAugments;
@@ -159,7 +161,9 @@ public class ResearchManager {
 		categoryMechanisms = new ResearchCategory("mechanisms", 32);
 		categoryMetallurgy = new ResearchCategory("metallurgy", 48);
 		categoryAlchemy = new ResearchCategory("alchemy", 64);
-		categorySmithing = new ResearchCategory("smithing", 80);
+		categorySmithing = new ResearchCategoryComingSoon("smithing", 80);
+		categoryMateria = new ResearchCategoryComingSoon("materia", 224, 0);
+		categoryCore = new ResearchCategoryComingSoon("core", 224, 16);
 		Vec2i[] ringPositions = {new Vec2i(1, 1), new Vec2i(0, 3), new Vec2i(0, 5), new Vec2i(1, 7), new Vec2i(11, 7), new Vec2i(12, 5), new Vec2i(12, 3), new Vec2i(11, 1), new Vec2i(4, 1), new Vec2i(2, 4), new Vec2i(4, 7), new Vec2i(8, 7), new Vec2i(10, 4),new Vec2i(8, 1)};
 		subCategoryWeaponAugments = new ResearchCategory("weapon_augments", 0).pushGoodLocations(ringPositions);
 		subCategoryArmorAugments = new ResearchCategory("armor_augments", 0).pushGoodLocations(ringPositions);
@@ -474,9 +478,9 @@ public class ResearchManager {
 		researches.add(categoryMechanisms);
 		researches.add(categoryMetallurgy);
 		researches.add(categoryAlchemy);
-		//researches.add(categorySmithing);
-		//researches.add(new ResearchCategory("materia", 80));
-		//researches.add(new ResearchCategory("core", 96));
+		researches.add(categorySmithing);
+		//researches.add(categoryMateria);
+		//researches.add(categoryCore);
 	}
 
 	private static ResearchSwitchCategory makeCategorySwitch(ResearchCategory targetCategory, int x, int y, ItemStack icon, int u, int v) {

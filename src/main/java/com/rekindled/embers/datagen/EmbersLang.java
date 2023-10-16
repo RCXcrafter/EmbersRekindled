@@ -319,6 +319,7 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".research.prerequisite", "Needed for %s");
 		add(Embers.MODID + ".research.prerequisite.locked", "§6*§8 Needs %s");
 		add(Embers.MODID + ".research.prerequisite.unlocked", "§a✔§r Needs %s");
+		add(Embers.MODID + ".research.coming_soon", "Coming Soon...");
 
 		add(Embers.MODID + ".research.null", "");
 		add(Embers.MODID + ".research.world", "Natural Energy");
