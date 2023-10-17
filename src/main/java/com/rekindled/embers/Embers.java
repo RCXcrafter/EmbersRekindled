@@ -361,7 +361,8 @@ public class Embers {
 	}
 
 	public static void onLevelLoad(LevelEvent.Load event) {
-		EmberWorldData.get(ServerLifecycleHooks.getCurrentServer().overworld());
+		if (event.getLevel() instanceof ServerLevel)
+			EmberWorldData.get(ServerLifecycleHooks.getCurrentServer().overworld());
 	}
 
 	public static void onServerTick(LevelTickEvent event) {
