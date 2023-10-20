@@ -2,15 +2,14 @@
 Embers is best described as a dwarven magic mod. It features a smattering of magical and technical content, from staples such as ore doubling and item transport to alchemy and magical ray guns. All centered around the core mechanic of Ember, a limited form of power that you must extract from the world's core near bedrock.
 
 ## Builds
-You can download the latest files here on curseforge. https://minecraft.curseforge.com/projects/embers-rekindled
-
-I don't know yet where the port will be released but for now there is an alpha build available here: https://github.com/RCXcrafter/EmbersRekindled/releases/tag/Alpha-1.20.1-0.0.4
+You can download the latest files on curseforge or modrinth.  
+https://minecraft.curseforge.com/projects/embers-rekindled  
+https://modrinth.com/mod/embers
 
 ## Contact
-You can also talk about Embers Rekindled and contact me about the port on Bord's discord in the Embers channel here: https://discord.gg/J4bn3FG
+You can also talk about Embers Rekindled and contact me about the port on my discord in the Embers channel here: https://discord.gg/SthsknG
 
 # So about that port
-I've decided to port Embers Rekindled to a Minecraft version beyond 1.12.2, I don't know yet which version it will release on but we'll see when we get there. 
 
 ## Things I have changed:
 - Ember Dials don't display a decimal if it's zero (I don't think there was a good reason for that)
