@@ -3,7 +3,6 @@ package com.rekindled.embers.block;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.blockentity.PressureRefineryBottomBlockEntity;
 import com.rekindled.embers.blockentity.PressureRefineryTopBlockEntity;
-import com.rekindled.embers.util.Misc;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
@@ -20,8 +19,6 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.items.IItemHandler;
 
 public class PressureRefineryBlock extends DoubleTallMachineBlock {
 
@@ -34,21 +31,6 @@ public class PressureRefineryBlock extends DoubleTallMachineBlock {
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER ? Shapes.block() : TOP_AABB;
-	}
-
-	@Override
-	public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
-		if (!state.is(newState.getBlock())) {
-			BlockEntity blockEntity = level.getBlockEntity(pos);
-			if (blockEntity != null) {
-				IItemHandler handler = blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, null).orElse(null);
-				if (handler != null) {
-					Misc.spawnInventoryInWorld(level, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, handler);
-					level.updateNeighbourForOutputSignal(pos, this);
-				}
-			}
-			super.onRemove(state, level, pos, newState, isMoving);
-		}
 	}
 
 	@Override
