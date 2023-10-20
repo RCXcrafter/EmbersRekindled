@@ -45,10 +45,8 @@ public class StampingRecipe implements Recipe<StampingContext> {
 		for (int i = 0; i < context.getContainerSize(); i++) {
 			if (input.test(context.getItem(i))) {
 				if (stamp.test(context.stamp)) {
-					for (FluidStack stack : fluid.getAllFluids()) {
-						if (fluid.test(context.fluids.drain(stack, FluidAction.SIMULATE)))
-							return true;
-					}
+					if (fluid.test(context.fluids.getFluidInTank(0)))
+						return true;
 				}
 				return false;
 			}
