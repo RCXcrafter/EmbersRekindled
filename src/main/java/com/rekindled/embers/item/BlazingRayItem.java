@@ -39,7 +39,7 @@ public class BlazingRayItem extends Item implements IProjectileWeapon {
 	@Override
 	public void releaseUsing(ItemStack stack, Level level, LivingEntity entity, int timeLeft) {
 		if (!level.isClientSide) {
-			double charge = (Math.min(ConfigManager.BLAZING_RAY_MAX_CHARGE.get(), getUseDuration(stack) - timeLeft)) / ConfigManager.BLAZING_RAY_MAX_CHARGE.get();
+			double charge = (Math.min(ConfigManager.BLAZING_RAY_MAX_CHARGE.get(), getUseDuration(stack) - timeLeft)) / (double) ConfigManager.BLAZING_RAY_MAX_CHARGE.get();
 			double handmod = entity.getUsedItemHand() == InteractionHand.MAIN_HAND ? 1.0 : -1.0;
 			handmod *= entity.getMainArm() == HumanoidArm.RIGHT ? 1.0 : -1.0;
 			double posX = entity.getX() + entity.getLookAngle().x + handmod * (entity.getBbWidth() / 2.0) * Math.sin(Math.toRadians(-entity.getYHeadRot() - 90));
@@ -51,7 +51,7 @@ public class BlazingRayItem extends Item implements IProjectileWeapon {
 			double targZ = entity.getZ() + entity.getLookAngle().z * ConfigManager.BLAZING_RAY_MAX_DISTANCE.get() + (ConfigManager.BLAZING_RAY_MAX_SPREAD.get() * (1.0 - charge) * (rand.nextFloat() - 0.5));
 
 			DamageSource damage = new DamageEmber(level.registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(EmbersDamageTypes.EMBER_KEY), entity, true);
-			EffectDamage effect = new EffectDamage(ConfigManager.BLAZING_RAY_DAMAGE.get(), e -> damage, 1, 1.0f);
+			EffectDamage effect = new EffectDamage(ConfigManager.BLAZING_RAY_DAMAGE.get().floatValue(), e -> damage, 1, 1.0f);
 			ProjectileRay ray = new ProjectileRay(entity, new Vec3(posX, posY, posZ), new Vec3(targX, targY, targZ), false, effect);
 
 			EmberProjectileEvent event = new EmberProjectileEvent(entity, stack, charge, ray);

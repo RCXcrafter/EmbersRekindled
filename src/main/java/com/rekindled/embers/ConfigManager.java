@@ -30,15 +30,15 @@ public class ConfigManager {
 	public static ConfigValue<Double> BLAZING_RAY_COST;
 	public static ConfigValue<Integer> BLAZING_RAY_COOLDOWN;
 	public static ConfigValue<Integer> BLAZING_RAY_MAX_CHARGE;
-	public static ConfigValue<Float> BLAZING_RAY_DAMAGE;
+	public static ConfigValue<Double> BLAZING_RAY_DAMAGE;
 	public static ConfigValue<Double> BLAZING_RAY_MAX_SPREAD;
-	public static ConfigValue<Float> BLAZING_RAY_MAX_DISTANCE;
+	public static ConfigValue<Double> BLAZING_RAY_MAX_DISTANCE;
 	public static ConfigValue<Double> CINDER_STAFF_COST;
 	public static ConfigValue<Integer> CINDER_STAFF_COOLDOWN;
-	public static ConfigValue<Double> CINDER_STAFF_MAX_CHARGE;
-	public static ConfigValue<Float> CINDER_STAFF_DAMAGE;
-	public static ConfigValue<Float> CINDER_STAFF_SIZE;
-	public static ConfigValue<Float> CINDER_STAFF_AOE_SIZE;
+	public static ConfigValue<Integer> CINDER_STAFF_MAX_CHARGE;
+	public static ConfigValue<Double> CINDER_STAFF_DAMAGE;
+	public static ConfigValue<Double> CINDER_STAFF_SIZE;
+	public static ConfigValue<Double> CINDER_STAFF_AOE_SIZE;
 	public static ConfigValue<Integer> CINDER_STAFF_LIFETIME;
 
 	public static ConfigValue<Boolean> CODEX_PROGRESSION;
@@ -89,17 +89,17 @@ public class ConfigManager {
 		BLAZING_RAY_COST = COMMON.comment("Ember used up by each shot.").define("blazingRay.cost", 25.0);
 		BLAZING_RAY_COOLDOWN = COMMON.comment("Cooldown in ticks between each shot.").define("blazingRay.cooldown", 10);
 		BLAZING_RAY_MAX_CHARGE = COMMON.comment("Time in ticks to fully charge.").define("blazingRay.charge", 20);
-		BLAZING_RAY_DAMAGE = COMMON.comment("Damage dealt by one shot.").define("blazingRay.damage", 7.0f);
+		BLAZING_RAY_DAMAGE = COMMON.comment("Damage dealt by one shot.").define("blazingRay.damage", 7.0);
 		BLAZING_RAY_MAX_SPREAD = COMMON.comment("Maximum spread.").define("blazingRay.spread", 30.0);
-		BLAZING_RAY_MAX_DISTANCE = COMMON.comment("Maximum shot distance.").define("blazingRay.distance", 96.0f);
+		BLAZING_RAY_MAX_DISTANCE = COMMON.comment("Maximum shot distance.").define("blazingRay.distance", 96.0);
 
 		CINDER_STAFF_COST = COMMON.comment("Ember used up by each shot.").define("cinderStaff.cost", 25.0);
 		CINDER_STAFF_COOLDOWN = COMMON.comment("Cooldown in ticks between each shot.").define("cinderStaff.cooldown", 10);
-		CINDER_STAFF_MAX_CHARGE = COMMON.comment("Time in ticks to fully charge.").define("cinderStaff.charge", 60.0);
-		CINDER_STAFF_DAMAGE = COMMON.comment("Damage dealt by one shot.").define("cinderStaff.damage", 17.0f);
-		CINDER_STAFF_SIZE = COMMON.comment("Size of the projectile.").define("cinderStaff.size", 17.0f);
-		CINDER_STAFF_AOE_SIZE = COMMON.comment("Area of Effect on impact.").define("cinderStaff.aoe", 17 * 0.125f);
-		CINDER_STAFF_LIFETIME = COMMON.comment("Lifetime in ticks of projectile.").define("cinderStaff.lifetime", 160);
+		CINDER_STAFF_MAX_CHARGE = COMMON.comment("Time in ticks to fully charge.").define("cinderStaff.charge", 60);
+		CINDER_STAFF_DAMAGE = COMMON.comment("Damage dealt by one shot.").define("cinderStaff.damage", 17.0);
+		CINDER_STAFF_SIZE = COMMON.comment("Size of the projectile.").define("cinderStaff.size", 17.0);
+		CINDER_STAFF_AOE_SIZE = COMMON.comment("Area of Effect on impact.").define("cinderStaff.aoe", 17 * 0.125);
+		CINDER_STAFF_LIFETIME = COMMON.comment("Maximum lifetime in ticks of projectile.").define("cinderStaff.lifetime", 160);
 
 		COMMON.pop();
 

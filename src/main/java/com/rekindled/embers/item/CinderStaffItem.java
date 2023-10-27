@@ -50,7 +50,7 @@ public class CinderStaffItem extends Item implements IProjectileWeapon {
 	@Override
 	public void releaseUsing(ItemStack stack, Level level, LivingEntity entity, int timeLeft) {
 		if (!level.isClientSide) {
-			double charge = (Math.min(ConfigManager.CINDER_STAFF_MAX_CHARGE.get(), getUseDuration(stack) - timeLeft)) / ConfigManager.CINDER_STAFF_MAX_CHARGE.get();
+			double charge = (Math.min(ConfigManager.CINDER_STAFF_MAX_CHARGE.get(), getUseDuration(stack) - timeLeft)) / (double) ConfigManager.CINDER_STAFF_MAX_CHARGE.get();
 			float spawnDistance = 2.0f;//Math.max(1.0f, (float)charge/5.0f);
 			Vec3 eyesPos = entity.getEyePosition();
 			HitResult traceResult = getPlayerPOVHitResult(entity.level(), (Player) entity, ClipContext.Fluid.NONE);
@@ -59,8 +59,8 @@ public class CinderStaffItem extends Item implements IProjectileWeapon {
 			Vec3 launchPos = eyesPos.add(entity.getLookAngle().scale(spawnDistance));
 			float damage = (float) Math.max(charge * ConfigManager.CINDER_STAFF_DAMAGE.get(), 0.5f);
 			float size = (float) Math.max(charge * ConfigManager.CINDER_STAFF_SIZE.get(), 0.5f);
-			float aoeSize = (float) charge * ConfigManager.CINDER_STAFF_AOE_SIZE.get();
-			int lifetime = charge * ConfigManager.CINDER_STAFF_DAMAGE.get() >= 1.0 ? ConfigManager.CINDER_STAFF_LIFETIME.get() : 5;
+			float aoeSize = (float) (charge * ConfigManager.CINDER_STAFF_AOE_SIZE.get());
+			int lifetime = charge >= 0.06 ? ConfigManager.CINDER_STAFF_LIFETIME.get() : 5;
 
 			Function<Entity, DamageSource> damageSource = e -> new DamageSource(level.registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(EmbersDamageTypes.EMBER_KEY), e, entity);
 			EffectArea effect = new EffectArea(new EffectDamage(damage, damageSource, 1, 1.0), aoeSize, false);
@@ -91,8 +91,8 @@ public class CinderStaffItem extends Item implements IProjectileWeapon {
 	public void onUseTick(Level level, LivingEntity player, ItemStack stack, int count) {
 		if (stack.hasTag() && stack.getTag().getLong("lastUse") + ConfigManager.CINDER_STAFF_COOLDOWN.get() > level.getGameTime())
 			player.stopUsingItem();
-		double charge = ((Math.min(60, 72000 - count)) / 60.0) * 15.0;
-		boolean fullCharge = charge >= 15.0;
+		double charge = (Math.min(ConfigManager.CINDER_STAFF_MAX_CHARGE.get(), getUseDuration(stack) - count)) / (double) ConfigManager.CINDER_STAFF_MAX_CHARGE.get();
+		boolean fullCharge = charge >= 1.0;
 		ItemVisualEvent event = new ItemVisualEvent(player, Misc.handToSlot(player.getUsedItemHand()),stack,new Color(255,64,16),fullCharge ? EmbersSounds.CINDER_STAFF_LOOP.get() : null, 1.0f, 1.0f, "charge");
 
 		MinecraftForge.EVENT_BUS.post(event);
@@ -115,7 +115,7 @@ public class CinderStaffItem extends Item implements IProjectileWeapon {
 			if (traceResult.getType() == HitResult.Type.BLOCK)
 				spawnDistance = (float) Math.min(spawnDistance, traceResult.getLocation().distanceTo(eyesPos));
 			Vec3 launchPos = eyesPos.add(player.getLookAngle().scale(spawnDistance));
-			GlowParticleOptions options = new GlowParticleOptions(new Vector3f(color.getRed() / 255.0F, color.getGreen() / 255.0F, color.getBlue() / 255.0F), (float) (charge / 1.75f), 24);
+			GlowParticleOptions options = new GlowParticleOptions(new Vector3f(color.getRed() / 255.0F, color.getGreen() / 255.0F, color.getBlue() / 255.0F), (float) (charge * ConfigManager.CINDER_STAFF_SIZE.get() / 2.0f), 24);
 			for (int i = 0; i < 4; i++)
 				level.addParticle(options, (float) launchPos.x + (rand.nextFloat() * 0.1f - 0.05f), (float) launchPos.y + (rand.nextFloat() * 0.1f - 0.05f), (float) launchPos.z + (rand.nextFloat() * 0.1f - 0.05f), 0, 0.000001, 0);
 		}
