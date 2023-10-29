@@ -73,6 +73,7 @@ public class EmbersBlockLootTables extends BlockLootSubProvider {
 		dropSelf(RegistryManager.EMBER_DIAL.get());
 		dropSelf(RegistryManager.ITEM_DIAL.get());
 		dropSelf(RegistryManager.FLUID_DIAL.get());
+		dropSelf(RegistryManager.ATMOSPHERIC_GAUGE.get());
 		dropSelf(RegistryManager.EMBER_EMITTER.get());
 		dropSelf(RegistryManager.EMBER_RECEIVER.get());
 		dropSelf(RegistryManager.CAMINITE_LEVER.get());

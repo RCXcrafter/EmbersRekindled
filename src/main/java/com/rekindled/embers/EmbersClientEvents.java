@@ -197,6 +197,8 @@ public class EmbersClientEvents {
 
 					if (state.getBlock() instanceof IDial) {
 						text.addAll(((IDial) state.getBlock()).getDisplayInfo(world, result.getBlockPos(), state, (height / 2 - 100) / 11));
+					} else if (state.getBlock() == RegistryManager.ATMOSPHERIC_GAUGE.get()) {
+						renderAtmosphericGauge(gui, graphics, player, partialTicks, width, height);
 					} else if (Misc.isWearingLens(player)) {
 						BlockEntity tileEntity = world.getBlockEntity(result.getBlockPos());
 						if (tileEntity != null) {
@@ -212,39 +214,43 @@ public class EmbersClientEvents {
 			}
 		}
 
-		if (player.getMainHandItem().getItem() == RegistryManager.ATMOSPHERIC_GAUGE.get() || player.getOffhandItem().getItem() == RegistryManager.ATMOSPHERIC_GAUGE.get()) {
-			int x = width / 2;
-			int y = height / 2;
-
-			graphics.pose().pushPose();
-
-			//int offsetX = 0;
-
-			graphics.blit(GAUGE, x - 16, y - 16, 0, 0, 0, 32, 32, 32, 32);
-
-			//double angle = 195.0;
-			//EmberWorldData data = EmberWorldData.get(world);
-			if (player != null) {
-				//if (data.emberData != null){
-				//if (data.emberData.containsKey(""+((int)player.posX) / 16 + " " + ((int)player.posZ) / 16)){
-				double ratio = EmberGenUtil.getEmberDensity(seed, player.getBlockX(), player.getBlockZ());
-				if (gaugeAngle == 0) {
-					gaugeAngle = 165.0 + 210.0 * ratio;
-				} else {
-					gaugeAngle = gaugeAngle * 0.99 + 0.01 * (165.0 + 210.0 * ratio);
-				}
-				//}
-				//}
-			}
-
-			graphics.pose().translate(x, y, 0);
-			graphics.pose().mulPose(Axis.ZP.rotationDegrees((float) gaugeAngle));
-			graphics.pose().translate(-2.5, -2.5, 0);
-
-			graphics.blit(GAUGE_POINTER, 0, 0, 0, 0, 0, 12, 5, 16, 16);
-
-			graphics.pose().popPose();
+		if (player.getMainHandItem().getItem() == RegistryManager.ATMOSPHERIC_GAUGE_ITEM.get() || player.getOffhandItem().getItem() == RegistryManager.ATMOSPHERIC_GAUGE_ITEM.get()) {
+			renderAtmosphericGauge(gui, graphics, player, partialTicks, width, height);
 		}
+	}
+
+	public static void renderAtmosphericGauge(ForgeGui gui, GuiGraphics graphics, Player player, float partialTicks, int width, int height) {
+		int x = width / 2;
+		int y = height / 2;
+
+		graphics.pose().pushPose();
+
+		//int offsetX = 0;
+
+		graphics.blit(GAUGE, x - 16, y - 16, 0, 0, 0, 32, 32, 32, 32);
+
+		//double angle = 195.0;
+		//EmberWorldData data = EmberWorldData.get(world);
+		if (player != null) {
+			//if (data.emberData != null){
+			//if (data.emberData.containsKey(""+((int)player.posX) / 16 + " " + ((int)player.posZ) / 16)){
+			double ratio = EmberGenUtil.getEmberDensity(seed, player.getBlockX(), player.getBlockZ());
+			if (gaugeAngle == 0) {
+				gaugeAngle = 165.0 + 210.0 * ratio;
+			} else {
+				gaugeAngle = gaugeAngle * 0.99 + 0.01 * (165.0 + 210.0 * ratio);
+			}
+			//}
+			//}
+		}
+
+		graphics.pose().translate(x, y, 0);
+		graphics.pose().mulPose(Axis.ZP.rotationDegrees((float) gaugeAngle));
+		graphics.pose().translate(-2.5, -2.5, 0);
+
+		graphics.blit(GAUGE_POINTER, 0, 0, 0, 0, 0, 12, 5, 16, 16);
+
+		graphics.pose().popPose();
 	}
 
 	private static void addCapabilityInformation(List<String> text, BlockState state, BlockEntity tile, Direction facing) {

@@ -179,7 +179,7 @@ public class ResearchManager {
 		ores = new ResearchBase("ores", new ItemStack(RegistryManager.RAW_LEAD.get()), 0, 7);
 		hammer = new ResearchBase("hammer", new ItemStack(RegistryManager.TINKER_HAMMER.get()), 0, 3).addAncestor(ores);
 		ancient_golem = new ResearchBase("ancient_golem", ItemStack.EMPTY, 0, 0).setIconBackground(PAGE_ICONS, PAGE_ICON_SIZE *1, PAGE_ICON_SIZE *0);
-		gauge = new ResearchBase("gauge", new ItemStack(RegistryManager.ATMOSPHERIC_GAUGE.get()), 4, 3).addAncestor(ores);
+		gauge = new ResearchBase("gauge", new ItemStack(RegistryManager.ATMOSPHERIC_GAUGE_ITEM.get()), 4, 3).addAncestor(ores);
 		caminite = new ResearchBase("caminite", new ItemStack(RegistryManager.CAMINITE_BRICK.get()), 6, 7);
 		bore = new ResearchBase("bore", new ItemStack(RegistryManager.EMBER_BORE_ITEM.get()), 9, 0).addAncestor(hammer).addAncestor(caminite);
 		crystals = new ResearchBase("crystals", new ItemStack(RegistryManager.EMBER_CRYSTAL.get()), 12, 3).addAncestor(bore);

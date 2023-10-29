@@ -1,0 +1,7 @@
+{
+  "parent": "embers:block/dial",
+  "textures": {
+    "dial": "embers:block/atmospheric_gauge",
+    "particle": "embers:block/atmospheric_gauge"
+  }
+}

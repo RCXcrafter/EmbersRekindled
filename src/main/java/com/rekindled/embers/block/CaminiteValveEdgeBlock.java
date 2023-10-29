@@ -1,13 +1,12 @@
 package com.rekindled.embers.block;
 
-import javax.annotation.Nullable;
-
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.blockentity.CaminiteValveBlockEntity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -49,12 +48,6 @@ public class CaminiteValveEdgeBlock extends MechEdgeBlockBase implements EntityB
 
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-		return pState.getValue(EDGE).corner ? null : createTickerHelper(pBlockEntityType, RegistryManager.CAMINITE_VALVE_ENTITY.get(), CaminiteValveBlockEntity::commonTick);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Nullable
-	protected static <E extends BlockEntity, A extends BlockEntity> BlockEntityTicker<A> createTickerHelper(BlockEntityType<A> pServerType, BlockEntityType<E> pClientType, BlockEntityTicker<? super E> pTicker) {
-		return pClientType == pServerType ? (BlockEntityTicker<A>)pTicker : null;
+		return pState.getValue(EDGE).corner ? null : BaseEntityBlock.createTickerHelper(pBlockEntityType, RegistryManager.CAMINITE_VALVE_ENTITY.get(), CaminiteValveBlockEntity::commonTick);
 	}
 }
