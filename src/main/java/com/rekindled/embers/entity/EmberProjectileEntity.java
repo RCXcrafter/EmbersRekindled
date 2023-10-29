@@ -17,7 +17,6 @@ import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
@@ -147,7 +146,7 @@ public class EmberProjectileEntity extends Projectile {
 
 			setDeltaMovement(getDeltaMovement().add(0, gravity, 0));
 
-			if (!level().isClientSide() && raytraceresult != null && raytraceresult.getType() != HitResult.Type.MISS && !ForgeEventFactory.onProjectileImpact(this, raytraceresult)) {
+			if (raytraceresult != null && raytraceresult.getType() != HitResult.Type.MISS && !ForgeEventFactory.onProjectileImpact(this, raytraceresult)) {
 				onHit(raytraceresult);
 			}
 
@@ -161,7 +160,7 @@ public class EmberProjectileEntity extends Projectile {
 				GlowParticleOptions options = new GlowParticleOptions(Misc.colorFromInt(getEntityData().get(color)), getEntityData().get(value) / 1.75f, 24);
 				for (double i = 0; i < dist; i++) {
 					double coeff = i / dist;
-					level().addParticle(options, currPosVec.x + deltaX * coeff, currPosVec.y + deltaY * coeff, currPosVec.z + deltaZ * coeff, 0.125f*(random.nextFloat()-0.5f), 0.125f*(random.nextFloat()-0.5f), 0.125f*(random.nextFloat()-0.5f));
+					level().addAlwaysVisibleParticle(options, true, currPosVec.x + deltaX * coeff, currPosVec.y + deltaY * coeff, currPosVec.z + deltaZ * coeff, 0.125f*(random.nextFloat()-0.5f), 0.125f*(random.nextFloat()-0.5f), 0.125f*(random.nextFloat()-0.5f));
 				}
 			}
 		} else {
@@ -208,22 +207,24 @@ public class EmberProjectileEntity extends Projectile {
 
 	public void onHit(HitResult raytraceresult) {
 		super.onHit(raytraceresult);
-		playSound(getEntityData().get(value) > 7.0 ? EmbersSounds.FIREBALL_BIG_HIT.get() : EmbersSounds.FIREBALL_HIT.get());
+		if (level().isClientSide()) {
+			GlowParticleOptions options = new GlowParticleOptions(Misc.colorFromInt(getEntityData().get(color)), getEntityData().get(value), 24);
+			float dist = getEntityData().get(value) * 0.25f;
+			for (double i = 0; i < 40; i++) {
+				level().addAlwaysVisibleParticle(options, true, getX(), getY(), getZ(), dist*(random.nextFloat()-0.5f), dist*(random.nextFloat()-0.5f), dist*(random.nextFloat()-0.5f));
+			}
+		} else {
+			playSound(getEntityData().get(value) > 7.0 ? EmbersSounds.FIREBALL_BIG_HIT.get() : EmbersSounds.FIREBALL_HIT.get());
 
-		GlowParticleOptions options = new GlowParticleOptions(Misc.colorFromInt(getEntityData().get(color)), getEntityData().get(value), 24);
-		if (level() instanceof ServerLevel serverLevel) {
-			float dist = ((float)getEntityData().get(value)/3.5f)*0.125f;
-			serverLevel.sendParticles(options, getX(), getY(), getZ(), 40, dist, dist, dist, 0.75);
+			getEntityData().set(lifetime, 20);
+			getEntityData().set(dead, true);
+			setDeltaMovement(Vec3.ZERO);
+
+			//double aoeRadius = getEntityData().get(value) * 0.125; //TODO
+
+			if(effect != null)
+				effect.onHit(level(), raytraceresult, preset);
 		}
-
-		getEntityData().set(lifetime, 20);
-		getEntityData().set(dead, true);
-		setDeltaMovement(Vec3.ZERO);
-
-		//double aoeRadius = getEntityData().get(value) * 0.125; //TODO
-
-		if(effect != null)
-			effect.onHit(level(), raytraceresult, preset);
 	}
 
 	@Override

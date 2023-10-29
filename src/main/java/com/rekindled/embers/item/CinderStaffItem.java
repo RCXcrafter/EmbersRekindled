@@ -89,7 +89,7 @@ public class CinderStaffItem extends Item implements IProjectileWeapon {
 
 	@Override
 	public void onUseTick(Level level, LivingEntity player, ItemStack stack, int count) {
-		if (stack.hasTag() && stack.getTag().getLong("lastUse") + ConfigManager.CINDER_STAFF_COOLDOWN.get() > level.getGameTime())
+		if (stack.hasTag() && stack.getTag().getLong("lastUse") + ConfigManager.CINDER_STAFF_COOLDOWN.get() > level.getGameTime() && !(player instanceof Player && ((Player) player).isCreative()))
 			player.stopUsingItem();
 		double charge = (Math.min(ConfigManager.CINDER_STAFF_MAX_CHARGE.get(), getUseDuration(stack) - count)) / (double) ConfigManager.CINDER_STAFF_MAX_CHARGE.get();
 		boolean fullCharge = charge >= 1.0;
