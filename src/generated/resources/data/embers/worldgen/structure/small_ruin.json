@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:jigsaw",
+  "type": "embers:cave_structure",
   "biomes": {
     "type": "forge:and",
     "values": [
@@ -36,13 +36,7 @@
     }
   },
   "start_height": {
-    "type": "minecraft:trapezoid",
-    "max_inclusive": {
-      "above_bottom": 80
-    },
-    "min_inclusive": {
-      "above_bottom": 10
-    }
+    "above_bottom": 100
   },
   "start_pool": "embers:small_ruin",
   "step": "underground_structures",

@@ -8,6 +8,7 @@ import com.mojang.datafixers.util.Pair;
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.datagen.EmbersBiomeModifiers.NotHolderSetWrapper;
+import com.rekindled.embers.worldgen.CaveStructure;
 import com.rekindled.embers.worldgen.CrystalSeedStructureProcessor;
 import com.rekindled.embers.worldgen.EntityMobilizerStructureProcessor;
 
@@ -27,7 +28,7 @@ import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
-import net.minecraft.world.level.levelgen.heightproviders.TrapezoidHeight;
+import net.minecraft.world.level.levelgen.heightproviders.ConstantHeight;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureSet;
 import net.minecraft.world.level.levelgen.structure.StructureSpawnOverride;
@@ -37,7 +38,6 @@ import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadStruct
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType;
 import net.minecraft.world.level.levelgen.structure.pools.SinglePoolElement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
-import net.minecraft.world.level.levelgen.structure.structures.JigsawStructure;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.holdersets.AndHolderSet;
@@ -76,11 +76,11 @@ public class EmbersStructures {
 		HolderSet<Biome> overworldBiomes = biome.getOrThrow(BiomeTags.IS_OVERWORLD);
 		List<HolderSet<Biome>> biomeBlackList = List.of(HolderSet.direct(biome.getOrThrow(Biomes.DEEP_DARK)));
 		HolderSet<Biome> ruinSpawns = new AndHolderSet<Biome>(List.of(overworldBiomes, new NotHolderSetWrapper<Biome>(new OrHolderSet<Biome>(biomeBlackList))));
-
-		bootstrap.register(SMALL_RUIN, new JigsawStructure(new Structure.StructureSettings(ruinSpawns, Map.of(MobCategory.MONSTER,
+		
+		bootstrap.register(SMALL_RUIN, new CaveStructure(new Structure.StructureSettings(ruinSpawns, Map.of(MobCategory.MONSTER,
 				new StructureSpawnOverride(BoundingBoxType.STRUCTURE, WeightedRandomList.create(new MobSpawnSettings.SpawnerData(RegistryManager.ANCIENT_GOLEM.get(), 20, 1, 1)))),
 				Decoration.UNDERGROUND_STRUCTURES, TerrainAdjustment.NONE),
-				templatePool.getOrThrow(SMALL_RUIN_POOL), 2, TrapezoidHeight.of(VerticalAnchor.aboveBottom(10), VerticalAnchor.aboveBottom(80)), false));
+				templatePool.getOrThrow(SMALL_RUIN_POOL), 2, ConstantHeight.of(VerticalAnchor.aboveBottom(100)), false));
 	}
 
 	public static final ResourceKey<StructureSet> SMALL_RUIN_SET = ResourceKey.create(Registries.STRUCTURE_SET, new ResourceLocation(Embers.MODID, "small_ruin"));

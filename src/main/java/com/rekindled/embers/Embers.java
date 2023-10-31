@@ -167,6 +167,7 @@ public class Embers {
 		RegistryManager.RECIPE_SERIALIZERS.register(modEventBus);
 		RegistryManager.LOOT_MODIFIERS.register(modEventBus);
 		RegistryManager.MENU_TYPES.register(modEventBus);
+		RegistryManager.STRUCTURE_TYPES.register(modEventBus);
 		RegistryManager.STRUCTURE_PROCESSOR_TYPES.register(modEventBus);
 		EmbersSounds.init();
 		//TODO: move this to apiimpl when I port that
