@@ -3,6 +3,8 @@ package com.rekindled.embers.compat.jei;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.text.WordUtils;
+
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.recipe.BoringRecipe;
@@ -73,7 +75,7 @@ public class BoringCategory implements IRecipeCategory<BoringRecipe> {
 		if (!recipe.dimensions.isEmpty()) {
 			if (mouseY > height && mouseY < height + 11 && mouseX > 7 && mouseX < 119) {
 				for (ResourceLocation dimension : recipe.dimensions) {
-					text.add(Component.literal(dimension.toString()));
+					text.add(Component.translatableWithFallback("dimension." + dimension.toLanguageKey(), WordUtils.capitalize(dimension.getPath().replace("_", " "))));
 				}
 			}
 			height += 11;

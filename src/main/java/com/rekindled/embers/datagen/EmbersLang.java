@@ -11,6 +11,7 @@ import com.rekindled.embers.RegistryManager.ToolSet;
 import net.minecraft.data.PackOutput;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -312,6 +313,9 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".jei.recipe.boiling", "Boiling");
 		add(Embers.MODID + ".jei.recipe.gaseous_fuel", "Gaseous Fuel");
 		add(Embers.MODID + ".jei.recipe.gaseous_fuel.burn_time", "Burn Time: %s");
+		add("dimension." + Level.OVERWORLD.location().toLanguageKey(), "Overworld");
+		add("dimension." + Level.NETHER.location().toLanguageKey(), "The Nether");
+		add("dimension." + Level.END.location().toLanguageKey(), "The End");
 
 
 		//ancient codex
