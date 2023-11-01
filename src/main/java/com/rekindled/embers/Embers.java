@@ -99,6 +99,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.material.Fluid;
@@ -367,7 +368,7 @@ public class Embers {
 	}
 
 	public static void onServerTick(LevelTickEvent event) {
-		if (event.side.isServer()) {
+		if (event.side.isServer() && event.level.dimension() == Level.OVERWORLD) {
 			boolean changed = false;
 			if (Misc.random.nextInt(400) == 0) {
 				EmberGenUtil.offX++;
