@@ -1,0 +1,50 @@
+{
+  "variants": {
+    "connection=bottom,waterlogged=false": {
+      "model": "embers:block/combustion_chamber",
+      "y": 90
+    },
+    "connection=bottom,waterlogged=true": {
+      "model": "embers:block/combustion_chamber",
+      "y": 90
+    },
+    "connection=top_east,waterlogged=false": {
+      "model": "embers:block/chamber_top_connection",
+      "y": 90
+    },
+    "connection=top_east,waterlogged=true": {
+      "model": "embers:block/chamber_top_connection",
+      "y": 90
+    },
+    "connection=top_none,waterlogged=false": {
+      "model": "embers:block/chamber_top",
+      "y": 90
+    },
+    "connection=top_none,waterlogged=true": {
+      "model": "embers:block/chamber_top",
+      "y": 90
+    },
+    "connection=top_north,waterlogged=false": {
+      "model": "embers:block/chamber_top_connection"
+    },
+    "connection=top_north,waterlogged=true": {
+      "model": "embers:block/chamber_top_connection"
+    },
+    "connection=top_south,waterlogged=false": {
+      "model": "embers:block/chamber_top_connection",
+      "y": 180
+    },
+    "connection=top_south,waterlogged=true": {
+      "model": "embers:block/chamber_top_connection",
+      "y": 180
+    },
+    "connection=top_west,waterlogged=false": {
+      "model": "embers:block/chamber_top_connection",
+      "y": 270
+    },
+    "connection=top_west,waterlogged=true": {
+      "model": "embers:block/chamber_top_connection",
+      "y": 270
+    }
+  }
+}

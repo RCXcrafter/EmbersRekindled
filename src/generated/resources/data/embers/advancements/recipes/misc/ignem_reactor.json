@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "embers:ignem_reactor"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_wildfire_core": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "embers:wildfire_core"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_wildfire_core",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "embers:ignem_reactor"
+    ]
+  },
+  "sends_telemetry_event": false
+}

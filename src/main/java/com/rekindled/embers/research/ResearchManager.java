@@ -270,19 +270,19 @@ public class ResearchManager {
 				.addPage(new ResearchShowItem("crystal_level",ItemStack.EMPTY,0,0)
 						.addItem(new DisplayItem(new ItemStack(RegistryManager.IRON_CRYSTAL_SEED.ITEM.get()), new ItemStack(RegistryManager.GOLD_CRYSTAL_SEED.ITEM.get()), new ItemStack(RegistryManager.COPPER_CRYSTAL_SEED.ITEM.get()), new ItemStack(RegistryManager.TIN_CRYSTAL_SEED.ITEM.get())))
 						.addItem(new DisplayItem(new ItemStack(RegistryManager.SILVER_CRYSTAL_SEED.ITEM.get()), new ItemStack(RegistryManager.LEAD_CRYSTAL_SEED.ITEM.get()), new ItemStack(RegistryManager.NICKEL_CRYSTAL_SEED.ITEM.get()), new ItemStack(RegistryManager.ALUMINUM_CRYSTAL_SEED.ITEM.get()))));
-		/*combustor = new ResearchBase("combustor", new ItemStack(RegistryManager.combustor), 6, 5).addAncestor(wildfire);
+		combustor = new ResearchBase("combustor", new ItemStack(RegistryManager.COMBUSTION_CHAMBER_ITEM.get()), 6, 5).addAncestor(wildfire);
 		combustor.addPage(new ResearchShowItem("empty", ItemStack.EMPTY, 0, 0)
 				.addItem(new DisplayItem("combustor_coal",new ItemStack(Items.COAL)))
-				.addItem(new DisplayItem("combustor_nether_brick",new ItemStack(Items.NETHERBRICK)))
+				.addItem(new DisplayItem("combustor_nether_brick",new ItemStack(Items.NETHER_BRICK)))
 				.addItem(new DisplayItem("combustor_blaze_powder",new ItemStack(Items.BLAZE_POWDER)))
 				);
-		catalyzer = new ResearchBase("catalyzer", new ItemStack(RegistryManager.catalyzer), 5, 7).addAncestor(wildfire);
+		catalyzer = new ResearchBase("catalyzer", new ItemStack(RegistryManager.CATALYSIS_CHAMBER_ITEM.get()), 5, 7).addAncestor(wildfire);
 		catalyzer.addPage(new ResearchShowItem("empty", ItemStack.EMPTY, 0, 0)
-				.addItem(new DisplayItem("catalyzer_redstone",new ItemStack(Items.REDSTONE)))
+				.addItem(new DisplayItem("catalyzer_grit",new ItemStack(RegistryManager.EMBER_GRIT.get())))
 				.addItem(new DisplayItem("catalyzer_gunpowder",new ItemStack(Items.GUNPOWDER)))
 				.addItem(new DisplayItem("catalyzer_glowstone",new ItemStack(Items.GLOWSTONE_DUST)))
 				);
-		reactor = new ResearchBase("reactor", new ItemStack(RegistryManager.reactor), 9, 7).addAncestor(combustor).addAncestor(catalyzer);*/
+		reactor = new ResearchBase("reactor", new ItemStack(RegistryManager.IGNEM_REACTOR_ITEM.get()), 9, 7).addAncestor(combustor).addAncestor(catalyzer);
 		stirling = new ResearchBase("stirling", new ItemStack(RegistryManager.WILDFIRE_STIRLING_ITEM.get()), 0, 2).addAncestor(ResearchManager.wildfire);
 		/*ember_pipe = new ResearchBase("ember_pipe", new ItemStack(RegistryManager.ember_pipe), 12, 6).addAncestor(ResearchManager.reactor);
 
@@ -362,9 +362,9 @@ public class ResearchManager {
 
 		subCategoryWildfire.addResearch(wildfire);
 		subCategoryWildfire.addResearch(injector);
-		//subCategoryWildfire.addResearch(combustor);
-		//subCategoryWildfire.addResearch(catalyzer);
-		//subCategoryWildfire.addResearch(reactor);
+		subCategoryWildfire.addResearch(combustor);
+		subCategoryWildfire.addResearch(catalyzer);
+		subCategoryWildfire.addResearch(reactor);
 		subCategoryWildfire.addResearch(stirling);
 		//subCategoryWildfire.addResearch(ember_pipe);
 

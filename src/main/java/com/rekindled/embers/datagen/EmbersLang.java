@@ -115,6 +115,9 @@ public class EmbersLang extends LanguageProvider {
 		addBlock(RegistryManager.DAWNSTONE_CRYSTAL_SEED.BLOCK,  "Dawnstone Crystal Seed");
 		addBlock(RegistryManager.FIELD_CHART, "Field Chart");
 		addBlock(RegistryManager.FIELD_CHART_EDGE, "Field Chart");
+		addBlock(RegistryManager.IGNEM_REACTOR, "Ignem Reactor");
+		addBlock(RegistryManager.CATALYSIS_CHAMBER, "Catalysis Chamber");
+		addBlock(RegistryManager.COMBUSTION_CHAMBER, "Combustion Chamber");
 
 		addItem(RegistryManager.TINKER_HAMMER, "Tinker's Hammer");
 		addItem(RegistryManager.TINKER_LENS, "Tinker's Lens");
@@ -313,6 +316,9 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".jei.recipe.boiling", "Boiling");
 		add(Embers.MODID + ".jei.recipe.gaseous_fuel", "Gaseous Fuel");
 		add(Embers.MODID + ".jei.recipe.gaseous_fuel.burn_time", "Burn Time: %s");
+		add(Embers.MODID + ".jei.recipe.catalysis_combustion", "Catalysis & Combustion");
+		add(Embers.MODID + ".jei.recipe.catalysis_combustion.burn_time", "Burn Time: %s");
+		add(Embers.MODID + ".jei.recipe.catalysis_combustion.multiplier", "Multiplier: %s");
 		add("dimension." + Level.OVERWORLD.location().toLanguageKey(), "Overworld");
 		add("dimension." + Level.NETHER.location().toLanguageKey(), "The Nether");
 		add("dimension." + Level.END.location().toLanguageKey(), "The End");
@@ -751,9 +757,9 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".research.page.catalyzer", "Catalysis Chamber");
 		add(Embers.MODID + ".research.page.catalyzer.title", "Chemical Power");
 		add(Embers.MODID + ".research.page.catalyzer.tags", "Catalysis;Catalyst;Machine;Reactor;Chamber;Upgrade;Multiblock;Multi Block;");
-		add(Embers.MODID + ".research.page.catalyzer.desc", "The Catalysis Chamber is a simple machine that does little on its own, simply using up catalyst items. Each catalyst item has a particular catalyst level: Redstone has a level of two, Gunpowder a level of three, and Glowstone Dust a level of four.");
+		add(Embers.MODID + ".research.page.catalyzer.desc", "The Catalysis Chamber is a simple machine that does little on its own, simply using up catalyst items. Each catalyst item has a particular catalyst level: Ember Grit has a level of two, Gunpowder a level of three, and Glowstone Dust a level of four.");
 
-		add(Embers.MODID + ".research.image.catalyzer_redstone", "Coefficient: 2x");
+		add(Embers.MODID + ".research.image.catalyzer_grit", "Coefficient: 2x");
 		add(Embers.MODID + ".research.image.catalyzer_gunpowder", "Coefficient: 3x");
 		add(Embers.MODID + ".research.image.catalyzer_glowstone", "Coefficient: 4x");
 

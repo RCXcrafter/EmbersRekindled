@@ -39,7 +39,6 @@ public class EmberActivatorTopBlockEntity extends BlockEntity implements ISoundC
 		}
 	};
 	static Random random = new Random();
-	int progress = -1;
 
 	public static final int SOUND_HAS_EMBER = 1;
 	public static final int[] SOUND_IDS = new int[]{SOUND_HAS_EMBER};
@@ -55,14 +54,12 @@ public class EmberActivatorTopBlockEntity extends BlockEntity implements ISoundC
 	public void load(CompoundTag nbt) {
 		super.load(nbt);
 		capability.deserializeNBT(nbt);
-		progress = nbt.getInt("progress");
 	}
 
 	@Override
 	public void saveAdditional(CompoundTag nbt) {
 		super.saveAdditional(nbt);
 		capability.writeToNBT(nbt);
-		nbt.putInt("progress", progress);
 	}
 
 	@Override

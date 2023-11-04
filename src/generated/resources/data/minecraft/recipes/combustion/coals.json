@@ -1,0 +1,11 @@
+{
+  "type": "embers:catalysis_combustion",
+  "burn_time": 400,
+  "input": {
+    "tag": "minecraft:coals"
+  },
+  "machine": {
+    "item": "embers:combustion_chamber"
+  },
+  "multiplier": 2.0
+}

@@ -24,8 +24,10 @@ import com.rekindled.embers.block.CaminiteRingBlock;
 import com.rekindled.embers.block.CaminiteRingEdgeBlock;
 import com.rekindled.embers.block.CaminiteValveBlock;
 import com.rekindled.embers.block.CaminiteValveEdgeBlock;
+import com.rekindled.embers.block.CatalysisChamberBlock;
 import com.rekindled.embers.block.CatalyticPlugBlock;
 import com.rekindled.embers.block.ClockworkAttenuatorBlock;
+import com.rekindled.embers.block.CombustionChamberBlock;
 import com.rekindled.embers.block.CopperCellBlock;
 import com.rekindled.embers.block.CopperChargerBlock;
 import com.rekindled.embers.block.CreativeEmberBlock;
@@ -54,6 +56,7 @@ import com.rekindled.embers.block.FluidVesselBlock;
 import com.rekindled.embers.block.GeologicSeparatorBlock;
 import com.rekindled.embers.block.HearthCoilBlock;
 import com.rekindled.embers.block.HearthCoilEdgeBlock;
+import com.rekindled.embers.block.IgnemReactorBlock;
 import com.rekindled.embers.block.ItemDialBlock;
 import com.rekindled.embers.block.ItemDropperBlock;
 import com.rekindled.embers.block.ItemExtractorBlock;
@@ -81,8 +84,10 @@ import com.rekindled.embers.blockentity.BeamCannonBlockEntity;
 import com.rekindled.embers.blockentity.BeamSplitterBlockEntity;
 import com.rekindled.embers.blockentity.BinBlockEntity;
 import com.rekindled.embers.blockentity.CaminiteValveBlockEntity;
+import com.rekindled.embers.blockentity.CatalysisChamberBlockEntity;
 import com.rekindled.embers.blockentity.CatalyticPlugBlockEntity;
 import com.rekindled.embers.blockentity.ClockworkAttenuatorBlockEntity;
+import com.rekindled.embers.blockentity.CombustionChamberBlockEntity;
 import com.rekindled.embers.blockentity.CopperCellBlockEntity;
 import com.rekindled.embers.blockentity.CopperChargerBlockEntity;
 import com.rekindled.embers.blockentity.CreativeEmberBlockEntity;
@@ -105,6 +110,7 @@ import com.rekindled.embers.blockentity.FluidTransferBlockEntity;
 import com.rekindled.embers.blockentity.FluidVesselBlockEntity;
 import com.rekindled.embers.blockentity.GeologicSeparatorBlockEntity;
 import com.rekindled.embers.blockentity.HearthCoilBlockEntity;
+import com.rekindled.embers.blockentity.IgnemReactorBlockEntity;
 import com.rekindled.embers.blockentity.ItemDropperBlockEntity;
 import com.rekindled.embers.blockentity.ItemExtractorBlockEntity;
 import com.rekindled.embers.blockentity.ItemPipeBlockEntity;
@@ -164,6 +170,7 @@ import com.rekindled.embers.particle.VaporParticleOptions;
 import com.rekindled.embers.recipe.AlchemyRecipe;
 import com.rekindled.embers.recipe.BoilingRecipe;
 import com.rekindled.embers.recipe.BoringRecipe;
+import com.rekindled.embers.recipe.CatalysisCombustionRecipe;
 import com.rekindled.embers.recipe.EmberActivationRecipe;
 import com.rekindled.embers.recipe.GaseousFuelRecipe;
 import com.rekindled.embers.recipe.GemSocketRecipe;
@@ -408,6 +415,9 @@ public class RegistryManager {
 	public static final MetalCrystalSeed DAWNSTONE_CRYSTAL_SEED = new MetalCrystalSeed("dawnstone");
 	public static final RegistryObject<Block> FIELD_CHART = BLOCKS.register("field_chart", () -> new FieldChartBlock(Properties.of().mapColor(MapColor.COLOR_ORANGE).sound(SoundType.NETHER_BRICKS).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
 	public static final RegistryObject<Block> FIELD_CHART_EDGE = BLOCKS.register("field_chart_edge", () -> new FieldChartEdgeBlock(Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).pushReaction(PushReaction.BLOCK).sound(EmbersSounds.ARCHAIC_MULTIBLOCK_EXTRA).requiresCorrectToolForDrops().strength(1.6f)));
+	public static final RegistryObject<Block> IGNEM_REACTOR = BLOCKS.register("ignem_reactor", () -> new IgnemReactorBlock(Properties.of().mapColor(MapColor.COLOR_ORANGE).sound(EmbersSounds.MACHINE).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
+	public static final RegistryObject<Block> CATALYSIS_CHAMBER = BLOCKS.register("catalysis_chamber", () -> new CatalysisChamberBlock(Properties.of().mapColor(MapColor.COLOR_GRAY).sound(EmbersSounds.MACHINE).requiresCorrectToolForDrops().strength(1.6f).noOcclusion(), EmbersSounds.MULTIBLOCK_EXTRA));
+	public static final RegistryObject<Block> COMBUSTION_CHAMBER = BLOCKS.register("combustion_chamber", () -> new CombustionChamberBlock(Properties.of().mapColor(MapColor.COLOR_GRAY).sound(EmbersSounds.MACHINE).requiresCorrectToolForDrops().strength(1.6f).noOcclusion(), EmbersSounds.MULTIBLOCK_EXTRA));
 
 	//itemblocks
 	public static final RegistryObject<Item> LEAD_ORE_ITEM = ITEMS.register("lead_ore", () -> new BlockItem(LEAD_ORE.get(), new Item.Properties()));
@@ -482,6 +492,9 @@ public class RegistryManager {
 	public static final RegistryObject<Item> WILDFIRE_STIRLING_ITEM = ITEMS.register("wildfire_stirling", () -> new BlockItem(WILDFIRE_STIRLING.get(), new Item.Properties()));
 	public static final RegistryObject<Item> EMBER_INJECTOR_ITEM = ITEMS.register("ember_injector", () -> new BlockItem(EMBER_INJECTOR.get(), new Item.Properties()));
 	public static final RegistryObject<Item> FIELD_CHART_ITEM = ITEMS.register("field_chart", () -> new BlockItem(FIELD_CHART.get(), new Item.Properties()));
+	public static final RegistryObject<Item> IGNEM_REACTOR_ITEM = ITEMS.register("ignem_reactor", () -> new BlockItem(IGNEM_REACTOR.get(), new Item.Properties()));
+	public static final RegistryObject<Item> CATALYSIS_CHAMBER_ITEM = ITEMS.register("catalysis_chamber", () -> new BlockItem(CATALYSIS_CHAMBER.get(), new Item.Properties()));
+	public static final RegistryObject<Item> COMBUSTION_CHAMBER_ITEM = ITEMS.register("combustion_chamber", () -> new BlockItem(COMBUSTION_CHAMBER.get(), new Item.Properties()));
 
 	//items
 	public static final RegistryObject<Item> TINKER_HAMMER = ITEMS.register("tinker_hammer", () -> new TinkerHammerItem(new Item.Properties().stacksTo(1)));
@@ -700,6 +713,9 @@ public class RegistryManager {
 	public static final RegistryObject<BlockEntityType<WildfireStirlingBlockEntity>> WILDFIRE_STIRLING_ENTITY = BLOCK_ENTITY_TYPES.register("wildfire_stirling", () -> BlockEntityType.Builder.of(WildfireStirlingBlockEntity::new, WILDFIRE_STIRLING.get()).build(null));
 	public static final RegistryObject<BlockEntityType<EmberInjectorBlockEntity>> EMBER_INJECTOR_ENTITY = BLOCK_ENTITY_TYPES.register("ember_injector", () -> BlockEntityType.Builder.of(EmberInjectorBlockEntity::new, EMBER_INJECTOR.get()).build(null));
 	public static final RegistryObject<BlockEntityType<FieldChartBlockEntity>> FIELD_CHART_ENTITY = BLOCK_ENTITY_TYPES.register("field_chart", () -> BlockEntityType.Builder.of(FieldChartBlockEntity::new, FIELD_CHART.get()).build(null));
+	public static final RegistryObject<BlockEntityType<IgnemReactorBlockEntity>> IGNEM_REACTOR_ENTITY = BLOCK_ENTITY_TYPES.register("ignem_reactor", () -> BlockEntityType.Builder.of(IgnemReactorBlockEntity::new, IGNEM_REACTOR.get()).build(null));
+	public static final RegistryObject<BlockEntityType<CatalysisChamberBlockEntity>> CATALYSIS_CHAMBER_ENTITY = BLOCK_ENTITY_TYPES.register("catalysis_chamber", () -> BlockEntityType.Builder.of(CatalysisChamberBlockEntity::new, CATALYSIS_CHAMBER.get()).build(null));
+	public static final RegistryObject<BlockEntityType<CombustionChamberBlockEntity>> COMBUSTION_CHAMBER_ENTITY = BLOCK_ENTITY_TYPES.register("combustion_chamber", () -> BlockEntityType.Builder.of(CombustionChamberBlockEntity::new, COMBUSTION_CHAMBER.get()).build(null));
 
 	//creative tabs
 	public static final RegistryObject<CreativeModeTab> EMBERS_TAB = CREATIVE_TABS.register("main_tab", () -> CreativeModeTab.builder()
@@ -744,6 +760,7 @@ public class RegistryManager {
 	public static final RegistryObject<RecipeType<AlchemyRecipe>> ALCHEMY = registerRecipeType("alchemy");
 	public static final RegistryObject<RecipeType<BoilingRecipe>> BOILING = registerRecipeType("boiling");
 	public static final RegistryObject<RecipeType<GaseousFuelRecipe>> GASEOUS_FUEL = registerRecipeType("gaseous_fuel");
+	public static final RegistryObject<RecipeType<CatalysisCombustionRecipe>> CATALYSIS_COMBUSTION = registerRecipeType("catalysis_combustion");
 
 	//recipe serializers
 	public static final RegistryObject<RecipeSerializer<BoringRecipe>> BORING_SERIALIZER = RECIPE_SERIALIZERS.register("boring", () -> BoringRecipe.SERIALIZER);
@@ -756,6 +773,7 @@ public class RegistryManager {
 	public static final RegistryObject<RecipeSerializer<AlchemyRecipe>> ALCHEMY_SERIALIZER = RECIPE_SERIALIZERS.register("alchemy", () -> AlchemyRecipe.SERIALIZER);
 	public static final RegistryObject<RecipeSerializer<BoilingRecipe>> BOILING_SERIALIZER = RECIPE_SERIALIZERS.register("boiling", () -> BoilingRecipe.SERIALIZER);
 	public static final RegistryObject<RecipeSerializer<GaseousFuelRecipe>> GASEOUS_FUEL_SERIALIZER = RECIPE_SERIALIZERS.register("gaseous_fuel", () -> GaseousFuelRecipe.SERIALIZER);
+	public static final RegistryObject<RecipeSerializer<CatalysisCombustionRecipe>> CATALYSIS_COMBUSTION_SERIALIZER = RECIPE_SERIALIZERS.register("catalysis_combustion", () -> CatalysisCombustionRecipe.SERIALIZER);
 	public static final RegistryObject<RecipeSerializer<GemSocketRecipe>> GEM_SOCKET_SERIALIZER = RECIPE_SERIALIZERS.register("gem_socket", () -> GemSocketRecipe.SERIALIZER);
 	public static final RegistryObject<RecipeSerializer<GemUnsocketRecipe>> GEM_UNSOCKET_SERIALIZER = RECIPE_SERIALIZERS.register("gem_unsocket", () -> GemUnsocketRecipe.SERIALIZER);
 

@@ -12,6 +12,7 @@ import com.rekindled.embers.RegistryManager.ToolSet;
 import com.rekindled.embers.recipe.AlchemyRecipeBuilder;
 import com.rekindled.embers.recipe.BoilingRecipeBuilder;
 import com.rekindled.embers.recipe.BoringRecipeBuilder;
+import com.rekindled.embers.recipe.CatalysisCombustionRecipeBuilder;
 import com.rekindled.embers.recipe.EmberActivationRecipeBuilder;
 import com.rekindled.embers.recipe.GaseousFuelRecipeBuilder;
 import com.rekindled.embers.recipe.GemSocketRecipeBuilder;
@@ -59,6 +60,9 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 	public static String coefficientFolder = "metal_coefficient";
 	public static String alchemyFolder = "alchemy";
 	public static String boilingFolder = "boiling";
+	public static String gaseousFuelFolder = "gas_fuel";
+	public static String catalysisFolder = "catalysis";
+	public static String combustionFolder = "combustion";
 
 	public EmbersRecipes(PackOutput gen) {
 		super(gen);
@@ -225,8 +229,17 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		BoilingRecipeBuilder.create(RegistryManager.DWARVEN_GAS.FLUID.get(), 1).folder(boilingFolder).input(RegistryManager.DWARVEN_OIL.FLUID.get(), 1).save(consumer);
 
 		//gaseous fuel
-		GaseousFuelRecipeBuilder.create(RegistryManager.STEAM.FLUID.get(), 1).burnTime(1).powerMultiplier(2.0).save(consumer);
-		GaseousFuelRecipeBuilder.create(RegistryManager.DWARVEN_GAS.FLUID.get(), 1).burnTime(5).powerMultiplier(2.5).save(consumer);
+		GaseousFuelRecipeBuilder.create(RegistryManager.STEAM.FLUID.get(), 1).folder(gaseousFuelFolder).burnTime(1).powerMultiplier(2.0).save(consumer);
+		GaseousFuelRecipeBuilder.create(RegistryManager.DWARVEN_GAS.FLUID.get(), 1).folder(gaseousFuelFolder).burnTime(5).powerMultiplier(2.5).save(consumer);
+
+		//catalysis and combustion
+		CatalysisCombustionRecipeBuilder.create(RegistryManager.EMBER_GRIT.get()).catalysis().folder(catalysisFolder).multiplier(2.0).burnTime(400).save(consumer);
+		CatalysisCombustionRecipeBuilder.create(Tags.Items.GUNPOWDER).catalysis().folder(catalysisFolder).multiplier(3.0).burnTime(400).save(consumer);
+		CatalysisCombustionRecipeBuilder.create(Tags.Items.DUSTS_GLOWSTONE).catalysis().folder(catalysisFolder).multiplier(4.0).burnTime(400).save(consumer);
+
+		CatalysisCombustionRecipeBuilder.create(ItemTags.COALS).combustion().folder(combustionFolder).multiplier(2.0).burnTime(400).save(consumer);
+		CatalysisCombustionRecipeBuilder.create(Tags.Items.INGOTS_NETHER_BRICK).combustion().folder(combustionFolder).multiplier(3.0).burnTime(400).save(consumer);
+		CatalysisCombustionRecipeBuilder.create(Items.BLAZE_POWDER).combustion().folder(combustionFolder).multiplier(4.0).burnTime(400).save(consumer);
 
 		//special recipes
 		GemSocketRecipeBuilder.create(Tags.Items.STRING).id(new ResourceLocation(Embers.MODID, "gem_socketing")).save(consumer);
@@ -1038,6 +1051,39 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('B', Tags.Items.SLIMEBALLS)
 		.unlockedBy("has_slime", has(Tags.Items.SLIMEBALLS))
 		.save(consumer, getResource("sticky_piston_adhesive"));
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.IGNEM_REACTOR.get())
+		.pattern("CCC")
+		.pattern("CWC")
+		.pattern("SBS")
+		.define('C', itemTag("forge", "ingots/copper"))
+		.define('S', itemTag("forge", "plates/silver"))
+		.define('W', RegistryManager.WILDFIRE_CORE.get())
+		.define('B', RegistryManager.CAMINITE_BRICKS.get())
+		.unlockedBy("has_wildfire_core", has(RegistryManager.WILDFIRE_CORE.get()))
+		.save(consumer, getResource("ignem_reactor"));
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.CATALYSIS_CHAMBER.get())
+		.pattern(" C ")
+		.pattern("PEP")
+		.pattern("CMC")
+		.define('C', itemTag("forge", "ingots/silver"))
+		.define('P', itemTag("forge", "plates/silver"))
+		.define('M', RegistryManager.MECHANICAL_CORE.get())
+		.define('E', RegistryManager.EMBER_CRYSTAL_CLUSTER.get())
+		.unlockedBy("has_wildfire_core", has(RegistryManager.WILDFIRE_CORE.get()))
+		.save(consumer, getResource("catalysis_chamber"));
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.COMBUSTION_CHAMBER.get())
+		.pattern(" C ")
+		.pattern("PEP")
+		.pattern("CMC")
+		.define('C', itemTag("forge", "ingots/copper"))
+		.define('P', itemTag("forge", "plates/copper"))
+		.define('M', RegistryManager.MECHANICAL_CORE.get())
+		.define('E', RegistryManager.EMBER_CRYSTAL_CLUSTER.get())
+		.unlockedBy("has_wildfire_core", has(RegistryManager.WILDFIRE_CORE.get()))
+		.save(consumer, getResource("combustion_chamber"));
 	}
 
 	public void fullOreRecipes(String name, ImmutableList<ItemLike> ores, Fluid fluid, Item raw, Item rawBlock, Item block, Item ingot, Item nugget, Item plate, Consumer<FinishedRecipe> consumer, MeltingBonus... bonusses) {

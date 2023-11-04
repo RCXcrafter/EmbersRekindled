@@ -136,6 +136,9 @@ public class EmbersBlockLootTables extends BlockLootSubProvider {
 		dropSelf(RegistryManager.DAWNSTONE_CRYSTAL_SEED.BLOCK.get());
 		dropSelf(RegistryManager.FIELD_CHART.get());
 		add(RegistryManager.FIELD_CHART_EDGE.get(), noDrop());
+		dropSelf(RegistryManager.IGNEM_REACTOR.get());
+		dropSelf(RegistryManager.CATALYSIS_CHAMBER.get());
+		dropSelf(RegistryManager.COMBUSTION_CHAMBER.get());
 	}
 
 	public void decoDrops(StoneDecoBlocks deco) {

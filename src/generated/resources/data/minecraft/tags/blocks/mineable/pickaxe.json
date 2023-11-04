@@ -100,6 +100,9 @@
     "embers:tin_crystal_seed",
     "embers:dawnstone_crystal_seed",
     "embers:field_chart",
-    "embers:field_chart_edge"
+    "embers:field_chart_edge",
+    "embers:ignem_reactor",
+    "embers:catalysis_chamber",
+    "embers:combustion_chamber"
   ]
 }

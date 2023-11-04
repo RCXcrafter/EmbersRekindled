@@ -7,10 +7,12 @@ import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.RegistryManager.FluidStuff;
 import com.rekindled.embers.RegistryManager.MetalCrystalSeed;
 import com.rekindled.embers.RegistryManager.StoneDecoBlocks;
+import com.rekindled.embers.block.ChamberBlockBase;
 import com.rekindled.embers.block.EmberEmitterBlock;
 import com.rekindled.embers.block.FieldChartBlock;
 import com.rekindled.embers.block.ItemTransferBlock;
 import com.rekindled.embers.block.MechEdgeBlockBase;
+import com.rekindled.embers.block.ChamberBlockBase.ChamberConnection;
 import com.rekindled.embers.block.MechEdgeBlockBase.MechEdge;
 
 import net.minecraft.core.Direction;
@@ -613,6 +615,33 @@ public class EmbersBlockStates extends BlockStateProvider {
 			return ConfiguredModel.builder()
 					.modelFile(edge.corner ? chartCornerModel : chartEdgeModel)
 					.rotationY(edge.rotation)
+					.uvLock(false)
+					.build();
+		});
+
+		blockWithItem(RegistryManager.IGNEM_REACTOR, "ignem_reactor");
+
+		ExistingModelFile chamberModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "chamber_top"));
+		ExistingModelFile chamberConnectionModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "chamber_top_connection"));
+
+		ExistingModelFile catalysisChamberModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "catalysis_chamber"));
+		simpleBlockItem(RegistryManager.CATALYSIS_CHAMBER.get(), catalysisChamberModel);
+		getVariantBuilder(RegistryManager.CATALYSIS_CHAMBER.get()).forAllStates(state -> {
+			ChamberConnection connection = state.getValue(ChamberBlockBase.CONNECTION);
+			return ConfiguredModel.builder()
+					.modelFile(connection == ChamberConnection.BOTTOM ? catalysisChamberModel : connection == ChamberConnection.TOP ? chamberModel : chamberConnectionModel)
+					.rotationY(((int) connection.direction.toYRot() + 180) % 360)
+					.uvLock(false)
+					.build();
+		});
+
+		ExistingModelFile combustionChamberModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "combustion_chamber"));
+		simpleBlockItem(RegistryManager.COMBUSTION_CHAMBER.get(), combustionChamberModel);
+		getVariantBuilder(RegistryManager.COMBUSTION_CHAMBER.get()).forAllStates(state -> {
+			ChamberConnection connection = state.getValue(ChamberBlockBase.CONNECTION);
+			return ConfiguredModel.builder()
+					.modelFile(connection == ChamberConnection.BOTTOM ? combustionChamberModel : connection == ChamberConnection.TOP ? chamberModel : chamberConnectionModel)
+					.rotationY(((int) connection.direction.toYRot() + 180) % 360)
 					.uvLock(false)
 					.build();
 		});

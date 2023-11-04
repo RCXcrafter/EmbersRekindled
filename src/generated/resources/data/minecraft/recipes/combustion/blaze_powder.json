@@ -1,0 +1,11 @@
+{
+  "type": "embers:catalysis_combustion",
+  "burn_time": 400,
+  "input": {
+    "item": "minecraft:blaze_powder"
+  },
+  "machine": {
+    "item": "embers:combustion_chamber"
+  },
+  "multiplier": 4.0
+}

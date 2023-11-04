@@ -8,6 +8,7 @@ import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.recipe.AlchemyRecipe;
 import com.rekindled.embers.recipe.BoilingRecipe;
 import com.rekindled.embers.recipe.BoringRecipe;
+import com.rekindled.embers.recipe.CatalysisCombustionRecipe;
 import com.rekindled.embers.recipe.EmberActivationRecipe;
 import com.rekindled.embers.recipe.GaseousFuelRecipe;
 import com.rekindled.embers.recipe.MeltingRecipe;
@@ -43,6 +44,7 @@ public class JEIPlugin implements IModPlugin {
 	public static final RecipeType<AlchemyRecipe> ALCHEMY = RecipeType.create(Embers.MODID, "alchemy", AlchemyRecipe.class);
 	public static final RecipeType<BoilingRecipe> BOILING = RecipeType.create(Embers.MODID, "boiling", BoilingRecipe.class);
 	public static final RecipeType<GaseousFuelRecipe> GASEOUS_FUEL = RecipeType.create(Embers.MODID, "gaseous_fuel", GaseousFuelRecipe.class);
+	public static final RecipeType<CatalysisCombustionRecipe> CATALYSIS_COMBUSTION = RecipeType.create(Embers.MODID, "catalysis_combustion", CatalysisCombustionRecipe.class);
 
 	@Override
 	public ResourceLocation getPluginUid() {
@@ -63,6 +65,7 @@ public class JEIPlugin implements IModPlugin {
 		registry.addRecipeCategories(new AlchemyCategory(guiHelper));
 		registry.addRecipeCategories(new BoilingCategory(guiHelper));
 		registry.addRecipeCategories(new GaseousFuelCategory(guiHelper));
+		registry.addRecipeCategories(new CatalysisCombustionCategory(guiHelper));
 	}
 
 
@@ -105,6 +108,9 @@ public class JEIPlugin implements IModPlugin {
 
 		List<GaseousFuelRecipe> gaseousFuelRecipes = manager.getAllRecipesFor(RegistryManager.GASEOUS_FUEL.get());
 		register.addRecipes(GASEOUS_FUEL, gaseousFuelRecipes);
+
+		List<CatalysisCombustionRecipe> catalysisCombustionRecipes = manager.getAllRecipesFor(RegistryManager.CATALYSIS_COMBUSTION.get());
+		register.addRecipes(CATALYSIS_COMBUSTION, catalysisCombustionRecipes);
 	}
 
 
@@ -113,6 +119,7 @@ public class JEIPlugin implements IModPlugin {
 		registry.addRecipeCatalyst(new ItemStack(RegistryManager.EMBER_BORE_ITEM.get()), BORING);
 		registry.addRecipeCatalyst(new ItemStack(RegistryManager.EMBER_ACTIVATOR_ITEM.get()), EMBER_ACTIVATION);
 		registry.addRecipeCatalyst(new ItemStack(RegistryManager.PRESSURE_REFINERY_ITEM.get()), EMBER_ACTIVATION);
+		registry.addRecipeCatalyst(new ItemStack(RegistryManager.IGNEM_REACTOR_ITEM.get()), EMBER_ACTIVATION);
 		registry.addRecipeCatalyst(new ItemStack(RegistryManager.MELTER_ITEM.get()), MELTING, MELTING_BONUS);
 		registry.addRecipeCatalyst(new ItemStack(RegistryManager.GEOLOGIC_SEPARATOR_ITEM.get()), MELTING_BONUS);
 		registry.addRecipeCatalyst(new ItemStack(RegistryManager.STAMPER_ITEM.get()), STAMPING);

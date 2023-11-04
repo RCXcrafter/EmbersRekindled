@@ -37,6 +37,8 @@ public class EmbersBlockTags extends BlockTagsProvider {
 
 	public static final TagKey<Block> RESERVOIR_EXPANSION = BlockTags.create(new ResourceLocation(Embers.MODID, "reservoir_expansion"));
 
+	public static final TagKey<Block> CHAMBER_CONNECTION = BlockTags.create(new ResourceLocation(Embers.MODID, "chamber_connection"));
+
 	public static final TagKey<Block> MINABLE_WITH_PICKAXE_SHOVEL = BlockTags.create(new ResourceLocation(Embers.MODID, "mineable/pickaxe_shovel"));
 	public static final TagKey<Block> MINABLE_WITH_HAMMER = BlockTags.create(new ResourceLocation(Embers.MODID, "mineable/hammer"));
 
@@ -196,7 +198,10 @@ public class EmbersBlockTags extends BlockTagsProvider {
 				RegistryManager.TIN_CRYSTAL_SEED.BLOCK.get(),
 				RegistryManager.DAWNSTONE_CRYSTAL_SEED.BLOCK.get(),
 				RegistryManager.FIELD_CHART.get(),
-				RegistryManager.FIELD_CHART_EDGE.get());
+				RegistryManager.FIELD_CHART_EDGE.get(),
+				RegistryManager.IGNEM_REACTOR.get(),
+				RegistryManager.CATALYSIS_CHAMBER.get(),
+				RegistryManager.COMBUSTION_CHAMBER.get());
 
 		tag(BlockTags.NEEDS_IRON_TOOL).add(
 				RegistryManager.LEAD_ORE.get(),
@@ -247,6 +252,8 @@ public class EmbersBlockTags extends BlockTagsProvider {
 				RegistryManager.CAMINITE_RING.get(),
 				RegistryManager.CAMINITE_GAUGE.get(),
 				RegistryManager.CAMINITE_VALVE.get());
+
+		tag(CHAMBER_CONNECTION).add(RegistryManager.IGNEM_REACTOR.get());
 
 		tag(FLUID_PIPE_CONNECTION).addTag(FLUID_PIPE_CONNECTION_TOGGLEABLE);
 		//tag(FLUID_PIPE_CONNECTION).add(RegistryManager.FLUID_TRANSFER.get(), RegistryManager.CATALYTIC_PLUG.get());

@@ -1,0 +1,11 @@
+{
+  "type": "embers:catalysis_combustion",
+  "burn_time": 400,
+  "input": {
+    "tag": "forge:gunpowder"
+  },
+  "machine": {
+    "item": "embers:catalysis_chamber"
+  },
+  "multiplier": 3.0
+}

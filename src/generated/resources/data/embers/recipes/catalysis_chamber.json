@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "tag": "forge:ingots/silver"
+    },
+    "E": {
+      "item": "embers:ember_crystal_cluster"
+    },
+    "M": {
+      "item": "embers:mechanical_core"
+    },
+    "P": {
+      "tag": "forge:plates/silver"
+    }
+  },
+  "pattern": [
+    " C ",
+    "PEP",
+    "CMC"
+  ],
+  "result": {
+    "item": "embers:catalysis_chamber"
+  },
+  "show_notification": true
+}

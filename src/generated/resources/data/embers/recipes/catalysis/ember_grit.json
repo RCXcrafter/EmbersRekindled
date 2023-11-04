@@ -1,0 +1,11 @@
+{
+  "type": "embers:catalysis_combustion",
+  "burn_time": 400,
+  "input": {
+    "item": "embers:ember_grit"
+  },
+  "machine": {
+    "item": "embers:catalysis_chamber"
+  },
+  "multiplier": 2.0
+}

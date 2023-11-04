@@ -1,0 +1,11 @@
+{
+  "type": "embers:catalysis_combustion",
+  "burn_time": 400,
+  "input": {
+    "tag": "forge:ingots/nether_brick"
+  },
+  "machine": {
+    "item": "embers:combustion_chamber"
+  },
+  "multiplier": 3.0
+}
