@@ -2,7 +2,10 @@ package com.rekindled.embers.block;
 
 import javax.annotation.Nullable;
 
+import org.joml.Vector3f;
+
 import com.rekindled.embers.particle.GlowParticleOptions;
+import com.rekindled.embers.particle.StarParticleOptions;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -19,28 +22,29 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class EmberLanternBlock extends Block implements SimpleWaterloggedBlock {
+public class GlimmerBlock extends Block implements SimpleWaterloggedBlock {
 
-	public static final GlowParticleOptions EMBER = new GlowParticleOptions(GlowParticleOptions.EMBER_COLOR, 2.0F, 120);
-	public static final VoxelShape LANTERN_AABB = Shapes.or(Block.box(6,0,6,10,13,10), Block.box(4,2,4,12,11,12));
+	public static final GlowParticleOptions EMBER = new GlowParticleOptions(GlowParticleOptions.EMBER_COLOR, 3.0F, 120);
+	public static final StarParticleOptions GLIMMER = new StarParticleOptions(new Vector3f(255.0F / 255.0F, 255.0F / 255.0F, 16.0F / 255.0F), 3.0F);
+	public static final VoxelShape GLIMMER_AABB = Block.box(4,4,4,12,12,12);
 
-	public EmberLanternBlock(Properties pProperties) {
+	public GlimmerBlock(Properties pProperties) {
 		super(pProperties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(BlockStateProperties.WATERLOGGED, false));
 	}
 
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-		return LANTERN_AABB;
+		return GLIMMER_AABB;
 	}
 
 	@Override
 	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-		for (int i = 0; i < 3; i ++) {
-			level.addParticle(EMBER, pos.getX()+0.5f, pos.getY()+0.375f, pos.getZ()+0.5f, (random.nextFloat()-0.5f)*0.003f, (random.nextFloat())*0.003f, (random.nextFloat()-0.5f)*0.003f);
+		for (int i = 0; i < 2; i ++) {
+			level.addParticle(EMBER, pos.getX()+0.5f, pos.getY()+0.5f, pos.getZ()+0.5f, (random.nextFloat()-0.5f)*0.003f, (random.nextFloat())*0.003f, (random.nextFloat()-0.5f)*0.003f);
+			level.addParticle(GLIMMER, pos.getX()+0.5f, pos.getY()+0.5f, pos.getZ()+0.5f, (random.nextFloat()-0.5f)*0.003f, (random.nextFloat())*0.003f, (random.nextFloat()-0.5f)*0.003f);
 		}
 	}
 

@@ -645,6 +645,8 @@ public class EmbersBlockStates extends BlockStateProvider {
 					.uvLock(false)
 					.build();
 		});
+
+		simpleBlock(RegistryManager.GLIMMER.get(), models().getExistingFile(new ResourceLocation("block/air")));
 	}
 
 	public void blockWithItem(RegistryObject<? extends Block> registryObject) {

@@ -20,6 +20,7 @@ You can also talk about Embers Rekindled and contact me about the port on my dis
 - The bin is now made of lead since it's related to item transport/storage
 - The checkmarks in the codex have been replaced with a dawnstone dot on uncompleted entries
 - The mixer centrifuge now has small holes on the side to show what fluids are inside
+- Beam splitters no longer have an internal ember buffer, they directly split any ember fed into them and they can be placed on walls
 - Stampers now stop working when they're trying to output to a bin that's full
 - The pressure refinery now gives a maximum of 3x multiplication instead of 6x
 - The ember bore now requires at least 3 bedrock touching the blades to mine ember

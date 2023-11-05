@@ -50,6 +50,7 @@ import com.rekindled.embers.entity.AncientGolemEntity;
 import com.rekindled.embers.entity.render.AncientGolemRenderer;
 import com.rekindled.embers.entity.render.EmberPacketRenderer;
 import com.rekindled.embers.entity.render.EmberProjectileRenderer;
+import com.rekindled.embers.entity.render.GlimmerProjectileRenderer;
 import com.rekindled.embers.gui.SlateScreen;
 import com.rekindled.embers.item.EmberStorageItem;
 import com.rekindled.embers.item.TyrfingItem;
@@ -439,6 +440,7 @@ public class Embers {
 		static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
 			event.registerEntityRenderer(RegistryManager.EMBER_PACKET.get(), EmberPacketRenderer::new);
 			event.registerEntityRenderer(RegistryManager.EMBER_PROJECTILE.get(), EmberProjectileRenderer::new);
+			event.registerEntityRenderer(RegistryManager.GLIMMER_PROJECTILE.get(), GlimmerProjectileRenderer::new);
 			event.registerEntityRenderer(RegistryManager.ANCIENT_GOLEM.get(), AncientGolemRenderer::new);
 
 			event.registerBlockEntityRenderer(RegistryManager.EMBER_BORE_ENTITY.get(), EmberBoreBlockEntityRenderer::new);

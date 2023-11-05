@@ -54,6 +54,7 @@ import com.rekindled.embers.block.FluidPipeBlock;
 import com.rekindled.embers.block.FluidTransferBlock;
 import com.rekindled.embers.block.FluidVesselBlock;
 import com.rekindled.embers.block.GeologicSeparatorBlock;
+import com.rekindled.embers.block.GlimmerBlock;
 import com.rekindled.embers.block.HearthCoilBlock;
 import com.rekindled.embers.block.HearthCoilEdgeBlock;
 import com.rekindled.embers.block.IgnemReactorBlock;
@@ -135,6 +136,7 @@ import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.entity.AncientGolemEntity;
 import com.rekindled.embers.entity.EmberPacketEntity;
 import com.rekindled.embers.entity.EmberProjectileEntity;
+import com.rekindled.embers.entity.GlimmerProjectileEntity;
 import com.rekindled.embers.fluidtypes.EmbersFluidType.FluidInfo;
 import com.rekindled.embers.fluidtypes.MoltenMetalFluidType;
 import com.rekindled.embers.fluidtypes.SteamFluidType;
@@ -156,6 +158,8 @@ import com.rekindled.embers.item.EmberJarItem;
 import com.rekindled.embers.item.EmberStorageItem;
 import com.rekindled.embers.item.FluidVesselBlockItem;
 import com.rekindled.embers.item.FuelItem;
+import com.rekindled.embers.item.GlimmerCrystalItem;
+import com.rekindled.embers.item.GlimmerLampItem;
 import com.rekindled.embers.item.InflictorGemItem;
 import com.rekindled.embers.item.TinkerHammerItem;
 import com.rekindled.embers.item.TinkerLensItem;
@@ -418,6 +422,7 @@ public class RegistryManager {
 	public static final RegistryObject<Block> IGNEM_REACTOR = BLOCKS.register("ignem_reactor", () -> new IgnemReactorBlock(Properties.of().mapColor(MapColor.COLOR_ORANGE).sound(EmbersSounds.MACHINE).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
 	public static final RegistryObject<Block> CATALYSIS_CHAMBER = BLOCKS.register("catalysis_chamber", () -> new CatalysisChamberBlock(Properties.of().mapColor(MapColor.COLOR_GRAY).sound(EmbersSounds.MACHINE).requiresCorrectToolForDrops().strength(1.6f).noOcclusion(), EmbersSounds.MULTIBLOCK_EXTRA));
 	public static final RegistryObject<Block> COMBUSTION_CHAMBER = BLOCKS.register("combustion_chamber", () -> new CombustionChamberBlock(Properties.of().mapColor(MapColor.COLOR_GRAY).sound(EmbersSounds.MACHINE).requiresCorrectToolForDrops().strength(1.6f).noOcclusion(), EmbersSounds.MULTIBLOCK_EXTRA));
+	public static final RegistryObject<Block> GLIMMER = BLOCKS.register("glimmer", () -> new GlimmerBlock(Properties.of().mapColor(MapColor.COLOR_YELLOW).sound(SoundType.STONE).strength(0f).lightLevel(state -> 15).noParticlesOnBreak().noCollission().noOcclusion()));
 
 	//itemblocks
 	public static final RegistryObject<Item> LEAD_ORE_ITEM = ITEMS.register("lead_ore", () -> new BlockItem(LEAD_ORE.get(), new Item.Properties()));
@@ -516,6 +521,8 @@ public class RegistryManager {
 	public static final RegistryObject<Item> ASHEN_CLOAK = ITEMS.register("ashen_cloak", () -> new AshenCloakItem(AshenArmorMaterial.INSTANCE, ArmorItem.Type.CHESTPLATE, (new Item.Properties())));
 	public static final RegistryObject<Item> ASHEN_LEGGINGS = ITEMS.register("ashen_leggings", () -> new AshenArmorItem(AshenArmorMaterial.INSTANCE, ArmorItem.Type.LEGGINGS, (new Item.Properties())));
 	public static final RegistryObject<Item> ASHEN_BOOTS = ITEMS.register("ashen_boots", () -> new AshenArmorItem(AshenArmorMaterial.INSTANCE, ArmorItem.Type.BOOTS, (new Item.Properties())));
+	public static final RegistryObject<Item> GLIMMER_CRYSTAL = ITEMS.register("glimmer_crystal", () -> new GlimmerCrystalItem(new Item.Properties().durability(800)));
+	public static final RegistryObject<Item> GLIMMER_LAMP = ITEMS.register("glimmer_lamp", () -> new GlimmerLampItem(new Item.Properties().durability(1200)));
 
 	public static final RegistryObject<Item> EMBER_CRYSTAL = ITEMS.register("ember_crystal", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> EMBER_SHARD = ITEMS.register("ember_shard", () -> new Item(new Item.Properties()));
@@ -736,6 +743,7 @@ public class RegistryManager {
 	//entities
 	public static final RegistryObject<EntityType<EmberPacketEntity>> EMBER_PACKET = registerEntity("ember_packet", EntityType.Builder.<EmberPacketEntity>of(EmberPacketEntity::new, MobCategory.MISC).sized(0.5F, 0.5F).fireImmune().clientTrackingRange(3).updateInterval(1));
 	public static final RegistryObject<EntityType<EmberProjectileEntity>> EMBER_PROJECTILE = registerEntity("ember_projectile", EntityType.Builder.<EmberProjectileEntity>of(EmberProjectileEntity::new, MobCategory.MISC).sized(0.5F, 0.5F).fireImmune().clientTrackingRange(3).updateInterval(1));
+	public static final RegistryObject<EntityType<GlimmerProjectileEntity>> GLIMMER_PROJECTILE = registerEntity("glimmer_projectile", EntityType.Builder.<GlimmerProjectileEntity>of(GlimmerProjectileEntity::new, MobCategory.MISC).sized(0.5F, 0.5F).fireImmune().clientTrackingRange(3).updateInterval(1));
 	public static final RegistryObject<EntityType<AncientGolemEntity>> ANCIENT_GOLEM = registerEntity("ancient_golem", EntityType.Builder.<AncientGolemEntity>of(AncientGolemEntity::new, MobCategory.MONSTER).sized(0.6F, 1.8F).fireImmune().clientTrackingRange(8));
 
 	//spawn eggs

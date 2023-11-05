@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "item": "embers:glimmer_crystal"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "P": {
+      "tag": "forge:plates/iron"
+    }
+  },
+  "pattern": [
+    " P ",
+    "IGI",
+    " P "
+  ],
+  "result": {
+    "item": "embers:glimmer_lamp"
+  },
+  "show_notification": true
+}

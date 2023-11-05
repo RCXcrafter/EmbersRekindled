@@ -118,6 +118,7 @@ public class EmbersLang extends LanguageProvider {
 		addBlock(RegistryManager.IGNEM_REACTOR, "Ignem Reactor");
 		addBlock(RegistryManager.CATALYSIS_CHAMBER, "Catalysis Chamber");
 		addBlock(RegistryManager.COMBUSTION_CHAMBER, "Combustion Chamber");
+		addBlock(RegistryManager.GLIMMER, "Glimmer");
 
 		addItem(RegistryManager.TINKER_HAMMER, "Tinker's Hammer");
 		addItem(RegistryManager.TINKER_LENS, "Tinker's Lens");
@@ -137,6 +138,8 @@ public class EmbersLang extends LanguageProvider {
 		addItem(RegistryManager.ASHEN_CLOAK, "Ashen Cloak");
 		addItem(RegistryManager.ASHEN_LEGGINGS, "Ashen Leggings");
 		addItem(RegistryManager.ASHEN_BOOTS, "Ashen Boots");
+		addItem(RegistryManager.GLIMMER_CRYSTAL, "Glimmer Crystal");
+		addItem(RegistryManager.GLIMMER_LAMP, "Glimmer Lamp");
 
 		addItem(RegistryManager.EMBER_CRYSTAL, "Ember Crystal");
 		addItem(RegistryManager.EMBER_SHARD, "Ember Shard");

@@ -223,6 +223,9 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		AlchemyRecipeBuilder.create(new ItemStack(RegistryManager.ADHESIVE.get(), 6)).tablet(Items.CLAY_BALL).folder(alchemyFolder)
 		.inputs(Items.BONE_MEAL, Items.BONE_MEAL)
 		.aspects(EmbersItemTags.IRON_ASPECTUS, EmbersItemTags.LEAD_ASPECTUS).save(consumer);
+		AlchemyRecipeBuilder.create(RegistryManager.GLIMMER_CRYSTAL.get()).tablet(Tags.Items.GEMS_QUARTZ).folder(alchemyFolder)
+		.inputs(Ingredient.of(Tags.Items.GUNPOWDER), Ingredient.of(Tags.Items.GUNPOWDER), Ingredient.of(RegistryManager.EMBER_SHARD.get()), Ingredient.of(RegistryManager.EMBER_SHARD.get()))
+		.aspects(EmbersItemTags.COPPER_ASPECTUS, EmbersItemTags.DAWNSTONE_ASPECTUS).save(consumer);
 
 		//boiling
 		BoilingRecipeBuilder.create(RegistryManager.STEAM.FLUID.get(), 5).folder(boilingFolder).input(FluidTags.WATER, 1).save(consumer);
@@ -1084,6 +1087,16 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('E', RegistryManager.EMBER_CRYSTAL_CLUSTER.get())
 		.unlockedBy("has_wildfire_core", has(RegistryManager.WILDFIRE_CORE.get()))
 		.save(consumer, getResource("combustion_chamber"));
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.GLIMMER_LAMP.get())
+		.pattern(" P ")
+		.pattern("IGI")
+		.pattern(" P ")
+		.define('I', itemTag("forge", "ingots/iron"))
+		.define('P', itemTag("forge", "plates/iron"))
+		.define('G', RegistryManager.GLIMMER_CRYSTAL.get())
+		.unlockedBy("has_glimmer_crystal", has(RegistryManager.GLIMMER_CRYSTAL.get()))
+		.save(consumer, getResource("glimmer_lamp"));
 	}
 
 	public void fullOreRecipes(String name, ImmutableList<ItemLike> ores, Fluid fluid, Item raw, Item rawBlock, Item block, Item ingot, Item nugget, Item plate, Consumer<FinishedRecipe> consumer, MeltingBonus... bonusses) {

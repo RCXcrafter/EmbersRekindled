@@ -46,6 +46,8 @@ public class EmbersItemModels extends ItemModelProvider {
 		basicItem(RegistryManager.ASHEN_CLOAK.get());
 		basicItem(RegistryManager.ASHEN_LEGGINGS.get());
 		basicItem(RegistryManager.ASHEN_BOOTS.get());
+		basicItem(RegistryManager.GLIMMER_CRYSTAL.get());
+		basicItem(RegistryManager.GLIMMER_LAMP.get());
 
 		basicItem(RegistryManager.EMBER_CRYSTAL.get());
 		basicItem(RegistryManager.EMBER_SHARD.get());
