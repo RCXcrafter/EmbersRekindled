@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 
@@ -31,9 +32,9 @@ public class FluidVesselBlockItem extends BlockItem {
 
 	@Override
 	public int getMaxStackSize(ItemStack stack) {
-		IFluidHandler cap = stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).orElse(null);
-		if (cap != null && !cap.getFluidInTank(0).isEmpty())
+		if (stack.hasTag() && !FluidStack.loadFluidStackFromNBT(stack.getTag().getCompound(FluidHandlerItemStack.FLUID_NBT_KEY)).isEmpty()) {
 			return 1;
+		}
 		return super.getMaxStackSize(stack);
 	}
 
