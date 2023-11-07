@@ -5,10 +5,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
+import org.jetbrains.annotations.NotNull;
+
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.event.AlchemyResultEvent;
 import com.rekindled.embers.api.event.MachineRecipeEvent;
 import com.rekindled.embers.api.misc.AlchemyResult;
+import com.rekindled.embers.api.tile.IBin;
 import com.rekindled.embers.api.tile.ISparkable;
 import com.rekindled.embers.api.upgrades.UpgradeContext;
 import com.rekindled.embers.api.upgrades.UpgradeUtil;
@@ -68,7 +71,41 @@ public class AlchemyTabletBlockEntity extends BlockEntity implements ISparkable,
 			AlchemyTabletBlockEntity.this.setChanged();
 		}
 	};
+	public IItemHandler outputHandler = new IItemHandler() {
+		@Override
+		public int getSlots() {
+			return inventory.getSlots();
+		}
+
+		@Override
+		public ItemStack getStackInSlot(int slot) {
+			return inventory.getStackInSlot(slot);
+		}
+
+		@Override
+		public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+			return inventory.insertItem(slot,stack,simulate);
+		}
+
+		@Override
+		public ItemStack extractItem(int slot, int amount, boolean simulate) {
+			if (AlchemyTabletBlockEntity.this.outputMode)
+				return inventory.extractItem(slot,amount,simulate);
+			return ItemStack.EMPTY;
+		}
+
+		@Override
+		public int getSlotLimit(int slot) {
+			return inventory.getSlotLimit(slot);
+		}
+
+		@Override
+		public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+			return inventory.isItemValid(slot, stack);
+		}
+	};
 	public LazyOptional<IItemHandler> holder = LazyOptional.of(() -> inventory);
+	public LazyOptional<IItemHandler> outputHolder = LazyOptional.of(() -> outputHandler);
 	public boolean outputMode = false;
 	public int progress = 0;
 	public int process = 0;
@@ -191,8 +228,15 @@ public class AlchemyTabletBlockEntity extends BlockEntity implements ISparkable,
 						((ServerLevel) level).sendParticles(new GlowParticleOptions(GlowParticleOptions.EMBER_COLOR, 4.0f), pos.getX() + 0.5f, pos.getY() + 0.875, pos.getZ() + 0.5f, 24, 0.1, 0.1, 0.1, 0.5);
 
 						blockEntity.progress = 0;
-						blockEntity.outputMode = true;
-						blockEntity.inventory.setStackInSlot(0, stack);
+
+						BlockEntity outputTile = level.getBlockEntity(pos.below());
+						if (outputTile instanceof IBin bin && bin.getInventory().insertItem(0, stack, true).isEmpty()) {
+							blockEntity.inventory.setStackInSlot(0, ItemStack.EMPTY);
+							bin.getInventory().insertItem(0, stack, false);
+						} else {
+							blockEntity.outputMode = true;
+							blockEntity.inventory.setStackInSlot(0, stack);
+						}
 					}
 				}
 			}
@@ -201,7 +245,10 @@ public class AlchemyTabletBlockEntity extends BlockEntity implements ISparkable,
 
 	@Override
 	public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
-		if (!this.remove && cap == ForgeCapabilities.ITEM_HANDLER && (side != Direction.DOWN || outputMode)) {
+		if (!this.remove && cap == ForgeCapabilities.ITEM_HANDLER) {
+			if (side == Direction.DOWN) {
+				return ForgeCapabilities.ITEM_HANDLER.orEmpty(cap, outputHolder);
+			}
 			return ForgeCapabilities.ITEM_HANDLER.orEmpty(cap, holder);
 		}
 		return super.getCapability(cap, side);
