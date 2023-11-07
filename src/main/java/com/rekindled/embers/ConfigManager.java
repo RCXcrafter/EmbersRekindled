@@ -27,6 +27,12 @@ public class ConfigManager {
 	public static ConfigValue<Integer> STAMP_BASE_CAPACITY;
 	public static ConfigValue<Double> CHARGER_MAX_TRANSFER;
 	public static ConfigValue<Integer> FLUID_VESSEL_CAPACITY;
+	public static ConfigValue<Double> HEARTH_COIL_EMBER_COST;
+	public static ConfigValue<Double> HEARTH_COIL_HEATING_SPEED;
+	public static ConfigValue<Double> HEARTH_COIL_COOLING_SPEED;
+	public static ConfigValue<Double> HEARTH_COIL_MAX_HEAT;
+	public static ConfigValue<Integer> HEARTH_COIL_MIN_COOK_TIME;
+	public static ConfigValue<Integer> HEARTH_COIL_MAX_COOK_TIME;
 	public static ConfigValue<Double> BLAZING_RAY_COST;
 	public static ConfigValue<Integer> BLAZING_RAY_COOLDOWN;
 	public static ConfigValue<Integer> BLAZING_RAY_MAX_CHARGE;
@@ -85,6 +91,13 @@ public class ConfigManager {
 		FLUID_VESSEL_CAPACITY = COMMON.comment("How much fluid (in mb) fits into the Fluid Vessel.").define("fluidVessel.capacity", FluidType.BUCKET_VOLUME * 16);
 
 		INJECTOR_MAX_DISTANCE = COMMON.comment("The maximum distance that Ember Injectors can be placed from a crystal seed.").define("ember_injector.max_distance", 1);
+
+		HEARTH_COIL_EMBER_COST = COMMON.comment("The amount of ember consumed per tick.").define("hearth_coil.ember_cost", 1.0);
+		HEARTH_COIL_HEATING_SPEED = COMMON.comment("The amount of heat gained per tick when consuming ember.").define("hearth_coil.heating_speed", 1.0);
+		HEARTH_COIL_COOLING_SPEED = COMMON.comment("The amount of heat lost per tick when not consuming ember.").define("hearth_coil.cooling_speed", 1.0);
+		HEARTH_COIL_MAX_HEAT = COMMON.comment("The maximum heat value the hearth coil can reach without upgrades.").define("hearth_coil.max_heat", 280.0);
+		HEARTH_COIL_MIN_COOK_TIME = COMMON.comment("The time in ticks it takes to cook 1 item at the highest heat.").define("hearth_coil.min_cook_time", 20);
+		HEARTH_COIL_MAX_COOK_TIME = COMMON.comment("The time in ticks it takes to cook 1 item at the lowest heat.").define("hearth_coil.max_cook_time", 300);
 
 		BLAZING_RAY_COST = COMMON.comment("Ember used up by each shot.").define("blazingRay.cost", 25.0);
 		BLAZING_RAY_COOLDOWN = COMMON.comment("Cooldown in ticks between each shot.").define("blazingRay.cooldown", 10);

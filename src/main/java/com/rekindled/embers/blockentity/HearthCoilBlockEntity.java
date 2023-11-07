@@ -10,6 +10,7 @@ import java.util.Random;
 import org.joml.Vector3f;
 
 import com.google.common.collect.Lists;
+import com.rekindled.embers.ConfigManager;
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.capabilities.EmbersCapabilities;
@@ -59,12 +60,6 @@ import net.minecraftforge.items.ItemStackHandler;
 
 public class HearthCoilBlockEntity extends BlockEntity implements ISoundController, IExtraDialInformation, IExtraCapabilityInformation {
 
-	public static final double EMBER_COST = 1.0;
-	public static final double HEATING_SPEED = 1.0;
-	public static final double COOLING_SPEED = 1.0;
-	public static final double MAX_HEAT = 280;
-	public static final int MIN_COOK_TIME = 20;
-	public static final int MAX_COOK_TIME = 300;
 	public static final Color DEFAULT_COLOR = new Color(255, 64, 16);
 
 	public IEmberCapability capability = new DefaultEmberCapability() {
@@ -169,7 +164,7 @@ public class HearthCoilBlockEntity extends BlockEntity implements ISoundControll
 		if (UpgradeUtil.doTick(blockEntity, blockEntity.upgrades))
 			return;
 
-		double emberCost = UpgradeUtil.getTotalEmberConsumption(blockEntity, EMBER_COST, blockEntity.upgrades);
+		double emberCost = UpgradeUtil.getTotalEmberConsumption(blockEntity, ConfigManager.HEARTH_COIL_EMBER_COST.get(), blockEntity.upgrades);
 		double prevHeat = blockEntity.heat;
 		Boolean cancel = null;
 		if (blockEntity.capability.getEmber() >= emberCost) {
@@ -178,25 +173,25 @@ public class HearthCoilBlockEntity extends BlockEntity implements ISoundControll
 				UpgradeUtil.throwEvent(blockEntity, new EmberEvent(blockEntity, EmberEvent.EnumType.CONSUME, emberCost), blockEntity.upgrades);
 				blockEntity.capability.removeAmount(emberCost, true);
 				if (blockEntity.ticksExisted % 20 == 0) {
-					blockEntity.heat += UpgradeUtil.getOtherParameter(blockEntity, "heating_speed", HEATING_SPEED, blockEntity.upgrades);
+					blockEntity.heat += UpgradeUtil.getOtherParameter(blockEntity, "heating_speed", ConfigManager.HEARTH_COIL_HEATING_SPEED.get(), blockEntity.upgrades);
 				}
 			} else {
 				if (blockEntity.ticksExisted % 20 == 0) {
-					blockEntity.heat -= UpgradeUtil.getOtherParameter(blockEntity, "cooling_speed", COOLING_SPEED, blockEntity.upgrades);
+					blockEntity.heat -= UpgradeUtil.getOtherParameter(blockEntity, "cooling_speed", ConfigManager.HEARTH_COIL_COOLING_SPEED.get(), blockEntity.upgrades);
 				}
 			}
 		} else {
 			if (blockEntity.ticksExisted % 20 == 0) {
-				blockEntity.heat -= UpgradeUtil.getOtherParameter(blockEntity, "cooling_speed", COOLING_SPEED, blockEntity.upgrades);
+				blockEntity.heat -= UpgradeUtil.getOtherParameter(blockEntity, "cooling_speed", ConfigManager.HEARTH_COIL_COOLING_SPEED.get(), blockEntity.upgrades);
 			}
 		}
-		double maxHeat = UpgradeUtil.getOtherParameter(blockEntity, "max_heat", MAX_HEAT, blockEntity.upgrades);
+		double maxHeat = UpgradeUtil.getOtherParameter(blockEntity, "max_heat", ConfigManager.HEARTH_COIL_MAX_HEAT.get(), blockEntity.upgrades);
 		blockEntity.heat = Mth.clamp(blockEntity.heat, 0, maxHeat);
 		blockEntity.isWorking = false;
 		if (blockEntity.heat != prevHeat)
 			blockEntity.setChanged();
 
-		int cookTime = UpgradeUtil.getWorkTime(blockEntity,(int)Math.ceil(Mth.clampedLerp(MIN_COOK_TIME,MAX_COOK_TIME, 1.0 - (blockEntity.heat / maxHeat))), blockEntity.upgrades);
+		int cookTime = UpgradeUtil.getWorkTime(blockEntity,(int)Math.ceil(Mth.clampedLerp(ConfigManager.HEARTH_COIL_MIN_COOK_TIME.get(), ConfigManager.HEARTH_COIL_MAX_COOK_TIME.get(), 1.0 - (blockEntity.heat / maxHeat))), blockEntity.upgrades);
 		if (blockEntity.heat > 0 && blockEntity.ticksExisted % cookTime == 0) {
 			if (cancel == null)
 				cancel = UpgradeUtil.doWork(blockEntity, blockEntity.upgrades);
@@ -307,7 +302,7 @@ public class HearthCoilBlockEntity extends BlockEntity implements ISoundControll
 
 	@Override
 	public boolean shouldPlaySound(int id) {
-		double heatRatio = heat / MAX_HEAT;
+		double heatRatio = heat / ConfigManager.HEARTH_COIL_MAX_HEAT.get();
 		float highVolume = (float)Mth.clampedLerp(0,1,(heatRatio -0.75) * 4);
 		float midVolume = (float)Mth.clampedLerp(0,1,(heatRatio -0.25) * 4) - highVolume;
 		float lowVolume = (float)Mth.clampedLerp(0,1, heatRatio * 10) - midVolume;
@@ -322,7 +317,7 @@ public class HearthCoilBlockEntity extends BlockEntity implements ISoundControll
 
 	@Override
 	public float getCurrentVolume(int id, float volume) {
-		double heatRatio = heat / MAX_HEAT;
+		double heatRatio = heat / ConfigManager.HEARTH_COIL_MAX_HEAT.get();
 		float highVolume = (float)Mth.clampedLerp(0,1,(heatRatio -0.75) * 4);
 		float midVolume = (float)Mth.clampedLerp(0,1,(heatRatio -0.25) * 4) - highVolume;
 		float lowVolume = (float)Mth.clampedLerp(0,1, heatRatio * 10) - midVolume;
@@ -339,7 +334,7 @@ public class HearthCoilBlockEntity extends BlockEntity implements ISoundControll
 	public void addDialInformation(Direction facing, List<String> information, String dialType) {
 		if (EmberDialBlock.DIAL_TYPE.equals(dialType)) {
 			DecimalFormat heatFormat = DecimalFormats.getDecimalFormat(Embers.MODID + ".decimal_format.heat");
-			double maxHeat = UpgradeUtil.getOtherParameter(this, "max_heat", MAX_HEAT, upgrades);
+			double maxHeat = UpgradeUtil.getOtherParameter(this, "max_heat", ConfigManager.HEARTH_COIL_MAX_HEAT.get(), upgrades);
 			double heat = Mth.clamp(this.heat, 0, maxHeat);
 			information.add(I18n.get(Embers.MODID + ".tooltip.dial.heat", heatFormat.format(heat), heatFormat.format(maxHeat)));
 		}
