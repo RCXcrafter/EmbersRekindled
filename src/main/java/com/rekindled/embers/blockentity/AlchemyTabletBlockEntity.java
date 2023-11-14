@@ -7,11 +7,13 @@ import java.util.Random;
 
 import org.jetbrains.annotations.NotNull;
 
+import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.event.AlchemyResultEvent;
 import com.rekindled.embers.api.event.MachineRecipeEvent;
 import com.rekindled.embers.api.misc.AlchemyResult;
 import com.rekindled.embers.api.tile.IBin;
+import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
 import com.rekindled.embers.api.tile.ISparkable;
 import com.rekindled.embers.api.upgrades.UpgradeContext;
 import com.rekindled.embers.api.upgrades.UpgradeUtil;
@@ -25,6 +27,7 @@ import com.rekindled.embers.recipe.AlchemyRecipe.PedestalContents;
 import com.rekindled.embers.util.Misc;
 import com.rekindled.embers.util.sound.ISoundController;
 
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -45,7 +48,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
-public class AlchemyTabletBlockEntity extends BlockEntity implements ISparkable, ISoundController {
+public class AlchemyTabletBlockEntity extends BlockEntity implements ISparkable, ISoundController, IExtraCapabilityInformation {
 
 	public static final Direction[] UPGRADE_SIDES = {
 			Direction.NORTH,
@@ -340,5 +343,19 @@ public class AlchemyTabletBlockEntity extends BlockEntity implements ISparkable,
 	@Override
 	public boolean shouldPlaySound(int id) {
 		return id == SOUND_PROCESS && progress > 0;
+	}
+
+	@Override
+	public boolean hasCapabilityDescription(Capability<?> capability) {
+		return capability == ForgeCapabilities.ITEM_HANDLER;
+	}
+
+	@Override
+	public void addCapabilityDescription(List<String> strings, Capability<?> capability, Direction facing) {
+		if (capability == ForgeCapabilities.ITEM_HANDLER && facing == Direction.DOWN) {
+			strings.add(IExtraCapabilityInformation.formatCapability(EnumIOType.OUTPUT, Embers.MODID + ".tooltip.goggles.item", I18n.get(Embers.MODID + ".tooltip.goggles.item.alchemy_result")));
+		} else {
+			strings.add(IExtraCapabilityInformation.formatCapability(EnumIOType.BOTH, Embers.MODID + ".tooltip.goggles.item", null));
+		}
 	}
 }

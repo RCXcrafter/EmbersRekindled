@@ -275,6 +275,7 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".tooltip.goggles.item.fuel", "Fuel");
 		add(Embers.MODID + ".tooltip.goggles.item.ember", "Ember");
 		add(Embers.MODID + ".tooltip.goggles.item.stamp", "Stamp");
+		add(Embers.MODID + ".tooltip.goggles.item.alchemy_result", "Alchemy Result");
 		add(Embers.MODID + ".tooltip.goggles.item.ember_storage", "Ember Storage");
 		add(Embers.MODID + ".tooltip.goggles.item.combustion", "Combustibles");
 		add(Embers.MODID + ".tooltip.goggles.item.catalysis", "Catalysts");
