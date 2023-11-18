@@ -1,8 +1,21 @@
 package com.rekindled.embers.compat.jei;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
-import com.rekindled.embers.recipe.*;
+import com.rekindled.embers.recipe.AlchemyRecipe;
+import com.rekindled.embers.recipe.BoilingRecipe;
+import com.rekindled.embers.recipe.BoringRecipe;
+import com.rekindled.embers.recipe.CatalysisCombustionRecipe;
+import com.rekindled.embers.recipe.EmberActivationRecipe;
+import com.rekindled.embers.recipe.GaseousFuelRecipe;
+import com.rekindled.embers.recipe.MeltingRecipe;
+import com.rekindled.embers.recipe.MetalCoefficientRecipe;
+import com.rekindled.embers.recipe.MixingRecipe;
+import com.rekindled.embers.recipe.StampingRecipe;
+
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.RecipeTypes;
@@ -15,9 +28,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeManager;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @JeiPlugin
 public class JEIPlugin implements IModPlugin {
