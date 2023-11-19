@@ -183,7 +183,6 @@ import com.rekindled.embers.recipe.MeltingRecipe;
 import com.rekindled.embers.recipe.MetalCoefficientRecipe;
 import com.rekindled.embers.recipe.MixingRecipe;
 import com.rekindled.embers.recipe.StampingRecipe;
-import com.rekindled.embers.recipe.TagStampingRecipe;
 import com.rekindled.embers.util.AshenArmorMaterial;
 import com.rekindled.embers.util.EmbersTiers;
 import com.rekindled.embers.util.GrandhammerLootModifier;
@@ -775,7 +774,6 @@ public class RegistryManager {
 	public static final RegistryObject<RecipeSerializer<EmberActivationRecipe>> EMBER_ACTIVATION_SERIALIZER = RECIPE_SERIALIZERS.register("ember_activation", () -> EmberActivationRecipe.SERIALIZER);
 	public static final RegistryObject<RecipeSerializer<MeltingRecipe>> MELTING_SERIALIZER = RECIPE_SERIALIZERS.register("melting", () -> MeltingRecipe.SERIALIZER);
 	public static final RegistryObject<RecipeSerializer<StampingRecipe>> STAMPING_SERIALIZER = RECIPE_SERIALIZERS.register("stamping", () -> StampingRecipe.SERIALIZER);
-	public static final RegistryObject<RecipeSerializer<TagStampingRecipe>> TAG_STAMPING_SERIALIZER = RECIPE_SERIALIZERS.register("tag_stamping", () -> TagStampingRecipe.SERIALIZER);
 	public static final RegistryObject<RecipeSerializer<MixingRecipe>> MIXING_SERIALIZER = RECIPE_SERIALIZERS.register("mixing", () -> MixingRecipe.SERIALIZER);
 	public static final RegistryObject<RecipeSerializer<MetalCoefficientRecipe>> METAL_COEFFICIENT_SERIALIZER = RECIPE_SERIALIZERS.register("metal_coefficient", () -> MetalCoefficientRecipe.SERIALIZER);
 	public static final RegistryObject<RecipeSerializer<AlchemyRecipe>> ALCHEMY_SERIALIZER = RECIPE_SERIALIZERS.register("alchemy", () -> AlchemyRecipe.SERIALIZER);
@@ -858,7 +856,7 @@ public class RegistryManager {
 		}
 
 		public ForgeFlowingFluid.Properties getFluidProperties() {
-			return PROPERTIES;       
+			return PROPERTIES;
 		}
 	}
 

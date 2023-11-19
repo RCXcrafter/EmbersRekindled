@@ -3,12 +3,16 @@ package com.rekindled.embers.recipe;
 import org.jetbrains.annotations.Nullable;
 
 import com.google.gson.JsonObject;
+import com.mojang.datafixers.util.Either;
 import com.rekindled.embers.RegistryManager;
+import com.rekindled.embers.util.Misc;
 
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
@@ -18,7 +22,6 @@ import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
-import net.minecraftforge.items.wrapper.RecipeWrapper;
 
 public class StampingRecipe implements Recipe<StampingContext> {
 
@@ -30,9 +33,9 @@ public class StampingRecipe implements Recipe<StampingContext> {
 	public final Ingredient input;
 	public final FluidIngredient fluid;
 
-	public final ItemStack output;
+	public final Either<ItemStack, TagKey<Item>> output;
 
-	public StampingRecipe(ResourceLocation id, Ingredient stamp, Ingredient input, FluidIngredient fluid, ItemStack output) {
+	public StampingRecipe(ResourceLocation id, Ingredient stamp, Ingredient input, FluidIngredient fluid, Either<ItemStack, TagKey<Item>> output) {
 		this.id = id;
 		this.stamp = stamp;
 		this.input = input;
@@ -54,8 +57,9 @@ public class StampingRecipe implements Recipe<StampingContext> {
 		return false;
 	}
 
-	public ItemStack getOutput(RecipeWrapper context) {
-		return output;
+	@Override
+	public ItemStack getResultItem(RegistryAccess registry) {
+		return getOutput();
 	}
 
 	@Override
@@ -72,7 +76,7 @@ public class StampingRecipe implements Recipe<StampingContext> {
 				break;
 			}
 		}
-		return this.getOutput(context);
+		return this.getOutput().copy();
 	}
 
 	@Override
@@ -96,12 +100,8 @@ public class StampingRecipe implements Recipe<StampingContext> {
 	}
 
 	@Override
-	public ItemStack getResultItem(RegistryAccess registry) {
-		return getResultItem();
-	}
-
-	public ItemStack getResultItem() {
-		return output;
+	public boolean canCraftInDimensions(int pWidth, int pHeight) {
+		return true;
 	}
 
 	public FluidIngredient getDisplayInputFluid() {
@@ -116,10 +116,11 @@ public class StampingRecipe implements Recipe<StampingContext> {
 		return stamp;
 	}
 
-	@Override
-	@Deprecated
-	public boolean canCraftInDimensions(int width, int height) {
-		return true;
+	public ItemStack getOutput() {
+		if (output.left().isPresent())
+			return output.left().get();
+
+		return Misc.getTaggedItem(output.right().get());
 	}
 
 	public static class Serializer implements RecipeSerializer<StampingRecipe> {
@@ -133,35 +134,46 @@ public class StampingRecipe implements Recipe<StampingContext> {
 				input = Ingredient.fromJson(json.get("input"));
 			if (json.has("fluid"))
 				fluid = FluidIngredient.deserialize(json, "fluid");
-			ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
+
+			JsonObject outputJson = json.get("output").getAsJsonObject();
+			Either<ItemStack, TagKey<Item>> output;
+			if (outputJson.has("item")) {
+				output = Either.left(ShapedRecipe.itemStackFromJson(outputJson));
+			} else {
+				output = Either.right(ItemTags.create(new ResourceLocation(outputJson.get("tag").getAsString())));
+			}
 
 			return new StampingRecipe(recipeId, stamp, input, fluid, output);
 		}
 
 		@Override
 		public @Nullable StampingRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
-			if (buffer.readBoolean()) {
-				return TagStampingRecipe.SERIALIZER.fromNetwork(recipeId, buffer);
-			}
 			Ingredient stamp = Ingredient.fromNetwork(buffer);
 			Ingredient input = Ingredient.fromNetwork(buffer);
 			FluidIngredient fluid = FluidIngredient.read(buffer);
-			ItemStack output = buffer.readItem();
+
+			Either<ItemStack, TagKey<Item>> output;
+			if (buffer.readBoolean()) {
+				output = Either.left(buffer.readItem());
+			} else {
+				output = Either.right(ItemTags.create(buffer.readResourceLocation()));
+			}
 
 			return new StampingRecipe(recipeId, stamp, input, fluid, output);
 		}
 
 		@Override
 		public void toNetwork(FriendlyByteBuf buffer, StampingRecipe recipe) {
-			if (recipe instanceof TagStampingRecipe) {
+			recipe.stamp.toNetwork(buffer);
+			recipe.input.toNetwork(buffer);
+			recipe.fluid.write(buffer);
+
+			if (recipe.output.left().isPresent()) {
 				buffer.writeBoolean(true);
-				TagStampingRecipe.SERIALIZER.toNetwork(buffer, (TagStampingRecipe) recipe);
+				buffer.writeItem(recipe.output.left().get());
 			} else {
 				buffer.writeBoolean(false);
-				recipe.stamp.toNetwork(buffer);
-				recipe.input.toNetwork(buffer);
-				recipe.fluid.write(buffer);
-				buffer.writeItemStack(recipe.output, false);
+				buffer.writeResourceLocation(recipe.output.right().get().location());
 			}
 		}
 	}

@@ -149,7 +149,7 @@ public class StamperBlockEntity extends BlockEntity implements IMechanicallyPowe
 				if (!cancel && !blockEntity.powered && blockEntity.ticksExisted >= stampTime) {
 					double emberCost = UpgradeUtil.getTotalEmberConsumption(blockEntity, EMBER_COST, blockEntity.upgrades);
 					if (blockEntity.capability.getEmber() >= emberCost) {
-						List<ItemStack> results = Lists.newArrayList(blockEntity.cachedRecipe.getOutput(context).copy());
+						List<ItemStack> results = Lists.newArrayList(blockEntity.cachedRecipe.getOutput().copy());
 						UpgradeUtil.transformOutput(blockEntity, results, blockEntity.upgrades);
 
 						BlockEntity outputTile = level.getBlockEntity(pos.below(3));
