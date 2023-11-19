@@ -1,5 +1,5 @@
 {
-  "type": "embers:tag_stamping",
+  "type": "embers:stamping",
   "conditions": [
     {
       "type": "forge:not",
@@ -13,7 +13,9 @@
     "amount": 90,
     "tag": "forge:molten_copper"
   },
-  "output": "forge:plates/copper",
+  "output": {
+    "tag": "forge:plates/copper"
+  },
   "stamp": {
     "item": "embers:plate_stamp"
   }
