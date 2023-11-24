@@ -14,6 +14,7 @@ import com.rekindled.embers.block.ItemTransferBlock;
 import com.rekindled.embers.block.MechEdgeBlockBase;
 import com.rekindled.embers.block.ChamberBlockBase.ChamberConnection;
 import com.rekindled.embers.block.MechEdgeBlockBase.MechEdge;
+import com.rekindled.embers.render.PipeModelBuilder;
 
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -92,15 +93,15 @@ public class EmbersBlockStates extends BlockStateProvider {
 		ModelFile fluidPipeEndModel = models().withExistingParent("fluid_pipe_end", new ResourceLocation(Embers.MODID, "pipe_end"))
 				.texture("pipe", new ResourceLocation(Embers.MODID, "block/fluid_pipe_tex"))
 				.texture("particle", new ResourceLocation(Embers.MODID, "block/fluid_pipe_tex"));
-		models().withExistingParent("fluid_pipe_connection", new ResourceLocation(Embers.MODID, "pipe_connection"))
-		.texture("pipe", new ResourceLocation(Embers.MODID, "block/fluid_pipe_tex"))
-		.texture("particle", new ResourceLocation(Embers.MODID, "block/fluid_pipe_tex"));
+		ModelFile fluidPipeConnectionModel = models().withExistingParent("fluid_pipe_connection", new ResourceLocation(Embers.MODID, "pipe_connection"))
+				.texture("pipe", new ResourceLocation(Embers.MODID, "block/fluid_pipe_tex"))
+				.texture("particle", new ResourceLocation(Embers.MODID, "block/fluid_pipe_tex"));
 		ModelFile fluidPipeEndModel2 = models().withExistingParent("fluid_pipe_end_2", new ResourceLocation(Embers.MODID, "pipe_end_2"))
 				.texture("pipe", new ResourceLocation(Embers.MODID, "block/fluid_pipe_tex"))
 				.texture("particle", new ResourceLocation(Embers.MODID, "block/fluid_pipe_tex"));
-		models().withExistingParent("fluid_pipe_connection_2", new ResourceLocation(Embers.MODID, "pipe_connection_2"))
-		.texture("pipe", new ResourceLocation(Embers.MODID, "block/fluid_pipe_tex"))
-		.texture("particle", new ResourceLocation(Embers.MODID, "block/fluid_pipe_tex"));
+		ModelFile fluidPipeConnectionModel2 = models().withExistingParent("fluid_pipe_connection_2", new ResourceLocation(Embers.MODID, "pipe_connection_2"))
+				.texture("pipe", new ResourceLocation(Embers.MODID, "block/fluid_pipe_tex"))
+				.texture("particle", new ResourceLocation(Embers.MODID, "block/fluid_pipe_tex"));
 
 		ExistingModelFile emitterModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "ember_emitter"));
 		simpleBlockItem(RegistryManager.EMBER_EMITTER.get(), emitterModel);
@@ -131,86 +132,45 @@ public class EmbersBlockStates extends BlockStateProvider {
 		ModelFile itemPipeCenterModel = models().withExistingParent("item_pipe_center", new ResourceLocation(Embers.MODID, "pipe_center"))
 				.texture("pipe", new ResourceLocation(Embers.MODID, "block/item_pipe_tex"))
 				.texture("particle", new ResourceLocation(Embers.MODID, "block/item_pipe_tex"));
-		models().withExistingParent("item_pipe_end", new ResourceLocation(Embers.MODID, "pipe_end"))
-		.texture("pipe", new ResourceLocation(Embers.MODID, "block/item_pipe_tex"))
-		.texture("particle", new ResourceLocation(Embers.MODID, "block/item_pipe_tex"));
-		models().withExistingParent("item_pipe_connection", new ResourceLocation(Embers.MODID, "pipe_connection"))
-		.texture("pipe", new ResourceLocation(Embers.MODID, "block/item_pipe_tex"))
-		.texture("particle", new ResourceLocation(Embers.MODID, "block/item_pipe_tex"));
-		models().withExistingParent("item_pipe_end_2", new ResourceLocation(Embers.MODID, "pipe_end_2"))
-		.texture("pipe", new ResourceLocation(Embers.MODID, "block/item_pipe_tex"))
-		.texture("particle", new ResourceLocation(Embers.MODID, "block/item_pipe_tex"));
-		models().withExistingParent("item_pipe_connection_2", new ResourceLocation(Embers.MODID, "pipe_connection_2"))
-		.texture("pipe", new ResourceLocation(Embers.MODID, "block/item_pipe_tex"))
-		.texture("particle", new ResourceLocation(Embers.MODID, "block/item_pipe_tex"));
+		ModelFile itemPipeEndModel = models().withExistingParent("item_pipe_end", new ResourceLocation(Embers.MODID, "pipe_end"))
+				.texture("pipe", new ResourceLocation(Embers.MODID, "block/item_pipe_tex"))
+				.texture("particle", new ResourceLocation(Embers.MODID, "block/item_pipe_tex"));
+		ModelFile itemPipeConnectionModel = models().withExistingParent("item_pipe_connection", new ResourceLocation(Embers.MODID, "pipe_connection"))
+				.texture("pipe", new ResourceLocation(Embers.MODID, "block/item_pipe_tex"))
+				.texture("particle", new ResourceLocation(Embers.MODID, "block/item_pipe_tex"));
+		ModelFile itemPipeEndModel2 = models().withExistingParent("item_pipe_end_2", new ResourceLocation(Embers.MODID, "pipe_end_2"))
+				.texture("pipe", new ResourceLocation(Embers.MODID, "block/item_pipe_tex"))
+				.texture("particle", new ResourceLocation(Embers.MODID, "block/item_pipe_tex"));
+		ModelFile itemPipeConnectionModel2 = models().withExistingParent("item_pipe_connection_2", new ResourceLocation(Embers.MODID, "pipe_connection_2"))
+				.texture("pipe", new ResourceLocation(Embers.MODID, "block/item_pipe_tex"))
+				.texture("particle", new ResourceLocation(Embers.MODID, "block/item_pipe_tex"));
 
 		simpleBlockItem(RegistryManager.ITEM_PIPE.get(), models().withExistingParent("item_pipe_inventory", new ResourceLocation(Embers.MODID, "pipe_inventory"))
 				.texture("pipe", new ResourceLocation(Embers.MODID, "block/item_pipe_tex")));
 
-		simpleBlock(RegistryManager.ITEM_PIPE.get(), itemPipeCenterModel);
-		/*getMultipartBuilder(RegistryManager.ITEM_PIPE.get())
-		.part().modelFile(itemPipeCenterModel).addModel().end()
-		//pipe ends
-		.part().modelFile(itemPipeEndModel).addModel()
-		.condition(PipeBlockBase.DOWN, PipeConnection.END).end()
-		.part().modelFile(itemPipeEndModel2).rotationX(180).addModel()
-		.condition(PipeBlockBase.UP, PipeConnection.END).end()
-		.part().modelFile(itemPipeEndModel).rotationX(90).addModel()
-		.condition(PipeBlockBase.SOUTH, PipeConnection.END).end()
-		.part().modelFile(itemPipeEndModel2).rotationX(90).rotationY(180).addModel()
-		.condition(PipeBlockBase.NORTH, PipeConnection.END).end()
-		.part().modelFile(itemPipeEndModel).rotationX(90).rotationY(90).addModel()
-		.condition(PipeBlockBase.WEST, PipeConnection.END).end()
-		.part().modelFile(itemPipeEndModel2).rotationX(90).rotationY(270).addModel()
-		.condition(PipeBlockBase.EAST, PipeConnection.END).end()
-		//pipe connections
-		.part().modelFile(itemPipeConnectionModel).addModel()
-		.condition(PipeBlockBase.DOWN, PipeConnection.PIPE).end()
-		.part().modelFile(itemPipeConnectionModel2).rotationX(180).addModel()
-		.condition(PipeBlockBase.UP, PipeConnection.PIPE).end()
-		.part().modelFile(itemPipeConnectionModel).rotationX(90).addModel()
-		.condition(PipeBlockBase.SOUTH, PipeConnection.PIPE).end()
-		.part().modelFile(itemPipeConnectionModel2).rotationX(90).rotationY(180).addModel()
-		.condition(PipeBlockBase.NORTH, PipeConnection.PIPE).end()
-		.part().modelFile(itemPipeConnectionModel).rotationX(90).rotationY(90).addModel()
-		.condition(PipeBlockBase.WEST, PipeConnection.PIPE).end()
-		.part().modelFile(itemPipeConnectionModel2).rotationX(90).rotationY(270).addModel()
-		.condition(PipeBlockBase.EAST, PipeConnection.PIPE).end();*/
+		ModelFile itemPipeModel = models().withExistingParent("item_pipe", "block")
+				.customLoader(PipeModelBuilder::begin)
+				.parts(models().nested().parent(itemPipeCenterModel),
+						models().nested().parent(itemPipeConnectionModel),
+						models().nested().parent(itemPipeConnectionModel2),
+						models().nested().parent(itemPipeEndModel),
+						models().nested().parent(itemPipeEndModel2)).end();
+
+		simpleBlock(RegistryManager.ITEM_PIPE.get(), itemPipeModel);
 
 		ModelFile itemExtractorCenterModel = models().withExistingParent("item_extractor_center", new ResourceLocation(Embers.MODID, "extractor_center"))
 				.texture("pipe", new ResourceLocation(Embers.MODID, "block/item_pipe_tex"))
 				.texture("particle", new ResourceLocation(Embers.MODID, "block/item_pipe_tex"));
+		ModelFile itemExtractorModel = models().withExistingParent("item_extractor", "block")
+				.customLoader(PipeModelBuilder::begin)
+				.parts(models().nested().parent(itemExtractorCenterModel),
+						models().nested().parent(itemPipeConnectionModel),
+						models().nested().parent(itemPipeConnectionModel2),
+						models().nested().parent(itemPipeEndModel),
+						models().nested().parent(itemPipeEndModel2)).end();
 
 		simpleBlockItem(RegistryManager.ITEM_EXTRACTOR.get(), itemExtractorCenterModel);
-		simpleBlock(RegistryManager.ITEM_EXTRACTOR.get(), itemExtractorCenterModel);
-		/*getMultipartBuilder(RegistryManager.ITEM_EXTRACTOR.get())
-		.part().modelFile(itemExtractorCenterModel).addModel().end()
-		//pipe ends
-		.part().modelFile(itemPipeEndModel).addModel()
-		.condition(PipeBlockBase.DOWN, PipeConnection.END).end()
-		.part().modelFile(itemPipeEndModel2).rotationX(180).addModel()
-		.condition(PipeBlockBase.UP, PipeConnection.END).end()
-		.part().modelFile(itemPipeEndModel).rotationX(90).addModel()
-		.condition(PipeBlockBase.SOUTH, PipeConnection.END).end()
-		.part().modelFile(itemPipeEndModel2).rotationX(90).rotationY(180).addModel()
-		.condition(PipeBlockBase.NORTH, PipeConnection.END).end()
-		.part().modelFile(itemPipeEndModel).rotationX(90).rotationY(90).addModel()
-		.condition(PipeBlockBase.WEST, PipeConnection.END).end()
-		.part().modelFile(itemPipeEndModel2).rotationX(90).rotationY(270).addModel()
-		.condition(PipeBlockBase.EAST, PipeConnection.END).end()
-		//pipe connections
-		.part().modelFile(itemPipeConnectionModel).addModel()
-		.condition(PipeBlockBase.DOWN, PipeConnection.PIPE).end()
-		.part().modelFile(itemPipeConnectionModel2).rotationX(180).addModel()
-		.condition(PipeBlockBase.UP, PipeConnection.PIPE).end()
-		.part().modelFile(itemPipeConnectionModel).rotationX(90).addModel()
-		.condition(PipeBlockBase.SOUTH, PipeConnection.PIPE).end()
-		.part().modelFile(itemPipeConnectionModel2).rotationX(90).rotationY(180).addModel()
-		.condition(PipeBlockBase.NORTH, PipeConnection.PIPE).end()
-		.part().modelFile(itemPipeConnectionModel).rotationX(90).rotationY(90).addModel()
-		.condition(PipeBlockBase.WEST, PipeConnection.PIPE).end()
-		.part().modelFile(itemPipeConnectionModel2).rotationX(90).rotationY(270).addModel()
-		.condition(PipeBlockBase.EAST, PipeConnection.PIPE).end();*/
+		simpleBlock(RegistryManager.ITEM_EXTRACTOR.get(), itemExtractorModel);
 
 		ExistingModelFile emberBoreModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "ember_bore_center"));
 		getVariantBuilder(RegistryManager.EMBER_BORE.get()).forAllStates(state -> {
@@ -263,70 +223,29 @@ public class EmbersBlockStates extends BlockStateProvider {
 		simpleBlockItem(RegistryManager.FLUID_PIPE.get(), models().withExistingParent("fluid_pipe_inventory", new ResourceLocation(Embers.MODID, "pipe_inventory"))
 				.texture("pipe", new ResourceLocation(Embers.MODID, "block/fluid_pipe_tex")));
 
-		simpleBlock(RegistryManager.FLUID_PIPE.get(), fluidPipeCenterModel);
-		/*getMultipartBuilder(RegistryManager.FLUID_PIPE.get())
-		.part().modelFile(fluidPipeCenterModel).addModel().end()
-		//pipe ends
-		.part().modelFile(fluidPipeEndModel).addModel()
-		.condition(PipeBlockBase.DOWN, PipeConnection.END).end()
-		.part().modelFile(fluidPipeEndModel2).rotationX(180).addModel()
-		.condition(PipeBlockBase.UP, PipeConnection.END).end()
-		.part().modelFile(fluidPipeEndModel).rotationX(90).addModel()
-		.condition(PipeBlockBase.SOUTH, PipeConnection.END).end()
-		.part().modelFile(fluidPipeEndModel2).rotationX(90).rotationY(180).addModel()
-		.condition(PipeBlockBase.NORTH, PipeConnection.END).end()
-		.part().modelFile(fluidPipeEndModel).rotationX(90).rotationY(90).addModel()
-		.condition(PipeBlockBase.WEST, PipeConnection.END).end()
-		.part().modelFile(fluidPipeEndModel2).rotationX(90).rotationY(270).addModel()
-		.condition(PipeBlockBase.EAST, PipeConnection.END).end()
-		//pipe connections
-		.part().modelFile(fluidPipeConnectionModel).addModel()
-		.condition(PipeBlockBase.DOWN, PipeConnection.PIPE).end()
-		.part().modelFile(fluidPipeConnectionModel2).rotationX(180).addModel()
-		.condition(PipeBlockBase.UP, PipeConnection.PIPE).end()
-		.part().modelFile(fluidPipeConnectionModel).rotationX(90).addModel()
-		.condition(PipeBlockBase.SOUTH, PipeConnection.PIPE).end()
-		.part().modelFile(fluidPipeConnectionModel2).rotationX(90).rotationY(180).addModel()
-		.condition(PipeBlockBase.NORTH, PipeConnection.PIPE).end()
-		.part().modelFile(fluidPipeConnectionModel).rotationX(90).rotationY(90).addModel()
-		.condition(PipeBlockBase.WEST, PipeConnection.PIPE).end()
-		.part().modelFile(fluidPipeConnectionModel2).rotationX(90).rotationY(270).addModel()
-		.condition(PipeBlockBase.EAST, PipeConnection.PIPE).end();*/
+		ModelFile fluidPipeModel = models().withExistingParent("fluid_pipe", "block")
+				.customLoader(PipeModelBuilder::begin)
+				.parts(models().nested().parent(fluidPipeCenterModel),
+						models().nested().parent(fluidPipeConnectionModel),
+						models().nested().parent(fluidPipeConnectionModel2),
+						models().nested().parent(fluidPipeEndModel),
+						models().nested().parent(fluidPipeEndModel2)).end();
+
+		simpleBlock(RegistryManager.FLUID_PIPE.get(), fluidPipeModel);
 
 		ModelFile fluidExtractorCenterModel = models().withExistingParent("fluid_extractor_center", new ResourceLocation(Embers.MODID, "extractor_center"))
 				.texture("pipe", new ResourceLocation(Embers.MODID, "block/fluid_pipe_tex"))
 				.texture("particle", new ResourceLocation(Embers.MODID, "block/fluid_pipe_tex"));
+		ModelFile fluidExtractorModel = models().withExistingParent("fluid_extractor", "block")
+				.customLoader(PipeModelBuilder::begin)
+				.parts(models().nested().parent(fluidExtractorCenterModel),
+						models().nested().parent(fluidPipeConnectionModel),
+						models().nested().parent(fluidPipeConnectionModel2),
+						models().nested().parent(fluidPipeEndModel),
+						models().nested().parent(fluidPipeEndModel2)).end();
 
 		simpleBlockItem(RegistryManager.FLUID_EXTRACTOR.get(), fluidExtractorCenterModel);
-		simpleBlock(RegistryManager.FLUID_EXTRACTOR.get(), fluidExtractorCenterModel);
-		/*getMultipartBuilder(RegistryManager.FLUID_EXTRACTOR.get())
-		.part().modelFile(fluidExtractorCenterModel).addModel().end()
-		//pipe ends
-		.part().modelFile(fluidPipeEndModel).addModel()
-		.condition(PipeBlockBase.DOWN, PipeConnection.END).end()
-		.part().modelFile(fluidPipeEndModel2).rotationX(180).addModel()
-		.condition(PipeBlockBase.UP, PipeConnection.END).end()
-		.part().modelFile(fluidPipeEndModel).rotationX(90).addModel()
-		.condition(PipeBlockBase.SOUTH, PipeConnection.END).end()
-		.part().modelFile(fluidPipeEndModel2).rotationX(90).rotationY(180).addModel()
-		.condition(PipeBlockBase.NORTH, PipeConnection.END).end()
-		.part().modelFile(fluidPipeEndModel).rotationX(90).rotationY(90).addModel()
-		.condition(PipeBlockBase.WEST, PipeConnection.END).end()
-		.part().modelFile(fluidPipeEndModel2).rotationX(90).rotationY(270).addModel()
-		.condition(PipeBlockBase.EAST, PipeConnection.END).end()
-		//pipe connections
-		.part().modelFile(fluidPipeConnectionModel).addModel()
-		.condition(PipeBlockBase.DOWN, PipeConnection.PIPE).end()
-		.part().modelFile(fluidPipeConnectionModel2).rotationX(180).addModel()
-		.condition(PipeBlockBase.UP, PipeConnection.PIPE).end()
-		.part().modelFile(fluidPipeConnectionModel).rotationX(90).addModel()
-		.condition(PipeBlockBase.SOUTH, PipeConnection.PIPE).end()
-		.part().modelFile(fluidPipeConnectionModel2).rotationX(90).rotationY(180).addModel()
-		.condition(PipeBlockBase.NORTH, PipeConnection.PIPE).end()
-		.part().modelFile(fluidPipeConnectionModel).rotationX(90).rotationY(90).addModel()
-		.condition(PipeBlockBase.WEST, PipeConnection.PIPE).end()
-		.part().modelFile(fluidPipeConnectionModel2).rotationX(90).rotationY(270).addModel()
-		.condition(PipeBlockBase.EAST, PipeConnection.PIPE).end();*/
+		simpleBlock(RegistryManager.FLUID_EXTRACTOR.get(), fluidExtractorModel);
 
 		blockWithItem(RegistryManager.FLUID_VESSEL, "fluid_vessel");
 
@@ -570,7 +489,15 @@ public class EmbersBlockStates extends BlockStateProvider {
 		simpleBlockItem(RegistryManager.MECHANICAL_PUMP.get(), pumpBottomModel);
 
 		ExistingModelFile boilerModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "mini_boiler"));
-		horizontalBlock(RegistryManager.MINI_BOILER.get(), boilerModel);
+		ModelFile boilerPipeModel = models().withExistingParent("mini_boiler_pipes", "block")
+				.customLoader(PipeModelBuilder::begin)
+				.parts(models().nested().parent(boilerModel),
+						models().nested().parent(fluidPipeConnectionModel),
+						models().nested().parent(fluidPipeConnectionModel2),
+						models().nested().parent(fluidPipeEndModel),
+						models().nested().parent(fluidPipeEndModel2)).end();
+
+		horizontalBlock(RegistryManager.MINI_BOILER.get(), boilerPipeModel);
 		simpleBlockItem(RegistryManager.MINI_BOILER.get(), boilerModel);
 
 		ModelFile catalyticPlugModel = models().withExistingParent("catalytic_plug", new ResourceLocation(Embers.MODID, "catalytic_plug_base")).customLoader(CompositeModelBuilder::begin)

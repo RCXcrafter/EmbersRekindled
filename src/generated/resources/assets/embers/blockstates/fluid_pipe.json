@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "embers:block/fluid_pipe_center"
+      "model": "embers:block/fluid_pipe"
     }
   }
 }

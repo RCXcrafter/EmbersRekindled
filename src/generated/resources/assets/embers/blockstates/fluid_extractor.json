@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "embers:block/fluid_extractor_center"
+      "model": "embers:block/fluid_extractor"
     }
   }
 }

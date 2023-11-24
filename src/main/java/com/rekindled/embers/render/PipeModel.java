@@ -1,132 +1,83 @@
 package com.rekindled.embers.render;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.function.Function;
 
-import com.rekindled.embers.Embers;
-import com.rekindled.embers.blockentity.PipeBlockEntityBase;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonObject;
 
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.BlockModelRotation;
 import net.minecraft.client.resources.model.Material;
-import net.minecraft.client.resources.model.ModelBakery;
-import net.minecraft.client.resources.model.ModelBakery.ModelBakerImpl;
-import net.minecraft.client.resources.model.ModelManager;
+import net.minecraft.client.resources.model.ModelBaker;
+import net.minecraft.client.resources.model.ModelState;
 import net.minecraft.client.resources.model.UnbakedModel;
-import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.client.model.data.ModelData;
+import net.minecraft.util.GsonHelper;
+import net.minecraftforge.client.model.geometry.IGeometryBakingContext;
+import net.minecraftforge.client.model.geometry.IGeometryLoader;
+import net.minecraftforge.client.model.geometry.IUnbakedGeometry;
 
-public class PipeModel implements BakedModel {
+public class PipeModel implements IUnbakedGeometry<PipeModel> {
 
-	private final String name;
-	private final BakedModel centerModel;
-	private BakedModel[] connectionModel;
-	private BakedModel[] endModel;
-	public static final List<BakedQuad> EMPTY = new ArrayList<BakedQuad>();
+	BlockModel centerModel;
+	BlockModel connectionModel;
+	BlockModel connectionModel2;
+	BlockModel endModel;
+	BlockModel endModel2;
 
-	@SuppressWarnings("unchecked")
-	public final List<BakedQuad>[] QUAD_CACHE = new List[729];
-
-	public PipeModel(BakedModel centerModel, String name) {
-		this.name = name;
+	public PipeModel(BlockModel centerModel, BlockModel connectionModel, BlockModel connectionModel2, BlockModel endModel, BlockModel endModel2) {
 		this.centerModel = centerModel;
+		this.connectionModel = connectionModel;
+		this.connectionModel2 = connectionModel2;
+		this.endModel = endModel;
+		this.endModel2 = endModel2;
 	}
 
-	public void init(ModelManager manager) {
-		connectionModel = getRotatedModels(manager.getModelBakery(), name + "_connection");
-		endModel = getRotatedModels(manager.getModelBakery(), name + "_end");
+	@Override
+	public BakedModel bake(IGeometryBakingContext context, ModelBaker baker, Function<Material, TextureAtlasSprite> spriteGetter, ModelState modelState, ItemOverrides overrides, ResourceLocation modelLocation) {
+		BakedModel[] connectionModels = getRotatedModels(context, baker, spriteGetter, modelLocation, connectionModel, connectionModel2);
+		BakedModel[] endModels = getRotatedModels(context, baker, spriteGetter, modelLocation, endModel, endModel2);
+
+		return new BakedPipeModel(centerModel.bake(baker, centerModel, spriteGetter, modelState, modelLocation, context.useBlockLight()), connectionModels, endModels);
 	}
 
-	public static BakedModel[] getRotatedModels(ModelBakery bakery, String name) {
-		ResourceLocation location = new ResourceLocation(Embers.MODID, "block/" + name);
-		ResourceLocation location2 = new ResourceLocation(Embers.MODID, "block/" + name + "_2");
-
-		ModelBakerImpl bakerImpl = bakery.new ModelBakerImpl((modelLoc, material) -> material.sprite(), location);
-
-		UnbakedModel model = bakery.getModel(location);
-		UnbakedModel model2 = bakery.getModel(location2);
+	public static BakedModel[] getRotatedModels(IGeometryBakingContext context, ModelBaker baker, Function<Material, TextureAtlasSprite> spriteGetter, ResourceLocation modelLocation, BlockModel model, BlockModel model2) {
 		BakedModel[] models = {
-				model.bake(bakerImpl, Material::sprite, BlockModelRotation.X0_Y0, location),
-				model2.bake(bakerImpl, Material::sprite, BlockModelRotation.X180_Y0, location2),
-				model.bake(bakerImpl, Material::sprite, BlockModelRotation.X90_Y180, location),
-				model2.bake(bakerImpl, Material::sprite, BlockModelRotation.X90_Y0, location2),
-				model.bake(bakerImpl, Material::sprite, BlockModelRotation.X90_Y90, location),
-				model2.bake(bakerImpl, Material::sprite, BlockModelRotation.X90_Y270, location2)
+				model.bake(baker, model, spriteGetter, BlockModelRotation.X0_Y0, modelLocation, context.useBlockLight()),
+				model2.bake(baker, model2, spriteGetter, BlockModelRotation.X180_Y0, modelLocation, context.useBlockLight()),
+				model.bake(baker, model, spriteGetter, BlockModelRotation.X90_Y180, modelLocation, context.useBlockLight()),
+				model2.bake(baker, model2, spriteGetter, BlockModelRotation.X90_Y0, modelLocation, context.useBlockLight()),
+				model.bake(baker, model, spriteGetter, BlockModelRotation.X90_Y90, modelLocation, context.useBlockLight()),
+				model2.bake(baker, model2, spriteGetter, BlockModelRotation.X90_Y270, modelLocation, context.useBlockLight())
 		};
 		return models;
 	}
 
-	public static int getCacheIndex(int[] data) {
-		return (((((data[0] * 3 + data[1]) * 3 + data[2]) * 3 + data[3]) * 3 + data[4]) * 3) + data[5];
+	@Override
+	public void resolveParents(Function<ResourceLocation, UnbakedModel> modelGetter, IGeometryBakingContext context) {
+		centerModel.resolveParents(modelGetter);
+		connectionModel.resolveParents(modelGetter);
+		connectionModel2.resolveParents(modelGetter);
+		endModel.resolveParents(modelGetter);
+		endModel2.resolveParents(modelGetter);
 	}
 
-	@Override
-	public List<BakedQuad> getQuads(BlockState state, Direction side, RandomSource rand, ModelData data, RenderType renderType) {
-		if (side != null)
-			return EMPTY;
-		int[] sides = data.get(PipeBlockEntityBase.DATA_TYPE);
+	public static final class Loader implements IGeometryLoader<PipeModel> {
 
-		if (sides != null) {
-			List<BakedQuad> quads = QUAD_CACHE[getCacheIndex(sides)];
-			if (quads != null)
-				return quads;
+		public static final Loader INSTANCE = new Loader();
 
-			quads = new ArrayList<BakedQuad>();
-			quads.addAll(centerModel.getQuads(state, side, rand, data, renderType));
-			if (quads.isEmpty())
-				return quads;
-			for (int i = 0; i < sides.length; i++) {
-				if (sides[i] == 1)
-					quads.addAll(connectionModel[i].getQuads(state, side, rand, data, renderType));
-				else if (sides[i] == 2)
-					quads.addAll(endModel[i].getQuads(state, side, rand, data, renderType));
-			}
-			if (!quads.isEmpty())
-				QUAD_CACHE[getCacheIndex(sides)] = new ArrayList<BakedQuad>(quads);
-			return quads;
+		@Override
+		public PipeModel read(JsonObject jsonObject, JsonDeserializationContext deserializationContext) {
+			BlockModel centerModel = deserializationContext.deserialize(GsonHelper.getAsJsonObject(jsonObject, "center"), BlockModel.class);
+			BlockModel connectionModel = deserializationContext.deserialize(GsonHelper.getAsJsonObject(jsonObject, "connection"), BlockModel.class);
+			BlockModel connectionModel2 = deserializationContext.deserialize(GsonHelper.getAsJsonObject(jsonObject, "connection2"), BlockModel.class);
+			BlockModel endModel = deserializationContext.deserialize(GsonHelper.getAsJsonObject(jsonObject, "end"), BlockModel.class);
+			BlockModel endModel2 = deserializationContext.deserialize(GsonHelper.getAsJsonObject(jsonObject, "end2"), BlockModel.class);
+
+			return new PipeModel(centerModel, connectionModel, connectionModel2, endModel, endModel2);
 		}
-		return centerModel.getQuads(state, side, rand, data, renderType);
-	}
-
-	@Override
-	public List<BakedQuad> getQuads(BlockState state, Direction side, RandomSource rand) {
-		return centerModel.getQuads(state, side, rand);
-	}
-
-	@Override
-	public boolean useAmbientOcclusion() {
-		return centerModel.useAmbientOcclusion();
-	}
-
-	@Override
-	public boolean isGui3d() {
-		return centerModel.isGui3d();
-	}
-
-	@Override
-	public boolean usesBlockLight() {
-		return centerModel.usesBlockLight();
-	}
-
-	@Override
-	public boolean isCustomRenderer() {
-		return centerModel.isCustomRenderer();
-	}
-
-	@Override
-	public TextureAtlasSprite getParticleIcon() {
-		return centerModel.getParticleIcon();
-	}
-
-	@Override
-	public ItemOverrides getOverrides() {
-		return ItemOverrides.EMPTY;
 	}
 }

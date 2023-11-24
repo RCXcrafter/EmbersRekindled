@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "embers:block/item_extractor_center"
+      "model": "embers:block/item_extractor"
     }
   }
 }

@@ -66,6 +66,7 @@ import com.rekindled.embers.particle.SparkParticle;
 import com.rekindled.embers.particle.StarParticle;
 import com.rekindled.embers.particle.TyrfingParticle;
 import com.rekindled.embers.particle.VaporParticle;
+import com.rekindled.embers.render.PipeModel;
 import com.rekindled.embers.research.ResearchManager;
 import com.rekindled.embers.research.capability.IResearchCapability;
 import com.rekindled.embers.util.DecimalFormats;
@@ -107,6 +108,7 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
@@ -393,8 +395,6 @@ public class Embers {
 		@SubscribeEvent
 		public static void clientSetup(FMLClientSetupEvent event) {
 			IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-			modEventBus.addListener(EmbersClientEvents::onModelRegister);
-			modEventBus.addListener(EmbersClientEvents::onModelBake);
 			modEventBus.addListener(EmbersClientEvents::afterModelBake);
 			MinecraftForge.EVENT_BUS.addListener(EmbersClientEvents::onClientTick);
 			MinecraftForge.EVENT_BUS.addListener(EmbersClientEvents::onBlockHighlight);
@@ -489,6 +489,12 @@ public class Embers {
 		static void registerItemColorHandlers(RegisterColorHandlersEvent.Item event) {
 			event.register(new EmberStorageItem.ColorHandler(), RegistryManager.EMBER_JAR.get(), RegistryManager.EMBER_CARTRIDGE.get());
 			event.register(new TyrfingItem.ColorHandler(), RegistryManager.TYRFING.get());
+		}
+
+		@OnlyIn(Dist.CLIENT)
+		@SubscribeEvent
+		static void onRegisterGeometryLoaders(ModelEvent.RegisterGeometryLoaders event) {
+			event.register("pipe", PipeModel.Loader.INSTANCE);
 		}
 	}
 }

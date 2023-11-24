@@ -858,7 +858,7 @@ public class RegistryManager {
 		}
 
 		public ForgeFlowingFluid.Properties getFluidProperties() {
-			return PROPERTIES;       
+			return PROPERTIES;
 		}
 	}
 

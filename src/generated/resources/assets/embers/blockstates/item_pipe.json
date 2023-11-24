@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "embers:block/item_pipe_center"
+      "model": "embers:block/item_pipe"
     }
   }
 }
