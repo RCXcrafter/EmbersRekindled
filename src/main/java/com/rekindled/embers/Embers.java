@@ -7,8 +7,7 @@ import com.rekindled.embers.api.item.IInflictorGem;
 import com.rekindled.embers.api.item.IInflictorGemHolder;
 import com.rekindled.embers.api.item.ITyrfingWeapon;
 import com.rekindled.embers.api.power.IEmberCapability;
-import com.rekindled.embers.api.upgrades.UpgradeUtil;
-import com.rekindled.embers.apiimpl.UpgradeUtilImpl;
+import com.rekindled.embers.apiimpl.EmbersAPIImpl;
 import com.rekindled.embers.blockentity.render.AlchemyPedestalBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.AlchemyPedestalTopBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.AlchemyTabletBlockEntityRenderer;
@@ -174,8 +173,7 @@ public class Embers {
 		RegistryManager.STRUCTURE_TYPES.register(modEventBus);
 		RegistryManager.STRUCTURE_PROCESSOR_TYPES.register(modEventBus);
 		EmbersSounds.init();
-		//TODO: move this to apiimpl when I port that
-		UpgradeUtil.IMPL = new UpgradeUtilImpl();
+		EmbersAPIImpl.init();
 
 		ConfigManager.register();
 	}
