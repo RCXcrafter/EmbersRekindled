@@ -103,6 +103,7 @@
     "embers:field_chart_edge",
     "embers:ignem_reactor",
     "embers:catalysis_chamber",
-    "embers:combustion_chamber"
+    "embers:combustion_chamber",
+    "embers:cinder_plinth"
   ]
 }

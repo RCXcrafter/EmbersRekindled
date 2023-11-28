@@ -241,7 +241,7 @@ public class ResearchManager {
 		cinder_staff = new ResearchBase("cinder_staff", new ItemStack(RegistryManager.CINDER_STAFF.get()), 4, 4).addAncestor(jars);
 		blazing_ray = new ResearchBase("blazing_ray", new ItemStack(RegistryManager.BLAZING_RAY.get()), 6, 5).addAncestor(jars);
 		aspecti = new ResearchBase("aspecti", new ItemStack(RegistryManager.DAWNSTONE_ASPECTUS.get()), 12, 1);
-		//cinder_plinth = new ResearchBase("cinder_plinth", new ItemStack(RegistryManager.cinder_plinth), 9, 0);
+		cinder_plinth = new ResearchBase("cinder_plinth", new ItemStack(RegistryManager.CINDER_PLINTH_ITEM.get()), 9, 0);
 		beam_cannon = new ResearchBase("beam_cannon", new ItemStack(RegistryManager.BEAM_CANNON_ITEM.get()), 9, 7);
 		alchemy = new ResearchBase("alchemy", new ItemStack(RegistryManager.ALCHEMY_TABLET_ITEM.get()), 9, 4).addAncestor(aspecti).addAncestor(beam_cannon);
 
@@ -438,7 +438,7 @@ public class ResearchManager {
 		.addResearch(clockwork_tools)
 		.addResearch(cinder_staff)
 		.addResearch(blazing_ray)
-		//.addResearch(cinder_plinth)
+		.addResearch(cinder_plinth)
 		.addResearch(aspecti)
 		.addResearch(alchemy)
 		.addResearch(beam_cannon);

@@ -26,6 +26,7 @@ import com.rekindled.embers.block.CaminiteValveBlock;
 import com.rekindled.embers.block.CaminiteValveEdgeBlock;
 import com.rekindled.embers.block.CatalysisChamberBlock;
 import com.rekindled.embers.block.CatalyticPlugBlock;
+import com.rekindled.embers.block.CinderPlinthBlock;
 import com.rekindled.embers.block.ClockworkAttenuatorBlock;
 import com.rekindled.embers.block.CombustionChamberBlock;
 import com.rekindled.embers.block.CopperCellBlock;
@@ -87,6 +88,7 @@ import com.rekindled.embers.blockentity.BinBlockEntity;
 import com.rekindled.embers.blockentity.CaminiteValveBlockEntity;
 import com.rekindled.embers.blockentity.CatalysisChamberBlockEntity;
 import com.rekindled.embers.blockentity.CatalyticPlugBlockEntity;
+import com.rekindled.embers.blockentity.CinderPlinthBlockEntity;
 import com.rekindled.embers.blockentity.ClockworkAttenuatorBlockEntity;
 import com.rekindled.embers.blockentity.CombustionChamberBlockEntity;
 import com.rekindled.embers.blockentity.CopperCellBlockEntity;
@@ -423,6 +425,7 @@ public class RegistryManager {
 	public static final RegistryObject<Block> CATALYSIS_CHAMBER = BLOCKS.register("catalysis_chamber", () -> new CatalysisChamberBlock(Properties.of().mapColor(MapColor.COLOR_GRAY).sound(EmbersSounds.MACHINE).requiresCorrectToolForDrops().strength(1.6f).noOcclusion(), EmbersSounds.MULTIBLOCK_EXTRA));
 	public static final RegistryObject<Block> COMBUSTION_CHAMBER = BLOCKS.register("combustion_chamber", () -> new CombustionChamberBlock(Properties.of().mapColor(MapColor.COLOR_GRAY).sound(EmbersSounds.MACHINE).requiresCorrectToolForDrops().strength(1.6f).noOcclusion(), EmbersSounds.MULTIBLOCK_EXTRA));
 	public static final RegistryObject<Block> GLIMMER = BLOCKS.register("glimmer", () -> new GlimmerBlock(Properties.of().mapColor(MapColor.COLOR_YELLOW).sound(SoundType.STONE).strength(0f).lightLevel(state -> 15).noParticlesOnBreak().noCollission().noOcclusion()));
+	public static final RegistryObject<Block> CINDER_PLINTH = BLOCKS.register("cinder_plinth", () -> new CinderPlinthBlock(Properties.of().mapColor(MapColor.TERRACOTTA_PURPLE).sound(EmbersSounds.MACHINE).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
 
 	//itemblocks
 	public static final RegistryObject<Item> LEAD_ORE_ITEM = ITEMS.register("lead_ore", () -> new BlockItem(LEAD_ORE.get(), new Item.Properties()));
@@ -500,6 +503,7 @@ public class RegistryManager {
 	public static final RegistryObject<Item> IGNEM_REACTOR_ITEM = ITEMS.register("ignem_reactor", () -> new BlockItem(IGNEM_REACTOR.get(), new Item.Properties()));
 	public static final RegistryObject<Item> CATALYSIS_CHAMBER_ITEM = ITEMS.register("catalysis_chamber", () -> new BlockItem(CATALYSIS_CHAMBER.get(), new Item.Properties()));
 	public static final RegistryObject<Item> COMBUSTION_CHAMBER_ITEM = ITEMS.register("combustion_chamber", () -> new BlockItem(COMBUSTION_CHAMBER.get(), new Item.Properties()));
+	public static final RegistryObject<Item> CINDER_PLINTH_ITEM = ITEMS.register("cinder_plinth", () -> new BlockItem(CINDER_PLINTH.get(), new Item.Properties()));
 
 	//items
 	public static final RegistryObject<Item> TINKER_HAMMER = ITEMS.register("tinker_hammer", () -> new TinkerHammerItem(new Item.Properties().stacksTo(1)));
@@ -723,6 +727,7 @@ public class RegistryManager {
 	public static final RegistryObject<BlockEntityType<IgnemReactorBlockEntity>> IGNEM_REACTOR_ENTITY = BLOCK_ENTITY_TYPES.register("ignem_reactor", () -> BlockEntityType.Builder.of(IgnemReactorBlockEntity::new, IGNEM_REACTOR.get()).build(null));
 	public static final RegistryObject<BlockEntityType<CatalysisChamberBlockEntity>> CATALYSIS_CHAMBER_ENTITY = BLOCK_ENTITY_TYPES.register("catalysis_chamber", () -> BlockEntityType.Builder.of(CatalysisChamberBlockEntity::new, CATALYSIS_CHAMBER.get()).build(null));
 	public static final RegistryObject<BlockEntityType<CombustionChamberBlockEntity>> COMBUSTION_CHAMBER_ENTITY = BLOCK_ENTITY_TYPES.register("combustion_chamber", () -> BlockEntityType.Builder.of(CombustionChamberBlockEntity::new, COMBUSTION_CHAMBER.get()).build(null));
+	public static final RegistryObject<BlockEntityType<CinderPlinthBlockEntity>> CINDER_PLINTH_ENTITY = BLOCK_ENTITY_TYPES.register("cinder_plinth", () -> BlockEntityType.Builder.of(CinderPlinthBlockEntity::new, CINDER_PLINTH.get()).build(null));
 
 	//creative tabs
 	public static final RegistryObject<CreativeModeTab> EMBERS_TAB = CREATIVE_TABS.register("main_tab", () -> CreativeModeTab.builder()

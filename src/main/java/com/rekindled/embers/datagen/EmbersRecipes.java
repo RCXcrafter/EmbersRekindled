@@ -42,6 +42,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.conditions.AndCondition;
@@ -1097,6 +1098,17 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('G', RegistryManager.GLIMMER_CRYSTAL.get())
 		.unlockedBy("has_glimmer_crystal", has(RegistryManager.GLIMMER_CRYSTAL.get()))
 		.save(consumer, getResource("glimmer_lamp"));
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.CINDER_PLINTH.get())
+		.pattern(" P ")
+		.pattern("SFS")
+		.pattern("PBP")
+		.define('S', itemTag("forge", "ingots/silver"))
+		.define('P', itemTag("forge", "plates/lead"))
+		.define('B', RegistryManager.CAMINITE_BRICKS.get())
+		.define('F', Blocks.FURNACE)
+		.unlockedBy("has_silver", has(itemTag("forge", "ingots/silver")))
+		.save(consumer, getResource("cinder_plinth"));
 	}
 
 	public void fullOreRecipes(String name, ImmutableList<ItemLike> ores, Fluid fluid, Item raw, Item rawBlock, Item block, Item ingot, Item nugget, Item plate, Consumer<FinishedRecipe> consumer, MeltingBonus... bonusses) {

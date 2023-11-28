@@ -119,6 +119,7 @@ public class EmbersLang extends LanguageProvider {
 		addBlock(RegistryManager.CATALYSIS_CHAMBER, "Catalysis Chamber");
 		addBlock(RegistryManager.COMBUSTION_CHAMBER, "Combustion Chamber");
 		addBlock(RegistryManager.GLIMMER, "Glimmer");
+		addBlock(RegistryManager.CINDER_PLINTH, "Cinder Plinth");
 
 		addItem(RegistryManager.TINKER_HAMMER, "Tinker's Hammer");
 		addItem(RegistryManager.TINKER_LENS, "Tinker's Lens");

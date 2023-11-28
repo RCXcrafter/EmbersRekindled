@@ -201,7 +201,8 @@ public class EmbersBlockTags extends BlockTagsProvider {
 				RegistryManager.FIELD_CHART_EDGE.get(),
 				RegistryManager.IGNEM_REACTOR.get(),
 				RegistryManager.CATALYSIS_CHAMBER.get(),
-				RegistryManager.COMBUSTION_CHAMBER.get());
+				RegistryManager.COMBUSTION_CHAMBER.get(),
+				RegistryManager.CINDER_PLINTH.get());
 
 		tag(BlockTags.NEEDS_IRON_TOOL).add(
 				RegistryManager.LEAD_ORE.get(),

@@ -574,6 +574,8 @@ public class EmbersBlockStates extends BlockStateProvider {
 		});
 
 		simpleBlock(RegistryManager.GLIMMER.get(), models().getExistingFile(new ResourceLocation("block/air")));
+
+		blockWithItem(RegistryManager.CINDER_PLINTH, "cinder_plinth");
 	}
 
 	public void blockWithItem(RegistryObject<? extends Block> registryObject) {

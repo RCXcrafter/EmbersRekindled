@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "embers:caminite_bricks"
+    },
+    "F": {
+      "item": "minecraft:furnace"
+    },
+    "P": {
+      "tag": "forge:plates/lead"
+    },
+    "S": {
+      "tag": "forge:ingots/silver"
+    }
+  },
+  "pattern": [
+    " P ",
+    "SFS",
+    "PBP"
+  ],
+  "result": {
+    "item": "embers:cinder_plinth"
+  },
+  "show_notification": true
+}
