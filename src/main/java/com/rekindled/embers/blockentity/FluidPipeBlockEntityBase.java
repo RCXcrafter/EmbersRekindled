@@ -265,15 +265,15 @@ public abstract class FluidPipeBlockEntityBase extends PipeBlockEntityBase imple
 		return nbt;
 	}
 
-	private void writeCloggedFlag(CompoundTag nbt) {
+	public void writeCloggedFlag(CompoundTag nbt) {
 		nbt.putBoolean("clogged", clogged);
 	}
 
-	private void writeLastTransfer(CompoundTag nbt) {
+	public void writeLastTransfer(CompoundTag nbt) {
 		nbt.putInt("lastTransfer", Misc.writeNullableFacing(lastTransfer));
 	}
 
-	private void writeTank(CompoundTag nbt) {
+	public void writeTank(CompoundTag nbt) {
 		nbt.put("tank", tank.writeToNBT(new CompoundTag()));
 	}
 

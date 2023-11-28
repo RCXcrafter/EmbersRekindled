@@ -27,7 +27,8 @@ public class PipeBlockEntityBase extends BlockEntity {
 			PipeConnection.NONE
 	};
 
-	boolean loaded = false;
+	public boolean loaded = false;
+	public boolean saveConnections = true;
 
 	public static final ModelProperty<int[]> DATA_TYPE = new ModelProperty<int[]>();
 
@@ -125,7 +126,8 @@ public class PipeBlockEntityBase extends BlockEntity {
 	@Override
 	public void saveAdditional(CompoundTag nbt) {
 		super.saveAdditional(nbt);
-		writeConnections(nbt);
+		if (saveConnections)
+			writeConnections(nbt);
 	}
 
 	@Override

@@ -34,6 +34,7 @@ public class FluidTransferBlockEntity extends FluidPipeBlockEntityBase {
 
 	public FluidTransferBlockEntity(BlockPos pPos, BlockState pBlockState) {
 		super(RegistryManager.FLUID_TRANSFER_ENTITY.get(), pPos, pBlockState);
+		saveConnections = false;
 	}
 
 	@Override

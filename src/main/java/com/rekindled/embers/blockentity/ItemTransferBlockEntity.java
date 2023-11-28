@@ -41,6 +41,7 @@ public class ItemTransferBlockEntity extends ItemPipeBlockEntityBase {
 
 	public ItemTransferBlockEntity(BlockPos pPos, BlockState pBlockState) {
 		super(RegistryManager.ITEM_TRANSFER_ENTITY.get(), pPos, pBlockState);
+		saveConnections = false;
 	}
 
 	@Override

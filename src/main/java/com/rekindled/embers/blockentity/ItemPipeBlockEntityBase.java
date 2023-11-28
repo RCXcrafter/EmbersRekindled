@@ -272,15 +272,15 @@ public abstract class ItemPipeBlockEntityBase extends PipeBlockEntityBase implem
 		return nbt;
 	}
 
-	private void writeCloggedFlag(CompoundTag nbt) {
+	public void writeCloggedFlag(CompoundTag nbt) {
 		nbt.putBoolean("clogged", clogged);
 	}
 
-	private void writeLastTransfer(CompoundTag nbt) {
+	public void writeLastTransfer(CompoundTag nbt) {
 		nbt.putInt("lastTransfer", Misc.writeNullableFacing(lastTransfer));
 	}
 
-	private void writeInventory(CompoundTag nbt) {
+	public void writeInventory(CompoundTag nbt) {
 		nbt.put("inventory", inventory.serializeNBT());
 	}
 
