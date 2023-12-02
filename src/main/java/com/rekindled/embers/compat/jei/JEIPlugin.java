@@ -1,7 +1,6 @@
 package com.rekindled.embers.compat.jei;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import com.rekindled.embers.Embers;
@@ -75,12 +74,13 @@ public class JEIPlugin implements IModPlugin {
 		registry.addRecipeCategories(new DawnstoneAnvilCategory(guiHelper));
 	}
 
+	@SuppressWarnings("unchecked")
 	public static <C extends Container, T extends Recipe<C>> void addRecipes(IRecipeRegistration register, RecipeManager manager, RecipeType<T> jeiType, net.minecraft.world.item.crafting.RecipeType<T> type) {
 		List<T> recipes = manager.getAllRecipesFor(type);
 		List<T> visualRecipes = new ArrayList<T>();
 		for (T recipe : recipes) {
-			if (recipe instanceof IVisuallySplitRecipe splitter) {
-				visualRecipes.addAll(splitter.getVisualRecipes());
+			if (recipe instanceof IVisuallySplitRecipe) {
+				visualRecipes.addAll(((IVisuallySplitRecipe<T>) recipe).getVisualRecipes());
 			} else {
 				visualRecipes.add(recipe);
 			}
@@ -145,6 +145,7 @@ public class JEIPlugin implements IModPlugin {
 		registry.addRecipeCatalyst(new ItemStack(RegistryManager.MINI_BOILER_ITEM.get()), BOILING);
 		registry.addRecipeCatalyst(new ItemStack(RegistryManager.CATALYTIC_PLUG_ITEM.get()), GASEOUS_FUEL);
 		registry.addRecipeCatalyst(new ItemStack(RegistryManager.WILDFIRE_STIRLING_ITEM.get()), GASEOUS_FUEL);
-		registry.addRecipeCatalyst(new ItemStack(RegistryManager.DAWNSTONE_ANVIL.get()), DAWNSTONE_ANVIL);
+		registry.addRecipeCatalyst(new ItemStack(RegistryManager.TINKER_HAMMER.get()), DAWNSTONE_ANVIL);
+		registry.addRecipeCatalyst(new ItemStack(RegistryManager.DAWNSTONE_ANVIL_ITEM.get()), DAWNSTONE_ANVIL);
 	}
 }

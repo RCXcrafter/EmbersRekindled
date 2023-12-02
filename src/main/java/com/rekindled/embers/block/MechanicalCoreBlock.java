@@ -6,6 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
@@ -27,6 +28,14 @@ public class MechanicalCoreBlock extends BaseEntityBlock implements SimpleWaterl
 	@Override
 	public RenderShape getRenderShape(BlockState pState) {
 		return RenderShape.MODEL;
+	}
+
+	//okay this is jank but I don't see how this could possibly go wrong
+	@Override
+	public void onNeighborChange(BlockState state, LevelReader level, BlockPos pos, BlockPos neighbor) {
+		if (pos.relative(state.getValue(BlockStateProperties.FACING), -1).equals(neighbor)) {
+			level.getBlockEntity(pos).getLevel().updateNeighbourForOutputSignal(pos, state.getBlock());
+		}
 	}
 
 	@Override
