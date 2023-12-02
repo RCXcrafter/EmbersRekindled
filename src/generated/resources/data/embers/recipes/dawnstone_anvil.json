@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "tag": "forge:storage_blocks/dawnstone"
+    },
+    "C": {
+      "item": "embers:caminite_bricks"
+    },
+    "I": {
+      "tag": "forge:ingots/dawnstone"
+    }
+  },
+  "pattern": [
+    "BBB",
+    " I ",
+    "CCC"
+  ],
+  "result": {
+    "item": "embers:dawnstone_anvil"
+  },
+  "show_notification": true
+}

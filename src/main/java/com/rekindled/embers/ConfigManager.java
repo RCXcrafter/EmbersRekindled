@@ -33,6 +33,7 @@ public class ConfigManager {
 	public static ConfigValue<Double> HEARTH_COIL_MAX_HEAT;
 	public static ConfigValue<Integer> HEARTH_COIL_MIN_COOK_TIME;
 	public static ConfigValue<Integer> HEARTH_COIL_MAX_COOK_TIME;
+	public static ConfigValue<Integer> DAWNSTONE_ANVIL_MAX_HITS;
 	public static ConfigValue<Double> BLAZING_RAY_COST;
 	public static ConfigValue<Integer> BLAZING_RAY_COOLDOWN;
 	public static ConfigValue<Integer> BLAZING_RAY_MAX_CHARGE;
@@ -98,6 +99,8 @@ public class ConfigManager {
 		HEARTH_COIL_MAX_HEAT = COMMON.comment("The maximum heat value the hearth coil can reach without upgrades.").define("hearth_coil.max_heat", 280.0);
 		HEARTH_COIL_MIN_COOK_TIME = COMMON.comment("The time in ticks it takes to cook 1 item at the highest heat.").define("hearth_coil.min_cook_time", 20);
 		HEARTH_COIL_MAX_COOK_TIME = COMMON.comment("The time in ticks it takes to cook 1 item at the lowest heat.").define("hearth_coil.max_cook_time", 300);
+
+		DAWNSTONE_ANVIL_MAX_HITS = COMMON.comment("The amount of hits required to perform one recipe on a dawnstone anvil.").define("dawnstone_anvil.max_hits", 40);
 
 		BLAZING_RAY_COST = COMMON.comment("Ember used up by each shot.").define("blazingRay.cost", 25.0);
 		BLAZING_RAY_COOLDOWN = COMMON.comment("Cooldown in ticks between each shot.").define("blazingRay.cooldown", 10);

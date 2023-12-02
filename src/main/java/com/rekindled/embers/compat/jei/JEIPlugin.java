@@ -1,6 +1,7 @@
 package com.rekindled.embers.compat.jei;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import com.rekindled.embers.Embers;
@@ -11,6 +12,8 @@ import com.rekindled.embers.recipe.BoringRecipe;
 import com.rekindled.embers.recipe.CatalysisCombustionRecipe;
 import com.rekindled.embers.recipe.EmberActivationRecipe;
 import com.rekindled.embers.recipe.GaseousFuelRecipe;
+import com.rekindled.embers.recipe.IDawnstoneAnvilRecipe;
+import com.rekindled.embers.recipe.IVisuallySplitRecipe;
 import com.rekindled.embers.recipe.MeltingRecipe;
 import com.rekindled.embers.recipe.MetalCoefficientRecipe;
 import com.rekindled.embers.recipe.MixingRecipe;
@@ -26,7 +29,9 @@ import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 
 @JeiPlugin
@@ -45,6 +50,7 @@ public class JEIPlugin implements IModPlugin {
 	public static final RecipeType<BoilingRecipe> BOILING = RecipeType.create(Embers.MODID, "boiling", BoilingRecipe.class);
 	public static final RecipeType<GaseousFuelRecipe> GASEOUS_FUEL = RecipeType.create(Embers.MODID, "gaseous_fuel", GaseousFuelRecipe.class);
 	public static final RecipeType<CatalysisCombustionRecipe> CATALYSIS_COMBUSTION = RecipeType.create(Embers.MODID, "catalysis_combustion", CatalysisCombustionRecipe.class);
+	public static final RecipeType<IDawnstoneAnvilRecipe> DAWNSTONE_ANVIL = RecipeType.create(Embers.MODID, "dawnstone_anvil", IDawnstoneAnvilRecipe.class);
 
 	@Override
 	public ResourceLocation getPluginUid() {
@@ -66,8 +72,21 @@ public class JEIPlugin implements IModPlugin {
 		registry.addRecipeCategories(new BoilingCategory(guiHelper));
 		registry.addRecipeCategories(new GaseousFuelCategory(guiHelper));
 		registry.addRecipeCategories(new CatalysisCombustionCategory(guiHelper));
+		registry.addRecipeCategories(new DawnstoneAnvilCategory(guiHelper));
 	}
 
+	public static <C extends Container, T extends Recipe<C>> void addRecipes(IRecipeRegistration register, RecipeManager manager, RecipeType<T> jeiType, net.minecraft.world.item.crafting.RecipeType<T> type) {
+		List<T> recipes = manager.getAllRecipesFor(type);
+		List<T> visualRecipes = new ArrayList<T>();
+		for (T recipe : recipes) {
+			if (recipe instanceof IVisuallySplitRecipe splitter) {
+				visualRecipes.addAll(splitter.getVisualRecipes());
+			} else {
+				visualRecipes.add(recipe);
+			}
+		}
+		register.addRecipes(jeiType, visualRecipes);
+	}
 
 	@SuppressWarnings("resource")
 	@Override
@@ -75,11 +94,9 @@ public class JEIPlugin implements IModPlugin {
 		assert Minecraft.getInstance().level != null;
 		RecipeManager manager = Minecraft.getInstance().level.getRecipeManager();
 
-		List<BoringRecipe> boringRecipes = manager.getAllRecipesFor(RegistryManager.BORING.get());
-		register.addRecipes(BORING, boringRecipes);
+		addRecipes(register, manager, BORING, RegistryManager.BORING.get());
 
-		List<EmberActivationRecipe> activationRecipes = manager.getAllRecipesFor(RegistryManager.EMBER_ACTIVATION.get());
-		register.addRecipes(EMBER_ACTIVATION, activationRecipes);
+		addRecipes(register, manager, EMBER_ACTIVATION, RegistryManager.EMBER_ACTIVATION.get());
 
 		List<MeltingRecipe> meltingRecipes = manager.getAllRecipesFor(RegistryManager.MELTING.get());
 		register.addRecipes(MELTING, meltingRecipes);
@@ -91,26 +108,21 @@ public class JEIPlugin implements IModPlugin {
 		}
 		register.addRecipes(MELTING_BONUS, meltingBonusRecipes);
 
-		List<StampingRecipe> stampingRecipes = manager.getAllRecipesFor(RegistryManager.STAMPING.get());
-		register.addRecipes(STAMPING, stampingRecipes);
+		addRecipes(register, manager, STAMPING, RegistryManager.STAMPING.get());
 
-		List<MixingRecipe> mixingRecipes = manager.getAllRecipesFor(RegistryManager.MIXING.get());
-		register.addRecipes(MIXING, mixingRecipes);
+		addRecipes(register, manager, MIXING, RegistryManager.MIXING.get());
 
-		List<MetalCoefficientRecipe> coefficientRecipes = manager.getAllRecipesFor(RegistryManager.METAL_COEFFICIENT.get());
-		register.addRecipes(METAL_COEFFICIENT, coefficientRecipes);
+		addRecipes(register, manager, METAL_COEFFICIENT, RegistryManager.METAL_COEFFICIENT.get());
 
-		List<AlchemyRecipe> alchemyRecipes = manager.getAllRecipesFor(RegistryManager.ALCHEMY.get());
-		register.addRecipes(ALCHEMY, alchemyRecipes);
+		addRecipes(register, manager, ALCHEMY, RegistryManager.ALCHEMY.get());
 
-		List<BoilingRecipe> boilingRecipes = manager.getAllRecipesFor(RegistryManager.BOILING.get());
-		register.addRecipes(BOILING, boilingRecipes);
+		addRecipes(register, manager, BOILING, RegistryManager.BOILING.get());
 
-		List<GaseousFuelRecipe> gaseousFuelRecipes = manager.getAllRecipesFor(RegistryManager.GASEOUS_FUEL.get());
-		register.addRecipes(GASEOUS_FUEL, gaseousFuelRecipes);
+		addRecipes(register, manager, GASEOUS_FUEL, RegistryManager.GASEOUS_FUEL.get());
 
-		List<CatalysisCombustionRecipe> catalysisCombustionRecipes = manager.getAllRecipesFor(RegistryManager.CATALYSIS_COMBUSTION.get());
-		register.addRecipes(CATALYSIS_COMBUSTION, catalysisCombustionRecipes);
+		addRecipes(register, manager, CATALYSIS_COMBUSTION, RegistryManager.CATALYSIS_COMBUSTION.get());
+
+		addRecipes(register, manager, DAWNSTONE_ANVIL, RegistryManager.DAWNSTONE_ANVIL_RECIPE.get());
 	}
 
 
@@ -133,5 +145,6 @@ public class JEIPlugin implements IModPlugin {
 		registry.addRecipeCatalyst(new ItemStack(RegistryManager.MINI_BOILER_ITEM.get()), BOILING);
 		registry.addRecipeCatalyst(new ItemStack(RegistryManager.CATALYTIC_PLUG_ITEM.get()), GASEOUS_FUEL);
 		registry.addRecipeCatalyst(new ItemStack(RegistryManager.WILDFIRE_STIRLING_ITEM.get()), GASEOUS_FUEL);
+		registry.addRecipeCatalyst(new ItemStack(RegistryManager.DAWNSTONE_ANVIL.get()), DAWNSTONE_ANVIL);
 	}
 }

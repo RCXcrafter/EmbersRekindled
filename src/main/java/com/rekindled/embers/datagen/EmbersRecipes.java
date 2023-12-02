@@ -10,13 +10,17 @@ import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.RegistryManager.StoneDecoBlocks;
 import com.rekindled.embers.RegistryManager.ToolSet;
 import com.rekindled.embers.recipe.AlchemyRecipeBuilder;
+import com.rekindled.embers.recipe.AnvilBreakdownRecipe;
+import com.rekindled.embers.recipe.AnvilRepairMateriaRecipe;
+import com.rekindled.embers.recipe.AnvilRepairRecipe;
 import com.rekindled.embers.recipe.BoilingRecipeBuilder;
 import com.rekindled.embers.recipe.BoringRecipeBuilder;
 import com.rekindled.embers.recipe.CatalysisCombustionRecipeBuilder;
 import com.rekindled.embers.recipe.EmberActivationRecipeBuilder;
 import com.rekindled.embers.recipe.GaseousFuelRecipeBuilder;
 import com.rekindled.embers.recipe.GemSocketRecipeBuilder;
-import com.rekindled.embers.recipe.GemUnsocketRecipeBuilder;
+import com.rekindled.embers.recipe.GemUnsocketRecipe;
+import com.rekindled.embers.recipe.GenericRecipeBuilder;
 import com.rekindled.embers.recipe.MeltingRecipeBuilder;
 import com.rekindled.embers.recipe.MetalCoefficientRecipeBuilder;
 import com.rekindled.embers.recipe.MixingRecipeBuilder;
@@ -64,6 +68,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 	public static String gaseousFuelFolder = "gas_fuel";
 	public static String catalysisFolder = "catalysis";
 	public static String combustionFolder = "combustion";
+	public static String anvilFolder = "dawnstone_anvil";
 
 	public EmbersRecipes(PackOutput gen) {
 		super(gen);
@@ -245,9 +250,14 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		CatalysisCombustionRecipeBuilder.create(Tags.Items.INGOTS_NETHER_BRICK).combustion().folder(combustionFolder).multiplier(3.0).burnTime(400).save(consumer);
 		CatalysisCombustionRecipeBuilder.create(Items.BLAZE_POWDER).combustion().folder(combustionFolder).multiplier(4.0).burnTime(400).save(consumer);
 
+		//dawnstone anvil
+		GenericRecipeBuilder.create(new AnvilRepairRecipe(new ResourceLocation(Embers.MODID, anvilFolder + "/tool_repair"))).save(consumer);
+		GenericRecipeBuilder.create(new AnvilRepairMateriaRecipe(new ResourceLocation(Embers.MODID, anvilFolder + "/tool_materia_repair"))).save(consumer);
+		GenericRecipeBuilder.create(new AnvilBreakdownRecipe(new ResourceLocation(Embers.MODID, anvilFolder + "/tool_breakdown"))).save(consumer);
+
 		//special recipes
 		GemSocketRecipeBuilder.create(Tags.Items.STRING).id(new ResourceLocation(Embers.MODID, "gem_socketing")).save(consumer);
-		GemUnsocketRecipeBuilder.create(new ResourceLocation(Embers.MODID, "gem_unsocketing")).save(consumer);
+		GenericRecipeBuilder.create(new GemUnsocketRecipe(new ResourceLocation(Embers.MODID, "gem_unsocketing"))).save(consumer);
 
 		//crafting
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.EMBER_CRYSTAL.get())
@@ -1109,6 +1119,16 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('F', Blocks.FURNACE)
 		.unlockedBy("has_silver", has(itemTag("forge", "ingots/silver")))
 		.save(consumer, getResource("cinder_plinth"));
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.DAWNSTONE_ANVIL.get())
+		.pattern("BBB")
+		.pattern(" I ")
+		.pattern("CCC")
+		.define('I', itemTag("forge", "ingots/dawnstone"))
+		.define('B', itemTag("forge", "storage_blocks/dawnstone"))
+		.define('C', RegistryManager.CAMINITE_BRICKS.get())
+		.unlockedBy("has_dawnstone", has(itemTag("forge", "ingots/dawnstone")))
+		.save(consumer, getResource("dawnstone_anvil"));
 	}
 
 	public void fullOreRecipes(String name, ImmutableList<ItemLike> ores, Fluid fluid, Item raw, Item rawBlock, Item block, Item ingot, Item nugget, Item plate, Consumer<FinishedRecipe> consumer, MeltingBonus... bonusses) {

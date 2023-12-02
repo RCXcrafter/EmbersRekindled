@@ -576,6 +576,10 @@ public class EmbersBlockStates extends BlockStateProvider {
 		simpleBlock(RegistryManager.GLIMMER.get(), models().getExistingFile(new ResourceLocation("block/air")));
 
 		blockWithItem(RegistryManager.CINDER_PLINTH, "cinder_plinth");
+
+		ExistingModelFile anvilModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "dawnstone_anvil"));
+		horizontalBlock(RegistryManager.DAWNSTONE_ANVIL.get(), anvilModel, 90);
+		simpleBlockItem(RegistryManager.DAWNSTONE_ANVIL.get(), anvilModel);
 	}
 
 	public void blockWithItem(RegistryObject<? extends Block> registryObject) {

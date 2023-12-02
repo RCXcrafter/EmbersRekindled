@@ -35,6 +35,7 @@ import com.rekindled.embers.block.CreativeEmberBlock;
 import com.rekindled.embers.block.CrystalCellBlock;
 import com.rekindled.embers.block.CrystalCellEdgeBlock;
 import com.rekindled.embers.block.CrystalSeedBlock;
+import com.rekindled.embers.block.DawnstoneAnvilBlock;
 import com.rekindled.embers.block.EmberActivatorBlock;
 import com.rekindled.embers.block.EmberBoreBlock;
 import com.rekindled.embers.block.EmberBoreEdgeBlock;
@@ -96,6 +97,7 @@ import com.rekindled.embers.blockentity.CopperChargerBlockEntity;
 import com.rekindled.embers.blockentity.CreativeEmberBlockEntity;
 import com.rekindled.embers.blockentity.CrystalCellBlockEntity;
 import com.rekindled.embers.blockentity.CrystalSeedBlockEntity;
+import com.rekindled.embers.blockentity.DawnstoneAnvilBlockEntity;
 import com.rekindled.embers.blockentity.EmberActivatorBottomBlockEntity;
 import com.rekindled.embers.blockentity.EmberActivatorTopBlockEntity;
 import com.rekindled.embers.blockentity.EmberBoreBlockEntity;
@@ -174,6 +176,9 @@ import com.rekindled.embers.particle.StarParticleOptions;
 import com.rekindled.embers.particle.TyrfingParticleOptions;
 import com.rekindled.embers.particle.VaporParticleOptions;
 import com.rekindled.embers.recipe.AlchemyRecipe;
+import com.rekindled.embers.recipe.AnvilBreakdownRecipe;
+import com.rekindled.embers.recipe.AnvilRepairMateriaRecipe;
+import com.rekindled.embers.recipe.AnvilRepairRecipe;
 import com.rekindled.embers.recipe.BoilingRecipe;
 import com.rekindled.embers.recipe.BoringRecipe;
 import com.rekindled.embers.recipe.CatalysisCombustionRecipe;
@@ -181,6 +186,7 @@ import com.rekindled.embers.recipe.EmberActivationRecipe;
 import com.rekindled.embers.recipe.GaseousFuelRecipe;
 import com.rekindled.embers.recipe.GemSocketRecipe;
 import com.rekindled.embers.recipe.GemUnsocketRecipe;
+import com.rekindled.embers.recipe.IDawnstoneAnvilRecipe;
 import com.rekindled.embers.recipe.MeltingRecipe;
 import com.rekindled.embers.recipe.MetalCoefficientRecipe;
 import com.rekindled.embers.recipe.MixingRecipe;
@@ -426,6 +432,7 @@ public class RegistryManager {
 	public static final RegistryObject<Block> COMBUSTION_CHAMBER = BLOCKS.register("combustion_chamber", () -> new CombustionChamberBlock(Properties.of().mapColor(MapColor.COLOR_GRAY).sound(EmbersSounds.MACHINE).requiresCorrectToolForDrops().strength(1.6f).noOcclusion(), EmbersSounds.MULTIBLOCK_EXTRA));
 	public static final RegistryObject<Block> GLIMMER = BLOCKS.register("glimmer", () -> new GlimmerBlock(Properties.of().mapColor(MapColor.COLOR_YELLOW).sound(SoundType.STONE).strength(0f).lightLevel(state -> 15).noParticlesOnBreak().noCollission().noOcclusion()));
 	public static final RegistryObject<Block> CINDER_PLINTH = BLOCKS.register("cinder_plinth", () -> new CinderPlinthBlock(Properties.of().mapColor(MapColor.TERRACOTTA_PURPLE).sound(EmbersSounds.MACHINE).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
+	public static final RegistryObject<Block> DAWNSTONE_ANVIL = BLOCKS.register("dawnstone_anvil", () -> new DawnstoneAnvilBlock(Properties.of().mapColor(MapColor.TERRACOTTA_YELLOW).sound(SoundType.ANVIL).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
 
 	//itemblocks
 	public static final RegistryObject<Item> LEAD_ORE_ITEM = ITEMS.register("lead_ore", () -> new BlockItem(LEAD_ORE.get(), new Item.Properties()));
@@ -504,6 +511,7 @@ public class RegistryManager {
 	public static final RegistryObject<Item> CATALYSIS_CHAMBER_ITEM = ITEMS.register("catalysis_chamber", () -> new BlockItem(CATALYSIS_CHAMBER.get(), new Item.Properties()));
 	public static final RegistryObject<Item> COMBUSTION_CHAMBER_ITEM = ITEMS.register("combustion_chamber", () -> new BlockItem(COMBUSTION_CHAMBER.get(), new Item.Properties()));
 	public static final RegistryObject<Item> CINDER_PLINTH_ITEM = ITEMS.register("cinder_plinth", () -> new BlockItem(CINDER_PLINTH.get(), new Item.Properties()));
+	public static final RegistryObject<Item> DAWNSTONE_ANVIL_ITEM = ITEMS.register("dawnstone_anvil", () -> new BlockItem(DAWNSTONE_ANVIL.get(), new Item.Properties()));
 
 	//items
 	public static final RegistryObject<Item> TINKER_HAMMER = ITEMS.register("tinker_hammer", () -> new TinkerHammerItem(new Item.Properties().stacksTo(1)));
@@ -728,6 +736,7 @@ public class RegistryManager {
 	public static final RegistryObject<BlockEntityType<CatalysisChamberBlockEntity>> CATALYSIS_CHAMBER_ENTITY = BLOCK_ENTITY_TYPES.register("catalysis_chamber", () -> BlockEntityType.Builder.of(CatalysisChamberBlockEntity::new, CATALYSIS_CHAMBER.get()).build(null));
 	public static final RegistryObject<BlockEntityType<CombustionChamberBlockEntity>> COMBUSTION_CHAMBER_ENTITY = BLOCK_ENTITY_TYPES.register("combustion_chamber", () -> BlockEntityType.Builder.of(CombustionChamberBlockEntity::new, COMBUSTION_CHAMBER.get()).build(null));
 	public static final RegistryObject<BlockEntityType<CinderPlinthBlockEntity>> CINDER_PLINTH_ENTITY = BLOCK_ENTITY_TYPES.register("cinder_plinth", () -> BlockEntityType.Builder.of(CinderPlinthBlockEntity::new, CINDER_PLINTH.get()).build(null));
+	public static final RegistryObject<BlockEntityType<DawnstoneAnvilBlockEntity>> DAWNSTONE_ANVIL_ENTITY = BLOCK_ENTITY_TYPES.register("dawnstone_anvil", () -> BlockEntityType.Builder.of(DawnstoneAnvilBlockEntity::new, DAWNSTONE_ANVIL.get()).build(null));
 
 	//creative tabs
 	public static final RegistryObject<CreativeModeTab> EMBERS_TAB = CREATIVE_TABS.register("main_tab", () -> CreativeModeTab.builder()
@@ -774,6 +783,7 @@ public class RegistryManager {
 	public static final RegistryObject<RecipeType<BoilingRecipe>> BOILING = registerRecipeType("boiling");
 	public static final RegistryObject<RecipeType<GaseousFuelRecipe>> GASEOUS_FUEL = registerRecipeType("gaseous_fuel");
 	public static final RegistryObject<RecipeType<CatalysisCombustionRecipe>> CATALYSIS_COMBUSTION = registerRecipeType("catalysis_combustion");
+	public static final RegistryObject<RecipeType<IDawnstoneAnvilRecipe>> DAWNSTONE_ANVIL_RECIPE = registerRecipeType("dawnstone_anvil");
 
 	//recipe serializers
 	public static final RegistryObject<RecipeSerializer<BoringRecipe>> BORING_SERIALIZER = RECIPE_SERIALIZERS.register("boring", () -> BoringRecipe.SERIALIZER);
@@ -789,6 +799,9 @@ public class RegistryManager {
 	public static final RegistryObject<RecipeSerializer<CatalysisCombustionRecipe>> CATALYSIS_COMBUSTION_SERIALIZER = RECIPE_SERIALIZERS.register("catalysis_combustion", () -> CatalysisCombustionRecipe.SERIALIZER);
 	public static final RegistryObject<RecipeSerializer<GemSocketRecipe>> GEM_SOCKET_SERIALIZER = RECIPE_SERIALIZERS.register("gem_socket", () -> GemSocketRecipe.SERIALIZER);
 	public static final RegistryObject<RecipeSerializer<GemUnsocketRecipe>> GEM_UNSOCKET_SERIALIZER = RECIPE_SERIALIZERS.register("gem_unsocket", () -> GemUnsocketRecipe.SERIALIZER);
+	public static final RegistryObject<RecipeSerializer<AnvilRepairRecipe>> TOOL_REPAIR = RECIPE_SERIALIZERS.register("tool_repair", () -> AnvilRepairRecipe.SERIALIZER);
+	public static final RegistryObject<RecipeSerializer<AnvilRepairMateriaRecipe>> MATERIA_REPAIR = RECIPE_SERIALIZERS.register("tool_materia_repair", () -> AnvilRepairMateriaRecipe.SERIALIZER);
+	public static final RegistryObject<RecipeSerializer<AnvilBreakdownRecipe>> TOOL_BREAKDOWN = RECIPE_SERIALIZERS.register("tool_breakdown", () -> AnvilBreakdownRecipe.SERIALIZER);
 
 	//loot modifiers
 	public static final RegistryObject<Codec<GrandhammerLootModifier>> GRANDHAMMER_MODIFIER = LOOT_MODIFIERS.register("grandhammer", () -> GrandhammerLootModifier.CODEC);

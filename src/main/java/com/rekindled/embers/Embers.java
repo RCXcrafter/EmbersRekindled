@@ -17,6 +17,7 @@ import com.rekindled.embers.blockentity.render.CinderPlinthBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.CopperChargerBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.CrystalCellBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.CrystalSeedBlockEntityRenderer;
+import com.rekindled.embers.blockentity.render.DawnstoneAnvilBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.EmberBoreBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.FieldChartBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.FluidTransferBlockEntityRenderer;
@@ -472,6 +473,7 @@ public class Embers {
 			event.registerBlockEntityRenderer(RegistryManager.DAWNSTONE_CRYSTAL_SEED.BLOCKENTITY.get(), CrystalSeedBlockEntityRenderer::new);
 			event.registerBlockEntityRenderer(RegistryManager.FIELD_CHART_ENTITY.get(), FieldChartBlockEntityRenderer::new);
 			event.registerBlockEntityRenderer(RegistryManager.CINDER_PLINTH_ENTITY.get(), CinderPlinthBlockEntityRenderer::new);
+			event.registerBlockEntityRenderer(RegistryManager.DAWNSTONE_ANVIL_ENTITY.get(), DawnstoneAnvilBlockEntityRenderer::new);
 		}
 
 		@OnlyIn(Dist.CLIENT)

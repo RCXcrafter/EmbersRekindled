@@ -3,40 +3,31 @@ package com.rekindled.embers.recipe;
 import java.util.function.Consumer;
 
 import com.google.gson.JsonObject;
-import com.rekindled.embers.RegistryManager;
 
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
-public class GemUnsocketRecipeBuilder {
+public class GenericRecipeBuilder {
 
-	public ResourceLocation id;
+	public Recipe<?> recipe;
 
-	public static GemUnsocketRecipeBuilder create(ResourceLocation id) {
-		GemUnsocketRecipeBuilder builder = new GemUnsocketRecipeBuilder();
-		builder.id = id;
+	public static GenericRecipeBuilder create(Recipe<?> recipe) {
+		GenericRecipeBuilder builder = new GenericRecipeBuilder();
+		builder.recipe = recipe;
 		return builder;
 	}
 
-	public GemUnsocketRecipeBuilder folder(String folder) {
-		this.id = new ResourceLocation(id.getNamespace(), folder + "/" + id.getPath());
-		return this;
-	}
-
-	public GemUnsocketRecipe build() {
-		return new GemUnsocketRecipe(id);
-	}
-
 	public void save(Consumer<FinishedRecipe> consumer) {
-		consumer.accept(new Finished(build()));
+		consumer.accept(new Finished(recipe));
 	}
 
 	public static class Finished implements FinishedRecipe {
 
-		public final GemUnsocketRecipe recipe;
+		public final Recipe<?> recipe;
 
-		public Finished(GemUnsocketRecipe recipe) {
+		public Finished(Recipe<?> recipe) {
 			this.recipe = recipe;
 		}
 
@@ -51,7 +42,7 @@ public class GemUnsocketRecipeBuilder {
 
 		@Override
 		public RecipeSerializer<?> getType() {
-			return RegistryManager.GEM_UNSOCKET_SERIALIZER.get();
+			return recipe.getSerializer();
 		}
 
 		@Override

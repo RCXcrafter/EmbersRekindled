@@ -120,6 +120,7 @@ public class EmbersLang extends LanguageProvider {
 		addBlock(RegistryManager.COMBUSTION_CHAMBER, "Combustion Chamber");
 		addBlock(RegistryManager.GLIMMER, "Glimmer");
 		addBlock(RegistryManager.CINDER_PLINTH, "Cinder Plinth");
+		addBlock(RegistryManager.DAWNSTONE_ANVIL, "Dawnstone Anvil");
 
 		addItem(RegistryManager.TINKER_HAMMER, "Tinker's Hammer");
 		addItem(RegistryManager.TINKER_LENS, "Tinker's Lens");
@@ -324,6 +325,7 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".jei.recipe.catalysis_combustion", "Catalysis & Combustion");
 		add(Embers.MODID + ".jei.recipe.catalysis_combustion.burn_time", "Burn Time: %s");
 		add(Embers.MODID + ".jei.recipe.catalysis_combustion.multiplier", "Multiplier: %s");
+		add(Embers.MODID + ".jei.recipe.dawnstone_anvil", "Dawnstone Anvil");
 		add("dimension." + Level.OVERWORLD.location().toLanguageKey(), "Overworld");
 		add("dimension." + Level.NETHER.location().toLanguageKey(), "The Nether");
 		add("dimension." + Level.END.location().toLanguageKey(), "The End");

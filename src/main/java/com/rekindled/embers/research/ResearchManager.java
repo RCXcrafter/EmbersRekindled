@@ -161,7 +161,7 @@ public class ResearchManager {
 		categoryMechanisms = new ResearchCategory("mechanisms", 32);
 		categoryMetallurgy = new ResearchCategory("metallurgy", 48);
 		categoryAlchemy = new ResearchCategory("alchemy", 64);
-		categorySmithing = new ResearchCategoryComingSoon("smithing", 80);
+		categorySmithing = new ResearchCategory("smithing", 80);
 		categoryMateria = new ResearchCategoryComingSoon("materia", 224, 0);
 		categoryCore = new ResearchCategoryComingSoon("core", 224, 16);
 		Vec2i[] ringPositions = {new Vec2i(1, 1), new Vec2i(0, 3), new Vec2i(0, 5), new Vec2i(1, 7), new Vec2i(11, 7), new Vec2i(12, 5), new Vec2i(12, 3), new Vec2i(11, 1), new Vec2i(4, 1), new Vec2i(2, 4), new Vec2i(4, 7), new Vec2i(8, 7), new Vec2i(10, 4),new Vec2i(8, 1)};
@@ -284,11 +284,11 @@ public class ResearchManager {
 				);
 		reactor = new ResearchBase("reactor", new ItemStack(RegistryManager.IGNEM_REACTOR_ITEM.get()), 9, 7).addAncestor(combustor).addAncestor(catalyzer);
 		stirling = new ResearchBase("stirling", new ItemStack(RegistryManager.WILDFIRE_STIRLING_ITEM.get()), 0, 2).addAncestor(ResearchManager.wildfire);
-		/*ember_pipe = new ResearchBase("ember_pipe", new ItemStack(RegistryManager.ember_pipe), 12, 6).addAncestor(ResearchManager.reactor);
+		//ember_pipe = new ResearchBase("ember_pipe", new ItemStack(RegistryManager.ember_pipe), 12, 6).addAncestor(ResearchManager.reactor);
 
 		//SMITHING
-		dawnstone_anvil = new ResearchBase("dawnstone_anvil", new ItemStack(RegistryManager.dawnstone_anvil), 12, 7);
-		autohammer = new ResearchBase("autohammer", new ItemStack(RegistryManager.auto_hammer), 9, 5).addAncestor(dawnstone_anvil);
+		dawnstone_anvil = new ResearchBase("dawnstone_anvil", new ItemStack(RegistryManager.DAWNSTONE_ANVIL_ITEM.get()), 12, 7);
+		/*autohammer = new ResearchBase("autohammer", new ItemStack(RegistryManager.auto_hammer), 9, 5).addAncestor(dawnstone_anvil);
 		heat = new ResearchBase("heat", new ItemStack(RegistryManager.crystal_ember), 7, 7).addAncestor(dawnstone_anvil);
 		modifiers = new ResearchBase("modifiers", new ItemStack(RegistryManager.ancient_motive_core), 5, 7).addAncestor(heat);
 		dismantling = new ResearchBase("dismantling", ItemStack.EMPTY, 3, 5).setIconBackground(PAGE_ICONS, PAGE_ICON_SIZE * 2, PAGE_ICON_SIZE * 0).addAncestor(modifiers);
@@ -457,17 +457,17 @@ public class ResearchManager {
 		//.addResearch(metallurgic_dust)
 		//.addResearch(baublesSwitch)
 		.addResearch(wildfireSwitch);
-		/*categorySmithing
-		.addResearch(dawnstone_anvil)
-		.addResearch(autohammer)
-		.addResearch(heat)
-		.addResearch(modifiers)
-		.addResearch(dismantling)
-		.addResearch(inferno_forge)
-		.addResearch(weaponAugmentSwitch)
-		.addResearch(armorAugmentSwitch)
-		.addResearch(projectileAugmentSwitch)
-		.addResearch(miscAugmentSwitch);*/
+		categorySmithing
+		.addResearch(dawnstone_anvil);
+		//.addResearch(autohammer)
+		//.addResearch(heat)
+		//.addResearch(modifiers)
+		//.addResearch(dismantling)
+		//.addResearch(inferno_forge)
+		//.addResearch(weaponAugmentSwitch)
+		//.addResearch(armorAugmentSwitch)
+		//.addResearch(projectileAugmentSwitch)
+		//.addResearch(miscAugmentSwitch);
 
 		categoryMechanisms.addPrerequisite(activator);
 		categoryMetallurgy.addPrerequisite(dawnstone);

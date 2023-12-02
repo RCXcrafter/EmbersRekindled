@@ -34,8 +34,11 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TieredItem;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
@@ -185,6 +188,23 @@ public class Misc {
 				output = new ItemStack(holder);
 		}
 		tagItems.put(tag.location(), output);
+		return output;
+	}
+
+	public static ItemStack getPreferredItem(ItemStack[] items) {
+		ItemStack output = ItemStack.EMPTY;
+		int index = Integer.MAX_VALUE;
+		List<? extends String> preferences = ConfigManager.TAG_PREFERENCES.get();
+		for (ItemStack item : items) {
+			for (int i = 0; i < preferences.size(); i ++) {
+				if (i < index && preferences.get(i).equals(BuiltInRegistries.ITEM.getKey(item.getItem()).getNamespace())) {
+					output = item;
+					index = i;
+				}
+			}
+			if (output.isEmpty())
+				output = item;
+		}
 		return output;
 	}
 
@@ -361,5 +381,15 @@ public class Misc {
 	public static float getLightBrightness(int style, int ticks) {
 		String table = lightstyle[style];
 		return (table.charAt((ticks / 2) % table.length()) - 'a') / 25.0f;
+	}
+
+	public static Ingredient getRepairIngredient(Item item) {
+		if (item instanceof TieredItem tool) {
+			return tool.getTier().getRepairIngredient();
+		}
+		if (item instanceof ArmorItem armor) {
+			return armor.getMaterial().getRepairIngredient();
+		}
+		return Ingredient.EMPTY;
 	}
 }

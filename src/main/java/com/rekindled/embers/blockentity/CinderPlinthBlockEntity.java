@@ -48,7 +48,6 @@ public class CinderPlinthBlockEntity extends BlockEntity implements ISoundContro
 
 	public static double EMBER_COST = 0.5;
 	public static int PROCESS_TIME = 40;
-	int angle = 0;
 	int progress = 0;
 	public IEmberCapability capability = new DefaultEmberCapability() {
 		@Override
@@ -111,7 +110,6 @@ public class CinderPlinthBlockEntity extends BlockEntity implements ISoundContro
 	}
 
 	public static void clientTick(Level level, BlockPos pos, BlockState state, CinderPlinthBlockEntity blockEntity) {
-		blockEntity.angle++;
 		blockEntity.handleSound();
 		blockEntity.upgrades = UpgradeUtil.getUpgrades(level, pos, Direction.values());
 		UpgradeUtil.verifyUpgrades(blockEntity, blockEntity.upgrades);
