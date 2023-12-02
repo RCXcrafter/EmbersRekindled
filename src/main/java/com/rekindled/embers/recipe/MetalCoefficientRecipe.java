@@ -6,10 +6,8 @@ import org.jetbrains.annotations.Nullable;
 
 import com.google.common.collect.Lists;
 import com.google.gson.JsonObject;
-import com.rekindled.embers.RegistryManager;
 
 import net.minecraft.core.Holder;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -17,13 +15,11 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
-public class MetalCoefficientRecipe implements Recipe<BlockStateContext> {
+public class MetalCoefficientRecipe implements IMetalCoefficientRecipe {
 
 	public static final Serializer SERIALIZER = new Serializer(); 
 
@@ -48,11 +44,6 @@ public class MetalCoefficientRecipe implements Recipe<BlockStateContext> {
 	}
 
 	@Override
-	public ItemStack getToastSymbol() {
-		return new ItemStack(RegistryManager.PRESSURE_REFINERY_ITEM.get());
-	}
-
-	@Override
 	public ResourceLocation getId() {
 		return id;
 	}
@@ -63,10 +54,6 @@ public class MetalCoefficientRecipe implements Recipe<BlockStateContext> {
 	}
 
 	@Override
-	public RecipeType<?> getType() {
-		return RegistryManager.METAL_COEFFICIENT.get();
-	}
-
 	public List<ItemStack> getDisplayInput() {
 		List<ItemStack> list = Lists.newArrayList();
 		for (Holder<Block> holder : BuiltInRegistries.BLOCK.getTagOrEmpty(blockTag)) {
@@ -75,26 +62,9 @@ public class MetalCoefficientRecipe implements Recipe<BlockStateContext> {
 		return list;
 	}
 
+	@Override
 	public double getDisplayCoefficient() {
 		return coefficient;
-	}
-
-	@Override
-	@Deprecated
-	public ItemStack getResultItem(RegistryAccess registry) {
-		return ItemStack.EMPTY;
-	}
-
-	@Override
-	@Deprecated
-	public ItemStack assemble(BlockStateContext context, RegistryAccess registry) {
-		return ItemStack.EMPTY;
-	}
-
-	@Override
-	@Deprecated
-	public boolean canCraftInDimensions(int width, int height) {
-		return true;
 	}
 
 	public static class Serializer implements RecipeSerializer<MetalCoefficientRecipe> {

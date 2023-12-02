@@ -4,7 +4,7 @@ import java.text.DecimalFormat;
 
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
-import com.rekindled.embers.recipe.MetalCoefficientRecipe;
+import com.rekindled.embers.recipe.IMetalCoefficientRecipe;
 import com.rekindled.embers.util.DecimalFormats;
 import com.rekindled.embers.util.Misc;
 
@@ -23,7 +23,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
-public class MetalCoefficientCategory implements IRecipeCategory<MetalCoefficientRecipe> {
+public class MetalCoefficientCategory implements IRecipeCategory<IMetalCoefficientRecipe> {
 
 	private final IDrawable background;
 	private final IDrawable icon;
@@ -36,7 +36,7 @@ public class MetalCoefficientCategory implements IRecipeCategory<MetalCoefficien
 	}
 
 	@Override
-	public RecipeType<MetalCoefficientRecipe> getRecipeType() {
+	public RecipeType<IMetalCoefficientRecipe> getRecipeType() {
 		return JEIPlugin.METAL_COEFFICIENT;
 	}
 
@@ -56,13 +56,13 @@ public class MetalCoefficientCategory implements IRecipeCategory<MetalCoefficien
 	}
 
 	@Override
-	public void setRecipe(IRecipeLayoutBuilder builder, MetalCoefficientRecipe recipe, IFocusGroup focuses) {
+	public void setRecipe(IRecipeLayoutBuilder builder, IMetalCoefficientRecipe recipe, IFocusGroup focuses) {
 		builder.addSlot(RecipeIngredientRole.CATALYST, 6, 6).addItemStacks(recipe.getDisplayInput());
 	}
 
 	@SuppressWarnings("resource")
 	@Override
-	public void draw(MetalCoefficientRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+	public void draw(IMetalCoefficientRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
 		DecimalFormat multiplierFormat = DecimalFormats.getDecimalFormat(Embers.MODID + ".decimal_format.ember_multiplier");
 		Misc.drawComponents(Minecraft.getInstance().font, guiGraphics, 28, 10, Component.literal(multiplierFormat.format(recipe.getDisplayCoefficient())));
 	}

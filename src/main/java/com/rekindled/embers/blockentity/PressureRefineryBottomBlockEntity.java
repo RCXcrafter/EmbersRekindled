@@ -18,8 +18,8 @@ import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.particle.GlowParticleOptions;
 import com.rekindled.embers.particle.SmokeParticleOptions;
 import com.rekindled.embers.recipe.BlockStateContext;
-import com.rekindled.embers.recipe.EmberActivationRecipe;
-import com.rekindled.embers.recipe.MetalCoefficientRecipe;
+import com.rekindled.embers.recipe.IEmberActivationRecipe;
+import com.rekindled.embers.recipe.IMetalCoefficientRecipe;
 import com.rekindled.embers.recipe.SingleItemContainer;
 import com.rekindled.embers.util.DecimalFormats;
 import com.rekindled.embers.util.Misc;
@@ -74,8 +74,8 @@ public class PressureRefineryBottomBlockEntity extends FluidHandlerBlockEntity i
 	};
 	public LazyOptional<IItemHandler> holder = LazyOptional.of(() -> inventory);
 	protected List<UpgradeContext> upgrades = new ArrayList<>();
-	public EmberActivationRecipe cachedRecipe = null;
-	public MetalCoefficientRecipe cachedCoefficient = null;
+	public IEmberActivationRecipe cachedRecipe = null;
+	public IMetalCoefficientRecipe cachedCoefficient = null;
 
 	public PressureRefineryBottomBlockEntity(BlockPos pPos, BlockState pBlockState) {
 		super(RegistryManager.PRESSURE_REFINERY_BOTTOM_ENTITY.get(), pPos, pBlockState);

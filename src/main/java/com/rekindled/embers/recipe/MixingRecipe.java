@@ -8,23 +8,18 @@ import org.jetbrains.annotations.Nullable;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.util.Misc;
 
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 
-public class MixingRecipe implements Recipe<MixingContext> {
+public class MixingRecipe implements IMixingRecipe {
 
 	public static final Serializer SERIALIZER = new Serializer(); 
 
@@ -63,10 +58,12 @@ public class MixingRecipe implements Recipe<MixingContext> {
 		return remaining.isEmpty();
 	}
 
+	@Override
 	public FluidStack getOutput(MixingContext context) {
 		return output;
 	}
 
+	@Override
 	public FluidStack process(MixingContext context) {
 		HashSet<FluidIngredient> remaining = new HashSet<>();
 		remaining.addAll(inputs);
@@ -89,11 +86,6 @@ public class MixingRecipe implements Recipe<MixingContext> {
 	}
 
 	@Override
-	public ItemStack getToastSymbol() {
-		return new ItemStack(RegistryManager.MIXER_CENTRIFUGE_ITEM.get());
-	}
-
-	@Override
 	public ResourceLocation getId() {
 		return id;
 	}
@@ -104,34 +96,13 @@ public class MixingRecipe implements Recipe<MixingContext> {
 	}
 
 	@Override
-	public RecipeType<?> getType() {
-		return RegistryManager.MIXING.get();
-	}
-
 	public ArrayList<FluidIngredient> getDisplayInputFluids() {
 		return inputs;
 	}
 
+	@Override
 	public FluidStack getDisplayOutput() {
 		return output;
-	}
-
-	@Override
-	@Deprecated
-	public ItemStack assemble(MixingContext context, RegistryAccess registry) {
-		return ItemStack.EMPTY;
-	}
-
-	@Override
-	@Deprecated
-	public ItemStack getResultItem(RegistryAccess registry) {
-		return ItemStack.EMPTY;
-	}
-
-	@Override
-	@Deprecated
-	public boolean canCraftInDimensions(int width, int height) {
-		return true;
 	}
 
 	public static class Serializer implements RecipeSerializer<MixingRecipe> {

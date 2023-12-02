@@ -1,5 +1,6 @@
 package com.rekindled.embers.recipe;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
@@ -9,7 +10,6 @@ import com.google.common.collect.Lists;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.util.WeightedItemStack;
 
 import net.minecraft.core.Holder;
@@ -21,15 +21,13 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class BoringRecipe implements Recipe<BoringContext> {
+public class BoringRecipe implements IBoringRecipe {
 
 	public static final Serializer SERIALIZER = new Serializer(); 
 
@@ -76,13 +74,9 @@ public class BoringRecipe implements Recipe<BoringContext> {
 		return context.height >= minHeight && context.height <= maxHeight;
 	}
 
+	@Override
 	public WeightedItemStack getOutput(BoringContext context) {
 		return result;
-	}
-
-	@Override
-	public ItemStack getToastSymbol() {
-		return new ItemStack(RegistryManager.EMBER_BORE_ITEM.get());
 	}
 
 	@Override
@@ -101,10 +95,31 @@ public class BoringRecipe implements Recipe<BoringContext> {
 	}
 
 	@Override
-	public RecipeType<?> getType() {
-		return RegistryManager.BORING.get();
+	public int getMinHeight() {
+		return minHeight;
 	}
 
+	@Override
+	public int getMaxHeight() {
+		return maxHeight;
+	}
+
+	@Override
+	public Collection<ResourceLocation> getDimensions() {
+		return dimensions;
+	}
+
+	@Override
+	public Collection<ResourceLocation> getBiomes() {
+		return biomes;
+	}
+
+	@Override
+	public double getChance() {
+		return chance;
+	}
+
+	@Override
 	public WeightedItemStack getDisplayOutput() {
 		return result;
 	}
@@ -115,18 +130,6 @@ public class BoringRecipe implements Recipe<BoringContext> {
 			list.add(new ItemStack(holder.get(), amountRequired));
 		}
 		return list;
-	}
-
-	@Override
-	@Deprecated
-	public ItemStack assemble(BoringContext context, RegistryAccess registry) {
-		return ItemStack.EMPTY;
-	}
-
-	@Override
-	@Deprecated
-	public boolean canCraftInDimensions(int width, int height) {
-		return true;
 	}
 
 	public static class Serializer implements RecipeSerializer<BoringRecipe> {

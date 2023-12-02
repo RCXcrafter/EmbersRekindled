@@ -1,5 +1,5 @@
 {
-  "type": "embers:tag_stamping",
+  "type": "embers:stamping",
   "conditions": [
     {
       "type": "forge:not",
@@ -13,7 +13,9 @@
     "amount": 90,
     "tag": "forge:molten_electrum"
   },
-  "output": "forge:plates/electrum",
+  "output": {
+    "tag": "forge:plates/electrum"
+  },
   "stamp": {
     "item": "embers:plate_stamp"
   }

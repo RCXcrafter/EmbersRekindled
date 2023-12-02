@@ -2,7 +2,7 @@ package com.rekindled.embers.api.misc;
 
 import java.util.List;
 
-import com.rekindled.embers.recipe.AlchemyRecipe.PedestalContents;
+import com.rekindled.embers.recipe.IAlchemyRecipe.PedestalContents;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;

@@ -186,12 +186,21 @@ import com.rekindled.embers.recipe.EmberActivationRecipe;
 import com.rekindled.embers.recipe.GaseousFuelRecipe;
 import com.rekindled.embers.recipe.GemSocketRecipe;
 import com.rekindled.embers.recipe.GemUnsocketRecipe;
+import com.rekindled.embers.recipe.IAlchemyRecipe;
+import com.rekindled.embers.recipe.IBoilingRecipe;
+import com.rekindled.embers.recipe.IBoringRecipe;
+import com.rekindled.embers.recipe.ICatalysisCombustionRecipe;
 import com.rekindled.embers.recipe.IDawnstoneAnvilRecipe;
+import com.rekindled.embers.recipe.IEmberActivationRecipe;
+import com.rekindled.embers.recipe.IGaseousFuelRecipe;
+import com.rekindled.embers.recipe.IMeltingRecipe;
+import com.rekindled.embers.recipe.IMetalCoefficientRecipe;
+import com.rekindled.embers.recipe.IMixingRecipe;
+import com.rekindled.embers.recipe.IStampingRecipe;
 import com.rekindled.embers.recipe.MeltingRecipe;
 import com.rekindled.embers.recipe.MetalCoefficientRecipe;
 import com.rekindled.embers.recipe.MixingRecipe;
 import com.rekindled.embers.recipe.StampingRecipe;
-import com.rekindled.embers.recipe.TagStampingRecipe;
 import com.rekindled.embers.util.AshenArmorMaterial;
 import com.rekindled.embers.util.EmbersTiers;
 import com.rekindled.embers.util.GrandhammerLootModifier;
@@ -773,16 +782,16 @@ public class RegistryManager {
 	public static final RegistryObject<ParticleType<TyrfingParticleOptions>> TYRFING_PARTICLE = registerParticle("tyrfing", false, TyrfingParticleOptions.DESERIALIZER, TyrfingParticleOptions.CODEC);
 
 	//recipe types
-	public static final RegistryObject<RecipeType<BoringRecipe>> BORING = registerRecipeType("boring");
-	public static final RegistryObject<RecipeType<EmberActivationRecipe>> EMBER_ACTIVATION = registerRecipeType("ember_activation");
-	public static final RegistryObject<RecipeType<MeltingRecipe>> MELTING = registerRecipeType("melting");
-	public static final RegistryObject<RecipeType<StampingRecipe>> STAMPING = registerRecipeType("stamping");
-	public static final RegistryObject<RecipeType<MixingRecipe>> MIXING = registerRecipeType("mixing");
-	public static final RegistryObject<RecipeType<MetalCoefficientRecipe>> METAL_COEFFICIENT = registerRecipeType("metal_coefficient");
-	public static final RegistryObject<RecipeType<AlchemyRecipe>> ALCHEMY = registerRecipeType("alchemy");
-	public static final RegistryObject<RecipeType<BoilingRecipe>> BOILING = registerRecipeType("boiling");
-	public static final RegistryObject<RecipeType<GaseousFuelRecipe>> GASEOUS_FUEL = registerRecipeType("gaseous_fuel");
-	public static final RegistryObject<RecipeType<CatalysisCombustionRecipe>> CATALYSIS_COMBUSTION = registerRecipeType("catalysis_combustion");
+	public static final RegistryObject<RecipeType<IBoringRecipe>> BORING = registerRecipeType("boring");
+	public static final RegistryObject<RecipeType<IEmberActivationRecipe>> EMBER_ACTIVATION = registerRecipeType("ember_activation");
+	public static final RegistryObject<RecipeType<IMeltingRecipe>> MELTING = registerRecipeType("melting");
+	public static final RegistryObject<RecipeType<IStampingRecipe>> STAMPING = registerRecipeType("stamping");
+	public static final RegistryObject<RecipeType<IMixingRecipe>> MIXING = registerRecipeType("mixing");
+	public static final RegistryObject<RecipeType<IMetalCoefficientRecipe>> METAL_COEFFICIENT = registerRecipeType("metal_coefficient");
+	public static final RegistryObject<RecipeType<IAlchemyRecipe>> ALCHEMY = registerRecipeType("alchemy");
+	public static final RegistryObject<RecipeType<IBoilingRecipe>> BOILING = registerRecipeType("boiling");
+	public static final RegistryObject<RecipeType<IGaseousFuelRecipe>> GASEOUS_FUEL = registerRecipeType("gaseous_fuel");
+	public static final RegistryObject<RecipeType<ICatalysisCombustionRecipe>> CATALYSIS_COMBUSTION = registerRecipeType("catalysis_combustion");
 	public static final RegistryObject<RecipeType<IDawnstoneAnvilRecipe>> DAWNSTONE_ANVIL_RECIPE = registerRecipeType("dawnstone_anvil");
 
 	//recipe serializers
@@ -790,7 +799,6 @@ public class RegistryManager {
 	public static final RegistryObject<RecipeSerializer<EmberActivationRecipe>> EMBER_ACTIVATION_SERIALIZER = RECIPE_SERIALIZERS.register("ember_activation", () -> EmberActivationRecipe.SERIALIZER);
 	public static final RegistryObject<RecipeSerializer<MeltingRecipe>> MELTING_SERIALIZER = RECIPE_SERIALIZERS.register("melting", () -> MeltingRecipe.SERIALIZER);
 	public static final RegistryObject<RecipeSerializer<StampingRecipe>> STAMPING_SERIALIZER = RECIPE_SERIALIZERS.register("stamping", () -> StampingRecipe.SERIALIZER);
-	public static final RegistryObject<RecipeSerializer<TagStampingRecipe>> TAG_STAMPING_SERIALIZER = RECIPE_SERIALIZERS.register("tag_stamping", () -> TagStampingRecipe.SERIALIZER);
 	public static final RegistryObject<RecipeSerializer<MixingRecipe>> MIXING_SERIALIZER = RECIPE_SERIALIZERS.register("mixing", () -> MixingRecipe.SERIALIZER);
 	public static final RegistryObject<RecipeSerializer<MetalCoefficientRecipe>> METAL_COEFFICIENT_SERIALIZER = RECIPE_SERIALIZERS.register("metal_coefficient", () -> MetalCoefficientRecipe.SERIALIZER);
 	public static final RegistryObject<RecipeSerializer<AlchemyRecipe>> ALCHEMY_SERIALIZER = RECIPE_SERIALIZERS.register("alchemy", () -> AlchemyRecipe.SERIALIZER);

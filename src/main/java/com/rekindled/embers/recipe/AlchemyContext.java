@@ -2,7 +2,7 @@ package com.rekindled.embers.recipe;
 
 import java.util.List;
 
-import com.rekindled.embers.recipe.AlchemyRecipe.PedestalContents;
+import com.rekindled.embers.recipe.IAlchemyRecipe.PedestalContents;
 
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;

@@ -163,7 +163,7 @@ public class EmbersAPIImpl implements IEmbersAPI {
 	}
 
 	@Override
-	public ItemStack getTaggedItem(TagKey<Item> tag) {
+	public Item getTaggedItem(TagKey<Item> tag) {
 		return Misc.getTaggedItem(tag);
 	}
 

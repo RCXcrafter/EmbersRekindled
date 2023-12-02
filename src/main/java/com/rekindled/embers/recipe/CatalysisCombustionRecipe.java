@@ -3,20 +3,15 @@ package com.rekindled.embers.recipe;
 import org.jetbrains.annotations.Nullable;
 
 import com.google.gson.JsonObject;
-import com.rekindled.embers.RegistryManager;
 
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
-public class CatalysisCombustionRecipe implements Recipe<CatalysisCombustionContext> {
+public class CatalysisCombustionRecipe implements ICatalysisCombustionRecipe {
 
 	public static final Serializer SERIALIZER = new Serializer(); 
 
@@ -46,14 +41,17 @@ public class CatalysisCombustionRecipe implements Recipe<CatalysisCombustionCont
 		return false;
 	}
 
+	@Override
 	public int getBurnTIme(CatalysisCombustionContext context) {
 		return burnTime;
 	}
 
+	@Override
 	public double getmultiplier(CatalysisCombustionContext context) {
 		return multiplier;
 	}
 
+	@Override
 	public int process(CatalysisCombustionContext context) {
 		for (int i = 0; i < context.getContainerSize(); i++) {
 			if (ingredient.test(context.getItem(i))) {
@@ -62,11 +60,6 @@ public class CatalysisCombustionRecipe implements Recipe<CatalysisCombustionCont
 			}
 		}
 		return burnTime;
-	}
-
-	@Override
-	public ItemStack getToastSymbol() {
-		return new ItemStack(RegistryManager.IGNEM_REACTOR_ITEM.get());
 	}
 
 	@Override
@@ -80,42 +73,23 @@ public class CatalysisCombustionRecipe implements Recipe<CatalysisCombustionCont
 	}
 
 	@Override
-	public RecipeType<?> getType() {
-		return RegistryManager.CATALYSIS_COMBUSTION.get();
-	}
-
 	public Ingredient getDisplayInput() {
 		return ingredient;
 	}
 
+	@Override
 	public Ingredient getDisplayMachine() {
 		return machine;
 	}
 
+	@Override
 	public int getDisplayTime() {
 		return burnTime;
 	}
 
+	@Override
 	public double getDisplayMultiplier() {
 		return multiplier;
-	}
-
-	@Override
-	@Deprecated
-	public ItemStack getResultItem(RegistryAccess registry) {
-		return ItemStack.EMPTY;
-	}
-
-	@Override
-	@Deprecated
-	public ItemStack assemble(CatalysisCombustionContext context, RegistryAccess registry) {
-		return ItemStack.EMPTY;
-	}
-
-	@Override
-	@Deprecated
-	public boolean canCraftInDimensions(int width, int height) {
-		return true;
 	}
 
 	public static class Serializer implements RecipeSerializer<CatalysisCombustionRecipe> {

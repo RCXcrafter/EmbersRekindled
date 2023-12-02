@@ -2,7 +2,7 @@ package com.rekindled.embers.compat.jei;
 
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
-import com.rekindled.embers.recipe.StampingRecipe;
+import com.rekindled.embers.recipe.IStampingRecipe;
 
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.forge.ForgeTypes;
@@ -18,7 +18,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
-public class StampingCategory implements IRecipeCategory<StampingRecipe> {
+public class StampingCategory implements IRecipeCategory<IStampingRecipe> {
 
 	private final IDrawable background;
 	private final IDrawable icon;
@@ -32,7 +32,7 @@ public class StampingCategory implements IRecipeCategory<StampingRecipe> {
 	}
 
 	@Override
-	public RecipeType<StampingRecipe> getRecipeType() {
+	public RecipeType<IStampingRecipe> getRecipeType() {
 		return JEIPlugin.STAMPING;
 	}
 
@@ -52,7 +52,7 @@ public class StampingCategory implements IRecipeCategory<StampingRecipe> {
 	}
 
 	@Override
-	public void setRecipe(IRecipeLayoutBuilder builder, StampingRecipe recipe, IFocusGroup focuses) {
+	public void setRecipe(IRecipeLayoutBuilder builder, IStampingRecipe recipe, IFocusGroup focuses) {
 		int amount = 0;
 
 		for (FluidStack fluid : recipe.getDisplayInputFluid().getFluids()) {

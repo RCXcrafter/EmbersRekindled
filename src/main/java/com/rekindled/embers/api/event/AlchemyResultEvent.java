@@ -1,24 +1,24 @@
 package com.rekindled.embers.api.event;
 
 import com.rekindled.embers.api.misc.AlchemyResult;
-import com.rekindled.embers.recipe.AlchemyRecipe;
+import com.rekindled.embers.recipe.IAlchemyRecipe;
 
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class AlchemyResultEvent extends UpgradeEvent {
-	AlchemyRecipe recipe;
+	IAlchemyRecipe recipe;
 	AlchemyResult result;
 	int consumeAmount;
 	boolean isFailure;
 	ItemStack resultStack;
 
-	public AlchemyResultEvent(BlockEntity tile, AlchemyRecipe recipe, AlchemyResult result, int consumeAmount) {
+	public AlchemyResultEvent(BlockEntity tile, IAlchemyRecipe recipe, AlchemyResult result, int consumeAmount) {
 		super(tile);
 		this.recipe = recipe;
 		this.result = result;
 		this.consumeAmount = consumeAmount;
-		this.isFailure = result.blackPins != recipe.inputs.size();
+		this.isFailure = result.blackPins != recipe.getInputs().size();
 		this.resultStack = isFailure ? recipe.getfailureItem() : recipe.getResultItem();
 	}
 

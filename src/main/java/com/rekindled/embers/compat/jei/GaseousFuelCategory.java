@@ -2,7 +2,7 @@ package com.rekindled.embers.compat.jei;
 
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
-import com.rekindled.embers.recipe.GaseousFuelRecipe;
+import com.rekindled.embers.recipe.IGaseousFuelRecipe;
 import com.rekindled.embers.util.Misc;
 
 import mezz.jei.api.constants.VanillaTypes;
@@ -21,7 +21,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
-public class GaseousFuelCategory implements IRecipeCategory<GaseousFuelRecipe> {
+public class GaseousFuelCategory implements IRecipeCategory<IGaseousFuelRecipe> {
 
 	private final IDrawable background;
 	private final IDrawable icon;
@@ -34,7 +34,7 @@ public class GaseousFuelCategory implements IRecipeCategory<GaseousFuelRecipe> {
 	}
 
 	@Override
-	public RecipeType<GaseousFuelRecipe> getRecipeType() {
+	public RecipeType<IGaseousFuelRecipe> getRecipeType() {
 		return JEIPlugin.GASEOUS_FUEL;
 	}
 
@@ -54,7 +54,7 @@ public class GaseousFuelCategory implements IRecipeCategory<GaseousFuelRecipe> {
 	}
 
 	@Override
-	public void setRecipe(IRecipeLayoutBuilder builder, GaseousFuelRecipe recipe, IFocusGroup focuses) {
+	public void setRecipe(IRecipeLayoutBuilder builder, IGaseousFuelRecipe recipe, IFocusGroup focuses) {
 		builder.addSlot(RecipeIngredientRole.INPUT, 6, 6)
 		.addTooltipCallback(IngotTooltipCallback.INSTANCE)
 		.setFluidRenderer(recipe.getDisplayInput().getFluids().get(0).getAmount(), false, 16, 16)
@@ -63,7 +63,7 @@ public class GaseousFuelCategory implements IRecipeCategory<GaseousFuelRecipe> {
 
 	@SuppressWarnings("resource")
 	@Override
-	public void draw(GaseousFuelRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) { 
-		Misc.drawComponents(Minecraft.getInstance().font, guiGraphics, 28, 10, Component.translatable(Embers.MODID + ".jei.recipe.gaseous_fuel.burn_time", recipe.burnTime));
+	public void draw(IGaseousFuelRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) { 
+		Misc.drawComponents(Minecraft.getInstance().font, guiGraphics, 28, 10, Component.translatable(Embers.MODID + ".jei.recipe.gaseous_fuel.burn_time", recipe.getDisplayBurnTime()));
 	}
 }

@@ -6,7 +6,7 @@ import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
 import com.rekindled.embers.recipe.CatalysisCombustionContext;
-import com.rekindled.embers.recipe.CatalysisCombustionRecipe;
+import com.rekindled.embers.recipe.ICatalysisCombustionRecipe;
 import com.rekindled.embers.util.Misc;
 
 import net.minecraft.client.resources.language.I18n;
@@ -38,7 +38,7 @@ public class CombustionChamberBlockEntity extends BlockEntity implements IExtraC
 		}
 	};
 	public LazyOptional<IItemHandler> holder = LazyOptional.of(() -> inventory);
-	public CatalysisCombustionRecipe cachedRecipe = null;
+	public ICatalysisCombustionRecipe cachedRecipe = null;
 
 	public CombustionChamberBlockEntity(BlockPos pPos, BlockState pBlockState) {
 		super(RegistryManager.COMBUSTION_CHAMBER_ENTITY.get(), pPos, pBlockState);

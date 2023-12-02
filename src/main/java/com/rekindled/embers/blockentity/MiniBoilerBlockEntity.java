@@ -19,7 +19,7 @@ import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.entity.EmberProjectileEntity;
 import com.rekindled.embers.particle.VaporParticleOptions;
 import com.rekindled.embers.recipe.FluidHandlerContext;
-import com.rekindled.embers.recipe.BoilingRecipe;
+import com.rekindled.embers.recipe.IBoilingRecipe;
 import com.rekindled.embers.upgrade.MiniBoilerUpgrade;
 import com.rekindled.embers.util.Misc;
 import com.rekindled.embers.util.sound.ISoundController;
@@ -85,7 +85,7 @@ public class MiniBoilerBlockEntity extends PipeBlockEntityBase implements ISound
 	protected MiniBoilerUpgrade upgrade;
 	int lastBoil;
 	int boilTime;
-	public BoilingRecipe cachedRecipe = null;
+	public IBoilingRecipe cachedRecipe = null;
 
 	public MiniBoilerBlockEntity(BlockPos pPos, BlockState pBlockState) {
 		super(RegistryManager.MINI_BOILER_ENTITY.get(), pPos, pBlockState);

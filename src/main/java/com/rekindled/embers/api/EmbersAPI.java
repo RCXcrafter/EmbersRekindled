@@ -12,7 +12,6 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 
 public class EmbersAPI {
 
@@ -119,7 +118,7 @@ public class EmbersAPI {
 		IMPL.removeEmber(player, amount);
 	}
 
-	ItemStack getTaggedItem(TagKey<Item> tag) {
+	Item getTaggedItem(TagKey<Item> tag) {
 		return IMPL.getTaggedItem(tag);
 	}
 

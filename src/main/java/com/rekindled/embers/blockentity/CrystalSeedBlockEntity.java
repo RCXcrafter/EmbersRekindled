@@ -156,7 +156,7 @@ public class CrystalSeedBlockEntity extends BlockEntity implements IEmberInjecta
 	}
 
 	protected ItemStack[] getNuggetDrops(int n) {
-		return IntStream.range(0,n).mapToObj(i -> Misc.getTaggedItem(tag).copy()).toArray(ItemStack[]::new);
+		return IntStream.range(0,n).mapToObj(i -> new ItemStack(Misc.getTaggedItem(tag))).toArray(ItemStack[]::new);
 	}
 
 	public void addExperience(int xp) {

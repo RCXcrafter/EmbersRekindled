@@ -3,22 +3,17 @@ package com.rekindled.embers.recipe;
 import org.jetbrains.annotations.Nullable;
 
 import com.google.gson.JsonObject;
-import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.util.Misc;
 
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 
-public class BoilingRecipe implements Recipe<FluidHandlerContext> {
+public class BoilingRecipe implements IBoilingRecipe {
 
 	public static final Serializer SERIALIZER = new Serializer(); 
 
@@ -43,10 +38,12 @@ public class BoilingRecipe implements Recipe<FluidHandlerContext> {
 		return false;
 	}
 
+	@Override
 	public FluidStack getOutput(FluidHandlerContext context) {
 		return output;
 	}
 
+	@Override
 	public FluidStack process(FluidHandlerContext context, int amount) {
 		int trueAmount = amount;
 		for (FluidStack stack : input.getAllFluids()) {
@@ -60,11 +57,6 @@ public class BoilingRecipe implements Recipe<FluidHandlerContext> {
 	}
 
 	@Override
-	public ItemStack getToastSymbol() {
-		return new ItemStack(RegistryManager.MINI_BOILER_ITEM.get());
-	}
-
-	@Override
 	public ResourceLocation getId() {
 		return id;
 	}
@@ -75,34 +67,13 @@ public class BoilingRecipe implements Recipe<FluidHandlerContext> {
 	}
 
 	@Override
-	public RecipeType<?> getType() {
-		return RegistryManager.BOILING.get();
-	}
-
 	public FluidIngredient getDisplayInput() {
 		return input;
 	}
 
+	@Override
 	public FluidStack getDisplayOutput() {
 		return output;
-	}
-
-	@Override
-	@Deprecated
-	public ItemStack assemble(FluidHandlerContext context, RegistryAccess registry) {
-		return ItemStack.EMPTY;
-	}
-
-	@Override
-	@Deprecated
-	public ItemStack getResultItem(RegistryAccess registry) {
-		return ItemStack.EMPTY;
-	}
-
-	@Override
-	@Deprecated
-	public boolean canCraftInDimensions(int width, int height) {
-		return true;
 	}
 
 	public static class Serializer implements RecipeSerializer<BoilingRecipe> {

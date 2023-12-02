@@ -2,7 +2,7 @@ package com.rekindled.embers.compat.jei;
 
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
-import com.rekindled.embers.recipe.EmberActivationRecipe;
+import com.rekindled.embers.recipe.IEmberActivationRecipe;
 import com.rekindled.embers.util.Misc;
 
 import mezz.jei.api.constants.VanillaTypes;
@@ -20,7 +20,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
-public class EmberActivationCategory implements IRecipeCategory<EmberActivationRecipe> {
+public class EmberActivationCategory implements IRecipeCategory<IEmberActivationRecipe> {
 
 	private final IDrawable background;
 	private final IDrawable icon;
@@ -33,7 +33,7 @@ public class EmberActivationCategory implements IRecipeCategory<EmberActivationR
 	}
 
 	@Override
-	public RecipeType<EmberActivationRecipe> getRecipeType() {
+	public RecipeType<IEmberActivationRecipe> getRecipeType() {
 		return JEIPlugin.EMBER_ACTIVATION;
 	}
 
@@ -53,13 +53,13 @@ public class EmberActivationCategory implements IRecipeCategory<EmberActivationR
 	}
 
 	@Override
-	public void setRecipe(IRecipeLayoutBuilder builder, EmberActivationRecipe recipe, IFocusGroup focuses) {
+	public void setRecipe(IRecipeLayoutBuilder builder, IEmberActivationRecipe recipe, IFocusGroup focuses) {
 		builder.addSlot(RecipeIngredientRole.INPUT, 6, 6).addIngredients(recipe.getDisplayInput());
 	}
 
 	@SuppressWarnings("resource")
 	@Override
-	public void draw(EmberActivationRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) { 
-		Misc.drawComponents(Minecraft.getInstance().font, guiGraphics, 28, 10, Component.translatable(Embers.MODID + ".jei.recipe.ember_activation.ember", recipe.getDisplaOutput()));
+	public void draw(IEmberActivationRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) { 
+		Misc.drawComponents(Minecraft.getInstance().font, guiGraphics, 28, 10, Component.translatable(Embers.MODID + ".jei.recipe.ember_activation.ember", recipe.getDisplayOutput()));
 	}
 }

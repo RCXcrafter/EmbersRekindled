@@ -10,7 +10,7 @@ import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.capabilities.EmbersCapabilities;
 import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
 import com.rekindled.embers.particle.VaporParticleOptions;
-import com.rekindled.embers.recipe.GaseousFuelRecipe;
+import com.rekindled.embers.recipe.IGaseousFuelRecipe;
 import com.rekindled.embers.upgrade.UpgradeWildfireStirling;
 
 import net.minecraft.client.resources.language.I18n;
@@ -50,7 +50,7 @@ public class WildfireStirlingBlockEntity extends BlockEntity implements /*ISound
 		}
 	};
 	private static Random random = new Random();
-	public GaseousFuelRecipe cachedRecipe = null;
+	public IGaseousFuelRecipe cachedRecipe = null;
 
 	//HashSet<Integer> soundsPlaying = new HashSet<>();
 	public LazyOptional<IFluidHandler> holder = LazyOptional.of(() -> tank);

@@ -22,8 +22,8 @@ import com.rekindled.embers.particle.AlchemyCircleParticleOptions;
 import com.rekindled.embers.particle.GlowParticleOptions;
 import com.rekindled.embers.particle.StarParticleOptions;
 import com.rekindled.embers.recipe.AlchemyContext;
-import com.rekindled.embers.recipe.AlchemyRecipe;
-import com.rekindled.embers.recipe.AlchemyRecipe.PedestalContents;
+import com.rekindled.embers.recipe.IAlchemyRecipe;
+import com.rekindled.embers.recipe.IAlchemyRecipe.PedestalContents;
 import com.rekindled.embers.util.Misc;
 import com.rekindled.embers.util.sound.ISoundController;
 
@@ -113,7 +113,7 @@ public class AlchemyTabletBlockEntity extends BlockEntity implements ISparkable,
 	public int progress = 0;
 	public int process = 0;
 	static Random rand = new Random();
-	public AlchemyRecipe cachedRecipe = null;
+	public IAlchemyRecipe cachedRecipe = null;
 	protected List<UpgradeContext> upgrades;
 
 	public static final int SOUND_PROCESS = 1;

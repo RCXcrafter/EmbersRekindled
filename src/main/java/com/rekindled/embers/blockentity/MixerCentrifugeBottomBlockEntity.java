@@ -16,8 +16,8 @@ import com.rekindled.embers.api.upgrades.UpgradeUtil;
 import com.rekindled.embers.block.FluidDialBlock;
 import com.rekindled.embers.datagen.EmbersFluidTags;
 import com.rekindled.embers.datagen.EmbersSounds;
+import com.rekindled.embers.recipe.IMixingRecipe;
 import com.rekindled.embers.recipe.MixingContext;
-import com.rekindled.embers.recipe.MixingRecipe;
 import com.rekindled.embers.util.FluidAmounts;
 import com.rekindled.embers.util.Misc;
 import com.rekindled.embers.util.sound.ISoundController;
@@ -69,7 +69,7 @@ public class MixerCentrifugeBottomBlockEntity extends BlockEntity implements IMe
 	HashSet<Integer> soundsPlaying = new HashSet<>();
 	protected List<UpgradeContext> upgrades;
 	private double powerRatio;
-	public MixingRecipe cachedRecipe = null;
+	public IMixingRecipe cachedRecipe = null;
 
 	public MixerCentrifugeBottomBlockEntity(BlockPos pPos, BlockState pBlockState) {
 		super(RegistryManager.MIXER_CENTRIFUGE_BOTTOM_ENTITY.get(), pPos, pBlockState);

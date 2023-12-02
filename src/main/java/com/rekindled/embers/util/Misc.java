@@ -168,24 +168,24 @@ public class Misc {
 		return recipes.get(0);
 	}
 
-	public static HashMap<ResourceLocation, ItemStack> tagItems = new HashMap<ResourceLocation, ItemStack>();
+	public static HashMap<ResourceLocation, Item> tagItems = new HashMap<ResourceLocation, Item>();
 
-	public static ItemStack getTaggedItem(TagKey<Item> tag) {
+	public static Item getTaggedItem(TagKey<Item> tag) {
 		if (tagItems.containsKey(tag.location()))
 			return tagItems.get(tag.location());
 
-		ItemStack output = ItemStack.EMPTY;
+		Item output = null;
 		int index = Integer.MAX_VALUE;
 		List<? extends String> preferences = ConfigManager.TAG_PREFERENCES.get();
 		for (Holder<Item> holder : BuiltInRegistries.ITEM.getTagOrEmpty(tag)) {
 			for (int i = 0; i < preferences.size(); i ++) {
 				if (i < index && preferences.get(i).equals(BuiltInRegistries.ITEM.getKey(holder.get()).getNamespace())) {
-					output = new ItemStack(holder);
+					output = holder.get();
 					index = i;
 				}
 			}
-			if (output.isEmpty())
-				output = new ItemStack(holder);
+			if (output == null)
+				output = holder.get();
 		}
 		tagItems.put(tag.location(), output);
 		return output;

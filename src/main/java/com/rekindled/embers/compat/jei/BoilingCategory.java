@@ -2,7 +2,7 @@ package com.rekindled.embers.compat.jei;
 
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
-import com.rekindled.embers.recipe.BoilingRecipe;
+import com.rekindled.embers.recipe.IBoilingRecipe;
 
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.forge.ForgeTypes;
@@ -17,7 +17,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
-public class BoilingCategory implements IRecipeCategory<BoilingRecipe> {
+public class BoilingCategory implements IRecipeCategory<IBoilingRecipe> {
 
 	private final IDrawable background;
 	private final IDrawable icon;
@@ -30,7 +30,7 @@ public class BoilingCategory implements IRecipeCategory<BoilingRecipe> {
 	}
 
 	@Override
-	public RecipeType<BoilingRecipe> getRecipeType() {
+	public RecipeType<IBoilingRecipe> getRecipeType() {
 		return JEIPlugin.BOILING;
 	}
 
@@ -50,7 +50,7 @@ public class BoilingCategory implements IRecipeCategory<BoilingRecipe> {
 	}
 
 	@Override
-	public void setRecipe(IRecipeLayoutBuilder builder, BoilingRecipe recipe, IFocusGroup focuses) {
+	public void setRecipe(IRecipeLayoutBuilder builder, IBoilingRecipe recipe, IFocusGroup focuses) {
 		builder.addSlot(RecipeIngredientRole.INPUT, 26, 6)
 		.addTooltipCallback(IngotTooltipCallback.INSTANCE)
 		.setFluidRenderer(recipe.getDisplayInput().getFluids().get(0).getAmount(), false, 16, 16)

@@ -3,7 +3,9 @@ package com.rekindled.embers.recipe;
 import java.util.function.Consumer;
 
 import com.google.gson.JsonObject;
+import com.mojang.datafixers.util.Either;
 import com.rekindled.embers.RegistryManager;
+import com.rekindled.embers.recipe.StampingRecipe.TagAmount;
 
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
@@ -23,12 +25,11 @@ public class StampingRecipeBuilder {
 	public Ingredient stamp;
 	public Ingredient input = Ingredient.EMPTY;
 	public FluidIngredient fluid = FluidIngredient.EMPTY;
-	public ItemStack output;
-	public TagKey<Item> tagOutput = null;
+	public Either<ItemStack, TagAmount> output;
 
 	public static StampingRecipeBuilder create(ItemStack itemStack) {
 		StampingRecipeBuilder builder = new StampingRecipeBuilder();
-		builder.output = itemStack;
+		builder.output = Either.left(itemStack);
 		builder.id = ForgeRegistries.ITEMS.getKey(itemStack.getItem());
 		return builder;
 	}
@@ -37,11 +38,15 @@ public class StampingRecipeBuilder {
 		return create(new ItemStack(item));
 	}
 
-	public static StampingRecipeBuilder create(TagKey<Item> tag) {
+	public static StampingRecipeBuilder create(TagKey<Item> tag, int amount) {
 		StampingRecipeBuilder builder = new StampingRecipeBuilder();
-		builder.tagOutput = tag;
+		builder.output = Either.right(new TagAmount(tag, amount));
 		builder.id = tag.location();
 		return builder;
+	}
+
+	public static StampingRecipeBuilder create(TagKey<Item> tag) {
+		return create(tag, 1);
 	}
 
 	public StampingRecipeBuilder id(ResourceLocation id) {
@@ -114,20 +119,7 @@ public class StampingRecipeBuilder {
 		return this;
 	}
 
-	public StampingRecipeBuilder output(ItemStack output) {
-		this.output = output;
-		return this;
-	}
-
-	public StampingRecipeBuilder output(Item item) {
-		output(new ItemStack(item));
-		return this;
-	}
-
 	public StampingRecipe build() {
-		if (tagOutput != null) {
-			return new TagStampingRecipe(id, stamp, input, fluid, tagOutput);
-		}
 		return new StampingRecipe(id, stamp, input, fluid, output);
 	}
 
@@ -145,17 +137,21 @@ public class StampingRecipeBuilder {
 
 		@Override
 		public void serializeRecipeData(JsonObject json) {
-			if (recipe instanceof TagStampingRecipe) {
-				json.addProperty("output", ((TagStampingRecipe) recipe).tagOutput.location().toString());
-			} else {
-				JsonObject outputJson = new JsonObject();
-				outputJson.addProperty("item", ForgeRegistries.ITEMS.getKey(recipe.output.getItem()).toString());
-				int count = recipe.output.getCount();
+			JsonObject outputJson = new JsonObject();
+			if (recipe.output.right().isPresent()) {
+				outputJson.addProperty("tag", recipe.output.right().get().tag.location().toString());
+				int count = recipe.output.right().get().amount;
 				if (count > 1) {
 					outputJson.addProperty("count", count);
 				}
-				json.add("output", outputJson);
+			} else {
+				outputJson.addProperty("item", ForgeRegistries.ITEMS.getKey(recipe.output.left().get().getItem()).toString());
+				int count = recipe.output.left().get().getCount();
+				if (count > 1) {
+					outputJson.addProperty("count", count);
+				}
 			}
+			json.add("output", outputJson);
 
 			json.add("stamp", recipe.stamp.toJson());
 			if (!recipe.input.isEmpty())
@@ -172,8 +168,6 @@ public class StampingRecipeBuilder {
 
 		@Override
 		public RecipeSerializer<?> getType() {
-			if (recipe instanceof TagStampingRecipe)
-				return RegistryManager.TAG_STAMPING_SERIALIZER.get();
 			return RegistryManager.STAMPING_SERIALIZER.get();
 		}
 

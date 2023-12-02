@@ -5,18 +5,18 @@ import java.util.List;
 
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
-import com.rekindled.embers.recipe.AlchemyRecipe;
-import com.rekindled.embers.recipe.BoilingRecipe;
-import com.rekindled.embers.recipe.BoringRecipe;
-import com.rekindled.embers.recipe.CatalysisCombustionRecipe;
-import com.rekindled.embers.recipe.EmberActivationRecipe;
-import com.rekindled.embers.recipe.GaseousFuelRecipe;
+import com.rekindled.embers.recipe.IAlchemyRecipe;
+import com.rekindled.embers.recipe.IBoilingRecipe;
+import com.rekindled.embers.recipe.IBoringRecipe;
+import com.rekindled.embers.recipe.ICatalysisCombustionRecipe;
 import com.rekindled.embers.recipe.IDawnstoneAnvilRecipe;
+import com.rekindled.embers.recipe.IEmberActivationRecipe;
+import com.rekindled.embers.recipe.IGaseousFuelRecipe;
+import com.rekindled.embers.recipe.IMeltingRecipe;
+import com.rekindled.embers.recipe.IMetalCoefficientRecipe;
+import com.rekindled.embers.recipe.IMixingRecipe;
+import com.rekindled.embers.recipe.IStampingRecipe;
 import com.rekindled.embers.recipe.IVisuallySplitRecipe;
-import com.rekindled.embers.recipe.MeltingRecipe;
-import com.rekindled.embers.recipe.MetalCoefficientRecipe;
-import com.rekindled.embers.recipe.MixingRecipe;
-import com.rekindled.embers.recipe.StampingRecipe;
 
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
@@ -38,17 +38,17 @@ public class JEIPlugin implements IModPlugin {
 
 	public static ResourceLocation pluginID = new ResourceLocation(Embers.MODID, "jei_plugin");
 
-	public static final RecipeType<BoringRecipe> BORING = RecipeType.create(Embers.MODID, "boring", BoringRecipe.class);
-	public static final RecipeType<EmberActivationRecipe> EMBER_ACTIVATION = RecipeType.create(Embers.MODID, "ember_activation", EmberActivationRecipe.class);
-	public static final RecipeType<MeltingRecipe> MELTING = RecipeType.create(Embers.MODID, "melting", MeltingRecipe.class);
-	public static final RecipeType<MeltingRecipe> MELTING_BONUS = RecipeType.create(Embers.MODID, "melting_bonus", MeltingRecipe.class);
-	public static final RecipeType<StampingRecipe> STAMPING = RecipeType.create(Embers.MODID, "stamping", StampingRecipe.class);
-	public static final RecipeType<MixingRecipe> MIXING = RecipeType.create(Embers.MODID, "mixing", MixingRecipe.class);
-	public static final RecipeType<MetalCoefficientRecipe> METAL_COEFFICIENT = RecipeType.create(Embers.MODID, "metal_coefficient", MetalCoefficientRecipe.class);
-	public static final RecipeType<AlchemyRecipe> ALCHEMY = RecipeType.create(Embers.MODID, "alchemy", AlchemyRecipe.class);
-	public static final RecipeType<BoilingRecipe> BOILING = RecipeType.create(Embers.MODID, "boiling", BoilingRecipe.class);
-	public static final RecipeType<GaseousFuelRecipe> GASEOUS_FUEL = RecipeType.create(Embers.MODID, "gaseous_fuel", GaseousFuelRecipe.class);
-	public static final RecipeType<CatalysisCombustionRecipe> CATALYSIS_COMBUSTION = RecipeType.create(Embers.MODID, "catalysis_combustion", CatalysisCombustionRecipe.class);
+	public static final RecipeType<IBoringRecipe> BORING = RecipeType.create(Embers.MODID, "boring", IBoringRecipe.class);
+	public static final RecipeType<IEmberActivationRecipe> EMBER_ACTIVATION = RecipeType.create(Embers.MODID, "ember_activation", IEmberActivationRecipe.class);
+	public static final RecipeType<IMeltingRecipe> MELTING = RecipeType.create(Embers.MODID, "melting", IMeltingRecipe.class);
+	public static final RecipeType<IMeltingRecipe> MELTING_BONUS = RecipeType.create(Embers.MODID, "melting_bonus", IMeltingRecipe.class);
+	public static final RecipeType<IStampingRecipe> STAMPING = RecipeType.create(Embers.MODID, "stamping", IStampingRecipe.class);
+	public static final RecipeType<IMixingRecipe> MIXING = RecipeType.create(Embers.MODID, "mixing", IMixingRecipe.class);
+	public static final RecipeType<IMetalCoefficientRecipe> METAL_COEFFICIENT = RecipeType.create(Embers.MODID, "metal_coefficient", IMetalCoefficientRecipe.class);
+	public static final RecipeType<IAlchemyRecipe> ALCHEMY = RecipeType.create(Embers.MODID, "alchemy", IAlchemyRecipe.class);
+	public static final RecipeType<IBoilingRecipe> BOILING = RecipeType.create(Embers.MODID, "boiling", IBoilingRecipe.class);
+	public static final RecipeType<IGaseousFuelRecipe> GASEOUS_FUEL = RecipeType.create(Embers.MODID, "gaseous_fuel", IGaseousFuelRecipe.class);
+	public static final RecipeType<ICatalysisCombustionRecipe> CATALYSIS_COMBUSTION = RecipeType.create(Embers.MODID, "catalysis_combustion", ICatalysisCombustionRecipe.class);
 	public static final RecipeType<IDawnstoneAnvilRecipe> DAWNSTONE_ANVIL = RecipeType.create(Embers.MODID, "dawnstone_anvil", IDawnstoneAnvilRecipe.class);
 
 	@Override
@@ -98,11 +98,11 @@ public class JEIPlugin implements IModPlugin {
 
 		addRecipes(register, manager, EMBER_ACTIVATION, RegistryManager.EMBER_ACTIVATION.get());
 
-		List<MeltingRecipe> meltingRecipes = manager.getAllRecipesFor(RegistryManager.MELTING.get());
+		List<IMeltingRecipe> meltingRecipes = manager.getAllRecipesFor(RegistryManager.MELTING.get());
 		register.addRecipes(MELTING, meltingRecipes);
 
-		List<MeltingRecipe> meltingBonusRecipes = new ArrayList<MeltingRecipe>();
-		for (MeltingRecipe recipe : meltingRecipes) {
+		List<IMeltingRecipe> meltingBonusRecipes = new ArrayList<IMeltingRecipe>();
+		for (IMeltingRecipe recipe : meltingRecipes) {
 			if (!recipe.getBonus().isEmpty())
 				meltingBonusRecipes.add(recipe);
 		}

@@ -2,7 +2,7 @@ package com.rekindled.embers.compat.jei;
 
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
-import com.rekindled.embers.recipe.MeltingRecipe;
+import com.rekindled.embers.recipe.IMeltingRecipe;
 
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.forge.ForgeTypes;
@@ -18,7 +18,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fluids.FluidType;
 
-public class MeltingBonusCategory implements IRecipeCategory<MeltingRecipe> {
+public class MeltingBonusCategory implements IRecipeCategory<IMeltingRecipe> {
 
 	private final IDrawable background;
 	private final IDrawable icon;
@@ -32,7 +32,7 @@ public class MeltingBonusCategory implements IRecipeCategory<MeltingRecipe> {
 	}
 
 	@Override
-	public RecipeType<MeltingRecipe> getRecipeType() {
+	public RecipeType<IMeltingRecipe> getRecipeType() {
 		return JEIPlugin.MELTING_BONUS;
 	}
 
@@ -52,7 +52,7 @@ public class MeltingBonusCategory implements IRecipeCategory<MeltingRecipe> {
 	}
 
 	@Override
-	public void setRecipe(IRecipeLayoutBuilder builder, MeltingRecipe recipe, IFocusGroup focuses) {
+	public void setRecipe(IRecipeLayoutBuilder builder, IMeltingRecipe recipe, IFocusGroup focuses) {
 		int capacity = FluidType.BUCKET_VOLUME * 4;
 		int capacity2 = FluidType.BUCKET_VOLUME;
 

@@ -16,7 +16,7 @@ import com.rekindled.embers.api.upgrades.UpgradeUtil;
 import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.particle.GlowParticleOptions;
 import com.rekindled.embers.power.DefaultEmberCapability;
-import com.rekindled.embers.recipe.EmberActivationRecipe;
+import com.rekindled.embers.recipe.IEmberActivationRecipe;
 import com.rekindled.embers.recipe.SingleItemContainer;
 import com.rekindled.embers.util.Misc;
 import com.rekindled.embers.util.sound.ISoundController;
@@ -79,7 +79,7 @@ public class CrystalCellBlockEntity extends BlockEntity implements ISoundControl
 		}
 	};
 	public LazyOptional<IItemHandler> holder = LazyOptional.of(() -> inventory);
-	public EmberActivationRecipe cachedRecipe = null;
+	public IEmberActivationRecipe cachedRecipe = null;
 	protected List<UpgradeContext> upgrades;
 
 	public static final int SOUND_AMBIENT = 1;

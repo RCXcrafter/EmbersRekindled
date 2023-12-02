@@ -3,21 +3,16 @@ package com.rekindled.embers.recipe;
 import org.jetbrains.annotations.Nullable;
 
 import com.google.gson.JsonObject;
-import com.rekindled.embers.RegistryManager;
 
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
-public class EmberActivationRecipe implements Recipe<Container> {
+public class EmberActivationRecipe implements IEmberActivationRecipe {
 
 	public static final Serializer SERIALIZER = new Serializer(); 
 
@@ -41,10 +36,12 @@ public class EmberActivationRecipe implements Recipe<Container> {
 		return false;
 	}
 
+	@Override
 	public int getOutput(Container context) {
 		return ember;
 	}
 
+	@Override
 	public int process(Container context) {
 		for (int i = 0; i < context.getContainerSize(); i++) {
 			if (ingredient.test(context.getItem(i))) {
@@ -53,11 +50,6 @@ public class EmberActivationRecipe implements Recipe<Container> {
 			}
 		}
 		return ember;
-	}
-
-	@Override
-	public ItemStack getToastSymbol() {
-		return new ItemStack(RegistryManager.EMBER_ACTIVATOR_ITEM.get());
 	}
 
 	@Override
@@ -71,34 +63,13 @@ public class EmberActivationRecipe implements Recipe<Container> {
 	}
 
 	@Override
-	public RecipeType<?> getType() {
-		return RegistryManager.EMBER_ACTIVATION.get();
-	}
-
 	public Ingredient getDisplayInput() {
 		return ingredient;
 	}
 
-	public int getDisplaOutput() {
+	@Override
+	public int getDisplayOutput() {
 		return ember;
-	}
-
-	@Override
-	@Deprecated
-	public ItemStack getResultItem(RegistryAccess registry) {
-		return ItemStack.EMPTY;
-	}
-
-	@Override
-	@Deprecated
-	public ItemStack assemble(Container context, RegistryAccess registry) {
-		return ItemStack.EMPTY;
-	}
-
-	@Override
-	@Deprecated
-	public boolean canCraftInDimensions(int width, int height) {
-		return true;
 	}
 
 	public static class Serializer implements RecipeSerializer<EmberActivationRecipe> {

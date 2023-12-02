@@ -7,7 +7,7 @@ import org.apache.commons.lang3.text.WordUtils;
 
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
-import com.rekindled.embers.recipe.BoringRecipe;
+import com.rekindled.embers.recipe.IBoringRecipe;
 import com.rekindled.embers.util.Misc;
 
 import mezz.jei.api.constants.VanillaTypes;
@@ -26,7 +26,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
-public class BoringCategory implements IRecipeCategory<BoringRecipe> {
+public class BoringCategory implements IRecipeCategory<IBoringRecipe> {
 
 	private final IDrawable background;
 	private final IDrawable icon;
@@ -39,7 +39,7 @@ public class BoringCategory implements IRecipeCategory<BoringRecipe> {
 	}
 
 	@Override
-	public RecipeType<BoringRecipe> getRecipeType() {
+	public RecipeType<IBoringRecipe> getRecipeType() {
 		return JEIPlugin.BORING;
 	}
 
@@ -59,30 +59,31 @@ public class BoringCategory implements IRecipeCategory<BoringRecipe> {
 	}
 
 	@Override
-	public void setRecipe(IRecipeLayoutBuilder builder, BoringRecipe recipe, IFocusGroup focuses) {
+	public void setRecipe(IRecipeLayoutBuilder builder, IBoringRecipe recipe, IFocusGroup focuses) {
 		builder.addSlot(RecipeIngredientRole.OUTPUT, 6, 6).addItemStack(recipe.getDisplayOutput().getStack());
 		builder.addSlot(RecipeIngredientRole.CATALYST, 6, 26).addItemStacks(recipe.getDisplayInput());
 	}
 
-	public List<Component> getTooltipStrings(BoringRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
+	@Override
+	public List<Component> getTooltipStrings(IBoringRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
 		int height = 48;
 		List<Component> text = new ArrayList<Component>();
 
-		if (recipe.minHeight != Integer.MIN_VALUE)
+		if (recipe.getMinHeight() != Integer.MIN_VALUE)
 			height += 11;
-		if (recipe.maxHeight != Integer.MAX_VALUE)
+		if (recipe.getMaxHeight() != Integer.MAX_VALUE)
 			height += 11;
-		if (!recipe.dimensions.isEmpty()) {
+		if (!recipe.getDimensions().isEmpty()) {
 			if (mouseY > height && mouseY < height + 11 && mouseX > 7 && mouseX < 119) {
-				for (ResourceLocation dimension : recipe.dimensions) {
+				for (ResourceLocation dimension : recipe.getDimensions()) {
 					text.add(Component.translatableWithFallback("dimension." + dimension.toLanguageKey(), WordUtils.capitalize(dimension.getPath().replace("_", " "))));
 				}
 			}
 			height += 11;
 		}
-		if (!recipe.biomes.isEmpty()) {
+		if (!recipe.getBiomes().isEmpty()) {
 			if (mouseY > height && mouseY < height + 11 && mouseX > 7 && mouseX < 119) {
-				for (ResourceLocation biome : recipe.biomes) {
+				for (ResourceLocation biome : recipe.getBiomes()) {
 					text.add(Component.literal(biome.toString()));
 				}
 			}
@@ -94,22 +95,22 @@ public class BoringCategory implements IRecipeCategory<BoringRecipe> {
 
 	@SuppressWarnings("resource")
 	@Override
-	public void draw(BoringRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+	public void draw(IBoringRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
 		Font fontRenderer = Minecraft.getInstance().font;
 		Misc.drawComponents(fontRenderer, guiGraphics, 28, 10, Component.translatable(Embers.MODID + ".jei.recipe.boring.weight", recipe.getDisplayOutput().getWeight()));
 		Misc.drawComponents(fontRenderer, guiGraphics, 28, 30, Component.translatable(Embers.MODID + ".jei.recipe.boring.required_blocks"));
 		List<Component> text = new ArrayList<Component>();
-		if (recipe.minHeight != Integer.MIN_VALUE)
-			text.add(Component.translatable(Embers.MODID + ".jei.recipe.boring.min_height", recipe.minHeight));
-		if (recipe.maxHeight != Integer.MAX_VALUE)
-			text.add(Component.translatable(Embers.MODID + ".jei.recipe.boring.max_height", recipe.maxHeight));
-		if (!recipe.dimensions.isEmpty()) {
+		if (recipe.getMinHeight() != Integer.MIN_VALUE)
+			text.add(Component.translatable(Embers.MODID + ".jei.recipe.boring.min_height", recipe.getMinHeight()));
+		if (recipe.getMaxHeight() != Integer.MAX_VALUE)
+			text.add(Component.translatable(Embers.MODID + ".jei.recipe.boring.max_height", recipe.getMaxHeight()));
+		if (!recipe.getDimensions().isEmpty()) {
 			text.add(Component.translatable(Embers.MODID + ".jei.recipe.boring.dimensions").withStyle(style -> style.withColor(0xFFB54D)));
 			//for (ResourceLocation dimension : recipe.dimensions) {
 			//text.add(Component.literal(dimension.toString()));
 			//}
 		}
-		if (!recipe.biomes.isEmpty()) {
+		if (!recipe.getBiomes().isEmpty()) {
 			text.add(Component.translatable(Embers.MODID + ".jei.recipe.boring.biomes").withStyle(style -> style.withColor(0xFFB54D)));
 			//for (ResourceLocation biome : recipe.biomes) {
 			//text.add(Component.translatable(biome.toString()));

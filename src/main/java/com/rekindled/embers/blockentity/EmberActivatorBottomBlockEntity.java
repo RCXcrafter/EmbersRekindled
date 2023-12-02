@@ -14,7 +14,7 @@ import com.rekindled.embers.api.upgrades.UpgradeUtil;
 import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.particle.GlowParticleOptions;
 import com.rekindled.embers.particle.SmokeParticleOptions;
-import com.rekindled.embers.recipe.EmberActivationRecipe;
+import com.rekindled.embers.recipe.IEmberActivationRecipe;
 import com.rekindled.embers.recipe.SingleItemContainer;
 import com.rekindled.embers.util.Misc;
 
@@ -59,7 +59,7 @@ public class EmberActivatorBottomBlockEntity extends BlockEntity implements IExt
 	};
 	public LazyOptional<IItemHandler> holder = LazyOptional.of(() -> inventory);
 	protected List<UpgradeContext> upgrades = new ArrayList<>();
-	public EmberActivationRecipe cachedRecipe = null;
+	public IEmberActivationRecipe cachedRecipe = null;
 
 	public EmberActivatorBottomBlockEntity(BlockPos pPos, BlockState pBlockState) {
 		super(RegistryManager.EMBER_ACTIVATOR_BOTTOM_ENTITY.get(), pPos, pBlockState);

@@ -23,8 +23,8 @@ import com.rekindled.embers.particle.GlowParticleOptions;
 import com.rekindled.embers.particle.SmokeParticleOptions;
 import com.rekindled.embers.particle.SparkParticleOptions;
 import com.rekindled.embers.power.DefaultEmberCapability;
+import com.rekindled.embers.recipe.IStampingRecipe;
 import com.rekindled.embers.recipe.StampingContext;
-import com.rekindled.embers.recipe.StampingRecipe;
 import com.rekindled.embers.util.Misc;
 
 import net.minecraft.client.resources.language.I18n;
@@ -79,7 +79,7 @@ public class StamperBlockEntity extends BlockEntity implements IMechanicallyPowe
 	};
 	public LazyOptional<IItemHandler> holder = LazyOptional.of(() -> stamp);
 	protected List<UpgradeContext> upgrades = new ArrayList<>();
-	public StampingRecipe cachedRecipe = null;
+	public IStampingRecipe cachedRecipe = null;
 
 	public StamperBlockEntity(BlockPos pPos, BlockState pBlockState) {
 		super(RegistryManager.STAMPER_ENTITY.get(), pPos, pBlockState);

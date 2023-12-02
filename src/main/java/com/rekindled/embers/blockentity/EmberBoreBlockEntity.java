@@ -17,7 +17,7 @@ import com.rekindled.embers.api.upgrades.UpgradeContext;
 import com.rekindled.embers.api.upgrades.UpgradeUtil;
 import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.recipe.BoringContext;
-import com.rekindled.embers.recipe.BoringRecipe;
+import com.rekindled.embers.recipe.IBoringRecipe;
 import com.rekindled.embers.util.EmberGenUtil;
 import com.rekindled.embers.util.WeightedItemStack;
 import com.rekindled.embers.util.sound.ISoundController;
@@ -121,7 +121,7 @@ public class EmberBoreBlockEntity extends BlockEntity implements ISoundControlle
 			ResourceKey<Biome> biome = level.getBiome(worldPosition).unwrapKey().get();
 			if (biome != null) {
 				BoringContext context = new BoringContext(level.dimension().location(), biome.location(), worldPosition.getY(), level.getBlockStatesIfLoaded(getBladeBoundingBox()).toArray(i -> new BlockState[i]));
-				List<BoringRecipe> recipes = level.getRecipeManager().getRecipesFor(RegistryManager.BORING.get(), context, level);
+				List<IBoringRecipe> recipes = level.getRecipeManager().getRecipesFor(RegistryManager.BORING.get(), context, level);
 				canMine = !recipes.isEmpty();
 			} else {
 				canMine = false;
@@ -193,12 +193,12 @@ public class EmberBoreBlockEntity extends BlockEntity implements ISoundControlle
 					ResourceKey<Biome> biome = level.getBiome(pos).unwrapKey().get();
 					if (biome != null) {
 						BoringContext context = new BoringContext(level.dimension().location(), biome.location(), pos.getY(), level.getBlockStatesIfLoaded(blockEntity.getBladeBoundingBox()).toArray(i -> new BlockState[i]));
-						List<BoringRecipe> recipes = level.getRecipeManager().getRecipesFor(RegistryManager.BORING.get(), context, level);
+						List<IBoringRecipe> recipes = level.getRecipeManager().getRecipesFor(RegistryManager.BORING.get(), context, level);
 						ArrayList<WeightedItemStack> stacks = new ArrayList<>();
 						float rand = blockEntity.random.nextFloat();
 						double chance = EmberGenUtil.getEmberDensity(((ServerLevel) level).getSeed(), pos.getX(), pos.getZ());
-						for (BoringRecipe recipe : recipes) {
-							if (rand < (recipe.chance == -1.0 ? chance : recipe.chance)) {
+						for (IBoringRecipe recipe : recipes) {
+							if (rand < (recipe.getChance() == -1.0 ? chance : recipe.getChance())) {
 								stacks.add(recipe.getOutput(context));
 							}
 						}

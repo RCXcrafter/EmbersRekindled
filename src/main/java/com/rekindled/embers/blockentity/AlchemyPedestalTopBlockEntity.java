@@ -4,7 +4,7 @@ import java.util.HashSet;
 
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.datagen.EmbersSounds;
-import com.rekindled.embers.recipe.AlchemyRecipe.PedestalContents;
+import com.rekindled.embers.recipe.IAlchemyRecipe.PedestalContents;
 import com.rekindled.embers.util.sound.ISoundController;
 
 import net.minecraft.core.BlockPos;

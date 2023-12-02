@@ -3,7 +3,7 @@ package com.rekindled.embers.compat.jei;
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.recipe.FluidIngredient;
-import com.rekindled.embers.recipe.MixingRecipe;
+import com.rekindled.embers.recipe.IMixingRecipe;
 
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.forge.ForgeTypes;
@@ -19,7 +19,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fluids.FluidType;
 
-public class MixingCategory implements IRecipeCategory<MixingRecipe> {
+public class MixingCategory implements IRecipeCategory<IMixingRecipe> {
 
 	private final IDrawable background;
 	private final IDrawable icon;
@@ -33,7 +33,7 @@ public class MixingCategory implements IRecipeCategory<MixingRecipe> {
 	}
 
 	@Override
-	public RecipeType<MixingRecipe> getRecipeType() {
+	public RecipeType<IMixingRecipe> getRecipeType() {
 		return JEIPlugin.MIXING;
 	}
 
@@ -53,7 +53,7 @@ public class MixingCategory implements IRecipeCategory<MixingRecipe> {
 	}
 
 	@Override
-	public void setRecipe(IRecipeLayoutBuilder builder, MixingRecipe recipe, IFocusGroup focuses) {
+	public void setRecipe(IRecipeLayoutBuilder builder, IMixingRecipe recipe, IFocusGroup focuses) {
 		int count = 0;
 		int capacity = FluidType.BUCKET_VOLUME * 8;
 

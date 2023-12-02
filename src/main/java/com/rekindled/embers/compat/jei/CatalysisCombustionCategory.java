@@ -4,7 +4,7 @@ import java.text.DecimalFormat;
 
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
-import com.rekindled.embers.recipe.CatalysisCombustionRecipe;
+import com.rekindled.embers.recipe.ICatalysisCombustionRecipe;
 import com.rekindled.embers.util.DecimalFormats;
 import com.rekindled.embers.util.Misc;
 
@@ -23,7 +23,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
-public class CatalysisCombustionCategory implements IRecipeCategory<CatalysisCombustionRecipe> {
+public class CatalysisCombustionCategory implements IRecipeCategory<ICatalysisCombustionRecipe> {
 
 	private final IDrawable background;
 	private final IDrawable icon;
@@ -36,7 +36,7 @@ public class CatalysisCombustionCategory implements IRecipeCategory<CatalysisCom
 	}
 
 	@Override
-	public RecipeType<CatalysisCombustionRecipe> getRecipeType() {
+	public RecipeType<ICatalysisCombustionRecipe> getRecipeType() {
 		return JEIPlugin.CATALYSIS_COMBUSTION;
 	}
 
@@ -56,14 +56,14 @@ public class CatalysisCombustionCategory implements IRecipeCategory<CatalysisCom
 	}
 
 	@Override
-	public void setRecipe(IRecipeLayoutBuilder builder, CatalysisCombustionRecipe recipe, IFocusGroup focuses) {
+	public void setRecipe(IRecipeLayoutBuilder builder, ICatalysisCombustionRecipe recipe, IFocusGroup focuses) {
 		builder.addSlot(RecipeIngredientRole.CATALYST, 6, 6).addIngredients(recipe.getDisplayMachine());
 		builder.addSlot(RecipeIngredientRole.INPUT, 6, 24).addIngredients(recipe.getDisplayInput());
 	}
 
 	@SuppressWarnings("resource")
 	@Override
-	public void draw(CatalysisCombustionRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+	public void draw(ICatalysisCombustionRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
 		DecimalFormat multiplierFormat = DecimalFormats.getDecimalFormat(Embers.MODID + ".decimal_format.ember_multiplier");
 		Misc.drawComponents(Minecraft.getInstance().font, guiGraphics, 28, 10, Component.translatable(Embers.MODID + ".jei.recipe.catalysis_combustion.multiplier", multiplierFormat.format(recipe.getDisplayMultiplier())));
 		Misc.drawComponents(Minecraft.getInstance().font, guiGraphics, 28, 28, Component.translatable(Embers.MODID + ".jei.recipe.catalysis_combustion.burn_time", recipe.getDisplayTime()));

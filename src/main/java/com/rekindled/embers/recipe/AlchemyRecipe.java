@@ -20,13 +20,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
 
-public class AlchemyRecipe implements Recipe<AlchemyContext> {
+public class AlchemyRecipe implements IAlchemyRecipe {
 
 	public static final Serializer SERIALIZER = new Serializer();
 
@@ -51,6 +49,7 @@ public class AlchemyRecipe implements Recipe<AlchemyContext> {
 		this.failure = failure;
 	}
 
+	@Override
 	public ArrayList<Ingredient> getCode(long seed) {
 		if (cachedSeed == null || cachedSeed != seed) {
 			code.clear();
@@ -84,6 +83,7 @@ public class AlchemyRecipe implements Recipe<AlchemyContext> {
 		return true;
 	}
 
+	@Override
 	public boolean matchesCorrect(AlchemyContext context, Level pLevel) {
 		getCode(context.seed);
 		if (!tablet.test(context.tablet) || code.size() != context.contents.size())
@@ -155,6 +155,7 @@ public class AlchemyRecipe implements Recipe<AlchemyContext> {
 		return output;
 	}
 
+	@Override
 	public AlchemyResult getResult(AlchemyContext context) {
 		getCode(context.seed);
 		int blackPins = 0;
@@ -200,11 +201,6 @@ public class AlchemyRecipe implements Recipe<AlchemyContext> {
 	}
 
 	@Override
-	public ItemStack getToastSymbol() {
-		return new ItemStack(RegistryManager.ALCHEMY_TABLET_ITEM.get());
-	}
-
-	@Override
 	public ResourceLocation getId() {
 		return id;
 	}
@@ -215,37 +211,28 @@ public class AlchemyRecipe implements Recipe<AlchemyContext> {
 	}
 
 	@Override
-	public RecipeType<?> getType() {
-		return RegistryManager.ALCHEMY.get();
+	public Ingredient getCenterInput() {
+		return tablet;
 	}
 
 	@Override
-	public ItemStack getResultItem(RegistryAccess registry) {
-		return getResultItem();
+	public List<Ingredient> getInputs() {
+		return inputs;
 	}
 
+	@Override
+	public List<Ingredient> getAspects() {
+		return aspects;
+	}
+
+	@Override
 	public ItemStack getResultItem() {
 		return output;
 	}
 
+	@Override
 	public ItemStack getfailureItem() {
 		return failure;
-	}
-
-	@Override
-	@Deprecated
-	public boolean canCraftInDimensions(int width, int height) {
-		return true;
-	}
-
-	public static class PedestalContents {
-		public ItemStack aspect;
-		public ItemStack input;
-
-		public PedestalContents(ItemStack aspect, ItemStack input) {
-			this.aspect = aspect;
-			this.input = input;
-		}
 	}
 
 	public static class Serializer implements RecipeSerializer<AlchemyRecipe> {

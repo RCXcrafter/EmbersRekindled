@@ -3,23 +3,18 @@ package com.rekindled.embers.recipe;
 import org.jetbrains.annotations.Nullable;
 
 import com.google.gson.JsonObject;
-import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.util.Misc;
 
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.fluids.FluidStack;
 
-public class MeltingRecipe implements Recipe<Container> {
+public class MeltingRecipe implements IMeltingRecipe {
 
 	public static final Serializer SERIALIZER = new Serializer(); 
 
@@ -49,14 +44,17 @@ public class MeltingRecipe implements Recipe<Container> {
 		return false;
 	}
 
+	@Override
 	public FluidStack getOutput(Container context) {
 		return output;
 	}
 
+	@Override
 	public FluidStack getBonus() {
 		return bonus;
 	}
 
+	@Override
 	public FluidStack process(Container context) {
 		for (int i = 0; i < context.getContainerSize(); i++) {
 			if (ingredient.test(context.getItem(i))) {
@@ -65,11 +63,6 @@ public class MeltingRecipe implements Recipe<Container> {
 			}
 		}
 		return output;
-	}
-
-	@Override
-	public ItemStack getToastSymbol() {
-		return new ItemStack(RegistryManager.MELTER_ITEM.get());
 	}
 
 	@Override
@@ -83,34 +76,13 @@ public class MeltingRecipe implements Recipe<Container> {
 	}
 
 	@Override
-	public RecipeType<?> getType() {
-		return RegistryManager.MELTING.get();
-	}
-
 	public FluidStack getDisplayOutput() {
 		return output;
 	}
 
+	@Override
 	public Ingredient getDisplayInput() {
 		return ingredient;
-	}
-
-	@Override
-	@Deprecated
-	public ItemStack getResultItem(RegistryAccess registry) {
-		return ItemStack.EMPTY;
-	}
-
-	@Override
-	@Deprecated
-	public ItemStack assemble(Container context, RegistryAccess registry) {
-		return ItemStack.EMPTY;
-	}
-
-	@Override
-	@Deprecated
-	public boolean canCraftInDimensions(int width, int height) {
-		return true;
 	}
 
 	public static class Serializer implements RecipeSerializer<MeltingRecipe> {

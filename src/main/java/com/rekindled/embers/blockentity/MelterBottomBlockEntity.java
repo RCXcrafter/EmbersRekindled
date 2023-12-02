@@ -19,7 +19,7 @@ import com.rekindled.embers.particle.GlowParticleOptions;
 import com.rekindled.embers.particle.SmokeParticleOptions;
 import com.rekindled.embers.particle.SparkParticleOptions;
 import com.rekindled.embers.power.DefaultEmberCapability;
-import com.rekindled.embers.recipe.MeltingRecipe;
+import com.rekindled.embers.recipe.IMeltingRecipe;
 import com.rekindled.embers.util.Misc;
 import com.rekindled.embers.util.sound.ISoundController;
 
@@ -60,7 +60,7 @@ public class MelterBottomBlockEntity extends BlockEntity implements ISoundContro
 	HashSet<Integer> soundsPlaying = new HashSet<>();
 	public boolean isWorking;
 	public List<UpgradeContext> upgrades;
-	public MeltingRecipe cachedRecipe = null;
+	public IMeltingRecipe cachedRecipe = null;
 
 	public MelterBottomBlockEntity(BlockPos pPos, BlockState pBlockState) {
 		super(RegistryManager.MELTER_BOTTOM_ENTITY.get(), pPos, pBlockState);
