@@ -10,9 +10,12 @@ import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.RegistryManager.StoneDecoBlocks;
 import com.rekindled.embers.RegistryManager.ToolSet;
 import com.rekindled.embers.recipe.AlchemyRecipeBuilder;
+import com.rekindled.embers.recipe.AnvilAugmentRecipeBuilder;
+import com.rekindled.embers.recipe.AnvilAugmentRemoveRecipe;
 import com.rekindled.embers.recipe.AnvilBreakdownRecipe;
 import com.rekindled.embers.recipe.AnvilRepairMateriaRecipe;
 import com.rekindled.embers.recipe.AnvilRepairRecipe;
+import com.rekindled.embers.recipe.AugmentIngredient;
 import com.rekindled.embers.recipe.BoilingRecipeBuilder;
 import com.rekindled.embers.recipe.BoringRecipeBuilder;
 import com.rekindled.embers.recipe.CatalysisCombustionRecipeBuilder;
@@ -21,6 +24,7 @@ import com.rekindled.embers.recipe.GaseousFuelRecipeBuilder;
 import com.rekindled.embers.recipe.GemSocketRecipeBuilder;
 import com.rekindled.embers.recipe.GemUnsocketRecipe;
 import com.rekindled.embers.recipe.GenericRecipeBuilder;
+import com.rekindled.embers.recipe.HeatIngredient;
 import com.rekindled.embers.recipe.MeltingRecipeBuilder;
 import com.rekindled.embers.recipe.MetalCoefficientRecipeBuilder;
 import com.rekindled.embers.recipe.MixingRecipeBuilder;
@@ -49,6 +53,8 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.crafting.DifferenceIngredient;
+import net.minecraftforge.common.crafting.IntersectionIngredient;
 import net.minecraftforge.common.crafting.conditions.AndCondition;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
@@ -254,6 +260,10 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		GenericRecipeBuilder.create(new AnvilRepairRecipe(new ResourceLocation(Embers.MODID, anvilFolder + "/tool_repair"))).save(consumer);
 		GenericRecipeBuilder.create(new AnvilRepairMateriaRecipe(new ResourceLocation(Embers.MODID, anvilFolder + "/tool_materia_repair"))).save(consumer);
 		GenericRecipeBuilder.create(new AnvilBreakdownRecipe(new ResourceLocation(Embers.MODID, anvilFolder + "/tool_breakdown"))).save(consumer);
+		GenericRecipeBuilder.create(new AnvilAugmentRemoveRecipe(new ResourceLocation(Embers.MODID, anvilFolder + "/tool_augment_remove"))).save(consumer);
+		AnvilAugmentRecipeBuilder.create(RegistryManager.CORE_AUGMENT).folder(anvilFolder).tool(HeatIngredient.of(Ingredient.of(EmbersItemTags.AUGMENTABLE), true)).input(RegistryManager.ANCIENT_MOTIVE_CORE.get()).save(consumer);
+		AnvilAugmentRecipeBuilder.create(RegistryManager.TINKER_LENS_AUGMENT).folder(anvilFolder).tool(AugmentIngredient.of(DifferenceIngredient.of(Ingredient.of(EmbersItemTags.AUGMENTABLE_HELMETS), Ingredient.of(EmbersItemTags.TINKER_LENS_HELMETS)), RegistryManager.TINKER_LENS_AUGMENT, true)).input(RegistryManager.TINKER_LENS.get()).save(consumer);
+		AnvilAugmentRecipeBuilder.create(RegistryManager.SMOKY_LENS_AUGMENT).folder(anvilFolder).tool(AugmentIngredient.of(IntersectionIngredient.of(Ingredient.of(EmbersItemTags.AUGMENTABLE_HELMETS), Ingredient.of(EmbersItemTags.TINKER_LENS_HELMETS)), RegistryManager.SMOKY_LENS_AUGMENT, true)).input(RegistryManager.SMOKY_TINKER_LENS.get()).save(consumer);
 
 		//special recipes
 		GemSocketRecipeBuilder.create(Tags.Items.STRING).id(new ResourceLocation(Embers.MODID, "gem_socketing")).save(consumer);
@@ -457,6 +467,15 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('P', Tags.Items.GLASS_SILICA)
 		.unlockedBy("has_lead_plate", has(itemTag("forge", "plates/lead")))
 		.save(consumer, getResource("tinker_lens"));
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, RegistryManager.SMOKY_TINKER_LENS.get())
+		.pattern(" A ")
+		.pattern("APA")
+		.pattern(" A ")
+		.define('A', EmbersItemTags.ASH_DUST)
+		.define('P', RegistryManager.TINKER_LENS.get())
+		.unlockedBy("has_ash", has(EmbersItemTags.ASH_DUST))
+		.save(consumer, getResource("smoky_tinker_lens"));
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, RegistryManager.ATMOSPHERIC_GAUGE.get())
 		.pattern(" I ")

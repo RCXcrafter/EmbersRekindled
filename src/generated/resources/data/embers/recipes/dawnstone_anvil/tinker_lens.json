@@ -1,0 +1,22 @@
+{
+  "type": "embers:tool_augment",
+  "augment": "embers:tinker_lens",
+  "input": {
+    "item": "embers:tinker_lens"
+  },
+  "tool": {
+    "type": "embers:has_augment",
+    "augment": "embers:tinker_lens",
+    "base": {
+      "type": "forge:difference",
+      "base": {
+        "tag": "embers:augmentables/armors/helmets"
+      },
+      "subtracted": {
+        "tag": "embers:tinker_lens_helmets"
+      }
+    },
+    "inverted": true,
+    "level": 1
+  }
+}

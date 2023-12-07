@@ -32,6 +32,7 @@ public class EmbersItemModels extends ItemModelProvider {
 
 		itemWithModel(RegistryManager.TINKER_HAMMER, "item/handheld");
 		basicItem(RegistryManager.TINKER_LENS.get());
+		basicItem(RegistryManager.SMOKY_TINKER_LENS.get());
 		basicItem(RegistryManager.ANCIENT_CODEX.get());
 		layeredItem(RegistryManager.EMBER_JAR, "item/generated", "ember_jar_glass", "ember_jar_glass_shine", "ember_jar");
 		layeredItem(RegistryManager.EMBER_CARTRIDGE, "item/generated", "ember_cartridge_glass", "ember_cartridge_glass_shine", "ember_cartridge");

@@ -1,6 +1,7 @@
 package com.rekindled.embers.render;
 
 import java.util.OptionalDouble;
+import java.util.function.Function;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -11,6 +12,7 @@ import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat.Mode;
 import com.rekindled.embers.Embers;
 
+import net.minecraft.Util;
 import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.RenderStateShard;
@@ -79,6 +81,7 @@ public class EmbersRenderTypes extends RenderType {
 	public static final RenderStateShard.ShaderStateShard PTLC_SHADER = new RenderStateShard.ShaderStateShard(GameRenderer::getPositionTexLightmapColorShader);
 	public static final RenderStateShard.ShaderStateShard PTCN_SHADER = new RenderStateShard.ShaderStateShard(GameRenderer::getPositionTexColorNormalShader);
 	public static final RenderStateShard.ShaderStateShard PTC_SHADER = new RenderStateShard.ShaderStateShard(GameRenderer::getPositionTexColorShader);
+	public static final RenderStateShard.ShaderStateShard PT_SHADER = new RenderStateShard.ShaderStateShard(GameRenderer::getPositionTexColorShader);
 
 	//render type used for the crystal cell
 	public static final RenderType CRYSTAL = create(
@@ -146,4 +149,37 @@ public class EmbersRenderTypes extends RenderType {
 			.setWriteMaskState(COLOR_DEPTH_WRITE)
 			.setCullState(NO_CULL)
 			.createCompositeState(false));
+
+	//render type used for the heat bar in tooltips
+	public static final RenderType GLOW_GUI = create(
+			Embers.MODID + ":glow_gui",
+			DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.QUADS, 256, false, false,
+			RenderType.CompositeState.builder()
+			.setShaderState(RENDERTYPE_GUI_SHADER)
+			.setTransparencyState(LIGHTNING_TRANSPARENCY)
+			.setDepthTestState(LEQUAL_DEPTH_TEST)
+			.createCompositeState(false));
+
+	//render type used for the heat bar in tooltips
+	public static final RenderType HEAT_BAR_ENDS = create(
+			Embers.MODID + ":heat_bar_ends",
+			DefaultVertexFormat.POSITION_TEX, VertexFormat.Mode.QUADS, 256, false, false,
+			RenderType.CompositeState.builder()
+			.setShaderState(POSITION_TEX_SHADER)
+			.setTextureState(new RenderStateShard.TextureStateShard(new ResourceLocation(Embers.MODID, "textures/gui/heat_bar.png"), false, false))
+			.setTransparencyState(NO_TRANSPARENCY)
+			.setDepthTestState(LEQUAL_DEPTH_TEST)
+			.createCompositeState(false));
+
+	//render type used for additive blended text
+	public static Function<RenderStateShard.EmptyTextureStateShard, RenderType> GLOW_TEXT = Util.memoize(EmbersRenderTypes::getText);
+	private static RenderType getText(RenderStateShard.EmptyTextureStateShard state) {
+		RenderType.CompositeState rendertype$state = RenderType.CompositeState.builder()
+				.setShaderState(RENDERTYPE_TEXT_SHADER)
+				.setTextureState(state)
+				.setTransparencyState(LIGHTNING_TRANSPARENCY)
+				.setLightmapState(LIGHTMAP)
+				.createCompositeState(false);
+		return create(Embers.MODID + ":glow_text", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP, VertexFormat.Mode.QUADS, 256, false, true, rendertype$state);
+	}
 }

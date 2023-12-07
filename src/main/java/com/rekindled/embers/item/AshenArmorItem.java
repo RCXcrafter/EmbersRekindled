@@ -5,8 +5,8 @@ import java.util.function.Consumer;
 
 import com.google.common.collect.Multimap;
 import com.rekindled.embers.Embers;
+import com.rekindled.embers.api.EmbersAPI;
 import com.rekindled.embers.model.AshenArmorModel;
-import com.rekindled.embers.util.Misc;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -27,7 +27,7 @@ public class AshenArmorItem extends ArmorItem {
 	public AshenArmorItem(ArmorMaterial material, Type type, Properties properties) {
 		super(material, type, properties);
 		if (type == Type.HELMET) {
-			Misc.IS_WEARING_LENS.add((player) -> player.getInventory().armor.get(EquipmentSlot.HEAD.getIndex()).getItem() == AshenArmorItem.this);
+			EmbersAPI.registerWearableLens(this);
 		}
 	}
 

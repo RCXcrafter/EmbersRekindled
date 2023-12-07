@@ -21,6 +21,7 @@ import com.mojang.math.Axis;
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.EmbersClientEvents;
 import com.rekindled.embers.datagen.EmbersSounds;
+import com.rekindled.embers.render.SneakyBufferSourceWrapper;
 import com.rekindled.embers.research.ResearchBase;
 import com.rekindled.embers.research.ResearchCategory;
 import com.rekindled.embers.research.ResearchManager;
@@ -35,6 +36,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
@@ -317,23 +319,28 @@ public class GuiCodex extends Screen {
 		graphics.blit(texture, x, y,textureX,textureY,width,height);
 	}
 
-	/*public static void drawTextGlowingAura(Font font, PoseStack poseStack, FormattedCharSequence s, int x, int y) {
-		float sine = 0.5f*((float)Math.sin(Math.toRadians(4.0f*((float)EventManager.ticks + Minecraft.getMinecraft().getRenderPartialTicks())))+1.0f);
-		String stringColorStripped = s;
-		RenderUtil.drawTextRGBA(font, stringColorStripped, x-1, y, 255, 64+(int)(64*sine), 16, 40);
-		RenderUtil.drawTextRGBA(font, stringColorStripped, x+1, y, 255, 64+(int)(64*sine), 16, 40);
-		RenderUtil.drawTextRGBA(font, stringColorStripped, x, y-1, 255, 64+(int)(64*sine), 16, 40);
-		RenderUtil.drawTextRGBA(font, stringColorStripped, x, y+1, 255, 64+(int)(64*sine), 16, 40);
-		RenderUtil.drawTextRGBA(font, stringColorStripped, x-2, y, 255, 64+(int)(64*sine), 16, 20);
-		RenderUtil.drawTextRGBA(font, stringColorStripped, x+2, y, 255, 64+(int)(64*sine), 16, 20);
-		RenderUtil.drawTextRGBA(font, stringColorStripped, x, y-2, 255, 64+(int)(64*sine), 16, 20);
-		RenderUtil.drawTextRGBA(font, stringColorStripped, x, y+2, 255, 64+(int)(64*sine), 16, 20);
-		RenderUtil.drawTextRGBA(font, stringColorStripped, x-1, y+1, 255, 64+(int)(64*sine), 16, 20);
-		RenderUtil.drawTextRGBA(font, stringColorStripped, x+1, y-1, 255, 64+(int)(64*sine), 16, 20);
-		RenderUtil.drawTextRGBA(font, stringColorStripped, x-1, y-1, 255, 64+(int)(64*sine), 16, 20);
-		RenderUtil.drawTextRGBA(font, stringColorStripped, x+1, y+1, 255, 64+(int)(64*sine), 16, 20);
-		font.drawString(s, x, y, Misc.intColor(255, 64+(int)(64*sine), 16));
-	}*/
+	public static void drawTextGlowingAura(Font font, GuiGraphics graphics, FormattedCharSequence s, int x, int y) {
+		float sine = 0.5f*((float)Math.sin(Math.toRadians(4.0f*((float)EmbersClientEvents.ticks + Minecraft.getInstance().getPartialTick())))+1.0f);
+		Matrix4f matrix = graphics.pose().last().pose();
+		MultiBufferSource buffer = new SneakyBufferSourceWrapper(graphics.bufferSource());
+
+		int shadowColor = Misc.intColor(40, 255, 64+(int)(64*sine), 16);
+		font.drawInBatch(s, x-1, y, shadowColor, false, matrix, buffer, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
+		font.drawInBatch(s, x-1, y, shadowColor, false, matrix, buffer, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
+		font.drawInBatch(s, x+1, y, shadowColor, false, matrix, buffer, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
+		font.drawInBatch(s, x, y-1, shadowColor, false, matrix, buffer, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
+		font.drawInBatch(s, x, y+1, shadowColor, false, matrix, buffer, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
+		int shadowColor2 = Misc.intColor(40, 127, 32+(int)(32*sine), 8);
+		font.drawInBatch(s, x-2, y, shadowColor2, false, matrix, buffer, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
+		font.drawInBatch(s, x+2, y, shadowColor2, false, matrix, buffer, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
+		font.drawInBatch(s, x, y-2, shadowColor2, false, matrix, buffer, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
+		font.drawInBatch(s, x, y+2, shadowColor2, false, matrix, buffer, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
+		font.drawInBatch(s, x-1, y+1, shadowColor2, false, matrix, buffer, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
+		font.drawInBatch(s, x+1, y-1, shadowColor2, false, matrix, buffer, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
+		font.drawInBatch(s, x-1, y-1, shadowColor2, false, matrix, buffer, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
+		font.drawInBatch(s, x+1, y+1, shadowColor2, false, matrix, buffer, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
+		font.drawInBatch(s, x, y, Misc.intColor(255, 64+(int)(64*sine), 16), false, matrix, buffer, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
+	}
 
 	/*public static void drawTextGlowingAuraTransparent(Font font, PoseStack poseStack, FormattedCharSequence s, int x, int y, int r, int g, int b, int a) {
 		GlStateManager.blendFunc(SourceFactor.SRC_ALPHA, DestFactor.ONE);

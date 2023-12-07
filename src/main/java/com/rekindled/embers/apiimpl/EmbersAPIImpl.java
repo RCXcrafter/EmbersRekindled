@@ -8,6 +8,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import com.rekindled.embers.api.EmbersAPI;
 import com.rekindled.embers.api.IEmbersAPI;
+import com.rekindled.embers.api.augment.AugmentUtil;
 import com.rekindled.embers.api.upgrades.UpgradeUtil;
 import com.rekindled.embers.util.EmberGenUtil;
 import com.rekindled.embers.util.EmberInventoryUtil;
@@ -27,7 +28,7 @@ public class EmbersAPIImpl implements IEmbersAPI {
 
 	public static void init() {
 		EmbersAPI.IMPL = new EmbersAPIImpl();
-		//ItemModUtil.IMPL = new ItemModUtilImpl();
+		AugmentUtil.IMPL = new AugmentUtilImpl();
 		UpgradeUtil.IMPL = new UpgradeUtilImpl();
 	}
 

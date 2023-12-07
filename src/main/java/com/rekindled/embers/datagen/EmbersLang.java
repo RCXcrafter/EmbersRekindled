@@ -7,6 +7,7 @@ import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.RegistryManager.FluidStuff;
 import com.rekindled.embers.RegistryManager.StoneDecoBlocks;
 import com.rekindled.embers.RegistryManager.ToolSet;
+import com.rekindled.embers.api.augment.IAugment;
 
 import net.minecraft.data.PackOutput;
 import net.minecraft.sounds.SoundEvent;
@@ -124,6 +125,7 @@ public class EmbersLang extends LanguageProvider {
 
 		addItem(RegistryManager.TINKER_HAMMER, "Tinker's Hammer");
 		addItem(RegistryManager.TINKER_LENS, "Tinker's Lens");
+		addItem(RegistryManager.SMOKY_TINKER_LENS, "Smoky Tinker's Lens");
 		addItem(RegistryManager.ANCIENT_CODEX, "Ancient Codex");
 		addItem(RegistryManager.EMBER_JAR, "Ember Jar");
 		addItem(RegistryManager.EMBER_CARTRIDGE, "Ember Cartridge");
@@ -209,6 +211,11 @@ public class EmbersLang extends LanguageProvider {
 
 		addItem(RegistryManager.ANCIENT_GOLEM_SPAWN_EGG, "Ancient Golem Spawn Egg");
 		addEntityType(RegistryManager.ANCIENT_GOLEM, "Ancient Golem");
+
+
+		//augments
+		addAugment(RegistryManager.TINKER_LENS_AUGMENT, "Tinker's Sight", true);
+		addAugment(RegistryManager.SMOKY_LENS_AUGMENT, "Tinker's Blindness", true);
 
 
 		//text
@@ -301,6 +308,19 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".tooltip.broken", "Broken");
 		add(Embers.MODID + ".tooltip.inflictor", "Attuned Damage: %s");
 		add(Embers.MODID + ".tooltip.inflictor.none", "Attuned Damage: none");
+
+		add(Embers.MODID + ".tooltip.num1", "I");
+		add(Embers.MODID + ".tooltip.num2", "II");
+		add(Embers.MODID + ".tooltip.num3", "III");
+		add(Embers.MODID + ".tooltip.num4", "IV");
+		add(Embers.MODID + ".tooltip.num5", "V");
+		add(Embers.MODID + ".tooltip.num6", "VI");
+		add(Embers.MODID + ".tooltip.num7", "VII");
+		add(Embers.MODID + ".tooltip.numstop", "Stop That");
+
+		add(Embers.MODID + ".tooltip.heat_amount", "Heat:");
+		add(Embers.MODID + ".tooltip.heat_level", "Level: ");
+		add(Embers.MODID + ".tooltip.augments", "Augments:");
 
 
 		//jei stuff
@@ -829,66 +849,66 @@ public class EmbersLang extends LanguageProvider {
 
 
 
-		add(Embers.MODID + ".research.page.modifiers", "Attaching Modifiers");
-		add(Embers.MODID + ".research.page.modifiers.title", "Upgrades");
-		add(Embers.MODID + ".research.page.modifiers.tags", "Modifier;Augment;Anvil;Hammer;Level;Tool;Weapon;Armor;");
-		add(Embers.MODID + ".research.page.modifiers.desc", "You believe that with sufficiently advanced mechanisms, you may be able to create devices that grant additional abilities to your equipment. These items can be applied to armor, tools, or weapons, and must be hammered on at a Dawnstone Anvil. Place the original item down, then the modifier, then hammer away. Modifiers have levels, which will boost their power.");
+		add(Embers.MODID + ".research.page.augments", "Attaching Augments");
+		add(Embers.MODID + ".research.page.augments.title", "Upgrades");
+		add(Embers.MODID + ".research.page.augments.tags", "Modifier;Augment;Anvil;Hammer;Level;Tool;Weapon;Armor;");
+		add(Embers.MODID + ".research.page.augments.desc", "You believe that with sufficiently advanced mechanisms, you may be able to create devices that grant additional abilities to your equipment. These items can be applied to armor, tools, or weapons, and must be hammered on at a Dawnstone Anvil. Place the original item down, then the augment, then hammer away. Augments have levels, which will boost their power.");
 
 		add(Embers.MODID + ".research.page.heat", "Heat");
 		add(Embers.MODID + ".research.page.heat.title", "Well Worn");
 		add(Embers.MODID + ".research.page.heat.tags", "Modifier;Augment;Anvil;Hammer;Level;Tool;Weapon;Armor;Heat;Core;Archaic;Ancient;Motive;");
-		add(Embers.MODID + ".research.page.heat.desc", "Just as you used the Dawnstone Anvil to break apart items or repair them, you can also use it to attach modifiers to equipment. Place a tool, sword, or armor piece on the anvil, then place an Ancient Motive Core on the anvil. When the hammer swings down, the tool will gain the ability to absorb heat. This heat is accrued through normal use of the tool.");
+		add(Embers.MODID + ".research.page.heat.desc", "Just as you used the Dawnstone Anvil to break apart items or repair them, you can also use it to attach augments to equipment. Place a tool, sword, or armor piece on the anvil, then place an Ancient Motive Core on the anvil. When the hammer swings down, the tool will gain the ability to absorb heat. This heat is accrued through normal use of the tool.");
 
-		add(Embers.MODID + ".research.page.dismantling", "Detaching Modifiers");
+		add(Embers.MODID + ".research.page.dismantling", "Detaching Augments");
 		add(Embers.MODID + ".research.page.dismantling.title", "We have to go back");
 		add(Embers.MODID + ".research.page.dismantling.tags", "Modifier;Augment;Anvil;Hammer;Level;Tool;Weapon;Armor;Remove;Detach;Break;");
-		add(Embers.MODID + ".research.page.dismantling.desc", "Sometimes you might add an augment to a tool or armor and eventually find that it no longer suits you. Augments are not permanent additions however, and the Dawnstone Anvil can help you deal with that. By placing the tool or armor on the anvil without an item on top and hammering it, you can remove all modifiers for no cost. The core itself and its accumulated heat will always remain on the tool however, and such tools cannot be completely destroyed.");
+		add(Embers.MODID + ".research.page.dismantling.desc", "Sometimes you might add an augment to a tool or armor and eventually find that it no longer suits you. Augments are not permanent additions however, and the Dawnstone Anvil can help you deal with that. By placing the tool or armor on the anvil without an item on top and hammering it, you can remove all augments for no cost. The core itself and its accumulated heat will always remain on the tool however, and such tools cannot be broken down.");
 
 		add(Embers.MODID + ".research.page.inferno_forge", "Inferno Forge");
 		add(Embers.MODID + ".research.page.inferno_forge.title", "Leveling Up");
 		add(Embers.MODID + ".research.page.inferno_forge.tags", "Modifier;Augment;Anvil;Hammer;Level;Tool;Weapon;Armor;Heat;Inferno;Forge;Machine;Multiblock;Multi Block;");
-		add(Embers.MODID + ".research.page.inferno_forge.desc", "Once the Heat bar of an item has filled up, it must be tempered. When supplied with Ember power, the Inferno Forge can do just this. Open up the hatch on top, toss in your Heat-filled item, as well as some crystalline Ember. The more Ember crystal you put in, the more likely you will succeed. Once you level up the item, you grant it a modifier slot. Modifiers can then be attached to the item at the Dawnstone Anvil, up to the level of the item.");
+		add(Embers.MODID + ".research.page.inferno_forge.desc", "Once the Heat bar of an item has filled up, it must be tempered. When supplied with Ember power, the Inferno Forge can do just this. Open up the hatch on top, toss in your Heat-filled item, as well as some crystalline Ember. The more Ember crystal you put in, the more likely you will succeed. Once you level up the item, you grant it an augment slot. Augments can then be attached to the item at the Dawnstone Anvil, up to the level of the item.");
 
 		add(Embers.MODID + ".research.page.superheater", "Superheater");
 		add(Embers.MODID + ".research.page.superheater.title", "Heating Up");
 		add(Embers.MODID + ".research.page.superheater.tags", "Modifier;Augment;Tool;Weapon;Armor;Smelt;Cook;");
-		add(Embers.MODID + ".research.page.superheater.desc", "The Superheater is a simple augment that can be applied to items that have accrued Heat. When applied, all broken blocks and dropped items from creatures will be cooked automatically, and additional damage will be added to the item as it burns targets. The higher the modifier level, the higher the burning damage. It will require accessible Ember in your inventory to function.");
+		add(Embers.MODID + ".research.page.superheater.desc", "The Superheater is a simple augment that can be applied to items that have accrued Heat. When applied, all broken blocks and dropped items from creatures will be cooked automatically, and additional damage will be added to the item as it burns targets. The higher the augment level, the higher the burning damage. It will require accessible Ember in your inventory to function.");
 
 		add(Embers.MODID + ".research.page.cinder_jet", "Cinder Jet");
 		add(Embers.MODID + ".research.page.cinder_jet.title", "Dashing Forward");
 		add(Embers.MODID + ".research.page.cinder_jet.tags", "Modifier;Augment;Armor;Dash;Jet;Cinder;");
-		add(Embers.MODID + ".research.page.cinder_jet.desc", "The Cinder Jet is an armor augment that allows you to perform a dash. When applied, whenever you begin to sprint and enough Ember is accessible from the inventory, it will propel its vessel forth with increasing velocity depending on its modifier level.");
+		add(Embers.MODID + ".research.page.cinder_jet.desc", "The Cinder Jet is an armor augment that allows you to perform a dash. When applied, whenever you begin to sprint and enough Ember is accessible from the inventory, it will propel its vessel forth with increasing velocity depending on its augment level.");
 
 		add(Embers.MODID + ".research.page.blasting_core", "Blasting Core");
 		add(Embers.MODID + ".research.page.blasting_core.title", "Volatile");
 		add(Embers.MODID + ".research.page.blasting_core.tags", "Modifier;Augment;Tool;Weapon;Armor;Explosion;");
-		add(Embers.MODID + ".research.page.blasting_core.desc", "The Blasting Core is an augment that creates explosions. When applied to tools, it will break nearby blocks whenever a block is broken with the tool. When applied to weapons, an explosion will occur and damage nearby creatures. When applied to armors, an explosion will occur when the armor sustains damage and blow back nearby creatures. All three effects increase in power with modifier level.");
+		add(Embers.MODID + ".research.page.blasting_core.desc", "The Blasting Core is an augment that creates explosions. When applied to tools, it will break nearby blocks whenever a block is broken with the tool. When applied to weapons, an explosion will occur and damage nearby creatures. When applied to armors, an explosion will occur when the armor sustains damage and blow back nearby creatures. All three effects increase in power with augment level.");
 
 		add(Embers.MODID + ".research.page.caster_orb", "Caster Orb");
 		add(Embers.MODID + ".research.page.caster_orb.title", "Ember Launcher");
 		add(Embers.MODID + ".research.page.caster_orb.tags", "Modifier;Augment;Tool;Weapon;Projectile;Missile;");
-		add(Embers.MODID + ".research.page.caster_orb.desc", "The Caster Orb is a tool and weapon augment that creates projectiles of activated Ember. Whenever an item with this augment is swung, and sufficient Ember is accessible in the inventory, a small projectile of Ember will be fired forth. The size and damage of this projectile increase with modifier level.");
+		add(Embers.MODID + ".research.page.caster_orb.desc", "The Caster Orb is a tool and weapon augment that creates projectiles of activated Ember. Whenever an item with this augment is swung, and sufficient Ember is accessible in the inventory, a small projectile of Ember will be fired forth. The size and damage of this projectile increase with augment level.");
 		add(Embers.MODID + ".research.page.caster_orb_addendum.desc", "Since the Caster Orb allows tools and weapons to shoot projectiles made of Ember, a tool or weapon augmented with it can also accept augments that modify projectiles.");
 
 		add(Embers.MODID + ".research.page.flame_barrier", "Flame Barrier");
 		add(Embers.MODID + ".research.page.flame_barrier.title", "Fiery Defenses");
 		add(Embers.MODID + ".research.page.flame_barrier.tags", "Modifier;Augment;Armor;Fire;Shield;Barrier;Defense;");
-		add(Embers.MODID + ".research.page.flame_barrier.desc", "The Flame Barrier is an armor augment that creates a shield of flames around the wearer when struck. Upon taking a hit, if this augment is present on a player's armor, the attacker will be ignited and take some damage. Each flame blast requires some Ember. This damage increases with modifier level.");
+		add(Embers.MODID + ".research.page.flame_barrier.desc", "The Flame Barrier is an armor augment that creates a shield of flames around the wearer when struck. Upon taking a hit, if this augment is present on a player's armor, the attacker will be ignited and take some damage. Each flame blast requires some Ember. This damage increases with augment level.");
 
 		add(Embers.MODID + ".research.page.eldritch_insignia", "Eldritch Insignia");
 		add(Embers.MODID + ".research.page.eldritch_insignia.title", "Eerie Mark");
 		add(Embers.MODID + ".research.page.eldritch_insignia.tags", "Modifier;Augment;Armor;Fear;Eerie;");
-		add(Embers.MODID + ".research.page.eldritch_insignia.desc", "While the Eldritch Insignia augment is placed on your armor, certain mobs will become afraid of you. You will gain the ability to intimidate creatures that would otherwise attack into submission, only to attack back if provoked. The proportion of creatures that will fear the bearer of these symbols increases with modifier level.");
+		add(Embers.MODID + ".research.page.eldritch_insignia.desc", "While the Eldritch Insignia augment is placed on your armor, certain mobs will become afraid of you. You will gain the ability to intimidate creatures that would otherwise attack into submission, only to attack back if provoked. The proportion of creatures that will fear the bearer of these symbols increases with augment level.");
 
 		add(Embers.MODID + ".research.page.intelligent_apparatus", "Intelligent Apparatus");
 		add(Embers.MODID + ".research.page.intelligent_apparatus.title", "Fallen Wisdom");
 		add(Embers.MODID + ".research.page.intelligent_apparatus.tags", "Modifier;Augment;Armor;Experience;Wisdom;");
-		add(Embers.MODID + ".research.page.intelligent_apparatus.desc", "The Intelligent Apparatus is a simple armor augment that boosts experience obtained from creatures slain by the wearer of such augmented armor. The amount of additional experience dropped increases with modifier level.");
+		add(Embers.MODID + ".research.page.intelligent_apparatus.desc", "The Intelligent Apparatus is a simple armor augment that boosts experience obtained from creatures slain by the wearer of such augmented armor. The amount of additional experience dropped increases with augment level.");
 
 		add(Embers.MODID + ".research.page.resonating_bell", "Resonating Bell");
 		add(Embers.MODID + ".research.page.resonating_bell.title", "Vibrations");
 		add(Embers.MODID + ".research.page.resonating_bell.tags", "Modifier;Augment;Tool;Weapon;Light;Bell;");
-		add(Embers.MODID + ".research.page.resonating_bell.desc", "The Resonating Bell allows a tool or weapon to ring through blocks and find particular objects. By right-clicking on a block, nearby blocks of that type will illuminate with glowing light, unless the block was already a very significant part of nearby material. The area the resonation effects increases with modifier level.");
+		add(Embers.MODID + ".research.page.resonating_bell.desc", "The Resonating Bell allows a tool or weapon to ring through blocks and find particular objects. By right-clicking on a block, nearby blocks of that type will illuminate with glowing light, unless the block was already a very significant part of nearby material. The area the resonation effects increases with augment level.");
 
 		add(Embers.MODID + ".research.page.tinker_lens_augment", "Tinker's Lens");
 		add(Embers.MODID + ".research.page.tinker_lens_augment.title", "What's What");
@@ -1049,5 +1069,13 @@ public class EmbersLang extends LanguageProvider {
 		addItem(set.PICKAXE, name + " Pickaxe");
 		addItem(set.AXE, name + " Axe");
 		addItem(set.HOE, name + " Hoe");
+	}
+
+	public void addAugment(IAugment augment, String name) {
+		addAugment(augment, name, false);
+	}
+
+	public void addAugment(IAugment augment, String name, boolean singleLevel) {
+		add(Embers.MODID + ".tooltip.augment." + augment.getName().toLanguageKey(), name + (singleLevel ? "" : " %s"));
 	}
 }

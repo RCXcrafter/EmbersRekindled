@@ -2,14 +2,19 @@ package com.rekindled.embers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.tuple.Pair;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.datafixers.util.Either;
 import com.mojang.math.Axis;
+import com.rekindled.embers.api.augment.AugmentUtil;
+import com.rekindled.embers.api.augment.IAugment;
 import com.rekindled.embers.api.block.IDial;
 import com.rekindled.embers.api.capabilities.EmbersCapabilities;
+import com.rekindled.embers.api.event.InfoGogglesEvent;
 import com.rekindled.embers.api.power.IEmberCapability;
 import com.rekindled.embers.api.power.IEmberPacketReceiver;
 import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
@@ -21,8 +26,11 @@ import com.rekindled.embers.blockentity.render.StamperBlockEntityRenderer;
 import com.rekindled.embers.datagen.EmbersBlockTags;
 import com.rekindled.embers.render.EmbersRenderTypes;
 import com.rekindled.embers.util.EmberGenUtil;
+import com.rekindled.embers.util.GlowingTextTooltip;
+import com.rekindled.embers.util.HeatBarTooltip;
 import com.rekindled.embers.util.Misc;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -35,6 +43,7 @@ import net.minecraft.client.resources.model.ModelBakery.ModelBakerImpl;
 import net.minecraft.client.resources.model.UnbakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
@@ -49,8 +58,10 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.client.event.RenderHighlightEvent;
 import net.minecraftforge.client.event.RenderLevelStageEvent;
+import net.minecraftforge.client.event.RenderTooltipEvent;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.event.TickEvent.ClientTickEvent;
@@ -196,10 +207,14 @@ public class EmbersClientEvents {
 						text.addAll(((IDial) state.getBlock()).getDisplayInfo(world, result.getBlockPos(), state, (height / 2 - 100) / 11));
 					} else if (state.getBlock() == RegistryManager.ATMOSPHERIC_GAUGE.get()) {
 						renderAtmosphericGauge(gui, graphics, player, partialTicks, width, height);
-					} else if (Misc.isWearingLens(player)) {
-						BlockEntity tileEntity = world.getBlockEntity(result.getBlockPos());
-						if (tileEntity != null) {
-							addCapabilityInformation(text, state, tileEntity, facing);
+					} else {
+						InfoGogglesEvent event = new InfoGogglesEvent(player, Misc.isWearingLens(player));
+						MinecraftForge.EVENT_BUS.post(event);
+						if (event.shouldDisplay()) {
+							BlockEntity tileEntity = world.getBlockEntity(result.getBlockPos());
+							if (tileEntity != null) {
+								addCapabilityInformation(text, state, tileEntity, facing);
+							}
 						}
 					}
 					if (!text.isEmpty()) {
@@ -331,5 +346,31 @@ public class EmbersClientEvents {
 		ModelBakerImpl bakerImpl = bakery.new ModelBakerImpl((modelLoc, material) -> material.sprite(), location);
 		UnbakedModel model = bakery.getModel(location);
 		return model.bake(bakerImpl, Material::sprite, BlockModelRotation.X0_Y0, location);
+	}
+
+	public static void onTooltip(RenderTooltipEvent.GatherComponents event) {
+		if (AugmentUtil.hasHeat(event.getItemStack())) {
+			event.getTooltipElements().add(Either.left(Component.empty()));
+			if (AugmentUtil.getLevel(event.getItemStack()) > 0) {
+				event.getTooltipElements().add(Either.right(new GlowingTextTooltip(Component.translatable(Embers.MODID + ".tooltip.heat_level").withStyle(ChatFormatting.GRAY).getVisualOrderText(), Component.literal("" + AugmentUtil.getLevel(event.getItemStack())).getVisualOrderText())));
+			}
+			event.getTooltipElements().add(Either.right(new HeatBarTooltip(Component.translatable(Embers.MODID + ".tooltip.heat_amount").withStyle(ChatFormatting.GRAY).getVisualOrderText(), AugmentUtil.getHeat(event.getItemStack()), AugmentUtil.getMaxHeat(event.getItemStack()))));
+			List<IAugment> augments = AugmentUtil.getAugments(event.getItemStack()).stream().filter(x -> x.shouldRenderTooltip()).collect(Collectors.toList());
+			if (augments.size() > 0) {
+				event.getTooltipElements().add(Either.left(Component.translatable(Embers.MODID + ".tooltip.augments").withStyle(ChatFormatting.GRAY)));
+				for (IAugment augment : augments) {
+					int level = AugmentUtil.getAugmentLevel(event.getItemStack(), augment);
+					event.getTooltipElements().add(Either.right(new GlowingTextTooltip(Component.translatable(Embers.MODID + ".tooltip.augment." + augment.getName().toLanguageKey(), Component.translatable(getFormattedModifierLevel(level))).getVisualOrderText())));
+				}
+			}
+		}
+	}
+
+	public static String getFormattedModifierLevel(int level) {
+		String key = Embers.MODID + ".tooltip.num" + level;
+		if (I18n.exists(key))
+			return key;
+		else
+			return Embers.MODID + ".tooltip.numstop";
 	}
 }

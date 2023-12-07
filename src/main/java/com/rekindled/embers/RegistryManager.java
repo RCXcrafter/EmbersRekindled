@@ -3,6 +3,7 @@ package com.rekindled.embers;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -11,6 +12,10 @@ import java.util.function.Supplier;
 import javax.annotation.Nullable;
 
 import com.mojang.serialization.Codec;
+import com.rekindled.embers.api.augment.AugmentUtil;
+import com.rekindled.embers.api.augment.IAugment;
+import com.rekindled.embers.augment.CoreAugment;
+import com.rekindled.embers.augment.TinkerLensAugment;
 import com.rekindled.embers.block.AlchemyPedestalBlock;
 import com.rekindled.embers.block.AlchemyTabletBlock;
 import com.rekindled.embers.block.ArchaicLightBlock;
@@ -176,6 +181,8 @@ import com.rekindled.embers.particle.StarParticleOptions;
 import com.rekindled.embers.particle.TyrfingParticleOptions;
 import com.rekindled.embers.particle.VaporParticleOptions;
 import com.rekindled.embers.recipe.AlchemyRecipe;
+import com.rekindled.embers.recipe.AnvilAugmentRecipe;
+import com.rekindled.embers.recipe.AnvilAugmentRemoveRecipe;
 import com.rekindled.embers.recipe.AnvilBreakdownRecipe;
 import com.rekindled.embers.recipe.AnvilRepairMateriaRecipe;
 import com.rekindled.embers.recipe.AnvilRepairRecipe;
@@ -218,6 +225,7 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
@@ -291,6 +299,8 @@ public class RegistryManager {
 	public static final DeferredRegister<MenuType<?>> MENU_TYPES = DeferredRegister.create(ForgeRegistries.MENU_TYPES, Embers.MODID);
 	public static final DeferredRegister<StructureType<?>> STRUCTURE_TYPES = DeferredRegister.create(Registries.STRUCTURE_TYPE, Embers.MODID);
 	public static final DeferredRegister<StructureProcessorType<?>> STRUCTURE_PROCESSOR_TYPES = DeferredRegister.create(Registries.STRUCTURE_PROCESSOR, Embers.MODID);
+
+	public static Map<ResourceLocation, IAugment> augmentRegistry = new HashMap<ResourceLocation, IAugment>();
 
 	public static List<FluidStuff> fluidList = new ArrayList<FluidStuff>();
 
@@ -525,6 +535,7 @@ public class RegistryManager {
 	//items
 	public static final RegistryObject<Item> TINKER_HAMMER = ITEMS.register("tinker_hammer", () -> new TinkerHammerItem(new Item.Properties().stacksTo(1)));
 	public static final RegistryObject<Item> TINKER_LENS = ITEMS.register("tinker_lens", () -> new TinkerLensItem(new Item.Properties().stacksTo(1)));
+	public static final RegistryObject<Item> SMOKY_TINKER_LENS = ITEMS.register("smoky_tinker_lens", () -> new Item(new Item.Properties().stacksTo(1)));
 	public static final RegistryObject<Item> ANCIENT_CODEX = ITEMS.register("ancient_codex", () -> new AncientCodexItem(new Item.Properties().stacksTo(1)));
 	public static final RegistryObject<Item> ATMOSPHERIC_GAUGE_ITEM = ITEMS.register("atmospheric_gauge", () -> new BlockItem(ATMOSPHERIC_GAUGE.get(), new Item.Properties().stacksTo(1)));
 	public static final RegistryObject<Item> EMBER_JAR = ITEMS.register("ember_jar", () -> new EmberJarItem(new Item.Properties().stacksTo(1)));
@@ -772,6 +783,11 @@ public class RegistryManager {
 	//spawn eggs
 	public static final RegistryObject<Item> ANCIENT_GOLEM_SPAWN_EGG = ITEMS.register("ancient_golem_spawn_egg", () -> new ForgeSpawnEggItem(ANCIENT_GOLEM, Misc.intColor(48, 38, 35), Misc.intColor(79, 66, 61), new Item.Properties()));
 
+	//augments
+	public static final IAugment CORE_AUGMENT = AugmentUtil.registerAugment(new CoreAugment());
+	public static final IAugment TINKER_LENS_AUGMENT = AugmentUtil.registerAugment(new TinkerLensAugment(new ResourceLocation(Embers.MODID, "tinker_lens"), false));
+	public static final IAugment SMOKY_LENS_AUGMENT = AugmentUtil.registerAugment(new TinkerLensAugment(new ResourceLocation(Embers.MODID, "smoky_tinker_lens"), true));
+
 	//particle types
 	public static final RegistryObject<ParticleType<GlowParticleOptions>> GLOW_PARTICLE = registerParticle("glow", false, GlowParticleOptions.DESERIALIZER, GlowParticleOptions.CODEC);
 	public static final RegistryObject<ParticleType<StarParticleOptions>> STAR_PARTICLE = registerParticle("star", false, StarParticleOptions.DESERIALIZER, StarParticleOptions.CODEC);
@@ -810,6 +826,8 @@ public class RegistryManager {
 	public static final RegistryObject<RecipeSerializer<AnvilRepairRecipe>> TOOL_REPAIR = RECIPE_SERIALIZERS.register("tool_repair", () -> AnvilRepairRecipe.SERIALIZER);
 	public static final RegistryObject<RecipeSerializer<AnvilRepairMateriaRecipe>> MATERIA_REPAIR = RECIPE_SERIALIZERS.register("tool_materia_repair", () -> AnvilRepairMateriaRecipe.SERIALIZER);
 	public static final RegistryObject<RecipeSerializer<AnvilBreakdownRecipe>> TOOL_BREAKDOWN = RECIPE_SERIALIZERS.register("tool_breakdown", () -> AnvilBreakdownRecipe.SERIALIZER);
+	public static final RegistryObject<RecipeSerializer<AnvilAugmentRecipe>> TOOL_AUGMENT = RECIPE_SERIALIZERS.register("tool_augment", () -> AnvilAugmentRecipe.SERIALIZER);
+	public static final RegistryObject<RecipeSerializer<AnvilAugmentRemoveRecipe>> TOOL_AUGMENT_REMOVE = RECIPE_SERIALIZERS.register("tool_augment_remove", () -> AnvilAugmentRemoveRecipe.SERIALIZER);
 
 	//loot modifiers
 	public static final RegistryObject<Codec<GrandhammerLootModifier>> GRANDHAMMER_MODIFIER = LOOT_MODIFIERS.register("grandhammer", () -> GrandhammerLootModifier.CODEC);

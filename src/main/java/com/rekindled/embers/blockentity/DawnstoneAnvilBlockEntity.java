@@ -1,5 +1,6 @@
 package com.rekindled.embers.blockentity;
 
+import java.util.List;
 import java.util.Random;
 
 import com.rekindled.embers.ConfigManager;
@@ -119,15 +120,17 @@ public class DawnstoneAnvilBlockEntity extends BlockEntity implements IHammerabl
 			level.playSound(null, worldPosition, SoundEvents.ANVIL_LAND, SoundSource.BLOCKS, 0.25f, 2.0f+random.nextFloat());
 			if (progress > ConfigManager.DAWNSTONE_ANVIL_MAX_HITS.get()) {
 				progress = 0;
-				ItemStack result = cachedRecipe.assemble(context, level.registryAccess());
-				BlockEntity bin = level.getBlockEntity(worldPosition.below());
-				if (bin instanceof IBin) {
-					ItemStack remainder = ((IBin) bin).getInventory().insertItem(0, result, false);
-					if (!remainder.isEmpty() && !level.isClientSide()) {
-						level.addFreshEntity(new ItemEntity(level, worldPosition.getX()+0.5,worldPosition.getY()+1.0625f,worldPosition.getZ()+0.5, remainder));
+				List<ItemStack> results = cachedRecipe.getOutput(context);
+				for (ItemStack result : results) {
+					BlockEntity bin = level.getBlockEntity(worldPosition.below());
+					if (bin instanceof IBin) {
+						ItemStack remainder = ((IBin) bin).getInventory().insertItem(0, result, false);
+						if (!remainder.isEmpty() && !level.isClientSide()) {
+							level.addFreshEntity(new ItemEntity(level, worldPosition.getX()+0.5,worldPosition.getY()+1.0625f,worldPosition.getZ()+0.5, remainder));
+						}
+					} else if (!level.isClientSide()) {
+						level.addFreshEntity(new ItemEntity(level, worldPosition.getX()+0.5,worldPosition.getY()+1.0625f,worldPosition.getZ()+0.5, result));
 					}
-				} else if (!level.isClientSide()) {
-					level.addFreshEntity(new ItemEntity(level, worldPosition.getX()+0.5,worldPosition.getY()+1.0625f,worldPosition.getZ()+0.5, result));
 				}
 				//the recipe is not responsible for removing items from the inventory
 				inventory.setStackInSlot(0, ItemStack.EMPTY);

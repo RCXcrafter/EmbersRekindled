@@ -4,14 +4,12 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import org.apache.commons.lang3.tuple.Pair;
-
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.EmbersClientEvents;
+import com.rekindled.embers.api.EmbersAPI;
 import com.rekindled.embers.api.power.IEmberPacketProducer;
 import com.rekindled.embers.api.power.IEmberPacketReceiver;
 import com.rekindled.embers.api.tile.ITargetable;
-import com.rekindled.embers.util.Misc;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -33,20 +31,8 @@ public class TinkerHammerItem extends Item {
 
 	public TinkerHammerItem(Properties pProperties) {
 		super(pProperties);
-		Misc.IS_HOLDING_HAMMER.add((player, hand) -> player.getItemInHand(hand).getItem() == TinkerHammerItem.this);
-		Misc.GET_HAMMER_TARGET.add(player -> {
-			ItemStack stack = player.getMainHandItem();
-			if (stack.getItem() != TinkerHammerItem.this) {
-				stack = player.getOffhandItem();
-			}
-			if (stack.getItem() == TinkerHammerItem.this && stack.hasTag()) {	
-				CompoundTag nbt = stack.getTag();
-				if (stack.hasTag() && nbt.contains("targetWorld") && player.level().dimension().location().toString().equals(nbt.getString("targetWorld"))) {
-					return Pair.of(new BlockPos(nbt.getInt("targetX"), nbt.getInt("targetY"), nbt.getInt("targetZ")), Direction.byName(nbt.getString("targetFace")));
-				}
-			}
-			return null;
-		});
+		EmbersAPI.registerLinkingHammer(this);
+		EmbersAPI.registerHammerTargetGetter(this);
 	}
 
 	@Override

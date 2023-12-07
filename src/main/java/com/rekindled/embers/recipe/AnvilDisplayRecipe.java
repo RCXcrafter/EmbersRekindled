@@ -2,7 +2,6 @@ package com.rekindled.embers.recipe;
 
 import java.util.List;
 
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
@@ -31,13 +30,8 @@ public class AnvilDisplayRecipe implements IDawnstoneAnvilRecipe {
 	}
 
 	@Override
-	public ItemStack assemble(Container context, RegistryAccess pRegistryAccess) {
-		return ItemStack.EMPTY;
-	}
-
-	@Override
-	public ItemStack getOutput(Container context) {
-		return ItemStack.EMPTY;
+	public List<ItemStack> getOutput(Container context) {
+		return List.of();
 	}
 
 	@Override

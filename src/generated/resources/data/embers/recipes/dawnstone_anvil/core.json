@@ -1,0 +1,14 @@
+{
+  "type": "embers:tool_augment",
+  "augment": "embers:core",
+  "input": {
+    "item": "embers:ancient_motive_core"
+  },
+  "tool": {
+    "type": "embers:has_heat",
+    "base": {
+      "tag": "embers:augmentables"
+    },
+    "inverted": true
+  }
+}

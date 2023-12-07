@@ -5,10 +5,13 @@ import java.awt.Color;
 import org.joml.Matrix4f;
 
 import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.rekindled.embers.EmbersClientEvents;
+import com.rekindled.embers.render.EmbersRenderTypes;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -74,6 +77,29 @@ public class RenderUtil {
 			b.vertex(tx, ty, z).color(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, 0.0f).endVertex();
 			b.vertex(tx2, ty2, z).color(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, 0.0f).endVertex();
 		}
+	}
+
+	public static void drawColorRectBatched(PoseStack pose, MultiBufferSource.BufferSource bufferSource, float x, float y, float zLevel, float widthIn, float heightIn,
+			float r1, float g1, float b1, float a1,
+			float r2, float g2, float b2, float a2,
+			float r3, float g3, float b3, float a3,
+			float r4, float g4, float b4, float a4)
+	{
+		Matrix4f matrix4f = pose.last().pose();
+		VertexConsumer vertexconsumer = bufferSource.getBuffer(EmbersRenderTypes.GLOW_GUI);
+		vertexconsumer.vertex(matrix4f, x + 0, y + heightIn, zLevel).color(r1, g1, b1, a1).endVertex();
+		vertexconsumer.vertex(matrix4f, x + widthIn, y + heightIn, zLevel).color(r2, g2, b2, a2).endVertex();
+		vertexconsumer.vertex(matrix4f, x + widthIn, y + 0, zLevel).color(r3, g3, b3, a3).endVertex();
+		vertexconsumer.vertex(matrix4f, x + 0, y + 0, zLevel).color(r4, g4, b4, a4).endVertex();
+	}
+
+	public static void drawHeatBarEnd(PoseStack pose, MultiBufferSource.BufferSource bufferSource, float x, float y, float zLevel, float widthIn, float heightIn, float minU, float minV, float maxU, float maxV) {
+		Matrix4f matrix4f = pose.last().pose();
+		VertexConsumer vertexconsumer = bufferSource.getBuffer(EmbersRenderTypes.HEAT_BAR_ENDS);
+		vertexconsumer.vertex(matrix4f, x + 0, y + 0, zLevel).uv(minU, minV).endVertex();
+		vertexconsumer.vertex(matrix4f, x + 0, y + heightIn, zLevel).uv(minU, maxV).endVertex();
+		vertexconsumer.vertex(matrix4f, x + widthIn, y + heightIn, zLevel).uv(maxU, maxV).endVertex();
+		vertexconsumer.vertex(matrix4f, x + widthIn, y + 0, zLevel).uv(maxU, minV).endVertex();
 	}
 
 	public static void renderAlchemyCircle(VertexConsumer buf, Matrix4f matrix4f, float x, float y, float z, float r, float g, float b, float a, float radius, float angle) {

@@ -3,6 +3,8 @@ package com.rekindled.embers;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
+import com.rekindled.embers.api.augment.AugmentUtil;
+import com.rekindled.embers.api.event.EmberProjectileEvent;
 import com.rekindled.embers.api.item.IInflictorGem;
 import com.rekindled.embers.api.item.IInflictorGemHolder;
 import com.rekindled.embers.api.item.ITyrfingWeapon;
@@ -67,12 +69,18 @@ import com.rekindled.embers.particle.SparkParticle;
 import com.rekindled.embers.particle.StarParticle;
 import com.rekindled.embers.particle.TyrfingParticle;
 import com.rekindled.embers.particle.VaporParticle;
+import com.rekindled.embers.recipe.AugmentIngredient;
+import com.rekindled.embers.recipe.HeatIngredient;
 import com.rekindled.embers.render.PipeModel;
 import com.rekindled.embers.research.ResearchManager;
 import com.rekindled.embers.research.capability.IResearchCapability;
 import com.rekindled.embers.util.DecimalFormats;
 import com.rekindled.embers.util.EmberGenUtil;
 import com.rekindled.embers.util.EmberWorldData;
+import com.rekindled.embers.util.GlowingTextTooltip;
+import com.rekindled.embers.util.GlowingTextTooltip.GlowingTextClientTooltip;
+import com.rekindled.embers.util.HeatBarTooltip;
+import com.rekindled.embers.util.HeatBarTooltip.HeatBarClientTooltip;
 import com.rekindled.embers.util.Misc;
 
 import net.minecraft.Util;
@@ -91,15 +99,17 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -111,12 +121,14 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
+import net.minecraftforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -128,6 +140,8 @@ import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.player.ArrowLooseEvent;
+import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.event.level.LevelEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -141,6 +155,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistries.Keys;
 import net.minecraftforge.registries.MissingMappingsEvent;
 import net.minecraftforge.registries.MissingMappingsEvent.Mapping;
+import net.minecraftforge.registries.RegisterEvent;
 import net.minecraftforge.server.ServerLifecycleHooks;
 
 @Mod(Embers.MODID)
@@ -157,7 +172,9 @@ public class Embers {
 		modEventBus.addListener(this::registerCaps);
 		modEventBus.addListener(this::entityAttributes);
 		modEventBus.addListener(this::spawnPlacements);
+		modEventBus.addListener(this::registerRecipeSerializers);
 
+		EmbersAPIImpl.init();
 		RegistryManager.BLOCKS.register(modEventBus);
 		RegistryManager.ITEMS.register(modEventBus);
 		RegistryManager.FLUIDTYPES.register(modEventBus);
@@ -175,7 +192,6 @@ public class Embers {
 		RegistryManager.STRUCTURE_TYPES.register(modEventBus);
 		RegistryManager.STRUCTURE_PROCESSOR_TYPES.register(modEventBus);
 		EmbersSounds.init();
-		EmbersAPIImpl.init();
 
 		ConfigManager.register();
 	}
@@ -190,6 +206,9 @@ public class Embers {
 		MinecraftForge.EVENT_BUS.addListener(Embers::fixMappings);
 		MinecraftForge.EVENT_BUS.addListener(Embers::onJoin);
 		MinecraftForge.EVENT_BUS.addListener(EventPriority.LOW, Embers::onEntityDamaged);
+		MinecraftForge.EVENT_BUS.addListener(Embers::onBlockBreak);
+		MinecraftForge.EVENT_BUS.addListener(EventPriority.LOW, Embers::onProjectileFired);
+		MinecraftForge.EVENT_BUS.addListener(EventPriority.LOW, Embers::onArrowLoose);
 		MinecraftForge.EVENT_BUS.addListener(Embers::onAnvilUpdate);
 		MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, TagsUpdatedEvent.class, e -> Misc.tagItems.clear());
 		MinecraftForge.EVENT_BUS.addListener(Embers::onLevelLoad);
@@ -243,6 +262,13 @@ public class Embers {
 		}
 	}
 
+	public void registerRecipeSerializers(RegisterEvent event) {
+		if (event.getRegistryKey().equals(ForgeRegistries.Keys.RECIPE_SERIALIZERS)) {
+			CraftingHelper.register(new ResourceLocation(MODID, "has_heat"), HeatIngredient.Serializer.INSTANCE);
+			CraftingHelper.register(new ResourceLocation(MODID, "has_augment"), AugmentIngredient.Serializer.INSTANCE);
+		}
+	}
+
 	public static void fixMappings(MissingMappingsEvent event) {
 		for (Mapping<Block> mapping : event.getMappings(Keys.BLOCKS, MODID_OLD)) {
 			mapping.remap(BuiltInRegistries.BLOCK.get(new ResourceLocation(MODID, mapping.getKey().getPath())));
@@ -276,18 +302,29 @@ public class Embers {
 		attuneInflictorGem(event.getEntity(), event.getSource(), event.getEntity().getMainHandItem());
 		attuneInflictorGem(event.getEntity(), event.getSource(), event.getEntity().getOffhandItem());
 
-		applyInflictorGemResistance(event, event.getEntity().getItemBySlot(EquipmentSlot.HEAD));
-		applyInflictorGemResistance(event, event.getEntity().getItemBySlot(EquipmentSlot.CHEST)); //only chest is used but call the other ones too for the sake of the api
-		applyInflictorGemResistance(event, event.getEntity().getItemBySlot(EquipmentSlot.LEGS));
-		applyInflictorGemResistance(event, event.getEntity().getItemBySlot(EquipmentSlot.FEET));
+		for (ItemStack armor : event.getEntity().getArmorSlots()) {
+			applyInflictorGemResistance(event, armor);
+			addHeat(event.getEntity(), armor, 5.0f);
+		}
 
 		final Entity source = event.getSource().getEntity();
 		if (source instanceof LivingEntity livingSource) {
 			final ItemStack heldStack = livingSource.getMainHandItem();
-			if (heldStack.isEmpty())
-				return;
 			if (heldStack.getItem() instanceof ITyrfingWeapon tyrfing) {
 				tyrfing.attack(event, event.getEntity().getAttribute(Attributes.ARMOR).getValue());
+			}
+			addHeat(source, heldStack, 1.0f);
+		}
+	}
+
+	public static void addHeat(Entity entity, ItemStack stack, float added) {
+		if (AugmentUtil.hasHeat(stack)) {
+			double maxHeat = AugmentUtil.getMaxHeat(stack);
+			double heat = AugmentUtil.getHeat(stack);
+			if (heat < maxHeat) {
+				AugmentUtil.addHeat(stack, added);
+				if (heat + added >= maxHeat)
+					entity.level().playSound(null, entity.getX(), entity.getY(), entity.getZ(), EmbersSounds.HEATED_ITEM_LEVELUP.get(), SoundSource.PLAYERS, 1.0f, 1.0f);
 			}
 		}
 	}
@@ -308,6 +345,23 @@ public class Embers {
 			}
 			event.setAmount(event.getAmount() * mult);
 		}
+	}
+
+	public static void onBlockBreak(BlockEvent.BreakEvent event) {
+		Player player = event.getPlayer();
+		if (player != null) {
+			if (event.getState().getDestroySpeed(event.getLevel(), event.getPos()) > 0) {
+				addHeat(player, player.getMainHandItem(), 1.0f);
+			}
+		}
+	}
+
+	public static void onProjectileFired(EmberProjectileEvent event) {
+		addHeat(event.getShooter(), event.getStack(), event.getProjectiles().size() * (float) Mth.clampedLerp(0.5, 3.0, event.getCharge()));
+	}
+
+	public static void onArrowLoose(ArrowLooseEvent event) {
+		addHeat(event.getEntity(), event.getBow(), 1.0f);
 	}
 
 	public static void onAnvilUpdate(AnvilUpdateEvent event) {
@@ -399,6 +453,7 @@ public class Embers {
 			MinecraftForge.EVENT_BUS.addListener(EmbersClientEvents::onClientTick);
 			MinecraftForge.EVENT_BUS.addListener(EmbersClientEvents::onBlockHighlight);
 			MinecraftForge.EVENT_BUS.addListener(EmbersClientEvents::onLevelRender);
+			MinecraftForge.EVENT_BUS.addListener(EmbersClientEvents::onTooltip);
 			event.enqueueWork(() -> MenuScreens.register(RegistryManager.SLATE_MENU.get(), SlateScreen::new));
 			ItemBlockRenderTypes.setRenderLayer(RegistryManager.STEAM.FLUID.get(), RenderType.translucent());
 			ItemBlockRenderTypes.setRenderLayer(RegistryManager.STEAM.FLUID_FLOW.get(), RenderType.translucent());
@@ -495,8 +550,15 @@ public class Embers {
 
 		@OnlyIn(Dist.CLIENT)
 		@SubscribeEvent
-		static void onRegisterGeometryLoaders(ModelEvent.RegisterGeometryLoaders event) {
+		static void registerGeometryLoaders(ModelEvent.RegisterGeometryLoaders event) {
 			event.register("pipe", PipeModel.Loader.INSTANCE);
+		}
+
+		@OnlyIn(Dist.CLIENT)
+		@SubscribeEvent
+		static void registerTooltipComponents(RegisterClientTooltipComponentFactoriesEvent event) {
+			event.register(GlowingTextTooltip.class, GlowingTextClientTooltip::new);
+			event.register(HeatBarTooltip.class, HeatBarClientTooltip::new);
 		}
 	}
 }

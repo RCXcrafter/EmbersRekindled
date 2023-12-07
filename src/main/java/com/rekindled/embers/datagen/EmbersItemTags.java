@@ -27,6 +27,17 @@ public class EmbersItemTags extends ItemTagsProvider {
 
 	public static final TagKey<Item> TOOLS_HAMMERS = ItemTags.create(new ResourceLocation("forge", "tools/hammers"));
 
+	public static final TagKey<Item> AUGMENTABLE = ItemTags.create(new ResourceLocation(Embers.MODID, "augmentables"));
+	public static final TagKey<Item> AUGMENTABLE_TOOLS = ItemTags.create(new ResourceLocation(Embers.MODID, "augmentables/tools"));
+	public static final TagKey<Item> AUGMENTABLE_PROJECTILE_WEAPONS = ItemTags.create(new ResourceLocation(Embers.MODID, "augmentables/projectiles"));
+	public static final TagKey<Item> AUGMENTABLE_ARMORS = ItemTags.create(new ResourceLocation(Embers.MODID, "augmentables/armors"));
+	public static final TagKey<Item> AUGMENTABLE_HELMETS = ItemTags.create(new ResourceLocation(Embers.MODID, "augmentables/armors/helmets"));
+	public static final TagKey<Item> AUGMENTABLE_CHESTPLATES = ItemTags.create(new ResourceLocation(Embers.MODID, "augmentables/armors/chestplates"));
+	public static final TagKey<Item> AUGMENTABLE_LEGGINGS = ItemTags.create(new ResourceLocation(Embers.MODID, "augmentables/armors/leggings"));
+	public static final TagKey<Item> AUGMENTABLE_BOOTS = ItemTags.create(new ResourceLocation(Embers.MODID, "augmentables/armors/boots"));
+
+	public static final TagKey<Item> TINKER_LENS_HELMETS = ItemTags.create(new ResourceLocation(Embers.MODID, "tinker_lens_helmets"));
+
 	public static final TagKey<Item> ASPECTUS = ItemTags.create(new ResourceLocation(Embers.MODID, "aspectus"));
 	public static final TagKey<Item> IRON_ASPECTUS = ItemTags.create(new ResourceLocation(Embers.MODID, "aspectus/iron"));
 	public static final TagKey<Item> COPPER_ASPECTUS = ItemTags.create(new ResourceLocation(Embers.MODID, "aspectus/copper"));
@@ -103,6 +114,18 @@ public class EmbersItemTags extends ItemTagsProvider {
 	protected void addTags(HolderLookup.Provider provider) {
 		tag(PIPE_UNCLOGGER).addTag(Tags.Items.RODS);
 		tag(TINKER_HAMMER).add(RegistryManager.TINKER_HAMMER.get());
+
+		tag(AUGMENTABLE).addTag(AUGMENTABLE_TOOLS).addTag(AUGMENTABLE_PROJECTILE_WEAPONS).addTag(AUGMENTABLE_ARMORS);
+		tag(AUGMENTABLE_ARMORS).addTag(AUGMENTABLE_HELMETS).addTag(AUGMENTABLE_CHESTPLATES).addTag(AUGMENTABLE_LEGGINGS).addTag(AUGMENTABLE_BOOTS);
+
+		tag(AUGMENTABLE_TOOLS).addTag(Tags.Items.TOOLS);
+		tag(AUGMENTABLE_PROJECTILE_WEAPONS).add(RegistryManager.BLAZING_RAY.get()).add(RegistryManager.CINDER_STAFF.get());
+		tag(AUGMENTABLE_HELMETS).addTag(Tags.Items.ARMORS_HELMETS);
+		tag(AUGMENTABLE_CHESTPLATES).addTag(Tags.Items.ARMORS_CHESTPLATES);
+		tag(AUGMENTABLE_LEGGINGS).addTag(Tags.Items.ARMORS_LEGGINGS);
+		tag(AUGMENTABLE_BOOTS).addTag(Tags.Items.ARMORS_BOOTS);
+
+		tag(TINKER_LENS_HELMETS).add(RegistryManager.ASHEN_GOGGLES.get());
 
 		tag(ASPECTUS).addTags(IRON_ASPECTUS, COPPER_ASPECTUS, LEAD_ASPECTUS, SILVER_ASPECTUS, DAWNSTONE_ASPECTUS);
 		tag(IRON_ASPECTUS).add(RegistryManager.IRON_ASPECTUS.get());

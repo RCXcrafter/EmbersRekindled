@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": {
+      "tag": "forge:dusts/ash"
+    },
+    "P": {
+      "item": "embers:tinker_lens"
+    }
+  },
+  "pattern": [
+    " A ",
+    "APA",
+    " A "
+  ],
+  "result": {
+    "item": "embers:smoky_tinker_lens"
+  },
+  "show_notification": true
+}

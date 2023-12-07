@@ -6,10 +6,10 @@ import java.util.List;
 import org.jetbrains.annotations.Nullable;
 
 import com.google.gson.JsonObject;
+import com.rekindled.embers.api.augment.AugmentUtil;
 import com.rekindled.embers.util.Misc;
 
 import net.minecraft.core.Holder;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -35,26 +35,15 @@ public class AnvilBreakdownRecipe implements IDawnstoneAnvilRecipe, IVisuallySpl
 	@Override
 	public boolean matches(Container context, Level pLevel) {
 		ItemStack tool = context.getItem(0);
-		return tool.isRepairable() && context.getItem(1).isEmpty();
+		return tool.isRepairable() && context.getItem(1).isEmpty() && !AugmentUtil.hasHeat(tool);
 	}
 
 	@Override
-	public ItemStack assemble(Container context, RegistryAccess pRegistryAccess) {
-		ItemStack tool = context.getItem(0);
-		if (tool.isRepairable() && context.getItem(1).isEmpty()) {
-			Ingredient repairMaterial = Misc.getRepairIngredient(tool.getItem());
-			if (!repairMaterial.isEmpty())
-				return Misc.getPreferredItem(repairMaterial.getItems());
-		}
-		return ItemStack.EMPTY;
-	}
-
-	@Override
-	public ItemStack getOutput(Container context) {
+	public List<ItemStack> getOutput(Container context) {
 		Ingredient repairMaterial = Misc.getRepairIngredient(context.getItem(0).getItem());
 		if (!repairMaterial.isEmpty())
-			return Misc.getPreferredItem(repairMaterial.getItems());
-		return ItemStack.EMPTY;
+			return List.of(Misc.getPreferredItem(repairMaterial.getItems()));
+		return List.of();
 	}
 
 	@Override

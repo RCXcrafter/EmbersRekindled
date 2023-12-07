@@ -10,7 +10,6 @@ import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.datagen.EmbersItemTags;
 
 import net.minecraft.core.Holder;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -42,20 +41,10 @@ public class AnvilRepairMateriaRecipe implements IDawnstoneAnvilRecipe, IVisuall
 	}
 
 	@Override
-	public ItemStack assemble(Container context, RegistryAccess pRegistryAccess) {
-		ItemStack tool = context.getItem(0).copy();
-		ItemStack material = context.getItem(1);
-		if (tool.isRepairable() && tool.isDamaged() && !blacklist.test(tool) && materia.test(material)) {
-			tool.setDamageValue(Math.max(0, tool.getDamageValue() - tool.getMaxDamage()));
-		}
-		return tool;
-	}
-
-	@Override
-	public ItemStack getOutput(Container context) {
+	public List<ItemStack> getOutput(Container context) {
 		ItemStack result = context.getItem(0).copy();
 		result.setDamageValue(Math.max(0, result.getDamageValue() - result.getMaxDamage()));
-		return result;
+		return List.of(result);
 	}
 
 	@Override

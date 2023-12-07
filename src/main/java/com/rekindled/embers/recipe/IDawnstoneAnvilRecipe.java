@@ -12,7 +12,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 
 public interface IDawnstoneAnvilRecipe extends Recipe<Container> {
 
-	public ItemStack getOutput(Container context);
+	public List<ItemStack> getOutput(Container context);
 
 	@Override
 	public default ItemStack getToastSymbol() {
@@ -30,10 +30,17 @@ public interface IDawnstoneAnvilRecipe extends Recipe<Container> {
 
 	public List<ItemStack> getDisplayOutput();
 
+
+	@Override
+	@Deprecated
+	public default ItemStack assemble(Container context, RegistryAccess pRegistryAccess) {
+		return ItemStack.EMPTY;
+	}
+
 	@Override
 	@Deprecated
 	public default ItemStack getResultItem(RegistryAccess pRegistryAccess) {
-		return getDisplayOutput().get(0);
+		return ItemStack.EMPTY;
 	}
 
 	@Override
