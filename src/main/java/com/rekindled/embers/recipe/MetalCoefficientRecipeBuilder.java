@@ -35,6 +35,11 @@ public class MetalCoefficientRecipeBuilder {
 		return this;
 	}
 
+	public MetalCoefficientRecipeBuilder domain(String domain) {
+		this.id = new ResourceLocation(domain, this.id.getPath());
+		return this;
+	}
+
 	public MetalCoefficientRecipeBuilder folder(String folder) {
 		this.id = new ResourceLocation(id.getNamespace(), folder + "/" + id.getPath());
 		return this;

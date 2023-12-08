@@ -33,6 +33,11 @@ public class AnvilAugmentRecipeBuilder {
 		return this;
 	}
 
+	public AnvilAugmentRecipeBuilder domain(String domain) {
+		this.id = new ResourceLocation(domain, this.id.getPath());
+		return this;
+	}
+
 	public AnvilAugmentRecipeBuilder folder(String folder) {
 		this.id = new ResourceLocation(id.getNamespace(), folder + "/" + id.getPath());
 		return this;

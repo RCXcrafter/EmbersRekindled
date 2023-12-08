@@ -49,6 +49,11 @@ public class CatalysisCombustionRecipeBuilder {
 		return this;
 	}
 
+	public CatalysisCombustionRecipeBuilder domain(String domain) {
+		this.id = new ResourceLocation(domain, this.id.getPath());
+		return this;
+	}
+
 	public CatalysisCombustionRecipeBuilder folder(String folder) {
 		this.id = new ResourceLocation(id.getNamespace(), folder + "/" + id.getPath());
 		return this;

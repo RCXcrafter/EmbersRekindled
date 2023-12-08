@@ -46,6 +46,11 @@ public class BoringRecipeBuilder {
 		return this;
 	}
 
+	public BoringRecipeBuilder domain(String domain) {
+		this.id = new ResourceLocation(domain, this.id.getPath());
+		return this;
+	}
+
 	public BoringRecipeBuilder folder(String folder) {
 		this.id = new ResourceLocation(id.getNamespace(), folder + "/" + id.getPath());
 		return this;

@@ -46,6 +46,11 @@ public class GemSocketRecipeBuilder {
 		return this;
 	}
 
+	public GemSocketRecipeBuilder domain(String domain) {
+		this.id = new ResourceLocation(domain, this.id.getPath());
+		return this;
+	}
+
 	public GemSocketRecipeBuilder folder(String folder) {
 		this.id = new ResourceLocation(id.getNamespace(), folder + "/" + id.getPath());
 		return this;

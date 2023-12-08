@@ -47,6 +47,11 @@ public class EmberActivationRecipeBuilder {
 		return this;
 	}
 
+	public EmberActivationRecipeBuilder domain(String domain) {
+		this.id = new ResourceLocation(domain, this.id.getPath());
+		return this;
+	}
+
 	public EmberActivationRecipeBuilder folder(String folder) {
 		this.id = new ResourceLocation(id.getNamespace(), folder + "/" + id.getPath());
 		return this;

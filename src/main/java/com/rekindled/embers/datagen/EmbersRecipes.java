@@ -1,6 +1,7 @@
 package com.rekindled.embers.datagen;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -41,6 +42,7 @@ import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
+import net.minecraft.data.recipes.SingleItemRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ItemTags;
@@ -48,7 +50,9 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluid;
@@ -156,20 +160,20 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		MixingRecipeBuilder.create(RegistryManager.DWARVEN_OIL.FLUID.get(), 30).id(new ResourceLocation(Embers.MODID, mixingFolder + "/dwarven_oil")).input(RegistryManager.SOUL_CRUDE.FLUID.get(), 10).input(RegistryManager.DWARVEN_GAS.FLUID.get(), 5).save(consumer);
 
 		//metal coefficient
-		MetalCoefficientRecipeBuilder.create(EmbersBlockTags.DAWNSTONE_BLOCK).folder(coefficientFolder).coefficient(1.5).save(consumer);
-		MetalCoefficientRecipeBuilder.create(EmbersBlockTags.LEAD_BLOCK).folder(coefficientFolder).coefficient(2.625).save(consumer);
-		MetalCoefficientRecipeBuilder.create(EmbersBlockTags.BRONZE_BLOCK).folder(coefficientFolder).coefficient(2.625).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(EmbersBlockTags.BRONZE_BLOCK)).build(consumer));
-		MetalCoefficientRecipeBuilder.create(Tags.Blocks.STORAGE_BLOCKS_IRON).folder(coefficientFolder).coefficient(2.625).save(consumer);
-		MetalCoefficientRecipeBuilder.create(EmbersBlockTags.NICKEL_BLOCK).folder(coefficientFolder).coefficient(2.85).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(EmbersBlockTags.NICKEL_BLOCK)).build(consumer));
-		MetalCoefficientRecipeBuilder.create(EmbersBlockTags.TIN_BLOCK).folder(coefficientFolder).coefficient(2.85).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(EmbersBlockTags.TIN_BLOCK)).build(consumer));
-		MetalCoefficientRecipeBuilder.create(EmbersBlockTags.ALUMINUM_BLOCK).folder(coefficientFolder).coefficient(2.85).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(EmbersBlockTags.ALUMINUM_BLOCK)).build(consumer));
-		MetalCoefficientRecipeBuilder.create(EmbersBlockTags.SILVER_BLOCK).folder(coefficientFolder).coefficient(3.0).save(consumer);
-		MetalCoefficientRecipeBuilder.create(EmbersBlockTags.ELECTRUM_BLOCK).folder(coefficientFolder).coefficient(3.0).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(EmbersBlockTags.ELECTRUM_BLOCK)).build(consumer));
-		MetalCoefficientRecipeBuilder.create(EmbersBlockTags.PRISTINE_COPPER).folder(coefficientFolder).coefficient(3.0).save(consumer);
-		MetalCoefficientRecipeBuilder.create(EmbersBlockTags.EXPOSED_COPPER).folder(coefficientFolder).coefficient(2.5).save(consumer);
-		MetalCoefficientRecipeBuilder.create(EmbersBlockTags.WEATHERED_COPPER).folder(coefficientFolder).coefficient(2.0).save(consumer);
-		MetalCoefficientRecipeBuilder.create(EmbersBlockTags.OXIDIZED_COPPER).folder(coefficientFolder).coefficient(1.5).save(consumer);
-		MetalCoefficientRecipeBuilder.create(Tags.Blocks.STORAGE_BLOCKS_GOLD).folder(coefficientFolder).coefficient(3.0).save(consumer);
+		MetalCoefficientRecipeBuilder.create(EmbersBlockTags.DAWNSTONE_BLOCK).domain(Embers.MODID).folder(coefficientFolder).coefficient(1.5).save(consumer);
+		MetalCoefficientRecipeBuilder.create(EmbersBlockTags.LEAD_BLOCK).domain(Embers.MODID).folder(coefficientFolder).coefficient(2.625).save(consumer);
+		MetalCoefficientRecipeBuilder.create(EmbersBlockTags.BRONZE_BLOCK).domain(Embers.MODID).folder(coefficientFolder).coefficient(2.625).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(EmbersBlockTags.BRONZE_BLOCK)).build(consumer));
+		MetalCoefficientRecipeBuilder.create(Tags.Blocks.STORAGE_BLOCKS_IRON).domain(Embers.MODID).folder(coefficientFolder).coefficient(2.625).save(consumer);
+		MetalCoefficientRecipeBuilder.create(EmbersBlockTags.NICKEL_BLOCK).domain(Embers.MODID).folder(coefficientFolder).coefficient(2.85).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(EmbersBlockTags.NICKEL_BLOCK)).build(consumer));
+		MetalCoefficientRecipeBuilder.create(EmbersBlockTags.TIN_BLOCK).domain(Embers.MODID).folder(coefficientFolder).coefficient(2.85).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(EmbersBlockTags.TIN_BLOCK)).build(consumer));
+		MetalCoefficientRecipeBuilder.create(EmbersBlockTags.ALUMINUM_BLOCK).domain(Embers.MODID).folder(coefficientFolder).coefficient(2.85).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(EmbersBlockTags.ALUMINUM_BLOCK)).build(consumer));
+		MetalCoefficientRecipeBuilder.create(EmbersBlockTags.SILVER_BLOCK).domain(Embers.MODID).folder(coefficientFolder).coefficient(3.0).save(consumer);
+		MetalCoefficientRecipeBuilder.create(EmbersBlockTags.ELECTRUM_BLOCK).domain(Embers.MODID).folder(coefficientFolder).coefficient(3.0).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(EmbersBlockTags.ELECTRUM_BLOCK)).build(consumer));
+		MetalCoefficientRecipeBuilder.create(EmbersBlockTags.PRISTINE_COPPER).domain(Embers.MODID).folder(coefficientFolder).coefficient(3.0).save(consumer);
+		MetalCoefficientRecipeBuilder.create(EmbersBlockTags.EXPOSED_COPPER).domain(Embers.MODID).folder(coefficientFolder).coefficient(2.5).save(consumer);
+		MetalCoefficientRecipeBuilder.create(EmbersBlockTags.WEATHERED_COPPER).domain(Embers.MODID).folder(coefficientFolder).coefficient(2.0).save(consumer);
+		MetalCoefficientRecipeBuilder.create(EmbersBlockTags.OXIDIZED_COPPER).domain(Embers.MODID).folder(coefficientFolder).coefficient(1.5).save(consumer);
+		MetalCoefficientRecipeBuilder.create(Tags.Blocks.STORAGE_BLOCKS_GOLD).domain(Embers.MODID).folder(coefficientFolder).coefficient(3.0).save(consumer);
 
 		//alchemy
 		AlchemyRecipeBuilder.create(new ItemStack(Items.NETHERRACK, 4)).tablet(RegistryManager.EMBER_GRIT.get()).domain(Embers.MODID).folder(alchemyFolder)
@@ -249,12 +253,12 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 
 		//catalysis and combustion
 		CatalysisCombustionRecipeBuilder.create(RegistryManager.EMBER_GRIT.get()).catalysis().folder(catalysisFolder).multiplier(2.0).burnTime(400).save(consumer);
-		CatalysisCombustionRecipeBuilder.create(Tags.Items.GUNPOWDER).catalysis().folder(catalysisFolder).multiplier(3.0).burnTime(400).save(consumer);
-		CatalysisCombustionRecipeBuilder.create(Tags.Items.DUSTS_GLOWSTONE).catalysis().folder(catalysisFolder).multiplier(4.0).burnTime(400).save(consumer);
+		CatalysisCombustionRecipeBuilder.create(Tags.Items.GUNPOWDER).catalysis().domain(Embers.MODID).folder(catalysisFolder).multiplier(3.0).burnTime(400).save(consumer);
+		CatalysisCombustionRecipeBuilder.create(Tags.Items.DUSTS_GLOWSTONE).catalysis().domain(Embers.MODID).folder(catalysisFolder).multiplier(4.0).burnTime(400).save(consumer);
 
-		CatalysisCombustionRecipeBuilder.create(ItemTags.COALS).combustion().folder(combustionFolder).multiplier(2.0).burnTime(400).save(consumer);
-		CatalysisCombustionRecipeBuilder.create(Tags.Items.INGOTS_NETHER_BRICK).combustion().folder(combustionFolder).multiplier(3.0).burnTime(400).save(consumer);
-		CatalysisCombustionRecipeBuilder.create(Items.BLAZE_POWDER).combustion().folder(combustionFolder).multiplier(4.0).burnTime(400).save(consumer);
+		CatalysisCombustionRecipeBuilder.create(ItemTags.COALS).combustion().domain(Embers.MODID).folder(combustionFolder).multiplier(2.0).burnTime(400).save(consumer);
+		CatalysisCombustionRecipeBuilder.create(Tags.Items.INGOTS_NETHER_BRICK).combustion().domain(Embers.MODID).folder(combustionFolder).multiplier(3.0).burnTime(400).save(consumer);
+		CatalysisCombustionRecipeBuilder.create(Items.BLAZE_POWDER).combustion().domain(Embers.MODID).folder(combustionFolder).multiplier(4.0).burnTime(400).save(consumer);
 
 		//dawnstone anvil
 		GenericRecipeBuilder.create(new AnvilRepairRecipe(new ResourceLocation(Embers.MODID, anvilFolder + "/tool_repair"))).save(consumer);
@@ -379,6 +383,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('X', RegistryManager.ARCHAIC_TILE.get())
 		.unlockedBy("has_tile", has(RegistryManager.ARCHAIC_TILE.get()))
 		.save(consumer, getResource("archaic_bricks_2"));
+
 		stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, RegistryManager.ARCHAIC_TILE.get(), RegistryManager.ARCHAIC_BRICKS.get());
 		stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, RegistryManager.ARCHAIC_BRICKS.get(), RegistryManager.ARCHAIC_TILE.get());
 		decoRecipes(RegistryManager.ARCHAIC_BRICKS_DECO, consumer);
@@ -1308,6 +1313,29 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		}
 	}
 
+	protected static void stonecutterResultFromBase(Consumer<FinishedRecipe> pFinishedRecipeConsumer, RecipeCategory pCategory, ItemLike pResult, ItemLike pMaterial) {
+		stonecutterResultFromBase(pFinishedRecipeConsumer, pCategory, pResult, pMaterial, 1);
+	}
+
+	protected static void stonecutterResultFromBase(Consumer<FinishedRecipe> pFinishedRecipeConsumer, RecipeCategory pCategory, ItemLike pResult, ItemLike pMaterial, int pResultCount) {
+		SingleItemRecipeBuilder.stonecutting(Ingredient.of(pMaterial), pCategory, pResult, pResultCount).unlockedBy(getHasName(pMaterial), has(pMaterial)).save(pFinishedRecipeConsumer, getResource(getConversionRecipeName(pResult, pMaterial) + "_stonecutting"));
+	}
+
+	protected static void oreSmelting(Consumer<FinishedRecipe> pFinishedRecipeConsumer, List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult, float pExperience, int pCookingTIme, String pGroup) {
+		oreCooking(pFinishedRecipeConsumer, RecipeSerializer.SMELTING_RECIPE, pIngredients, pCategory, pResult, pExperience, pCookingTIme, pGroup, "_from_smelting");
+	}
+
+	protected static void oreBlasting(Consumer<FinishedRecipe> pFinishedRecipeConsumer, List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult, float pExperience, int pCookingTime, String pGroup) {
+		oreCooking(pFinishedRecipeConsumer, RecipeSerializer.BLASTING_RECIPE, pIngredients, pCategory, pResult, pExperience, pCookingTime, pGroup, "_from_blasting");
+	}
+
+	protected static void oreCooking(Consumer<FinishedRecipe> pFinishedRecipeConsumer, RecipeSerializer<? extends AbstractCookingRecipe> pCookingSerializer, List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult, float pExperience, int pCookingTime, String pGroup, String pRecipeName) {
+		for(ItemLike itemlike : pIngredients) {
+			SimpleCookingRecipeBuilder.generic(Ingredient.of(itemlike), pCategory, pResult, pExperience, pCookingTime, pCookingSerializer).group(pGroup).unlockedBy(getHasName(itemlike), has(itemlike)).save(pFinishedRecipeConsumer, getResource(getItemName(pResult) + pRecipeName + "_" + getItemName(itemlike)));
+		}
+
+	}
+
 	public void toolRecipes(ToolSet set, TagKey<Item> material, Item nugget, Consumer<FinishedRecipe> consumer) {
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(set.SWORD.get()), RecipeCategory.TOOLS, nugget, 0.1F, 200)
 		.unlockedBy("has_" + set.name + "_sword", has(set.SWORD.get())).save(consumer, getResource(set.name + "_sword_smelting"));
@@ -1341,7 +1369,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('S', Tags.Items.RODS_WOODEN)
 		.define('M', material)
 		.unlockedBy("has_" + set.name, has(material))
-		.save(consumer, set.name + "_sword");
+		.save(consumer, getResource(set.name + "_sword"));
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, set.SHOVEL.get())
 		.pattern("M")
 		.pattern("S")
@@ -1349,7 +1377,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('S', Tags.Items.RODS_WOODEN)
 		.define('M', material)
 		.unlockedBy("has_" + set.name, has(material))
-		.save(consumer, set.name + "_shovel");
+		.save(consumer, getResource(set.name + "_shovel"));
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, set.PICKAXE.get())
 		.pattern("MMM")
 		.pattern(" S ")
@@ -1357,7 +1385,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('S', Tags.Items.RODS_WOODEN)
 		.define('M', material)
 		.unlockedBy("has_" + set.name, has(material))
-		.save(consumer, set.name + "_pickaxe");
+		.save(consumer, getResource(set.name + "_pickaxe"));
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, set.AXE.get())
 		.pattern("MM")
 		.pattern("MS")
@@ -1365,7 +1393,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('S', Tags.Items.RODS_WOODEN)
 		.define('M', material)
 		.unlockedBy("has_" + set.name, has(material))
-		.save(consumer, set.name + "_axe");
+		.save(consumer, getResource(set.name + "_axe"));
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, set.HOE.get())
 		.pattern("MM")
 		.pattern(" S")
@@ -1373,7 +1401,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('S', Tags.Items.RODS_WOODEN)
 		.define('M', material)
 		.unlockedBy("has_" + set.name, has(material))
-		.save(consumer, set.name + "_hoe");
+		.save(consumer, getResource(set.name + "_hoe"));
 	}
 
 	public TagKey<Item> itemTag(String modId, String name) {
@@ -1388,7 +1416,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		return new NotCondition(new TagEmptyCondition(tag.location()));
 	}
 
-	public ResourceLocation getResource(String name) {
+	public static ResourceLocation getResource(String name) {
 		return new ResourceLocation(Embers.MODID, name);
 	}
 }
