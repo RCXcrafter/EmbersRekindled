@@ -81,7 +81,6 @@ public class EmbersRenderTypes extends RenderType {
 	public static final RenderStateShard.ShaderStateShard PTLC_SHADER = new RenderStateShard.ShaderStateShard(GameRenderer::getPositionTexLightmapColorShader);
 	public static final RenderStateShard.ShaderStateShard PTCN_SHADER = new RenderStateShard.ShaderStateShard(GameRenderer::getPositionTexColorNormalShader);
 	public static final RenderStateShard.ShaderStateShard PTC_SHADER = new RenderStateShard.ShaderStateShard(GameRenderer::getPositionTexColorShader);
-	public static final RenderStateShard.ShaderStateShard PT_SHADER = new RenderStateShard.ShaderStateShard(GameRenderer::getPositionTexColorShader);
 
 	//render type used for the crystal cell
 	public static final RenderType CRYSTAL = create(

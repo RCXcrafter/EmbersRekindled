@@ -29,7 +29,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.network.PacketDistributor;
 
@@ -90,13 +89,6 @@ public class ResearchManager {
 				return true;
 		}
 		return false;
-	}
-
-	public static void onJoin(EntityJoinLevelEvent event) {
-		if (event.getEntity() instanceof ServerPlayer && !event.getLevel().isClientSide()) {
-			ServerPlayer player = (ServerPlayer) event.getEntity();
-			sendResearchData(player);
-		}
 	}
 
 	public static void sendResearchData(ServerPlayer player) {
