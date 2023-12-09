@@ -50,6 +50,7 @@ public class ConfigManager {
 
 	public static ConfigValue<Boolean> CODEX_PROGRESSION;
 	public static ConfigValue<List<? extends String>> TAG_PREFERENCES;
+	public static ConfigValue<List<? extends String>> ITEM_PREFERENCES;
 
 	public static void register() {
 		//registerClientConfigs();
@@ -127,7 +128,12 @@ public class ConfigManager {
 		List<String> preferences = new ArrayList<String>();
 		preferences.add(0, "minecraft");
 		preferences.add(1, Embers.MODID);
-		TAG_PREFERENCES = COMMON.comment("Which domains are preferred for tag output recipes.").defineList("tagPreferences", preferences, a -> true);
+		TAG_PREFERENCES = COMMON.comment("Which domains are preferred for recipes with dynamic outputs.").defineList("tagPreferences", preferences, a -> true);
+
+		List<String> itemPreferences = new ArrayList<String>();
+		itemPreferences.add(0, "minecraft:oak_plans");
+		itemPreferences.add(1, "minecraft:cobblestone");
+		ITEM_PREFERENCES = COMMON.comment("Which items are preferred as the result of breaking down a tool on an anvil.").defineList("itemPreferences", itemPreferences, a -> true);
 
 		COMMON.pop();
 		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, COMMON.build());

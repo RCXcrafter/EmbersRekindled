@@ -194,10 +194,16 @@ public class Misc {
 	public static ItemStack getPreferredItem(ItemStack[] items) {
 		ItemStack output = ItemStack.EMPTY;
 		int index = Integer.MAX_VALUE;
+		List<? extends String> itemPreferences = ConfigManager.ITEM_PREFERENCES.get();
 		List<? extends String> preferences = ConfigManager.TAG_PREFERENCES.get();
 		for (ItemStack item : items) {
+			ResourceLocation key = BuiltInRegistries.ITEM.getKey(item.getItem());
+			for (int i = 0; i < itemPreferences.size(); i ++) {
+				if (key.toString().equals(itemPreferences.get(i)))
+					return item;
+			}
 			for (int i = 0; i < preferences.size(); i ++) {
-				if (i < index && preferences.get(i).equals(BuiltInRegistries.ITEM.getKey(item.getItem()).getNamespace())) {
+				if (i < index && preferences.get(i).equals(key.getNamespace())) {
 					output = item;
 					index = i;
 				}
