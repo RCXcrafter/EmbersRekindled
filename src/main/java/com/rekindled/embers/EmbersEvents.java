@@ -87,10 +87,15 @@ public class EmbersEvents {
 		attuneInflictorGem(event.getEntity(), event.getSource(), event.getEntity().getMainHandItem());
 		attuneInflictorGem(event.getEntity(), event.getSource(), event.getEntity().getOffhandItem());
 
+		float mult = 1.0f;
 		for (ItemStack armor : event.getEntity().getArmorSlots()) {
-			applyInflictorGemResistance(event, armor);
+			mult -= getInflictorGemResistance(event, armor);
 			addHeat(event.getEntity(), armor, 5.0f);
 		}
+		if (mult <= 0) {
+			event.setCanceled(true);
+		}
+		event.setAmount(event.getAmount() * mult);
 
 		final Entity source = event.getSource().getEntity();
 		if (source instanceof LivingEntity livingSource) {
@@ -215,15 +220,12 @@ public class EmbersEvents {
 		}
 	}
 
-	public static void applyInflictorGemResistance(LivingHurtEvent event, ItemStack stack) {
+	public static float getInflictorGemResistance(LivingHurtEvent event, ItemStack stack) {
 		Item item = stack.getItem();
 		if (item instanceof IInflictorGemHolder) {
 			IInflictorGemHolder inflictorGemHolder = (IInflictorGemHolder) item;
-			float mult = Math.max(0, 1.0f - inflictorGemHolder.getTotalDamageResistance(event.getEntity(), event.getSource(), stack));
-			if (mult == 0) {
-				event.setCanceled(true);
-			}
-			event.setAmount(event.getAmount() * mult);
+			return inflictorGemHolder.getTotalDamageResistance(event.getEntity(), event.getSource(), stack);
 		}
+		return 0;
 	}
 }

@@ -1,5 +1,7 @@
 package com.rekindled.embers.item;
 
+import java.util.function.Supplier;
+
 import com.rekindled.embers.api.item.IInflictorGem;
 import com.rekindled.embers.api.item.IInflictorGemHolder;
 
@@ -10,15 +12,18 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-public class AshenCloakItem extends AshenArmorItem implements IInflictorGemHolder {
+public class AshenArmorGemItem extends AshenArmorItem implements IInflictorGemHolder {
 
-	public AshenCloakItem(ArmorMaterial material, Type type, Properties properties) {
+	public Supplier<Integer> gemSlots;
+
+	public AshenArmorGemItem(ArmorMaterial material, Type type, Properties properties, Supplier<Integer> gemSlots) {
 		super(material, type, properties);
+		this.gemSlots = gemSlots;
 	}
 
 	@Override
 	public int getGemSlots(ItemStack holder) {
-		return 7;
+		return gemSlots.get();
 	}
 
 	@Override

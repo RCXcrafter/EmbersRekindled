@@ -47,6 +47,10 @@ public class ConfigManager {
 	public static ConfigValue<Double> CINDER_STAFF_SIZE;
 	public static ConfigValue<Double> CINDER_STAFF_AOE_SIZE;
 	public static ConfigValue<Integer> CINDER_STAFF_LIFETIME;
+	public static ConfigValue<Integer> ASHEN_GOGGLES_SLOTS;
+	public static ConfigValue<Integer> ASHEN_CLOAK_SLOTS;
+	public static ConfigValue<Integer> ASHEN_LEGGINGS_SLOTS;
+	public static ConfigValue<Integer> ASHEN_BOOTS_SLOTS;
 
 	public static ConfigValue<Boolean> CODEX_PROGRESSION;
 	public static ConfigValue<List<? extends String>> TAG_PREFERENCES;
@@ -117,6 +121,11 @@ public class ConfigManager {
 		CINDER_STAFF_SIZE = COMMON.comment("Size of the projectile.").define("cinderStaff.size", 17.0);
 		CINDER_STAFF_AOE_SIZE = COMMON.comment("Area of Effect on impact.").define("cinderStaff.aoe", 17 * 0.125);
 		CINDER_STAFF_LIFETIME = COMMON.comment("Maximum lifetime in ticks of projectile.").define("cinderStaff.lifetime", 160);
+
+		ASHEN_GOGGLES_SLOTS = COMMON.comment("How many inflictor gems can fit in the ashen goggles.").define("ashen.goggles.gem_slots", 2);
+		ASHEN_CLOAK_SLOTS = COMMON.comment("How many inflictor gems can fit in the ashen cloak.").define("ashen.cloak.gem_slots", 7);
+		ASHEN_LEGGINGS_SLOTS = COMMON.comment("How many inflictor gems can fit in the ashen leggings.").define("ashen.leggings.gem_slots", 5);
+		ASHEN_BOOTS_SLOTS = COMMON.comment("How many inflictor gems can fit in the ashen boots.").define("ashen.boots.gem_slots", 3);
 
 		COMMON.pop();
 

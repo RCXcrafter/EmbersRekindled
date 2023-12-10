@@ -740,7 +740,7 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".research.page.inflictor", "Inflictor Gems");
 		add(Embers.MODID + ".research.page.inflictor.title", "Absorbing Pain");
 		add(Embers.MODID + ".research.page.inflictor.tags", "Alchemy;Transmutation;Ash;Ashen;Cloak;Inflictor;Gem;Fabric;");
-		add(Embers.MODID + ".research.page.inflictor.desc", "The Inflictor Gem is a strange crystal indeed. While holding it in your hand, when taking damage, it will absorb the type of damage taken. By stitching one to your Ashen Cloak in a crafting table with a piece of string, it will reduce the damage you take from that damage source by approximately a third. They can be removed by placing an Ashen Cloak in a crafting table on its own, and up to seven may be placed on a Cloak at a time.");
+		add(Embers.MODID + ".research.page.inflictor.desc", "The Inflictor Gem is a strange crystal indeed. While holding it in your hand, when taking damage, it will absorb the type of damage taken. By stitching them to your ashen armor in a crafting table with a piece of string, they will reduce the damage you take from that damage source by approximately a third each. They can be removed by placing the armor in a crafting table on its own.");
 
 		add(Embers.MODID + ".research.page.glimmer", "Glimmer Crystal");
 		add(Embers.MODID + ".research.page.glimmer.title", "Light on, Light off");
