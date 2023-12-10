@@ -34,7 +34,7 @@ public class ReservoirBlockEntityRenderer implements BlockEntityRenderer<Reservo
 			int capacity = blockEntity.getCapacity();
 			if (!fluidStack.isEmpty() && capacity > 0) {
 				poseStack.pushPose();
-				poseStack.translate(-0.5, 0, -0.5);
+				poseStack.translate(-0.5, 1, -0.5);
 				float offset = blockEntity.renderOffset;
 				if (offset > 1.2f || offset < -1.2f) {
 					offset = offset - ((offset / 12f + 0.1f) * partialTick);
@@ -42,7 +42,7 @@ public class ReservoirBlockEntityRenderer implements BlockEntityRenderer<Reservo
 				} else {
 					blockEntity.renderOffset = 0;
 				}
-				renderLargeFluidCuboid(poseStack, bufferSource.getBuffer(EmbersRenderTypes.FLUID), fluidStack, packedLight, 1, bounds, 1, bounds, 1, 1 + blockEntity.height * (fluidStack.getAmount() - offset) / capacity - 0.0625f);
+				renderLargeFluidCuboid(poseStack, bufferSource.getBuffer(EmbersRenderTypes.FLUID), fluidStack, packedLight, 1, bounds, 1, bounds, 0, (blockEntity.height - 0.0625f) * (fluidStack.getAmount() - offset) / ((float) capacity));
 				poseStack.popPose();
 			} else {
 				blockEntity.renderOffset = 0;

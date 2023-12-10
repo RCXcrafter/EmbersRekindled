@@ -561,7 +561,7 @@
   "embers.research.page.requisition.tags": "Pipe;Storage;Pull;Item;Filter;",
   "embers.research.page.requisition.title": "Storage System?",
   "embers.research.page.reservoir": "Reservoir",
-  "embers.research.page.reservoir.desc": "The Reservoir is a simple means of storing large quantities of fluids. While it will only store about 40 buckets' worth of fluid by default, its capacity can be extended by placing Caminite Rings atop the Reservoir base, by 40 buckets for each ring. The Reservoir may only be filled or drained through the port on its bottom, or through a Mechanical Core or Accessor attached to that port.",
+  "embers.research.page.reservoir.desc": "The Reservoir is a simple means of storing large quantities of fluids. While it will not store any fluid by default, its capacity can be extended by placing Caminite Rings atop the Reservoir base, by 40 buckets for each ring. The Reservoir may only be filled or drained through the port on its bottom, or through a Mechanical Core or Accessor attached to that port.",
   "embers.research.page.reservoir.tags": "Tank;Storage;Liquid;Fluid;Caminite;Multiblock;Multi Block;Valve;",
   "embers.research.page.reservoir.title": "Massive Tanks",
   "embers.research.page.reservoir_valve.desc": "Caminite Valves can also be added for ease of access. They hold the exact same amount of fluid per layer as a regular Caminite Ring, but they have 4 extra sides for fluid input and output.",
