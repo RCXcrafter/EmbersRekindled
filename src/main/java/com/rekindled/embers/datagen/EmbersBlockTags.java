@@ -203,7 +203,8 @@ public class EmbersBlockTags extends BlockTagsProvider {
 				RegistryManager.CATALYSIS_CHAMBER.get(),
 				RegistryManager.COMBUSTION_CHAMBER.get(),
 				RegistryManager.CINDER_PLINTH.get(),
-				RegistryManager.DAWNSTONE_ANVIL.get());
+				RegistryManager.DAWNSTONE_ANVIL.get(),
+				RegistryManager.AUTOMATIC_HAMMER.get());
 
 		tag(BlockTags.NEEDS_IRON_TOOL).add(
 				RegistryManager.LEAD_ORE.get(),

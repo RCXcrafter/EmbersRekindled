@@ -20,6 +20,7 @@ import com.rekindled.embers.api.power.IEmberPacketReceiver;
 import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
 import com.rekindled.embers.api.tile.IMechanicallyPowered;
 import com.rekindled.embers.blockentity.EmberEmitterBlockEntity;
+import com.rekindled.embers.blockentity.render.AutomaticHammerBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.EmberBoreBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.MechanicalPumpBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.StamperBlockEntityRenderer;
@@ -339,6 +340,7 @@ public class EmbersClientEvents {
 		MechanicalPumpBlockEntityRenderer.pistonBottom = getModel(bakery, "mechanical_pump_piston_bottom");
 		MechanicalPumpBlockEntityRenderer.pistonTop = getModel(bakery, "mechanical_pump_piston_top");
 		StamperBlockEntityRenderer.arm = getModel(bakery, "stamper_arm");
+		AutomaticHammerBlockEntityRenderer.hammer = getModel(bakery, "automatic_hammer_end");
 	}
 
 	public static BakedModel getModel(ModelBakery bakery, String name) {

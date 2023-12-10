@@ -1,0 +1,33 @@
+{
+	"parent": "block/block",
+	"textures": {
+		"particle": "embers:block/auto_hammer",
+		"hammer": "embers:block/auto_hammer"
+	},
+	"elements": [
+		{
+			"from": [7, 8, 7],
+			"to": [9, 18, 9],
+			"rotation": {"angle": -45, "axis": "x", "origin": [8, 8, 8]},
+			"faces": {
+				"north": {"uv": [0, 14, 2, 4], "texture": "#hammer"},
+				"east": {"uv": [0, 14, 2, 4], "texture": "#hammer"},
+				"south": {"uv": [0, 14, 2, 4], "texture": "#hammer"},
+				"west": {"uv": [0, 14, 2, 4], "texture": "#hammer"}
+			}
+		},
+		{
+			"from": [6, 18, 5],
+			"to": [10, 22, 11],
+			"rotation": {"angle": -45, "axis": "x", "origin": [8, 8, 8]},
+			"faces": {
+				"north": {"uv": [0, 0, 4, 4], "texture": "#hammer"},
+				"east": {"uv": [4, 0, 10, 4], "texture": "#hammer"},
+				"south": {"uv": [0, 0, 4, 4], "texture": "#hammer"},
+				"west": {"uv": [4, 0, 10, 4], "texture": "#hammer"},
+				"up": {"uv": [2, 4, 6, 10], "texture": "#hammer"},
+				"down": {"uv": [2, 4, 6, 10], "texture": "#hammer"}
+			}
+		}
+	]
+}

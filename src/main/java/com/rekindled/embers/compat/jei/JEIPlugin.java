@@ -147,5 +147,6 @@ public class JEIPlugin implements IModPlugin {
 		registry.addRecipeCatalyst(new ItemStack(RegistryManager.WILDFIRE_STIRLING_ITEM.get()), GASEOUS_FUEL);
 		registry.addRecipeCatalyst(new ItemStack(RegistryManager.TINKER_HAMMER.get()), DAWNSTONE_ANVIL);
 		registry.addRecipeCatalyst(new ItemStack(RegistryManager.DAWNSTONE_ANVIL_ITEM.get()), DAWNSTONE_ANVIL);
+		registry.addRecipeCatalyst(new ItemStack(RegistryManager.AUTOMATIC_HAMMER_ITEM.get()), DAWNSTONE_ANVIL);
 	}
 }

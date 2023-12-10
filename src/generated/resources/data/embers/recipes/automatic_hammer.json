@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "embers:caminite_bricks"
+    },
+    "C": {
+      "tag": "forge:storage_blocks/copper"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "X": {
+      "tag": "forge:storage_blocks/iron"
+    }
+  },
+  "pattern": [
+    "BB ",
+    "CIX",
+    "BB "
+  ],
+  "result": {
+    "item": "embers:automatic_hammer"
+  },
+  "show_notification": true
+}

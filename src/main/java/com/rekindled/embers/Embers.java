@@ -8,6 +8,7 @@ import com.rekindled.embers.apiimpl.EmbersAPIImpl;
 import com.rekindled.embers.blockentity.render.AlchemyPedestalBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.AlchemyPedestalTopBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.AlchemyTabletBlockEntityRenderer;
+import com.rekindled.embers.blockentity.render.AutomaticHammerBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.BinBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.CatalyticPlugBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.CinderPlinthBlockEntityRenderer;
@@ -316,6 +317,7 @@ public class Embers {
 			event.registerBlockEntityRenderer(RegistryManager.FIELD_CHART_ENTITY.get(), FieldChartBlockEntityRenderer::new);
 			event.registerBlockEntityRenderer(RegistryManager.CINDER_PLINTH_ENTITY.get(), CinderPlinthBlockEntityRenderer::new);
 			event.registerBlockEntityRenderer(RegistryManager.DAWNSTONE_ANVIL_ENTITY.get(), DawnstoneAnvilBlockEntityRenderer::new);
+			event.registerBlockEntityRenderer(RegistryManager.AUTOMATIC_HAMMER_ENTITY.get(), AutomaticHammerBlockEntityRenderer::new);
 		}
 
 		@OnlyIn(Dist.CLIENT)

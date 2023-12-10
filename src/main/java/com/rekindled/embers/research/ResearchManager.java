@@ -280,7 +280,7 @@ public class ResearchManager {
 
 		//SMITHING
 		dawnstone_anvil = new ResearchBase("dawnstone_anvil", new ItemStack(RegistryManager.DAWNSTONE_ANVIL_ITEM.get()), 12, 7);
-		//autohammer = new ResearchBase("autohammer", new ItemStack(RegistryManager.auto_hammer), 9, 5).addAncestor(dawnstone_anvil);
+		autohammer = new ResearchBase("autohammer", new ItemStack(RegistryManager.AUTOMATIC_HAMMER_ITEM.get()), 9, 5).addAncestor(dawnstone_anvil);
 		heat = new ResearchBase("heat", new ItemStack(RegistryManager.EMBER_CRYSTAL.get()), 7, 7).addAncestor(dawnstone_anvil);
 		augments = new ResearchBase("augments", new ItemStack(RegistryManager.ANCIENT_MOTIVE_CORE.get()), 5, 7).addAncestor(heat);
 		dismantling = new ResearchBase("dismantling", ItemStack.EMPTY, 3, 5).setIconBackground(PAGE_ICONS, PAGE_ICON_SIZE * 2, PAGE_ICON_SIZE * 0).addAncestor(augments);
@@ -451,7 +451,7 @@ public class ResearchManager {
 		.addResearch(wildfireSwitch);
 		categorySmithing
 		.addResearch(dawnstone_anvil)
-		//.addResearch(autohammer)
+		.addResearch(autohammer)
 		.addResearch(heat)
 		.addResearch(augments)
 		.addResearch(dismantling);

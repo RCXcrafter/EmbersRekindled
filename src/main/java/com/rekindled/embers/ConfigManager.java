@@ -131,7 +131,7 @@ public class ConfigManager {
 		TAG_PREFERENCES = COMMON.comment("Which domains are preferred for recipes with dynamic outputs.").defineList("tagPreferences", preferences, a -> true);
 
 		List<String> itemPreferences = new ArrayList<String>();
-		itemPreferences.add(0, "minecraft:oak_plans");
+		itemPreferences.add(0, "minecraft:oak_planks");
 		itemPreferences.add(1, "minecraft:cobblestone");
 		ITEM_PREFERENCES = COMMON.comment("Which items are preferred as the result of breaking down a tool on an anvil.").defineList("itemPreferences", itemPreferences, a -> true);
 

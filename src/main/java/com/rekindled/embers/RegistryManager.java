@@ -20,6 +20,7 @@ import com.rekindled.embers.block.AlchemyPedestalBlock;
 import com.rekindled.embers.block.AlchemyTabletBlock;
 import com.rekindled.embers.block.ArchaicLightBlock;
 import com.rekindled.embers.block.AtmosphericGaugeBlock;
+import com.rekindled.embers.block.AutomaticHammerBlock;
 import com.rekindled.embers.block.BeamCannonBlock;
 import com.rekindled.embers.block.BeamSplitterBlock;
 import com.rekindled.embers.block.BinBlock;
@@ -88,6 +89,7 @@ import com.rekindled.embers.blockentity.AlchemyPedestalBlockEntity;
 import com.rekindled.embers.blockentity.AlchemyPedestalTopBlockEntity;
 import com.rekindled.embers.blockentity.AlchemyTabletBlockEntity;
 import com.rekindled.embers.blockentity.AtmosphericGaugeBlockEntity;
+import com.rekindled.embers.blockentity.AutomaticHammerBlockEntity;
 import com.rekindled.embers.blockentity.BeamCannonBlockEntity;
 import com.rekindled.embers.blockentity.BeamSplitterBlockEntity;
 import com.rekindled.embers.blockentity.BinBlockEntity;
@@ -452,6 +454,7 @@ public class RegistryManager {
 	public static final RegistryObject<Block> GLIMMER = BLOCKS.register("glimmer", () -> new GlimmerBlock(Properties.of().mapColor(MapColor.COLOR_YELLOW).sound(SoundType.STONE).strength(0f).lightLevel(state -> 15).noParticlesOnBreak().noCollission().noOcclusion()));
 	public static final RegistryObject<Block> CINDER_PLINTH = BLOCKS.register("cinder_plinth", () -> new CinderPlinthBlock(Properties.of().mapColor(MapColor.TERRACOTTA_PURPLE).sound(EmbersSounds.MACHINE).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
 	public static final RegistryObject<Block> DAWNSTONE_ANVIL = BLOCKS.register("dawnstone_anvil", () -> new DawnstoneAnvilBlock(Properties.of().mapColor(MapColor.TERRACOTTA_YELLOW).sound(SoundType.ANVIL).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
+	public static final RegistryObject<Block> AUTOMATIC_HAMMER = BLOCKS.register("automatic_hammer", () -> new AutomaticHammerBlock(Properties.of().mapColor(MapColor.WOOD).sound(EmbersSounds.MACHINE).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
 
 	//itemblocks
 	public static final RegistryObject<Item> LEAD_ORE_ITEM = ITEMS.register("lead_ore", () -> new BlockItem(LEAD_ORE.get(), new Item.Properties()));
@@ -531,6 +534,7 @@ public class RegistryManager {
 	public static final RegistryObject<Item> COMBUSTION_CHAMBER_ITEM = ITEMS.register("combustion_chamber", () -> new BlockItem(COMBUSTION_CHAMBER.get(), new Item.Properties()));
 	public static final RegistryObject<Item> CINDER_PLINTH_ITEM = ITEMS.register("cinder_plinth", () -> new BlockItem(CINDER_PLINTH.get(), new Item.Properties()));
 	public static final RegistryObject<Item> DAWNSTONE_ANVIL_ITEM = ITEMS.register("dawnstone_anvil", () -> new BlockItem(DAWNSTONE_ANVIL.get(), new Item.Properties()));
+	public static final RegistryObject<Item> AUTOMATIC_HAMMER_ITEM = ITEMS.register("automatic_hammer", () -> new BlockItem(AUTOMATIC_HAMMER.get(), new Item.Properties()));
 
 	//items
 	public static final RegistryObject<Item> TINKER_HAMMER = ITEMS.register("tinker_hammer", () -> new TinkerHammerItem(new Item.Properties().stacksTo(1)));
@@ -757,6 +761,7 @@ public class RegistryManager {
 	public static final RegistryObject<BlockEntityType<CombustionChamberBlockEntity>> COMBUSTION_CHAMBER_ENTITY = BLOCK_ENTITY_TYPES.register("combustion_chamber", () -> BlockEntityType.Builder.of(CombustionChamberBlockEntity::new, COMBUSTION_CHAMBER.get()).build(null));
 	public static final RegistryObject<BlockEntityType<CinderPlinthBlockEntity>> CINDER_PLINTH_ENTITY = BLOCK_ENTITY_TYPES.register("cinder_plinth", () -> BlockEntityType.Builder.of(CinderPlinthBlockEntity::new, CINDER_PLINTH.get()).build(null));
 	public static final RegistryObject<BlockEntityType<DawnstoneAnvilBlockEntity>> DAWNSTONE_ANVIL_ENTITY = BLOCK_ENTITY_TYPES.register("dawnstone_anvil", () -> BlockEntityType.Builder.of(DawnstoneAnvilBlockEntity::new, DAWNSTONE_ANVIL.get()).build(null));
+	public static final RegistryObject<BlockEntityType<AutomaticHammerBlockEntity>> AUTOMATIC_HAMMER_ENTITY = BLOCK_ENTITY_TYPES.register("automatic_hammer", () -> BlockEntityType.Builder.of(AutomaticHammerBlockEntity::new, AUTOMATIC_HAMMER.get()).build(null));
 
 	//creative tabs
 	public static final RegistryObject<CreativeModeTab> EMBERS_TAB = CREATIVE_TABS.register("main_tab", () -> CreativeModeTab.builder()

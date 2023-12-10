@@ -580,6 +580,11 @@ public class EmbersBlockStates extends BlockStateProvider {
 		ExistingModelFile anvilModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "dawnstone_anvil"));
 		horizontalBlock(RegistryManager.DAWNSTONE_ANVIL.get(), anvilModel, 90);
 		simpleBlockItem(RegistryManager.DAWNSTONE_ANVIL.get(), anvilModel);
+
+		ExistingModelFile hammerModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "automatic_hammer"));
+		ExistingModelFile hammerItemModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "automatic_hammer_item"));
+		horizontalBlock(RegistryManager.AUTOMATIC_HAMMER.get(), hammerModel);
+		simpleBlockItem(RegistryManager.AUTOMATIC_HAMMER.get(), hammerItemModel);
 	}
 
 	public void blockWithItem(RegistryObject<? extends Block> registryObject) {
