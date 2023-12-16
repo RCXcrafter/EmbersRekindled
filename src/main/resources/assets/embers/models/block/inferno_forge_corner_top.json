@@ -1,0 +1,36 @@
+{
+	"parent": "block/block",
+	"textures": {
+		"particle": "embers:block/inferno_forge_edge_front",
+		"dawnstone_main": "embers:block/inferno_forge_edge_front",
+		"dplate": "embers:block/dawnstone_vent",
+		"coil_top": "embers:block/copper_coil_top",
+		"coil_side": "embers:block/copper_coil_side"
+	},
+	"elements": [
+		{
+			"from": [0, 7, 6],
+			"to": [10, 12, 16],
+			"faces": {
+				"north": {"uv": [3, 0, 13, 5], "texture": "#dawnstone_main"},
+				"east": {"uv": [3, 0, 13, 5], "texture": "#dawnstone_main"},
+				"south": {"uv": [3, 0, 13, 5], "texture": "#dawnstone_main"},
+				"west": {"uv": [3, 0, 13, 5], "texture": "#dawnstone_main"},
+				"up": {"uv": [0, 0, 10, 10], "texture": "#dplate"},
+				"down": {"uv": [0, 0, 10, 10], "texture": "#dplate"}
+			}
+		},
+		{
+			"from": [0, 0, 4],
+			"to": [12, 7, 16],
+			"faces": {
+				"north": {"uv": [0, 9, 12, 16], "texture": "#coil_side"},
+				"east": {"uv": [0, 9, 12, 16], "texture": "#coil_side"},
+				"south": {"uv": [0, 9, 12, 16], "texture": "#coil_side"},
+				"west": {"uv": [0, 9, 12, 16], "texture": "#coil_side"},
+				"up": {"uv": [0, 0, 12, 12], "texture": "#coil_top"},
+				"down": {"uv": [0, 0, 12, 12], "texture": "#coil_top"}
+			}
+		}
+	]
+}

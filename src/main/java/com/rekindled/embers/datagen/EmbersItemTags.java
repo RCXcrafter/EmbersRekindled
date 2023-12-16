@@ -200,6 +200,8 @@ public class EmbersItemTags extends ItemTagsProvider {
 
 		tag(Tags.Items.SLIMEBALLS).add(RegistryManager.ADHESIVE.get());
 
+		tag(ItemTags.MUSIC_DISCS).add(RegistryManager.MUSIC_DISC_7F_PATTERNS.get());
+
 		copy(EmbersBlockTags.WORLD_BOTTOM, WORLD_BOTTOM);
 
 		copy(EmbersBlockTags.PRISTINE_COPPER, PRISTINE_COPPER);

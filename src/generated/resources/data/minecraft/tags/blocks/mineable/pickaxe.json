@@ -106,6 +106,8 @@
     "embers:combustion_chamber",
     "embers:cinder_plinth",
     "embers:dawnstone_anvil",
-    "embers:automatic_hammer"
+    "embers:automatic_hammer",
+    "embers:inferno_forge",
+    "embers:inferno_forge_edge"
   ]
 }

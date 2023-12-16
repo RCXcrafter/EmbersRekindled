@@ -123,6 +123,8 @@ public class EmbersLang extends LanguageProvider {
 		addBlock(RegistryManager.CINDER_PLINTH, "Cinder Plinth");
 		addBlock(RegistryManager.DAWNSTONE_ANVIL, "Dawnstone Anvil");
 		addBlock(RegistryManager.AUTOMATIC_HAMMER, "Automatic Hammer");
+		addBlock(RegistryManager.INFERNO_FORGE, "Inferno Forge");
+		addBlock(RegistryManager.INFERNO_FORGE_EDGE, "Inferno Forge");
 
 		addItem(RegistryManager.TINKER_HAMMER, "Tinker's Hammer");
 		addItem(RegistryManager.TINKER_LENS, "Tinker's Lens");
@@ -135,6 +137,8 @@ public class EmbersLang extends LanguageProvider {
 		addItem(RegistryManager.GRANDHAMMER, "Grandhammer");
 		addItem(RegistryManager.BLAZING_RAY, "Blazing Ray");
 		addItem(RegistryManager.CINDER_STAFF, "Cinder Staff");
+		addItem(RegistryManager.MUSIC_DISC_7F_PATTERNS, "Music Disc");
+		add(RegistryManager.MUSIC_DISC_7F_PATTERNS.get().getDescriptionId() + ".desc", "Ultrasyd - 7F Patterns");
 		addItem(RegistryManager.ALCHEMICAL_WASTE, "Alchemical Waste");
 		addItem(RegistryManager.CODEBREAKING_SLATE, "Codebreaking Slate");
 		addItem(RegistryManager.TYRFING, "Tyrfing");
@@ -237,6 +241,7 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".tooltip.item.ember", "Ember: %s/%s");
 		add(Embers.MODID + ".tooltip.attenuator.on", "When active: %s Speed");
 		add(Embers.MODID + ".tooltip.attenuator.off", "When inactive: %s Speed");
+		add(Embers.MODID + ".tooltip.forge.cannot_start", "There is not enough Ember to ignite the forge.");
 
 		add(Embers.MODID + ".tooltip.upgrade.catalytic_plug", "Catalytic Plug Speed: %s");
 

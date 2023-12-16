@@ -22,6 +22,9 @@
     "embers:mechanical_pump",
     "embers:field_chart",
     "embers:field_chart_edge",
+    "embers:combustion_chamber",
+    "embers:catalysis_chamber",
+    "embers:inferno_forge",
     "#embers:crystal_seeds"
   ]
 }

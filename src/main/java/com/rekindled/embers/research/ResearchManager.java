@@ -16,6 +16,7 @@ import com.rekindled.embers.network.message.MessageResearchTick;
 import com.rekindled.embers.research.capability.DefaultResearchCapability;
 import com.rekindled.embers.research.capability.IResearchCapability;
 import com.rekindled.embers.research.capability.ResearchCapabilityProvider;
+import com.rekindled.embers.research.subtypes.ResearchFakePage;
 import com.rekindled.embers.research.subtypes.ResearchShowItem;
 import com.rekindled.embers.research.subtypes.ResearchShowItem.DisplayItem;
 import com.rekindled.embers.research.subtypes.ResearchSwitchCategory;
@@ -284,7 +285,7 @@ public class ResearchManager {
 		heat = new ResearchBase("heat", new ItemStack(RegistryManager.EMBER_CRYSTAL.get()), 7, 7).addAncestor(dawnstone_anvil);
 		augments = new ResearchBase("augments", new ItemStack(RegistryManager.ANCIENT_MOTIVE_CORE.get()), 5, 7).addAncestor(heat);
 		dismantling = new ResearchBase("dismantling", ItemStack.EMPTY, 3, 5).setIconBackground(PAGE_ICONS, PAGE_ICON_SIZE * 2, PAGE_ICON_SIZE * 0).addAncestor(augments);
-		//inferno_forge = new ResearchBase("inferno_forge", new ItemStack(RegistryManager.inferno_forge), 6, 4).addAncestor(heat);
+		inferno_forge = new ResearchBase("inferno_forge", new ItemStack(RegistryManager.INFERNO_FORGE_ITEM.get()), 6, 4).addAncestor(heat);
 
 		//superheater = new ResearchBase("superheater", new ItemStack(RegistryManager.superheater), subCategoryWeaponAugments.popGoodLocation());
 		//blasting_core = new ResearchBase("blasting_core", new ItemStack(RegistryManager.blasting_core), subCategoryWeaponAugments.popGoodLocation());
@@ -306,36 +307,36 @@ public class ResearchManager {
 
 		tinker_lens.addPage(tinker_lens_augment);
 
-		/*ResearchBase infernoForgeWeapon = new ResearchFakePage(inferno_forge, 6, 4);
+		ResearchBase infernoForgeWeapon = new ResearchFakePage(inferno_forge, 6, 4);
 		subCategoryWeaponAugments.addResearch(infernoForgeWeapon);
-		subCategoryWeaponAugments.addResearch(superheater.addAncestor(infernoForgeWeapon));
-		subCategoryWeaponAugments.addResearch(blasting_core.addAncestor(infernoForgeWeapon));
-		subCategoryWeaponAugments.addResearch(caster_orb.addAncestor(infernoForgeWeapon));
-		subCategoryWeaponAugments.addResearch(resonating_bell.addAncestor(infernoForgeWeapon));
+		//subCategoryWeaponAugments.addResearch(superheater.addAncestor(infernoForgeWeapon));
+		//subCategoryWeaponAugments.addResearch(blasting_core.addAncestor(infernoForgeWeapon));
+		//subCategoryWeaponAugments.addResearch(caster_orb.addAncestor(infernoForgeWeapon));
+		//subCategoryWeaponAugments.addResearch(resonating_bell.addAncestor(infernoForgeWeapon));
 		//subCategoryWeaponAugments.addResearch(core_stone.addAncestor(infernoForgeWeapon));
-		subCategoryWeaponAugments.addResearch(winding_gears.addAncestor(infernoForgeWeapon));
+		//subCategoryWeaponAugments.addResearch(winding_gears.addAncestor(infernoForgeWeapon));
 
 		ResearchBase infernoForgeArmor = new ResearchFakePage(inferno_forge, 6, 4);
 		subCategoryArmorAugments.addResearch(infernoForgeArmor);
-		subCategoryArmorAugments.addResearch(cinder_jet.addAncestor(infernoForgeArmor));
-		subCategoryArmorAugments.addResearch(eldritch_insignia.addAncestor(infernoForgeArmor));
-		subCategoryArmorAugments.addResearch(intelligent_apparatus.addAncestor(infernoForgeArmor));
-		subCategoryArmorAugments.addResearch(flame_barrier.addAncestor(infernoForgeArmor));
-		subCategoryArmorAugments.addResearch(new ResearchFakePage(blasting_core,subCategoryArmorAugments.popGoodLocation()).addAncestor(infernoForgeArmor));
+		//subCategoryArmorAugments.addResearch(cinder_jet.addAncestor(infernoForgeArmor));
+		//subCategoryArmorAugments.addResearch(eldritch_insignia.addAncestor(infernoForgeArmor));
+		//subCategoryArmorAugments.addResearch(intelligent_apparatus.addAncestor(infernoForgeArmor));
+		//subCategoryArmorAugments.addResearch(flame_barrier.addAncestor(infernoForgeArmor));
+		//subCategoryArmorAugments.addResearch(new ResearchFakePage(blasting_core,subCategoryArmorAugments.popGoodLocation()).addAncestor(infernoForgeArmor));
 		subCategoryArmorAugments.addResearch(tinker_lens_augment.addAncestor(infernoForgeArmor));
 		subCategoryArmorAugments.addResearch(anti_tinker_lens.addAncestor(infernoForgeArmor));
-		subCategoryArmorAugments.addResearch(shifting_scales.addAncestor(infernoForgeArmor));
-		subCategoryArmorAugments.addResearch(new ResearchFakePage(winding_gears,subCategoryArmorAugments.popGoodLocation()).addAncestor(infernoForgeArmor));
+		//subCategoryArmorAugments.addResearch(shifting_scales.addAncestor(infernoForgeArmor));
+		//subCategoryArmorAugments.addResearch(new ResearchFakePage(winding_gears,subCategoryArmorAugments.popGoodLocation()).addAncestor(infernoForgeArmor));
 		//subCategoryArmorAugments.addResearch(new ResearchFakePage(core_stone,subCategoryArmorAugments.popGoodLocation()).addAncestor(infernoForgeArmor));
 
 		ResearchBase infernoForgeProjectile = new ResearchFakePage(inferno_forge, 6, 4);
 		subCategoryProjectileAugments.addResearch(infernoForgeProjectile);
-		subCategoryProjectileAugments.addResearch(diffraction_barrel.addAncestor(infernoForgeProjectile));
-		subCategoryProjectileAugments.addResearch(focal_lens.addAncestor(infernoForgeProjectile));
+		//subCategoryProjectileAugments.addResearch(diffraction_barrel.addAncestor(infernoForgeProjectile));
+		//subCategoryProjectileAugments.addResearch(focal_lens.addAncestor(infernoForgeProjectile));
 
 		ResearchBase infernoForgeMisc = new ResearchFakePage(inferno_forge, 6, 4);
 		subCategoryMiscAugments.addResearch(infernoForgeMisc);
-		 */
+
 		subCategoryPipes.addResearch(pipes);
 		subCategoryPipes.addResearch(bin);
 		subCategoryPipes.addResearch(tank);
@@ -383,10 +384,10 @@ public class ResearchManager {
 		 */
 
 		ResearchBase pipeSwitch = makeCategorySwitch(subCategoryPipes, 3, 0, new ItemStack(RegistryManager.FLUID_PIPE_ITEM.get()), 0, 1).addAncestor(hammer);
-		//ResearchBase weaponAugmentSwitch = makeCategorySwitch(subCategoryWeaponAugments, 2, 1, ItemStack.EMPTY, 1, 1).setMinEntries(2).addAncestor(inferno_forge);
-		//ResearchBase armorAugmentSwitch = makeCategorySwitch(subCategoryArmorAugments, 1, 3, ItemStack.EMPTY, 2, 1).setMinEntries(2).addAncestor(inferno_forge);
-		//ResearchBase projectileAugmentSwitch = makeCategorySwitch(subCategoryProjectileAugments, 11, 3, ItemStack.EMPTY, 3, 1).setMinEntries(2).addAncestor(inferno_forge);
-		//ResearchBase miscAugmentSwitch = makeCategorySwitch(subCategoryMiscAugments, 10, 1, ItemStack.EMPTY, 0, 1).setMinEntries(2).addAncestor(inferno_forge);
+		ResearchBase weaponAugmentSwitch = makeCategorySwitch(subCategoryWeaponAugments, 2, 1, ItemStack.EMPTY, 1, 1).setMinEntries(2).addAncestor(inferno_forge);
+		ResearchBase armorAugmentSwitch = makeCategorySwitch(subCategoryArmorAugments, 1, 3, ItemStack.EMPTY, 2, 1).setMinEntries(2).addAncestor(inferno_forge);
+		ResearchBase projectileAugmentSwitch = makeCategorySwitch(subCategoryProjectileAugments, 11, 3, ItemStack.EMPTY, 3, 1).setMinEntries(2).addAncestor(inferno_forge);
+		ResearchBase miscAugmentSwitch = makeCategorySwitch(subCategoryMiscAugments, 10, 1, ItemStack.EMPTY, 0, 1).setMinEntries(2).addAncestor(inferno_forge);
 		ResearchBase wildfireSwitch = makeCategorySwitch(subCategoryWildfire, 1, 7, new ItemStack(RegistryManager.WILDFIRE_CORE.get()), 0, 1).addAncestor(cluster);
 		ResearchBase simpleAlchemySwitch = makeCategorySwitch(subCategorySimpleAlchemy, 12, 1, new ItemStack(Items.SOUL_SAND), 0, 1).addAncestor(slate);
 
@@ -454,12 +455,12 @@ public class ResearchManager {
 		.addResearch(autohammer)
 		.addResearch(heat)
 		.addResearch(augments)
-		.addResearch(dismantling);
-		//.addResearch(inferno_forge)
-		//.addResearch(weaponAugmentSwitch)
-		//.addResearch(armorAugmentSwitch)
-		//.addResearch(projectileAugmentSwitch)
-		//.addResearch(miscAugmentSwitch);
+		.addResearch(dismantling)
+		.addResearch(inferno_forge)
+		.addResearch(weaponAugmentSwitch)
+		.addResearch(armorAugmentSwitch)
+		.addResearch(projectileAugmentSwitch)
+		.addResearch(miscAugmentSwitch);
 
 		categoryMechanisms.addPrerequisite(activator);
 		categoryMetallurgy.addPrerequisite(dawnstone);

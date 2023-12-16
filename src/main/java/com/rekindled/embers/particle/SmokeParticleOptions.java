@@ -24,6 +24,7 @@ public class SmokeParticleOptions implements ParticleOptions {
 	protected final float scale;
 	public static final Vector3f SMOKE_COLOR = new Vector3f(64.0F / 255.0F, 64.0F / 255.0F, 64.0F / 255.0F);
 	public static final SmokeParticleOptions SMOKE = new SmokeParticleOptions(SMOKE_COLOR, 2.0F);
+	public static final SmokeParticleOptions BIG_SMOKE = new SmokeParticleOptions(SMOKE_COLOR, 5.0F);
 
 	public static final Codec<SmokeParticleOptions> CODEC = RecordCodecBuilder.create((p_175793_) -> {
 		return p_175793_.group(ExtraCodecs.VECTOR3F.fieldOf("color").forGetter((p_175797_) -> {

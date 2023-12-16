@@ -143,6 +143,8 @@ public class EmbersBlockLootTables extends BlockLootSubProvider {
 		dropSelf(RegistryManager.CINDER_PLINTH.get());
 		dropSelf(RegistryManager.DAWNSTONE_ANVIL.get());
 		dropSelf(RegistryManager.AUTOMATIC_HAMMER.get());
+		dropSelf(RegistryManager.INFERNO_FORGE.get());
+		add(RegistryManager.INFERNO_FORGE_EDGE.get(), noDrop());
 	}
 
 	public void decoDrops(StoneDecoBlocks deco) {

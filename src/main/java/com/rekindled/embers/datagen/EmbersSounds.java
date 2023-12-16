@@ -129,6 +129,7 @@ public class EmbersSounds extends SoundDefinitionsProvider {
 	public static final RegistryObject<SoundEvent> CINDER_STAFF_CHARGE = registerSound("item.cinder_staff.charge");
 	public static final RegistryObject<SoundEvent> CINDER_STAFF_FAIL = registerSound("item.cinder_staff.fail");
 	public static final RegistryObject<SoundEvent> CINDER_STAFF_LOOP = registerSound("item.cinder_staff.loop");
+	public static final RegistryObject<SoundEvent> ULTRASYD_7F_PATTERNS = registerSound("music_disc.7f_patterns");
 
 	public static final RegistryObject<SoundEvent> EXPLOSION_CHARM_ABSORB = registerSound("item.explosion_charm.absorb");
 	public static final RegistryObject<SoundEvent> EXPLOSION_CHARM_RECHARGE = registerSound("item.explosion_charm.recharge");
@@ -442,6 +443,8 @@ public class EmbersSounds extends SoundDefinitionsProvider {
 				sound(resource("cinder_staff/fail"))));
 		add(CINDER_STAFF_LOOP, definition().with(
 				sound(resource("cinder_staff/loop"))));
+		add(ULTRASYD_7F_PATTERNS, definition().with(
+				sound(resource("7f_patterns")).stream()));
 
 		withSubtitle(EXPLOSION_CHARM_ABSORB, definition().with(
 				sound(resource("explosion_charm/absorb1")),

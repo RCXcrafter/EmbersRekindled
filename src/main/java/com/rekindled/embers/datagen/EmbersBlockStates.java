@@ -573,7 +573,8 @@ public class EmbersBlockStates extends BlockStateProvider {
 					.build();
 		});
 
-		simpleBlock(RegistryManager.GLIMMER.get(), models().getExistingFile(new ResourceLocation("block/air")));
+		ExistingModelFile emptyModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "empty"));
+		simpleBlock(RegistryManager.GLIMMER.get(), emptyModel);
 
 		blockWithItem(RegistryManager.CINDER_PLINTH, "cinder_plinth");
 
@@ -585,6 +586,29 @@ public class EmbersBlockStates extends BlockStateProvider {
 		ExistingModelFile hammerItemModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "automatic_hammer_item"));
 		horizontalBlock(RegistryManager.AUTOMATIC_HAMMER.get(), hammerModel);
 		simpleBlockItem(RegistryManager.AUTOMATIC_HAMMER.get(), hammerItemModel);
+
+		ExistingModelFile infernoForgeModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "inferno_forge"));
+		getVariantBuilder(RegistryManager.INFERNO_FORGE.get()).forAllStates(state -> {
+			DoubleBlockHalf half = state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF);
+
+			return ConfiguredModel.builder()
+					.modelFile(half == DoubleBlockHalf.LOWER ? infernoForgeModel : emptyModel)
+					.build();
+		});
+		simpleBlockItem(RegistryManager.INFERNO_FORGE.get(), models().cubeAll("ember_bore", new ResourceLocation(Embers.MODID, "block/crate_inferno_forge")));
+
+		ExistingModelFile forgeEdgeModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "inferno_forge_edge_bottom"));
+		ExistingModelFile forgeTopEdgeModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "inferno_forge_edge_top"));
+		ExistingModelFile forgeCornerModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "inferno_forge_corner_bottom"));
+		ExistingModelFile forgeTopCornerModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "inferno_forge_corner_top"));
+		getVariantBuilder(RegistryManager.INFERNO_FORGE_EDGE.get()).forAllStates(state -> {
+			MechEdge edge = state.getValue(MechEdgeBlockBase.EDGE);
+			Builder<?> builder = ConfiguredModel.builder().rotationY(edge.rotation);
+
+			if (state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER)
+				return builder.modelFile(edge.corner ? forgeCornerModel : forgeEdgeModel).build();
+			return builder.modelFile(edge.corner ? forgeTopCornerModel : forgeTopEdgeModel).build();
+		});
 	}
 
 	public void blockWithItem(RegistryObject<? extends Block> registryObject) {

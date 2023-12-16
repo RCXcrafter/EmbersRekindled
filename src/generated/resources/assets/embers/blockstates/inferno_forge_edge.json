@@ -1,0 +1,124 @@
+{
+  "variants": {
+    "edge=east,half=lower,waterlogged=false": {
+      "model": "embers:block/inferno_forge_edge_bottom",
+      "y": 90
+    },
+    "edge=east,half=lower,waterlogged=true": {
+      "model": "embers:block/inferno_forge_edge_bottom",
+      "y": 90
+    },
+    "edge=east,half=upper,waterlogged=false": {
+      "model": "embers:block/inferno_forge_edge_top",
+      "y": 90
+    },
+    "edge=east,half=upper,waterlogged=true": {
+      "model": "embers:block/inferno_forge_edge_top",
+      "y": 90
+    },
+    "edge=north,half=lower,waterlogged=false": {
+      "model": "embers:block/inferno_forge_edge_bottom"
+    },
+    "edge=north,half=lower,waterlogged=true": {
+      "model": "embers:block/inferno_forge_edge_bottom"
+    },
+    "edge=north,half=upper,waterlogged=false": {
+      "model": "embers:block/inferno_forge_edge_top"
+    },
+    "edge=north,half=upper,waterlogged=true": {
+      "model": "embers:block/inferno_forge_edge_top"
+    },
+    "edge=northeast,half=lower,waterlogged=false": {
+      "model": "embers:block/inferno_forge_corner_bottom"
+    },
+    "edge=northeast,half=lower,waterlogged=true": {
+      "model": "embers:block/inferno_forge_corner_bottom"
+    },
+    "edge=northeast,half=upper,waterlogged=false": {
+      "model": "embers:block/inferno_forge_corner_top"
+    },
+    "edge=northeast,half=upper,waterlogged=true": {
+      "model": "embers:block/inferno_forge_corner_top"
+    },
+    "edge=northwest,half=lower,waterlogged=false": {
+      "model": "embers:block/inferno_forge_corner_bottom",
+      "y": 270
+    },
+    "edge=northwest,half=lower,waterlogged=true": {
+      "model": "embers:block/inferno_forge_corner_bottom",
+      "y": 270
+    },
+    "edge=northwest,half=upper,waterlogged=false": {
+      "model": "embers:block/inferno_forge_corner_top",
+      "y": 270
+    },
+    "edge=northwest,half=upper,waterlogged=true": {
+      "model": "embers:block/inferno_forge_corner_top",
+      "y": 270
+    },
+    "edge=south,half=lower,waterlogged=false": {
+      "model": "embers:block/inferno_forge_edge_bottom",
+      "y": 180
+    },
+    "edge=south,half=lower,waterlogged=true": {
+      "model": "embers:block/inferno_forge_edge_bottom",
+      "y": 180
+    },
+    "edge=south,half=upper,waterlogged=false": {
+      "model": "embers:block/inferno_forge_edge_top",
+      "y": 180
+    },
+    "edge=south,half=upper,waterlogged=true": {
+      "model": "embers:block/inferno_forge_edge_top",
+      "y": 180
+    },
+    "edge=southeast,half=lower,waterlogged=false": {
+      "model": "embers:block/inferno_forge_corner_bottom",
+      "y": 90
+    },
+    "edge=southeast,half=lower,waterlogged=true": {
+      "model": "embers:block/inferno_forge_corner_bottom",
+      "y": 90
+    },
+    "edge=southeast,half=upper,waterlogged=false": {
+      "model": "embers:block/inferno_forge_corner_top",
+      "y": 90
+    },
+    "edge=southeast,half=upper,waterlogged=true": {
+      "model": "embers:block/inferno_forge_corner_top",
+      "y": 90
+    },
+    "edge=southwest,half=lower,waterlogged=false": {
+      "model": "embers:block/inferno_forge_corner_bottom",
+      "y": 180
+    },
+    "edge=southwest,half=lower,waterlogged=true": {
+      "model": "embers:block/inferno_forge_corner_bottom",
+      "y": 180
+    },
+    "edge=southwest,half=upper,waterlogged=false": {
+      "model": "embers:block/inferno_forge_corner_top",
+      "y": 180
+    },
+    "edge=southwest,half=upper,waterlogged=true": {
+      "model": "embers:block/inferno_forge_corner_top",
+      "y": 180
+    },
+    "edge=west,half=lower,waterlogged=false": {
+      "model": "embers:block/inferno_forge_edge_bottom",
+      "y": 270
+    },
+    "edge=west,half=lower,waterlogged=true": {
+      "model": "embers:block/inferno_forge_edge_bottom",
+      "y": 270
+    },
+    "edge=west,half=upper,waterlogged=false": {
+      "model": "embers:block/inferno_forge_edge_top",
+      "y": 270
+    },
+    "edge=west,half=upper,waterlogged=true": {
+      "model": "embers:block/inferno_forge_edge_top",
+      "y": 270
+    }
+  }
+}

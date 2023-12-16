@@ -794,5 +794,13 @@
       "embers:spring_launch1",
       "embers:spring_launch2"
     ]
+  },
+  "music_disc.7f_patterns": {
+    "sounds": [
+      {
+        "name": "embers:7f_patterns",
+        "stream": true
+      }
+    ]
   }
 }

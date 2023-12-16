@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "axis=x,half=lower,waterlogged=false": {
+      "model": "embers:block/inferno_forge"
+    },
+    "axis=x,half=lower,waterlogged=true": {
+      "model": "embers:block/inferno_forge"
+    },
+    "axis=x,half=upper,waterlogged=false": {
+      "model": "embers:block/empty"
+    },
+    "axis=x,half=upper,waterlogged=true": {
+      "model": "embers:block/empty"
+    },
+    "axis=z,half=lower,waterlogged=false": {
+      "model": "embers:block/inferno_forge"
+    },
+    "axis=z,half=lower,waterlogged=true": {
+      "model": "embers:block/inferno_forge"
+    },
+    "axis=z,half=upper,waterlogged=false": {
+      "model": "embers:block/empty"
+    },
+    "axis=z,half=upper,waterlogged=true": {
+      "model": "embers:block/empty"
+    }
+  }
+}

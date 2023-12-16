@@ -204,7 +204,9 @@ public class EmbersBlockTags extends BlockTagsProvider {
 				RegistryManager.COMBUSTION_CHAMBER.get(),
 				RegistryManager.CINDER_PLINTH.get(),
 				RegistryManager.DAWNSTONE_ANVIL.get(),
-				RegistryManager.AUTOMATIC_HAMMER.get());
+				RegistryManager.AUTOMATIC_HAMMER.get(),
+				RegistryManager.INFERNO_FORGE.get(),
+				RegistryManager.INFERNO_FORGE_EDGE.get());
 
 		tag(BlockTags.NEEDS_IRON_TOOL).add(
 				RegistryManager.LEAD_ORE.get(),
@@ -239,7 +241,10 @@ public class EmbersBlockTags extends BlockTagsProvider {
 				RegistryManager.ALCHEMY_PEDESTAL.get(),
 				RegistryManager.MECHANICAL_PUMP.get(),
 				RegistryManager.FIELD_CHART.get(),
-				RegistryManager.FIELD_CHART_EDGE.get())
+				RegistryManager.FIELD_CHART_EDGE.get(),
+				RegistryManager.COMBUSTION_CHAMBER.get(),
+				RegistryManager.CATALYSIS_CHAMBER.get(),
+				RegistryManager.INFERNO_FORGE.get())
 		.addTag(CRYSTAL_SEEDS);
 
 		tag(MECH_CORE_PROXYABLE).add(
@@ -250,7 +255,8 @@ public class EmbersBlockTags extends BlockTagsProvider {
 				RegistryManager.HEARTH_COIL.get(),
 				RegistryManager.RESERVOIR.get(),
 				RegistryManager.CRYSTAL_CELL.get(),
-				RegistryManager.ALCHEMY_TABLET.get());
+				RegistryManager.ALCHEMY_TABLET.get(),
+				RegistryManager.INFERNO_FORGE.get());
 
 		tag(RESERVOIR_EXPANSION).add(
 				RegistryManager.CAMINITE_RING.get(),

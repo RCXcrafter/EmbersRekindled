@@ -1164,6 +1164,19 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('B', RegistryManager.CAMINITE_BRICKS.get())
 		.unlockedBy("has_anvil", has(RegistryManager.DAWNSTONE_ANVIL.get()))
 		.save(consumer, getResource("automatic_hammer"));
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.INFERNO_FORGE.get())
+		.pattern("BPB")
+		.pattern("DCD")
+		.pattern("SWS")
+		.define('P', itemTag("forge", "plates/iron"))
+		.define('C', itemTag("forge", "storage_blocks/copper"))
+		.define('D', itemTag("forge", "ingots/dawnstone"))
+		.define('B', itemTag("forge", "storage_blocks/dawnstone"))
+		.define('W', RegistryManager.WILDFIRE_CORE.get())
+		.define('S', RegistryManager.CAMINITE_BRICKS.get())
+		.unlockedBy("has_wildfire_core", has(RegistryManager.WILDFIRE_CORE.get()))
+		.save(consumer, getResource("inferno_forge"));
 	}
 
 	public void fullOreRecipes(String name, ImmutableList<ItemLike> ores, Fluid fluid, Item raw, Item rawBlock, Item block, Item ingot, Item nugget, Item plate, Consumer<FinishedRecipe> consumer, MeltingBonus... bonusses) {
