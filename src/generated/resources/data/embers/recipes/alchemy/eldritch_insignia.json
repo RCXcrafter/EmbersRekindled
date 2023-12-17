@@ -1,0 +1,34 @@
+{
+  "type": "embers:alchemy",
+  "aspects": [
+    {
+      "tag": "embers:aspectus/dawnstone"
+    },
+    {
+      "tag": "embers:aspectus/lead"
+    },
+    {
+      "tag": "embers:aspectus/iron"
+    }
+  ],
+  "inputs": [
+    {
+      "tag": "minecraft:coals"
+    },
+    {
+      "tag": "forge:ingots/archaic_brick"
+    },
+    {
+      "tag": "minecraft:coals"
+    },
+    {
+      "tag": "forge:ingots/archaic_brick"
+    }
+  ],
+  "output": {
+    "item": "embers:eldritch_insignia"
+  },
+  "tablet": {
+    "item": "embers:archaic_circuit"
+  }
+}

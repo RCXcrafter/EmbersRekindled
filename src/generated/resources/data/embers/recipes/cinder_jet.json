@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "D": {
+      "tag": "forge:ingots/dawnstone"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "P": {
+      "tag": "forge:plates/dawnstone"
+    },
+    "S": {
+      "item": "embers:ember_shard"
+    }
+  },
+  "pattern": [
+    "PP ",
+    "ISD",
+    "PP "
+  ],
+  "result": {
+    "item": "embers:cinder_jet"
+  },
+  "show_notification": true
+}

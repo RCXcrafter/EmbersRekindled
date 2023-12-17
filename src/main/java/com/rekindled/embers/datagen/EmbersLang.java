@@ -130,8 +130,8 @@ public class EmbersLang extends LanguageProvider {
 		addItem(RegistryManager.TINKER_LENS, "Tinker's Lens");
 		addItem(RegistryManager.SMOKY_TINKER_LENS, "Smoky Tinker's Lens");
 		addItem(RegistryManager.ANCIENT_CODEX, "Ancient Codex");
-		addItem(RegistryManager.EMBER_JAR, "Ember Jar");
-		addItem(RegistryManager.EMBER_CARTRIDGE, "Ember Cartridge");
+		addItem(RegistryManager.EMBER_JAR, "Mantle Jar");
+		addItem(RegistryManager.EMBER_CARTRIDGE, "Mantle Cartridge");
 		addItem(RegistryManager.CLOCKWORK_PICKAXE, "Clockwork Pickaxe");
 		addItem(RegistryManager.CLOCKWORK_AXE, "Clockwork Axe");
 		addItem(RegistryManager.GRANDHAMMER, "Grandhammer");
@@ -163,6 +163,20 @@ public class EmbersLang extends LanguageProvider {
 		addItem(RegistryManager.WILDFIRE_CORE, "Wildfire Core");
 		addItem(RegistryManager.ISOLATED_MATERIA, "Isolated Materia");
 		addItem(RegistryManager.ADHESIVE, "Adhesive");
+		addItem(RegistryManager.ARCHAIC_CIRCUIT, "Archaic Circuit");
+
+		addItem(RegistryManager.SUPERHEATER, "Superheater");
+		addItem(RegistryManager.CINDER_JET, "Cinder Jet");
+		addItem(RegistryManager.BLASTING_CORE, "Blasting Core");
+		addItem(RegistryManager.CASTER_ORB, "Caster Orb");
+		addItem(RegistryManager.RESONATING_BELL, "Resonating Bell");
+		addItem(RegistryManager.FLAME_BARRIER, "Flame Barrier");
+		addItem(RegistryManager.ELDRITCH_INSIGNIA, "Eldritch Insignia");
+		addItem(RegistryManager.INTELLIGENT_APPARATUS, "Intelligent Apparatus");
+		addItem(RegistryManager.DIFFRACTION_BARREL, "Diffraction Barrel");
+		addItem(RegistryManager.FOCAL_LENS, "Focal Lens");
+		addItem(RegistryManager.SHIFTING_SCALES, "Shifting Scales");
+		addItem(RegistryManager.WINDING_GEARS, "Winding Gears");
 
 		addItem(RegistryManager.RAW_CAMINITE_PLATE, "Raw Caminite Plate");
 		addItem(RegistryManager.RAW_FLAT_STAMP, "Raw Flat Stamp");

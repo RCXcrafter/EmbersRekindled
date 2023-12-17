@@ -62,13 +62,15 @@ public class InfernoForgeBlock extends DoubleTallMachineBlock implements SimpleW
 						player.sendSystemMessage(Component.translatable(Embers.MODID + ".tooltip.forge.cannot_start"));
 					return InteractionResult.CONSUME;
 				}
-				hatch.open = !hatch.open;
-				hatch.lastToggle = level.getGameTime();
-				if (hatch.open)
-					level.playSound(player, pos, EmbersSounds.INFERNO_FORGE_OPEN.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
-				else
-					level.playSound(player, pos, EmbersSounds.INFERNO_FORGE_CLOSE.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
-				hatch.setChanged();
+				if (!level.isClientSide()) {
+					hatch.open = !hatch.open;
+					hatch.lastToggle = level.getGameTime();
+					if (hatch.open)
+						level.playSound(null, pos, EmbersSounds.INFERNO_FORGE_OPEN.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
+					else
+						level.playSound(null, pos, EmbersSounds.INFERNO_FORGE_CLOSE.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
+					hatch.setChanged();
+				}
 				return InteractionResult.SUCCESS;
 			}
 		}

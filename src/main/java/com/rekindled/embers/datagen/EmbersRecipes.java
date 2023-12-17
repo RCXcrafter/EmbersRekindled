@@ -243,6 +243,28 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.inputs(Ingredient.of(Tags.Items.GUNPOWDER), Ingredient.of(Tags.Items.GUNPOWDER), Ingredient.of(RegistryManager.EMBER_SHARD.get()), Ingredient.of(RegistryManager.EMBER_SHARD.get()))
 		.aspects(EmbersItemTags.COPPER_ASPECTUS, EmbersItemTags.DAWNSTONE_ASPECTUS).save(consumer);
 
+		AlchemyRecipeBuilder.create(RegistryManager.BLASTING_CORE.get()).tablet(Tags.Items.GUNPOWDER).folder(alchemyFolder)
+		.inputs(EmbersItemTags.IRON_PLATE, EmbersItemTags.IRON_PLATE, EmbersItemTags.IRON_PLATE, Tags.Items.INGOTS_COPPER)
+		.aspects(EmbersItemTags.COPPER_ASPECTUS, EmbersItemTags.IRON_ASPECTUS).save(consumer);
+		AlchemyRecipeBuilder.create(RegistryManager.FLAME_BARRIER.get()).tablet(RegistryManager.EMBER_CRYSTAL.get()).folder(alchemyFolder)
+		.inputs(EmbersItemTags.DAWNSTONE_PLATE, EmbersItemTags.DAWNSTONE_PLATE, EmbersItemTags.DAWNSTONE_PLATE, EmbersItemTags.SILVER_INGOT)
+		.aspects(EmbersItemTags.DAWNSTONE_ASPECTUS, EmbersItemTags.SILVER_ASPECTUS, EmbersItemTags.COPPER_ASPECTUS).save(consumer);
+		AlchemyRecipeBuilder.create(RegistryManager.ELDRITCH_INSIGNIA.get()).tablet(RegistryManager.ARCHAIC_CIRCUIT.get()).folder(alchemyFolder)
+		.inputs(ItemTags.COALS, EmbersItemTags.ARCHAIC_BRICK, ItemTags.COALS, EmbersItemTags.ARCHAIC_BRICK)
+		.aspects(EmbersItemTags.DAWNSTONE_ASPECTUS, EmbersItemTags.LEAD_ASPECTUS, EmbersItemTags.IRON_ASPECTUS).save(consumer);
+		AlchemyRecipeBuilder.create(RegistryManager.INTELLIGENT_APPARATUS.get()).tablet(EmbersItemTags.COPPER_PLATE).folder(alchemyFolder)
+		.inputs(Ingredient.of(Tags.Items.INGOTS_COPPER), Ingredient.of(RegistryManager.ARCHAIC_CIRCUIT.get()), Ingredient.of(Tags.Items.INGOTS_COPPER), Ingredient.of(RegistryManager.ARCHAIC_CIRCUIT.get()))
+		.aspects(EmbersItemTags.COPPER_ASPECTUS, EmbersItemTags.LEAD_ASPECTUS, EmbersItemTags.SILVER_ASPECTUS).save(consumer);
+		AlchemyRecipeBuilder.create(RegistryManager.FOCAL_LENS.get()).tablet(RegistryManager.EMBER_CRYSTAL.get()).folder(alchemyFolder)
+		.inputs(EmbersItemTags.DAWNSTONE_PLATE, EmbersItemTags.SILVER_PLATE, EmbersItemTags.DAWNSTONE_PLATE,EmbersItemTags.SILVER_PLATE)
+		.aspects(EmbersItemTags.COPPER_ASPECTUS, EmbersItemTags.SILVER_ASPECTUS, EmbersItemTags.DAWNSTONE_ASPECTUS).save(consumer);
+		AlchemyRecipeBuilder.create(RegistryManager.SHIFTING_SCALES.get()).tablet(RegistryManager.ASHEN_FABRIC.get()).folder(alchemyFolder)
+		.inputs(EmbersItemTags.LEAD_PLATE, EmbersItemTags.LEAD_PLATE, EmbersItemTags.LEAD_PLATE, EmbersItemTags.LEAD_PLATE, EmbersItemTags.LEAD_PLATE)
+		.aspects(EmbersItemTags.LEAD_ASPECTUS, EmbersItemTags.IRON_ASPECTUS, EmbersItemTags.SILVER_ASPECTUS).save(consumer);
+		AlchemyRecipeBuilder.create(RegistryManager.WINDING_GEARS.get()).tablet(EmbersItemTags.DAWNSTONE_INGOT).folder(alchemyFolder)
+		.inputs(EmbersItemTags.DAWNSTONE_PLATE, EmbersItemTags.DAWNSTONE_PLATE, EmbersItemTags.DAWNSTONE_PLATE, EmbersItemTags.DAWNSTONE_PLATE)
+		.aspects(EmbersItemTags.COPPER_ASPECTUS, EmbersItemTags.DAWNSTONE_ASPECTUS).save(consumer);
+
 		//boiling
 		BoilingRecipeBuilder.create(RegistryManager.STEAM.FLUID.get(), 5).folder(boilingFolder).input(FluidTags.WATER, 1).save(consumer);
 		BoilingRecipeBuilder.create(RegistryManager.DWARVEN_GAS.FLUID.get(), 1).folder(boilingFolder).input(RegistryManager.DWARVEN_OIL.FLUID.get(), 1).save(consumer);
@@ -1177,6 +1199,65 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('S', RegistryManager.CAMINITE_BRICKS.get())
 		.unlockedBy("has_wildfire_core", has(RegistryManager.WILDFIRE_CORE.get()))
 		.save(consumer, getResource("inferno_forge"));
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.ARCHAIC_CIRCUIT.get())
+		.pattern(" B ")
+		.pattern("BCB")
+		.pattern(" B ")
+		.define('C', itemTag("forge", "ingots/copper"))
+		.define('B', RegistryManager.ARCHAIC_BRICK.get())
+		.unlockedBy("has_archaic_brick", has(RegistryManager.ARCHAIC_BRICK.get()))
+		.save(consumer, getResource("archaic_circuit"));
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.SUPERHEATER.get())
+		.pattern(" ID")
+		.pattern("CCI")
+		.pattern("CC ")
+		.define('I', itemTag("forge", "ingots/dawnstone"))
+		.define('D', itemTag("forge", "plates/dawnstone"))
+		.define('C', itemTag("forge", "ingots/copper"))
+		.unlockedBy("has_inferno_forge", has(RegistryManager.INFERNO_FORGE.get()))
+		.save(consumer, getResource("superheater"));
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.CINDER_JET.get())
+		.pattern("PP ")
+		.pattern("ISD")
+		.pattern("PP ")
+		.define('I', itemTag("forge", "ingots/iron"))
+		.define('D', itemTag("forge", "ingots/dawnstone"))
+		.define('P', itemTag("forge", "plates/dawnstone"))
+		.define('S', RegistryManager.EMBER_SHARD.get())
+		.unlockedBy("has_inferno_forge", has(RegistryManager.INFERNO_FORGE.get()))
+		.save(consumer, getResource("cinder_jet"));
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.CASTER_ORB.get())
+		.pattern("DCD")
+		.pattern("D D")
+		.pattern(" P ")
+		.define('D', itemTag("forge", "ingots/dawnstone"))
+		.define('P', itemTag("forge", "plates/dawnstone"))
+		.define('C', RegistryManager.EMBER_CRYSTAL.get())
+		.unlockedBy("has_inferno_forge", has(RegistryManager.INFERNO_FORGE.get()))
+		.save(consumer, getResource("caster_orb"));
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.RESONATING_BELL.get())
+		.pattern("IIP")
+		.pattern(" SI")
+		.pattern("V I")
+		.define('I', itemTag("forge", "ingots/iron"))
+		.define('P', itemTag("forge", "plates/iron"))
+		.define('S', itemTag("forge", "ingots/silver"))
+		.define('V', itemTag("forge", "plates/silver"))
+		.unlockedBy("has_inferno_forge", has(RegistryManager.INFERNO_FORGE.get()))
+		.save(consumer, getResource("resonating_bell"));
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.DIFFRACTION_BARREL.get())
+		.pattern("IPX")
+		.define('I', itemTag("forge", "ingots/iron"))
+		.define('P', itemTag("forge", "plates/iron"))
+		.define('X', RegistryManager.SUPERHEATER.get())
+		.unlockedBy("has_superheater", has(RegistryManager.SUPERHEATER.get()))
+		.save(consumer, getResource("diffraction_barrel"));
 	}
 
 	public void fullOreRecipes(String name, ImmutableList<ItemLike> ores, Fluid fluid, Item raw, Item rawBlock, Item block, Item ingot, Item nugget, Item plate, Consumer<FinishedRecipe> consumer, MeltingBonus... bonusses) {

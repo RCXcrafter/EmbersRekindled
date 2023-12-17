@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "embers:ember_crystal"
+    },
+    "D": {
+      "tag": "forge:ingots/dawnstone"
+    },
+    "P": {
+      "tag": "forge:plates/dawnstone"
+    }
+  },
+  "pattern": [
+    "DCD",
+    "D D",
+    " P "
+  ],
+  "result": {
+    "item": "embers:caster_orb"
+  },
+  "show_notification": true
+}

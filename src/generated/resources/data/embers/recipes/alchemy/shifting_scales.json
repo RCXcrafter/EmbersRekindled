@@ -1,0 +1,37 @@
+{
+  "type": "embers:alchemy",
+  "aspects": [
+    {
+      "tag": "embers:aspectus/lead"
+    },
+    {
+      "tag": "embers:aspectus/iron"
+    },
+    {
+      "tag": "embers:aspectus/silver"
+    }
+  ],
+  "inputs": [
+    {
+      "tag": "forge:plates/lead"
+    },
+    {
+      "tag": "forge:plates/lead"
+    },
+    {
+      "tag": "forge:plates/lead"
+    },
+    {
+      "tag": "forge:plates/lead"
+    },
+    {
+      "tag": "forge:plates/lead"
+    }
+  ],
+  "output": {
+    "item": "embers:shifting_scales"
+  },
+  "tablet": {
+    "item": "embers:ashen_fabric"
+  }
+}

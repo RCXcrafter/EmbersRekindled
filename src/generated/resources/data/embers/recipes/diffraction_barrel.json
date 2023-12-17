@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "P": {
+      "tag": "forge:plates/iron"
+    },
+    "X": {
+      "item": "embers:superheater"
+    }
+  },
+  "pattern": [
+    "IPX"
+  ],
+  "result": {
+    "item": "embers:diffraction_barrel"
+  },
+  "show_notification": true
+}

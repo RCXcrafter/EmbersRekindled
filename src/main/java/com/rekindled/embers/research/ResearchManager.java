@@ -287,52 +287,52 @@ public class ResearchManager {
 		dismantling = new ResearchBase("dismantling", ItemStack.EMPTY, 3, 5).setIconBackground(PAGE_ICONS, PAGE_ICON_SIZE * 2, PAGE_ICON_SIZE * 0).addAncestor(augments);
 		inferno_forge = new ResearchBase("inferno_forge", new ItemStack(RegistryManager.INFERNO_FORGE_ITEM.get()), 6, 4).addAncestor(heat);
 
-		//superheater = new ResearchBase("superheater", new ItemStack(RegistryManager.superheater), subCategoryWeaponAugments.popGoodLocation());
-		//blasting_core = new ResearchBase("blasting_core", new ItemStack(RegistryManager.blasting_core), subCategoryWeaponAugments.popGoodLocation());
-		//caster_orb = new ResearchBase("caster_orb", new ItemStack(RegistryManager.caster_orb), subCategoryWeaponAugments.popGoodLocation()).addPage(new ResearchBase("caster_orb_addendum",ItemStack.EMPTY,0,0));
-		//resonating_bell = new ResearchBase("resonating_bell", new ItemStack(RegistryManager.resonating_bell), subCategoryWeaponAugments.popGoodLocation());
+		superheater = new ResearchBase("superheater", new ItemStack(RegistryManager.SUPERHEATER.get()), subCategoryWeaponAugments.popGoodLocation());
+		blasting_core = new ResearchBase("blasting_core", new ItemStack(RegistryManager.BLASTING_CORE.get()), subCategoryWeaponAugments.popGoodLocation());
+		caster_orb = new ResearchBase("caster_orb", new ItemStack(RegistryManager.CASTER_ORB.get()), subCategoryWeaponAugments.popGoodLocation()).addPage(new ResearchBase("caster_orb_addendum",ItemStack.EMPTY,0,0));
+		resonating_bell = new ResearchBase("resonating_bell", new ItemStack(RegistryManager.RESONATING_BELL.get()), subCategoryWeaponAugments.popGoodLocation());
 		//core_stone = new ResearchBase("core_stone", new ItemStack(RegistryManager.core_stone), subCategoryWeaponAugments.popGoodLocation());
-		//winding_gears = new ResearchBase("winding_gears", new ItemStack(RegistryManager.winding_gears), subCategoryWeaponAugments.popGoodLocation()).addPage(new ResearchShowItem("winding_gears_boots",ItemStack.EMPTY,0,0).addItem(new DisplayItem(new ItemStack(Items.IRON_BOOTS))));
+		winding_gears = new ResearchBase("winding_gears", new ItemStack(RegistryManager.WINDING_GEARS.get()), subCategoryWeaponAugments.popGoodLocation()).addPage(new ResearchShowItem("winding_gears_boots",ItemStack.EMPTY,0,0).addItem(new DisplayItem(new ItemStack(Items.IRON_BOOTS))));
 
-		//eldritch_insignia = new ResearchBase("eldritch_insignia", new ItemStack(RegistryManager.eldritch_insignia), subCategoryArmorAugments.popGoodLocation());
-		//intelligent_apparatus = new ResearchBase("intelligent_apparatus", new ItemStack(RegistryManager.intelligent_apparatus), subCategoryArmorAugments.popGoodLocation());
-		//flame_barrier = new ResearchBase("flame_barrier", new ItemStack(RegistryManager.flame_barrier), subCategoryArmorAugments.popGoodLocation());
-		//cinder_jet = new ResearchBase("cinder_jet", new ItemStack(RegistryManager.jet_augment), subCategoryArmorAugments.popGoodLocation());
+		eldritch_insignia = new ResearchBase("eldritch_insignia", new ItemStack(RegistryManager.ELDRITCH_INSIGNIA.get()), subCategoryArmorAugments.popGoodLocation());
+		intelligent_apparatus = new ResearchBase("intelligent_apparatus", new ItemStack(RegistryManager.INTELLIGENT_APPARATUS.get()), subCategoryArmorAugments.popGoodLocation());
+		flame_barrier = new ResearchBase("flame_barrier", new ItemStack(RegistryManager.FLAME_BARRIER.get()), subCategoryArmorAugments.popGoodLocation());
+		cinder_jet = new ResearchBase("cinder_jet", new ItemStack(RegistryManager.CINDER_JET.get()), subCategoryArmorAugments.popGoodLocation());
 		tinker_lens_augment = new ResearchBase("tinker_lens_augment", new ItemStack(RegistryManager.TINKER_LENS.get()), subCategoryArmorAugments.popGoodLocation());
 		anti_tinker_lens = new ResearchBase("anti_tinker_lens", new ItemStack(RegistryManager.SMOKY_TINKER_LENS.get()), subCategoryArmorAugments.popGoodLocation()).addAncestor(tinker_lens_augment);
-		//shifting_scales = new ResearchBase("shifting_scales", new ItemStack(RegistryManager.shifting_scales), subCategoryArmorAugments.popGoodLocation());
+		shifting_scales = new ResearchBase("shifting_scales", new ItemStack(RegistryManager.SHIFTING_SCALES.get()), subCategoryArmorAugments.popGoodLocation());
 
-		//diffraction_barrel = new ResearchBase("diffraction_barrel", new ItemStack(RegistryManager.diffraction_barrel), subCategoryProjectileAugments.popGoodLocation());
-		//focal_lens = new ResearchBase("focal_lens", new ItemStack(RegistryManager.focal_lens), subCategoryProjectileAugments.popGoodLocation());
+		diffraction_barrel = new ResearchBase("diffraction_barrel", new ItemStack(RegistryManager.DIFFRACTION_BARREL.get()), subCategoryProjectileAugments.popGoodLocation());
+		focal_lens = new ResearchBase("focal_lens", new ItemStack(RegistryManager.FOCAL_LENS.get()), subCategoryProjectileAugments.popGoodLocation());
 
 		tinker_lens.addPage(tinker_lens_augment);
 
 		ResearchBase infernoForgeWeapon = new ResearchFakePage(inferno_forge, 6, 4);
 		subCategoryWeaponAugments.addResearch(infernoForgeWeapon);
-		//subCategoryWeaponAugments.addResearch(superheater.addAncestor(infernoForgeWeapon));
-		//subCategoryWeaponAugments.addResearch(blasting_core.addAncestor(infernoForgeWeapon));
-		//subCategoryWeaponAugments.addResearch(caster_orb.addAncestor(infernoForgeWeapon));
-		//subCategoryWeaponAugments.addResearch(resonating_bell.addAncestor(infernoForgeWeapon));
+		subCategoryWeaponAugments.addResearch(superheater.addAncestor(infernoForgeWeapon));
+		subCategoryWeaponAugments.addResearch(blasting_core.addAncestor(infernoForgeWeapon));
+		subCategoryWeaponAugments.addResearch(caster_orb.addAncestor(infernoForgeWeapon));
+		subCategoryWeaponAugments.addResearch(resonating_bell.addAncestor(infernoForgeWeapon));
 		//subCategoryWeaponAugments.addResearch(core_stone.addAncestor(infernoForgeWeapon));
-		//subCategoryWeaponAugments.addResearch(winding_gears.addAncestor(infernoForgeWeapon));
+		subCategoryWeaponAugments.addResearch(winding_gears.addAncestor(infernoForgeWeapon));
 
 		ResearchBase infernoForgeArmor = new ResearchFakePage(inferno_forge, 6, 4);
 		subCategoryArmorAugments.addResearch(infernoForgeArmor);
-		//subCategoryArmorAugments.addResearch(cinder_jet.addAncestor(infernoForgeArmor));
-		//subCategoryArmorAugments.addResearch(eldritch_insignia.addAncestor(infernoForgeArmor));
-		//subCategoryArmorAugments.addResearch(intelligent_apparatus.addAncestor(infernoForgeArmor));
-		//subCategoryArmorAugments.addResearch(flame_barrier.addAncestor(infernoForgeArmor));
-		//subCategoryArmorAugments.addResearch(new ResearchFakePage(blasting_core,subCategoryArmorAugments.popGoodLocation()).addAncestor(infernoForgeArmor));
+		subCategoryArmorAugments.addResearch(cinder_jet.addAncestor(infernoForgeArmor));
+		subCategoryArmorAugments.addResearch(eldritch_insignia.addAncestor(infernoForgeArmor));
+		subCategoryArmorAugments.addResearch(intelligent_apparatus.addAncestor(infernoForgeArmor));
+		subCategoryArmorAugments.addResearch(flame_barrier.addAncestor(infernoForgeArmor));
+		subCategoryArmorAugments.addResearch(new ResearchFakePage(blasting_core,subCategoryArmorAugments.popGoodLocation()).addAncestor(infernoForgeArmor));
 		subCategoryArmorAugments.addResearch(tinker_lens_augment.addAncestor(infernoForgeArmor));
 		subCategoryArmorAugments.addResearch(anti_tinker_lens.addAncestor(infernoForgeArmor));
-		//subCategoryArmorAugments.addResearch(shifting_scales.addAncestor(infernoForgeArmor));
-		//subCategoryArmorAugments.addResearch(new ResearchFakePage(winding_gears,subCategoryArmorAugments.popGoodLocation()).addAncestor(infernoForgeArmor));
+		subCategoryArmorAugments.addResearch(shifting_scales.addAncestor(infernoForgeArmor));
+		subCategoryArmorAugments.addResearch(new ResearchFakePage(winding_gears,subCategoryArmorAugments.popGoodLocation()).addAncestor(infernoForgeArmor));
 		//subCategoryArmorAugments.addResearch(new ResearchFakePage(core_stone,subCategoryArmorAugments.popGoodLocation()).addAncestor(infernoForgeArmor));
 
 		ResearchBase infernoForgeProjectile = new ResearchFakePage(inferno_forge, 6, 4);
 		subCategoryProjectileAugments.addResearch(infernoForgeProjectile);
-		//subCategoryProjectileAugments.addResearch(diffraction_barrel.addAncestor(infernoForgeProjectile));
-		//subCategoryProjectileAugments.addResearch(focal_lens.addAncestor(infernoForgeProjectile));
+		subCategoryProjectileAugments.addResearch(diffraction_barrel.addAncestor(infernoForgeProjectile));
+		subCategoryProjectileAugments.addResearch(focal_lens.addAncestor(infernoForgeProjectile));
 
 		ResearchBase infernoForgeMisc = new ResearchFakePage(inferno_forge, 6, 4);
 		subCategoryMiscAugments.addResearch(infernoForgeMisc);

@@ -582,6 +582,20 @@ public class RegistryManager {
 	public static final RegistryObject<Item> WILDFIRE_CORE = ITEMS.register("wildfire_core", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> ISOLATED_MATERIA = ITEMS.register("isolated_materia", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> ADHESIVE = ITEMS.register("adhesive", () -> new Item(new Item.Properties()));
+	public static final RegistryObject<Item> ARCHAIC_CIRCUIT = ITEMS.register("archaic_circuit", () -> new Item(new Item.Properties()));
+
+	public static final RegistryObject<Item> SUPERHEATER = ITEMS.register("superheater", () -> new Item(new Item.Properties()));
+	public static final RegistryObject<Item> CINDER_JET = ITEMS.register("cinder_jet", () -> new Item(new Item.Properties()));
+	public static final RegistryObject<Item> BLASTING_CORE = ITEMS.register("blasting_core", () -> new Item(new Item.Properties()));
+	public static final RegistryObject<Item> CASTER_ORB = ITEMS.register("caster_orb", () -> new Item(new Item.Properties()));
+	public static final RegistryObject<Item> RESONATING_BELL = ITEMS.register("resonating_bell", () -> new Item(new Item.Properties()));
+	public static final RegistryObject<Item> FLAME_BARRIER = ITEMS.register("flame_barrier", () -> new Item(new Item.Properties()));
+	public static final RegistryObject<Item> ELDRITCH_INSIGNIA = ITEMS.register("eldritch_insignia", () -> new Item(new Item.Properties()));
+	public static final RegistryObject<Item> INTELLIGENT_APPARATUS = ITEMS.register("intelligent_apparatus", () -> new Item(new Item.Properties()));
+	public static final RegistryObject<Item> DIFFRACTION_BARREL = ITEMS.register("diffraction_barrel", () -> new Item(new Item.Properties()));
+	public static final RegistryObject<Item> FOCAL_LENS = ITEMS.register("focal_lens", () -> new Item(new Item.Properties()));
+	public static final RegistryObject<Item> SHIFTING_SCALES = ITEMS.register("shifting_scales", () -> new Item(new Item.Properties()));
+	public static final RegistryObject<Item> WINDING_GEARS = ITEMS.register("winding_gears", () -> new Item(new Item.Properties()));
 
 	public static final RegistryObject<Item> RAW_CAMINITE_PLATE = ITEMS.register("raw_caminite_plate", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> RAW_FLAT_STAMP = ITEMS.register("raw_flat_stamp", () -> new Item(new Item.Properties()));

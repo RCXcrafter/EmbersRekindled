@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "P": {
+      "tag": "forge:plates/iron"
+    },
+    "S": {
+      "tag": "forge:ingots/silver"
+    },
+    "V": {
+      "tag": "forge:plates/silver"
+    }
+  },
+  "pattern": [
+    "IIP",
+    " SI",
+    "V I"
+  ],
+  "result": {
+    "item": "embers:resonating_bell"
+  },
+  "show_notification": true
+}

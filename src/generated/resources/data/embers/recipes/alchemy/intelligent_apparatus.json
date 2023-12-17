@@ -1,0 +1,34 @@
+{
+  "type": "embers:alchemy",
+  "aspects": [
+    {
+      "tag": "embers:aspectus/copper"
+    },
+    {
+      "tag": "embers:aspectus/lead"
+    },
+    {
+      "tag": "embers:aspectus/silver"
+    }
+  ],
+  "inputs": [
+    {
+      "tag": "forge:ingots/copper"
+    },
+    {
+      "item": "embers:archaic_circuit"
+    },
+    {
+      "tag": "forge:ingots/copper"
+    },
+    {
+      "item": "embers:archaic_circuit"
+    }
+  ],
+  "output": {
+    "item": "embers:intelligent_apparatus"
+  },
+  "tablet": {
+    "tag": "forge:plates/copper"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "type": "embers:alchemy",
+  "aspects": [
+    {
+      "tag": "embers:aspectus/dawnstone"
+    },
+    {
+      "tag": "embers:aspectus/silver"
+    },
+    {
+      "tag": "embers:aspectus/copper"
+    }
+  ],
+  "inputs": [
+    {
+      "tag": "forge:plates/dawnstone"
+    },
+    {
+      "tag": "forge:plates/dawnstone"
+    },
+    {
+      "tag": "forge:plates/dawnstone"
+    },
+    {
+      "tag": "forge:ingots/silver"
+    }
+  ],
+  "output": {
+    "item": "embers:flame_barrier"
+  },
+  "tablet": {
+    "item": "embers:ember_crystal"
+  }
+}
