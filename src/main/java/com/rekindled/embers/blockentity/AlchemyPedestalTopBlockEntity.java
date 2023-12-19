@@ -1,18 +1,24 @@
 package com.rekindled.embers.blockentity;
 
 import java.util.HashSet;
+import java.util.List;
 
+import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
+import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
 import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.recipe.IAlchemyRecipe.PedestalContents;
 import com.rekindled.embers.util.sound.ISoundController;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.ItemStackHandler;
 
 public class AlchemyPedestalTopBlockEntity extends AlchemyPedestalBlockEntity implements ISoundController {
@@ -96,5 +102,15 @@ public class AlchemyPedestalTopBlockEntity extends AlchemyPedestalBlockEntity im
 	@Override
 	public boolean shouldPlaySound(int id) {
 		return id == SOUND_PROCESS && isActive();
+	}
+
+	@Override
+	public boolean hasCapabilityDescription(Capability<?> capability) {
+		return capability == ForgeCapabilities.ITEM_HANDLER;
+	}
+
+	@Override
+	public void addCapabilityDescription(List<String> strings, Capability<?> capability, Direction facing) {
+		strings.add(IExtraCapabilityInformation.formatCapability(EnumIOType.INPUT, Embers.MODID + ".tooltip.goggles.item", null));
 	}
 }

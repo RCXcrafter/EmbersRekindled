@@ -1,8 +1,13 @@
 package com.rekindled.embers.blockentity;
 
+import java.util.List;
+
+import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
+import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
 import com.rekindled.embers.datagen.EmbersItemTags;
 
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -21,7 +26,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
-public class AlchemyPedestalBlockEntity extends BlockEntity {
+public class AlchemyPedestalBlockEntity extends BlockEntity implements IExtraCapabilityInformation {
 
 	public ItemStackHandler inventory = new ItemStackHandler(1) {
 		@Override
@@ -95,5 +100,15 @@ public class AlchemyPedestalBlockEntity extends BlockEntity {
 				serverplayer.connection.send(this.getUpdatePacket());
 			}
 		}
+	}
+
+	@Override
+	public boolean hasCapabilityDescription(Capability<?> capability) {
+		return capability == ForgeCapabilities.ITEM_HANDLER;
+	}
+
+	@Override
+	public void addCapabilityDescription(List<String> strings, Capability<?> capability, Direction facing) {
+		strings.add(IExtraCapabilityInformation.formatCapability(EnumIOType.BOTH, Embers.MODID + ".tooltip.goggles.item", I18n.get(Embers.MODID + ".tooltip.goggles.item.aspectus")));
 	}
 }
