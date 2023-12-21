@@ -693,7 +693,7 @@
   "embers.tooltip.itemdial.item": "%s %s",
   "embers.tooltip.itemdial.noitem": "Ничего",
   "embers.tooltip.itemdial.slot": "Слот %s: %s",
-  "embers.tooltip.itemdial.too_many": "%s еще...",
+  "embers.tooltip.itemdial.too_many": "Ещё %s слотов...",
   "embers.tooltip.side.center": "Центр",
   "embers.tooltip.side.down": "Низ",
   "embers.tooltip.side.east": "Восток",
