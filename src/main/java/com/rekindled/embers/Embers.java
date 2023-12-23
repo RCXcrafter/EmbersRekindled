@@ -64,6 +64,7 @@ import com.rekindled.embers.particle.SparkParticle;
 import com.rekindled.embers.particle.StarParticle;
 import com.rekindled.embers.particle.TyrfingParticle;
 import com.rekindled.embers.particle.VaporParticle;
+import com.rekindled.embers.particle.XRayGlowParticle;
 import com.rekindled.embers.recipe.AugmentIngredient;
 import com.rekindled.embers.recipe.HeatIngredient;
 import com.rekindled.embers.render.PipeModel;
@@ -281,6 +282,7 @@ public class Embers {
 			event.registerSprite(RegistryManager.VAPOR_PARTICLE.get(), new VaporParticle.Provider());
 			event.registerSprite(RegistryManager.ALCHEMY_CIRCLE_PARTICLE.get(), new AlchemyCircleParticle.Provider());
 			event.registerSprite(RegistryManager.TYRFING_PARTICLE.get(), new TyrfingParticle.Provider());
+			event.registerSprite(RegistryManager.XRAY_GLOW_PARTICLE.get(), new XRayGlowParticle.Provider());
 		}
 
 		@OnlyIn(Dist.CLIENT)

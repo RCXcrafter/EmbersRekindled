@@ -19,6 +19,7 @@ import com.rekindled.embers.augment.BlastingCoreAugment;
 import com.rekindled.embers.augment.CasterOrbAugment;
 import com.rekindled.embers.augment.CinderJetAugment;
 import com.rekindled.embers.augment.CoreAugment;
+import com.rekindled.embers.augment.ResonatingBellAugment;
 import com.rekindled.embers.augment.SuperheaterAugment;
 import com.rekindled.embers.augment.TinkerLensAugment;
 import com.rekindled.embers.block.AlchemyPedestalBlock;
@@ -191,6 +192,7 @@ import com.rekindled.embers.particle.SparkParticleOptions;
 import com.rekindled.embers.particle.StarParticleOptions;
 import com.rekindled.embers.particle.TyrfingParticleOptions;
 import com.rekindled.embers.particle.VaporParticleOptions;
+import com.rekindled.embers.particle.XRayGlowParticleOptions;
 import com.rekindled.embers.recipe.AlchemyRecipe;
 import com.rekindled.embers.recipe.AnvilAugmentRecipe;
 import com.rekindled.embers.recipe.AnvilAugmentRemoveRecipe;
@@ -830,6 +832,7 @@ public class RegistryManager {
 	public static final IAugment CINDER_JET_AUGMENT = AugmentUtil.registerAugment(new CinderJetAugment(new ResourceLocation(Embers.MODID, "cinder_jet")));
 	public static final IAugment BLASTING_CORE_AUGMENT = AugmentUtil.registerAugment(new BlastingCoreAugment(new ResourceLocation(Embers.MODID, "blasting_core")));
 	public static final IAugment CASTER_ORB_AUGMENT = AugmentUtil.registerAugment(new CasterOrbAugment(new ResourceLocation(Embers.MODID, "caster_orb")));
+	public static final IAugment RESONATING_BELL_AUGMENT = AugmentUtil.registerAugment(new ResonatingBellAugment(new ResourceLocation(Embers.MODID, "resonating_bell")));
 
 	//particle types
 	public static final RegistryObject<ParticleType<GlowParticleOptions>> GLOW_PARTICLE = registerParticle("glow", false, GlowParticleOptions.DESERIALIZER, GlowParticleOptions.CODEC);
@@ -839,6 +842,7 @@ public class RegistryManager {
 	public static final RegistryObject<ParticleType<VaporParticleOptions>> VAPOR_PARTICLE = registerParticle("vapor", false, VaporParticleOptions.DESERIALIZER, VaporParticleOptions.CODEC);
 	public static final RegistryObject<ParticleType<AlchemyCircleParticleOptions>> ALCHEMY_CIRCLE_PARTICLE = registerParticle("alchemy_circle", false, AlchemyCircleParticleOptions.DESERIALIZER, AlchemyCircleParticleOptions.CODEC);
 	public static final RegistryObject<ParticleType<TyrfingParticleOptions>> TYRFING_PARTICLE = registerParticle("tyrfing", false, TyrfingParticleOptions.DESERIALIZER, TyrfingParticleOptions.CODEC);
+	public static final RegistryObject<ParticleType<XRayGlowParticleOptions>> XRAY_GLOW_PARTICLE = registerParticle("xray_glow", false, XRayGlowParticleOptions.DESERIALIZER, XRayGlowParticleOptions.CODEC);
 
 	//recipe types
 	public static final RegistryObject<RecipeType<IBoringRecipe>> BORING = registerRecipeType("boring");

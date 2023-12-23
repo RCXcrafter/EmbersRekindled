@@ -46,6 +46,26 @@ public class EmbersRenderTypes extends RenderType {
 		}
 	};
 
+	//render type used for x ray ember particles
+	public static ParticleRenderType PARTICLE_SHEET_ADDITIVE_XRAY = new ParticleRenderType() {
+		public void begin(BufferBuilder p_107455_, TextureManager p_107456_) {
+			RenderSystem.depthMask(false);
+			RenderSystem.disableDepthTest();
+			RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_PARTICLES);
+			RenderSystem.enableBlend();
+			RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
+			p_107455_.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
+		}
+
+		public void end(Tesselator p_107458_) {
+			p_107458_.end();
+		}
+
+		public String toString() {
+			return "PARTICLE_SHEET_ADDITIVE";
+		}
+	};
+
 	//render type used for smoke particles
 	public static ParticleRenderType PARTICLE_SHEET_TRANSLUCENT_NODEPTH = new ParticleRenderType() {
 		public void begin(BufferBuilder p_107455_, TextureManager p_107456_) {

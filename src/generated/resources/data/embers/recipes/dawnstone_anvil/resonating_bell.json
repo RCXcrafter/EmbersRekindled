@@ -1,0 +1,13 @@
+{
+  "type": "embers:tool_augment",
+  "augment": "embers:resonating_bell",
+  "input": {
+    "item": "embers:resonating_bell"
+  },
+  "tool": {
+    "type": "embers:has_heat",
+    "base": {
+      "tag": "embers:augmentables/tools"
+    }
+  }
+}
