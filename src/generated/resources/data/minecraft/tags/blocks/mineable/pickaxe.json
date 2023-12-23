@@ -40,6 +40,7 @@
     "embers:ember_dial",
     "embers:item_dial",
     "embers:fluid_dial",
+    "embers:atmospheric_gauge",
     "embers:ember_emitter",
     "embers:ember_receiver",
     "embers:item_pipe",

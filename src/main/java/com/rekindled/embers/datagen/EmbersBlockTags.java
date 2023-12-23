@@ -138,6 +138,7 @@ public class EmbersBlockTags extends BlockTagsProvider {
 				RegistryManager.EMBER_DIAL.get(),
 				RegistryManager.ITEM_DIAL.get(),
 				RegistryManager.FLUID_DIAL.get(),
+				RegistryManager.ATMOSPHERIC_GAUGE.get(),
 				RegistryManager.EMBER_EMITTER.get(),
 				RegistryManager.EMBER_RECEIVER.get(),
 				RegistryManager.ITEM_PIPE.get(),

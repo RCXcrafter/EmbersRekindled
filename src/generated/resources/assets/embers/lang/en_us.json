@@ -204,7 +204,7 @@
   "embers.research.page.adhesive.tags": "Alchemy;Transmutation;Slime;Glue;Adhesive;",
   "embers.research.page.adhesive.title": "Sticky Solution",
   "embers.research.page.alchemy": "Energetic Alchemy",
-  "embers.research.page.alchemy.desc": "Ember alchemy is truly a marvelous discovery. The first key is the Exchange Tablet: right-click on it to insert an item into it. The next is the Alchemy Pedestal: these bear aspecti and can ingredients. For an alchemy recipe, place a pedestal for each needed ingredient about the Tablet, add one of the required aspecti, and strike the Tablet with the Beam Cannon.",
+  "embers.research.page.alchemy.desc": "Ember alchemy is truly a marvelous discovery. The first key is the Exchange Tablet: right-click on it to insert an item into it. The next is the Alchemy Pedestal: these bear aspecti on the bottom and ingredients on the top. For an alchemy recipe, place a pedestal for each needed ingredient about the Tablet, add one of the required aspecti, and strike the Tablet with the Beam Cannon.",
   "embers.research.page.alchemy.tags": "Alchemy;Transmutation;Tablet;Exchange;Ash;Pedestal;Aspect;Aspectus;",
   "embers.research.page.alchemy.title": "Transmutation",
   "embers.research.page.ancient_golem": "Ancient Constructs",
