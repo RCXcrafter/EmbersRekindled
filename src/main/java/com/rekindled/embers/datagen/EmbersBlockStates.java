@@ -595,7 +595,7 @@ public class EmbersBlockStates extends BlockStateProvider {
 					.modelFile(half == DoubleBlockHalf.LOWER ? infernoForgeModel : emptyModel)
 					.build();
 		});
-		simpleBlockItem(RegistryManager.INFERNO_FORGE.get(), models().cubeAll("ember_bore", new ResourceLocation(Embers.MODID, "block/crate_inferno_forge")));
+		simpleBlockItem(RegistryManager.INFERNO_FORGE.get(), models().cubeAll("crate_inferno_forge", new ResourceLocation(Embers.MODID, "block/crate_inferno_forge")));
 
 		ExistingModelFile forgeEdgeModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "inferno_forge_edge_bottom"));
 		ExistingModelFile forgeTopEdgeModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "inferno_forge_edge_top"));

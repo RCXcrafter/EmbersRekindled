@@ -15,6 +15,7 @@ import com.mojang.serialization.Codec;
 import com.rekindled.embers.api.EmbersAPI;
 import com.rekindled.embers.api.augment.AugmentUtil;
 import com.rekindled.embers.api.augment.IAugment;
+import com.rekindled.embers.augment.CinderJetAugment;
 import com.rekindled.embers.augment.CoreAugment;
 import com.rekindled.embers.augment.SuperheaterAugment;
 import com.rekindled.embers.augment.TinkerLensAugment;
@@ -824,6 +825,7 @@ public class RegistryManager {
 	public static final IAugment TINKER_LENS_AUGMENT = AugmentUtil.registerAugment(new TinkerLensAugment(new ResourceLocation(Embers.MODID, "tinker_lens"), false));
 	public static final IAugment SMOKY_LENS_AUGMENT = AugmentUtil.registerAugment(new TinkerLensAugment(new ResourceLocation(Embers.MODID, "smoky_tinker_lens"), true));
 	public static final IAugment SUPERHEATER_AUGMENT = AugmentUtil.registerAugment(new SuperheaterAugment(new ResourceLocation(Embers.MODID, "superheater")));
+	public static final IAugment CINDER_JET_AUGMENT = AugmentUtil.registerAugment(new CinderJetAugment(new ResourceLocation(Embers.MODID, "cinder_jet")));
 
 	//particle types
 	public static final RegistryObject<ParticleType<GlowParticleOptions>> GLOW_PARTICLE = registerParticle("glow", false, GlowParticleOptions.DESERIALIZER, GlowParticleOptions.CODEC);

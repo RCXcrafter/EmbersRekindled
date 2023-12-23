@@ -1,0 +1,13 @@
+{
+  "type": "embers:tool_augment",
+  "augment": "embers:cinder_jet",
+  "input": {
+    "item": "embers:cinder_jet"
+  },
+  "tool": {
+    "type": "embers:has_heat",
+    "base": {
+      "tag": "embers:augmentables/armors"
+    }
+  }
+}
