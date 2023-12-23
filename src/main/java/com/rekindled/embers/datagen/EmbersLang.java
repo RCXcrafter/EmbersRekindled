@@ -240,6 +240,7 @@ public class EmbersLang extends LanguageProvider {
 		addAugment(RegistryManager.BLASTING_CORE_AUGMENT, "Blasting");
 		addAugment(RegistryManager.CASTER_ORB_AUGMENT, "Ember Casting");
 		addAugment(RegistryManager.RESONATING_BELL_AUGMENT, "Resonating");
+		addAugment(RegistryManager.FLAME_BARRIER_AUGMENT, "Flame Barrier");
 
 
 		//text

@@ -19,6 +19,7 @@ import com.rekindled.embers.augment.BlastingCoreAugment;
 import com.rekindled.embers.augment.CasterOrbAugment;
 import com.rekindled.embers.augment.CinderJetAugment;
 import com.rekindled.embers.augment.CoreAugment;
+import com.rekindled.embers.augment.FlameBarrierAugment;
 import com.rekindled.embers.augment.ResonatingBellAugment;
 import com.rekindled.embers.augment.SuperheaterAugment;
 import com.rekindled.embers.augment.TinkerLensAugment;
@@ -833,6 +834,7 @@ public class RegistryManager {
 	public static final IAugment BLASTING_CORE_AUGMENT = AugmentUtil.registerAugment(new BlastingCoreAugment(new ResourceLocation(Embers.MODID, "blasting_core")));
 	public static final IAugment CASTER_ORB_AUGMENT = AugmentUtil.registerAugment(new CasterOrbAugment(new ResourceLocation(Embers.MODID, "caster_orb")));
 	public static final IAugment RESONATING_BELL_AUGMENT = AugmentUtil.registerAugment(new ResonatingBellAugment(new ResourceLocation(Embers.MODID, "resonating_bell")));
+	public static final IAugment FLAME_BARRIER_AUGMENT = AugmentUtil.registerAugment(new FlameBarrierAugment(new ResourceLocation(Embers.MODID, "flame_barrier")));
 
 	//particle types
 	public static final RegistryObject<ParticleType<GlowParticleOptions>> GLOW_PARTICLE = registerParticle("glow", false, GlowParticleOptions.DESERIALIZER, GlowParticleOptions.CODEC);

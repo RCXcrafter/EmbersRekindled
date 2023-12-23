@@ -1,0 +1,13 @@
+{
+  "type": "embers:tool_augment",
+  "augment": "embers:flame_barrier",
+  "input": {
+    "item": "embers:flame_barrier"
+  },
+  "tool": {
+    "type": "embers:has_heat",
+    "base": {
+      "tag": "embers:augmentables/armors"
+    }
+  }
+}
