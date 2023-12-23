@@ -1,0 +1,13 @@
+{
+  "type": "embers:tool_augment",
+  "augment": "embers:eldritch_insignia",
+  "input": {
+    "item": "embers:eldritch_insignia"
+  },
+  "tool": {
+    "type": "embers:has_heat",
+    "base": {
+      "tag": "embers:augmentables/armors"
+    }
+  }
+}
