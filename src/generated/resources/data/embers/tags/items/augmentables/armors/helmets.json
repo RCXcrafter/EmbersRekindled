@@ -1,5 +1,6 @@
 {
   "values": [
-    "#forge:armors/helmets"
+    "#forge:armors/helmets",
+    "minecraft:carved_pumpkin"
   ]
 }

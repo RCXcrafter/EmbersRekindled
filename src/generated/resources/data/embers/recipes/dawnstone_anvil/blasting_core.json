@@ -1,0 +1,13 @@
+{
+  "type": "embers:tool_augment",
+  "augment": "embers:blasting_core",
+  "input": {
+    "item": "embers:blasting_core"
+  },
+  "tool": {
+    "type": "embers:has_heat",
+    "base": {
+      "tag": "embers:augmentables/tools_armors"
+    }
+  }
+}

@@ -237,6 +237,7 @@ public class EmbersLang extends LanguageProvider {
 		addAugment(RegistryManager.SMOKY_LENS_AUGMENT, "Tinker's Blindness", true);
 		addAugment(RegistryManager.SUPERHEATER_AUGMENT, "Superheating");
 		addAugment(RegistryManager.CINDER_JET_AUGMENT, "Cinder Jet");
+		addAugment(RegistryManager.BLASTING_CORE_AUGMENT, "Blasting");
 
 
 		//text
