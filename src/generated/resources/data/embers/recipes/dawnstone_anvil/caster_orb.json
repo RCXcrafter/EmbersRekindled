@@ -1,0 +1,13 @@
+{
+  "type": "embers:tool_augment",
+  "augment": "embers:caster_orb",
+  "input": {
+    "item": "embers:caster_orb"
+  },
+  "tool": {
+    "type": "embers:has_heat",
+    "base": {
+      "tag": "embers:augmentables/tools"
+    }
+  }
+}

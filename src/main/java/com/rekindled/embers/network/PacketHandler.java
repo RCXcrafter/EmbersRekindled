@@ -2,6 +2,7 @@ package com.rekindled.embers.network;
 
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.network.message.MessageBeamCannonFX;
+import com.rekindled.embers.network.message.MessageCasterOrb;
 import com.rekindled.embers.network.message.MessageEmberGenOffset;
 import com.rekindled.embers.network.message.MessageEmberRayFX;
 import com.rekindled.embers.network.message.MessageItemSound;
@@ -35,5 +36,6 @@ public class PacketHandler {
 		INSTANCE.registerMessage(id++, MessageItemSound.class, MessageItemSound::encode, MessageItemSound::decode, MessageItemSound::handle);
 		INSTANCE.registerMessage(id++, MessageBeamCannonFX.class, MessageBeamCannonFX::encode, MessageBeamCannonFX::decode, MessageBeamCannonFX::handle);
 		INSTANCE.registerMessage(id++, MessageEmberGenOffset.class, MessageEmberGenOffset::encode, MessageEmberGenOffset::decode, MessageEmberGenOffset::handle);
+		INSTANCE.registerMessage(id++, MessageCasterOrb.class, MessageCasterOrb::encode, MessageCasterOrb::decode, MessageCasterOrb::handle);
 	}
 }

@@ -238,6 +238,7 @@ public class EmbersLang extends LanguageProvider {
 		addAugment(RegistryManager.SUPERHEATER_AUGMENT, "Superheating");
 		addAugment(RegistryManager.CINDER_JET_AUGMENT, "Cinder Jet");
 		addAugment(RegistryManager.BLASTING_CORE_AUGMENT, "Blasting");
+		addAugment(RegistryManager.CASTER_ORB_AUGMENT, "Ember Casting");
 
 
 		//text
