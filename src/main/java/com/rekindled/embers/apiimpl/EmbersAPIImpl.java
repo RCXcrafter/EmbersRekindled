@@ -23,6 +23,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 
 public class EmbersAPIImpl implements IEmbersAPI {
 
@@ -146,6 +147,16 @@ public class EmbersAPIImpl implements IEmbersAPI {
 	@Override
 	public boolean isWearingLens(Player player) {
 		return Misc.isWearingLens(player);
+	}
+
+	@Override
+	public void registerEmberResonance(Ingredient ingredient, double resonance) {
+		Misc.GET_EMBER_RESONANCE.add((stack) -> ingredient.test(stack) ? resonance : -1.0);
+	}
+
+	@Override
+	public double getEmberResonance(ItemStack stack) {
+		return Misc.getEmberResonance(stack);
 	}
 
 	@Override

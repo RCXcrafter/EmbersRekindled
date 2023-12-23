@@ -41,7 +41,7 @@ public class AnvilAugmentRecipe implements IDawnstoneAnvilRecipe, IVisuallySplit
 	public boolean matches(Container context, Level pLevel) {
 		if (augment.countTowardsTotalLevel()) {
 			ItemStack toolStack = context.getItem(0);
-			return tool.test(toolStack) && input.test(context.getItem(1)) && AugmentUtil.getLevel(toolStack) >= AugmentUtil.getTotalAugmentLevel(toolStack);
+			return tool.test(toolStack) && input.test(context.getItem(1)) && AugmentUtil.getLevel(toolStack) > AugmentUtil.getTotalAugmentLevel(toolStack);
 		} else 
 			return tool.test(context.getItem(0)) && input.test(context.getItem(1));
 	}
@@ -57,9 +57,13 @@ public class AnvilAugmentRecipe implements IDawnstoneAnvilRecipe, IVisuallySplit
 	public List<IDawnstoneAnvilRecipe> getVisualRecipes() {
 		visualRecipes.clear();
 		for (ItemStack stack : tool.getItems()) {
-			ItemStack augmentedTool = stack.copy();
+			ItemStack leveledTool = stack.copy();
+			if (augment.countTowardsTotalLevel()) {
+				AugmentUtil.setLevel(leveledTool, 1);
+			}
+			ItemStack augmentedTool = leveledTool.copy();
 			AugmentUtil.addAugment(augmentedTool, ItemStack.EMPTY, augment);
-			visualRecipes.add(new AnvilDisplayRecipe(id, List.of(augmentedTool), List.of(stack), input));
+			visualRecipes.add(new AnvilDisplayRecipe(id, List.of(augmentedTool), List.of(leveledTool), input));
 		}
 		return visualRecipes;
 	}

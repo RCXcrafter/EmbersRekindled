@@ -12,6 +12,8 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 
 public interface IEmbersAPI {
 
@@ -50,6 +52,10 @@ public interface IEmbersAPI {
 	void registerLens(Predicate<Player> predicate);
 
 	boolean isWearingLens(Player player);
+
+	void registerEmberResonance(Ingredient ingredient, double resonance);
+
+	double getEmberResonance(ItemStack stack);
 
 	double getEmberTotal(Player player);
 

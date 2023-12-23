@@ -12,9 +12,11 @@ import java.util.function.Supplier;
 import javax.annotation.Nullable;
 
 import com.mojang.serialization.Codec;
+import com.rekindled.embers.api.EmbersAPI;
 import com.rekindled.embers.api.augment.AugmentUtil;
 import com.rekindled.embers.api.augment.IAugment;
 import com.rekindled.embers.augment.CoreAugment;
+import com.rekindled.embers.augment.SuperheaterAugment;
 import com.rekindled.embers.augment.TinkerLensAugment;
 import com.rekindled.embers.block.AlchemyPedestalBlock;
 import com.rekindled.embers.block.AlchemyTabletBlock;
@@ -219,6 +221,7 @@ import com.rekindled.embers.util.EmbersTiers;
 import com.rekindled.embers.util.GrandhammerLootModifier;
 import com.rekindled.embers.util.LegacyDeferredRegister;
 import com.rekindled.embers.util.Misc;
+import com.rekindled.embers.util.SuperHeaterLootModifier;
 import com.rekindled.embers.worldgen.CaveStructure;
 import com.rekindled.embers.worldgen.CrystalSeedStructureProcessor;
 import com.rekindled.embers.worldgen.EntityMobilizerStructureProcessor;
@@ -254,6 +257,7 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -819,6 +823,7 @@ public class RegistryManager {
 	public static final IAugment CORE_AUGMENT = AugmentUtil.registerAugment(new CoreAugment());
 	public static final IAugment TINKER_LENS_AUGMENT = AugmentUtil.registerAugment(new TinkerLensAugment(new ResourceLocation(Embers.MODID, "tinker_lens"), false));
 	public static final IAugment SMOKY_LENS_AUGMENT = AugmentUtil.registerAugment(new TinkerLensAugment(new ResourceLocation(Embers.MODID, "smoky_tinker_lens"), true));
+	public static final IAugment SUPERHEATER_AUGMENT = AugmentUtil.registerAugment(new SuperheaterAugment(new ResourceLocation(Embers.MODID, "superheater")));
 
 	//particle types
 	public static final RegistryObject<ParticleType<GlowParticleOptions>> GLOW_PARTICLE = registerParticle("glow", false, GlowParticleOptions.DESERIALIZER, GlowParticleOptions.CODEC);
@@ -863,6 +868,7 @@ public class RegistryManager {
 
 	//loot modifiers
 	public static final RegistryObject<Codec<GrandhammerLootModifier>> GRANDHAMMER_MODIFIER = LOOT_MODIFIERS.register("grandhammer", () -> GrandhammerLootModifier.CODEC);
+	public static final RegistryObject<Codec<SuperHeaterLootModifier>> SUPERHEATER_MODIFIER = LOOT_MODIFIERS.register("superheater", () -> SuperHeaterLootModifier.CODEC);
 
 	//menu types
 	public static final RegistryObject<MenuType<SlateMenu>> SLATE_MENU = MENU_TYPES.register("codebreaking_slate", () -> IForgeMenuType.create(SlateMenu::fromBuffer));
@@ -874,27 +880,30 @@ public class RegistryManager {
 	public static final RegistryObject<StructureProcessorType<CrystalSeedStructureProcessor>> CRYSTAL_SEED_PROCESSOR = STRUCTURE_PROCESSOR_TYPES.register("crystal_seed_processor", () -> () -> CrystalSeedStructureProcessor.CODEC);
 	public static final RegistryObject<StructureProcessorType<EntityMobilizerStructureProcessor>> ENTITY_MOBILIZER_PROCESSOR = STRUCTURE_PROCESSOR_TYPES.register("entity_mobilizer", () -> () -> EntityMobilizerStructureProcessor.CODEC);
 
-	public static void registerDispenserBehaviour(final FMLCommonSetupEvent event) {
-		DispenseItemBehavior dispenseBucket = new DefaultDispenseItemBehavior() {
-			private final DefaultDispenseItemBehavior defaultDispenseItemBehavior = new DefaultDispenseItemBehavior();
-
-			@Override
-			public ItemStack execute(BlockSource source, ItemStack stack) {
-				DispensibleContainerItem container = (DispensibleContainerItem)stack.getItem();
-				BlockPos blockpos = source.getPos().relative(source.getBlockState().getValue(DispenserBlock.FACING));
-				Level level = source.getLevel();
-				if (container.emptyContents(null, level, blockpos, null)) {
-					container.checkExtraContent(null, level, stack, blockpos);
-					return new ItemStack(Items.BUCKET);
-				} else {
-					return this.defaultDispenseItemBehavior.dispense(source, stack);
-				}
-			}
-		};
+	public static void init(final FMLCommonSetupEvent event) {
 		event.enqueueWork(() -> {
+			DispenseItemBehavior dispenseBucket = new DefaultDispenseItemBehavior() {
+				private final DefaultDispenseItemBehavior defaultDispenseItemBehavior = new DefaultDispenseItemBehavior();
+
+				@Override
+				public ItemStack execute(BlockSource source, ItemStack stack) {
+					DispensibleContainerItem container = (DispensibleContainerItem)stack.getItem();
+					BlockPos blockpos = source.getPos().relative(source.getBlockState().getValue(DispenserBlock.FACING));
+					Level level = source.getLevel();
+					if (container.emptyContents(null, level, blockpos, null)) {
+						container.checkExtraContent(null, level, stack, blockpos);
+						return new ItemStack(Items.BUCKET);
+					} else {
+						return this.defaultDispenseItemBehavior.dispense(source, stack);
+					}
+				}
+			};
 			for (FluidStuff fluid : fluidList) {
 				DispenserBlock.registerBehavior(fluid.FLUID_BUCKET.get(), dispenseBucket);
 			}
+			EmbersAPI.registerEmberResonance(Ingredient.of(DAWNSTONE_TOOLS.SWORD.get(), DAWNSTONE_TOOLS.SHOVEL.get(), DAWNSTONE_TOOLS.PICKAXE.get(), DAWNSTONE_TOOLS.AXE.get(), DAWNSTONE_TOOLS.HOE.get()), 2.0);
+			EmbersAPI.registerEmberResonance(Ingredient.of(CLOCKWORK_PICKAXE.get(), CLOCKWORK_AXE.get(), GRANDHAMMER.get(), BLAZING_RAY.get(), CINDER_STAFF.get()), 2.0);
+			EmbersAPI.registerEmberResonance(Ingredient.of(ASHEN_GOGGLES.get(), ASHEN_CLOAK.get(), ASHEN_LEGGINGS.get(), ASHEN_BOOTS.get()), 2.0);
 		});
 	}
 

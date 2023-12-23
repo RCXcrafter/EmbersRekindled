@@ -65,6 +65,7 @@ public class Misc {
 	public static final List<BiPredicate<Player, InteractionHand>> IS_HOLDING_HAMMER = new ArrayList<BiPredicate<Player, InteractionHand>>();
 	public static final List<Function<Player, Pair<BlockPos, Direction>>> GET_HAMMER_TARGET = new ArrayList<Function<Player, Pair<BlockPos, Direction>>>();
 	public static final List<Predicate<Player>> IS_WEARING_LENS = new ArrayList<Predicate<Player>>();
+	public static final List<Function<ItemStack, Double>> GET_EMBER_RESONANCE = new ArrayList<Function<ItemStack, Double>>();
 
 	public static void spawnInventoryInWorld(Level world, double x, double y, double z, IItemHandler inventory) {
 		if (inventory != null && !world.isClientSide) {
@@ -102,6 +103,16 @@ public class Misc {
 			}
 		}
 		return false;
+	}
+
+	public static double getEmberResonance(ItemStack stack) {
+		for (Function<ItemStack, Double> func : GET_EMBER_RESONANCE) {
+			double resonance = func.apply(stack);
+			if (resonance >= 0.0) {
+				return resonance;
+			}
+		}
+		return 0.0;
 	}
 
 	public static Direction readNullableFacing(int index) {

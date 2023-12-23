@@ -12,6 +12,8 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 
 public class EmbersAPI {
 
@@ -104,6 +106,14 @@ public class EmbersAPI {
 
 	boolean isWearingLens(Player player) {
 		return IMPL.isWearingLens(player);
+	}
+
+	public static void registerEmberResonance(Ingredient ingredient, double resonance) {
+		IMPL.registerEmberResonance(ingredient, resonance);
+	}
+
+	public static double getEmberResonance(ItemStack stack) {
+		return IMPL.getEmberResonance(stack);
 	}
 
 	public static double getEmberTotal(Player player) {

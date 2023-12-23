@@ -69,6 +69,7 @@ import com.rekindled.embers.recipe.HeatIngredient;
 import com.rekindled.embers.render.PipeModel;
 import com.rekindled.embers.research.ResearchManager;
 import com.rekindled.embers.research.capability.IResearchCapability;
+import com.rekindled.embers.util.AugmentPredicate;
 import com.rekindled.embers.util.DecimalFormats;
 import com.rekindled.embers.util.GlowingTextTooltip;
 import com.rekindled.embers.util.GlowingTextTooltip.GlowingTextClientTooltip;
@@ -76,6 +77,7 @@ import com.rekindled.embers.util.HeatBarTooltip;
 import com.rekindled.embers.util.HeatBarTooltip.HeatBarClientTooltip;
 import com.rekindled.embers.util.Misc;
 
+import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -161,7 +163,7 @@ public class Embers {
 
 	public void commonSetup(final FMLCommonSetupEvent event) {
 		PacketHandler.init();
-		RegistryManager.registerDispenserBehaviour(event);
+		RegistryManager.init(event);
 		MinecraftForge.EVENT_BUS.addGenericListener(Entity.class, ResearchManager::attachCapability);
 		MinecraftForge.EVENT_BUS.addListener(ResearchManager::onClone);
 		ResearchManager.initResearches();
@@ -226,6 +228,8 @@ public class Embers {
 
 	public void registerRecipeSerializers(RegisterEvent event) {
 		if (event.getRegistryKey().equals(ForgeRegistries.Keys.RECIPE_SERIALIZERS)) {
+			ItemPredicate.register(AugmentPredicate.ID, AugmentPredicate::deserialize);
+
 			CraftingHelper.register(new ResourceLocation(MODID, "has_heat"), HeatIngredient.Serializer.INSTANCE);
 			CraftingHelper.register(new ResourceLocation(MODID, "has_augment"), AugmentIngredient.Serializer.INSTANCE);
 		}

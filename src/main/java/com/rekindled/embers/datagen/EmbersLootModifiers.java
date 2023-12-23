@@ -2,7 +2,9 @@ package com.rekindled.embers.datagen;
 
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
+import com.rekindled.embers.util.AugmentPredicate;
 import com.rekindled.embers.util.GrandhammerLootModifier;
+import com.rekindled.embers.util.SuperHeaterLootModifier;
 
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.data.PackOutput;
@@ -19,5 +21,6 @@ public class EmbersLootModifiers extends GlobalLootModifierProvider {
 	@Override
 	protected void start() {
 		add("grandhammer", new GrandhammerLootModifier(new LootItemCondition[]{MatchTool.toolMatches(ItemPredicate.Builder.item().of(RegistryManager.GRANDHAMMER.get())).build()}));
+		add("superheater", new SuperHeaterLootModifier(new LootItemCondition[]{new MatchTool(new AugmentPredicate(RegistryManager.SUPERHEATER_AUGMENT, 1))}));
 	}
 }

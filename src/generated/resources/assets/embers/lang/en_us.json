@@ -653,6 +653,7 @@
   "embers.tooltip.attenuator.off": "When inactive: %s Speed",
   "embers.tooltip.attenuator.on": "When active: %s Speed",
   "embers.tooltip.augment.embers.smoky_tinker_lens": "Tinker's Blindness",
+  "embers.tooltip.augment.embers.superheater": "Superheating %s",
   "embers.tooltip.augment.embers.tinker_lens": "Tinker's Sight",
   "embers.tooltip.augments": "Augments:",
   "embers.tooltip.broken": "Broken",

@@ -1,0 +1,12 @@
+{
+  "type": "embers:superheater",
+  "conditions": [
+    {
+      "condition": "minecraft:match_tool",
+      "predicate": {
+        "type": "embers:augment",
+        "augment": "embers:superheater"
+      }
+    }
+  ]
+}
