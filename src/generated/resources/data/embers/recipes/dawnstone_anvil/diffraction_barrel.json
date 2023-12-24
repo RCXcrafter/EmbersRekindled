@@ -1,0 +1,20 @@
+{
+  "type": "embers:tool_augment",
+  "augment": "embers:diffraction_barrel",
+  "input": {
+    "item": "embers:diffraction_barrel"
+  },
+  "tool": [
+    {
+      "type": "embers:has_augment",
+      "augment": "embers:caster_orb",
+      "base": {
+        "tag": "embers:augmentables/tools"
+      },
+      "level": 1
+    },
+    {
+      "tag": "embers:augmentables/projectiles"
+    }
+  ]
+}

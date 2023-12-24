@@ -59,7 +59,7 @@ public class AnvilAugmentRecipe implements IDawnstoneAnvilRecipe, IVisuallySplit
 		for (ItemStack stack : tool.getItems()) {
 			ItemStack leveledTool = stack.copy();
 			if (augment.countTowardsTotalLevel()) {
-				AugmentUtil.setLevel(leveledTool, 1);
+				AugmentUtil.setLevel(leveledTool, AugmentUtil.getLevel(leveledTool) + 1);
 			}
 			ItemStack augmentedTool = leveledTool.copy();
 			AugmentUtil.addAugment(augmentedTool, ItemStack.EMPTY, augment);

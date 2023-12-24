@@ -68,8 +68,11 @@ public class AugmentIngredient extends AbstractIngredient {
 				ItemStack stack = items[i].copy();
 				if (inverted)
 					AugmentUtil.setHeat(stack, 0);
-				else
+				else {
+					AugmentUtil.setLevel(stack, AugmentUtil.getLevel(stack) + level);
+					AugmentUtil.addAugment(stack, ItemStack.EMPTY, augment);
 					AugmentUtil.setAugmentLevel(stack, augment, level);
+				}
 				this.augmentedMatchingStacks[i] = stack;
 			}
 		}
