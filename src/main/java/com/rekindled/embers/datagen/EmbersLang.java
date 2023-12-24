@@ -244,6 +244,7 @@ public class EmbersLang extends LanguageProvider {
 		addAugment(RegistryManager.ELDRITCH_INSIGNIA_AUGMENT, "Eerie");
 		addAugment(RegistryManager.INTELLIGENT_APPARATUS_AUGMENT, "Intelligent");
 		addAugment(RegistryManager.DIFFRACTION_BARREL_AUGMENT, "Diffractive");
+		addAugment(RegistryManager.FOCAL_LENS_AUGMENT, "Focused");
 
 
 		//text

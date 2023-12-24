@@ -22,6 +22,7 @@ import com.rekindled.embers.augment.CoreAugment;
 import com.rekindled.embers.augment.DiffractionBarrelAugment;
 import com.rekindled.embers.augment.EldritchInsigniaAugment;
 import com.rekindled.embers.augment.FlameBarrierAugment;
+import com.rekindled.embers.augment.FocalLensAugment;
 import com.rekindled.embers.augment.IntelligentApparatusAugment;
 import com.rekindled.embers.augment.ResonatingBellAugment;
 import com.rekindled.embers.augment.SuperheaterAugment;
@@ -841,6 +842,7 @@ public class RegistryManager {
 	public static final IAugment ELDRITCH_INSIGNIA_AUGMENT = AugmentUtil.registerAugment(new EldritchInsigniaAugment(new ResourceLocation(Embers.MODID, "eldritch_insignia")));
 	public static final IAugment INTELLIGENT_APPARATUS_AUGMENT = AugmentUtil.registerAugment(new IntelligentApparatusAugment(new ResourceLocation(Embers.MODID, "intelligent_apparatus")));
 	public static final IAugment DIFFRACTION_BARREL_AUGMENT = AugmentUtil.registerAugment(new DiffractionBarrelAugment(new ResourceLocation(Embers.MODID, "diffraction_barrel")));
+	public static final IAugment FOCAL_LENS_AUGMENT = AugmentUtil.registerAugment(new FocalLensAugment(new ResourceLocation(Embers.MODID, "focal_lens")));
 
 	//particle types
 	public static final RegistryObject<ParticleType<GlowParticleOptions>> GLOW_PARTICLE = registerParticle("glow", false, GlowParticleOptions.DESERIALIZER, GlowParticleOptions.CODEC);

@@ -53,6 +53,7 @@ public class ConfigManager {
 	public static ConfigValue<Integer> ASHEN_BOOTS_SLOTS;
 
 	public static ConfigValue<Boolean> CODEX_PROGRESSION;
+	public static ConfigValue<Boolean> PVP_EVERYBODY_IS_ENEMY;
 	public static ConfigValue<List<? extends String>> TAG_PREFERENCES;
 	public static ConfigValue<List<? extends String>> ITEM_PREFERENCES;
 
@@ -133,6 +134,8 @@ public class ConfigManager {
 		COMMON.comment("Miscellaneous settings").push("misc");
 
 		CODEX_PROGRESSION = COMMON.comment("Codex entries need to be completed before the next one unlocks.").define("codexProgression", true);
+
+		PVP_EVERYBODY_IS_ENEMY = COMMON.comment("If true, Embers homing projectiles will go for neutral players.").define("everybodyIsEnemy", false);
 
 		List<String> preferences = new ArrayList<String>();
 		preferences.add(0, "minecraft");

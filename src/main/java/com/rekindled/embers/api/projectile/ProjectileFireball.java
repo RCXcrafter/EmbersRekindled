@@ -1,10 +1,10 @@
 package com.rekindled.embers.api.projectile;
 
 import java.awt.Color;
+import java.util.function.Predicate;
 
 import javax.annotation.Nullable;
 
-import com.google.common.base.Predicate;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.entity.EmberProjectileEntity;
 

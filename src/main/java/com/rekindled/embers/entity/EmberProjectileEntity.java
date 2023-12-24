@@ -177,8 +177,8 @@ public class EmberProjectileEntity extends Projectile {
 				Vec3 targetVector = new Vec3(targetX-getX(),targetY-getY(),targetZ-getZ());
 				double length = targetVector.length();
 				targetVector = targetVector.scale(0.3/length);
-				double weight  = 0;
-				if (length <= homingRange){
+				double weight = 0;
+				if (length <= homingRange) {
 					weight = 0.9*((homingRange-length)/homingRange);
 				}
 				Vec3 delta = this.getDeltaMovement();
