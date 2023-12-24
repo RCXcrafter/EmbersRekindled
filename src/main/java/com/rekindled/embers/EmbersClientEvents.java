@@ -357,6 +357,9 @@ public class EmbersClientEvents {
 			event.getTooltipElements().add(Either.left(Component.empty()));
 			if (AugmentUtil.getLevel(event.getItemStack()) > 0) {
 				event.getTooltipElements().add(Either.right(new GlowingTextTooltip(Component.translatable(Embers.MODID + ".tooltip.heat_level").withStyle(ChatFormatting.GRAY).getVisualOrderText(), Component.literal("" + AugmentUtil.getLevel(event.getItemStack())).getVisualOrderText())));
+				int slots = AugmentUtil.getLevel(event.getItemStack()) - AugmentUtil.getTotalAugmentLevel(event.getItemStack());
+				if (slots > 0)
+					event.getTooltipElements().add(Either.right(new GlowingTextTooltip(Component.translatable(Embers.MODID + ".tooltip.augment_slots").withStyle(ChatFormatting.GRAY).getVisualOrderText(), Component.literal("" + slots).getVisualOrderText())));
 			}
 			event.getTooltipElements().add(Either.right(new HeatBarTooltip(Component.translatable(Embers.MODID + ".tooltip.heat_amount").withStyle(ChatFormatting.GRAY).getVisualOrderText(), AugmentUtil.getHeat(event.getItemStack()), AugmentUtil.getMaxHeat(event.getItemStack()))));
 			List<IAugment> augments = AugmentUtil.getAugments(event.getItemStack()).stream().filter(x -> x.shouldRenderTooltip()).collect(Collectors.toList());

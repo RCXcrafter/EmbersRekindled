@@ -663,6 +663,7 @@
   "embers.tooltip.augment.embers.smoky_tinker_lens": "Tinker's Blindness",
   "embers.tooltip.augment.embers.superheater": "Superheating %s",
   "embers.tooltip.augment.embers.tinker_lens": "Tinker's Sight",
+  "embers.tooltip.augment_slots": "Augment slots: ",
   "embers.tooltip.augments": "Augments:",
   "embers.tooltip.broken": "Broken",
   "embers.tooltip.crystal.level": "Level %s",
