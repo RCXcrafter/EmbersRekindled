@@ -242,6 +242,7 @@ public class EmbersLang extends LanguageProvider {
 		addAugment(RegistryManager.RESONATING_BELL_AUGMENT, "Resonating");
 		addAugment(RegistryManager.FLAME_BARRIER_AUGMENT, "Flame Barrier");
 		addAugment(RegistryManager.ELDRITCH_INSIGNIA_AUGMENT, "Eerie");
+		addAugment(RegistryManager.INTELLIGENT_APPARATUS_AUGMENT, "Intelligent");
 
 
 		//text
