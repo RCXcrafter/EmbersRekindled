@@ -3,6 +3,7 @@ package com.rekindled.embers.item;
 import java.util.List;
 import java.util.function.Consumer;
 
+import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.api.EmbersAPI;
@@ -12,9 +13,9 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
@@ -39,9 +40,9 @@ public class AshenArmorItem extends ArmorItem {
 	@Override
 	public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack stack) {
 		Multimap<Attribute, AttributeModifier> modifiers = super.getAttributeModifiers(slot, stack);
+		super.getDefaultAttributeModifiers(slot);
 		if (isBroken(stack)) {
-			modifiers.removeAll(Attributes.ARMOR);
-			modifiers.removeAll(Attributes.ARMOR_TOUGHNESS);
+			return ImmutableMultimap.of();
 		}
 		return modifiers;
 	}
@@ -49,6 +50,11 @@ public class AshenArmorItem extends ArmorItem {
 	@Override
 	public void setDamage(ItemStack stack, int damage) {
 		super.setDamage(stack, Math.min(damage, getMaxDamage(stack) - 1));
+	}
+
+	@Override
+	public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
+		return isBroken(stack) ? 0 : amount;
 	}
 
 	public boolean isBroken(ItemStack armor) {
