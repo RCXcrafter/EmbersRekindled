@@ -246,6 +246,7 @@ public class EmbersLang extends LanguageProvider {
 		addAugment(RegistryManager.DIFFRACTION_BARREL_AUGMENT, "Diffractive");
 		addAugment(RegistryManager.FOCAL_LENS_AUGMENT, "Focused");
 		addAugment(RegistryManager.SHIFTING_SCALES_AUGMENT, "Scaly");
+		addAugment(RegistryManager.WINDING_GEARS_AUGMENT, "Windup");
 
 
 		//text
@@ -976,8 +977,8 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".research.page.winding_gears", "Winding Gears");
 		add(Embers.MODID + ".research.page.winding_gears.title", "Windup Toy");
 		add(Embers.MODID + ".research.page.winding_gears.tags", "Modifier;Augment;Armor;Tool;Weapon;Gear;Wind;Spool;Bounce;");
-		add(Embers.MODID + ".research.page.winding_gears.desc", "When Winding Gears are applied to a tool, a spool will be shown on your HUD in place of the experience bar to show how much it is wound up. Winding the tool up by right-clicking will grant you auto-attack (hold left-click to attack over and over). The tool will however wind down slowly over time. Winding up also has some other effects, as detailed on the following pages.");
-		add(Embers.MODID + ".research.page.winding_gears_boots.desc", "Winding Gears can also be applied to your boots. You will jump much higher based on the charge left in the spring. You will also bounce without taking fall damage when impacting the ground. Additionally, if you sprint before jumping, you will also cross a much larger distance. You must also hold a wound up tool in hand to use these effect.");
+		add(Embers.MODID + ".research.page.winding_gears.desc", "When Winding Gears are applied to a tool, a spool will be shown on your HUD on top of the experience bar to show how much it is wound up. Winding the tool up by right-clicking will grant you auto-attack (hold left-click to attack over and over) as well as a mining speed boost. The tool will however wind down slowly over time. Winding up also has some other effects, as detailed on the following pages.");
+		add(Embers.MODID + ".research.page.winding_gears_boots.desc", "Winding Gears can also be applied to your boots. You will jump much higher based on the charge left in the spring. You will also bounce without taking fall damage when impacting the ground. Additionally, if you sprint before jumping, you will also cross a much larger distance. You must hold a wound up tool in hand to use these effects.");
 
 		add(Embers.MODID + ".research.page.shifting_scales", "Shifting Scales");
 		add(Embers.MODID + ".research.page.shifting_scales.title", "Extraneous Armor");

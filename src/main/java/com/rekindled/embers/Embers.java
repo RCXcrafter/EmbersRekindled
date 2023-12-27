@@ -7,6 +7,7 @@ import com.rekindled.embers.api.power.IEmberCapability;
 import com.rekindled.embers.apiimpl.EmbersAPIImpl;
 import com.rekindled.embers.augment.ShiftingScalesAugment;
 import com.rekindled.embers.augment.ShiftingScalesAugment.IScalesCapability;
+import com.rekindled.embers.augment.WindingGearsAugment;
 import com.rekindled.embers.blockentity.render.AlchemyPedestalBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.AlchemyPedestalTopBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.AlchemyTabletBlockEntityRenderer;
@@ -270,6 +271,8 @@ public class Embers {
 			event.registerAboveAll("embers_ingame_overlay", EmbersClientEvents.INGAME_OVERLAY);
 			event.registerAboveAll("shifting_scales_particles", ShiftingScalesAugment::renderIngameOverlay);
 			event.registerAbove(VanillaGuiOverlay.PLAYER_HEALTH.id(), "shifting_scales_hearts", ShiftingScalesAugment::renderHeartsOverlay);
+			event.registerBelow(VanillaGuiOverlay.JUMP_BAR.id(), "winding_gears_spring_bottom", WindingGearsAugment::renderSpringUnderlay);
+			event.registerAbove(VanillaGuiOverlay.EXPERIENCE_BAR.id(), "winding_gears_spring_top", WindingGearsAugment::renderSpringOverlay);
 		}
 
 		@OnlyIn(Dist.CLIENT)

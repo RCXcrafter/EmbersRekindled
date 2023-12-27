@@ -28,6 +28,7 @@ import com.rekindled.embers.augment.ResonatingBellAugment;
 import com.rekindled.embers.augment.ShiftingScalesAugment;
 import com.rekindled.embers.augment.SuperheaterAugment;
 import com.rekindled.embers.augment.TinkerLensAugment;
+import com.rekindled.embers.augment.WindingGearsAugment;
 import com.rekindled.embers.block.AlchemyPedestalBlock;
 import com.rekindled.embers.block.AlchemyTabletBlock;
 import com.rekindled.embers.block.ArchaicLightBlock;
@@ -845,6 +846,7 @@ public class RegistryManager {
 	public static final IAugment DIFFRACTION_BARREL_AUGMENT = AugmentUtil.registerAugment(new DiffractionBarrelAugment(new ResourceLocation(Embers.MODID, "diffraction_barrel")));
 	public static final IAugment FOCAL_LENS_AUGMENT = AugmentUtil.registerAugment(new FocalLensAugment(new ResourceLocation(Embers.MODID, "focal_lens")));
 	public static final IAugment SHIFTING_SCALES_AUGMENT = AugmentUtil.registerAugment(new ShiftingScalesAugment(new ResourceLocation(Embers.MODID, "shifting_scales")));
+	public static final IAugment WINDING_GEARS_AUGMENT = AugmentUtil.registerAugment(new WindingGearsAugment(new ResourceLocation(Embers.MODID, "winding_gears")));
 
 	//particle types
 	public static final RegistryObject<ParticleType<GlowParticleOptions>> GLOW_PARTICLE = registerParticle("glow", false, GlowParticleOptions.DESERIALIZER, GlowParticleOptions.CODEC);

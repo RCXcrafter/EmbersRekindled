@@ -1,0 +1,18 @@
+{
+  "type": "embers:tool_augment",
+  "augment": "embers:winding_gears",
+  "input": {
+    "item": "embers:winding_gears"
+  },
+  "tool": {
+    "type": "embers:has_heat",
+    "base": [
+      {
+        "tag": "embers:augmentables/tools"
+      },
+      {
+        "tag": "embers:augmentables/armors/boots"
+      }
+    ]
+  }
+}
