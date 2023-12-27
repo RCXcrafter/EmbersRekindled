@@ -51,11 +51,31 @@ public class ConfigManager {
 	public static ConfigValue<Integer> ASHEN_CLOAK_SLOTS;
 	public static ConfigValue<Integer> ASHEN_LEGGINGS_SLOTS;
 	public static ConfigValue<Integer> ASHEN_BOOTS_SLOTS;
+	public static ConfigValue<List<? extends String>> SCALE_DAMAGE_PASSES;
+	public static ConfigValue<List<? extends String>> SCALE_DAMAGE_RATES;
 
 	public static ConfigValue<Boolean> CODEX_PROGRESSION;
 	public static ConfigValue<Boolean> PVP_EVERYBODY_IS_ENEMY;
 	public static ConfigValue<List<? extends String>> TAG_PREFERENCES;
 	public static ConfigValue<List<? extends String>> ITEM_PREFERENCES;
+
+	public static double getScaleDamagePass(String type) {
+		for (String pass : SCALE_DAMAGE_PASSES.get()) {
+			String [] values =  pass.split(":");
+			if (type.equals(values[0]))
+				return Double.parseDouble(values[1]);
+		}
+		return 0.0;
+	}
+
+	public static double getScaleDamageRate(String type) {
+		for (String rate : SCALE_DAMAGE_RATES.get()) {
+			String [] values =  rate.split(":");
+			if (type.equals(values[0]))
+				return Double.parseDouble(values[1]);
+		}
+		return 1.0;
+	}
 
 	public static void register() {
 		//registerClientConfigs();
@@ -127,6 +147,15 @@ public class ConfigManager {
 		ASHEN_CLOAK_SLOTS = COMMON.comment("How many inflictor gems can fit in the ashen cloak.").define("ashen.cloak.gem_slots", 7);
 		ASHEN_LEGGINGS_SLOTS = COMMON.comment("How many inflictor gems can fit in the ashen leggings.").define("ashen.leggings.gem_slots", 5);
 		ASHEN_BOOTS_SLOTS = COMMON.comment("How many inflictor gems can fit in the ashen boots.").define("ashen.boots.gem_slots", 3);
+
+		List<String> defaultScaleDamagePasses = new ArrayList<String>();
+		defaultScaleDamagePasses.add("drown:1.0");
+		defaultScaleDamagePasses.add("starve:1.0");
+
+		List<String> defaultScaleDamageRates = new ArrayList<String>();
+
+		SCALE_DAMAGE_PASSES = COMMON.comment("Syntax is 'damagetype:rate'. Determines which damage types are partially unaffected by the shifting scales augment.").defineList("shiftingScales.damagePasses", defaultScaleDamagePasses, a -> true);
+		SCALE_DAMAGE_RATES = COMMON.comment("Syntax is 'damagetype:rate'. Specifies a separate damage rate for depleting the scales.").defineList("shiftingScales.damageRates", defaultScaleDamageRates, a -> true);
 
 		COMMON.pop();
 

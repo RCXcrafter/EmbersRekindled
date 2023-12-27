@@ -10,6 +10,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -18,47 +19,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 public class EmbersAPI {
 
 	public static IEmbersAPI IMPL;
-
-	/*public static ModifierBase CORE;
-    public static ModifierBase SUPERHEATER;
-    public static ModifierBase JET_AUGMENT;
-    public static ModifierBase CASTER_ORB;
-    public static ModifierBase RESONATING_BELL;
-    public static ModifierBase BLASTING_CORE;
-    public static ModifierBase FLAME_BARRIER;
-    public static ModifierBase ELDRITCH_INSIGNIA;
-    public static ModifierBase INTELLIGENT_APPARATUS;
-    public static ModifierBase DIFFRACTION;
-    public static ModifierBase FOCAL_LENS;
-    public static ModifierBase TINKER_LENS;
-    public static ModifierBase ANTI_TINKER_LENS;
-    public static ModifierBase SHIFTING_SCALES;
-    public static ModifierBase WINDING_GEARS;
-    public static ModifierBase CORE_STONE;*/
-
-	/*public static void registerModifier(Item item, ModifierBase modifier) {
-        IMPL.registerModifier(item, modifier);
-    }*/
-
-	/*public static void registerEmberToolEffeciency(Ingredient ingredient, double efficiency) {
-		IMPL.registerEmberToolEffeciency(ingredient, efficiency);
-	}
-
-	public static void registerEmberToolEffeciency(IFuel fuel) {
-		IMPL.registerEmberToolEffeciency(fuel);
-	}
-
-	public static void unregisterEmberToolEffeciency(IFuel fuel) {
-		IMPL.unregisterEmberToolEffeciency(fuel);
-	}
-
-	public static IFuel getEmberToolEfficiency(ItemStack stack) {
-		return IMPL.getEmberToolEfficiency(stack);
-	}
-
-	public static double getEmberEfficiency(ItemStack stack) {
-		return IMPL.getEmberEfficiency(stack);
-	}*/
 
 	public static float getEmberDensity(long seed, int x, int z) {
 		return IMPL.getEmberDensity(seed, x, z);
@@ -132,11 +92,11 @@ public class EmbersAPI {
 		return IMPL.getTaggedItem(tag);
 	}
 
-	/*public static double getScales(LivingEntity entity) {
+	public static double getScales(LivingEntity entity) {
 		return IMPL.getScales(entity);
 	}
 
 	public static void setScales(LivingEntity entity, double scales) {
 		IMPL.setScales(entity,scales);
-	}*/
+	}
 }

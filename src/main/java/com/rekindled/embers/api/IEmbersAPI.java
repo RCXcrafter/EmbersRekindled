@@ -10,24 +10,13 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public interface IEmbersAPI {
-
-	//void registerModifier(Item item, ModifierBase modifier);
-
-	/*void registerEmberToolEffeciency(Ingredient ingredient, double efficiency);
-
-    void registerEmberToolEffeciency(IFuel fuel);
-
-    void unregisterEmberToolEffeciency(IFuel fuel);
-
-    IFuel getEmberToolEfficiency(ItemStack stack);
-
-    double getEmberEfficiency(ItemStack stack);*/
 
 	float getEmberDensity(long seed, int x, int z);
 
@@ -65,7 +54,7 @@ public interface IEmbersAPI {
 
 	Item getTaggedItem(TagKey<Item> tag);
 
-	//double getScales(LivingEntity entity);
+	double getScales(LivingEntity entity);
 
-	//void setScales(LivingEntity entity, double scales);
+	void setScales(LivingEntity entity, double scales);
 }

@@ -1,0 +1,13 @@
+{
+  "type": "embers:tool_augment",
+  "augment": "embers:shifting_scales",
+  "input": {
+    "item": "embers:shifting_scales"
+  },
+  "tool": {
+    "type": "embers:has_heat",
+    "base": {
+      "tag": "embers:augmentables/armors"
+    }
+  }
+}

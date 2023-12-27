@@ -5,6 +5,7 @@ import com.rekindled.embers.api.event.EmberProjectileEvent;
 import com.rekindled.embers.api.item.IInflictorGem;
 import com.rekindled.embers.api.item.IInflictorGemHolder;
 import com.rekindled.embers.api.item.ITyrfingWeapon;
+import com.rekindled.embers.augment.ShiftingScalesAugment;
 import com.rekindled.embers.datagen.EmbersDamageTypes;
 import com.rekindled.embers.datagen.EmbersItemTags;
 import com.rekindled.embers.datagen.EmbersSounds;
@@ -72,6 +73,7 @@ public class EmbersEvents {
 		if (event.getEntity() instanceof ServerPlayer && !event.getLevel().isClientSide()) {
 			ServerPlayer player = (ServerPlayer) event.getEntity();
 			ResearchManager.sendResearchData(player);
+			ShiftingScalesAugment.sendScalesData(player);
 			PacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), new MessageWorldSeed(((ServerLevel) event.getLevel()).getSeed()));
 			PacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), new MessageEmberGenOffset(EmberGenUtil.offX, EmberGenUtil.offZ));
 		}

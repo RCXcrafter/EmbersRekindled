@@ -10,6 +10,10 @@ import com.rekindled.embers.api.EmbersAPI;
 import com.rekindled.embers.api.IEmbersAPI;
 import com.rekindled.embers.api.augment.AugmentUtil;
 import com.rekindled.embers.api.upgrades.UpgradeUtil;
+import com.rekindled.embers.augment.ShiftingScalesAugment.IScalesCapability;
+import com.rekindled.embers.augment.ShiftingScalesAugment.ScalesCapabilityProvider;
+import com.rekindled.embers.network.PacketHandler;
+import com.rekindled.embers.network.message.MessageScalesData;
 import com.rekindled.embers.util.EmberGenUtil;
 import com.rekindled.embers.util.EmberInventoryUtil;
 import com.rekindled.embers.util.Misc;
@@ -17,13 +21,16 @@ import com.rekindled.embers.util.Misc;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraftforge.network.PacketDistributor;
 
 public class EmbersAPIImpl implements IEmbersAPI {
 
@@ -32,50 +39,6 @@ public class EmbersAPIImpl implements IEmbersAPI {
 		AugmentUtil.IMPL = new AugmentUtilImpl();
 		UpgradeUtil.IMPL = new UpgradeUtilImpl();
 	}
-
-	/*@Override
-    public void registerModifier(Item item, ModifierBase modifier) {
-        ItemModUtil.registerModifier(item, modifier);
-    }*/
-
-	/*@Override
-    public void registerEmberToolEffeciency(Ingredient ingredient, double efficiency) {
-        registerEmberToolEffeciency(new IFuel() { //TODO: move to actual class in apiimpl
-            @Override
-            public boolean matches(ItemStack stack) {
-                return ingredient.apply(stack);
-            }
-
-            @Override
-            public double getFuelValue(ItemStack stack) {
-                return efficiency;
-            }
-        });
-    }
-
-    @Override
-    public void registerEmberToolEffeciency(IFuel fuel) {
-        emberEfficiency.add(fuel);
-    }
-
-    @Override
-    public void unregisterEmberToolEffeciency(IFuel fuel) {
-        emberEfficiency.remove(fuel);
-    }
-
-    @Override
-    public IFuel getEmberToolEfficiency(ItemStack stack) {
-        for(IFuel fuel : emberEfficiency)
-            if(fuel.matches(stack))
-                return fuel;
-        return null;
-    }
-
-    @Override
-    public  getEmberEfficiency(ItemStack stack) {
-        IFuel fuel = getEmberToolEfficiency(stack);
-        return fuel != null ? fuel.getFuelValue(stack) : 1;
-    }*/
 
 	@Override
 	public float getEmberDensity(long seed, int x, int z) {
@@ -179,15 +142,23 @@ public class EmbersAPIImpl implements IEmbersAPI {
 		return Misc.getTaggedItem(tag);
 	}
 
-	/*@Override
-    public double getScales(EntityLivingBase entity) {
-        IAttributeInstance instance = entity.getEntityAttribute(ModifierShiftingScales.SCALES);
-        return instance.getBaseValue();
-    }
+	@Override
+	public double getScales(LivingEntity entity) {
+		IScalesCapability cap = entity.getCapability(ScalesCapabilityProvider.scalesCapability).orElse(null);
+		if (cap != null) {
+			return cap.getScales();
+		}
+		return 0;
+	}
 
-    @Override
-    public void setScales(EntityLivingBase entity, double scales) {
-        IAttributeInstance instance = entity.getEntityAttribute(ModifierShiftingScales.SCALES);
-        instance.setBaseValue(scales);
-    }*/
+	@Override
+	public void setScales(LivingEntity entity, double scales) {
+		IScalesCapability cap = entity.getCapability(ScalesCapabilityProvider.scalesCapability).orElse(null);
+		if (cap != null) {
+			if (entity instanceof ServerPlayer player && cap.getScales() != scales) {
+				PacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), new MessageScalesData(scales));
+			}
+			cap.setScales(scales);
+		}
+	}
 }
