@@ -42,7 +42,7 @@ public class ResearchManager {
 	public static ResearchBase dials, pressureRefinery, mini_boiler, ores, hammer, ancient_golem, gauge, caminite, bore, crystals, activator, tinker_lens, reaction_chamber,//WORLD
 	copper_cell, emitters, relays, dawnstone, melter, stamper, mixer, breaker, hearth_coil, access, pump, clockwork_attenuator, geo_separator, //MECHANISMS
 	beam_cannon, pulser, splitter, crystal_cell, cinder_staff, clockwork_tools, blazing_ray, charger, jars, alchemy, cinder_plinth, aspecti, ember_siphon, //METALLURGY
-	tyrfing, waste, slate, catalytic_plug, cluster, ashen_cloak, inflictor, materia, field_chart, glimmer, metallurgic_dust, //ALCHEMY
+	tyrfing, waste, slate, mnemonic_inscriber, catalytic_plug, cluster, ashen_cloak, inflictor, materia, field_chart, glimmer, metallurgic_dust, //ALCHEMY
 	augments, inferno_forge, heat, dawnstone_anvil, autohammer, dismantling //SMITHING
 	;
 	public static ResearchBase pipes, tank, bin, dropper, reservoir, vacuum, transfer, golem_eye, requisition; //PIPES
@@ -242,6 +242,7 @@ public class ResearchManager {
 		waste = new ResearchBase("waste", new ItemStack(RegistryManager.ALCHEMICAL_WASTE.get()), 6, 0)
 				.addPage(new ResearchBase("waste_page_2", new ItemStack(RegistryManager.ALCHEMICAL_WASTE.get()), 0, 0));
 		slate = new ResearchBase("slate", new ItemStack(RegistryManager.CODEBREAKING_SLATE.get()), 6, 2).addAncestor(waste);
+		mnemonic_inscriber = new ResearchBase("mnemonic_inscriber", new ItemStack(RegistryManager.MNEMONIC_INSCRIBER.get()), 4, 1).addAncestor(slate);
 		catalytic_plug = new ResearchBase("catalytic_plug", new ItemStack(RegistryManager.CATALYTIC_PLUG_ITEM.get()), 12, 5).addAncestor(slate);
 		materia = new ResearchBase("materia", new ItemStack(RegistryManager.ISOLATED_MATERIA.get()), 6, 5).addAncestor(slate);
 		cluster = new ResearchBase("cluster", new ItemStack(RegistryManager.EMBER_CRYSTAL_CLUSTER.get()), 3, 4).addAncestor(slate);
@@ -438,6 +439,7 @@ public class ResearchManager {
 		categoryAlchemy
 		.addResearch(waste)
 		.addResearch(slate)
+		.addResearch(mnemonic_inscriber)
 		.addResearch(simpleAlchemySwitch)
 		.addResearch(catalytic_plug)
 		.addResearch(cluster)

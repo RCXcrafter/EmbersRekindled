@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "embers:intelligent_apparatus"
+    },
+    "C": {
+      "item": "embers:ember_crystal"
+    }
+  },
+  "pattern": [
+    "C",
+    "A"
+  ],
+  "result": {
+    "item": "embers:mnemonic_inscriber"
+  },
+  "show_notification": true
+}

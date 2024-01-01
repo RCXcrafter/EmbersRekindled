@@ -30,6 +30,7 @@ import com.rekindled.embers.blockentity.render.MechanicalPumpBlockEntityRenderer
 import com.rekindled.embers.blockentity.render.MelterTopBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.MixerCentrifugeBottomBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.MixerCentrifugeTopBlockEntityRenderer;
+import com.rekindled.embers.blockentity.render.MnemonicInscriberBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.ReservoirBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.StampBaseBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.StamperBlockEntityRenderer;
@@ -335,6 +336,7 @@ public class Embers {
 			event.registerBlockEntityRenderer(RegistryManager.DAWNSTONE_ANVIL_ENTITY.get(), DawnstoneAnvilBlockEntityRenderer::new);
 			event.registerBlockEntityRenderer(RegistryManager.AUTOMATIC_HAMMER_ENTITY.get(), AutomaticHammerBlockEntityRenderer::new);
 			event.registerBlockEntityRenderer(RegistryManager.INFERNO_FORGE_TOP_ENTITY.get(), InfernoForgeTopBlockEntityRenderer::new);
+			event.registerBlockEntityRenderer(RegistryManager.MNEMONIC_INSCRIBER_ENTITY.get(), MnemonicInscriberBlockEntityRenderer::new);
 		}
 
 		@OnlyIn(Dist.CLIENT)

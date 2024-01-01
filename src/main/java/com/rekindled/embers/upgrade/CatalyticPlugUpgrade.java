@@ -21,7 +21,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class UpgradeCatalyticPlug extends DefaultUpgradeProvider {
+public class CatalyticPlugUpgrade extends DefaultUpgradeProvider {
 
 	private static HashSet<Class<? extends BlockEntity>> blacklist = new HashSet<>();
 
@@ -29,7 +29,7 @@ public class UpgradeCatalyticPlug extends DefaultUpgradeProvider {
 		blacklist.add(tile);
 	}
 
-	public UpgradeCatalyticPlug(BlockEntity tile) {
+	public CatalyticPlugUpgrade(BlockEntity tile) {
 		super(new ResourceLocation(Embers.MODID, "catalytic_plug"), tile);
 	}
 
@@ -100,7 +100,7 @@ public class UpgradeCatalyticPlug extends DefaultUpgradeProvider {
 			double multiplier = 1.0;
 			boolean first = true;
 			for (UpgradeContext upgrade : upgrades) {
-				if (upgrade.upgrade() instanceof UpgradeCatalyticPlug plug) {
+				if (upgrade.upgrade() instanceof CatalyticPlugUpgrade plug) {
 					if (first) {
 						if (plug != this)
 							return;

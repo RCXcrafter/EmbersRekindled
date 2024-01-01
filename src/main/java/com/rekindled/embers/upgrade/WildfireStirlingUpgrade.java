@@ -13,7 +13,7 @@ import com.rekindled.embers.util.Misc;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-public class UpgradeWildfireStirling extends DefaultUpgradeProvider {
+public class WildfireStirlingUpgrade extends DefaultUpgradeProvider {
 
 	private static HashSet<Class<? extends BlockEntity>> blacklist = new HashSet<>();
 
@@ -21,7 +21,7 @@ public class UpgradeWildfireStirling extends DefaultUpgradeProvider {
 		blacklist.add(tile);
 	}
 
-	public UpgradeWildfireStirling(BlockEntity tile) {
+	public WildfireStirlingUpgrade(BlockEntity tile) {
 		super(new ResourceLocation(Embers.MODID, "wildfire_stirling"), tile);
 	}
 

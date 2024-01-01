@@ -31,7 +31,7 @@ public class GeologicSeparatorUpgrade extends DefaultUpgradeProvider {
 	public void throwEvent(BlockEntity tile, List<UpgradeContext> upgrades, UpgradeEvent event, int distance, int count) {
 		if (distance <= 0 && event instanceof MachineRecipeEvent.Success) {
 			Object recipe = ((MachineRecipeEvent<?>) event).getRecipe();
-			if(recipe instanceof MeltingRecipe) {
+			if (recipe instanceof MeltingRecipe) {
 				FluidStack bonus = ((MeltingRecipe) recipe).getBonus();
 				if (!bonus.isEmpty() && this.tile instanceof GeologicSeparatorBlockEntity) {
 					IFluidHandler fluidHandler = this.tile.getCapability(ForgeCapabilities.FLUID_HANDLER, null).orElse(null);

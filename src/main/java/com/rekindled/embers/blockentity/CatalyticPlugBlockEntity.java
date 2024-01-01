@@ -13,7 +13,7 @@ import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
 import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.particle.VaporParticleOptions;
 import com.rekindled.embers.recipe.IGaseousFuelRecipe;
-import com.rekindled.embers.upgrade.UpgradeCatalyticPlug;
+import com.rekindled.embers.upgrade.CatalyticPlugUpgrade;
 import com.rekindled.embers.util.sound.ISoundController;
 
 import net.minecraft.client.Minecraft;
@@ -52,7 +52,7 @@ public class CatalyticPlugBlockEntity extends BlockEntity implements ISoundContr
 	int previousFluid;
 	public int activeTicks = 0;
 	public int burnTime = 0;
-	public UpgradeCatalyticPlug upgrade;
+	public CatalyticPlugUpgrade upgrade;
 	public FluidTank tank = new FluidTank(FluidType.BUCKET_VOLUME * 4) {
 		@Override
 		public void onContentsChanged() {
@@ -67,7 +67,7 @@ public class CatalyticPlugBlockEntity extends BlockEntity implements ISoundContr
 
 	public CatalyticPlugBlockEntity(BlockPos pPos, BlockState pBlockState) {
 		super(RegistryManager.CATALYTIC_PLUG_ENTITY.get(), pPos, pBlockState);
-		upgrade = new UpgradeCatalyticPlug(this);
+		upgrade = new CatalyticPlugUpgrade(this);
 	}
 
 	@Override

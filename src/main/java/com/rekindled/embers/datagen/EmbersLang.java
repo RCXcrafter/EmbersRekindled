@@ -125,6 +125,7 @@ public class EmbersLang extends LanguageProvider {
 		addBlock(RegistryManager.AUTOMATIC_HAMMER, "Automatic Hammer");
 		addBlock(RegistryManager.INFERNO_FORGE, "Inferno Forge");
 		addBlock(RegistryManager.INFERNO_FORGE_EDGE, "Inferno Forge");
+		addBlock(RegistryManager.MNEMONIC_INSCRIBER, "Mnemonic Inscriber");
 
 		addItem(RegistryManager.TINKER_HAMMER, "Tinker's Hammer");
 		addItem(RegistryManager.TINKER_LENS, "Tinker's Lens");
@@ -140,6 +141,7 @@ public class EmbersLang extends LanguageProvider {
 		addItem(RegistryManager.MUSIC_DISC_7F_PATTERNS, "Music Disc");
 		add(RegistryManager.MUSIC_DISC_7F_PATTERNS.get().getDescriptionId() + ".desc", "Ultrasyd - 7F Patterns");
 		addItem(RegistryManager.ALCHEMICAL_WASTE, "Alchemical Waste");
+		addItem(RegistryManager.ALCHEMICAL_NOTE, "Alchemical Note");
 		addItem(RegistryManager.CODEBREAKING_SLATE, "Codebreaking Slate");
 		addItem(RegistryManager.TYRFING, "Tyrfing");
 		addItem(RegistryManager.INFLICTOR_GEM, "Inflictor Gem");
@@ -317,6 +319,7 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".tooltip.goggles.item.ember", "Ember");
 		add(Embers.MODID + ".tooltip.goggles.item.stamp", "Stamp");
 		add(Embers.MODID + ".tooltip.goggles.item.alchemy_result", "Alchemy Result");
+		add(Embers.MODID + ".tooltip.goggles.item.paper", "Paper");
 		add(Embers.MODID + ".tooltip.goggles.item.aspectus", "Aspectus");
 		add(Embers.MODID + ".tooltip.goggles.item.ember_storage", "Ember Storage");
 		add(Embers.MODID + ".tooltip.goggles.item.combustion", "Combustibles");
@@ -726,7 +729,7 @@ public class EmbersLang extends LanguageProvider {
 
 		add(Embers.MODID + ".research.page.waste", "Experimentation");
 		add(Embers.MODID + ".research.page.waste.title", "Alchemical Process");
-		add(Embers.MODID + ".research.page.waste.tags", "Waste;Alchemy;Transmutation;Experiment;Ash;Stamp;");
+		add(Embers.MODID + ".research.page.waste.tags", "Waste;Alchemy;Alchemical;Transmutation;Experiment;Ash;Stamp;");
 		add(Embers.MODID + ".research.page.waste.desc", "You have quickly discovered that alchemical transmutations do not always work. For all but one particular combination of aspecti, your alchemy will fail and result in Alchemic Waste. This waste can be visibly analyzed to determine how far off you were from the true recipe of your desired product.");
 		add(Embers.MODID + ".research.page.waste_page_2.desc", "You've noticed that the number of glowing spots in the waste correspond to aspecti that were placed on the correct ingredient. A pale spot indicates an aspectus that is found in the recipe but not placed on the correct ingredient");
 
@@ -734,6 +737,11 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".research.page.slate.title", "Cracking The Code");
 		add(Embers.MODID + ".research.page.slate.tags", "Waste;Alchemy;Code;Experiment;Master;Mind;Mastermind;");
 		add(Embers.MODID + ".research.page.slate.desc", "It can be difficult to keep track of your guesses and which aspectus is in the correct spot when researching an alchemy recipe. The Codebreaking Slate can store up to 7 pieces of alchemical waste and will display your guess along with the differently colored spots in the waste so you can focus on cracking the code.");
+
+		add(Embers.MODID + ".research.page.mnemonic_inscriber", "Mnemonic Inscriber");
+		add(Embers.MODID + ".research.page.mnemonic_inscriber.title", "Remember Ember");
+		add(Embers.MODID + ".research.page.mnemonic_inscriber.tags", "Waste;Alchemy;Alchemical;Code;Note;Master;Mind;Mastermind;");
+		add(Embers.MODID + ".research.page.mnemonic_inscriber.desc", "Once you've cracked an alchemy recipe you'll likely want to write it down somewhere for future reference. The Mnemonic Inscriber fulfills exactly this purpose. When attached to an exchange tablet and provided with a piece of paper, it will inscribe any successful alchemy recipe onto the paper.");
 
 		add(Embers.MODID + ".research.page.hellish_synthesis", "Assorted Syntheses");
 		add(Embers.MODID + ".research.page.hellish_synthesis.title", "Strange Materials");

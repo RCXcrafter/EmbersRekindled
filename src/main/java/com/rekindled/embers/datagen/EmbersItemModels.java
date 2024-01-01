@@ -9,11 +9,14 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelBuilder;
+import net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile;
 import net.minecraftforge.client.model.generators.loaders.DynamicFluidContainerModelBuilder;
+import net.minecraftforge.client.model.generators.loaders.SeparateTransformsModelBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -38,6 +41,11 @@ public class EmbersItemModels extends ItemModelProvider {
 		layeredItem(RegistryManager.EMBER_CARTRIDGE, "item/generated", "ember_cartridge_glass", "ember_cartridge_glass_shine", "ember_cartridge");
 		itemWithTexture(RegistryManager.MUSIC_DISC_7F_PATTERNS, "music_disc_ember");
 		basicItem(RegistryManager.ALCHEMICAL_WASTE.get());
+		withExistingParent(RegistryManager.ALCHEMICAL_NOTE.getId().getPath(), new ResourceLocation("forge", "item/default")).customLoader(SeparateTransformsModelBuilder::begin)
+		.base(basicItem(new ResourceLocation(Embers.MODID, "alchemical_note_item")))
+		.perspective(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND, nested().parent(new UncheckedModelFile(new ResourceLocation("builtin/entity"))))
+		.perspective(ItemDisplayContext.FIRST_PERSON_LEFT_HAND, nested().parent(new UncheckedModelFile(new ResourceLocation("builtin/entity"))))
+		.perspective(ItemDisplayContext.FIXED, nested().parent(new UncheckedModelFile(new ResourceLocation("builtin/entity"))));
 		basicItem(RegistryManager.CODEBREAKING_SLATE.get());
 		layeredItem(RegistryManager.TYRFING, "item/handheld", "tyrfing", "tyrfing_gem");
 		withExistingParent(RegistryManager.INFLICTOR_GEM.getId().getPath(), new ResourceLocation("item/generated"))

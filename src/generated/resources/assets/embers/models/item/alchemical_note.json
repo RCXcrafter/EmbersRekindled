@@ -1,0 +1,21 @@
+{
+  "parent": "forge:item/default",
+  "base": {
+    "parent": "minecraft:item/generated",
+    "textures": {
+      "layer0": "embers:item/alchemical_note_item"
+    }
+  },
+  "loader": "forge:separate_transforms",
+  "perspectives": {
+    "firstperson_lefthand": {
+      "parent": "minecraft:builtin/entity"
+    },
+    "firstperson_righthand": {
+      "parent": "minecraft:builtin/entity"
+    },
+    "fixed": {
+      "parent": "minecraft:builtin/entity"
+    }
+  }
+}

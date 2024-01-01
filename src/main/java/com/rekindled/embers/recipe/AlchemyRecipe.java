@@ -197,7 +197,7 @@ public class AlchemyRecipe implements IAlchemyRecipe {
 			}
 		}
 
-		return new AlchemyResult(sortedContents, blackPins, whitePins);
+		return new AlchemyResult(sortedContents, getResultItem(), blackPins, whitePins); //TODO: failures too?
 	}
 
 	@Override

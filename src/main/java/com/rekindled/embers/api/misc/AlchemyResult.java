@@ -11,11 +11,13 @@ import net.minecraft.world.item.ItemStack;
 public class AlchemyResult {
 
 	public List<PedestalContents> contents;
+	public ItemStack result;
 	public int blackPins;
 	public int whitePins;
 
-	public AlchemyResult(List<PedestalContents> contents, int blackPins, int whitePins) {
+	public AlchemyResult(List<PedestalContents> contents, ItemStack result, int blackPins, int whitePins) {
 		this.contents = contents;
+		this.result = result;
 		this.blackPins = blackPins;
 		this.whitePins = whitePins;
 	}
@@ -24,6 +26,8 @@ public class AlchemyResult {
 		CompoundTag nbt = new CompoundTag();
 		nbt.putInt("blackPins", blackPins);
 		nbt.putInt("whitePins", whitePins);
+
+		nbt.put("result", result.serializeNBT());
 
 		ListTag aspectNBT = new ListTag();
 		ListTag inputNBT = new ListTag();

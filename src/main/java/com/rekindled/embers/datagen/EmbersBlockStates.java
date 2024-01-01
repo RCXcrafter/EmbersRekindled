@@ -609,6 +609,10 @@ public class EmbersBlockStates extends BlockStateProvider {
 				return builder.modelFile(edge.corner ? forgeCornerModel : forgeEdgeModel).build();
 			return builder.modelFile(edge.corner ? forgeTopCornerModel : forgeTopEdgeModel).build();
 		});
+
+		ExistingModelFile inscriberModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "mnemonic_inscriber"));
+		directionalBlock(RegistryManager.MNEMONIC_INSCRIBER.get(), inscriberModel);
+		simpleBlockItem(RegistryManager.MNEMONIC_INSCRIBER.get(), inscriberModel);
 	}
 
 	public void blockWithItem(RegistryObject<? extends Block> registryObject) {

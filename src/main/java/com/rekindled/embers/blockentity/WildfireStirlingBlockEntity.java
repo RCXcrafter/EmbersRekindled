@@ -11,7 +11,7 @@ import com.rekindled.embers.api.capabilities.EmbersCapabilities;
 import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
 import com.rekindled.embers.particle.VaporParticleOptions;
 import com.rekindled.embers.recipe.IGaseousFuelRecipe;
-import com.rekindled.embers.upgrade.UpgradeWildfireStirling;
+import com.rekindled.embers.upgrade.WildfireStirlingUpgrade;
 
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
@@ -42,7 +42,7 @@ public class WildfireStirlingBlockEntity extends BlockEntity implements /*ISound
 
 	public int activeTicks = 0;
 	public int burnTime = 0;
-	public UpgradeWildfireStirling upgrade;
+	public WildfireStirlingUpgrade upgrade;
 	public FluidTank tank = new FluidTank(FluidType.BUCKET_VOLUME * 4) {
 		@Override
 		public void onContentsChanged() {
@@ -57,7 +57,7 @@ public class WildfireStirlingBlockEntity extends BlockEntity implements /*ISound
 
 	public WildfireStirlingBlockEntity(BlockPos pPos, BlockState pBlockState) {
 		super(RegistryManager.WILDFIRE_STIRLING_ENTITY.get(), pPos, pBlockState);
-		upgrade = new UpgradeWildfireStirling(this);
+		upgrade = new WildfireStirlingUpgrade(this);
 	}
 
 	@Override

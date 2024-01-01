@@ -93,6 +93,7 @@ import com.rekindled.embers.block.MelterBlock;
 import com.rekindled.embers.block.MiniBoilerBlock;
 import com.rekindled.embers.block.MirrorRelayBlock;
 import com.rekindled.embers.block.MixerCentrifugeBlock;
+import com.rekindled.embers.block.MnemonicInscriberBlock;
 import com.rekindled.embers.block.PressureRefineryBlock;
 import com.rekindled.embers.block.ReservoirBlock;
 import com.rekindled.embers.block.ReservoirEdgeBlock;
@@ -154,6 +155,7 @@ import com.rekindled.embers.blockentity.MiniBoilerBlockEntity;
 import com.rekindled.embers.blockentity.MirrorRelayBlockEntity;
 import com.rekindled.embers.blockentity.MixerCentrifugeBottomBlockEntity;
 import com.rekindled.embers.blockentity.MixerCentrifugeTopBlockEntity;
+import com.rekindled.embers.blockentity.MnemonicInscriberBlockEntity;
 import com.rekindled.embers.blockentity.PressureRefineryBottomBlockEntity;
 import com.rekindled.embers.blockentity.PressureRefineryTopBlockEntity;
 import com.rekindled.embers.blockentity.ReservoirBlockEntity;
@@ -170,6 +172,7 @@ import com.rekindled.embers.fluidtypes.MoltenMetalFluidType;
 import com.rekindled.embers.fluidtypes.SteamFluidType;
 import com.rekindled.embers.fluidtypes.ViscousFluidType;
 import com.rekindled.embers.gui.SlateMenu;
+import com.rekindled.embers.item.AlchemicalNoteItem;
 import com.rekindled.embers.item.AlchemyHintItem;
 import com.rekindled.embers.item.AncientCodexItem;
 import com.rekindled.embers.item.AshenArmorGemItem;
@@ -478,6 +481,7 @@ public class RegistryManager {
 	public static final RegistryObject<Block> AUTOMATIC_HAMMER = BLOCKS.register("automatic_hammer", () -> new AutomaticHammerBlock(Properties.of().mapColor(MapColor.WOOD).sound(EmbersSounds.MACHINE).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
 	public static final RegistryObject<Block> INFERNO_FORGE = BLOCKS.register("inferno_forge", () -> new InfernoForgeBlock(Properties.of().mapColor(MapColor.COLOR_GRAY).sound(EmbersSounds.MULTIBLOCK_CENTER).requiresCorrectToolForDrops().strength(1.6f).noOcclusion(), EmbersSounds.MULTIBLOCK_EXTRA));
 	public static final RegistryObject<Block> INFERNO_FORGE_EDGE = BLOCKS.register("inferno_forge_edge", () -> new InfernoForgeEdgeBlock(Properties.of().mapColor(MapColor.TERRACOTTA_YELLOW).sound(EmbersSounds.MULTIBLOCK_EXTRA).requiresCorrectToolForDrops().strength(1.6f)));
+	public static final RegistryObject<Block> MNEMONIC_INSCRIBER = BLOCKS.register("mnemonic_inscriber", () -> new MnemonicInscriberBlock(Properties.of().mapColor(MapColor.NONE).sound(EmbersSounds.MACHINE).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
 
 	//itemblocks
 	public static final RegistryObject<Item> LEAD_ORE_ITEM = ITEMS.register("lead_ore", () -> new BlockItem(LEAD_ORE.get(), new Item.Properties()));
@@ -559,6 +563,7 @@ public class RegistryManager {
 	public static final RegistryObject<Item> DAWNSTONE_ANVIL_ITEM = ITEMS.register("dawnstone_anvil", () -> new BlockItem(DAWNSTONE_ANVIL.get(), new Item.Properties()));
 	public static final RegistryObject<Item> AUTOMATIC_HAMMER_ITEM = ITEMS.register("automatic_hammer", () -> new BlockItem(AUTOMATIC_HAMMER.get(), new Item.Properties()));
 	public static final RegistryObject<Item> INFERNO_FORGE_ITEM = ITEMS.register("inferno_forge", () -> new BlockItem(INFERNO_FORGE.get(), new Item.Properties()));
+	public static final RegistryObject<Item> MNEMONIC_INSCRIBER_ITEM = ITEMS.register("mnemonic_inscriber", () -> new BlockItem(MNEMONIC_INSCRIBER.get(), new Item.Properties()));
 
 	//items
 	public static final RegistryObject<Item> TINKER_HAMMER = ITEMS.register("tinker_hammer", () -> new TinkerHammerItem(new Item.Properties().stacksTo(1)));
@@ -575,6 +580,7 @@ public class RegistryManager {
 	public static final RegistryObject<Item> CINDER_STAFF = ITEMS.register("cinder_staff", () -> new CinderStaffItem(new Item.Properties().stacksTo(1)));
 	public static final RegistryObject<Item> MUSIC_DISC_7F_PATTERNS = ITEMS.register("music_disc_7f_patterns", () -> new EmberRecordItem(7, EmbersSounds.ULTRASYD_7F_PATTERNS, new Item.Properties().rarity(Rarity.RARE).stacksTo(1), 4444));
 	public static final RegistryObject<Item> ALCHEMICAL_WASTE = ITEMS.register("alchemical_waste", () -> new AlchemyHintItem(new Item.Properties().stacksTo(1)));
+	public static final RegistryObject<Item> ALCHEMICAL_NOTE = ITEMS.register("alchemical_note", () -> new AlchemicalNoteItem(new Item.Properties().stacksTo(1)));
 	public static final RegistryObject<Item> CODEBREAKING_SLATE = ITEMS.register("codebreaking_slate", () -> new CodebreakingSlateItem(new Item.Properties().stacksTo(1)));
 	public static final RegistryObject<Item> TYRFING = ITEMS.register("tyrfing", () -> new TyrfingItem(EmbersTiers.TYRFING, 3, -2.4F, new Item.Properties()));
 	public static final RegistryObject<Item> INFLICTOR_GEM = ITEMS.register("inflictor_gem", () -> new InflictorGemItem(new Item.Properties().stacksTo(1)));
@@ -803,6 +809,7 @@ public class RegistryManager {
 	public static final RegistryObject<BlockEntityType<AutomaticHammerBlockEntity>> AUTOMATIC_HAMMER_ENTITY = BLOCK_ENTITY_TYPES.register("automatic_hammer", () -> BlockEntityType.Builder.of(AutomaticHammerBlockEntity::new, AUTOMATIC_HAMMER.get()).build(null));
 	public static final RegistryObject<BlockEntityType<InfernoForgeBottomBlockEntity>> INFERNO_FORGE_BOTTOM_ENTITY = BLOCK_ENTITY_TYPES.register("inferno_forge_bottom", () -> BlockEntityType.Builder.of(InfernoForgeBottomBlockEntity::new, INFERNO_FORGE.get()).build(null));
 	public static final RegistryObject<BlockEntityType<InfernoForgeTopBlockEntity>> INFERNO_FORGE_TOP_ENTITY = BLOCK_ENTITY_TYPES.register("inferno_forge_top", () -> BlockEntityType.Builder.of(InfernoForgeTopBlockEntity::new, INFERNO_FORGE.get()).build(null));
+	public static final RegistryObject<BlockEntityType<MnemonicInscriberBlockEntity>> MNEMONIC_INSCRIBER_ENTITY = BLOCK_ENTITY_TYPES.register("mnemonic_inscriber", () -> BlockEntityType.Builder.of(MnemonicInscriberBlockEntity::new, MNEMONIC_INSCRIBER.get()).build(null));
 
 	//creative tabs
 	public static final RegistryObject<CreativeModeTab> EMBERS_TAB = CREATIVE_TABS.register("main_tab", () -> CreativeModeTab.builder()

@@ -58,6 +58,13 @@ public class AlchemyHintItem extends Item {
 		return items;
 	}
 
+	public static ItemStack getResult(ItemStack stack) {
+		if (stack.hasTag() && stack.getTag().contains("result")) {
+			return ItemStack.of(stack.getTag().getCompound("result"));
+		}
+		return ItemStack.EMPTY;
+	}
+
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);

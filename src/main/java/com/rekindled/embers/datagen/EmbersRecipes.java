@@ -1274,6 +1274,14 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('X', RegistryManager.SUPERHEATER.get())
 		.unlockedBy("has_superheater", has(RegistryManager.SUPERHEATER.get()))
 		.save(consumer, getResource("diffraction_barrel"));
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.MNEMONIC_INSCRIBER.get())
+		.pattern("C")
+		.pattern("A")
+		.define('C', RegistryManager.EMBER_CRYSTAL.get())
+		.define('A', RegistryManager.INTELLIGENT_APPARATUS.get())
+		.unlockedBy("has_apparatus", has(RegistryManager.INTELLIGENT_APPARATUS.get()))
+		.save(consumer, getResource("mnemonic_inscriber"));
 	}
 
 	public void fullOreRecipes(String name, ImmutableList<ItemLike> ores, Fluid fluid, Item raw, Item rawBlock, Item block, Item ingot, Item nugget, Item plate, Consumer<FinishedRecipe> consumer, MeltingBonus... bonusses) {

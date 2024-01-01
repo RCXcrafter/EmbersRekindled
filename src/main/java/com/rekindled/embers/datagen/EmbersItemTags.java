@@ -26,6 +26,8 @@ public class EmbersItemTags extends ItemTagsProvider {
 	//this tag is only for recipes
 	public static final TagKey<Item> TINKER_HAMMER = ItemTags.create(new ResourceLocation(Embers.MODID, "tinker_hammer"));
 
+	public static final TagKey<Item> INSCRIBABLE_PAPER = ItemTags.create(new ResourceLocation(Embers.MODID, "inscribable_paper"));
+
 	public static final TagKey<Item> TOOLS_HAMMERS = ItemTags.create(new ResourceLocation("forge", "tools/hammers"));
 
 	public static final TagKey<Item> AUGMENTABLE = ItemTags.create(new ResourceLocation(Embers.MODID, "augmentables"));
@@ -116,6 +118,7 @@ public class EmbersItemTags extends ItemTagsProvider {
 	protected void addTags(HolderLookup.Provider provider) {
 		tag(PIPE_UNCLOGGER).addTag(Tags.Items.RODS);
 		tag(TINKER_HAMMER).add(RegistryManager.TINKER_HAMMER.get());
+		tag(INSCRIBABLE_PAPER).add(Items.PAPER);
 
 		tag(AUGMENTABLE).addTag(AUGMENTABLE_TOOLS).addTag(AUGMENTABLE_PROJECTILE_WEAPONS).addTag(AUGMENTABLE_ARMORS);
 		tag(AUGMENTABLE_TOOLS_AND_ARMORS).addTag(AUGMENTABLE_TOOLS).addTag(AUGMENTABLE_ARMORS);
