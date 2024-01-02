@@ -19,7 +19,6 @@ public class IntelligentApparatusAugment extends AugmentBase {
 	@SubscribeEvent
 	public void onXPDrop(LivingExperienceDropEvent event) {
 		if (event.getAttackingPlayer() != null) {
-			System.out.println("player not null");
 			Player player = event.getAttackingPlayer();
 			int level = AugmentUtil.getArmorAugmentLevel(player, this);
 			if (level > 0 && EmberInventoryUtil.getEmberTotal(player) >= cost) {
