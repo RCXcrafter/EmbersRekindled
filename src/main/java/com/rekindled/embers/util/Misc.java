@@ -37,6 +37,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
@@ -185,7 +186,7 @@ public class Misc {
 		if (tagItems.containsKey(tag.location()))
 			return tagItems.get(tag.location());
 
-		Item output = null;
+		Item output = Items.AIR;
 		int index = Integer.MAX_VALUE;
 		List<? extends String> preferences = ConfigManager.TAG_PREFERENCES.get();
 		for (Holder<Item> holder : BuiltInRegistries.ITEM.getTagOrEmpty(tag)) {
@@ -195,10 +196,11 @@ public class Misc {
 					index = i;
 				}
 			}
-			if (output == null)
+			if (output == Items.AIR)
 				output = holder.get();
 		}
-		tagItems.put(tag.location(), output);
+		if (output != Items.AIR)
+			tagItems.put(tag.location(), output);
 		return output;
 	}
 
