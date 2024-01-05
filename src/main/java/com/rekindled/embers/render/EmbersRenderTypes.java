@@ -63,6 +63,7 @@ public class EmbersRenderTypes extends RenderType {
 
 		public void end(Tesselator p_107458_) {
 			p_107458_.end();
+			RenderSystem.enableDepthTest();
 		}
 
 		public String toString() {
