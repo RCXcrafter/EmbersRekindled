@@ -17,11 +17,15 @@ import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.resources.ResourceLocation;
 
 public class EmbersRenderTypes extends RenderType {
+
+	public static ShaderInstance additiveShader;
+	public static final ShaderStateShard ADDITIVE_SHADER = new ShaderStateShard(() -> additiveShader);
 
 	public EmbersRenderTypes(String pName, VertexFormat pFormat, Mode pMode, int pBufferSize, boolean pAffectsCrumbling, boolean pSortOnUpload, Runnable pSetupState, Runnable pClearState) {
 		super(pName, pFormat, pMode, pBufferSize, pAffectsCrumbling, pSortOnUpload, pSetupState, pClearState);
@@ -62,7 +66,7 @@ public class EmbersRenderTypes extends RenderType {
 		}
 
 		public String toString() {
-			return "PARTICLE_SHEET_ADDITIVE";
+			return "PARTICLE_SHEET_ADDITIVE_XRAY";
 		}
 	};
 
@@ -95,7 +99,7 @@ public class EmbersRenderTypes extends RenderType {
 			.setTextureState(BLOCK_SHEET_MIPPED)
 			.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
 			.setCullState(CULL)
-			.setOutputState(TRANSLUCENT_TARGET)
+			//.setOutputState(TRANSLUCENT_TARGET)
 			.createCompositeState(false));
 
 	public static final RenderStateShard.ShaderStateShard PTLC_SHADER = new RenderStateShard.ShaderStateShard(GameRenderer::getPositionTexLightmapColorShader);
@@ -105,13 +109,15 @@ public class EmbersRenderTypes extends RenderType {
 	//render type used for the crystal cell
 	public static final RenderType CRYSTAL = create(
 			Embers.MODID + ":crystal_render_type",
-			DefaultVertexFormat.POSITION_TEX_LIGHTMAP_COLOR, VertexFormat.Mode.QUADS, 256, false, true,
+			DefaultVertexFormat.POSITION_TEX_COLOR, VertexFormat.Mode.QUADS, 256, true, false,
 			RenderType.CompositeState.builder()
-			.setShaderState(PTLC_SHADER)
+			.setShaderState(ADDITIVE_SHADER)
 			.setTextureState(new RenderStateShard.TextureStateShard(new ResourceLocation(Embers.MODID + ":textures/block/crystal_material.png"), false, false))
 			.setTransparencyState(LIGHTNING_TRANSPARENCY)
 			.setCullState(NO_CULL)
-			.setOutputState(TRANSLUCENT_TARGET)
+			//.setOutputState(TRANSLUCENT_TARGET)
+			.setLightmapState(NO_LIGHTMAP)
+			.setOverlayState(NO_OVERLAY)
 			.createCompositeState(false));
 
 	//render type used for the field chart
@@ -119,11 +125,11 @@ public class EmbersRenderTypes extends RenderType {
 			Embers.MODID + ":field_chart_render_type",
 			DefaultVertexFormat.POSITION_TEX_COLOR, VertexFormat.Mode.QUADS, 256, false, true,
 			RenderType.CompositeState.builder()
-			.setShaderState(PTC_SHADER)
+			.setShaderState(ADDITIVE_SHADER)
 			.setTextureState(new RenderStateShard.TextureStateShard(new ResourceLocation(Embers.MODID + ":textures/block/field_square.png"), false, false))
 			.setTransparencyState(LIGHTNING_TRANSPARENCY)
 			.setCullState(NO_CULL)
-			.setOutputState(TRANSLUCENT_TARGET)
+			//.setOutputState(TRANSLUCENT_TARGET)
 			.createCompositeState(false));
 
 	//unused render type for the crystal seeds
@@ -150,7 +156,6 @@ public class EmbersRenderTypes extends RenderType {
 			//.setDepthTestState(NO_DEPTH_TEST)
 			.setLayeringState(VIEW_OFFSET_Z_LAYERING)
 			.setWriteMaskState(COLOR_DEPTH_WRITE)
-
 			.setOutputState(TRANSLUCENT_TARGET)
 			.createCompositeState(false));
 

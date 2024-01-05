@@ -60,51 +60,47 @@ public class CrystalCellBlockEntityRenderer implements BlockEntityRenderer<Cryst
 		//RenderSystem.enableTexture();
 		VertexConsumer buffer = bufferSource.getBuffer(EmbersRenderTypes.CRYSTAL);
 
-		int l = 15;
-		int lx = l >> 0x10 & 0xFFFF;
-			int ly = l & 0xFFFF;
+		for (float j = 0; j < 12; j++) {
 
-			for (float j = 0; j < 12; j++) {
+			poseStack.pushPose();
 
-				poseStack.pushPose();
+			float scale = j / 12.0f;
 
-				float scale = j / 12.0f;
-
-				poseStack.translate(0.5, height / 2.0f + 1.5, 0.5);
-				poseStack.scale(scale, scale, scale);
+			poseStack.translate(0.5, height / 2.0f + 1.5, 0.5);
+			poseStack.scale(scale, scale, scale);
 
 
-				poseStack.mulPose(Axis.YP.rotationDegrees(partialTick + blockEntity.ticksExisted % 360));
-				poseStack.mulPose(Axis.XP.rotationDegrees(30.0f * (float) Math.sin(Math.toRadians((partialTick / 3.0f) + (blockEntity.ticksExisted / 3.0f) % 360))));
+			poseStack.mulPose(Axis.YP.rotationDegrees(partialTick + blockEntity.ticksExisted % 360));
+			poseStack.mulPose(Axis.XP.rotationDegrees(30.0f * (float) Math.sin(Math.toRadians((partialTick / 3.0f) + (blockEntity.ticksExisted / 3.0f) % 360))));
 
-				Matrix4f matrix4f = poseStack.last().pose();
-				for (int i = 0; i < widths.length - 1; i++) {
-					float width = widths[i] * growthFactor + oldWidths[i] * (1-growthFactor);
-					float nextWidth = widths[i + 1] * growthFactor + oldWidths[i + 1] * (1-growthFactor);
-					buffer.vertex(matrix4f, -width, layerHeight * i - height / 2.0f, -width).uv(0, 0).uv2(lx, ly).color(1, 1, 1, 0.65f).endVertex();
-					buffer.vertex(matrix4f, width, layerHeight * i - height / 2.0f, -width).uv(0.5f, 0).uv2(lx, ly).color(1, 1, 1, 0.65f).endVertex();
-					buffer.vertex(matrix4f, nextWidth, layerHeight + layerHeight * i - height / 2.0f, -nextWidth).uv(0.5f, 0.5f).uv2(lx, ly).color(1, 1, 1, 0.65f).endVertex();
-					buffer.vertex(matrix4f, -nextWidth, layerHeight + layerHeight * i - height / 2.0f, -nextWidth).uv(0, 0.5f).uv2(lx, ly).color(1, 1, 1, 0.65f).endVertex();
+			Matrix4f matrix4f = poseStack.last().pose();
+			for (int i = 0; i < widths.length - 1; i++) {
+				float width = widths[i] * growthFactor + oldWidths[i] * (1-growthFactor);
+				float nextWidth = widths[i + 1] * growthFactor + oldWidths[i + 1] * (1-growthFactor);
+				buffer.vertex(matrix4f, -width, layerHeight * i - height / 2.0f, -width).uv(0, 0).color(1, 1, 1, 0.65f).endVertex();
+				buffer.vertex(matrix4f, width, layerHeight * i - height / 2.0f, -width).uv(0.5f, 0).color(1, 1, 1, 0.65f).endVertex();
+				buffer.vertex(matrix4f, nextWidth, layerHeight + layerHeight * i - height / 2.0f, -nextWidth).uv(0.5f, 0.5f).color(1, 1, 1, 0.65f).endVertex();
+				buffer.vertex(matrix4f, -nextWidth, layerHeight + layerHeight * i - height / 2.0f, -nextWidth).uv(0, 0.5f).color(1, 1, 1, 0.65f).endVertex();
 
-					buffer.vertex(matrix4f, -width, layerHeight * i - height / 2.0f, width).uv(0, 0).uv2(lx, ly).color(1, 1, 1, 0.65f).endVertex();
-					buffer.vertex(matrix4f, width, layerHeight * i - height / 2.0f, width).uv(0.5f, 0).uv2(lx, ly).color(1, 1, 1, 0.65f).endVertex();
-					buffer.vertex(matrix4f, nextWidth, layerHeight + layerHeight * i - height / 2.0f, nextWidth).uv(0.5f, 0.5f).uv2(lx, ly).color(1, 1, 1, 0.65f).endVertex();
-					buffer.vertex(matrix4f, -nextWidth, layerHeight + layerHeight * i - height / 2.0f, nextWidth).uv(0, 0.5f).uv2(lx, ly).color(1, 1, 1, 0.65f).endVertex();
+				buffer.vertex(matrix4f, -width, layerHeight * i - height / 2.0f, width).uv(0, 0).color(1, 1, 1, 0.65f).endVertex();
+				buffer.vertex(matrix4f, width, layerHeight * i - height / 2.0f, width).uv(0.5f, 0).color(1, 1, 1, 0.65f).endVertex();
+				buffer.vertex(matrix4f, nextWidth, layerHeight + layerHeight * i - height / 2.0f, nextWidth).uv(0.5f, 0.5f).color(1, 1, 1, 0.65f).endVertex();
+				buffer.vertex(matrix4f, -nextWidth, layerHeight + layerHeight * i - height / 2.0f, nextWidth).uv(0, 0.5f).color(1, 1, 1, 0.65f).endVertex();
 
-					buffer.vertex(matrix4f, -width, layerHeight * i - height / 2.0f, -width).uv(0, 0).uv2(lx, ly).color(1, 1, 1, 0.65f).endVertex();
-					buffer.vertex(matrix4f, -width, layerHeight * i - height / 2.0f, width).uv(0.5f, 0).uv2(lx, ly).color(1, 1, 1, 0.65f).endVertex();
-					buffer.vertex(matrix4f, -nextWidth, layerHeight + layerHeight * i - height / 2.0f, nextWidth).uv(0.5f, 0.5f).uv2(lx, ly).color(1, 1, 1, 0.65f).endVertex();
-					buffer.vertex(matrix4f, -nextWidth, layerHeight + layerHeight * i - height / 2.0f, -nextWidth).uv(0, 0.5f).uv2(lx, ly).color(1, 1, 1, 0.65f).endVertex();
+				buffer.vertex(matrix4f, -width, layerHeight * i - height / 2.0f, -width).uv(0, 0).color(1, 1, 1, 0.65f).endVertex();
+				buffer.vertex(matrix4f, -width, layerHeight * i - height / 2.0f, width).uv(0.5f, 0).color(1, 1, 1, 0.65f).endVertex();
+				buffer.vertex(matrix4f, -nextWidth, layerHeight + layerHeight * i - height / 2.0f, nextWidth).uv(0.5f, 0.5f).color(1, 1, 1, 0.65f).endVertex();
+				buffer.vertex(matrix4f, -nextWidth, layerHeight + layerHeight * i - height / 2.0f, -nextWidth).uv(0, 0.5f).color(1, 1, 1, 0.65f).endVertex();
 
-					buffer.vertex(matrix4f, width, layerHeight * i - height / 2.0f, -width).uv(0, 0).uv2(lx, ly).color(1, 1, 1, 0.65f).endVertex();
-					buffer.vertex(matrix4f, width, layerHeight * i - height / 2.0f, width).uv(0.5f, 0).uv2(lx, ly).color(1, 1, 1, 0.65f).endVertex();
-					buffer.vertex(matrix4f, nextWidth, layerHeight + layerHeight * i - height / 2.0f, nextWidth).uv(0.5f, 0.5f).uv2(lx, ly).color(1, 1, 1, 0.65f).endVertex();
-					buffer.vertex(matrix4f, nextWidth, layerHeight + layerHeight * i - height / 2.0f, -nextWidth).uv(0, 0.5f).uv2(lx, ly).color(1, 1, 1, 0.65f).endVertex();
-				}
-				poseStack.popPose();
+				buffer.vertex(matrix4f, width, layerHeight * i - height / 2.0f, -width).uv(0, 0).color(1, 1, 1, 0.65f).endVertex();
+				buffer.vertex(matrix4f, width, layerHeight * i - height / 2.0f, width).uv(0.5f, 0).color(1, 1, 1, 0.65f).endVertex();
+				buffer.vertex(matrix4f, nextWidth, layerHeight + layerHeight * i - height / 2.0f, nextWidth).uv(0.5f, 0.5f).color(1, 1, 1, 0.65f).endVertex();
+				buffer.vertex(matrix4f, nextWidth, layerHeight + layerHeight * i - height / 2.0f, -nextWidth).uv(0, 0.5f).color(1, 1, 1, 0.65f).endVertex();
 			}
+			poseStack.popPose();
+		}
 
-			RenderSystem.enableCull();
+		RenderSystem.enableCull();
 	}
 
 	private float getGrowthFactor(float capacityFactor, double emberCapacity) {

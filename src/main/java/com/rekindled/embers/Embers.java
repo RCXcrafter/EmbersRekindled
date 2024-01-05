@@ -1,8 +1,10 @@
 package com.rekindled.embers;
 
+import java.io.IOException;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.rekindled.embers.api.power.IEmberCapability;
 import com.rekindled.embers.apiimpl.EmbersAPIImpl;
 import com.rekindled.embers.augment.ShiftingScalesAugment;
@@ -71,6 +73,7 @@ import com.rekindled.embers.particle.VaporParticle;
 import com.rekindled.embers.particle.XRayGlowParticle;
 import com.rekindled.embers.recipe.AugmentIngredient;
 import com.rekindled.embers.recipe.HeatIngredient;
+import com.rekindled.embers.render.EmbersRenderTypes;
 import com.rekindled.embers.render.PipeModel;
 import com.rekindled.embers.research.ResearchManager;
 import com.rekindled.embers.research.capability.IResearchCapability;
@@ -87,6 +90,7 @@ import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
@@ -107,6 +111,7 @@ import net.minecraftforge.client.event.RegisterClientTooltipComponentFactoriesEv
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
+import net.minecraftforge.client.event.RegisterShadersEvent;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.MinecraftForge;
@@ -367,6 +372,13 @@ public class Embers {
 		static void registerTooltipComponents(RegisterClientTooltipComponentFactoriesEvent event) {
 			event.register(GlowingTextTooltip.class, GlowingTextClientTooltip::new);
 			event.register(HeatBarTooltip.class, HeatBarClientTooltip::new);
+		}
+
+		@OnlyIn(Dist.CLIENT)@SubscribeEvent
+		public static void shaderRegistry(RegisterShadersEvent event) throws IOException {
+			event.registerShader(new ShaderInstance(event.getResourceProvider(), new ResourceLocation(MODID, "position_tex_color_additive"), DefaultVertexFormat.POSITION_TEX_COLOR), shaderInstance -> {
+				EmbersRenderTypes.additiveShader = shaderInstance;
+			});
 		}
 	}
 }
