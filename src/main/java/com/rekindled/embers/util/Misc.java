@@ -108,11 +108,11 @@ public class Misc {
 	public static double getEmberResonance(ItemStack stack) {
 		for (Function<ItemStack, Double> func : GET_EMBER_RESONANCE) {
 			double resonance = func.apply(stack);
-			if (resonance >= 0.0) {
+			if (resonance >= 1.0) {
 				return resonance;
 			}
 		}
-		return 0.0;
+		return 1.0;
 	}
 
 	public static Direction readNullableFacing(int index) {
