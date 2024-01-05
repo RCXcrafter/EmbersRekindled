@@ -36,8 +36,8 @@ public class MnemonicInscriberBlockEntityRenderer implements BlockEntityRenderer
 			poseStack.mulPose(blockState.getValue(BlockStateProperties.FACING).getRotation());
 			poseStack.translate(0.001D, 0.125D, 0.001D);
 			poseStack.mulPose(Axis.XP.rotationDegrees(90));
-			poseStack.scale(0.5f, 0.5f, 0.5f);
-			this.itemRenderer.render(stack, ItemDisplayContext.FIXED, false, poseStack, bufferSource, packedLight, OverlayTexture.NO_OVERLAY, bakedmodel);
+			poseStack.translate(0.0D, -0.125D, 0.0D);
+			this.itemRenderer.render(stack, ItemDisplayContext.GROUND, false, poseStack, bufferSource, packedLight, OverlayTexture.NO_OVERLAY, bakedmodel);
 			poseStack.popPose();
 		}
 	}
