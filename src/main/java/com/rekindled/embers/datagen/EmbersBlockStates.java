@@ -129,6 +129,8 @@ public class EmbersBlockStates extends BlockStateProvider {
 		leverBlock(RegistryManager.CAMINITE_LEVER.get(), leverModel, models().getExistingFile(new ResourceLocation(Embers.MODID, "caminite_lever_on")));
 		simpleBlockItem(RegistryManager.CAMINITE_LEVER.get(), leverModel);
 
+        buttonBlock(RegistryManager.CAMINITE_BUTTON.get(), new ResourceLocation(Embers.MODID, "block/caminite_button"));
+
 		ModelFile itemPipeCenterModel = models().withExistingParent("item_pipe_center", new ResourceLocation(Embers.MODID, "pipe_center"))
 				.texture("pipe", new ResourceLocation(Embers.MODID, "block/item_pipe_tex"))
 				.texture("particle", new ResourceLocation(Embers.MODID, "block/item_pipe_tex"));

@@ -129,6 +129,7 @@ public class EmbersItemModels extends ItemModelProvider {
 		toolModels(RegistryManager.DAWNSTONE_TOOLS);
 
 		spawnEgg(RegistryManager.ANCIENT_GOLEM_SPAWN_EGG);
+		buttonInventory(RegistryManager.CAMINITE_BUTTON_ITEM.getId().getPath(), new ResourceLocation(Embers.MODID, "block/caminite_button"));
 	}
 
 	public void itemWithModel(RegistryObject<? extends Item> registryObject, String model) {

@@ -57,6 +57,7 @@ public class EmbersLang extends LanguageProvider {
 		addBlock(RegistryManager.EMBER_EMITTER, "Ember Emitter");
 		addBlock(RegistryManager.EMBER_RECEIVER, "Ember Receptor");
 		addBlock(RegistryManager.CAMINITE_LEVER, "Caminite Lever");
+		addBlock(RegistryManager.CAMINITE_BUTTON, "Caminite Button");
 		addBlock(RegistryManager.ITEM_PIPE, "Item Pipe");
 		addBlock(RegistryManager.ITEM_EXTRACTOR, "Item Extractor");
 		addBlock(RegistryManager.EMBER_BORE, "Ember Bore");

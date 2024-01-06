@@ -679,6 +679,11 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_caminite_plate", has(RegistryManager.CAMINITE_PLATE.get()))
 		.save(consumer, getResource("caminite_lever"));
 
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, RegistryManager.CAMINITE_BUTTON.get())
+		.requires(RegistryManager.CAMINITE_BRICK.get())
+		.unlockedBy("has_caminite", has(RegistryManager.CAMINITE_BRICK.get()))
+		.save(consumer, getResource("caminite_button"));
+
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.EMBER_EMITTER.get(), 4)
 		.pattern(" C ")
 		.pattern(" C ")

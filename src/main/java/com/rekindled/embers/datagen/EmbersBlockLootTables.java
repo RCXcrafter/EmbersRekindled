@@ -77,6 +77,7 @@ public class EmbersBlockLootTables extends BlockLootSubProvider {
 		dropSelf(RegistryManager.EMBER_EMITTER.get());
 		dropSelf(RegistryManager.EMBER_RECEIVER.get());
 		dropSelf(RegistryManager.CAMINITE_LEVER.get());
+		dropSelf(RegistryManager.CAMINITE_BUTTON.get());
 		dropSelf(RegistryManager.ITEM_PIPE.get());
 		dropSelf(RegistryManager.ITEM_EXTRACTOR.get());
 		dropSelf(RegistryManager.EMBER_BORE.get());

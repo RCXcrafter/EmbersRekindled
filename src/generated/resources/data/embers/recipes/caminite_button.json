@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    {
+      "item": "embers:caminite_brick"
+    }
+  ],
+  "result": {
+    "item": "embers:caminite_button"
+  }
+}
