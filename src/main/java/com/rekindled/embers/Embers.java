@@ -374,7 +374,8 @@ public class Embers {
 			event.register(HeatBarTooltip.class, HeatBarClientTooltip::new);
 		}
 
-		@OnlyIn(Dist.CLIENT)@SubscribeEvent
+		@OnlyIn(Dist.CLIENT)
+		@SubscribeEvent
 		public static void shaderRegistry(RegisterShadersEvent event) throws IOException {
 			event.registerShader(new ShaderInstance(event.getResourceProvider(), new ResourceLocation(MODID, "position_tex_color_additive"), DefaultVertexFormat.POSITION_TEX_COLOR), shaderInstance -> {
 				EmbersRenderTypes.additiveShader = shaderInstance;

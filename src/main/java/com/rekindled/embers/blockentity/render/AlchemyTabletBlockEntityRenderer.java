@@ -38,16 +38,31 @@ public class AlchemyTabletBlockEntityRenderer implements BlockEntityRenderer<Alc
 			}
 			//render alchemy circle
 			//due to transparency issues, the alchemy circle is now a particle
-			/*
+/*
 			if (blockEntity.process != 0) {
 				float processSign = (blockEntity.progress > 0) ? 1 : -1;
 				if (blockEntity.process == 20) {
 					processSign = 0;
 				}
+
 				RenderSystem.setShaderTexture(0, texture);
+				RenderSystem.setShader(GameRenderer::getPositionTexColorNormalShader);
 				RenderSystem.disableCull();
-				RenderSystem.enableTexture();
-				VertexConsumer buffer = bufferSource.getBuffer(EmbersRenderTypes.BEAM);
+				//RenderSystem.enableTexture();
+
+
+				RenderSystem.depthMask(false);
+				//RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_PARTICLES);
+				RenderSystem.enableBlend();
+				RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
+
+
+				Tesselator tesselator = Tesselator.getInstance();
+				BufferBuilder bufferbuilder = tesselator.getBuilder();
+				bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
+
+
+				//VertexConsumer buffer = bufferSource.getBuffer(EmbersRenderTypes.BEAM);
 
 				float x = 0;//blockEntity.getBlockPos().getX();
 				float y = 0;//blockEntity.getBlockPos().getY();
@@ -57,7 +72,7 @@ public class AlchemyTabletBlockEntityRenderer implements BlockEntityRenderer<Alc
 				poseStack.translate(0.5, 1.0001, 0.5);
 
 
-				poseStack.mulPose(Vector3f.YP.rotationDegrees(partialTick + EmbersClientEvents.ticks % 360));
+				poseStack.mulPose(Axis.YP.rotationDegrees(partialTick + EmbersClientEvents.ticks % 360));
 				poseStack.scale(scale, scale, scale);
 
 				float r = 1.0f;
@@ -69,17 +84,18 @@ public class AlchemyTabletBlockEntityRenderer implements BlockEntityRenderer<Alc
 
 				Matrix4f matrix4f = poseStack.last().pose();
 				for (float i = 0; i < 8; i ++) {
-					buffer.vertex(matrix4f, -1, 0, -1).uv(0, 0).uv2(lightx, lighty).color(r, g, b, a).endVertex();
-					buffer.vertex(matrix4f, -1, 0, 1).uv(0, 1).uv2(lightx, lighty).color(r, g, b, a).endVertex();
-					buffer.vertex(matrix4f, 1, 0, 1).uv(1, 1).uv2(lightx, lighty).color(r, g, b, a).endVertex();
-					buffer.vertex(matrix4f, 1, 0, -1).uv(1, 0).uv2(lightx, lighty).color(r, g, b, a).endVertex();
+				bufferbuilder.vertex(matrix4f, -1, 0, -1).uv(0, 0).color(r, g, b, a).uv2(lightx, lighty).endVertex();
+				bufferbuilder.vertex(matrix4f, -1, 0, 1).uv(0, 1).color(r, g, b, a).uv2(lightx, lighty).endVertex();
+				bufferbuilder.vertex(matrix4f, 1, 0, 1).uv(1, 1).color(r, g, b, a).uv2(lightx, lighty).endVertex();
+				bufferbuilder.vertex(matrix4f, 1, 0, -1).uv(1, 0).color(r, g, b, a).uv2(lightx, lighty).endVertex();
 
 
 
 
-					//RenderUtil.renderAlchemyCircle(buffer, matrix4f, x+0.5f, y+1.0f+(i/1000f), z+0.5f, 1.0f, 0.25f, 0.0625f, visualProcess/40.0f, 0.4f*visualProcess/10.0f, EmbersClientEvents.ticks+partialTick);
+				//RenderUtil.renderAlchemyCircle(buffer, matrix4f, x+0.5f, y+1.0f+(i/1000f), z+0.5f, 1.0f, 0.25f, 0.0625f, visualProcess/40.0f, 0.4f*visualProcess/10.0f, EmbersClientEvents.ticks+partialTick);
 				}
-
+				RenderSystem.depthMask(true);
+				BufferUploader.drawWithShader(bufferbuilder.end());
 				RenderSystem.enableCull();
 			}*/
 		}
