@@ -105,11 +105,18 @@ public class EmbersBlockTags extends BlockTagsProvider {
 		tag(ITEM_PIPE_CONNECTION_TOGGLEABLE).add(RegistryManager.ITEM_PIPE.get(), RegistryManager.ITEM_EXTRACTOR.get());
 
 		decoTags(RegistryManager.CAMINITE_BRICKS_DECO);
+		decoTags(RegistryManager.CAMINITE_LARGE_BRICKS_DECO);
+		decoTags(RegistryManager.CAMINITE_LARGE_TILE_DECO);
+		decoTags(RegistryManager.CAMINITE_TILES_DECO);
 		decoTags(RegistryManager.ARCHAIC_BRICKS_DECO);
 		decoTags(RegistryManager.ARCHAIC_TILE_DECO);
+		decoTags(RegistryManager.ARCHAIC_LARGE_BRICKS_DECO);
 		decoTags(RegistryManager.ASHEN_STONE_DECO);
 		decoTags(RegistryManager.ASHEN_BRICK_DECO);
 		decoTags(RegistryManager.ASHEN_TILE_DECO);
+		woodDecoTags(RegistryManager.SEALED_PLANKS_DECO);
+		woodDecoTags(RegistryManager.SEALED_WOOD_TILE_DECO);
+		decoTags(RegistryManager.METAL_PLATFORM_DECO);
 
 		tag(MINABLE_WITH_PICKAXE_SHOVEL).addTags(BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.MINEABLE_WITH_SHOVEL);
 		tag(MINABLE_WITH_HAMMER).addTags(BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.MINEABLE_WITH_SHOVEL, BlockTags.MINEABLE_WITH_AXE);
@@ -125,13 +132,19 @@ public class EmbersBlockTags extends BlockTagsProvider {
 				RegistryManager.SILVER_BLOCK.get(),
 				RegistryManager.DAWNSTONE_BLOCK.get(),
 				RegistryManager.CAMINITE_BRICKS.get(),
+				RegistryManager.CAMINITE_LARGE_BRICKS.get(),
+				RegistryManager.CAMINITE_LARGE_TILE.get(),
+				RegistryManager.CAMINITE_TILES.get(),
 				RegistryManager.ARCHAIC_BRICKS.get(),
 				RegistryManager.ARCHAIC_EDGE.get(),
 				RegistryManager.ARCHAIC_TILE.get(),
+				RegistryManager.ARCHAIC_LARGE_BRICKS.get(),
 				RegistryManager.ARCHAIC_LIGHT.get(),
 				RegistryManager.ASHEN_STONE.get(),
 				RegistryManager.ASHEN_BRICK.get(),
 				RegistryManager.ASHEN_TILE.get(),
+				RegistryManager.SOLIDIFIED_METAL.get(),
+				RegistryManager.METAL_PLATFORM.get(),
 				RegistryManager.EMBER_LANTERN.get(),
 				RegistryManager.COPPER_CELL.get(),
 				RegistryManager.CREATIVE_EMBER.get(),
@@ -209,6 +222,15 @@ public class EmbersBlockTags extends BlockTagsProvider {
 				RegistryManager.INFERNO_FORGE.get(),
 				RegistryManager.INFERNO_FORGE_EDGE.get(),
 				RegistryManager.MNEMONIC_INSCRIBER.get());
+
+		tag(BlockTags.MINEABLE_WITH_AXE).add(
+				RegistryManager.SEALED_PLANKS.get(),
+				RegistryManager.REINFORCED_SEALED_PLANKS.get(),
+				RegistryManager.SEALED_WOOD_PILLAR.get(),
+				RegistryManager.SEALED_WOOD_KEG.get());
+
+		tag(BlockTags.MINEABLE_WITH_SHOVEL).add(
+				RegistryManager.RAW_CAMINITE_BLOCK.get());
 
 		tag(BlockTags.NEEDS_IRON_TOOL).add(
 				RegistryManager.LEAD_ORE.get(),
@@ -315,6 +337,7 @@ public class EmbersBlockTags extends BlockTagsProvider {
 		tag(TIN_SEED).add(RegistryManager.TIN_CRYSTAL_SEED.BLOCK.get());
 		tag(DAWNSTONE_SEED).add(RegistryManager.DAWNSTONE_CRYSTAL_SEED.BLOCK.get());
 	}
+
 	public void decoTags(StoneDecoBlocks deco) {
 		if (deco.stairs != null) {
 			tag(BlockTags.STAIRS).add(deco.stairs.get());
@@ -327,6 +350,21 @@ public class EmbersBlockTags extends BlockTagsProvider {
 		if (deco.wall != null) {
 			tag(BlockTags.WALLS).add(deco.wall.get());
 			tag(BlockTags.MINEABLE_WITH_PICKAXE).add(deco.wall.get());
+		}
+	}
+
+	public void woodDecoTags(StoneDecoBlocks deco) {
+		if (deco.stairs != null) {
+			tag(BlockTags.STAIRS).add(deco.stairs.get());
+			tag(BlockTags.MINEABLE_WITH_AXE).add(deco.stairs.get());
+		}
+		if (deco.slab != null) {
+			tag(BlockTags.SLABS).add(deco.slab.get());
+			tag(BlockTags.MINEABLE_WITH_AXE).add(deco.slab.get());
+		}
+		if (deco.wall != null) {
+			tag(BlockTags.WALLS).add(deco.wall.get());
+			tag(BlockTags.MINEABLE_WITH_AXE).add(deco.wall.get());
 		}
 	}
 }

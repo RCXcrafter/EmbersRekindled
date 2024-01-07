@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "embers:metal_platform"
+  },
+  "result": "embers:solidified_metal"
+}

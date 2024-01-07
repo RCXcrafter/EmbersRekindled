@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "embers:block/caminite_tiles",
+    "side": "embers:block/caminite_tiles",
+    "top": "embers:block/caminite_tiles"
+  }
+}

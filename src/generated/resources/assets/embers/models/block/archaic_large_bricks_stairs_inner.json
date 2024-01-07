@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "embers:block/archaic_large_bricks",
+    "side": "embers:block/archaic_large_bricks",
+    "top": "embers:block/archaic_large_bricks"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "embers:archaic_large_bricks"
+  },
+  "result": "embers:archaic_large_bricks_stairs"
+}

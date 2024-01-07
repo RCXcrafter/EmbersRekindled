@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "embers:caminite_large_bricks"
+  },
+  "result": "embers:caminite_large_bricks_stairs"
+}

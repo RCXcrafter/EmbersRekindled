@@ -1,10 +1,16 @@
 {
   "values": [
     "embers:caminite_bricks_stairs",
+    "embers:caminite_large_bricks_stairs",
+    "embers:caminite_large_tile_stairs",
+    "embers:caminite_tiles_stairs",
     "embers:archaic_bricks_stairs",
     "embers:archaic_tile_stairs",
+    "embers:archaic_large_bricks_stairs",
     "embers:ashen_stone_stairs",
     "embers:ashen_brick_stairs",
-    "embers:ashen_tile_stairs"
+    "embers:ashen_tile_stairs",
+    "embers:sealed_planks_stairs",
+    "embers:sealed_wood_tile_stairs"
   ]
 }

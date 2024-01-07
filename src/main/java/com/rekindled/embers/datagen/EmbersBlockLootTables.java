@@ -54,10 +54,19 @@ public class EmbersBlockLootTables extends BlockLootSubProvider {
 
 		dropSelf(RegistryManager.CAMINITE_BRICKS.get());
 		decoDrops(RegistryManager.CAMINITE_BRICKS_DECO);
+		dropSelf(RegistryManager.CAMINITE_LARGE_BRICKS.get());
+		decoDrops(RegistryManager.CAMINITE_LARGE_BRICKS_DECO);
+		dropSelf(RegistryManager.RAW_CAMINITE_BLOCK.get());
+		dropSelf(RegistryManager.CAMINITE_LARGE_TILE.get());
+		decoDrops(RegistryManager.CAMINITE_LARGE_TILE_DECO);
+		dropSelf(RegistryManager.CAMINITE_TILES.get());
+		decoDrops(RegistryManager.CAMINITE_TILES_DECO);
 		dropSelf(RegistryManager.ARCHAIC_BRICKS.get());
 		decoDrops(RegistryManager.ARCHAIC_BRICKS_DECO);
 		dropSelf(RegistryManager.ARCHAIC_EDGE.get());
 		dropSelf(RegistryManager.ARCHAIC_TILE.get());
+		dropSelf(RegistryManager.ARCHAIC_LARGE_BRICKS.get());
+		decoDrops(RegistryManager.ARCHAIC_LARGE_BRICKS_DECO);
 		decoDrops(RegistryManager.ARCHAIC_TILE_DECO);
 		dropSelf(RegistryManager.ARCHAIC_LIGHT.get());
 		dropSelf(RegistryManager.ASHEN_STONE.get());
@@ -66,6 +75,16 @@ public class EmbersBlockLootTables extends BlockLootSubProvider {
 		decoDrops(RegistryManager.ASHEN_BRICK_DECO);
 		dropSelf(RegistryManager.ASHEN_TILE.get());
 		decoDrops(RegistryManager.ASHEN_TILE_DECO);
+		dropSelf(RegistryManager.SEALED_PLANKS.get());
+		decoDrops(RegistryManager.SEALED_PLANKS_DECO);
+		dropSelf(RegistryManager.REINFORCED_SEALED_PLANKS.get());
+		dropSelf(RegistryManager.SEALED_WOOD_TILE.get());
+		decoDrops(RegistryManager.SEALED_WOOD_TILE_DECO);
+		dropSelf(RegistryManager.SEALED_WOOD_PILLAR.get());
+		dropSelf(RegistryManager.SEALED_WOOD_KEG.get());
+		dropSelf(RegistryManager.SOLIDIFIED_METAL.get());
+		dropSelf(RegistryManager.METAL_PLATFORM.get());
+		decoDrops(RegistryManager.METAL_PLATFORM_DECO);
 		dropSelf(RegistryManager.EMBER_LANTERN.get());
 
 		dropSelf(RegistryManager.COPPER_CELL.get());

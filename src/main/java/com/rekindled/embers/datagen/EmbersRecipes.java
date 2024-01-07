@@ -371,8 +371,23 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('X', RegistryManager.CAMINITE_BRICK.get())
 		.unlockedBy("has_brick", has(RegistryManager.CAMINITE_BRICK.get()))
 		.save(consumer, getResource("caminite_bricks"));
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegistryManager.CAMINITE_LARGE_BRICKS.get(), 4)
+		.pattern("XX")
+		.pattern("XX")
+		.define('X', RegistryManager.CAMINITE_BRICKS.get())
+		.unlockedBy("has_brick", has(RegistryManager.CAMINITE_BRICK.get()))
+		.save(consumer, getResource("caminite_large_bricks"));
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegistryManager.CAMINITE_BRICKS.get(), 4)
+		.pattern("XX")
+		.pattern("XX")
+		.define('X', RegistryManager.CAMINITE_LARGE_BRICKS.get())
+		.unlockedBy("has_brick", has(RegistryManager.CAMINITE_BRICK.get()))
+		.save(consumer, getResource("caminite_bricks_reverse"));
 
+		stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, RegistryManager.CAMINITE_LARGE_BRICKS.get(), RegistryManager.CAMINITE_BRICKS.get());
+		stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, RegistryManager.CAMINITE_BRICKS.get(), RegistryManager.CAMINITE_LARGE_BRICKS.get());
 		decoRecipes(RegistryManager.CAMINITE_BRICKS_DECO, consumer);
+		decoRecipes(RegistryManager.CAMINITE_LARGE_BRICKS_DECO, consumer);
 
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(RegistryManager.CAMINITE_BLEND.get()), RecipeCategory.MISC, RegistryManager.CAMINITE_BRICK.get(), 0.1F, 200)
 		.unlockedBy("has_caminite", has(RegistryManager.CAMINITE_BLEND.get())).save(consumer, getResource("caminite_brick"));
@@ -386,6 +401,32 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_raw_nugget_stamp", has(RegistryManager.RAW_NUGGET_STAMP.get())).save(consumer, getResource("nugget_stamp"));
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(RegistryManager.RAW_PLATE_STAMP.get()), RecipeCategory.MISC, RegistryManager.PLATE_STAMP.get(), 0.1F, 200)
 		.unlockedBy("has_raw_plate_stamp", has(RegistryManager.RAW_PLATE_STAMP.get())).save(consumer, getResource("plate_stamp"));
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegistryManager.RAW_CAMINITE_BLOCK.get())
+		.pattern("XX")
+		.pattern("XX")
+		.define('X', RegistryManager.CAMINITE_BLEND.get())
+		.unlockedBy("has_caminite", has(RegistryManager.CAMINITE_BLEND.get()))
+		.save(consumer, getResource("raw_caminite_block"));
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(RegistryManager.RAW_CAMINITE_BLOCK.get()), RecipeCategory.MISC, RegistryManager.CAMINITE_LARGE_TILE.get(), 0.1F, 200)
+		.unlockedBy("has_caminite", has(RegistryManager.CAMINITE_BLEND.get())).save(consumer, getResource("caminite_large_tile_smelting"));
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegistryManager.CAMINITE_TILES.get(), 4)
+		.pattern("XX")
+		.pattern("XX")
+		.define('X', RegistryManager.CAMINITE_LARGE_TILE.get())
+		.unlockedBy("has_tile", has(RegistryManager.CAMINITE_LARGE_TILE.get()))
+		.save(consumer, getResource("caminite_tiles"));
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegistryManager.CAMINITE_LARGE_TILE.get(), 4)
+		.pattern("XX")
+		.pattern("XX")
+		.define('X', RegistryManager.CAMINITE_TILES.get())
+		.unlockedBy("has_tile", has(RegistryManager.CAMINITE_LARGE_TILE.get()))
+		.save(consumer, getResource("caminite_large_tile_reverse"));
+
+		stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, RegistryManager.CAMINITE_TILES.get(), RegistryManager.CAMINITE_LARGE_TILE.get());
+		stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, RegistryManager.CAMINITE_LARGE_TILE.get(), RegistryManager.CAMINITE_TILES.get());
+		decoRecipes(RegistryManager.CAMINITE_LARGE_TILE_DECO, consumer);
+		decoRecipes(RegistryManager.CAMINITE_TILES_DECO, consumer);
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegistryManager.ARCHAIC_BRICKS.get())
 		.pattern("XX")
@@ -415,17 +456,28 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('X', RegistryManager.ARCHAIC_BRICKS.get())
 		.unlockedBy("has_bricks", has(RegistryManager.ARCHAIC_BRICKS.get()))
 		.save(consumer, getResource("archaic_tile"));
-		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegistryManager.ARCHAIC_BRICKS.get(), 4)
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegistryManager.ARCHAIC_LARGE_BRICKS.get(), 4)
 		.pattern("XX")
 		.pattern("XX")
 		.define('X', RegistryManager.ARCHAIC_TILE.get())
-		.unlockedBy("has_tile", has(RegistryManager.ARCHAIC_TILE.get()))
+		.unlockedBy("has_bricks", has(RegistryManager.ARCHAIC_BRICKS.get()))
+		.save(consumer, getResource("archaic_large_bricks"));
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegistryManager.ARCHAIC_BRICKS.get(), 4)
+		.pattern("XX")
+		.pattern("XX")
+		.define('X', RegistryManager.ARCHAIC_LARGE_BRICKS.get())
+		.unlockedBy("has_bricks", has(RegistryManager.ARCHAIC_BRICKS.get()))
 		.save(consumer, getResource("archaic_bricks_2"));
 
 		stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, RegistryManager.ARCHAIC_TILE.get(), RegistryManager.ARCHAIC_BRICKS.get());
+		stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, RegistryManager.ARCHAIC_LARGE_BRICKS.get(), RegistryManager.ARCHAIC_BRICKS.get());
 		stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, RegistryManager.ARCHAIC_BRICKS.get(), RegistryManager.ARCHAIC_TILE.get());
+		stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, RegistryManager.ARCHAIC_LARGE_BRICKS.get(), RegistryManager.ARCHAIC_TILE.get());
+		stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, RegistryManager.ARCHAIC_BRICKS.get(), RegistryManager.ARCHAIC_LARGE_BRICKS.get());
+		stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, RegistryManager.ARCHAIC_TILE.get(), RegistryManager.ARCHAIC_LARGE_BRICKS.get());
 		decoRecipes(RegistryManager.ARCHAIC_BRICKS_DECO, consumer);
 		decoRecipes(RegistryManager.ARCHAIC_TILE_DECO, consumer);
+		decoRecipes(RegistryManager.ARCHAIC_LARGE_BRICKS_DECO, consumer);
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegistryManager.ASHEN_STONE.get(), 4)
 		.pattern(" S ")
@@ -470,6 +522,71 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		decoRecipes(RegistryManager.ASHEN_STONE_DECO, consumer);
 		decoRecipes(RegistryManager.ASHEN_BRICK_DECO, consumer);
 		decoRecipes(RegistryManager.ASHEN_TILE_DECO, consumer);
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegistryManager.SEALED_PLANKS.get(), 8)
+		.pattern("PPP")
+		.pattern("PSP")
+		.pattern("PPP")
+		.define('P', ItemTags.PLANKS)
+		.define('S', Tags.Items.SLIMEBALLS)
+		.unlockedBy("has_slime", has(Tags.Items.SLIMEBALLS))
+		.save(consumer, getResource("sealed_wood"));
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegistryManager.SEALED_WOOD_TILE.get(), 4)
+		.pattern("XX")
+		.pattern("XX")
+		.define('X', RegistryManager.SEALED_PLANKS.get())
+		.unlockedBy("has_planks", has(RegistryManager.SEALED_PLANKS.get()))
+		.save(consumer, getResource("sealed_wood_tile"));
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegistryManager.SEALED_PLANKS.get(), 4)
+		.pattern("XX")
+		.pattern("XX")
+		.define('X', RegistryManager.SEALED_WOOD_TILE.get())
+		.unlockedBy("has_planks", has(RegistryManager.SEALED_PLANKS.get()))
+		.save(consumer, getResource("sealed_wood_reverse"));
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegistryManager.SEALED_WOOD_PILLAR.get(), 2)
+		.pattern("X")
+		.pattern("X")
+		.define('X', RegistryManager.SEALED_PLANKS.get())
+		.unlockedBy("has_planks", has(RegistryManager.SEALED_PLANKS.get()))
+		.save(consumer, getResource("sealed_wood_pillar"));
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, RegistryManager.REINFORCED_SEALED_PLANKS.get())
+		.requires(RegistryManager.SEALED_PLANKS.get())
+		.requires(Items.IRON_BARS)
+		.unlockedBy("has_planks", has(RegistryManager.SEALED_PLANKS.get()))
+		.save(consumer, getResource("reinforced_sealed_wood"));
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegistryManager.SEALED_WOOD_KEG.get(), 2)
+		.pattern("X")
+		.pattern("X")
+		.define('X', RegistryManager.REINFORCED_SEALED_PLANKS.get())
+		.unlockedBy("has_planks", has(RegistryManager.SEALED_PLANKS.get()))
+		.save(consumer, getResource("sealed_wood_keg"));
+
+		stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, RegistryManager.SEALED_WOOD_TILE.get(), RegistryManager.SEALED_PLANKS.get());
+		stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, RegistryManager.SEALED_WOOD_PILLAR.get(), RegistryManager.SEALED_PLANKS.get());
+		stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, RegistryManager.SEALED_PLANKS.get(), RegistryManager.SEALED_WOOD_TILE.get());
+		stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, RegistryManager.SEALED_WOOD_PILLAR.get(), RegistryManager.SEALED_WOOD_TILE.get());
+		stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, RegistryManager.SEALED_WOOD_TILE.get(), RegistryManager.SEALED_WOOD_PILLAR.get());
+		stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, RegistryManager.SEALED_PLANKS.get(), RegistryManager.SEALED_WOOD_PILLAR.get());
+		stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, RegistryManager.SEALED_WOOD_KEG.get(), RegistryManager.REINFORCED_SEALED_PLANKS.get());
+		stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, RegistryManager.REINFORCED_SEALED_PLANKS.get(), RegistryManager.SEALED_WOOD_KEG.get());
+		decoRecipes(RegistryManager.SEALED_PLANKS_DECO, consumer);
+		decoRecipes(RegistryManager.SEALED_WOOD_TILE_DECO, consumer);
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegistryManager.METAL_PLATFORM.get(), 4)
+		.pattern("XX")
+		.pattern("XX")
+		.define('X', RegistryManager.SOLIDIFIED_METAL.get())
+		.unlockedBy("has_metal", has(RegistryManager.SOLIDIFIED_METAL.get()))
+		.save(consumer, getResource("metal_platform"));
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegistryManager.METAL_PLATFORM.get(), 1)
+		.pattern("X")
+		.pattern("X")
+		.define('X', RegistryManager.METAL_PLATFORM_DECO.slab.get())
+		.unlockedBy("has_metal", has(RegistryManager.SOLIDIFIED_METAL.get()))
+		.save(consumer, getResource("metal_platform_reverse"));
+		stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, RegistryManager.METAL_PLATFORM.get(), RegistryManager.SOLIDIFIED_METAL.get());
+		stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, RegistryManager.SOLIDIFIED_METAL.get(), RegistryManager.METAL_PLATFORM.get());
+		decoRecipes(RegistryManager.METAL_PLATFORM_DECO, consumer);
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, RegistryManager.EMBER_LANTERN.get(), 4)
 		.pattern("P")

@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_caminite_large_tile": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "embers:caminite_large_tile"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "embers:caminite_large_tile_slab_from_caminite_large_tile_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_caminite_large_tile",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "embers:caminite_large_tile_slab_from_caminite_large_tile_stonecutting"
+    ]
+  },
+  "sends_telemetry_event": false
+}

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "embers:sealed_planks"
+  },
+  "result": "embers:sealed_wood_tile"
+}

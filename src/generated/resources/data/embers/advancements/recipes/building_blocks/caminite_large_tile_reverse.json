@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "embers:caminite_large_tile_reverse"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_tile": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "embers:caminite_large_tile"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_tile",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "embers:caminite_large_tile_reverse"
+    ]
+  },
+  "sends_telemetry_event": false
+}

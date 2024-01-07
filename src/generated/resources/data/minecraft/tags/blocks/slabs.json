@@ -1,10 +1,17 @@
 {
   "values": [
     "embers:caminite_bricks_slab",
+    "embers:caminite_large_bricks_slab",
+    "embers:caminite_large_tile_slab",
+    "embers:caminite_tiles_slab",
     "embers:archaic_bricks_slab",
     "embers:archaic_tile_slab",
+    "embers:archaic_large_bricks_slab",
     "embers:ashen_stone_slab",
     "embers:ashen_brick_slab",
-    "embers:ashen_tile_slab"
+    "embers:ashen_tile_slab",
+    "embers:sealed_planks_slab",
+    "embers:sealed_wood_tile_slab",
+    "embers:metal_platform_slab"
   ]
 }

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "embers:block/sealed_wood_tile_slab"
+    },
+    "type=double": {
+      "model": "embers:block/sealed_wood_tile"
+    },
+    "type=top": {
+      "model": "embers:block/sealed_wood_tile_slab_top"
+    }
+  }
+}

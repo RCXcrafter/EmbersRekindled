@@ -163,6 +163,7 @@ import com.rekindled.embers.blockentity.ReservoirBlockEntity;
 import com.rekindled.embers.blockentity.StampBaseBlockEntity;
 import com.rekindled.embers.blockentity.StamperBlockEntity;
 import com.rekindled.embers.blockentity.WildfireStirlingBlockEntity;
+import com.rekindled.embers.datagen.EmbersFluidTags;
 import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.entity.AncientGolemEntity;
 import com.rekindled.embers.entity.EmberPacketEntity;
@@ -283,6 +284,7 @@ import net.minecraft.world.level.block.ButtonBlock;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.DropExperienceBlock;
 import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.StairBlock;
@@ -302,6 +304,8 @@ import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.common.SoundActions;
 import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.common.loot.IGlobalLootModifier;
+import net.minecraftforge.fluids.FluidInteractionRegistry;
+import net.minecraftforge.fluids.FluidInteractionRegistry.InteractionInformation;
 import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -393,11 +397,20 @@ public class RegistryManager {
 
 	public static final RegistryObject<Block> CAMINITE_BRICKS = BLOCKS.register("caminite_bricks", () -> new Block(Properties.of().mapColor(MapColor.WOOD).sound(EmbersSounds.CAMINITE).requiresCorrectToolForDrops().strength(1.6f)));
 	public static final StoneDecoBlocks CAMINITE_BRICKS_DECO = new StoneDecoBlocks("caminite_bricks", CAMINITE_BRICKS, Properties.of().mapColor(MapColor.WOOD).sound(EmbersSounds.CAMINITE).requiresCorrectToolForDrops().strength(1.6f));
+	public static final RegistryObject<Block> CAMINITE_LARGE_BRICKS = BLOCKS.register("caminite_large_bricks", () -> new Block(Properties.of().mapColor(MapColor.WOOD).sound(EmbersSounds.CAMINITE).requiresCorrectToolForDrops().strength(1.6f)));
+	public static final StoneDecoBlocks CAMINITE_LARGE_BRICKS_DECO = new StoneDecoBlocks("caminite_large_bricks", CAMINITE_LARGE_BRICKS, Properties.of().mapColor(MapColor.WOOD).sound(EmbersSounds.CAMINITE).requiresCorrectToolForDrops().strength(1.6f), true, true, false);
+	public static final RegistryObject<Block> RAW_CAMINITE_BLOCK = BLOCKS.register("raw_caminite_block", () -> new Block(Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).sound(SoundType.GRAVEL).requiresCorrectToolForDrops().strength(1.6f)));
+	public static final RegistryObject<Block> CAMINITE_LARGE_TILE = BLOCKS.register("caminite_large_tile", () -> new Block(Properties.of().mapColor(MapColor.WOOD).sound(EmbersSounds.CAMINITE).requiresCorrectToolForDrops().strength(1.6f)));
+	public static final StoneDecoBlocks CAMINITE_LARGE_TILE_DECO = new StoneDecoBlocks("caminite_large_tile", CAMINITE_LARGE_TILE, Properties.of().mapColor(MapColor.WOOD).sound(EmbersSounds.CAMINITE).requiresCorrectToolForDrops().strength(1.6f), true, true, false);
+	public static final RegistryObject<Block> CAMINITE_TILES = BLOCKS.register("caminite_tiles", () -> new Block(Properties.of().mapColor(MapColor.WOOD).sound(EmbersSounds.CAMINITE).requiresCorrectToolForDrops().strength(1.6f)));
+	public static final StoneDecoBlocks CAMINITE_TILES_DECO = new StoneDecoBlocks("caminite_tiles", CAMINITE_TILES, Properties.of().mapColor(MapColor.WOOD).sound(EmbersSounds.CAMINITE).requiresCorrectToolForDrops().strength(1.6f), true, true, false);
 	public static final RegistryObject<Block> ARCHAIC_BRICKS = BLOCKS.register("archaic_bricks", () -> new Block(Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).sound(SoundType.NETHER_BRICKS).requiresCorrectToolForDrops().strength(1.6f)));
 	public static final StoneDecoBlocks ARCHAIC_BRICKS_DECO = new StoneDecoBlocks("archaic_bricks", ARCHAIC_BRICKS, Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).sound(SoundType.NETHER_BRICKS).requiresCorrectToolForDrops().strength(1.6f));
 	public static final RegistryObject<Block> ARCHAIC_EDGE = BLOCKS.register("archaic_edge", () -> new Block(Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).sound(SoundType.NETHER_BRICKS).requiresCorrectToolForDrops().strength(1.6f)));
 	public static final RegistryObject<Block> ARCHAIC_TILE = BLOCKS.register("archaic_tile", () -> new Block(Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).sound(SoundType.NETHER_BRICKS).requiresCorrectToolForDrops().strength(1.6f)));
 	public static final StoneDecoBlocks ARCHAIC_TILE_DECO = new StoneDecoBlocks("archaic_tile", ARCHAIC_TILE, Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).sound(SoundType.NETHER_BRICKS).requiresCorrectToolForDrops().strength(1.6f), true, true, false);
+	public static final RegistryObject<Block> ARCHAIC_LARGE_BRICKS = BLOCKS.register("archaic_large_bricks", () -> new Block(Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).sound(SoundType.NETHER_BRICKS).requiresCorrectToolForDrops().strength(1.6f)));
+	public static final StoneDecoBlocks ARCHAIC_LARGE_BRICKS_DECO = new StoneDecoBlocks("archaic_large_bricks", ARCHAIC_LARGE_BRICKS, Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).sound(SoundType.NETHER_BRICKS).requiresCorrectToolForDrops().strength(1.6f), true, true, false);
 	public static final RegistryObject<Block> ARCHAIC_LIGHT = BLOCKS.register("archaic_light", () -> new ArchaicLightBlock(Properties.of().mapColor(MapColor.COLOR_ORANGE).sound(SoundType.NETHER_BRICKS).requiresCorrectToolForDrops().strength(1.6f).lightLevel(state -> 15)));
 	public static final RegistryObject<Block> ASHEN_STONE = BLOCKS.register("ashen_stone", () -> new Block(Properties.of().mapColor(MapColor.COLOR_BLACK).sound(EmbersSounds.ASHEN_STONE).requiresCorrectToolForDrops().strength(1.6f)));
 	public static final StoneDecoBlocks ASHEN_STONE_DECO = new StoneDecoBlocks("ashen_stone", ASHEN_STONE, Properties.of().mapColor(MapColor.COLOR_BLACK).sound(EmbersSounds.ASHEN_STONE).requiresCorrectToolForDrops().strength(1.6f));
@@ -405,6 +418,16 @@ public class RegistryManager {
 	public static final StoneDecoBlocks ASHEN_BRICK_DECO = new StoneDecoBlocks("ashen_brick", ASHEN_BRICK, Properties.of().mapColor(MapColor.COLOR_BLACK).sound(EmbersSounds.ASHEN_STONE).requiresCorrectToolForDrops().strength(1.6f));
 	public static final RegistryObject<Block> ASHEN_TILE = BLOCKS.register("ashen_tile", () -> new Block(Properties.of().mapColor(MapColor.COLOR_BLACK).sound(EmbersSounds.ASHEN_STONE).requiresCorrectToolForDrops().strength(1.6f)));
 	public static final StoneDecoBlocks ASHEN_TILE_DECO = new StoneDecoBlocks("ashen_tile", ASHEN_TILE, Properties.of().mapColor(MapColor.COLOR_BLACK).sound(EmbersSounds.ASHEN_STONE).requiresCorrectToolForDrops().strength(1.6f));
+	public static final RegistryObject<Block> SEALED_PLANKS = BLOCKS.register("sealed_planks", () -> new Block(Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).sound(SoundType.WOOD).strength(1.6f)));
+	public static final StoneDecoBlocks SEALED_PLANKS_DECO = new StoneDecoBlocks("sealed_planks", SEALED_PLANKS, Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).sound(SoundType.WOOD).strength(1.6f), true, true, false);
+	public static final RegistryObject<Block> REINFORCED_SEALED_PLANKS = BLOCKS.register("reinforced_sealed_planks", () -> new Block(Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).sound(SoundType.WOOD).strength(2.6f)));
+	public static final RegistryObject<Block> SEALED_WOOD_TILE = BLOCKS.register("sealed_wood_tile", () -> new Block(Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).sound(SoundType.WOOD).strength(1.6f)));
+	public static final StoneDecoBlocks SEALED_WOOD_TILE_DECO = new StoneDecoBlocks("sealed_wood_tile", SEALED_WOOD_TILE, Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).sound(SoundType.WOOD).strength(1.6f), true, true, false);
+	public static final RegistryObject<RotatedPillarBlock> SEALED_WOOD_PILLAR = BLOCKS.register("sealed_wood_pillar", () -> new RotatedPillarBlock(Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).sound(SoundType.WOOD).strength(1.6f)));
+	public static final RegistryObject<RotatedPillarBlock> SEALED_WOOD_KEG = BLOCKS.register("sealed_wood_keg", () -> new RotatedPillarBlock(Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).sound(SoundType.WOOD).strength(1.6f)));
+	public static final RegistryObject<Block> SOLIDIFIED_METAL = BLOCKS.register("solidified_metal", () -> new Block(Properties.of().mapColor(MapColor.COLOR_GRAY).sound(EmbersSounds.SOLID_METAL).requiresCorrectToolForDrops().strength(1.6f)));
+	public static final RegistryObject<Block> METAL_PLATFORM = BLOCKS.register("metal_platform", () -> new Block(Properties.of().mapColor(MapColor.COLOR_GRAY).sound(EmbersSounds.SOLID_METAL).requiresCorrectToolForDrops().strength(1.6f)));
+	public static final StoneDecoBlocks METAL_PLATFORM_DECO = new StoneDecoBlocks("metal_platform", METAL_PLATFORM, Properties.of().mapColor(MapColor.COLOR_GRAY).sound(EmbersSounds.SOLID_METAL).requiresCorrectToolForDrops().strength(1.6f), false, true, false);
 	public static final RegistryObject<Block> EMBER_LANTERN = BLOCKS.register("ember_lantern", () -> new EmberLanternBlock(Properties.of().mapColor(MapColor.NONE).sound(SoundType.LANTERN).requiresCorrectToolForDrops().strength(1.6f).lightLevel(state -> 15)));
 
 	public static final RegistryObject<Block> COPPER_CELL = BLOCKS.register("copper_cell", () -> new CopperCellBlock(Properties.of().mapColor(MapColor.TERRACOTTA_ORANGE).sound(EmbersSounds.MACHINE).requiresCorrectToolForDrops().strength(1.4f).noOcclusion()));
@@ -501,13 +524,38 @@ public class RegistryManager {
 	public static final RegistryObject<Item> DAWNSTONE_BLOCK_ITEM = ITEMS.register("dawnstone_block", () -> new BlockItem(DAWNSTONE_BLOCK.get(), new Item.Properties()));
 
 	public static final RegistryObject<Item> CAMINITE_BRICKS_ITEM = ITEMS.register("caminite_bricks", () -> new BlockItem(CAMINITE_BRICKS.get(), new Item.Properties()));
+	static { CAMINITE_BRICKS_DECO.makeItems(); }
+	public static final RegistryObject<Item> CAMINITE_LARGE_BRICKS_ITEM = ITEMS.register("caminite_large_bricks", () -> new BlockItem(CAMINITE_LARGE_BRICKS.get(), new Item.Properties()));
+	static { CAMINITE_LARGE_BRICKS_DECO.makeItems(); }
+	public static final RegistryObject<Item> RAW_CAMINITE_BLOCK_ITEM = ITEMS.register("raw_caminite_block", () -> new BlockItem(RAW_CAMINITE_BLOCK.get(), new Item.Properties()));
+	public static final RegistryObject<Item> CAMINITE_LARGE_TILE_ITEM = ITEMS.register("caminite_large_tile", () -> new BlockItem(CAMINITE_LARGE_TILE.get(), new Item.Properties()));
+	static { CAMINITE_LARGE_TILE_DECO.makeItems(); }
+	public static final RegistryObject<Item> CAMINITE_TILES_ITEM = ITEMS.register("caminite_tiles", () -> new BlockItem(CAMINITE_TILES.get(), new Item.Properties()));
+	static { CAMINITE_TILES_DECO.makeItems(); }
 	public static final RegistryObject<Item> ARCHAIC_BRICKS_ITEM = ITEMS.register("archaic_bricks", () -> new BlockItem(ARCHAIC_BRICKS.get(), new Item.Properties()));
+	static { ARCHAIC_BRICKS_DECO.makeItems(); }
 	public static final RegistryObject<Item> ARCHAIC_EDGE_ITEM = ITEMS.register("archaic_edge", () -> new BlockItem(ARCHAIC_EDGE.get(), new Item.Properties()));
 	public static final RegistryObject<Item> ARCHAIC_TILE_ITEM = ITEMS.register("archaic_tile", () -> new BlockItem(ARCHAIC_TILE.get(), new Item.Properties()));
+	static { ARCHAIC_TILE_DECO.makeItems(); }
+	public static final RegistryObject<Item> ARCHAIC_LARGE_BRICKS_ITEM = ITEMS.register("archaic_large_bricks", () -> new BlockItem(ARCHAIC_LARGE_BRICKS.get(), new Item.Properties()));
+	static { ARCHAIC_LARGE_BRICKS_DECO.makeItems(); }
 	public static final RegistryObject<Item> ARCHAIC_LIGHT_ITEM = ITEMS.register("archaic_light", () -> new BlockItem(ARCHAIC_LIGHT.get(), new Item.Properties()));
 	public static final RegistryObject<Item> ASHEN_STONE_ITEM = ITEMS.register("ashen_stone", () -> new BlockItem(ASHEN_STONE.get(), new Item.Properties()));
+	static { ASHEN_STONE_DECO.makeItems(); }
 	public static final RegistryObject<Item> ASHEN_BRICK_ITEM = ITEMS.register("ashen_brick", () -> new BlockItem(ASHEN_BRICK.get(), new Item.Properties()));
+	static { ASHEN_BRICK_DECO.makeItems(); }
 	public static final RegistryObject<Item> ASHEN_TILE_ITEM = ITEMS.register("ashen_tile", () -> new BlockItem(ASHEN_TILE.get(), new Item.Properties()));
+	static { ASHEN_TILE_DECO.makeItems(); }
+	public static final RegistryObject<Item> SEALED_PLANKS_ITEM = ITEMS.register("sealed_planks", () -> new BlockItem(SEALED_PLANKS.get(), new Item.Properties()));
+	static { SEALED_PLANKS_DECO.makeItems(); }
+	public static final RegistryObject<Item> REINFORCED_SEALED_PLANKS_ITEM = ITEMS.register("reinforced_sealed_planks", () -> new BlockItem(REINFORCED_SEALED_PLANKS.get(), new Item.Properties()));
+	public static final RegistryObject<Item> SEALED_WOOD_TILE_ITEM = ITEMS.register("sealed_wood_tile", () -> new BlockItem(SEALED_WOOD_TILE.get(), new Item.Properties()));
+	static { SEALED_WOOD_TILE_DECO.makeItems(); }
+	public static final RegistryObject<Item> SEALED_WOOD_PILLAR_ITEM = ITEMS.register("sealed_wood_pillar", () -> new BlockItem(SEALED_WOOD_PILLAR.get(), new Item.Properties()));
+	public static final RegistryObject<Item> SEALED_WOOD_KEG_ITEM = ITEMS.register("sealed_wood_keg", () -> new BlockItem(SEALED_WOOD_KEG.get(), new Item.Properties()));
+	public static final RegistryObject<Item> SOLIDIFIED_METAL_ITEM = ITEMS.register("solidified_metal", () -> new BlockItem(SOLIDIFIED_METAL.get(), new Item.Properties()));
+	public static final RegistryObject<Item> METAL_PLATFORM_ITEM = ITEMS.register("metal_platform", () -> new BlockItem(METAL_PLATFORM.get(), new Item.Properties()));
+	static { METAL_PLATFORM_DECO.makeItems(); }
 	public static final RegistryObject<Item> EMBER_LANTERN_ITEM = ITEMS.register("ember_lantern", () -> new BlockItem(EMBER_LANTERN.get(), new Item.Properties()));
 
 	public static final RegistryObject<Item> COPPER_CELL_ITEM = ITEMS.register("copper_cell", () -> new CopperCellBlockItem(COPPER_CELL.get(), new Item.Properties().stacksTo(1)));
@@ -823,8 +871,6 @@ public class RegistryManager {
 			.withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
 			.displayItems((params, output) -> {
 				for (RegistryObject<Item> item : ITEMS.getEntries()) {
-					if (item == MUSIC_DISC_7F_PATTERNS)
-						continue;
 					output.accept(item.get());
 					if (item == COPPER_CELL_ITEM)
 						output.accept(CopperCellBlockItem.getCharged());
@@ -937,10 +983,28 @@ public class RegistryManager {
 			for (FluidStuff fluid : fluidList) {
 				DispenserBlock.registerBehavior(fluid.FLUID_BUCKET.get(), dispenseBucket);
 			}
+
 			EmbersAPI.registerEmberResonance(Ingredient.of(DAWNSTONE_TOOLS.SWORD.get(), DAWNSTONE_TOOLS.SHOVEL.get(), DAWNSTONE_TOOLS.PICKAXE.get(), DAWNSTONE_TOOLS.AXE.get(), DAWNSTONE_TOOLS.HOE.get()), 2.0);
 			EmbersAPI.registerEmberResonance(Ingredient.of(CLOCKWORK_PICKAXE.get(), CLOCKWORK_AXE.get(), GRANDHAMMER.get(), BLAZING_RAY.get(), CINDER_STAFF.get()), 2.0);
 			EmbersAPI.registerEmberResonance(Ingredient.of(ASHEN_GOGGLES.get(), ASHEN_CLOAK.get(), ASHEN_LEGGINGS.get(), ASHEN_BOOTS.get()), 2.0);
+
+			moltenMetalFluidInteractions(MOLTEN_IRON.TYPE.get());
+			moltenMetalFluidInteractions(MOLTEN_GOLD.TYPE.get());
+			moltenMetalFluidInteractions(MOLTEN_COPPER.TYPE.get());
+			moltenMetalFluidInteractions(MOLTEN_LEAD.TYPE.get());
+			moltenMetalFluidInteractions(MOLTEN_SILVER.TYPE.get());
+			moltenMetalFluidInteractions(MOLTEN_DAWNSTONE.TYPE.get());
+			moltenMetalFluidInteractions(MOLTEN_TIN.TYPE.get());
+			moltenMetalFluidInteractions(MOLTEN_ALUMINUM.TYPE.get());
+			moltenMetalFluidInteractions(MOLTEN_BRONZE.TYPE.get());
+			moltenMetalFluidInteractions(MOLTEN_ELECTRUM.TYPE.get());
 		});
+	}
+
+	public static void moltenMetalFluidInteractions(FluidType source) {
+		FluidInteractionRegistry.addInteraction(source, new InteractionInformation(
+				(level, currentPos, relativePos, currentState) -> level.getFluidState(relativePos).is(EmbersFluidTags.WATERY),
+				SOLIDIFIED_METAL.get().defaultBlockState()));
 	}
 
 	public static class FluidStuff {
@@ -1000,14 +1064,23 @@ public class RegistryManager {
 			this.block = block;
 			if (stairs) {
 				this.stairs = BLOCKS.register(name + "_stairs", () -> new StairBlock(() -> block.get().defaultBlockState(), properties));
-				this.stairsItem = ITEMS.register(name + "_stairs", () -> new BlockItem(this.stairs.get(), new Item.Properties()));
 			}
 			if (slab) {
 				this.slab = BLOCKS.register(name + "_slab", () -> new SlabBlock(properties));
-				this.slabItem = ITEMS.register(name + "_slab", () -> new BlockItem(this.slab.get(), new Item.Properties()));
 			}
 			if (wall) {
 				this.wall = BLOCKS.register(name + "_wall", () -> new WallBlock(properties));
+			}
+		}
+
+		public void makeItems() {
+			if (stairs != null) {
+				this.stairsItem = ITEMS.register(name + "_stairs", () -> new BlockItem(this.stairs.get(), new Item.Properties()));
+			}
+			if (slab != null) {
+				this.slabItem = ITEMS.register(name + "_slab", () -> new BlockItem(this.slab.get(), new Item.Properties()));
+			}
+			if (wall != null) {
 				this.wallItem = ITEMS.register(name + "_wall", () -> new BlockItem(this.wall.get(), new Item.Properties()));
 			}
 		}

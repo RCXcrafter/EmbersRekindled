@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_solidified_metal": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "embers:solidified_metal"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "embers:metal_platform_from_solidified_metal_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_solidified_metal",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "embers:metal_platform_from_solidified_metal_stonecutting"
+    ]
+  },
+  "sends_telemetry_event": false
+}

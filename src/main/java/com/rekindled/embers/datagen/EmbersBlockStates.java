@@ -8,11 +8,11 @@ import com.rekindled.embers.RegistryManager.FluidStuff;
 import com.rekindled.embers.RegistryManager.MetalCrystalSeed;
 import com.rekindled.embers.RegistryManager.StoneDecoBlocks;
 import com.rekindled.embers.block.ChamberBlockBase;
+import com.rekindled.embers.block.ChamberBlockBase.ChamberConnection;
 import com.rekindled.embers.block.EmberEmitterBlock;
 import com.rekindled.embers.block.FieldChartBlock;
 import com.rekindled.embers.block.ItemTransferBlock;
 import com.rekindled.embers.block.MechEdgeBlockBase;
-import com.rekindled.embers.block.ChamberBlockBase.ChamberConnection;
 import com.rekindled.embers.block.MechEdgeBlockBase.MechEdge;
 import com.rekindled.embers.render.PipeModelBuilder;
 
@@ -22,6 +22,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ButtonBlock;
+import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -65,11 +66,20 @@ public class EmbersBlockStates extends BlockStateProvider {
 
 		blockWithItem(RegistryManager.CAMINITE_BRICKS);
 		decoBlocks(RegistryManager.CAMINITE_BRICKS_DECO);
+		blockWithItem(RegistryManager.CAMINITE_LARGE_BRICKS);
+		decoBlocks(RegistryManager.CAMINITE_LARGE_BRICKS_DECO);
+		blockWithItem(RegistryManager.RAW_CAMINITE_BLOCK);
+		blockWithItem(RegistryManager.CAMINITE_LARGE_TILE);
+		decoBlocks(RegistryManager.CAMINITE_LARGE_TILE_DECO);
+		blockWithItem(RegistryManager.CAMINITE_TILES);
+		decoBlocks(RegistryManager.CAMINITE_TILES_DECO);
 		blockWithItem(RegistryManager.ARCHAIC_BRICKS);
 		decoBlocks(RegistryManager.ARCHAIC_BRICKS_DECO);
 		blockWithItem(RegistryManager.ARCHAIC_EDGE, "archaic_edge");
 		blockWithItem(RegistryManager.ARCHAIC_TILE);
 		decoBlocks(RegistryManager.ARCHAIC_TILE_DECO);
+		blockWithItem(RegistryManager.ARCHAIC_LARGE_BRICKS);
+		decoBlocks(RegistryManager.ARCHAIC_LARGE_BRICKS_DECO);
 		blockWithItem(RegistryManager.ARCHAIC_LIGHT, "archaic_light");
 		blockWithItem(RegistryManager.ASHEN_STONE);
 		decoBlocks(RegistryManager.ASHEN_STONE_DECO);
@@ -77,6 +87,17 @@ public class EmbersBlockStates extends BlockStateProvider {
 		decoBlocks(RegistryManager.ASHEN_BRICK_DECO);
 		blockWithItem(RegistryManager.ASHEN_TILE);
 		decoBlocks(RegistryManager.ASHEN_TILE_DECO);
+		blockWithItem(RegistryManager.SEALED_PLANKS);
+		decoBlocks(RegistryManager.SEALED_PLANKS_DECO);
+		blockWithItem(RegistryManager.REINFORCED_SEALED_PLANKS);
+		blockWithItem(RegistryManager.SEALED_WOOD_TILE);
+		decoBlocks(RegistryManager.SEALED_WOOD_TILE_DECO);
+		pillarBlockWithItem(RegistryManager.SEALED_WOOD_PILLAR, "sealed_planks", "sealed_keg_top");
+		pillarBlockWithItem(RegistryManager.SEALED_WOOD_KEG, "reinforced_sealed_planks", "sealed_keg_top");
+		blockWithItem(RegistryManager.SOLIDIFIED_METAL);
+		columnBlockWithItem(RegistryManager.METAL_PLATFORM, "metal_platform_side", "metal_platform");
+		slabBlock(RegistryManager.METAL_PLATFORM_DECO.slab.get(), new ResourceLocation(Embers.MODID, "metal_platform"), new ResourceLocation(Embers.MODID, "block/metal_platform_side"), new ResourceLocation(Embers.MODID, "block/metal_platform"), new ResourceLocation(Embers.MODID, "block/metal_platform"));
+		simpleBlockItem(RegistryManager.METAL_PLATFORM_DECO.slab.get(), models().getExistingFile(new ResourceLocation(Embers.MODID, "metal_platform_slab")));
 		blockWithItem(RegistryManager.EMBER_LANTERN, "ember_lantern");
 
 		blockWithItem(RegistryManager.COPPER_CELL, "copper_cell");
@@ -129,7 +150,7 @@ public class EmbersBlockStates extends BlockStateProvider {
 		leverBlock(RegistryManager.CAMINITE_LEVER.get(), leverModel, models().getExistingFile(new ResourceLocation(Embers.MODID, "caminite_lever_on")));
 		simpleBlockItem(RegistryManager.CAMINITE_LEVER.get(), leverModel);
 
-        buttonBlock(RegistryManager.CAMINITE_BUTTON.get(), new ResourceLocation(Embers.MODID, "block/caminite_button"));
+		buttonBlock(RegistryManager.CAMINITE_BUTTON.get(), new ResourceLocation(Embers.MODID, "block/caminite_button"));
 
 		ModelFile itemPipeCenterModel = models().withExistingParent("item_pipe_center", new ResourceLocation(Embers.MODID, "pipe_center"))
 				.texture("pipe", new ResourceLocation(Embers.MODID, "block/item_pipe_tex"))
@@ -624,7 +645,7 @@ public class EmbersBlockStates extends BlockStateProvider {
 		simpleBlockItem(registryObject.get(), cubeAll(registryObject.get()));
 	}
 
-	public void columnBlockWithItem(RegistryObject<? extends Block> registryObject, String sideTex, String topTex) {
+	public ModelFile columnBlockWithItem(RegistryObject<? extends Block> registryObject, String sideTex, String topTex) {
 		ResourceLocation side = new ResourceLocation(Embers.MODID, "block/" + sideTex);
 		//ResourceLocation side_overlay = new ResourceLocation(Embers.MODID, "block/" + sideTex + "_overlay");
 		ResourceLocation end = new ResourceLocation(Embers.MODID, "block/" + topTex);
@@ -646,6 +667,19 @@ public class EmbersBlockStates extends BlockStateProvider {
 		simpleBlock(registryObject.get(), model);
 		//itemblock model
 		simpleBlockItem(registryObject.get(), model);
+		return model;
+	}
+
+	public ModelFile pillarBlockWithItem(RegistryObject<? extends RotatedPillarBlock> registryObject, String sideTex, String topTex) {
+		ResourceLocation side = new ResourceLocation(Embers.MODID, "block/" + sideTex);
+		ResourceLocation end = new ResourceLocation(Embers.MODID, "block/" + topTex);
+
+		ModelFile model = models().cubeColumn(registryObject.getId().getPath(), side, end);
+		//block model
+		axisBlock(registryObject.get(), model, model);
+		//itemblock model
+		simpleBlockItem(registryObject.get(), model);
+		return model;
 	}
 
 	public void blockWithItem(RegistryObject<? extends Block> registryObject, String model) {

@@ -34,11 +34,20 @@ public class EmbersLang extends LanguageProvider {
 
 		addBlock(RegistryManager.CAMINITE_BRICKS, "Caminite Bricks");
 		addDeco(RegistryManager.CAMINITE_BRICKS_DECO, "Caminite Brick");
+		addBlock(RegistryManager.CAMINITE_LARGE_BRICKS, "Caminite Large Bricks");
+		addDeco(RegistryManager.CAMINITE_LARGE_BRICKS_DECO, "Caminite Large Brick");
+		addBlock(RegistryManager.RAW_CAMINITE_BLOCK, "Raw Caminite Block");
+		addBlock(RegistryManager.CAMINITE_LARGE_TILE, "Caminite Large Tile");
+		addDeco(RegistryManager.CAMINITE_LARGE_TILE_DECO, "Caminite Large Tile");
+		addBlock(RegistryManager.CAMINITE_TILES, "Caminite Tiles");
+		addDeco(RegistryManager.CAMINITE_TILES_DECO, "Caminite Tiles");
 		addBlock(RegistryManager.ARCHAIC_BRICKS, "Archaic Bricks");
 		addDeco(RegistryManager.ARCHAIC_BRICKS_DECO, "Archaic Brick");
 		addBlock(RegistryManager.ARCHAIC_EDGE, "Archaic Edge");
 		addBlock(RegistryManager.ARCHAIC_TILE, "Archaic Tile");
 		addDeco(RegistryManager.ARCHAIC_TILE_DECO, "Archaic Tile");
+		addBlock(RegistryManager.ARCHAIC_LARGE_BRICKS, "Archaic Large Bricks");
+		addDeco(RegistryManager.ARCHAIC_LARGE_BRICKS_DECO, "Archaic Large Brick");
 		addBlock(RegistryManager.ARCHAIC_LIGHT, "Archaic Light");
 		addBlock(RegistryManager.ASHEN_STONE, "Ashen Stone");
 		addDeco(RegistryManager.ASHEN_STONE_DECO, "Ashen Stone");
@@ -46,6 +55,16 @@ public class EmbersLang extends LanguageProvider {
 		addDeco(RegistryManager.ASHEN_BRICK_DECO, "Ashen Brick");
 		addBlock(RegistryManager.ASHEN_TILE, "Ashen Tile");
 		addDeco(RegistryManager.ASHEN_TILE_DECO, "Ashen Tile");
+		addBlock(RegistryManager.SEALED_PLANKS, "Sealed Planks");
+		addDeco(RegistryManager.SEALED_PLANKS_DECO, "Sealed Planks");
+		addBlock(RegistryManager.REINFORCED_SEALED_PLANKS, "Reinforced Sealed Planks");
+		addBlock(RegistryManager.SEALED_WOOD_TILE, "Sealed Wood Tile");
+		addDeco(RegistryManager.SEALED_WOOD_TILE_DECO, "Sealed Wood Tile");
+		addBlock(RegistryManager.SEALED_WOOD_PILLAR, "Sealed Wood Pillar");
+		addBlock(RegistryManager.SEALED_WOOD_KEG, "Sealed Wood Keg");
+		addBlock(RegistryManager.SOLIDIFIED_METAL, "Solidified Metal");
+		addBlock(RegistryManager.METAL_PLATFORM, "Metal Platform");
+		addDeco(RegistryManager.METAL_PLATFORM_DECO, "Metal Platform");
 		addBlock(RegistryManager.EMBER_LANTERN, "Ember Lantern");
 
 		addBlock(RegistryManager.COPPER_CELL, "Copper Cell");

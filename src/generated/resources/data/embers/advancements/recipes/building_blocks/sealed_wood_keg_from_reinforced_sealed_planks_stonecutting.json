@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_reinforced_sealed_planks": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "embers:reinforced_sealed_planks"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "embers:sealed_wood_keg_from_reinforced_sealed_planks_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_reinforced_sealed_planks",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "embers:sealed_wood_keg_from_reinforced_sealed_planks_stonecutting"
+    ]
+  },
+  "sends_telemetry_event": false
+}
