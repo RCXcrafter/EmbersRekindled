@@ -28,7 +28,22 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.common.util.LazyOptional;
+
+// FIXME: Transfer options into mod options, i placed it here temporary
+class Options {
+
+	public static double mulitiplier = 100D;
+	public static boolean forgeEnergyCanGenerateEmbers = false;
+	public static boolean embersEnergyCanGenerateForgeEnergy = true;
+	public static boolean ae2EnergyCanGenerateEmbers = false;
+	public static boolean embersEnergyCanGenerateAE2Energy = true;
+	public static boolean rfEnergyCanGenerateEmbers = false;
+	public static boolean embersEnergyCanGenerateRFEnergy = true;
+
+}
 
 public class EmberReceiverBlockEntity extends BlockEntity implements IEmberPacketReceiver {
 
@@ -89,10 +104,20 @@ public class EmberReceiverBlockEntity extends BlockEntity implements IEmberPacke
 		BlockEntity attachedTile = level.getBlockEntity(pos.relative(facing, -1));
 		if (blockEntity.ticksExisted % 2 == 0 && attachedTile != null){
 			IEmberCapability cap = attachedTile.getCapability(EmbersCapabilities.EMBER_CAPABILITY, facing).orElse(null);
+			IEnergyStorage fe_cap = attachedTile.getCapability(ForgeCapabilities.ENERGY, facing).orElse(null);
 			if (cap != null) {
 				if (cap.getEmber() < cap.getEmberCapacity() && blockEntity.capability.getEmber() > 0){
 					double added = cap.addAmount(Math.min(TRANSFER_RATE, blockEntity.capability.getEmber()), true);
 					blockEntity.capability.removeAmount(added, true);
+				}
+			}
+			else if (Options.embersEnergyCanGenerateForgeEnergy && fe_cap != null) {
+				if (fe_cap.canReceive() && fe_cap.getEnergyStored() < fe_cap.getMaxEnergyStored()) {
+					int added = fe_cap.receiveEnergy((int) Math.min(TRANSFER_RATE * Options.mulitiplier, blockEntity.capability.getEmber() * Options.mulitiplier), true);
+					if (added > 0) {
+						fe_cap.receiveEnergy((int) Math.min(TRANSFER_RATE * Options.mulitiplier, blockEntity.capability.getEmber() * Options.mulitiplier), false);
+						blockEntity.capability.removeAmount(added / Options.mulitiplier, true);
+					}
 				}
 			}
 		}
