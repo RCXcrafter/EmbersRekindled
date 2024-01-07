@@ -510,53 +510,30 @@ public class RegistryManager {
 	public static final RegistryObject<Block> INFERNO_FORGE_EDGE = BLOCKS.register("inferno_forge_edge", () -> new InfernoForgeEdgeBlock(Properties.of().mapColor(MapColor.TERRACOTTA_YELLOW).sound(EmbersSounds.MULTIBLOCK_EXTRA).requiresCorrectToolForDrops().strength(1.6f)));
 	public static final RegistryObject<Block> MNEMONIC_INSCRIBER = BLOCKS.register("mnemonic_inscriber", () -> new MnemonicInscriberBlock(Properties.of().mapColor(MapColor.NONE).sound(EmbersSounds.MACHINE).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
 
-	//itemblocks
-	public static final RegistryObject<Item> LEAD_ORE_ITEM = ITEMS.register("lead_ore", () -> new BlockItem(LEAD_ORE.get(), new Item.Properties()));
-	public static final RegistryObject<Item> DEEPSLATE_LEAD_ORE_ITEM = ITEMS.register("deepslate_lead_ore", () -> new BlockItem(DEEPSLATE_LEAD_ORE.get(), new Item.Properties()));
-	public static final RegistryObject<Item> RAW_LEAD_BLOCK_ITEM = ITEMS.register("raw_lead_block", () -> new BlockItem(RAW_LEAD_BLOCK.get(), new Item.Properties()));
-	public static final RegistryObject<Item> LEAD_BLOCK_ITEM = ITEMS.register("lead_block", () -> new BlockItem(LEAD_BLOCK.get(), new Item.Properties()));
-
-	public static final RegistryObject<Item> SILVER_ORE_ITEM = ITEMS.register("silver_ore", () -> new BlockItem(SILVER_ORE.get(), new Item.Properties()));
-	public static final RegistryObject<Item> DEEPSLATE_SILVER_ORE_ITEM = ITEMS.register("deepslate_silver_ore", () -> new BlockItem(DEEPSLATE_SILVER_ORE.get(), new Item.Properties()));
-	public static final RegistryObject<Item> RAW_SILVER_BLOCK_ITEM = ITEMS.register("raw_silver_block", () -> new BlockItem(RAW_SILVER_BLOCK.get(), new Item.Properties()));
-	public static final RegistryObject<Item> SILVER_BLOCK_ITEM = ITEMS.register("silver_block", () -> new BlockItem(SILVER_BLOCK.get(), new Item.Properties()));
-
-	public static final RegistryObject<Item> DAWNSTONE_BLOCK_ITEM = ITEMS.register("dawnstone_block", () -> new BlockItem(DAWNSTONE_BLOCK.get(), new Item.Properties()));
-
-	public static final RegistryObject<Item> CAMINITE_BRICKS_ITEM = ITEMS.register("caminite_bricks", () -> new BlockItem(CAMINITE_BRICKS.get(), new Item.Properties()));
-	static { CAMINITE_BRICKS_DECO.makeItems(); }
-	public static final RegistryObject<Item> CAMINITE_LARGE_BRICKS_ITEM = ITEMS.register("caminite_large_bricks", () -> new BlockItem(CAMINITE_LARGE_BRICKS.get(), new Item.Properties()));
-	static { CAMINITE_LARGE_BRICKS_DECO.makeItems(); }
-	public static final RegistryObject<Item> RAW_CAMINITE_BLOCK_ITEM = ITEMS.register("raw_caminite_block", () -> new BlockItem(RAW_CAMINITE_BLOCK.get(), new Item.Properties()));
-	public static final RegistryObject<Item> CAMINITE_LARGE_TILE_ITEM = ITEMS.register("caminite_large_tile", () -> new BlockItem(CAMINITE_LARGE_TILE.get(), new Item.Properties()));
-	static { CAMINITE_LARGE_TILE_DECO.makeItems(); }
-	public static final RegistryObject<Item> CAMINITE_TILES_ITEM = ITEMS.register("caminite_tiles", () -> new BlockItem(CAMINITE_TILES.get(), new Item.Properties()));
-	static { CAMINITE_TILES_DECO.makeItems(); }
-	public static final RegistryObject<Item> ARCHAIC_BRICKS_ITEM = ITEMS.register("archaic_bricks", () -> new BlockItem(ARCHAIC_BRICKS.get(), new Item.Properties()));
-	static { ARCHAIC_BRICKS_DECO.makeItems(); }
-	public static final RegistryObject<Item> ARCHAIC_EDGE_ITEM = ITEMS.register("archaic_edge", () -> new BlockItem(ARCHAIC_EDGE.get(), new Item.Properties()));
-	public static final RegistryObject<Item> ARCHAIC_TILE_ITEM = ITEMS.register("archaic_tile", () -> new BlockItem(ARCHAIC_TILE.get(), new Item.Properties()));
-	static { ARCHAIC_TILE_DECO.makeItems(); }
-	public static final RegistryObject<Item> ARCHAIC_LARGE_BRICKS_ITEM = ITEMS.register("archaic_large_bricks", () -> new BlockItem(ARCHAIC_LARGE_BRICKS.get(), new Item.Properties()));
-	static { ARCHAIC_LARGE_BRICKS_DECO.makeItems(); }
-	public static final RegistryObject<Item> ARCHAIC_LIGHT_ITEM = ITEMS.register("archaic_light", () -> new BlockItem(ARCHAIC_LIGHT.get(), new Item.Properties()));
-	public static final RegistryObject<Item> ASHEN_STONE_ITEM = ITEMS.register("ashen_stone", () -> new BlockItem(ASHEN_STONE.get(), new Item.Properties()));
-	static { ASHEN_STONE_DECO.makeItems(); }
-	public static final RegistryObject<Item> ASHEN_BRICK_ITEM = ITEMS.register("ashen_brick", () -> new BlockItem(ASHEN_BRICK.get(), new Item.Properties()));
-	static { ASHEN_BRICK_DECO.makeItems(); }
-	public static final RegistryObject<Item> ASHEN_TILE_ITEM = ITEMS.register("ashen_tile", () -> new BlockItem(ASHEN_TILE.get(), new Item.Properties()));
-	static { ASHEN_TILE_DECO.makeItems(); }
-	public static final RegistryObject<Item> SEALED_PLANKS_ITEM = ITEMS.register("sealed_planks", () -> new BlockItem(SEALED_PLANKS.get(), new Item.Properties()));
-	static { SEALED_PLANKS_DECO.makeItems(); }
-	public static final RegistryObject<Item> REINFORCED_SEALED_PLANKS_ITEM = ITEMS.register("reinforced_sealed_planks", () -> new BlockItem(REINFORCED_SEALED_PLANKS.get(), new Item.Properties()));
-	public static final RegistryObject<Item> SEALED_WOOD_TILE_ITEM = ITEMS.register("sealed_wood_tile", () -> new BlockItem(SEALED_WOOD_TILE.get(), new Item.Properties()));
-	static { SEALED_WOOD_TILE_DECO.makeItems(); }
-	public static final RegistryObject<Item> SEALED_WOOD_PILLAR_ITEM = ITEMS.register("sealed_wood_pillar", () -> new BlockItem(SEALED_WOOD_PILLAR.get(), new Item.Properties()));
-	public static final RegistryObject<Item> SEALED_WOOD_KEG_ITEM = ITEMS.register("sealed_wood_keg", () -> new BlockItem(SEALED_WOOD_KEG.get(), new Item.Properties()));
-	public static final RegistryObject<Item> SOLIDIFIED_METAL_ITEM = ITEMS.register("solidified_metal", () -> new BlockItem(SOLIDIFIED_METAL.get(), new Item.Properties()));
-	public static final RegistryObject<Item> METAL_PLATFORM_ITEM = ITEMS.register("metal_platform", () -> new BlockItem(METAL_PLATFORM.get(), new Item.Properties()));
-	static { METAL_PLATFORM_DECO.makeItems(); }
-	public static final RegistryObject<Item> EMBER_LANTERN_ITEM = ITEMS.register("ember_lantern", () -> new BlockItem(EMBER_LANTERN.get(), new Item.Properties()));
+	//items
+	public static final RegistryObject<Item> TINKER_HAMMER = ITEMS.register("tinker_hammer", () -> new TinkerHammerItem(new Item.Properties().stacksTo(1)));
+	public static final RegistryObject<Item> TINKER_LENS = ITEMS.register("tinker_lens", () -> new TinkerLensItem(new Item.Properties().stacksTo(1)));
+	public static final RegistryObject<Item> SMOKY_TINKER_LENS = ITEMS.register("smoky_tinker_lens", () -> new Item(new Item.Properties().stacksTo(1)));
+	public static final RegistryObject<Item> ANCIENT_CODEX = ITEMS.register("ancient_codex", () -> new AncientCodexItem(new Item.Properties().stacksTo(1)));
+	public static final RegistryObject<Item> ATMOSPHERIC_GAUGE_ITEM = ITEMS.register("atmospheric_gauge", () -> new BlockItem(ATMOSPHERIC_GAUGE.get(), new Item.Properties().stacksTo(1)));
+	public static final RegistryObject<Item> EMBER_JAR = ITEMS.register("ember_jar", () -> new EmberJarItem(new Item.Properties().stacksTo(1)));
+	public static final RegistryObject<Item> EMBER_CARTRIDGE = ITEMS.register("ember_cartridge", () -> new EmberCartridgeItem(new Item.Properties().stacksTo(1)));
+	public static final RegistryObject<Item> CLOCKWORK_PICKAXE = ITEMS.register("clockwork_pickaxe", () -> new ClockworkPickaxeItem(new Item.Properties().stacksTo(1)));
+	public static final RegistryObject<Item> CLOCKWORK_AXE = ITEMS.register("clockwork_axe", () -> new ClockworkAxeItem(new Item.Properties().stacksTo(1)));
+	public static final RegistryObject<Item> GRANDHAMMER = ITEMS.register("grandhammer", () -> new ClockworkHammerItem(new Item.Properties().stacksTo(1)));
+	public static final RegistryObject<Item> BLAZING_RAY = ITEMS.register("blazing_ray", () -> new BlazingRayItem(new Item.Properties().stacksTo(1)));
+	public static final RegistryObject<Item> CINDER_STAFF = ITEMS.register("cinder_staff", () -> new CinderStaffItem(new Item.Properties().stacksTo(1)));
+	public static final RegistryObject<Item> ALCHEMICAL_WASTE = ITEMS.register("alchemical_waste", () -> new AlchemyHintItem(new Item.Properties().stacksTo(1)));
+	public static final RegistryObject<Item> ALCHEMICAL_NOTE = ITEMS.register("alchemical_note", () -> new AlchemicalNoteItem(new Item.Properties().stacksTo(1)));
+	public static final RegistryObject<Item> CODEBREAKING_SLATE = ITEMS.register("codebreaking_slate", () -> new CodebreakingSlateItem(new Item.Properties().stacksTo(1)));
+	public static final RegistryObject<Item> TYRFING = ITEMS.register("tyrfing", () -> new TyrfingItem(EmbersTiers.TYRFING, 3, -2.4F, new Item.Properties()));
+	public static final RegistryObject<Item> INFLICTOR_GEM = ITEMS.register("inflictor_gem", () -> new InflictorGemItem(new Item.Properties().stacksTo(1)));
+	public static final RegistryObject<Item> ASHEN_GOGGLES = ITEMS.register("ashen_goggles", () -> new AshenArmorGemItem(AshenArmorMaterial.INSTANCE, ArmorItem.Type.HELMET, new Item.Properties(), ConfigManager.ASHEN_GOGGLES_SLOTS));
+	public static final RegistryObject<Item> ASHEN_CLOAK = ITEMS.register("ashen_cloak", () -> new AshenArmorGemItem(AshenArmorMaterial.INSTANCE, ArmorItem.Type.CHESTPLATE, new Item.Properties(), ConfigManager.ASHEN_CLOAK_SLOTS));
+	public static final RegistryObject<Item> ASHEN_LEGGINGS = ITEMS.register("ashen_leggings", () -> new AshenArmorGemItem(AshenArmorMaterial.INSTANCE, ArmorItem.Type.LEGGINGS, new Item.Properties(), ConfigManager.ASHEN_LEGGINGS_SLOTS));
+	public static final RegistryObject<Item> ASHEN_BOOTS = ITEMS.register("ashen_boots", () -> new AshenArmorGemItem(AshenArmorMaterial.INSTANCE, ArmorItem.Type.BOOTS, new Item.Properties(), ConfigManager.ASHEN_BOOTS_SLOTS));
+	public static final RegistryObject<Item> GLIMMER_CRYSTAL = ITEMS.register("glimmer_crystal", () -> new GlimmerCrystalItem(new Item.Properties().durability(800)));
+	public static final RegistryObject<Item> GLIMMER_LAMP = ITEMS.register("glimmer_lamp", () -> new GlimmerLampItem(new Item.Properties().durability(1200)));
 
 	public static final RegistryObject<Item> COPPER_CELL_ITEM = ITEMS.register("copper_cell", () -> new CopperCellBlockItem(COPPER_CELL.get(), new Item.Properties().stacksTo(1)));
 	public static final RegistryObject<Item> CREATIVE_EMBER_ITEM = ITEMS.register("creative_ember_source", () -> new BlockItem(CREATIVE_EMBER.get(), new Item.Properties()));
@@ -618,32 +595,6 @@ public class RegistryManager {
 	public static final RegistryObject<Item> INFERNO_FORGE_ITEM = ITEMS.register("inferno_forge", () -> new BlockItem(INFERNO_FORGE.get(), new Item.Properties()));
 	public static final RegistryObject<Item> MNEMONIC_INSCRIBER_ITEM = ITEMS.register("mnemonic_inscriber", () -> new BlockItem(MNEMONIC_INSCRIBER.get(), new Item.Properties()));
 
-	//items
-	public static final RegistryObject<Item> TINKER_HAMMER = ITEMS.register("tinker_hammer", () -> new TinkerHammerItem(new Item.Properties().stacksTo(1)));
-	public static final RegistryObject<Item> TINKER_LENS = ITEMS.register("tinker_lens", () -> new TinkerLensItem(new Item.Properties().stacksTo(1)));
-	public static final RegistryObject<Item> SMOKY_TINKER_LENS = ITEMS.register("smoky_tinker_lens", () -> new Item(new Item.Properties().stacksTo(1)));
-	public static final RegistryObject<Item> ANCIENT_CODEX = ITEMS.register("ancient_codex", () -> new AncientCodexItem(new Item.Properties().stacksTo(1)));
-	public static final RegistryObject<Item> ATMOSPHERIC_GAUGE_ITEM = ITEMS.register("atmospheric_gauge", () -> new BlockItem(ATMOSPHERIC_GAUGE.get(), new Item.Properties().stacksTo(1)));
-	public static final RegistryObject<Item> EMBER_JAR = ITEMS.register("ember_jar", () -> new EmberJarItem(new Item.Properties().stacksTo(1)));
-	public static final RegistryObject<Item> EMBER_CARTRIDGE = ITEMS.register("ember_cartridge", () -> new EmberCartridgeItem(new Item.Properties().stacksTo(1)));
-	public static final RegistryObject<Item> CLOCKWORK_PICKAXE = ITEMS.register("clockwork_pickaxe", () -> new ClockworkPickaxeItem(new Item.Properties().stacksTo(1)));
-	public static final RegistryObject<Item> CLOCKWORK_AXE = ITEMS.register("clockwork_axe", () -> new ClockworkAxeItem(new Item.Properties().stacksTo(1)));
-	public static final RegistryObject<Item> GRANDHAMMER = ITEMS.register("grandhammer", () -> new ClockworkHammerItem(new Item.Properties().stacksTo(1)));
-	public static final RegistryObject<Item> BLAZING_RAY = ITEMS.register("blazing_ray", () -> new BlazingRayItem(new Item.Properties().stacksTo(1)));
-	public static final RegistryObject<Item> CINDER_STAFF = ITEMS.register("cinder_staff", () -> new CinderStaffItem(new Item.Properties().stacksTo(1)));
-	public static final RegistryObject<Item> MUSIC_DISC_7F_PATTERNS = ITEMS.register("music_disc_7f_patterns", () -> new EmberRecordItem(7, EmbersSounds.ULTRASYD_7F_PATTERNS, new Item.Properties().rarity(Rarity.RARE).stacksTo(1), 4444));
-	public static final RegistryObject<Item> ALCHEMICAL_WASTE = ITEMS.register("alchemical_waste", () -> new AlchemyHintItem(new Item.Properties().stacksTo(1)));
-	public static final RegistryObject<Item> ALCHEMICAL_NOTE = ITEMS.register("alchemical_note", () -> new AlchemicalNoteItem(new Item.Properties().stacksTo(1)));
-	public static final RegistryObject<Item> CODEBREAKING_SLATE = ITEMS.register("codebreaking_slate", () -> new CodebreakingSlateItem(new Item.Properties().stacksTo(1)));
-	public static final RegistryObject<Item> TYRFING = ITEMS.register("tyrfing", () -> new TyrfingItem(EmbersTiers.TYRFING, 3, -2.4F, new Item.Properties()));
-	public static final RegistryObject<Item> INFLICTOR_GEM = ITEMS.register("inflictor_gem", () -> new InflictorGemItem(new Item.Properties().stacksTo(1)));
-	public static final RegistryObject<Item> ASHEN_GOGGLES = ITEMS.register("ashen_goggles", () -> new AshenArmorGemItem(AshenArmorMaterial.INSTANCE, ArmorItem.Type.HELMET, new Item.Properties(), ConfigManager.ASHEN_GOGGLES_SLOTS));
-	public static final RegistryObject<Item> ASHEN_CLOAK = ITEMS.register("ashen_cloak", () -> new AshenArmorGemItem(AshenArmorMaterial.INSTANCE, ArmorItem.Type.CHESTPLATE, new Item.Properties(), ConfigManager.ASHEN_CLOAK_SLOTS));
-	public static final RegistryObject<Item> ASHEN_LEGGINGS = ITEMS.register("ashen_leggings", () -> new AshenArmorGemItem(AshenArmorMaterial.INSTANCE, ArmorItem.Type.LEGGINGS, new Item.Properties(), ConfigManager.ASHEN_LEGGINGS_SLOTS));
-	public static final RegistryObject<Item> ASHEN_BOOTS = ITEMS.register("ashen_boots", () -> new AshenArmorGemItem(AshenArmorMaterial.INSTANCE, ArmorItem.Type.BOOTS, new Item.Properties(), ConfigManager.ASHEN_BOOTS_SLOTS));
-	public static final RegistryObject<Item> GLIMMER_CRYSTAL = ITEMS.register("glimmer_crystal", () -> new GlimmerCrystalItem(new Item.Properties().durability(800)));
-	public static final RegistryObject<Item> GLIMMER_LAMP = ITEMS.register("glimmer_lamp", () -> new GlimmerLampItem(new Item.Properties().durability(1200)));
-
 	public static final RegistryObject<Item> EMBER_CRYSTAL = ITEMS.register("ember_crystal", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> EMBER_SHARD = ITEMS.register("ember_shard", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> EMBER_GRIT = ITEMS.register("ember_grit", () -> new FuelItem(new Item.Properties(), 1600));
@@ -661,6 +612,7 @@ public class RegistryManager {
 
 	public static final RegistryObject<Item> SUPERHEATER = ITEMS.register("superheater", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> CINDER_JET = ITEMS.register("cinder_jet", () -> new Item(new Item.Properties()));
+	public static final RegistryObject<Item> MUSIC_DISC_7F_PATTERNS = ITEMS.register("music_disc_7f_patterns", () -> new EmberRecordItem(7, EmbersSounds.ULTRASYD_7F_PATTERNS, new Item.Properties().rarity(Rarity.RARE).stacksTo(1), 4444));
 	public static final RegistryObject<Item> BLASTING_CORE = ITEMS.register("blasting_core", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> CASTER_ORB = ITEMS.register("caster_orb", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> RESONATING_BELL = ITEMS.register("resonating_bell", () -> new Item(new Item.Properties()));
@@ -671,6 +623,16 @@ public class RegistryManager {
 	public static final RegistryObject<Item> FOCAL_LENS = ITEMS.register("focal_lens", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> SHIFTING_SCALES = ITEMS.register("shifting_scales", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> WINDING_GEARS = ITEMS.register("winding_gears", () -> new Item(new Item.Properties()));
+
+	static { COPPER_CRYSTAL_SEED.makeItem(); }
+	static { IRON_CRYSTAL_SEED.makeItem(); }
+	static { GOLD_CRYSTAL_SEED.makeItem(); }
+	static { LEAD_CRYSTAL_SEED.makeItem(); }
+	static { SILVER_CRYSTAL_SEED.makeItem(); }
+	static { ALUMINUM_CRYSTAL_SEED.makeItem(); }
+	static { NICKEL_CRYSTAL_SEED.makeItem(); }
+	static { TIN_CRYSTAL_SEED.makeItem(); }
+	static { DAWNSTONE_CRYSTAL_SEED.makeItem(); }
 
 	public static final RegistryObject<Item> RAW_CAMINITE_PLATE = ITEMS.register("raw_caminite_plate", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> RAW_FLAT_STAMP = ITEMS.register("raw_flat_stamp", () -> new Item(new Item.Properties()));
@@ -700,18 +662,65 @@ public class RegistryManager {
 	public static final RegistryObject<Item> LEAD_NUGGET = ITEMS.register("lead_nugget", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> LEAD_PLATE = ITEMS.register("lead_plate", () -> new Item(new Item.Properties()));
 
+	public static final RegistryObject<Item> LEAD_ORE_ITEM = ITEMS.register("lead_ore", () -> new BlockItem(LEAD_ORE.get(), new Item.Properties()));
+	public static final RegistryObject<Item> DEEPSLATE_LEAD_ORE_ITEM = ITEMS.register("deepslate_lead_ore", () -> new BlockItem(DEEPSLATE_LEAD_ORE.get(), new Item.Properties()));
+	public static final RegistryObject<Item> RAW_LEAD_BLOCK_ITEM = ITEMS.register("raw_lead_block", () -> new BlockItem(RAW_LEAD_BLOCK.get(), new Item.Properties()));
+	public static final RegistryObject<Item> LEAD_BLOCK_ITEM = ITEMS.register("lead_block", () -> new BlockItem(LEAD_BLOCK.get(), new Item.Properties()));
+
 	public static final RegistryObject<Item> RAW_SILVER = ITEMS.register("raw_silver", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> SILVER_INGOT = ITEMS.register("silver_ingot", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> SILVER_NUGGET = ITEMS.register("silver_nugget", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> SILVER_PLATE = ITEMS.register("silver_plate", () -> new Item(new Item.Properties()));
 
+	public static final RegistryObject<Item> SILVER_ORE_ITEM = ITEMS.register("silver_ore", () -> new BlockItem(SILVER_ORE.get(), new Item.Properties()));
+	public static final RegistryObject<Item> DEEPSLATE_SILVER_ORE_ITEM = ITEMS.register("deepslate_silver_ore", () -> new BlockItem(DEEPSLATE_SILVER_ORE.get(), new Item.Properties()));
+	public static final RegistryObject<Item> RAW_SILVER_BLOCK_ITEM = ITEMS.register("raw_silver_block", () -> new BlockItem(RAW_SILVER_BLOCK.get(), new Item.Properties()));
+	public static final RegistryObject<Item> SILVER_BLOCK_ITEM = ITEMS.register("silver_block", () -> new BlockItem(SILVER_BLOCK.get(), new Item.Properties()));
+
 	public static final RegistryObject<Item> DAWNSTONE_INGOT = ITEMS.register("dawnstone_ingot", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> DAWNSTONE_NUGGET = ITEMS.register("dawnstone_nugget", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> DAWNSTONE_PLATE = ITEMS.register("dawnstone_plate", () -> new Item(new Item.Properties()));
 
+	public static final RegistryObject<Item> DAWNSTONE_BLOCK_ITEM = ITEMS.register("dawnstone_block", () -> new BlockItem(DAWNSTONE_BLOCK.get(), new Item.Properties()));
+
 	public static final ToolSet LEAD_TOOLS = new ToolSet("lead", EmbersTiers.LEAD);
 	public static final ToolSet SILVER_TOOLS = new ToolSet("silver", EmbersTiers.SILVER);
 	public static final ToolSet DAWNSTONE_TOOLS = new ToolSet("dawnstone", EmbersTiers.DAWNSTONE);
+
+	public static final RegistryObject<Item> CAMINITE_BRICKS_ITEM = ITEMS.register("caminite_bricks", () -> new BlockItem(CAMINITE_BRICKS.get(), new Item.Properties()));
+	static { CAMINITE_BRICKS_DECO.makeItems(); }
+	public static final RegistryObject<Item> CAMINITE_LARGE_BRICKS_ITEM = ITEMS.register("caminite_large_bricks", () -> new BlockItem(CAMINITE_LARGE_BRICKS.get(), new Item.Properties()));
+	static { CAMINITE_LARGE_BRICKS_DECO.makeItems(); }
+	public static final RegistryObject<Item> RAW_CAMINITE_BLOCK_ITEM = ITEMS.register("raw_caminite_block", () -> new BlockItem(RAW_CAMINITE_BLOCK.get(), new Item.Properties()));
+	public static final RegistryObject<Item> CAMINITE_LARGE_TILE_ITEM = ITEMS.register("caminite_large_tile", () -> new BlockItem(CAMINITE_LARGE_TILE.get(), new Item.Properties()));
+	static { CAMINITE_LARGE_TILE_DECO.makeItems(); }
+	public static final RegistryObject<Item> CAMINITE_TILES_ITEM = ITEMS.register("caminite_tiles", () -> new BlockItem(CAMINITE_TILES.get(), new Item.Properties()));
+	static { CAMINITE_TILES_DECO.makeItems(); }
+	public static final RegistryObject<Item> ARCHAIC_BRICKS_ITEM = ITEMS.register("archaic_bricks", () -> new BlockItem(ARCHAIC_BRICKS.get(), new Item.Properties()));
+	static { ARCHAIC_BRICKS_DECO.makeItems(); }
+	public static final RegistryObject<Item> ARCHAIC_EDGE_ITEM = ITEMS.register("archaic_edge", () -> new BlockItem(ARCHAIC_EDGE.get(), new Item.Properties()));
+	public static final RegistryObject<Item> ARCHAIC_TILE_ITEM = ITEMS.register("archaic_tile", () -> new BlockItem(ARCHAIC_TILE.get(), new Item.Properties()));
+	static { ARCHAIC_TILE_DECO.makeItems(); }
+	public static final RegistryObject<Item> ARCHAIC_LARGE_BRICKS_ITEM = ITEMS.register("archaic_large_bricks", () -> new BlockItem(ARCHAIC_LARGE_BRICKS.get(), new Item.Properties()));
+	static { ARCHAIC_LARGE_BRICKS_DECO.makeItems(); }
+	public static final RegistryObject<Item> ARCHAIC_LIGHT_ITEM = ITEMS.register("archaic_light", () -> new BlockItem(ARCHAIC_LIGHT.get(), new Item.Properties()));
+	public static final RegistryObject<Item> ASHEN_STONE_ITEM = ITEMS.register("ashen_stone", () -> new BlockItem(ASHEN_STONE.get(), new Item.Properties()));
+	static { ASHEN_STONE_DECO.makeItems(); }
+	public static final RegistryObject<Item> ASHEN_BRICK_ITEM = ITEMS.register("ashen_brick", () -> new BlockItem(ASHEN_BRICK.get(), new Item.Properties()));
+	static { ASHEN_BRICK_DECO.makeItems(); }
+	public static final RegistryObject<Item> ASHEN_TILE_ITEM = ITEMS.register("ashen_tile", () -> new BlockItem(ASHEN_TILE.get(), new Item.Properties()));
+	static { ASHEN_TILE_DECO.makeItems(); }
+	public static final RegistryObject<Item> SEALED_PLANKS_ITEM = ITEMS.register("sealed_planks", () -> new BlockItem(SEALED_PLANKS.get(), new Item.Properties()));
+	static { SEALED_PLANKS_DECO.makeItems(); }
+	public static final RegistryObject<Item> REINFORCED_SEALED_PLANKS_ITEM = ITEMS.register("reinforced_sealed_planks", () -> new BlockItem(REINFORCED_SEALED_PLANKS.get(), new Item.Properties()));
+	public static final RegistryObject<Item> SEALED_WOOD_TILE_ITEM = ITEMS.register("sealed_wood_tile", () -> new BlockItem(SEALED_WOOD_TILE.get(), new Item.Properties()));
+	static { SEALED_WOOD_TILE_DECO.makeItems(); }
+	public static final RegistryObject<Item> SEALED_WOOD_PILLAR_ITEM = ITEMS.register("sealed_wood_pillar", () -> new BlockItem(SEALED_WOOD_PILLAR.get(), new Item.Properties()));
+	public static final RegistryObject<Item> SEALED_WOOD_KEG_ITEM = ITEMS.register("sealed_wood_keg", () -> new BlockItem(SEALED_WOOD_KEG.get(), new Item.Properties()));
+	public static final RegistryObject<Item> SOLIDIFIED_METAL_ITEM = ITEMS.register("solidified_metal", () -> new BlockItem(SOLIDIFIED_METAL.get(), new Item.Properties()));
+	public static final RegistryObject<Item> METAL_PLATFORM_ITEM = ITEMS.register("metal_platform", () -> new BlockItem(METAL_PLATFORM.get(), new Item.Properties()));
+	static { METAL_PLATFORM_DECO.makeItems(); }
+	public static final RegistryObject<Item> EMBER_LANTERN_ITEM = ITEMS.register("ember_lantern", () -> new BlockItem(EMBER_LANTERN.get(), new Item.Properties()));
 
 	//fluids
 	public static final FluidStuff MOLTEN_IRON = addFluid("Molten Iron", new FluidInfo("molten_iron", 0xC72913, 0.1F, 1.5F), MoltenMetalFluidType::new, LiquidBlock::new,
@@ -1118,16 +1127,19 @@ public class RegistryManager {
 		public String name;
 
 		public final RegistryObject<Block> BLOCK;
-		public final RegistryObject<Item> ITEM;
+		public RegistryObject<Item> ITEM;
 		public final RegistryObject<BlockEntityType<CrystalSeedBlockEntity>> BLOCKENTITY;
 
 		public MetalCrystalSeed(String type) {
 			this.name = type;
 
 			BLOCK = BLOCKS.register(type + "_crystal_seed", () -> new CrystalSeedBlock(Properties.of().mapColor(MapColor.NONE).sound(SoundType.AMETHYST).requiresCorrectToolForDrops().strength(1.6f).noOcclusion(), type));
-			ITEM = ITEMS.register(type + "_crystal_seed", () -> new BlockItem(BLOCK.get(), new Item.Properties()));
 			BLOCKENTITY = BLOCK_ENTITY_TYPES.register(type + "_crystal_seed", () -> BlockEntityType.Builder.of((pos, state) -> new CrystalSeedBlockEntity(pos, state, type), BLOCK.get()).build(null));
 			seeds.put(type, this);
+		}
+
+		public void makeItem() {
+			ITEM = ITEMS.register(name + "_crystal_seed", () -> new BlockItem(BLOCK.get(), new Item.Properties()));
 		}
 	}
 }
