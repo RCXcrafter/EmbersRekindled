@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:gears"
+      }
+    }
+  ],
+  "key": {
+    "X": {
+      "item": "embers:caminite_blend"
+    }
+  },
+  "pattern": [
+    "X X",
+    " X ",
+    "X X"
+  ],
+  "result": {
+    "item": "embers:raw_gear_stamp"
+  },
+  "show_notification": true
+}

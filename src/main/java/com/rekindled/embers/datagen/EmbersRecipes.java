@@ -364,6 +364,13 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('X', RegistryManager.CAMINITE_BLEND.get())
 		.unlockedBy("has_caminite", has(RegistryManager.CAMINITE_BLEND.get()))
 		.save(consumer, getResource("raw_plate_stamp"));
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.RAW_GEAR_STAMP.get())
+		.pattern("X X")
+		.pattern(" X ")
+		.pattern("X X")
+		.define('X', RegistryManager.CAMINITE_BLEND.get())
+		.unlockedBy("has_caminite", has(RegistryManager.CAMINITE_BLEND.get()))
+		.save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(itemTag("forge", "gears"))).build(consumer), getResource("raw_gear_stamp"));
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegistryManager.CAMINITE_BRICKS.get())
 		.pattern("XX")
@@ -401,10 +408,13 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.unlockedBy("has_raw_nugget_stamp", has(RegistryManager.RAW_NUGGET_STAMP.get())).save(consumer, getResource("nugget_stamp"));
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(RegistryManager.RAW_PLATE_STAMP.get()), RecipeCategory.MISC, RegistryManager.PLATE_STAMP.get(), 0.1F, 200)
 		.unlockedBy("has_raw_plate_stamp", has(RegistryManager.RAW_PLATE_STAMP.get())).save(consumer, getResource("plate_stamp"));
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(RegistryManager.RAW_GEAR_STAMP.get()), RecipeCategory.MISC, RegistryManager.GEAR_STAMP.get(), 0.1F, 200)
+		.unlockedBy("has_raw_gear_stamp", has(RegistryManager.RAW_GEAR_STAMP.get())).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(itemTag("forge", "gears"))).build(consumer), getResource("gear_stamp"));
 
-		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegistryManager.RAW_CAMINITE_BLOCK.get())
-		.pattern("XX")
-		.pattern("XX")
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegistryManager.RAW_CAMINITE_BLOCK.get(), 3)
+		.pattern("XXX")
+		.pattern("XXX")
+		.pattern("XXX")
 		.define('X', RegistryManager.CAMINITE_BLEND.get())
 		.unlockedBy("has_caminite", has(RegistryManager.CAMINITE_BLEND.get()))
 		.save(consumer, getResource("raw_caminite_block"));
@@ -1486,15 +1496,18 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		TagKey<Item> nugget = itemTag("forge", "nuggets/" + name);
 		TagKey<Item> block = itemTag("forge", "storage_blocks/" + name);
 		TagKey<Item> plate = itemTag("forge", "plates/" + name);
+		TagKey<Item> gear = itemTag("forge", "gears/" + name);
 		//melting
 		MeltingRecipeBuilder.create(ingot).domain(Embers.MODID).folder(meltingFolder).output(fluid, FluidAmounts.INGOT_AMOUNT).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(ingot)).build(consumer));
 		MeltingRecipeBuilder.create(nugget).domain(Embers.MODID).folder(meltingFolder).output(fluid, FluidAmounts.NUGGET_AMOUNT).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(nugget)).build(consumer));
 		MeltingRecipeBuilder.create(block).domain(Embers.MODID).folder(meltingFolder).output(fluid, FluidAmounts.BLOCK_AMOUNT).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(block)).build(consumer));
 		MeltingRecipeBuilder.create(plate).domain(Embers.MODID).folder(meltingFolder).output(fluid, FluidAmounts.PLATE_AMOUNT).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(plate)).build(consumer));
+		MeltingRecipeBuilder.create(gear).domain(Embers.MODID).folder(meltingFolder).output(fluid, FluidAmounts.GEAR_AMOUNT).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(gear)).build(consumer));
 		//stamping
 		StampingRecipeBuilder.create(ingot).domain(Embers.MODID).folder(stampingFolder).stamp(RegistryManager.INGOT_STAMP.get()).fluid(fluidTag("forge", "molten_" + name), FluidAmounts.INGOT_AMOUNT).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(ingot)).build(consumer));
 		StampingRecipeBuilder.create(nugget).domain(Embers.MODID).folder(stampingFolder).stamp(RegistryManager.NUGGET_STAMP.get()).fluid(fluidTag("forge", "molten_" + name), FluidAmounts.NUGGET_AMOUNT).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(nugget)).build(consumer));
 		StampingRecipeBuilder.create(plate).domain(Embers.MODID).folder(stampingFolder).stamp(RegistryManager.PLATE_STAMP.get()).fluid(fluidTag("forge", "molten_" + name), FluidAmounts.PLATE_AMOUNT).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(plate)).build(consumer));
+		StampingRecipeBuilder.create(gear).domain(Embers.MODID).folder(stampingFolder).stamp(RegistryManager.GEAR_STAMP.get()).fluid(fluidTag("forge", "molten_" + name), FluidAmounts.GEAR_AMOUNT).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(gear)).build(consumer));
 	}
 
 	public void blockIngotNuggetCompression(String name, Item block, Item ingot, Item nugget, Consumer<FinishedRecipe> consumer) {

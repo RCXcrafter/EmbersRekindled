@@ -1,0 +1,22 @@
+{
+  "type": "embers:stamping",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:gears/electrum"
+      }
+    }
+  ],
+  "fluid": {
+    "amount": 180,
+    "tag": "forge:molten_electrum"
+  },
+  "output": {
+    "tag": "forge:gears/electrum"
+  },
+  "stamp": {
+    "item": "embers:gear_stamp"
+  }
+}

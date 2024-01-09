@@ -205,12 +205,14 @@ public class EmbersLang extends LanguageProvider {
 		addItem(RegistryManager.RAW_INGOT_STAMP, "Raw Ingot Stamp");
 		addItem(RegistryManager.RAW_NUGGET_STAMP, "Raw Nugget Stamp");
 		addItem(RegistryManager.RAW_PLATE_STAMP, "Raw Plate Stamp");
+		addItem(RegistryManager.RAW_GEAR_STAMP, "Raw Gear Stamp");
 
 		addItem(RegistryManager.CAMINITE_PLATE, "Caminite Plate");
 		addItem(RegistryManager.FLAT_STAMP, "Flat Stamp");
 		addItem(RegistryManager.INGOT_STAMP, "Ingot Stamp");
 		addItem(RegistryManager.NUGGET_STAMP, "Nugget Stamp");
 		addItem(RegistryManager.PLATE_STAMP, "Plate Stamp");
+		addItem(RegistryManager.GEAR_STAMP, "Gear Stamp");
 
 		addItem(RegistryManager.IRON_ASPECTUS, "Iron Aspectus");
 		addItem(RegistryManager.COPPER_ASPECTUS, "Copper Aspectus");

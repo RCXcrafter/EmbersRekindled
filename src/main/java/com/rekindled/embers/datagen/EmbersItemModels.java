@@ -92,12 +92,14 @@ public class EmbersItemModels extends ItemModelProvider {
 		itemWithTexture(RegistryManager.RAW_INGOT_STAMP, "ingot_stamp_raw");
 		itemWithTexture(RegistryManager.RAW_NUGGET_STAMP, "nugget_stamp_raw");
 		itemWithTexture(RegistryManager.RAW_PLATE_STAMP, "plate_stamp_raw");
+		itemWithTexture(RegistryManager.RAW_GEAR_STAMP, "gear_stamp_raw");
 
 		itemWithTexture(RegistryManager.CAMINITE_PLATE, "plate_caminite");
 		basicItem(RegistryManager.FLAT_STAMP.get());
 		basicItem(RegistryManager.INGOT_STAMP.get());
 		basicItem(RegistryManager.NUGGET_STAMP.get());
 		basicItem(RegistryManager.PLATE_STAMP.get());
+		basicItem(RegistryManager.GEAR_STAMP.get());
 
 		itemWithTexture(RegistryManager.IRON_ASPECTUS, "aspectus_iron");
 		itemWithTexture(RegistryManager.COPPER_ASPECTUS, "aspectus_copper");

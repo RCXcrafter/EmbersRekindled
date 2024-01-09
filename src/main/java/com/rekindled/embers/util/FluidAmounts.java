@@ -13,6 +13,7 @@ public class FluidAmounts {
 	public static final int ORE_AMOUNT = RAW_AMOUNT * 2;
 	public static final int RAW_BLOCK_AMOUNT = RAW_AMOUNT * 9;
 	public static final int PLATE_AMOUNT = INGOT_AMOUNT;
+	public static final int GEAR_AMOUNT = INGOT_AMOUNT * 2;
 
 	public static String getIngotTooltip(int amount) {
 		String tooltip = "";
