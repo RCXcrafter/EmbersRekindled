@@ -34,9 +34,9 @@ public interface IEmbersAPI {
 
 	Pair<BlockPos, Direction> getHammerTarget(Player player);
 
-	void registerLens(Item item);
+	void registerLens(Ingredient ingredient);
 
-	void registerWearableLens(Item item);
+	void registerWearableLens(Ingredient ingredient);
 
 	void registerLens(Predicate<Player> predicate);
 

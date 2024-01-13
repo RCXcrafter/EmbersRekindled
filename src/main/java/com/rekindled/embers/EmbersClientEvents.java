@@ -14,7 +14,6 @@ import com.rekindled.embers.api.augment.AugmentUtil;
 import com.rekindled.embers.api.augment.IAugment;
 import com.rekindled.embers.api.block.IDial;
 import com.rekindled.embers.api.capabilities.EmbersCapabilities;
-import com.rekindled.embers.api.event.InfoGogglesEvent;
 import com.rekindled.embers.api.power.IEmberCapability;
 import com.rekindled.embers.api.power.IEmberPacketReceiver;
 import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
@@ -63,7 +62,6 @@ import net.minecraftforge.client.event.RenderLevelStageEvent;
 import net.minecraftforge.client.event.RenderTooltipEvent;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.event.TickEvent.ClientTickEvent;
@@ -209,14 +207,10 @@ public class EmbersClientEvents {
 						text.addAll(((IDial) state.getBlock()).getDisplayInfo(world, result.getBlockPos(), state, (height / 2 - 100) / 11));
 					} else if (state.getBlock() == RegistryManager.ATMOSPHERIC_GAUGE.get()) {
 						renderAtmosphericGauge(gui, graphics, player, partialTicks, width, height);
-					} else {
-						InfoGogglesEvent event = new InfoGogglesEvent(player, Misc.isWearingLens(player));
-						MinecraftForge.EVENT_BUS.post(event);
-						if (event.shouldDisplay()) {
-							BlockEntity tileEntity = world.getBlockEntity(result.getBlockPos());
-							if (tileEntity != null) {
-								addCapabilityInformation(text, state, tileEntity, facing);
-							}
+					} else if (Misc.isWearingLens(player)) {
+						BlockEntity tileEntity = world.getBlockEntity(result.getBlockPos());
+						if (tileEntity != null) {
+							addCapabilityInformation(text, state, tileEntity, facing);
 						}
 					}
 					if (!text.isEmpty()) {

@@ -6,7 +6,6 @@ import java.util.function.Consumer;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.rekindled.embers.Embers;
-import com.rekindled.embers.api.EmbersAPI;
 import com.rekindled.embers.model.AshenArmorModel;
 
 import net.minecraft.ChatFormatting;
@@ -27,9 +26,6 @@ public class AshenArmorItem extends ArmorItem {
 
 	public AshenArmorItem(ArmorMaterial material, Type type, Properties properties) {
 		super(material, type, properties);
-		if (type == Type.HELMET) {
-			EmbersAPI.registerWearableLens(this);
-		}
 	}
 
 	@Override

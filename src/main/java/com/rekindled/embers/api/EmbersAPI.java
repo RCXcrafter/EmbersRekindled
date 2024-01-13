@@ -52,12 +52,12 @@ public class EmbersAPI {
 		return IMPL.getHammerTarget(player);
 	}
 
-	public static void registerLens(Item item) {
-		IMPL.registerLens(item);
+	public static void registerLens(Ingredient ingredient) {
+		IMPL.registerLens(ingredient);
 	}
 
-	public static void registerWearableLens(Item item) {
-		IMPL.registerWearableLens(item);
+	public static void registerWearableLens(Ingredient ingredient) {
+		IMPL.registerWearableLens(ingredient);
 	}
 
 	public static void registerLens(Predicate<Player> predicate) {

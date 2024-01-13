@@ -1,12 +1,9 @@
 package com.rekindled.embers.augment;
 
+import com.rekindled.embers.api.EmbersAPI;
 import com.rekindled.embers.api.augment.AugmentUtil;
-import com.rekindled.embers.api.event.InfoGogglesEvent;
 
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class TinkerLensAugment extends AugmentBase {
 
@@ -14,8 +11,12 @@ public class TinkerLensAugment extends AugmentBase {
 
 	public TinkerLensAugment(ResourceLocation name, boolean inverted) {
 		super(name, 0.0);
-		MinecraftForge.EVENT_BUS.register(this);
+		//MinecraftForge.EVENT_BUS.register(this);
 		this.inverted = inverted;
+		if (!inverted)
+			EmbersAPI.registerLens((player) -> {
+				return AugmentUtil.getArmorAugmentLevel(player, this) > 0;
+			});
 	}
 
 	@Override
@@ -23,11 +24,11 @@ public class TinkerLensAugment extends AugmentBase {
 		return false;
 	}
 
-	@SubscribeEvent
+	/*@SubscribeEvent
 	public void shouldShowInfo(InfoGogglesEvent event) {
 		Player player = event.getPlayer();
 		int level = AugmentUtil.getArmorAugmentLevel(player, this);
 		if (level > 0)
 			event.setShouldDisplay(!inverted);
-	}
+	}*/
 }

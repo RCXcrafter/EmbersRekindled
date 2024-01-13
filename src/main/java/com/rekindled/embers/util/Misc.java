@@ -17,6 +17,7 @@ import org.joml.Vector3f;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.rekindled.embers.ConfigManager;
+import com.rekindled.embers.api.event.InfoGogglesEvent;
 
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -48,6 +49,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.IItemHandler;
@@ -98,12 +100,15 @@ public class Misc {
 	}
 
 	public static boolean isWearingLens(Player player) {
+		boolean wearingLens = false;
 		for (Predicate<Player> predicate : IS_WEARING_LENS) {
 			if (predicate.test(player)) {
-				return true;
+				wearingLens = true;
 			}
 		}
-		return false;
+		InfoGogglesEvent event = new InfoGogglesEvent(player, wearingLens);
+		MinecraftForge.EVENT_BUS.post(event);
+		return event.shouldDisplay();
 	}
 
 	public static double getEmberResonance(ItemStack stack) {

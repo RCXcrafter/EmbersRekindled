@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 
 import org.apache.commons.lang3.tuple.Pair;
 
+import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.EmbersAPI;
 import com.rekindled.embers.api.IEmbersAPI;
 import com.rekindled.embers.api.augment.AugmentUtil;
@@ -93,13 +94,18 @@ public class EmbersAPIImpl implements IEmbersAPI {
 	}
 
 	@Override
-	public void registerLens(Item item) {
-		Misc.IS_WEARING_LENS.add((player) -> player.getMainHandItem().getItem() == item || player.getOffhandItem().getItem() == item);
+	public void registerLens(Ingredient ingredient) {
+		Misc.IS_WEARING_LENS.add((player) -> ingredient.test(player.getMainHandItem()) || ingredient.test(player.getOffhandItem()));
 	}
 
 	@Override
-	public void registerWearableLens(Item item) {
-		Misc.IS_WEARING_LENS.add((player) -> player.getInventory().armor.get(EquipmentSlot.HEAD.getIndex()).getItem() == item);
+	public void registerWearableLens(Ingredient ingredient) {
+		Misc.IS_WEARING_LENS.add((player) -> {
+			if (ingredient.test(player.getInventory().armor.get(EquipmentSlot.HEAD.getIndex()))) {
+				return AugmentUtil.getAugmentLevel(player.getInventory().armor.get(EquipmentSlot.HEAD.getIndex()), RegistryManager.SMOKY_LENS_AUGMENT) < 1;
+			}
+			return false;
+		});
 	}
 
 	@Override

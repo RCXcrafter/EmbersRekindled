@@ -195,7 +195,6 @@ import com.rekindled.embers.item.GlimmerCrystalItem;
 import com.rekindled.embers.item.GlimmerLampItem;
 import com.rekindled.embers.item.InflictorGemItem;
 import com.rekindled.embers.item.TinkerHammerItem;
-import com.rekindled.embers.item.TinkerLensItem;
 import com.rekindled.embers.item.TyrfingItem;
 import com.rekindled.embers.particle.AlchemyCircleParticleOptions;
 import com.rekindled.embers.particle.GlowParticleOptions;
@@ -512,7 +511,7 @@ public class RegistryManager {
 
 	//items
 	public static final RegistryObject<Item> TINKER_HAMMER = ITEMS.register("tinker_hammer", () -> new TinkerHammerItem(new Item.Properties().stacksTo(1)));
-	public static final RegistryObject<Item> TINKER_LENS = ITEMS.register("tinker_lens", () -> new TinkerLensItem(new Item.Properties().stacksTo(1)));
+	public static final RegistryObject<Item> TINKER_LENS = ITEMS.register("tinker_lens", () -> new Item(new Item.Properties().stacksTo(1)));
 	public static final RegistryObject<Item> SMOKY_TINKER_LENS = ITEMS.register("smoky_tinker_lens", () -> new Item(new Item.Properties().stacksTo(1)));
 	public static final RegistryObject<Item> ANCIENT_CODEX = ITEMS.register("ancient_codex", () -> new AncientCodexItem(new Item.Properties().stacksTo(1)));
 	public static final RegistryObject<Item> ATMOSPHERIC_GAUGE_ITEM = ITEMS.register("atmospheric_gauge", () -> new BlockItem(ATMOSPHERIC_GAUGE.get(), new Item.Properties().stacksTo(1)));
@@ -1009,6 +1008,9 @@ public class RegistryManager {
 			moltenMetalFluidInteractions(MOLTEN_ALUMINUM.TYPE.get());
 			moltenMetalFluidInteractions(MOLTEN_BRONZE.TYPE.get());
 			moltenMetalFluidInteractions(MOLTEN_ELECTRUM.TYPE.get());
+
+			EmbersAPI.registerLens(Ingredient.of(TINKER_LENS.get()));
+			EmbersAPI.registerWearableLens(Ingredient.of(ASHEN_GOGGLES.get()));
 		});
 	}
 
