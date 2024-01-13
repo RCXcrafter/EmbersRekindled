@@ -51,7 +51,7 @@ public abstract class MechEdgeBlockBase extends Block implements SimpleWaterlogg
 			BlockPos centerPos = pos.offset(state.getValue(EDGE).centerPos);
 			if (level.getBlockState(centerPos).getBlock() == getCenterBlock()) {
 				//the center block takes care of removing the remaining edges
-				level.destroyBlock(centerPos, true);
+				level.destroyBlock(centerPos, false);
 			}
 			super.onRemove(state, level, pos, newState, isMoving);
 		}

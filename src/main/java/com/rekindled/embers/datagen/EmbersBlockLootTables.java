@@ -100,7 +100,8 @@ public class EmbersBlockLootTables extends BlockLootSubProvider {
 		dropSelf(RegistryManager.ITEM_PIPE.get());
 		dropSelf(RegistryManager.ITEM_EXTRACTOR.get());
 		dropSelf(RegistryManager.EMBER_BORE.get());
-		add(RegistryManager.EMBER_BORE_EDGE.get(), noDrop());
+		dropOther(RegistryManager.EMBER_BORE_EDGE.get(), RegistryManager.EMBER_BORE.get());
+		//add(RegistryManager.EMBER_BORE_EDGE.get(), noDrop());
 		dropSelf(RegistryManager.MECHANICAL_CORE.get());
 		dropSelf(RegistryManager.EMBER_ACTIVATOR.get());
 		dropSelf(RegistryManager.MELTER.get());
@@ -120,17 +121,17 @@ public class EmbersBlockLootTables extends BlockLootSubProvider {
 		dropSelf(RegistryManager.BEAM_SPLITTER.get());
 		dropSelf(RegistryManager.ITEM_VACUUM.get());
 		dropSelf(RegistryManager.HEARTH_COIL.get());
-		add(RegistryManager.HEARTH_COIL_EDGE.get(), noDrop());
+		dropOther(RegistryManager.HEARTH_COIL_EDGE.get(), RegistryManager.HEARTH_COIL.get());
 		dropSelf(RegistryManager.RESERVOIR.get());
-		add(RegistryManager.RESERVOIR_EDGE.get(), noDrop());
+		dropOther(RegistryManager.RESERVOIR_EDGE.get(), RegistryManager.RESERVOIR.get());
 		dropSelf(RegistryManager.CAMINITE_RING.get());
-		add(RegistryManager.CAMINITE_RING_EDGE.get(), noDrop());
+		dropOther(RegistryManager.CAMINITE_RING_EDGE.get(), RegistryManager.CAMINITE_RING.get());
 		dropSelf(RegistryManager.CAMINITE_GAUGE.get());
-		add(RegistryManager.CAMINITE_GAUGE_EDGE.get(), noDrop());
+		dropOther(RegistryManager.CAMINITE_GAUGE_EDGE.get(), RegistryManager.CAMINITE_GAUGE.get());
 		dropSelf(RegistryManager.CAMINITE_VALVE.get());
-		add(RegistryManager.CAMINITE_VALVE_EDGE.get(), noDrop());
+		dropOther(RegistryManager.CAMINITE_VALVE_EDGE.get(), RegistryManager.CAMINITE_VALVE.get());
 		dropSelf(RegistryManager.CRYSTAL_CELL.get());
-		add(RegistryManager.CRYSTAL_CELL_EDGE.get(), noDrop());
+		dropOther(RegistryManager.CRYSTAL_CELL_EDGE.get(), RegistryManager.CRYSTAL_CELL.get());
 		dropSelf(RegistryManager.CLOCKWORK_ATTENUATOR.get());
 		dropSelf(RegistryManager.GEOLOGIC_SEPARATOR.get());
 		dropSelf(RegistryManager.COPPER_CHARGER.get());
@@ -155,7 +156,7 @@ public class EmbersBlockLootTables extends BlockLootSubProvider {
 		dropSelf(RegistryManager.TIN_CRYSTAL_SEED.BLOCK.get());
 		dropSelf(RegistryManager.DAWNSTONE_CRYSTAL_SEED.BLOCK.get());
 		dropSelf(RegistryManager.FIELD_CHART.get());
-		add(RegistryManager.FIELD_CHART_EDGE.get(), noDrop());
+		dropOther(RegistryManager.FIELD_CHART_EDGE.get(), RegistryManager.FIELD_CHART.get());
 		dropSelf(RegistryManager.IGNEM_REACTOR.get());
 		dropSelf(RegistryManager.CATALYSIS_CHAMBER.get());
 		dropSelf(RegistryManager.COMBUSTION_CHAMBER.get());
@@ -164,7 +165,7 @@ public class EmbersBlockLootTables extends BlockLootSubProvider {
 		dropSelf(RegistryManager.DAWNSTONE_ANVIL.get());
 		dropSelf(RegistryManager.AUTOMATIC_HAMMER.get());
 		dropSelf(RegistryManager.INFERNO_FORGE.get());
-		add(RegistryManager.INFERNO_FORGE_EDGE.get(), noDrop());
+		dropOther(RegistryManager.INFERNO_FORGE_EDGE.get(), RegistryManager.INFERNO_FORGE.get());
 		dropSelf(RegistryManager.MNEMONIC_INSCRIBER.get());
 	}
 
