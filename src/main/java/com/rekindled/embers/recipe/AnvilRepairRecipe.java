@@ -6,6 +6,7 @@ import java.util.List;
 import org.jetbrains.annotations.Nullable;
 
 import com.google.gson.JsonObject;
+import com.rekindled.embers.datagen.EmbersItemTags;
 import com.rekindled.embers.util.Misc;
 
 import net.minecraft.core.Holder;
@@ -26,6 +27,7 @@ public class AnvilRepairRecipe implements IDawnstoneAnvilRecipe, IVisuallySplitR
 	public final ResourceLocation id;
 
 	public static List<IDawnstoneAnvilRecipe> visualRecipes = new ArrayList<IDawnstoneAnvilRecipe>();
+	Ingredient blacklist = Ingredient.of(EmbersItemTags.REPAIR_BLACKLIST);
 
 	public AnvilRepairRecipe(ResourceLocation id) {
 		this.id = id;
@@ -34,7 +36,7 @@ public class AnvilRepairRecipe implements IDawnstoneAnvilRecipe, IVisuallySplitR
 	@Override
 	public boolean matches(Container context, Level pLevel) {
 		ItemStack tool = context.getItem(0);
-		return tool.isRepairable() && tool.isDamaged() && tool.getItem().isValidRepairItem(tool, context.getItem(1));
+		return tool.isRepairable() && tool.isDamaged() && !blacklist.test(tool) && tool.getItem().isValidRepairItem(tool, context.getItem(1));
 	}
 
 	@Override
@@ -50,7 +52,7 @@ public class AnvilRepairRecipe implements IDawnstoneAnvilRecipe, IVisuallySplitR
 		for (Holder<Item> holder : BuiltInRegistries.ITEM.asHolderIdMap()) {
 			Ingredient repairMaterial = Misc.getRepairIngredient(holder.get());
 			ItemStack toolStack = new ItemStack(holder.get());
-			if (!repairMaterial.isEmpty() && toolStack.isRepairable()) {
+			if (!repairMaterial.isEmpty() && toolStack.isRepairable() && !blacklist.test(toolStack)) {
 				ItemStack brokenTool = toolStack.copy();
 				brokenTool.setDamageValue(brokenTool.getMaxDamage() / 2);
 				visualRecipes.add(new AnvilDisplayRecipe(id, List.of(toolStack), List.of(brokenTool), repairMaterial));

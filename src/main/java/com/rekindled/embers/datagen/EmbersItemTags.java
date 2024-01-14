@@ -22,6 +22,8 @@ public class EmbersItemTags extends ItemTagsProvider {
 
 	public static final TagKey<Item> PIPE_UNCLOGGER = ItemTags.create(new ResourceLocation(Embers.MODID, "pipe_uncloggers"));
 	public static final TagKey<Item> MATERIA_BLACKLIST = ItemTags.create(new ResourceLocation(Embers.MODID, "materia_repair_blacklist"));
+	public static final TagKey<Item> BREAKDOWN_BLACKLIST = ItemTags.create(new ResourceLocation(Embers.MODID, "anvil_breakdown_blacklist"));
+	public static final TagKey<Item> REPAIR_BLACKLIST = ItemTags.create(new ResourceLocation(Embers.MODID, "anvil_repair_blacklist"));
 
 	//this tag is only for recipes
 	public static final TagKey<Item> TINKER_HAMMER = ItemTags.create(new ResourceLocation(Embers.MODID, "tinker_hammer"));
