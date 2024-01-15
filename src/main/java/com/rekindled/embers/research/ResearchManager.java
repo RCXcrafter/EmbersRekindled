@@ -39,8 +39,8 @@ public class ResearchManager {
 	public static final double PAGE_ICON_SIZE = 48;
 	public static List<ResearchCategory> researches = new ArrayList<ResearchCategory>();
 
-	public static ResearchBase dials, pressureRefinery, mini_boiler, ores, hammer, ancient_golem, gauge, caminite, bore, crystals, activator, tinker_lens, reaction_chamber,//WORLD
-	copper_cell, emitters, relays, dawnstone, melter, stamper, mixer, breaker, hearth_coil, access, pump, clockwork_attenuator, geo_separator, //MECHANISMS
+	public static ResearchBase dials, ores, hammer, ancient_golem, gauge, caminite, access, bore, crystals, activator, tinker_lens, reaction_chamber,//WORLD
+	copper_cell, emitters, relays, dawnstone, melter, stamper, mixer, breaker, hearth_coil, pressureRefinery, mini_boiler, pump, clockwork_attenuator, geo_separator, //MECHANISMS
 	beam_cannon, pulser, splitter, crystal_cell, cinder_staff, clockwork_tools, blazing_ray, charger, jars, alchemy, cinder_plinth, aspecti, ember_siphon, //METALLURGY
 	tyrfing, waste, slate, mnemonic_inscriber, catalytic_plug, cluster, ashen_cloak, inflictor, materia, field_chart, glimmer, metallurgic_dust, //ALCHEMY
 	augments, inferno_forge, heat, dawnstone_anvil, autohammer, dismantling //SMITHING
@@ -174,11 +174,10 @@ public class ResearchManager {
 		ancient_golem = new ResearchBase("ancient_golem", ItemStack.EMPTY, 0, 0).setIconBackground(PAGE_ICONS, PAGE_ICON_SIZE *1, PAGE_ICON_SIZE *0);
 		gauge = new ResearchBase("gauge", new ItemStack(RegistryManager.ATMOSPHERIC_GAUGE_ITEM.get()), 4, 3).addAncestor(ores);
 		caminite = new ResearchBase("caminite", new ItemStack(RegistryManager.CAMINITE_BRICK.get()), 6, 7);
-		bore = new ResearchBase("bore", new ItemStack(RegistryManager.EMBER_BORE_ITEM.get()), 9, 0).addAncestor(hammer).addAncestor(caminite);
+		access = new ResearchBase("access", new ItemStack(RegistryManager.MECHANICAL_CORE_ITEM.get()), 7, 2).addAncestor(caminite);
+		bore = new ResearchBase("bore", new ItemStack(RegistryManager.EMBER_BORE_ITEM.get()), 9, 0).addAncestor(hammer).addAncestor(access);
 		crystals = new ResearchBase("crystals", new ItemStack(RegistryManager.EMBER_CRYSTAL.get()), 12, 3).addAncestor(bore);
-		activator = new ResearchBase("activator", new ItemStack(RegistryManager.EMBER_ACTIVATOR_ITEM.get()), 9, 5).addAncestor(crystals);
-		pressureRefinery = new ResearchBase("pressure_refinery", new ItemStack(RegistryManager.PRESSURE_REFINERY_ITEM.get()), 9, 7).addAncestor(activator);
-		mini_boiler = new ResearchBase("mini_boiler", new ItemStack(RegistryManager.MINI_BOILER_ITEM.get()), 11, 7).addAncestor(activator);
+		activator = new ResearchBase("activator", new ItemStack(RegistryManager.EMBER_ACTIVATOR_ITEM.get()), 10, 6).addAncestor(crystals);
 		dials = new ResearchBase("dials", new ItemStack(RegistryManager.EMBER_DIAL_ITEM.get()), 5, 5).addAncestor(hammer);
 		tinker_lens = new ResearchBase("tinker_lens", new ItemStack(RegistryManager.TINKER_LENS.get()),4,7).addAncestor(hammer);
 		//reaction_chamber = new ResearchBase("reaction_chamber", new ItemStack(RegistryManager.reaction_chamber), 12, 5).addAncestor(mini_boiler);
@@ -209,13 +208,14 @@ public class ResearchManager {
 		melter = new ResearchBase("melter", new ItemStack(RegistryManager.MELTER_ITEM.get()), 2, 0).addAncestor(emitters);
 		geo_separator = new ResearchBase("geo_separator", new ItemStack(RegistryManager.GEOLOGIC_SEPARATOR_ITEM.get()), 0, 0).addAncestor(melter);
 		stamper = new ResearchBase("stamper", new ItemStack(RegistryManager.STAMPER_ITEM.get()), 3, 4).addAncestor(melter).addAncestor(emitters);
-		access = new ResearchBase("access", new ItemStack(RegistryManager.MECHANICAL_CORE_ITEM.get()), 7, 5).addAncestor(stamper);
-		hearth_coil = new ResearchBase("hearth_coil", new ItemStack(RegistryManager.HEARTH_COIL.get()), 10, 1).addAncestor(access);
 		mixer = new ResearchBase("mixer", new ItemStack(RegistryManager.MIXER_CENTRIFUGE_ITEM.get()), 5, 2).addAncestor(stamper).addAncestor(melter);
-		pump = new ResearchBase("pump", new ItemStack(RegistryManager.MECHANICAL_PUMP_ITEM.get()), 8, 0).addAncestor(mixer);
 		//breaker = new ResearchBase("breaker", new ItemStack(RegistryManager.breaker), 4, 7).addAncestor(stamper);
 		dawnstone = new ResearchBase("dawnstone", new ItemStack(RegistryManager.DAWNSTONE_INGOT.get()), 11, 4).addAncestor(mixer);
+		pressureRefinery = new ResearchBase("pressure_refinery", new ItemStack(RegistryManager.PRESSURE_REFINERY_ITEM.get()), 10, 0).addAncestor(dawnstone);
+		pump = new ResearchBase("pump", new ItemStack(RegistryManager.MECHANICAL_PUMP_ITEM.get()), 7, 0).addAncestor(pressureRefinery);
+		mini_boiler = new ResearchBase("mini_boiler", new ItemStack(RegistryManager.MINI_BOILER_ITEM.get()), 8, 5).addAncestor(pump);
 		copper_cell = new ResearchBase("copper_cell", new ItemStack(RegistryManager.COPPER_CELL_ITEM.get()), 0, 5).addAncestor(emitters);
+		hearth_coil = new ResearchBase("hearth_coil", new ItemStack(RegistryManager.HEARTH_COIL.get()), 6, 6).addAncestor(copper_cell);
 		clockwork_attenuator = new ResearchBase("clockwork_attenuator", new ItemStack(RegistryManager.CLOCKWORK_ATTENUATOR.get()), 12, 7);
 
 		//METALLURGY
@@ -399,12 +399,11 @@ public class ResearchManager {
 		.addResearch(gauge)
 		.addResearch(tinker_lens)
 		.addResearch(caminite)
+		.addResearch(access)
 		.addResearch(bore)
 		.addResearch(pipeSwitch)
 		.addResearch(crystals)
 		.addResearch(activator)
-		.addResearch(pressureRefinery)
-		.addResearch(mini_boiler)
 		//.addResearch(reaction_chamber)
 		.addResearch(dials);
 		categoryMechanisms
@@ -413,7 +412,8 @@ public class ResearchManager {
 		.addResearch(hearth_coil)
 		.addResearch(mixer)
 		.addResearch(pump)
-		.addResearch(access)
+		.addResearch(pressureRefinery)
+		.addResearch(mini_boiler)
 		//.addResearch(mechanicalPowerSwitch)
 		//.addResearch(breaker)
 		.addResearch(dawnstone)

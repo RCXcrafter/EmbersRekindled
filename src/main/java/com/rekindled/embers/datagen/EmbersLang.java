@@ -475,7 +475,7 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".research.page.pipes.tags", "Pipe;Transport;Item;Fluid;Liquid;");
 		add(Embers.MODID + ".research.page.pipes.desc", "One of the simplest mechanisms necessary for your ambitions is the pipe, a simple means of moving materials. You have developed both iron and lead pipes: Iron Pipes can be used to transport fluids, while Lead Pipes can be used to transport items. Pipes can only insert to tanks or inventories, however: to extract, you must craft a corresponding Pump, place it adjacent to the container, and power it with redstone.");
 		add(Embers.MODID + ".research.page.routing.desc", "Items and Fluids in pipes follow simple rules to determine where they will go. They will always go forward, and will never bounce back or, heavens forbid, pop out of the pipe. At an intersection, they will always prioritize the opposite exit, so long as the other exits are weighed equally. When a tie must be broken, items and fluids will round-robin.");
-		add(Embers.MODID + ".research.page.valves.desc", "Extractors have a number of special properties, listed here: They never connect to other Extractors. When turned off, they can receive items instead of only extracting from containers. When turned on by a redstone signal, they will never accept items from pipes. This makes Extractors useful as valves in pipe systems, for flow control.");
+		add(Embers.MODID + ".research.page.valves.desc", "Extractors have a number of special properties, listed here: When turned off, they function as normal pipes. When turned on by a redstone signal, they will extract items from attached inventories and never accept items from pipes. This makes Extractors useful as valves in pipe systems, for flow control.");
 		add(Embers.MODID + ".research.page.pipe_tools.desc", "Pipes will automatically connect to other adjacent pipes. When this is not wanted, your Tinker's Hammer can be used to disconnect them. (Note that both sides can be disconnected individually) Sometimes, routing in a pipe network can go awry. When this happens, pipes will expel smoke to show that they are clogged. To unclog a pipe, simply right-click it with a stick.");
 
 		add(Embers.MODID + ".research.page.requisition", "Item Requisition");
@@ -494,7 +494,7 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".research.page.tank", "Fluid Vessel");
 		add(Embers.MODID + ".research.page.tank.title", "Liquid Container");
 		add(Embers.MODID + ".research.page.tank.tags", "Tank;Storage;Liquid;Fluid;Portable;Caminite;");
-		add(Embers.MODID + ".research.page.tank.desc", "Liquids such as water or lava are common occurrences in your world. This tank, a simple construction of metal and caminite, should be able to hold a substantial quality of any fluid, and will retain its contents when broken and replaced.");
+		add(Embers.MODID + ".research.page.tank.desc", "Liquids such as water or lava are common occurrences in your world. This tank, a simple construction of metal and caminite, should be able to hold a substantial quantity of any fluid, and will retain its contents when broken and replaced.");
 
 		add(Embers.MODID + ".research.page.bin", "Bin");
 		add(Embers.MODID + ".research.page.bin.title", "Storage Bin");
