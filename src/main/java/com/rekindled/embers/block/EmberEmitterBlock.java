@@ -158,7 +158,7 @@ public class EmberEmitterBlock extends BaseEntityBlock implements SimpleWaterlog
 			return false;
 		}
 		//always connect to floor or ceiling blocks but only on the top and bottom
-		if (state.is(EmbersBlockTags.EMITTER_CONNECTION_FLOOR)) {
+		if (state.is(EmbersBlockTags.EMITTER_CONNECTION_FLOOR) || state.is(EmbersBlockTags.EMITTER_CONNECTION_CEILING)) {
 			if (direction == Direction.DOWN && state.is(EmbersBlockTags.EMITTER_CONNECTION_CEILING)) {
 				return true;
 			}

@@ -4,6 +4,6 @@
     "minecraft:soul_torch",
     "minecraft:redstone_torch",
     "minecraft:pointed_dripstone",
-    "#minecraft:signs"
+    "#minecraft:standing_signs"
   ]
 }

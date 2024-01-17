@@ -39,6 +39,8 @@ public class EmbersBlockTags extends BlockTagsProvider {
 
 	public static final TagKey<Block> CHAMBER_CONNECTION = BlockTags.create(new ResourceLocation(Embers.MODID, "chamber_connection"));
 
+	public static final TagKey<Block> DIAL = BlockTags.create(new ResourceLocation(Embers.MODID, "dial"));
+
 	public static final TagKey<Block> MINABLE_WITH_PICKAXE_SHOVEL = BlockTags.create(new ResourceLocation(Embers.MODID, "mineable/pickaxe_shovel"));
 	public static final TagKey<Block> MINABLE_WITH_HAMMER = BlockTags.create(new ResourceLocation(Embers.MODID, "mineable/hammer"));
 
@@ -93,16 +95,18 @@ public class EmbersBlockTags extends BlockTagsProvider {
 	@Override
 	protected void addTags(HolderLookup.Provider provider) {
 		tag(EMITTER_CONNECTION).add(Blocks.LEVER, Blocks.LADDER, Blocks.IRON_BARS, Blocks.TRIPWIRE_HOOK, Blocks.WALL_TORCH, Blocks.SOUL_WALL_TORCH, Blocks.REDSTONE_WALL_TORCH, Blocks.BELL, Blocks.LANTERN, Blocks.SOUL_LANTERN, Blocks.END_ROD, Blocks.LIGHTNING_ROD, Blocks.CHAIN)
-		.add(RegistryManager.EMBER_DIAL.get(), RegistryManager.CAMINITE_LEVER.get(), RegistryManager.CAMINITE_BUTTON.get(), RegistryManager.EMBER_EMITTER.get(), RegistryManager.EMBER_RECEIVER.get(), RegistryManager.EMBER_EJECTOR.get(), RegistryManager.EMBER_FUNNEL.get(), RegistryManager.EMBER_RELAY.get(), RegistryManager.MIRROR_RELAY.get(), RegistryManager.BEAM_SPLITTER.get())
+		.add(RegistryManager.EMBER_DIAL.get(), RegistryManager.CAMINITE_LEVER.get(), RegistryManager.EMBER_EMITTER.get(), RegistryManager.EMBER_RECEIVER.get(), RegistryManager.EMBER_EJECTOR.get(), RegistryManager.EMBER_FUNNEL.get(), RegistryManager.EMBER_RELAY.get(), RegistryManager.MIRROR_RELAY.get(), RegistryManager.BEAM_SPLITTER.get())
 		.addTags(Tags.Blocks.GLASS_PANES, BlockTags.BUTTONS, Tags.Blocks.FENCES, BlockTags.WALLS, BlockTags.WALL_SIGNS)
-		.addTags(EMITTER_CONNECTION_FLOOR, EMITTER_CONNECTION_CEILING);
+		.addTags(EMITTER_CONNECTION_FLOOR, EMITTER_CONNECTION_CEILING, DIAL);
 		tag(EMITTER_CONNECTION_FLOOR).add(Blocks.TORCH, Blocks.SOUL_TORCH, Blocks.REDSTONE_TORCH, Blocks.POINTED_DRIPSTONE)
-		.addTags(BlockTags.SIGNS);
-		tag(EMITTER_CONNECTION_CEILING).add(Blocks.POINTED_DRIPSTONE);
+		.addTags(BlockTags.STANDING_SIGNS);
+		tag(EMITTER_CONNECTION_CEILING).add(Blocks.POINTED_DRIPSTONE).addTag(BlockTags.CEILING_HANGING_SIGNS);
 
 		tag(ITEM_PIPE_CONNECTION).addTag(ITEM_PIPE_CONNECTION_TOGGLEABLE);
 		//tag(ITEM_PIPE_CONNECTION).add(RegistryManager.ITEM_DROPPER.get(), RegistryManager.ITEM_VACUUM.get(), RegistryManager.ITEM_TRANSFER.get());
 		tag(ITEM_PIPE_CONNECTION_TOGGLEABLE).add(RegistryManager.ITEM_PIPE.get(), RegistryManager.ITEM_EXTRACTOR.get());
+
+		tag(BlockTags.BUTTONS).add(RegistryManager.CAMINITE_BUTTON.get());
 
 		decoTags(RegistryManager.CAMINITE_BRICKS_DECO);
 		decoTags(RegistryManager.CAMINITE_LARGE_BRICKS_DECO);
@@ -288,6 +292,8 @@ public class EmbersBlockTags extends BlockTagsProvider {
 				RegistryManager.CAMINITE_VALVE.get());
 
 		tag(CHAMBER_CONNECTION).add(RegistryManager.IGNEM_REACTOR.get());
+
+		tag(DIAL).add(RegistryManager.EMBER_DIAL.get(), RegistryManager.ITEM_DIAL.get(), RegistryManager.FLUID_DIAL.get(), RegistryManager.CLOCKWORK_ATTENUATOR.get());
 
 		tag(FLUID_PIPE_CONNECTION).addTag(FLUID_PIPE_CONNECTION_TOGGLEABLE);
 		//tag(FLUID_PIPE_CONNECTION).add(RegistryManager.FLUID_TRANSFER.get(), RegistryManager.CATALYTIC_PLUG.get());

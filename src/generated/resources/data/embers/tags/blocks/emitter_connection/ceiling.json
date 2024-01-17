@@ -1,5 +1,6 @@
 {
   "values": [
-    "minecraft:pointed_dripstone"
+    "minecraft:pointed_dripstone",
+    "#minecraft:ceiling_hanging_signs"
   ]
 }
