@@ -31,6 +31,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -53,6 +54,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class Misc {
@@ -415,5 +417,24 @@ public class Misc {
 			return armor.getMaterial().getRepairIngredient();
 		}
 		return Ingredient.EMPTY;
+	}
+
+	public static InteractionResult useItemOnInventory(IItemHandlerModifiable inventory, Level level, Player player, InteractionHand hand) {
+		ItemStack heldItem = player.getItemInHand(hand);
+		if (!heldItem.isEmpty()) {
+			ItemStack leftover = inventory.insertItem(0, heldItem, false);
+			if (!ItemStack.matches(heldItem, leftover)) {
+				player.setItemInHand(hand, leftover);
+				return InteractionResult.SUCCESS;
+			}
+		}
+		if (!inventory.getStackInSlot(0).isEmpty()) {
+			if (!level.isClientSide) {
+				level.addFreshEntity(new ItemEntity(level, player.position().x, player.position().y, player.position().z, inventory.getStackInSlot(0)));
+				inventory.setStackInSlot(0, ItemStack.EMPTY);
+			}
+			return InteractionResult.SUCCESS;
+		}
+		return InteractionResult.PASS;
 	}
 }

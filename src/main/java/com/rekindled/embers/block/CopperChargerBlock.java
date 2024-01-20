@@ -3,7 +3,6 @@ package com.rekindled.embers.block;
 import javax.annotation.Nullable;
 
 import com.rekindled.embers.RegistryManager;
-import com.rekindled.embers.api.capabilities.EmbersCapabilities;
 import com.rekindled.embers.blockentity.CopperChargerBlockEntity;
 import com.rekindled.embers.util.Misc;
 
@@ -12,7 +11,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -48,17 +46,7 @@ public class CopperChargerBlock extends BaseEntityBlock implements SimpleWaterlo
 	@Override
 	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		if (level.getBlockEntity(pos) instanceof CopperChargerBlockEntity chargerEntity) {
-			ItemStack heldItem = player.getItemInHand(hand);
-			IItemHandler cap = chargerEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, hit.getDirection()).orElse(null);
-			if (cap != null) {
-				if (heldItem.getCapability(EmbersCapabilities.EMBER_CAPABILITY, null).isPresent()) {
-					player.setItemInHand(hand, cap.insertItem(0, heldItem, level.isClientSide));
-					return InteractionResult.SUCCESS;
-				} else if (!cap.getStackInSlot(0).isEmpty() && heldItem.isEmpty()) {
-					player.setItemInHand(hand, cap.extractItem(0, 1, level.isClientSide));
-					return InteractionResult.SUCCESS;
-				}
-			}
+			return Misc.useItemOnInventory(chargerEntity.inventory, level, player, hand);
 		}
 		return InteractionResult.PASS;
 	}

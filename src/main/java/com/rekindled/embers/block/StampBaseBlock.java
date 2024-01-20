@@ -10,7 +10,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -54,26 +53,11 @@ public class StampBaseBlock extends BaseEntityBlock implements SimpleWaterlogged
 			ItemStack heldItem = player.getItemInHand(hand);
 			if (!heldItem.isEmpty()) {
 				IFluidHandler cap = stamperEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, hit.getDirection()).orElse(null);
-				if (cap != null) {
-					boolean didFill = FluidUtil.interactWithFluidHandler(player, hand, cap);
-
-					if (didFill) {
-						return InteractionResult.SUCCESS;
-					} else {
-						ItemStack leftover = stamperEntity.inventory.insertItem(0, heldItem, false);
-						if (!leftover.equals(heldItem)) {
-							player.setItemInHand(hand, leftover);
-							return InteractionResult.SUCCESS;
-						}
-					}
-				}
-			} else {
-				if (!stamperEntity.inventory.getStackInSlot(0).isEmpty() && !level.isClientSide) {
-					level.addFreshEntity(new ItemEntity(level, player.position().x, player.position().y, player.position().z, stamperEntity.inventory.getStackInSlot(0)));
-					stamperEntity.inventory.setStackInSlot(0, ItemStack.EMPTY);
+				if (cap != null && FluidUtil.interactWithFluidHandler(player, hand, cap)) {
 					return InteractionResult.SUCCESS;
 				}
 			}
+			return Misc.useItemOnInventory(stamperEntity.inventory, level, player, hand);
 		}
 		return InteractionResult.PASS;
 	}

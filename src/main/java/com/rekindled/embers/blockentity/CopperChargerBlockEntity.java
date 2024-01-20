@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
+import org.jetbrains.annotations.NotNull;
+
 import com.rekindled.embers.ConfigManager;
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
@@ -55,6 +57,11 @@ public class CopperChargerBlockEntity extends BlockEntity implements ISoundContr
 		@Override
 		public int getSlotLimit(int slot) {
 			return 1;
+		}
+
+		@Override
+		public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+			return stack.getCapability(EmbersCapabilities.EMBER_CAPABILITY, null).isPresent();
 		}
 
 		@Override

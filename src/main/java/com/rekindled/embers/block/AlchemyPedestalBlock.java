@@ -3,13 +3,12 @@ package com.rekindled.embers.block;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.blockentity.AlchemyPedestalBlockEntity;
 import com.rekindled.embers.blockentity.AlchemyPedestalTopBlockEntity;
+import com.rekindled.embers.util.Misc;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -40,20 +39,7 @@ public class AlchemyPedestalBlock extends DoubleTallMachineBlock {
 	@Override
 	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		if (level.getBlockEntity(pos) instanceof AlchemyPedestalBlockEntity pedestalEntity) {
-			ItemStack heldItem = player.getItemInHand(hand);
-			if (!heldItem.isEmpty()) {
-				ItemStack leftover = pedestalEntity.inventory.insertItem(0, heldItem, false);
-				if (!leftover.equals(heldItem)) {
-					player.setItemInHand(hand, leftover);
-					return InteractionResult.SUCCESS;
-				}
-			} else {
-				if (!pedestalEntity.inventory.getStackInSlot(0).isEmpty() && !level.isClientSide) {
-					level.addFreshEntity(new ItemEntity(level, player.position().x, player.position().y, player.position().z, pedestalEntity.inventory.getStackInSlot(0)));
-					pedestalEntity.inventory.setStackInSlot(0, ItemStack.EMPTY);
-					return InteractionResult.SUCCESS;
-				}
-			}
+			return Misc.useItemOnInventory(pedestalEntity.inventory, level, player, hand);
 		}
 		return InteractionResult.PASS;
 	}

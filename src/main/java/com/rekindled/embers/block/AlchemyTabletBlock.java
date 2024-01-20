@@ -10,9 +10,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -50,20 +48,7 @@ public class AlchemyTabletBlock extends BaseEntityBlock implements SimpleWaterlo
 	@Override
 	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		if (level.getBlockEntity(pos) instanceof AlchemyTabletBlockEntity tabletEntity) {
-			ItemStack heldItem = player.getItemInHand(hand);
-			if (!heldItem.isEmpty()) {
-				ItemStack leftover = tabletEntity.inventory.insertItem(0, heldItem, false);
-				if (!leftover.equals(heldItem)) {
-					player.setItemInHand(hand, leftover);
-					return InteractionResult.SUCCESS;
-				}
-			} else {
-				if (!tabletEntity.inventory.getStackInSlot(0).isEmpty() && !level.isClientSide) {
-					level.addFreshEntity(new ItemEntity(level, player.position().x, player.position().y, player.position().z, tabletEntity.inventory.getStackInSlot(0)));
-					tabletEntity.inventory.setStackInSlot(0, ItemStack.EMPTY);
-					return InteractionResult.SUCCESS;
-				}
-			}
+			return Misc.useItemOnInventory(tabletEntity.inventory, level, player, hand);
 		}
 		return InteractionResult.PASS;
 	}
