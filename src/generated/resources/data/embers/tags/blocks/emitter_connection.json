@@ -28,6 +28,7 @@
     "#minecraft:walls",
     "#minecraft:wall_signs",
     "#embers:emitter_connection/floor",
-    "#embers:emitter_connection/ceiling"
+    "#embers:emitter_connection/ceiling",
+    "#embers:dial"
   ]
 }

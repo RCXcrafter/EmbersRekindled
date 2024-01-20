@@ -730,12 +730,12 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".research.page.beam_cannon", "Beam Cannon");
 		add(Embers.MODID + ".research.page.beam_cannon.title", "Heat Ray");
 		add(Embers.MODID + ".research.page.beam_cannon.tags", "Alchemy;Weapon;Machine;Cannon;Projectile;Beam;Ray;Transmutation;");
-		add(Embers.MODID + ".research.page.beam_cannon.desc", "The Beam Cannon is perhaps your most dangerous device yet. When it is given enough Ember, it will fire off a beam of pure radiant heat in the direction it's facing. This beam can kill nearly any unarmored creature, and also initiate transmutation at the Exchange Tablet.");
+		add(Embers.MODID + ".research.page.beam_cannon.desc", "The Beam Cannon is perhaps your most dangerous device yet. When it is given enough Ember and powered with redstone, it will fire off a beam of pure radiant heat in the direction it's facing. This beam can kill nearly any unarmored creature, and also initiate transmutation at the Exchange Tablet.");
 
 		add(Embers.MODID + ".research.page.alchemy", "Energetic Alchemy");
 		add(Embers.MODID + ".research.page.alchemy.title", "Transmutation");
 		add(Embers.MODID + ".research.page.alchemy.tags", "Alchemy;Transmutation;Tablet;Exchange;Ash;Pedestal;Aspect;Aspectus;");
-		add(Embers.MODID + ".research.page.alchemy.desc", "Ember alchemy is truly a marvelous discovery. The first key is the Exchange Tablet: right-click on it to insert an item into it. The next is the Alchemy Pedestal: these bear aspecti on the bottom and ingredients on the top. For an alchemy recipe, place a pedestal for each needed ingredient about the Tablet, add one of the required aspecti, and strike the Tablet with the Beam Cannon.");
+		add(Embers.MODID + ".research.page.alchemy.desc", "Ember alchemy is truly a marvelous discovery. The first key is the Exchange Tablet: right-click on it to insert an item into it. The next is the Alchemy Pedestal: these bear aspecti on the bottom and ingredients on the top. For an alchemy recipe, place a pedestal for each needed ingredient about the Tablet, add one of the required aspecti on every pedestal, and strike the Tablet with the Beam Cannon.");
 
 		add(Embers.MODID + ".research.page.catalytic_plug", "Catalytic Plug");
 		add(Embers.MODID + ".research.page.catalytic_plug.title", "Overdrive Injection");
