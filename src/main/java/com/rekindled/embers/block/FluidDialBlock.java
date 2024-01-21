@@ -43,6 +43,8 @@ public class FluidDialBlock extends DialBaseBlock {
 					totalCapacity += cap.getTankCapacity(i);
 					totalContents += cap.getFluidInTank(i).getAmount();
 				}
+				if (totalContents >= totalCapacity)
+					return 15;
 				return (int) (15.0 * totalContents / totalCapacity);
 			}
 		}

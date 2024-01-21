@@ -36,7 +36,7 @@ public class EmberDialBlock extends DialBaseBlock {
 		if (blockEntity != null) {
 			IEmberCapability cap = blockEntity.getCapability(EmbersCapabilities.EMBER_CAPABILITY, state.getValue(FACING).getOpposite()).orElse(blockEntity.getCapability(EmbersCapabilities.EMBER_CAPABILITY, null).orElse(null));
 			if (cap != null) {
-				if (cap.getEmber() == cap.getEmberCapacity())
+				if (cap.getEmber() >= cap.getEmberCapacity())
 					return 15;
 				return (int) (15.0 * cap.getEmber() / cap.getEmberCapacity());
 			}

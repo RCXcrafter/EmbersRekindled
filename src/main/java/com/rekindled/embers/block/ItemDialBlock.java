@@ -43,7 +43,7 @@ public class ItemDialBlock extends DialBaseBlock {
 					contents += cap.getStackInSlot(i).getCount();
 					capacity += cap.getSlotLimit(i);
 				}
-				if (contents == capacity)
+				if (contents >= capacity)
 					return 15;
 				return (int) (15.0 * contents / capacity);
 			}

@@ -38,6 +38,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -46,6 +47,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 
 public class AlchemyTabletBlockEntity extends BlockEntity implements ISparkable, ISoundController, IExtraCapabilityInformation {
@@ -61,19 +63,7 @@ public class AlchemyTabletBlockEntity extends BlockEntity implements ISparkable,
 	public static final int SPARK_THRESHOLD = 1000;
 	public static final int PROCESSING_TIME = 40;
 
-	public ItemStackHandler inventory = new ItemStackHandler(1) {
-		@Override
-		public int getSlotLimit(int slot) {
-			return 1;
-		}
-
-		@Override
-		protected void onContentsChanged(int slot) {
-			if (getStackInSlot(slot).isEmpty())
-				AlchemyTabletBlockEntity.this.outputMode = false;
-			AlchemyTabletBlockEntity.this.setChanged();
-		}
-	};
+	public TabletItemStackHandler inventory = new TabletItemStackHandler(1, this);
 	public IItemHandler outputHandler = new IItemHandler() {
 		@Override
 		public int getSlots() {
@@ -234,11 +224,16 @@ public class AlchemyTabletBlockEntity extends BlockEntity implements ISparkable,
 
 						BlockEntity outputTile = level.getBlockEntity(pos.below());
 						if (outputTile instanceof IBin bin && bin.getInventory().insertItem(0, stack, true).isEmpty()) {
-							blockEntity.inventory.setStackInSlot(0, ItemStack.EMPTY);
+							blockEntity.inventory.extractItem(0, 1, false);
 							bin.getInventory().insertItem(0, stack, false);
 						} else {
 							blockEntity.outputMode = true;
-							blockEntity.inventory.setStackInSlot(0, stack);
+							blockEntity.inventory.extractItem(0, 1, false);
+							ItemStack remainder = blockEntity.inventory.forceInsertItem(0, stack, false);
+							if (!remainder.isEmpty()) {
+								level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, remainder));
+							}
+							blockEntity.outputMode = true;
 						}
 					}
 				}
@@ -356,6 +351,63 @@ public class AlchemyTabletBlockEntity extends BlockEntity implements ISparkable,
 			strings.add(IExtraCapabilityInformation.formatCapability(EnumIOType.OUTPUT, Embers.MODID + ".tooltip.goggles.item", I18n.get(Embers.MODID + ".tooltip.goggles.item.alchemy_result")));
 		} else {
 			strings.add(IExtraCapabilityInformation.formatCapability(EnumIOType.BOTH, Embers.MODID + ".tooltip.goggles.item", null));
+		}
+	}
+
+	public static class TabletItemStackHandler extends ItemStackHandler {
+
+		AlchemyTabletBlockEntity entity;
+
+		public TabletItemStackHandler(int size, AlchemyTabletBlockEntity entity) {
+			super(size);
+			this.entity = entity;
+		}
+
+		@Override
+		public int getSlotLimit(int slot) {
+			return 1;
+		}
+
+		public ItemStack forceInsertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
+			if (stack.isEmpty())
+				return ItemStack.EMPTY;
+
+			if (!isItemValid(slot, stack))
+				return stack;
+
+			validateSlotIndex(slot);
+
+			ItemStack existing = this.stacks.get(slot);
+
+			int limit = 64;
+
+			if (!existing.isEmpty()) {
+				if (!ItemHandlerHelper.canItemStacksStack(stack, existing))
+					return stack;
+
+				limit -= existing.getCount();
+			}
+			if (limit <= 0)
+				return stack;
+
+			boolean reachedLimit = stack.getCount() > limit;
+
+			if (!simulate) {
+				if (existing.isEmpty()) {
+					this.stacks.set(slot, reachedLimit ? ItemHandlerHelper.copyStackWithSize(stack, limit) : stack);
+				} else {
+					existing.grow(reachedLimit ? limit : stack.getCount());
+				}
+				onContentsChanged(slot);
+			}
+			return reachedLimit ? ItemHandlerHelper.copyStackWithSize(stack, stack.getCount()- limit) : ItemStack.EMPTY;
+		}
+
+		@Override
+		protected void onContentsChanged(int slot) {
+			if (getStackInSlot(slot).isEmpty())
+				entity.outputMode = false;
+			entity.setChanged();
 		}
 	}
 }
