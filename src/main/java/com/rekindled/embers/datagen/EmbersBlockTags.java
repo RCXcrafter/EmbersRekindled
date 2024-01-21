@@ -293,7 +293,7 @@ public class EmbersBlockTags extends BlockTagsProvider {
 
 		tag(CHAMBER_CONNECTION).add(RegistryManager.IGNEM_REACTOR.get());
 
-		tag(DIAL).add(RegistryManager.EMBER_DIAL.get(), RegistryManager.ITEM_DIAL.get(), RegistryManager.FLUID_DIAL.get(), RegistryManager.CLOCKWORK_ATTENUATOR.get());
+		tag(DIAL).add(RegistryManager.EMBER_DIAL.get(), RegistryManager.ITEM_DIAL.get(), RegistryManager.FLUID_DIAL.get(), RegistryManager.CLOCKWORK_ATTENUATOR.get(), RegistryManager.ATMOSPHERIC_GAUGE.get());
 
 		tag(FLUID_PIPE_CONNECTION).addTag(FLUID_PIPE_CONNECTION_TOGGLEABLE);
 		//tag(FLUID_PIPE_CONNECTION).add(RegistryManager.FLUID_TRANSFER.get(), RegistryManager.CATALYTIC_PLUG.get());

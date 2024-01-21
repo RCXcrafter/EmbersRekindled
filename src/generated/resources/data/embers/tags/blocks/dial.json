@@ -3,6 +3,7 @@
     "embers:ember_dial",
     "embers:item_dial",
     "embers:fluid_dial",
-    "embers:clockwork_attenuator"
+    "embers:clockwork_attenuator",
+    "embers:atmospheric_gauge"
   ]
 }
