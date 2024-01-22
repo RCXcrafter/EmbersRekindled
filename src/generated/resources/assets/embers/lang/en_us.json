@@ -318,7 +318,7 @@
   "embers.research.page.catalyzer.tags": "Catalysis;Catalyst;Machine;Reactor;Chamber;Upgrade;Multiblock;Multi Block;",
   "embers.research.page.catalyzer.title": "Chemical Power",
   "embers.research.page.charger": "Copper Charger",
-  "embers.research.page.charger.desc": "The Charger is a very simple device. Provide it with Ember, and it will charge the item inside it, if the item can be charged. The item inside can be simply right-clicked in or out.",
+  "embers.research.page.charger.desc": "The Charger is a very simple device. Provide it with Ember, and it will charge the ember container inside it, if the item can be charged. The container inside can be simply right-clicked in or out.",
   "embers.research.page.charger.tags": "Charge;Ember;Machine;",
   "embers.research.page.charger.title": "Ember Charging",
   "embers.research.page.cinder_jet": "Cinder Jet",

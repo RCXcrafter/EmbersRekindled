@@ -692,7 +692,7 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".research.page.charger", "Copper Charger");
 		add(Embers.MODID + ".research.page.charger.title", "Ember Charging");
 		add(Embers.MODID + ".research.page.charger.tags", "Charge;Ember;Machine;");
-		add(Embers.MODID + ".research.page.charger.desc", "The Charger is a very simple device. Provide it with Ember, and it will charge the item inside it, if the item can be charged. The item inside can be simply right-clicked in or out.");
+		add(Embers.MODID + ".research.page.charger.desc", "The Charger is a very simple device. Provide it with Ember, and it will charge the ember container inside it, if the item can be charged. The container inside can be simply right-clicked in or out.");
 
 		add(Embers.MODID + ".research.page.jars", "Mantle Containers");
 		add(Embers.MODID + ".research.page.jars.title", "Portable Ember");
