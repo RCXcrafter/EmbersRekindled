@@ -241,7 +241,8 @@ public class ResearchManager {
 		//TRANSMUTATION
 		waste = new ResearchBase("waste", new ItemStack(RegistryManager.ALCHEMICAL_WASTE.get()), 6, 0)
 				.addPage(new ResearchBase("waste_page_2", new ItemStack(RegistryManager.ALCHEMICAL_WASTE.get()), 0, 0));
-		slate = new ResearchBase("slate", new ItemStack(RegistryManager.CODEBREAKING_SLATE.get()), 6, 2).addAncestor(waste);
+		slate = new ResearchBase("slate", new ItemStack(RegistryManager.CODEBREAKING_SLATE.get()), 6, 2).addAncestor(waste)
+				.addPage(new ResearchBase("slate_alchemy_recap",ItemStack.EMPTY,0,0));
 		mnemonic_inscriber = new ResearchBase("mnemonic_inscriber", new ItemStack(RegistryManager.MNEMONIC_INSCRIBER.get()), 4, 1).addAncestor(slate);
 		catalytic_plug = new ResearchBase("catalytic_plug", new ItemStack(RegistryManager.CATALYTIC_PLUG_ITEM.get()), 12, 5).addAncestor(slate);
 		materia = new ResearchBase("materia", new ItemStack(RegistryManager.ISOLATED_MATERIA.get()), 6, 5).addAncestor(slate);

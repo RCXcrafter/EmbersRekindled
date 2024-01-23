@@ -720,7 +720,7 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".research.page.aspecti", "Metal Aspecti");
 		add(Embers.MODID + ".research.page.aspecti.title", "Alchemic Foci");
 		add(Embers.MODID + ".research.page.aspecti.tags", "Alchemy;Focus;Aspect;Aspectus;Foci;Stamp;Shard;Transmutation;");
-		add(Embers.MODID + ".research.page.aspecti.desc", "Wrapping molten metal about an Ember Shard, you have devised the Aspectus. These items can focus the alchemical energies produced by burning ash into a particular elemental alignment, when placed on Alchemy Pedestals during a Transmutation.");
+		add(Embers.MODID + ".research.page.aspecti.desc", "Wrapping molten metal about an Ember Shard, you have devised the Aspectus. These items can focus the alchemical energies produced by burning ash into a particular elemental alignment, when placed on the bottom of Alchemy Pedestals during a Transmutation. It appears as if not every aspectus that you've theorized to be used for a recipe is always required.");
 
 		add(Embers.MODID + ".research.page.cinder_plinth", "Cinder Plinth");
 		add(Embers.MODID + ".research.page.cinder_plinth.title", "Incineration");
@@ -752,13 +752,14 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".research.page.waste", "Experimentation");
 		add(Embers.MODID + ".research.page.waste.title", "Alchemical Process");
 		add(Embers.MODID + ".research.page.waste.tags", "Waste;Alchemy;Alchemical;Transmutation;Experiment;Ash;Stamp;");
-		add(Embers.MODID + ".research.page.waste.desc", "You have quickly discovered that alchemical transmutations do not always work. For all but one particular combination of aspecti, your alchemy will fail and result in Alchemic Waste. This waste can be visibly analyzed to determine how far off you were from the true recipe of your desired product.");
+		add(Embers.MODID + ".research.page.waste.desc", "You have quickly discovered that alchemical transmutations do not always work. For all but one particular combination of aspecti, your alchemy will fail and result in Alchemic Waste. This waste can be visibly analyzed by right-clicking it to determine how far off you were from the true recipe of your desired product.");
 		add(Embers.MODID + ".research.page.waste_page_2.desc", "You've noticed that the number of glowing spots in the waste correspond to aspecti that were placed on the correct ingredient. A pale spot indicates an aspectus that is found in the recipe but not placed on the correct ingredient");
 
 		add(Embers.MODID + ".research.page.slate", "Codebreaking Slate");
 		add(Embers.MODID + ".research.page.slate.title", "Cracking The Code");
-		add(Embers.MODID + ".research.page.slate.tags", "Waste;Alchemy;Code;Experiment;Master;Mind;Mastermind;");
+		add(Embers.MODID + ".research.page.slate.tags", "Waste;Alchemy;Code;Experiment;Master;Mind;Mastermind;Recap;");
 		add(Embers.MODID + ".research.page.slate.desc", "It can be difficult to keep track of your guesses and which aspectus is in the correct spot when researching an alchemy recipe. The Codebreaking Slate can store up to 7 pieces of alchemical waste and will display your guess along with the differently colored spots in the waste so you can focus on cracking the code.");
+		add(Embers.MODID + ".research.page.slate_alchemy_recap.desc", "These are the mechanics of alchemy as you currently understand them: A glowing spot means a correct aspectus on the correct ingredient. A pale spot means a correct aspectus on the wrong ingredient. The spots seem to appear in no particular order. Multiple aspecti of the same type can occur in a recipe. Not all possible aspecti always occur in the true recipe.");
 
 		add(Embers.MODID + ".research.page.mnemonic_inscriber", "Mnemonic Inscriber");
 		add(Embers.MODID + ".research.page.mnemonic_inscriber.title", "Remember Ember");
