@@ -195,7 +195,7 @@
   "embers.jei.recipe.stamping": "Stamping",
   "embers.research.alchemy": "Transmutation",
   "embers.research.coming_soon": "Coming Soon...",
-  "embers.research.controls": "Right-click entries to mark them as complete.;Incompleted entries are marked with a star §6*§r;Categories will open as you complete entries.;;Enter text to search and highlight entries.;You can search entries matching multiple words with §f|§r.;ex: §fEmber|Generator§r",
+  "embers.research.controls": "Right-click entries to mark them as complete.;Incompleted entries are marked with a star §6*§r;Categories will open as you complete entries.;Entries required for progression are highlighted with an orange glow.;;Enter text to search and highlight entries.;You can search entries matching multiple words with §f|§r.;ex: §fEmber|Generator§r",
   "embers.research.core": "Glow of the Core",
   "embers.research.image.catalyzer_glowstone": "Coefficient: 4x",
   "embers.research.image.catalyzer_grit": "Coefficient: 2x",

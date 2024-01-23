@@ -73,9 +73,9 @@ public class ResearchManager {
 	public static ResearchCategory subCategoryWildfire;
 
 	public static boolean isPathToLock(ResearchBase entry) {
-		for(ResearchCategory category : researches) {
+		for (ResearchCategory category : researches) {
 			for (ResearchBase target : category.prerequisites) {
-				if(isPathTowards(entry, target))
+				if (isPathTowards(entry, target))
 					return true;
 			}
 		}
@@ -85,8 +85,8 @@ public class ResearchManager {
 	public static boolean isPathTowards(ResearchBase entry, ResearchBase target) {
 		if (entry.isPathTowards(target))
 			return true;
-		for (ResearchBase ancestor : target.ancestors) {
-			if (isPathTowards(entry,ancestor))
+		for (ResearchBase ancestor : target.getAllRequirements()) {
+			if (isPathTowards(entry, ancestor))
 				return true;
 		}
 		return false;
@@ -142,7 +142,7 @@ public class ResearchManager {
 	public static Map<ResearchBase,Integer> findByTag(String match) {
 		HashMap<ResearchBase,Integer> result = new HashMap<>();
 		HashSet<ResearchCategory> categories = new HashSet<>();
-		if(!match.isEmpty())
+		if (!match.isEmpty())
 			for (ResearchCategory category : researches) {
 				category.findByTag(match,result,categories);
 			}
@@ -391,6 +391,16 @@ public class ResearchManager {
 		ResearchBase miscAugmentSwitch = makeCategorySwitch(subCategoryMiscAugments, 10, 1, ItemStack.EMPTY, 0, 1).setMinEntries(2).addAncestor(inferno_forge);
 		ResearchBase wildfireSwitch = makeCategorySwitch(subCategoryWildfire, 1, 7, new ItemStack(RegistryManager.WILDFIRE_CORE.get()), 0, 1).addAncestor(cluster);
 		ResearchBase simpleAlchemySwitch = makeCategorySwitch(subCategorySimpleAlchemy, 12, 1, new ItemStack(Items.SOUL_SAND), 0, 1).addAncestor(slate);
+
+		pipes.subCategory = pipeSwitch;
+		infernoForgeWeapon.subCategory = weaponAugmentSwitch;
+		infernoForgeArmor.subCategory = armorAugmentSwitch;
+		infernoForgeProjectile.subCategory = projectileAugmentSwitch;
+		infernoForgeMisc.subCategory = miscAugmentSwitch;
+		//miscAugmentSwitch;
+		wildfire.subCategory = wildfireSwitch;
+		adhesive.subCategory = simpleAlchemySwitch;
+		hellish_synthesis.subCategory = simpleAlchemySwitch;
 
 		categoryWorld
 		.addResearch(ores)

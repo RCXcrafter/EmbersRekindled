@@ -74,4 +74,13 @@ public class ResearchSwitchCategory extends ResearchBase {
 	public boolean isHidden() {
 		return targetCategory.researches.size() < minEntries;
 	}
+
+	@Override
+	public boolean isPathTowards(ResearchBase target) {
+		for (ResearchBase research : targetCategory.researches) {
+			if (research.isPathTowards(target))
+				return true;
+		}
+		return this == target;
+	}
 }

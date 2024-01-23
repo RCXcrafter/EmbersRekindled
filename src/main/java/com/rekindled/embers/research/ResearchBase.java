@@ -30,6 +30,7 @@ public class ResearchBase {
 	public int x = 0;
 	public int y = 0;
 	public List<ResearchBase> ancestors = new ArrayList<>();
+	public ResearchBase subCategory = null;
 	public ResourceLocation iconBackground = ResearchManager.PAGE_ICONS;
 	public ResourceLocation background = new ResourceLocation(Embers.MODID, "textures/gui/codex_normal.png");
 
@@ -58,52 +59,58 @@ public class ResearchBase {
 
 	public List<ResearchCategory> getNeededFor() {
 		ArrayList<ResearchCategory> neededFor = new ArrayList<>();
-		if(ConfigManager.CODEX_PROGRESSION.get())
+		if (ConfigManager.CODEX_PROGRESSION.get())
 			for (ResearchCategory category : ResearchManager.researches) {
-				if(category.prerequisites.contains(this))
+				if (category.prerequisites.contains(this))
 					neededFor.add(category);
 			}
 		return neededFor;
 	}
 
-	public void findByTag(String match,Map<ResearchBase,Integer> result, Set<ResearchCategory> categories)
-	{
-		if(result.containsKey(this))
+	public List<ResearchBase> getAllRequirements() {
+		if (subCategory == null) {
+			return ancestors;
+		}
+		List<ResearchBase> requirements = new ArrayList<>();
+		requirements.addAll(ancestors);
+		requirements.add(subCategory);
+		return requirements;
+	}
+
+	public void findByTag(String match,Map<ResearchBase,Integer> result, Set<ResearchCategory> categories) {
+		if (result.containsKey(this))
 			return;
 		String[] matchParts = match.split("\\|");
 		int totalScore = 0;
 
 		for (String matchPart : matchParts)
-			if(!matchPart.isEmpty()) {
+			if (!matchPart.isEmpty()) {
 				int tagScore = matchTags(matchPart);
 				int nameScore = scoreMatches(getName(), matchPart);
 				int textScore = scoreMatches(getText().getString(), matchPart);
 				int score = textScore + tagScore * 100 + nameScore * 1000;
-				if(score <= 0)
+				if (score <= 0)
 					return;
 				totalScore += score;
 			}
 
-		if(totalScore > 0)
+		if (totalScore > 0)
 			result.put(this, totalScore);
 	}
 
-	public int matchTags(String match)
-	{
+	public int matchTags(String match) {
 		int score = 0;
 		int matches = 0;
 		for (String tag : getTags()) {
 			int matchScore = scoreMatches(tag,match);
-			if(matchScore > 0)
+			if (matchScore > 0)
 				matches++;
 			score += matchScore;
 		}
 		return score + matches * 100;
 	}
 
-	private int scoreMatches(String tag, String match)
-	{
-
+	private int scoreMatches(String tag, String match) {
 		tag = tag.toLowerCase();
 		match = match.toLowerCase();
 		int matches = 0;
@@ -139,7 +146,7 @@ public class ResearchBase {
 	}
 
 	public ResearchBase addPage(ResearchBase page) {
-		if(firstPage != null)
+		if (firstPage != null)
 			return firstPage.addPage(page);
 		pages.add(page);
 		page.pageNumber = getPageCount();
@@ -160,7 +167,7 @@ public class ResearchBase {
 	}
 
 	public boolean areAncestorsChecked() {
-		if(ConfigManager.CODEX_PROGRESSION.get())
+		if (ConfigManager.CODEX_PROGRESSION.get())
 			return isChecked() || ancestors.stream().allMatch(ResearchBase::isChecked)/*ancestors.isEmpty() || ancestors.stream().anyMatch(ResearchBase::isChecked)*/;
 		else
 			return true;
@@ -169,7 +176,7 @@ public class ResearchBase {
 	@OnlyIn(Dist.CLIENT)
 	public List<Component> getTooltip(boolean showTooltips) {
 		ArrayList<Component> tooltip = new ArrayList<>();
-		if(showTooltips || !isChecked()) {
+		if (showTooltips || !isChecked()) {
 			for (ResearchCategory neededFor : getNeededFor()) {
 				tooltip.add(Component.translatable(Embers.MODID + ".research.prerequisite", neededFor.getName()));
 			}
@@ -184,7 +191,7 @@ public class ResearchBase {
 
 	@OnlyIn(Dist.CLIENT)
 	public String getTitle() {
-		if(hasMultiplePages())
+		if (hasMultiplePages())
 			return I18n.get(Embers.MODID + ".research.multipage", I18n.get(Embers.MODID + ".research.page."+getFirstPage().name+".title"), pageNumber+1, getPageCount()+1);
 		else
 			return I18n.get(Embers.MODID + ".research.page."+name+".title");
@@ -193,7 +200,7 @@ public class ResearchBase {
 	@OnlyIn(Dist.CLIENT)
 	private String[] getTags() {
 		String translateKey = Embers.MODID + ".research.page." + name + ".tags";
-		if(I18n.exists(translateKey)) {
+		if (I18n.exists(translateKey)) {
 			return I18n.get(translateKey).split(";");
 		} else {
 			return new String[0];
@@ -236,7 +243,7 @@ public class ResearchBase {
 
 	public ResearchBase getPage(int i) {
 		i = Mth.clamp(i,0,getPageCount());
-		if(i <= 0)
+		if (i <= 0)
 			return getFirstPage();
 		else
 			return getPages().get(i-1);
@@ -262,7 +269,7 @@ public class ResearchBase {
 	}
 
 	public List<ResearchBase> getPages() {
-		if(firstPage != null)
+		if (firstPage != null)
 			return firstPage.pages;
 		else
 			return pages;
@@ -284,7 +291,7 @@ public class ResearchBase {
 	}
 
 	public void getAllResearch(Set<ResearchBase> result) {
-		if(result.contains(this))
+		if (result.contains(this))
 			return;
 		result.add(this);
 	}
