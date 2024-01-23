@@ -439,14 +439,12 @@ public class GuiCodex extends Screen {
 		this.selectedIndex = -1;
 		this.selectedPageIndex = -1;
 		if (this.researchCategory == null){
-			//RenderSystem.setShaderTexture(0, new ResourceLocation(Embers.MODID, "textures/gui/codex_index.png"));
 			graphics.blit(INDEX, basePosX, basePosY, 0, 0, 192, 256);
 
 			/*for (int i = 0; i < sentences.length; i ++) {
 				drawCenteredTextGlowing(Minecraft.getInstance().fontFilterFishy, poseStack, Component.literal(sentences[i]).getVisualOrderText(), basePosX+96, basePosY+22+i*12);
 			}*/
 
-			//RenderSystem.setShaderTexture(0, new ResourceLocation(Embers.MODID, "textures/gui/codex_parts.png"));
 			graphics.blit(PARTS, basePosX-16, basePosY-16, 0, 0, 48, 48);
 			graphics.blit(PARTS, basePosX+160, basePosY-16, 48, 0, 48, 48);
 			graphics.blit(PARTS, basePosX+160, basePosY+224, 96, 0, 48, 48);
@@ -456,14 +454,22 @@ public class GuiCodex extends Screen {
 			graphics.blit(PARTS, basePosX-16, basePosY+64, 0, 48, 48, 48);
 			graphics.blit(PARTS, basePosX+160, basePosY+64, 0, 48, 48, 48);
 
-			for (float i = 0; i < numResearches; i ++){
+			RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
+			float sine = 0.5f + 0.25f*((float)Math.sin(Math.toRadians(4.0f*((float)EmbersClientEvents.ticks + Minecraft.getInstance().getPartialTick())))+1.0f);
+			RenderSystem.setShaderColor(255.0F / 255.0F, 64.0F / 255.0F, 16.0F / 255.0F, sine);
+			for (float i = 0; i < 4; i ++){
+				graphics.blit(PARTS, basePosX-16, basePosY+224, 192, 0, 48, 48);
+			}
+			RenderSystem.defaultBlendFunc();
+			RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+
+			for (float i = 0; i < numResearches; i ++) {
 				float mouseDir = (float)Math.toDegrees(Math.atan2(mouseY-(basePosY+88), mouseX-(basePosX+96)))+90f;
 				float distSq = (mouseX - (basePosX+96))*(mouseX - (basePosX+96)) + (mouseY - (basePosY+96))*(mouseY - (basePosY+96));
 				float angle = i * (360.0f/(float) numResearches);
 				boolean selected = false;
 				float diff = Math.min(Math.min(Math.abs(mouseDir - angle),Math.abs((mouseDir-360f) - angle)), (Math.abs(mouseDir+360f) - angle));
 				ResearchCategory category = ResearchManager.researches.get((int) i);
-				//RenderSystem.setShaderTexture(0, category.getIndexTexture());
 				boolean alreadyGlowing = category.researches.stream().anyMatch(entry -> searchResult.contains(entry));
 				if (diff < 180.0f/(float) numResearches && distSq < 16000){
 					if (lastSelectedIndex != (int)i) {
@@ -497,7 +503,6 @@ public class GuiCodex extends Screen {
 				graphics.pose().popPose();
 			}
 
-			//RenderSystem.setShaderTexture(0, new ResourceLocation(Embers.MODID, "textures/gui/codex_index.png"));
 			graphics.blit(INDEX, basePosX+64, basePosY+56, 192, 176, 64, 64);
 
 			if(!showSearchString && selectedIndex >= 0) {
@@ -532,7 +537,6 @@ public class GuiCodex extends Screen {
 				basePosY = (int)((float)height/2.0f)-136;
 				int basePosY2 = Math.min(height-33, basePosY+272);
 
-				//RenderSystem.setShaderTexture(0, researchCategory.getBackgroundTexture());
 				graphics.blit(researchCategory.getBackgroundTexture(), basePosX, basePosY, 0, 0, 0, 384, 272, 512, 512);
 				for (int i = 0; i < researchCategory.researches.size(); i ++){
 					ResearchBase r = researchCategory.researches.get(i);
@@ -639,7 +643,6 @@ public class GuiCodex extends Screen {
 						this.renderItemStackMinusTooltipAt(graphics, r.getIcon(), basePosX + r.x - 8, basePosY + r.y - 8);
 					}
 				}
-				//RenderSystem.setShaderTexture(0, researchCategory.getBackgroundTexture());
 				graphics.blit(researchCategory.getBackgroundTexture(), basePosX, basePosY2, 0, 0, 272, 384, 33, 512, 512);
 				if (!showSearchString && this.selectedPageIndex >= 0) {
 					ResearchBase research = researchCategory.researches.get(this.selectedPageIndex);
@@ -684,14 +687,12 @@ public class GuiCodex extends Screen {
 					playSound(EmbersSounds.CODEX_UNLOCK.get(), showSpeed);
 
 			} else {
-				//RenderSystem.setShaderTexture(0, researchPage.getBackground());
 				graphics.blit(researchPage.getBackground(), basePosX, basePosY, 0, 0, 192, 256);
 
 				drawCenteredTextGlowing(this.font, graphics, Component.literal(researchPage.getTitle()).getVisualOrderText(), basePosX+96, basePosY+19);
 				researchPage.renderPageContent(graphics, this, basePosX, basePosY, this.font);
 
 				if (researchPage.hasMultiplePages()) {
-					//RenderSystem.setShaderTexture(0, researchPage.getBackground());
 					nextPageSelected = false;
 					previousPageSelected = false;
 					int arrowY = basePosY + 256 - 13;
