@@ -38,6 +38,9 @@ public class MiniBoilerUpgrade extends DefaultUpgradeProvider {
 			if (count > 3) {
 				multiplier /= (count - 2.0) * 0.75;
 			}
+			if (emberEvent.getType() == EmberEvent.EnumType.PRODUCE) {
+				multiplier *= 0.25;
+			}
 			((MiniBoilerBlockEntity) this.tile).boil(emberEvent.getAmount() * multiplier);
 		}
 	}
