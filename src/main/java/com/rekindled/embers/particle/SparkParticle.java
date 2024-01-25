@@ -11,7 +11,11 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class SparkParticle extends TextureSheetParticle {
-	
+
+	public float rBase = 1.0F;
+	public float gBase = 1.0F;
+	public float bBase = 1.0F;
+
 	public float rotScale = random.nextFloat() * 0.1f + 0.05f;
 
 	public SparkParticle(ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed, SparkParticleOptions pOptions) {
@@ -23,6 +27,9 @@ public class SparkParticle extends TextureSheetParticle {
 		this.rCol = pOptions.getColor().x();
 		this.gCol = pOptions.getColor().y();
 		this.bCol = pOptions.getColor().z();
+		this.rBase = pOptions.getColor().x();
+		this.gBase = pOptions.getColor().y();
+		this.bBase = pOptions.getColor().z();
 		this.oRoll = random.nextFloat();
 		this.roll = rotScale;
 		this.quadSize *= 0.75F * pOptions.getScale();
@@ -37,6 +44,10 @@ public class SparkParticle extends TextureSheetParticle {
 	public void tick() {
 		super.tick();
 		this.alpha = 1.0f - (float)this.age / (float)this.lifetime;
+		float brightness = 1.0f - (float)this.age / (float)this.lifetime;
+		this.rCol = this.rBase * brightness;
+		this.gCol = this.gBase * brightness;
+		this.bCol = this.bBase * brightness;
 		this.oRoll = this.roll;
 		this.roll += rotScale;
 	}

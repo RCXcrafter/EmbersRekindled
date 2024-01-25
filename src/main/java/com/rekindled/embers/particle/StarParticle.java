@@ -12,6 +12,10 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class StarParticle extends TextureSheetParticle {
 
+	public float rBase = 1.0F;
+	public float gBase = 1.0F;
+	public float bBase = 1.0F;
+
 	public float rotScale = random.nextFloat() * 0.1f + 0.05f;
 
 	public StarParticle(ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed, StarParticleOptions pOptions) {
@@ -28,6 +32,9 @@ public class StarParticle extends TextureSheetParticle {
 		this.rCol = pOptions.getColor().x();
 		this.gCol = pOptions.getColor().y();
 		this.bCol = pOptions.getColor().z();
+		this.rBase = pOptions.getColor().x();
+		this.gBase = pOptions.getColor().y();
+		this.bBase = pOptions.getColor().z();
 		this.roll = rotScale;
 		this.quadSize *= 0.75F * pOptions.getScale();
 		double i = 6.0D / (this.random.nextDouble() * 0.5D + 0.5D);
@@ -41,6 +48,10 @@ public class StarParticle extends TextureSheetParticle {
 	public void tick() {
 		super.tick();
 		this.alpha = 1.0f - (float)this.age / (float)this.lifetime;
+		float brightness = 1.0f - (float)this.age / (float)this.lifetime;
+		this.rCol = this.rBase * brightness;
+		this.gCol = this.gBase * brightness;
+		this.bCol = this.bBase * brightness;
 		this.oRoll = this.roll;
 		this.roll += rotScale;
 	}

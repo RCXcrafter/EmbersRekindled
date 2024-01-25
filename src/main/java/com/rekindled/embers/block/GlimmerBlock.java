@@ -26,7 +26,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class GlimmerBlock extends Block implements SimpleWaterloggedBlock {
 
-	public static final GlowParticleOptions EMBER = new GlowParticleOptions(GlowParticleOptions.EMBER_COLOR, 3.0F, 120);
+	public static final GlowParticleOptions EMBER = new GlowParticleOptions(GlowParticleOptions.EMBER_COLOR, 3.0F, 80);
 	public static final StarParticleOptions GLIMMER = new StarParticleOptions(new Vector3f(255.0F / 255.0F, 255.0F / 255.0F, 16.0F / 255.0F), 3.0F);
 	public static final VoxelShape GLIMMER_AABB = Block.box(4,4,4,12,12,12);
 
@@ -43,7 +43,7 @@ public class GlimmerBlock extends Block implements SimpleWaterloggedBlock {
 	@Override
 	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
 		for (int i = 0; i < 2; i ++) {
-			level.addParticle(EMBER, pos.getX()+0.5f, pos.getY()+0.5f, pos.getZ()+0.5f, (random.nextFloat()-0.5f)*0.003f, (random.nextFloat())*0.003f, (random.nextFloat()-0.5f)*0.003f);
+			level.addParticle(EMBER, pos.getX()+0.5f, pos.getY()+0.5f, pos.getZ()+0.5f, (random.nextFloat()-0.5f)*0.003f, (random.nextFloat())*0.3f, (random.nextFloat()-0.5f)*0.003f);
 			level.addParticle(GLIMMER, pos.getX()+0.5f, pos.getY()+0.5f, pos.getZ()+0.5f, (random.nextFloat()-0.5f)*0.003f, (random.nextFloat())*0.003f, (random.nextFloat()-0.5f)*0.003f);
 		}
 	}
