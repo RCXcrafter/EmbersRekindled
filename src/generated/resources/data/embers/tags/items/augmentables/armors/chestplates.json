@@ -1,5 +1,13 @@
 {
   "values": [
-    "#forge:armors/chestplates"
+    "#forge:armors/chestplates",
+    {
+      "id": "miapi:modular_chestplate",
+      "required": false
+    },
+    {
+      "id": "miapi:modular_elytra",
+      "required": false
+    }
   ]
 }

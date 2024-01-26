@@ -1,5 +1,102 @@
 {
   "values": [
-    "#forge:tools"
+    "#forge:tools",
+    "#minecraft:tools",
+    {
+      "id": "weaponmaster:wm_broadsword",
+      "required": false
+    },
+    {
+      "id": "weaponmaster:wm_rapier",
+      "required": false
+    },
+    {
+      "id": "weaponmaster:wm_broadswordlarge",
+      "required": false
+    },
+    {
+      "id": "weaponmaster:wm_rapierlarge",
+      "required": false
+    },
+    {
+      "id": "miapi:modular_sword",
+      "required": false
+    },
+    {
+      "id": "miapi:modular_katana",
+      "required": false
+    },
+    {
+      "id": "miapi:modular_naginata",
+      "required": false
+    },
+    {
+      "id": "miapi:modular_greatsword",
+      "required": false
+    },
+    {
+      "id": "miapi:modular_dagger",
+      "required": false
+    },
+    {
+      "id": "miapi:modular_spear",
+      "required": false
+    },
+    {
+      "id": "miapi:modular_throwing_knife",
+      "required": false
+    },
+    {
+      "id": "miapi:modular_rapier",
+      "required": false
+    },
+    {
+      "id": "miapi:modular_longsword",
+      "required": false
+    },
+    {
+      "id": "miapi:modular_trident",
+      "required": false
+    },
+    {
+      "id": "miapi:modular_scythe",
+      "required": false
+    },
+    {
+      "id": "miapi:modular_sickle",
+      "required": false
+    },
+    {
+      "id": "miapi:modular_shovel",
+      "required": false
+    },
+    {
+      "id": "miapi:modular_pickaxe",
+      "required": false
+    },
+    {
+      "id": "miapi:modular_axe",
+      "required": false
+    },
+    {
+      "id": "miapi:modular_hoe",
+      "required": false
+    },
+    {
+      "id": "miapi:modular_mattock",
+      "required": false
+    },
+    {
+      "id": "tetra:modular_single",
+      "required": false
+    },
+    {
+      "id": "tetra:modular_double",
+      "required": false
+    },
+    {
+      "id": "tetra:modular_sword",
+      "required": false
+    }
   ]
 }

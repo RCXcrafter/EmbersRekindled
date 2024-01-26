@@ -1,6 +1,10 @@
 {
   "values": [
     "#forge:armors/helmets",
-    "minecraft:carved_pumpkin"
+    "minecraft:carved_pumpkin",
+    {
+      "id": "miapi:modular_helmet",
+      "required": false
+    }
   ]
 }

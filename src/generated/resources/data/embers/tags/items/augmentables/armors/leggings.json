@@ -1,5 +1,9 @@
 {
   "values": [
-    "#forge:armors/leggings"
+    "#forge:armors/leggings",
+    {
+      "id": "miapi:modular_leggings",
+      "required": false
+    }
   ]
 }

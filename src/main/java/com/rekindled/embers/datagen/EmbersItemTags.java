@@ -126,7 +126,7 @@ public class EmbersItemTags extends ItemTagsProvider {
 		tag(AUGMENTABLE_TOOLS_AND_ARMORS).addTag(AUGMENTABLE_TOOLS).addTag(AUGMENTABLE_ARMORS);
 		tag(AUGMENTABLE_ARMORS).addTag(AUGMENTABLE_HELMETS).addTag(AUGMENTABLE_CHESTPLATES).addTag(AUGMENTABLE_LEGGINGS).addTag(AUGMENTABLE_BOOTS);
 
-		tag(AUGMENTABLE_TOOLS).addTag(Tags.Items.TOOLS);
+		tag(AUGMENTABLE_TOOLS).addTag(Tags.Items.TOOLS).addTag(ItemTags.TOOLS);
 		tag(AUGMENTABLE_PROJECTILE_WEAPONS).add(RegistryManager.BLAZING_RAY.get()).add(RegistryManager.CINDER_STAFF.get());
 		tag(AUGMENTABLE_HELMETS).addTag(Tags.Items.ARMORS_HELMETS).add(Items.CARVED_PUMPKIN);
 		tag(AUGMENTABLE_CHESTPLATES).addTag(Tags.Items.ARMORS_CHESTPLATES);
@@ -210,6 +210,7 @@ public class EmbersItemTags extends ItemTagsProvider {
 
 		tag(ItemTags.MUSIC_DISCS).add(RegistryManager.MUSIC_DISC_7F_PATTERNS.get());
 
+		//tags shared by blocks
 		copy(EmbersBlockTags.WORLD_BOTTOM, WORLD_BOTTOM);
 
 		copy(EmbersBlockTags.PRISTINE_COPPER, PRISTINE_COPPER);
@@ -227,6 +228,41 @@ public class EmbersItemTags extends ItemTagsProvider {
 		copy(EmbersBlockTags.NICKEL_SEED, NICKEL_SEED);
 		copy(EmbersBlockTags.TIN_SEED, TIN_SEED);
 		copy(EmbersBlockTags.DAWNSTONE_SEED, DAWNSTONE_SEED);
+
+		//compat stuff
+		tag(AUGMENTABLE_TOOLS)
+		.addOptional(new ResourceLocation("weaponmaster", "wm_broadsword"))
+		.addOptional(new ResourceLocation("weaponmaster", "wm_rapier"))
+		.addOptional(new ResourceLocation("weaponmaster", "wm_broadswordlarge"))
+		.addOptional(new ResourceLocation("weaponmaster", "wm_rapierlarge"));
+
+		tag(AUGMENTABLE_TOOLS)
+		.addOptional(new ResourceLocation("miapi", "modular_sword"))
+		.addOptional(new ResourceLocation("miapi", "modular_katana"))
+		.addOptional(new ResourceLocation("miapi", "modular_naginata"))
+		.addOptional(new ResourceLocation("miapi", "modular_greatsword"))
+		.addOptional(new ResourceLocation("miapi", "modular_dagger"))
+		.addOptional(new ResourceLocation("miapi", "modular_spear"))
+		.addOptional(new ResourceLocation("miapi", "modular_throwing_knife"))
+		.addOptional(new ResourceLocation("miapi", "modular_rapier"))
+		.addOptional(new ResourceLocation("miapi", "modular_longsword"))
+		.addOptional(new ResourceLocation("miapi", "modular_trident"))
+		.addOptional(new ResourceLocation("miapi", "modular_scythe"))
+		.addOptional(new ResourceLocation("miapi", "modular_sickle"))
+		.addOptional(new ResourceLocation("miapi", "modular_shovel"))
+		.addOptional(new ResourceLocation("miapi", "modular_pickaxe"))
+		.addOptional(new ResourceLocation("miapi", "modular_axe"))
+		.addOptional(new ResourceLocation("miapi", "modular_hoe"))
+		.addOptional(new ResourceLocation("miapi", "modular_mattock"));
+		tag(AUGMENTABLE_HELMETS).addOptional(new ResourceLocation("miapi", "modular_helmet"));
+		tag(AUGMENTABLE_CHESTPLATES).addOptional(new ResourceLocation("miapi", "modular_chestplate")).addOptional(new ResourceLocation("miapi", "modular_elytra"));
+		tag(AUGMENTABLE_LEGGINGS).addOptional(new ResourceLocation("miapi", "modular_leggings"));
+		tag(AUGMENTABLE_BOOTS).addOptional(new ResourceLocation("miapi", "modular_boots"));
+
+		tag(AUGMENTABLE_TOOLS)
+		.addOptional(new ResourceLocation("tetra", "modular_single"))
+		.addOptional(new ResourceLocation("tetra", "modular_double"))
+		.addOptional(new ResourceLocation("tetra", "modular_sword"));
 	}
 
 	public void toolTags(ToolSet set) {
