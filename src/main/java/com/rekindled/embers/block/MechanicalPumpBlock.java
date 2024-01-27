@@ -40,7 +40,10 @@ public class MechanicalPumpBlock extends DoubleTallMachineBlock {
 
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext pContext) {
-		return super.getStateForPlacement(pContext).setValue(BlockStateProperties.HORIZONTAL_AXIS, pContext.getHorizontalDirection().getAxis());
+		BlockState state = super.getStateForPlacement(pContext);
+		if (state == null)
+			return null;
+		return state.setValue(BlockStateProperties.HORIZONTAL_AXIS, pContext.getHorizontalDirection().getAxis());
 	}
 
 	@Override
