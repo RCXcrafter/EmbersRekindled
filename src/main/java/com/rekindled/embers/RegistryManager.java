@@ -32,6 +32,7 @@ import com.rekindled.embers.augment.WindingGearsAugment;
 import com.rekindled.embers.block.AlchemyPedestalBlock;
 import com.rekindled.embers.block.AlchemyTabletBlock;
 import com.rekindled.embers.block.ArchaicLightBlock;
+import com.rekindled.embers.block.AtmosphericBellowsBlock;
 import com.rekindled.embers.block.AtmosphericGaugeBlock;
 import com.rekindled.embers.block.AutomaticHammerBlock;
 import com.rekindled.embers.block.BeamCannonBlock;
@@ -45,6 +46,7 @@ import com.rekindled.embers.block.CaminiteValveBlock;
 import com.rekindled.embers.block.CaminiteValveEdgeBlock;
 import com.rekindled.embers.block.CatalysisChamberBlock;
 import com.rekindled.embers.block.CatalyticPlugBlock;
+import com.rekindled.embers.block.CharInstillerBlock;
 import com.rekindled.embers.block.CinderPlinthBlock;
 import com.rekindled.embers.block.ClockworkAttenuatorBlock;
 import com.rekindled.embers.block.CombustionChamberBlock;
@@ -105,6 +107,7 @@ import com.rekindled.embers.block.WildfireStirlingBlock;
 import com.rekindled.embers.blockentity.AlchemyPedestalBlockEntity;
 import com.rekindled.embers.blockentity.AlchemyPedestalTopBlockEntity;
 import com.rekindled.embers.blockentity.AlchemyTabletBlockEntity;
+import com.rekindled.embers.blockentity.AtmosphericBellowsBlockEntity;
 import com.rekindled.embers.blockentity.AtmosphericGaugeBlockEntity;
 import com.rekindled.embers.blockentity.AutomaticHammerBlockEntity;
 import com.rekindled.embers.blockentity.BeamCannonBlockEntity;
@@ -113,6 +116,7 @@ import com.rekindled.embers.blockentity.BinBlockEntity;
 import com.rekindled.embers.blockentity.CaminiteValveBlockEntity;
 import com.rekindled.embers.blockentity.CatalysisChamberBlockEntity;
 import com.rekindled.embers.blockentity.CatalyticPlugBlockEntity;
+import com.rekindled.embers.blockentity.CharInstillerBlockEntity;
 import com.rekindled.embers.blockentity.CinderPlinthBlockEntity;
 import com.rekindled.embers.blockentity.ClockworkAttenuatorBlockEntity;
 import com.rekindled.embers.blockentity.CombustionChamberBlockEntity;
@@ -509,6 +513,8 @@ public class RegistryManager {
 	public static final RegistryObject<Block> INFERNO_FORGE = BLOCKS.register("inferno_forge", () -> new InfernoForgeBlock(Properties.of().mapColor(MapColor.COLOR_GRAY).sound(EmbersSounds.MULTIBLOCK_CENTER).requiresCorrectToolForDrops().strength(1.6f).noOcclusion(), EmbersSounds.MULTIBLOCK_EXTRA));
 	public static final RegistryObject<Block> INFERNO_FORGE_EDGE = BLOCKS.register("inferno_forge_edge", () -> new InfernoForgeEdgeBlock(Properties.of().mapColor(MapColor.TERRACOTTA_YELLOW).sound(EmbersSounds.MULTIBLOCK_EXTRA).requiresCorrectToolForDrops().strength(1.6f)));
 	public static final RegistryObject<Block> MNEMONIC_INSCRIBER = BLOCKS.register("mnemonic_inscriber", () -> new MnemonicInscriberBlock(Properties.of().mapColor(MapColor.NONE).sound(EmbersSounds.MACHINE).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
+	public static final RegistryObject<Block> CHAR_INSTILLER = BLOCKS.register("char_instiller", () -> new CharInstillerBlock(Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).sound(SoundType.WOOD).requiresCorrectToolForDrops().strength(1.6f)));
+	public static final RegistryObject<Block> ATMOSPHERIC_BELLOWS = BLOCKS.register("atmospheric_bellows", () -> new AtmosphericBellowsBlock(Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).sound(SoundType.WOOD).requiresCorrectToolForDrops().strength(1.6f)));
 
 	//items
 	public static final RegistryObject<Item> TINKER_HAMMER = ITEMS.register("tinker_hammer", () -> new TinkerHammerItem(new Item.Properties().stacksTo(1)));
@@ -594,6 +600,8 @@ public class RegistryManager {
 	public static final RegistryObject<Item> AUTOMATIC_HAMMER_ITEM = ITEMS.register("automatic_hammer", () -> new BlockItem(AUTOMATIC_HAMMER.get(), new Item.Properties()));
 	public static final RegistryObject<Item> INFERNO_FORGE_ITEM = ITEMS.register("inferno_forge", () -> new BlockItem(INFERNO_FORGE.get(), new Item.Properties()));
 	public static final RegistryObject<Item> MNEMONIC_INSCRIBER_ITEM = ITEMS.register("mnemonic_inscriber", () -> new BlockItem(MNEMONIC_INSCRIBER.get(), new Item.Properties()));
+	public static final RegistryObject<Item> CHAR_INSTILLER_ITEM = ITEMS.register("char_instiller", () -> new BlockItem(CHAR_INSTILLER.get(), new Item.Properties()));
+	public static final RegistryObject<Item> ATMOSPHERIC_BELLOWS_ITEM = ITEMS.register("atmospheric_bellows", () -> new BlockItem(ATMOSPHERIC_BELLOWS.get(), new Item.Properties()));
 
 	public static final RegistryObject<Item> EMBER_CRYSTAL = ITEMS.register("ember_crystal", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> EMBER_SHARD = ITEMS.register("ember_shard", () -> new Item(new Item.Properties()));
@@ -874,6 +882,8 @@ public class RegistryManager {
 	public static final RegistryObject<BlockEntityType<InfernoForgeBottomBlockEntity>> INFERNO_FORGE_BOTTOM_ENTITY = BLOCK_ENTITY_TYPES.register("inferno_forge_bottom", () -> BlockEntityType.Builder.of(InfernoForgeBottomBlockEntity::new, INFERNO_FORGE.get()).build(null));
 	public static final RegistryObject<BlockEntityType<InfernoForgeTopBlockEntity>> INFERNO_FORGE_TOP_ENTITY = BLOCK_ENTITY_TYPES.register("inferno_forge_top", () -> BlockEntityType.Builder.of(InfernoForgeTopBlockEntity::new, INFERNO_FORGE.get()).build(null));
 	public static final RegistryObject<BlockEntityType<MnemonicInscriberBlockEntity>> MNEMONIC_INSCRIBER_ENTITY = BLOCK_ENTITY_TYPES.register("mnemonic_inscriber", () -> BlockEntityType.Builder.of(MnemonicInscriberBlockEntity::new, MNEMONIC_INSCRIBER.get()).build(null));
+	public static final RegistryObject<BlockEntityType<CharInstillerBlockEntity>> CHAR_INSTILLER_ENTITY = BLOCK_ENTITY_TYPES.register("char_instiller", () -> BlockEntityType.Builder.of(CharInstillerBlockEntity::new, CHAR_INSTILLER.get()).build(null));
+	public static final RegistryObject<BlockEntityType<AtmosphericBellowsBlockEntity>> ATMOSPHERIC_BELLOWS_ENTITY = BLOCK_ENTITY_TYPES.register("atmospheric_bellows", () -> BlockEntityType.Builder.of(AtmosphericBellowsBlockEntity::new, ATMOSPHERIC_BELLOWS.get()).build(null));
 
 	//creative tabs
 	public static final RegistryObject<CreativeModeTab> EMBERS_TAB = CREATIVE_TABS.register("main_tab", () -> CreativeModeTab.builder()

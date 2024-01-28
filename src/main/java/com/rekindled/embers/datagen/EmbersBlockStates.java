@@ -636,6 +636,13 @@ public class EmbersBlockStates extends BlockStateProvider {
 		ExistingModelFile inscriberModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "mnemonic_inscriber"));
 		directionalBlock(RegistryManager.MNEMONIC_INSCRIBER.get(), inscriberModel);
 		simpleBlockItem(RegistryManager.MNEMONIC_INSCRIBER.get(), inscriberModel);
+
+		ExistingModelFile instillerModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "char_instiller"));
+		horizontalBlock(RegistryManager.CHAR_INSTILLER.get(), instillerModel);
+		simpleBlockItem(RegistryManager.CHAR_INSTILLER.get(), instillerModel);
+
+		horizontalBlock(RegistryManager.ATMOSPHERIC_BELLOWS.get(), models().getExistingFile(new ResourceLocation(Embers.MODID, "atmospheric_bellows_bottom")));
+		simpleBlockItem(RegistryManager.ATMOSPHERIC_BELLOWS.get(), models().getExistingFile(new ResourceLocation(Embers.MODID, "atmospheric_bellows")));
 	}
 
 	public void blockWithItem(RegistryObject<? extends Block> registryObject) {

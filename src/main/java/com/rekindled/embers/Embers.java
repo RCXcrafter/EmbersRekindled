@@ -16,6 +16,7 @@ import com.rekindled.embers.augment.WindingGearsAugment;
 import com.rekindled.embers.blockentity.render.AlchemyPedestalBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.AlchemyPedestalTopBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.AlchemyTabletBlockEntityRenderer;
+import com.rekindled.embers.blockentity.render.AtmosphericBellowsBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.AutomaticHammerBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.BinBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.CatalyticPlugBlockEntityRenderer;
@@ -347,6 +348,7 @@ public class Embers {
 			event.registerBlockEntityRenderer(RegistryManager.AUTOMATIC_HAMMER_ENTITY.get(), AutomaticHammerBlockEntityRenderer::new);
 			event.registerBlockEntityRenderer(RegistryManager.INFERNO_FORGE_TOP_ENTITY.get(), InfernoForgeTopBlockEntityRenderer::new);
 			event.registerBlockEntityRenderer(RegistryManager.MNEMONIC_INSCRIBER_ENTITY.get(), MnemonicInscriberBlockEntityRenderer::new);
+			event.registerBlockEntityRenderer(RegistryManager.ATMOSPHERIC_BELLOWS_ENTITY.get(), AtmosphericBellowsBlockEntityRenderer::new);
 		}
 
 		@OnlyIn(Dist.CLIENT)

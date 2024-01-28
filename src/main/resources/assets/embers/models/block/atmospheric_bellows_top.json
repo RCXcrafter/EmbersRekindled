@@ -1,0 +1,22 @@
+{
+	"parent": "block/block",
+	"textures": {
+		"8": "embers:block/bellows_side",
+		"9": "embers:block/bellows_top",
+		"particle": "embers:block/bellows_top"
+	},
+	"elements": [
+		{
+			"from": [1, 13, 1],
+			"to": [15, 16, 15],
+			"faces": {
+				"north": {"uv": [1, 0, 15, 3], "texture": "#8"},
+				"east": {"uv": [1, 0, 15, 3], "texture": "#8"},
+				"south": {"uv": [1, 0, 15, 3], "texture": "#8"},
+				"west": {"uv": [1, 0, 15, 3], "texture": "#8"},
+				"up": {"uv": [1, 1, 15, 15], "texture": "#9"},
+				"down": {"uv": [1, 1, 15, 15], "texture": "#9"}
+			}
+		}
+	]
+}

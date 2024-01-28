@@ -1,0 +1,19 @@
+{
+	"parent": "block/block",
+	"textures": {
+		"8": "embers:block/bellows_side",
+		"particle": "embers:block/bellows_side"
+	},
+	"elements": [
+		{
+			"from": [2, 3, 2],
+			"to": [14, 13, 14],
+			"faces": {
+				"north": {"uv": [2, 3, 14, 13], "texture": "#8"},
+				"east": {"uv": [2, 3, 14, 13], "texture": "#8"},
+				"south": {"uv": [2, 3, 14, 13], "texture": "#8"},
+				"west": {"uv": [2, 3, 14, 13], "texture": "#8"}
+			}
+		}
+	]
+}

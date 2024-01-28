@@ -179,10 +179,11 @@ public class Misc {
 		return new Vector3f(((0xFF0000 & color) >> 16) / 255.0f, ((0x00FF00 & color) >> 8) / 255.0f, (0x0000FF & color) / 255.0f);
 	}
 
-	public static <C extends Container, T extends Recipe<C>> T getRecipe(T cache, RecipeType<T> type, C container, Level level) {
-		if (cache != null && cache.matches(container, level))
+	@SuppressWarnings("unchecked")
+	public static <C extends Container, T extends Recipe<C>> T getRecipe(T cache, RecipeType<?> type, C container, Level level) {
+		if (cache != null && cache.matches(container, level) )
 			return cache;
-		List<T> recipes = level.getRecipeManager().getRecipesFor(type, container, level);
+		List<T> recipes = level.getRecipeManager().getRecipesFor((RecipeType<T>) type, container, level);
 		if (recipes.isEmpty())
 			return null;
 		return recipes.get(0);

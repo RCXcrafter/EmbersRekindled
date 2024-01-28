@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "tag": "forge:plates/iron"
+    },
+    "P": {
+      "item": "embers:sealed_planks"
+    }
+  },
+  "pattern": [
+    "PPP",
+    "I I",
+    "PPP"
+  ],
+  "result": {
+    "item": "embers:char_instiller"
+  },
+  "show_notification": true
+}

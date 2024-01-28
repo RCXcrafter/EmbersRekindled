@@ -19,6 +19,7 @@ import com.rekindled.embers.api.power.IEmberPacketReceiver;
 import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
 import com.rekindled.embers.api.tile.IMechanicallyPowered;
 import com.rekindled.embers.blockentity.EmberEmitterBlockEntity;
+import com.rekindled.embers.blockentity.render.AtmosphericBellowsBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.AutomaticHammerBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.EmberBoreBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.InfernoForgeTopBlockEntityRenderer;
@@ -337,6 +338,8 @@ public class EmbersClientEvents {
 		StamperBlockEntityRenderer.arm = getModel(bakery, "stamper_arm");
 		AutomaticHammerBlockEntityRenderer.hammer = getModel(bakery, "automatic_hammer_end");
 		InfernoForgeTopBlockEntityRenderer.hatch = getModel(bakery, "inferno_forge_hatch");
+		AtmosphericBellowsBlockEntityRenderer.top = getModel(bakery, "atmospheric_bellows_top");
+		AtmosphericBellowsBlockEntityRenderer.leather = getModel(bakery, "atmospheric_bellows_leather");
 	}
 
 	public static BakedModel getModel(ModelBakery bakery, String name) {

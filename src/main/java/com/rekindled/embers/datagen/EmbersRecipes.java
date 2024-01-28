@@ -1413,6 +1413,25 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		.define('A', RegistryManager.INTELLIGENT_APPARATUS.get())
 		.unlockedBy("has_apparatus", has(RegistryManager.INTELLIGENT_APPARATUS.get()))
 		.save(consumer, getResource("mnemonic_inscriber"));
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.CHAR_INSTILLER.get())
+		.pattern("PPP")
+		.pattern("I I")
+		.pattern("PPP")
+		.define('I', itemTag("forge", "plates/iron"))
+		.define('P', RegistryManager.SEALED_PLANKS.get())
+		.unlockedBy("has_hearth_coil", has(RegistryManager.HEARTH_COIL.get()))
+		.save(consumer, getResource("char_instiller"));
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryManager.ATMOSPHERIC_BELLOWS.get())
+		.pattern("CPC")
+		.pattern("LLL")
+		.pattern("CPC")
+		.define('C', itemTag("forge", "plates/copper"))
+		.define('L', Tags.Items.LEATHER)
+		.define('P', RegistryManager.SEALED_PLANKS.get())
+		.unlockedBy("has_hearth_coil", has(RegistryManager.HEARTH_COIL.get()))
+		.save(consumer, getResource("atmospheric_bellows"));
 	}
 
 	public void fullOreRecipes(String name, ImmutableList<ItemLike> ores, Fluid fluid, Item raw, Item rawBlock, Item block, Item ingot, Item nugget, Item plate, Consumer<FinishedRecipe> consumer, MeltingBonus... bonusses) {

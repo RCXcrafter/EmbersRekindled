@@ -231,7 +231,9 @@ public class EmbersBlockTags extends BlockTagsProvider {
 				RegistryManager.SEALED_PLANKS.get(),
 				RegistryManager.REINFORCED_SEALED_PLANKS.get(),
 				RegistryManager.SEALED_WOOD_PILLAR.get(),
-				RegistryManager.SEALED_WOOD_KEG.get());
+				RegistryManager.SEALED_WOOD_KEG.get(),
+				RegistryManager.CHAR_INSTILLER.get(),
+				RegistryManager.ATMOSPHERIC_BELLOWS.get());
 
 		tag(BlockTags.MINEABLE_WITH_SHOVEL).add(
 				RegistryManager.RAW_CAMINITE_BLOCK.get());

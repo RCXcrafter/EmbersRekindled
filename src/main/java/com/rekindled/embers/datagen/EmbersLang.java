@@ -146,6 +146,8 @@ public class EmbersLang extends LanguageProvider {
 		addBlock(RegistryManager.INFERNO_FORGE, "Inferno Forge");
 		addBlock(RegistryManager.INFERNO_FORGE_EDGE, "Inferno Forge");
 		addBlock(RegistryManager.MNEMONIC_INSCRIBER, "Mnemonic Inscriber");
+		addBlock(RegistryManager.CHAR_INSTILLER, "Char Instiller");
+		addBlock(RegistryManager.ATMOSPHERIC_BELLOWS, "Atmospheric Bellows");
 
 		addItem(RegistryManager.TINKER_HAMMER, "Tinker's Hammer");
 		addItem(RegistryManager.TINKER_LENS, "Tinker's Lens");
@@ -551,6 +553,16 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".research.page.hearth_coil.title", "Open Fire");
 		add(Embers.MODID + ".research.page.hearth_coil.tags", "Furnace;Coil;Hearth;Machine;Smelt;Processing;Item;Multiblock;Multi Block;");
 		add(Embers.MODID + ".research.page.hearth_coil.desc", "Gone are the days of using solid fuels in a stone furnace to cook your items. Making use of Ember power, you have developed the Hearth Coil. When supplied with Ember, the Coil will heat up. The hotter it gets, the faster it will smelt the items on top of it. All smelted items will be contained within the inventory of the Coil, and can be piped out from the bottom or from some Accessor.");
+
+		add(Embers.MODID + ".research.page.char_instiller", "Char Instiller");
+		add(Embers.MODID + ".research.page.char_instiller.title", "Smoking Hot");
+		add(Embers.MODID + ".research.page.char_instiller.tags", "Smoking;Smoker;Coil;Hearth;Upgrade;Fast;Speed;");
+		add(Embers.MODID + ".research.page.char_instiller.desc", "The Char Instiller is a specialization upgrade for the Hearth Coil. Attaching one to a Hearth Coil will limit it to only Smoking recipes but the speed will be doubled. This upgrade is not compatible with the Atmospheric Bellows.");
+
+		add(Embers.MODID + ".research.page.atmospheric_bellows", "Atmospheric Bellows");
+		add(Embers.MODID + ".research.page.atmospheric_bellows.title", "Having a Blast");
+		add(Embers.MODID + ".research.page.atmospheric_bellows.tags", "Blasting;Coil;Hearth;Upgrade;Fast;Speed;");
+		add(Embers.MODID + ".research.page.atmospheric_bellows.desc", "The Atmospheric Bellows are a specialization upgrade for the Hearth Coil. Attaching one to a Hearth Coil will limit it to only Blasting recipes but the speed will be doubled. This upgrade is not compatible with the Char Instiller.");
 
 		add(Embers.MODID + ".research.page.mixer", "Mixer Centrifuge");
 		add(Embers.MODID + ".research.page.mixer.title", "Mix It Up");

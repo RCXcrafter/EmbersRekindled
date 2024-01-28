@@ -3,6 +3,7 @@ package com.rekindled.embers.blockentity;
 import java.awt.Color;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
@@ -46,8 +47,8 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.SmeltingRecipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -91,7 +92,7 @@ public class HearthCoilBlockEntity extends BlockEntity implements ISoundControll
 	HashSet<Integer> soundsPlaying = new HashSet<>();
 	boolean isWorking;
 	protected List<UpgradeContext> upgrades;
-	public SmeltingRecipe cachedRecipe = null;
+	public HashMap<RecipeType<?>, AbstractCookingRecipe> cachedRecipes = new HashMap<RecipeType<?>, AbstractCookingRecipe>();
 
 	public HearthCoilBlockEntity(BlockPos pPos, BlockState pBlockState) {
 		super(RegistryManager.HEARTH_COIL_ENTITY.get(), pPos, pBlockState);
@@ -156,7 +157,7 @@ public class HearthCoilBlockEntity extends BlockEntity implements ISoundControll
 		}
 	}
 
-	public static void serverTick(Level level, BlockPos pos, BlockState state, HearthCoilBlockEntity blockEntity) {
+	public static <T extends AbstractCookingRecipe> void serverTick(Level level, BlockPos pos, BlockState state, HearthCoilBlockEntity blockEntity) {
 		blockEntity.ticksExisted++;
 
 		blockEntity.upgrades = UpgradeUtil.getUpgrades(level, pos, new Direction[]{Direction.DOWN});
@@ -205,12 +206,18 @@ public class HearthCoilBlockEntity extends BlockEntity implements ISoundControll
 					int i = random.nextInt(items.size());
 					ItemEntity entityItem = items.get(i);
 					SingleItemContainer wrapper = new SingleItemContainer(entityItem.getItem());
-					blockEntity.cachedRecipe = Misc.getRecipe(blockEntity.cachedRecipe, RecipeType.SMELTING, wrapper, level);
+					RecipeType<?> type = UpgradeUtil.getOtherParameter(blockEntity, "recipe_type", (RecipeType<?>) RecipeType.SMELTING, blockEntity.upgrades);
 
-					if (blockEntity.cachedRecipe != null) {
-						ArrayList<ItemStack> returns = Lists.newArrayList(blockEntity.cachedRecipe.assemble(wrapper, level.registryAccess()));
+					if (blockEntity.cachedRecipes.containsKey(type)) {
+						blockEntity.cachedRecipes.put(type, Misc.getRecipe(blockEntity.cachedRecipes.get(type), type, wrapper, level));
+					} else {
+						blockEntity.cachedRecipes.put(type, Misc.getRecipe(null, type, wrapper, level));
+					}
+
+					if (blockEntity.cachedRecipes.get(type) != null) {
+						ArrayList<ItemStack> returns = Lists.newArrayList(blockEntity.cachedRecipes.get(type).assemble(wrapper, level.registryAccess()));
 						//int inputCount = recipe.getInputConsumed();
-						UpgradeUtil.throwEvent(blockEntity, new MachineRecipeEvent.Success<>(blockEntity, blockEntity.cachedRecipe), blockEntity.upgrades);
+						UpgradeUtil.throwEvent(blockEntity, new MachineRecipeEvent.Success<>(blockEntity, blockEntity.cachedRecipes.get(type)), blockEntity.upgrades);
 						UpgradeUtil.transformOutput(blockEntity, returns, blockEntity.upgrades);
 						depleteItem(entityItem, 1);
 						for(ItemStack stack : returns) {

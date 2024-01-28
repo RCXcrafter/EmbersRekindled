@@ -7,6 +7,8 @@
     "embers:sealed_planks",
     "embers:reinforced_sealed_planks",
     "embers:sealed_wood_pillar",
-    "embers:sealed_wood_keg"
+    "embers:sealed_wood_keg",
+    "embers:char_instiller",
+    "embers:atmospheric_bellows"
   ]
 }
