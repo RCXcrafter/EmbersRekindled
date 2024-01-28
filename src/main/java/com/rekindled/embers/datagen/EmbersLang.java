@@ -254,6 +254,9 @@ public class EmbersLang extends LanguageProvider {
 
 		addItem(RegistryManager.ANCIENT_GOLEM_SPAWN_EGG, "Ancient Golem Spawn Egg");
 		addEntityType(RegistryManager.ANCIENT_GOLEM, "Ancient Golem");
+		addEntityType(RegistryManager.EMBER_PACKET, "Ember Packet");
+		addEntityType(RegistryManager.EMBER_PROJECTILE, "Ember Projectile");
+		addEntityType(RegistryManager.GLIMMER_PROJECTILE, "Glimmer Projectile");
 
 
 		//augments
