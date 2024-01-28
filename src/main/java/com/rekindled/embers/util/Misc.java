@@ -17,6 +17,7 @@ import org.joml.Vector3f;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.rekindled.embers.ConfigManager;
+import com.rekindled.embers.Embers;
 import com.rekindled.embers.api.event.InfoGogglesEvent;
 
 import net.minecraft.client.gui.Font;
@@ -411,10 +412,18 @@ public class Misc {
 
 	public static Ingredient getRepairIngredient(Item item) {
 		if (item instanceof TieredItem tool) {
-			return tool.getTier().getRepairIngredient();
+			try {
+				return tool.getTier().getRepairIngredient();
+			} catch (NullPointerException e) {
+				Embers.LOGGER.error("Item: \"" + ForgeRegistries.ITEMS.getKey(item) + "\" has no proper repair ingredient.", e);
+			}
 		}
 		if (item instanceof ArmorItem armor) {
-			return armor.getMaterial().getRepairIngredient();
+			try {
+				return armor.getMaterial().getRepairIngredient();
+			} catch (NullPointerException e) {
+				Embers.LOGGER.error("Item: \"" + ForgeRegistries.ITEMS.getKey(item) + "\" of material: \"" + armor.getMaterial().getName() + "\" has no proper repair ingredient.", e);
+			}
 		}
 		return Ingredient.EMPTY;
 	}

@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
+import org.slf4j.Logger;
+
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.logging.LogUtils;
 import com.rekindled.embers.api.power.IEmberCapability;
 import com.rekindled.embers.apiimpl.EmbersAPIImpl;
 import com.rekindled.embers.augment.ShiftingScalesAugment;
@@ -139,6 +142,8 @@ public class Embers {
 
 	public static final String MODID_OLD = "embersrekindled";
 	public static final String MODID = "embers";
+
+	public static final Logger LOGGER = LogUtils.getLogger();
 
 	public Embers() {
 		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
