@@ -36,12 +36,6 @@ public class MnemonicInscriberUpgrade extends DefaultUpgradeProvider {
 
 	@Override
 	public void throwEvent(BlockEntity tile, List<UpgradeContext> upgrades, UpgradeEvent event, int distance, int count) {
-		if (event instanceof AlchemyStartEvent alchemyEvent) {
-			System.out.println(alchemyEvent);
-			System.out.println(alchemyEvent.getRecipe());
-			System.out.println(tile.getLevel().getBlockState(this.tile.getBlockPos()).hasProperty(MnemonicInscriberBlock.ACTIVE));
-		}
-
 		if (event instanceof AlchemyStartEvent alchemyEvent && alchemyEvent.getRecipe() != null) {
 			BlockState state = tile.getLevel().getBlockState(this.tile.getBlockPos());
 			if (state.hasProperty(MnemonicInscriberBlock.ACTIVE)) {

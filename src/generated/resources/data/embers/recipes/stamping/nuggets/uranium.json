@@ -1,0 +1,22 @@
+{
+  "type": "embers:stamping",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:nuggets/uranium"
+      }
+    }
+  ],
+  "fluid": {
+    "amount": 10,
+    "tag": "forge:molten_uranium"
+  },
+  "output": {
+    "tag": "forge:nuggets/uranium"
+  },
+  "stamp": {
+    "item": "embers:nugget_stamp"
+  }
+}

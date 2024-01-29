@@ -9,8 +9,14 @@
     "embers:molten_nickel",
     "embers:molten_tin",
     "embers:molten_aluminum",
+    "embers:molten_zinc",
+    "embers:molten_platinum",
+    "embers:molten_uranium",
     "embers:molten_bronze",
     "embers:molten_electrum",
+    "embers:molten_brass",
+    "embers:molten_constantan",
+    "embers:molten_invar",
     {
       "id": "#tconstruct:tooltips/metal",
       "required": false

@@ -760,10 +760,28 @@ public class RegistryManager {
 	public static final FluidStuff MOLTEN_ALUMINUM = addFluid("Molten Aluminum", new FluidInfo("molten_aluminum", 0xFFAE9C, 0.1F, 1.5F), MoltenMetalFluidType::new, LiquidBlock::new,
 			prop -> prop.explosionResistance(1000F).tickRate(30).slopeFindDistance(2).levelDecreasePerBlock(2), moltenMetalProps());
 
+	public static final FluidStuff MOLTEN_ZINC = addFluid("Molten Zinc", new FluidInfo("molten_zinc", 0x8C8D7B, 0.1F, 1.5F), MoltenMetalFluidType::new, LiquidBlock::new,
+			prop -> prop.explosionResistance(1000F).tickRate(30).slopeFindDistance(2).levelDecreasePerBlock(2), moltenMetalProps());
+
+	public static final FluidStuff MOLTEN_PLATINUM = addFluid("Molten Platinum", new FluidInfo("molten_platinum", 0xA6DEE8, 0.1F, 1.5F), MoltenMetalFluidType::new, LiquidBlock::new,
+			prop -> prop.explosionResistance(1000F).tickRate(30).slopeFindDistance(2).levelDecreasePerBlock(2), moltenMetalProps());
+
+	public static final FluidStuff MOLTEN_URANIUM = addFluid("Molten Uranium", new FluidInfo("molten_uranium", 0x314630, 0.1F, 1.5F), MoltenMetalFluidType::new, LiquidBlock::new,
+			prop -> prop.explosionResistance(1000F).tickRate(30).slopeFindDistance(2).levelDecreasePerBlock(2), moltenMetalProps());
+
 	public static final FluidStuff MOLTEN_BRONZE = addFluid("Molten Bronze", new FluidInfo("molten_bronze", 0xEDAE66, 0.1F, 1.5F), MoltenMetalFluidType::new, LiquidBlock::new,
 			prop -> prop.explosionResistance(1000F).tickRate(30).slopeFindDistance(2).levelDecreasePerBlock(2), moltenMetalProps());
 
 	public static final FluidStuff MOLTEN_ELECTRUM = addFluid("Molten Electrum", new FluidInfo("molten_electrum", 0xFAE176, 0.1F, 1.5F), MoltenMetalFluidType::new, LiquidBlock::new,
+			prop -> prop.explosionResistance(1000F).tickRate(30).slopeFindDistance(2).levelDecreasePerBlock(2), moltenMetalProps());
+
+	public static final FluidStuff MOLTEN_BRASS = addFluid("Molten Brass", new FluidInfo("molten_brass", 0xD3A756, 0.1F, 1.5F), MoltenMetalFluidType::new, LiquidBlock::new,
+			prop -> prop.explosionResistance(1000F).tickRate(30).slopeFindDistance(2).levelDecreasePerBlock(2), moltenMetalProps());
+
+	public static final FluidStuff MOLTEN_CONSTANTAN = addFluid("Molten Constantan", new FluidInfo("molten_constantan", 0xB55C46, 0.1F, 1.5F), MoltenMetalFluidType::new, LiquidBlock::new,
+			prop -> prop.explosionResistance(1000F).tickRate(30).slopeFindDistance(2).levelDecreasePerBlock(2), moltenMetalProps());
+
+	public static final FluidStuff MOLTEN_INVAR = addFluid("Molten Invar", new FluidInfo("molten_invar", 0xB1D0D1, 0.1F, 1.5F), MoltenMetalFluidType::new, LiquidBlock::new,
 			prop -> prop.explosionResistance(1000F).tickRate(30).slopeFindDistance(2).levelDecreasePerBlock(2), moltenMetalProps());
 
 	public static final FluidStuff STEAM = addFluid("Steam", new FluidInfo("steam", 0xFFFCFC, 0.1F, 1.5F), SteamFluidType::new, LiquidBlock::new,

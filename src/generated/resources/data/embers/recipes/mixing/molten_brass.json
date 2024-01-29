@@ -1,0 +1,26 @@
+{
+  "type": "embers:mixing",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/brass"
+      }
+    }
+  ],
+  "inputs": [
+    {
+      "amount": 2,
+      "tag": "forge:molten_copper"
+    },
+    {
+      "amount": 2,
+      "tag": "forge:molten_zinc"
+    }
+  ],
+  "output": {
+    "amount": 4,
+    "fluid": "embers:molten_brass"
+  }
+}

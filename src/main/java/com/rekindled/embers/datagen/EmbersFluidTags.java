@@ -31,8 +31,14 @@ public class EmbersFluidTags extends FluidTagsProvider {
 	public static final TagKey<Fluid> MOLTEN_NICKEL = FluidTags.create(new ResourceLocation("forge", "molten_nickel"));
 	public static final TagKey<Fluid> MOLTEN_TIN = FluidTags.create(new ResourceLocation("forge", "molten_tin"));
 	public static final TagKey<Fluid> MOLTEN_ALUMINUM = FluidTags.create(new ResourceLocation("forge", "molten_aluminum"));
+	public static final TagKey<Fluid> MOLTEN_ZINC = FluidTags.create(new ResourceLocation("forge", "molten_zinc"));
+	public static final TagKey<Fluid> MOLTEN_PLATINUM = FluidTags.create(new ResourceLocation("forge", "molten_platinum"));
+	public static final TagKey<Fluid> MOLTEN_URANIUM = FluidTags.create(new ResourceLocation("forge", "molten_uranium"));
 	public static final TagKey<Fluid> MOLTEN_BRONZE = FluidTags.create(new ResourceLocation("forge", "molten_bronze"));
 	public static final TagKey<Fluid> MOLTEN_ELECTRUM = FluidTags.create(new ResourceLocation("forge", "molten_electrum"));
+	public static final TagKey<Fluid> MOLTEN_BRASS = FluidTags.create(new ResourceLocation("forge", "molten_brass"));
+	public static final TagKey<Fluid> MOLTEN_CONSTANTAN = FluidTags.create(new ResourceLocation("forge", "molten_constantan"));
+	public static final TagKey<Fluid> MOLTEN_INVAR = FluidTags.create(new ResourceLocation("forge", "molten_invar"));
 
 	//ingot tooltips
 	public static final TagKey<Fluid> INGOT_TOOLTIP = FluidTags.create(new ResourceLocation(Embers.MODID, "ingot_tooltip"));
@@ -58,8 +64,14 @@ public class EmbersFluidTags extends FluidTagsProvider {
 		tag(MOLTEN_NICKEL).add(RegistryManager.MOLTEN_NICKEL.FLUID.get());
 		tag(MOLTEN_TIN).add(RegistryManager.MOLTEN_TIN.FLUID.get());
 		tag(MOLTEN_ALUMINUM).add(RegistryManager.MOLTEN_ALUMINUM.FLUID.get());
+		tag(MOLTEN_ZINC).add(RegistryManager.MOLTEN_ZINC.FLUID.get());
+		tag(MOLTEN_PLATINUM).add(RegistryManager.MOLTEN_PLATINUM.FLUID.get());
+		tag(MOLTEN_URANIUM).add(RegistryManager.MOLTEN_URANIUM.FLUID.get());
 		tag(MOLTEN_BRONZE).add(RegistryManager.MOLTEN_BRONZE.FLUID.get());
 		tag(MOLTEN_ELECTRUM).add(RegistryManager.MOLTEN_ELECTRUM.FLUID.get());
+		tag(MOLTEN_BRASS).add(RegistryManager.MOLTEN_BRASS.FLUID.get());
+		tag(MOLTEN_CONSTANTAN).add(RegistryManager.MOLTEN_CONSTANTAN.FLUID.get());
+		tag(MOLTEN_INVAR).add(RegistryManager.MOLTEN_INVAR.FLUID.get());
 
 		tag(INGOT_TOOLTIP)
 		.add(RegistryManager.MOLTEN_IRON.FLUID.get())
@@ -71,8 +83,14 @@ public class EmbersFluidTags extends FluidTagsProvider {
 		.add(RegistryManager.MOLTEN_NICKEL.FLUID.get())
 		.add(RegistryManager.MOLTEN_TIN.FLUID.get())
 		.add(RegistryManager.MOLTEN_ALUMINUM.FLUID.get())
+		.add(RegistryManager.MOLTEN_ZINC.FLUID.get())
+		.add(RegistryManager.MOLTEN_PLATINUM.FLUID.get())
+		.add(RegistryManager.MOLTEN_URANIUM.FLUID.get())
 		.add(RegistryManager.MOLTEN_BRONZE.FLUID.get())
 		.add(RegistryManager.MOLTEN_ELECTRUM.FLUID.get())
+		.add(RegistryManager.MOLTEN_BRASS.FLUID.get())
+		.add(RegistryManager.MOLTEN_CONSTANTAN.FLUID.get())
+		.add(RegistryManager.MOLTEN_INVAR.FLUID.get())
 		.addOptionalTag(METAL_TOOLTIPS.location());
 	}
 }

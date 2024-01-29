@@ -134,8 +134,14 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		fullOreMeltingStampingRecipes("nickel", RegistryManager.MOLTEN_NICKEL.FLUID.get(), consumer, MeltingBonus.IRON);
 		fullOreMeltingStampingRecipes("tin", RegistryManager.MOLTEN_TIN.FLUID.get(), consumer, MeltingBonus.LEAD);
 		fullOreMeltingStampingRecipes("aluminum", RegistryManager.MOLTEN_ALUMINUM.FLUID.get(), consumer, MeltingBonus.IRON);
+		fullOreMeltingStampingRecipes("zinc", RegistryManager.MOLTEN_ZINC.FLUID.get(), consumer, MeltingBonus.TIN, MeltingBonus.IRON);
+		fullOreMeltingStampingRecipes("platinum", RegistryManager.MOLTEN_PLATINUM.FLUID.get(), consumer, MeltingBonus.GOLD);
+		fullOreMeltingStampingRecipes("uranium", RegistryManager.MOLTEN_URANIUM.FLUID.get(), consumer, MeltingBonus.LEAD);
 		fullMeltingStampingRecipes("bronze", RegistryManager.MOLTEN_BRONZE.FLUID.get(), consumer);
 		fullMeltingStampingRecipes("electrum", RegistryManager.MOLTEN_ELECTRUM.FLUID.get(), consumer);
+		fullMeltingStampingRecipes("brass", RegistryManager.MOLTEN_BRASS.FLUID.get(), consumer);
+		fullMeltingStampingRecipes("constantan", RegistryManager.MOLTEN_CONSTANTAN.FLUID.get(), consumer);
+		fullMeltingStampingRecipes("invar", RegistryManager.MOLTEN_INVAR.FLUID.get(), consumer);
 		MeltingRecipeBuilder.create(Ingredient.of(Items.SOUL_SAND, Items.SOUL_SOIL)).id(new ResourceLocation(Embers.MODID, meltingFolder + "/soul_crude")).output(RegistryManager.SOUL_CRUDE.FLUID.get(), 100).save(consumer);
 
 		//stamper crushing
@@ -153,9 +159,12 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		StampingRecipeBuilder.create(RegistryManager.DAWNSTONE_ASPECTUS.get()).domain(Embers.MODID).folder(stampingFolder).stamp(RegistryManager.INGOT_STAMP.get()).input(RegistryManager.EMBER_SHARD.get()).fluid(fluidTag("forge", "molten_dawnstone"), FluidAmounts.INGOT_AMOUNT).save(ConsumerWrapperBuilder.wrap().build(consumer));
 
 		//mixing
-		MixingRecipeBuilder.create(RegistryManager.MOLTEN_DAWNSTONE.FLUID.get(), 4).folder(mixingFolder).input(fluidTag("forge", "molten_copper"), 2).input(fluidTag("forge", "molten_gold"), 2).save(consumer);
-		MixingRecipeBuilder.create(RegistryManager.MOLTEN_BRONZE.FLUID.get(), 4).folder(mixingFolder).input(fluidTag("forge", "molten_copper"), 3).input(fluidTag("forge", "molten_tin"), 1).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(itemTag("forge", "ingots/bronze"))).build(consumer));
-		MixingRecipeBuilder.create(RegistryManager.MOLTEN_ELECTRUM.FLUID.get(), 4).folder(mixingFolder).input(fluidTag("forge", "molten_silver"), 2).input(fluidTag("forge", "molten_gold"), 2).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(itemTag("forge", "ingots/electrum"))).build(consumer));
+		MixingRecipeBuilder.create(RegistryManager.MOLTEN_DAWNSTONE.FLUID.get(), 4).folder(mixingFolder).input(EmbersFluidTags.MOLTEN_COPPER, 2).input(EmbersFluidTags.MOLTEN_GOLD, 2).save(consumer);
+		MixingRecipeBuilder.create(RegistryManager.MOLTEN_BRONZE.FLUID.get(), 4).folder(mixingFolder).input(EmbersFluidTags.MOLTEN_COPPER, 3).input(EmbersFluidTags.MOLTEN_TIN, 1).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(itemTag("forge", "ingots/bronze"))).build(consumer));
+		MixingRecipeBuilder.create(RegistryManager.MOLTEN_ELECTRUM.FLUID.get(), 4).folder(mixingFolder).input(EmbersFluidTags.MOLTEN_SILVER, 2).input(EmbersFluidTags.MOLTEN_GOLD, 2).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(itemTag("forge", "ingots/electrum"))).build(consumer));
+		MixingRecipeBuilder.create(RegistryManager.MOLTEN_BRASS.FLUID.get(), 4).folder(mixingFolder).input(EmbersFluidTags.MOLTEN_COPPER, 2).input(EmbersFluidTags.MOLTEN_ZINC, 2).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(itemTag("forge", "ingots/brass"))).build(consumer));
+		MixingRecipeBuilder.create(RegistryManager.MOLTEN_CONSTANTAN.FLUID.get(), 4).folder(mixingFolder).input(EmbersFluidTags.MOLTEN_COPPER, 2).input(EmbersFluidTags.MOLTEN_NICKEL, 2).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(itemTag("forge", "ingots/constantan"))).build(consumer));
+		MixingRecipeBuilder.create(RegistryManager.MOLTEN_INVAR.FLUID.get(), 3).folder(mixingFolder).input(EmbersFluidTags.MOLTEN_IRON, 2).input(EmbersFluidTags.MOLTEN_NICKEL, 1).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(itemTag("forge", "ingots/invar"))).build(consumer));
 		MixingRecipeBuilder.create(RegistryManager.DWARVEN_OIL.FLUID.get(), 10).id(new ResourceLocation(Embers.MODID, mixingFolder + "/dwarven_oil_steam")).input(RegistryManager.SOUL_CRUDE.FLUID.get(), 5).input(RegistryManager.STEAM.FLUID.get(), 20).save(consumer);
 		MixingRecipeBuilder.create(RegistryManager.DWARVEN_OIL.FLUID.get(), 30).id(new ResourceLocation(Embers.MODID, mixingFolder + "/dwarven_oil")).input(RegistryManager.SOUL_CRUDE.FLUID.get(), 10).input(RegistryManager.DWARVEN_GAS.FLUID.get(), 5).save(consumer);
 

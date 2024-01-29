@@ -1,0 +1,28 @@
+{
+  "type": "embers:melting",
+  "bonus": {
+    "amount": 20,
+    "fluid": "embers:molten_lead"
+  },
+  "conditions": [
+    {
+      "type": "forge:and",
+      "values": [
+        {
+          "type": "forge:not",
+          "value": {
+            "type": "forge:tag_empty",
+            "tag": "forge:ores/uranium"
+          }
+        }
+      ]
+    }
+  ],
+  "input": {
+    "tag": "forge:ores/uranium"
+  },
+  "output": {
+    "amount": 240,
+    "fluid": "embers:molten_uranium"
+  }
+}
