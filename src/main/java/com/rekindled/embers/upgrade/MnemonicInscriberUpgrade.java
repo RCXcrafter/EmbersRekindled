@@ -5,8 +5,10 @@ import java.util.List;
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.event.AlchemyResultEvent;
+import com.rekindled.embers.api.event.AlchemyStartEvent;
 import com.rekindled.embers.api.event.UpgradeEvent;
 import com.rekindled.embers.api.upgrades.UpgradeContext;
+import com.rekindled.embers.block.MnemonicInscriberBlock;
 import com.rekindled.embers.blockentity.MnemonicInscriberBlockEntity;
 import com.rekindled.embers.datagen.EmbersItemTags;
 import com.rekindled.embers.datagen.EmbersSounds;
@@ -16,7 +18,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 public class MnemonicInscriberUpgrade extends DefaultUpgradeProvider {
@@ -32,6 +36,18 @@ public class MnemonicInscriberUpgrade extends DefaultUpgradeProvider {
 
 	@Override
 	public void throwEvent(BlockEntity tile, List<UpgradeContext> upgrades, UpgradeEvent event, int distance, int count) {
+		if (event instanceof AlchemyStartEvent alchemyEvent) {
+			System.out.println(alchemyEvent);
+			System.out.println(alchemyEvent.getRecipe());
+			System.out.println(tile.getLevel().getBlockState(this.tile.getBlockPos()).hasProperty(MnemonicInscriberBlock.ACTIVE));
+		}
+
+		if (event instanceof AlchemyStartEvent alchemyEvent && alchemyEvent.getRecipe() != null) {
+			BlockState state = tile.getLevel().getBlockState(this.tile.getBlockPos());
+			if (state.hasProperty(MnemonicInscriberBlock.ACTIVE)) {
+				this.tile.getLevel().setBlock(this.tile.getBlockPos(), state.setValue(MnemonicInscriberBlock.ACTIVE, true), Block.UPDATE_ALL);
+			}
+		}
 		if (event instanceof AlchemyResultEvent alchemyEvent && this.tile instanceof MnemonicInscriberBlockEntity inscriber) {
 			if (!alchemyEvent.isFailure() && inscriber.inventory.getStackInSlot(0).is(EmbersItemTags.INSCRIBABLE_PAPER)) {
 				inscriber.inventory.setStackInSlot(0, alchemyEvent.getResult().createResultStack(new ItemStack(RegistryManager.ALCHEMICAL_NOTE.get())));
@@ -39,6 +55,10 @@ public class MnemonicInscriberUpgrade extends DefaultUpgradeProvider {
 				if (tile.getLevel() instanceof ServerLevel serverLevel) {
 					serverLevel.sendParticles(new GlowParticleOptions(GlowParticleOptions.EMBER_COLOR, new Vec3(0.0, 0.000001, 0.0), 2.0F, 40), this.tile.getBlockPos().getX() + 0.5, this.tile.getBlockPos().getY() + 0.5, this.tile.getBlockPos().getZ() + 0.5, 40, 0.12f, 0.12f, 0.12f, 0.0);
 				}
+			}
+			BlockState state = tile.getLevel().getBlockState(this.tile.getBlockPos());
+			if (state.hasProperty(MnemonicInscriberBlock.ACTIVE)) {
+				this.tile.getLevel().setBlock(this.tile.getBlockPos(), state.setValue(MnemonicInscriberBlock.ACTIVE, false), Block.UPDATE_ALL);
 			}
 		}
 	}

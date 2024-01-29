@@ -10,6 +10,7 @@ import org.jetbrains.annotations.NotNull;
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.event.AlchemyResultEvent;
+import com.rekindled.embers.api.event.AlchemyStartEvent;
 import com.rekindled.embers.api.event.MachineRecipeEvent;
 import com.rekindled.embers.api.misc.AlchemyResult;
 import com.rekindled.embers.api.tile.IBin;
@@ -277,7 +278,10 @@ public class AlchemyTabletBlockEntity extends BlockEntity implements ISparkable,
 		AlchemyContext context = new AlchemyContext(inventory.getStackInSlot(0), pedestals, ((ServerLevel) level).getSeed());
 		cachedRecipe = Misc.getRecipe(cachedRecipe, RegistryManager.ALCHEMY.get(), context, level);
 
-		if (cachedRecipe != null) {
+		AlchemyStartEvent event = new AlchemyStartEvent(this, context, cachedRecipe);
+		UpgradeUtil.throwEvent(this, event, upgrades);
+
+		if (event.getRecipe() != null) {
 			((ServerLevel) level).sendParticles(AlchemyCircleParticleOptions.DEFAULT, worldPosition.getX() + 0.5, worldPosition.getY() + 1.01, worldPosition.getZ() + 0.5, 5, 0, 0, 0, 1);
 			progress = 1;
 			setChanged();

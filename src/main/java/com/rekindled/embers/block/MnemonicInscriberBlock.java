@@ -25,6 +25,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
@@ -36,6 +37,7 @@ import net.minecraftforge.items.IItemHandler;
 
 public class MnemonicInscriberBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
 
+	public static final BooleanProperty ACTIVE = BooleanProperty.create("active");
 	public static final VoxelShape UP_AABB = Shapes.or(Block.box(12,0,7,14,5,9), Block.box(7,0,2,9,5,4), Block.box(7,0,12,9,5,14), Block.box(2,0,7,4,5,9), Block.box(3.5,3,3.5,12.5,9,12.5));
 	public static final VoxelShape DOWN_AABB = Shapes.or(Block.box(7,11,2,9,16,4), Block.box(12,11,7,14,16,9), Block.box(2,11,7,4,16,9), Block.box(7,11,12,9,16,14), Block.box(3.5,7,3.5,12.5,13,12.5));
 	public static final VoxelShape NORTH_AABB = Shapes.or(Block.box(12,7,11,14,9,16), Block.box(7,2,11,9,4,16), Block.box(7,12,11,9,14,16), Block.box(2,7,11,4,9,16), Block.box(3.5,3.5,7,12.5,12.5,13));
@@ -45,7 +47,7 @@ public class MnemonicInscriberBlock extends BaseEntityBlock implements SimpleWat
 
 	public MnemonicInscriberBlock(Properties properties) {
 		super(properties);
-		this.registerDefaultState(this.stateDefinition.any().setValue(BlockStateProperties.FACING, Direction.UP).setValue(BlockStateProperties.WATERLOGGED, false));
+		this.registerDefaultState(this.stateDefinition.any().setValue(BlockStateProperties.FACING, Direction.UP).setValue(ACTIVE, false).setValue(BlockStateProperties.WATERLOGGED, false));
 	}
 
 	@Override
@@ -125,7 +127,7 @@ public class MnemonicInscriberBlock extends BaseEntityBlock implements SimpleWat
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-		pBuilder.add(BlockStateProperties.FACING).add(BlockStateProperties.WATERLOGGED);
+		pBuilder.add(BlockStateProperties.FACING).add(ACTIVE).add(BlockStateProperties.WATERLOGGED);
 	}
 
 	@Override

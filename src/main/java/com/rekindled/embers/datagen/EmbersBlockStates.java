@@ -13,6 +13,7 @@ import com.rekindled.embers.block.EmberEmitterBlock;
 import com.rekindled.embers.block.FieldChartBlock;
 import com.rekindled.embers.block.ItemTransferBlock;
 import com.rekindled.embers.block.MechEdgeBlockBase;
+import com.rekindled.embers.block.MnemonicInscriberBlock;
 import com.rekindled.embers.block.MechEdgeBlockBase.MechEdge;
 import com.rekindled.embers.render.PipeModelBuilder;
 
@@ -634,7 +635,16 @@ public class EmbersBlockStates extends BlockStateProvider {
 		});
 
 		ExistingModelFile inscriberModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "mnemonic_inscriber"));
-		directionalBlock(RegistryManager.MNEMONIC_INSCRIBER.get(), inscriberModel);
+		ModelFile inscriberActiveModel = models().withExistingParent(Embers.MODID + ":mnemonic_inscriber_active", new ResourceLocation(Embers.MODID, "mnemonic_inscriber"))
+				.texture("4", new ResourceLocation(Embers.MODID, "block/mnemonic_on"));
+		getVariantBuilder(RegistryManager.MNEMONIC_INSCRIBER.get()).forAllStates(state -> {
+			Direction dir = state.getValue(BlockStateProperties.FACING);
+			return ConfiguredModel.builder()
+					.modelFile(state.getValue(MnemonicInscriberBlock.ACTIVE) ? inscriberActiveModel : inscriberModel)
+					.rotationX(dir == Direction.DOWN ? 180 : dir.getAxis().isHorizontal() ? 90 : 0)
+					.rotationY(dir.getAxis().isVertical() ? 0 : (((int) dir.toYRot()) + 180) % 360)
+					.build();
+		});
 		simpleBlockItem(RegistryManager.MNEMONIC_INSCRIBER.get(), inscriberModel);
 
 		ExistingModelFile instillerModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "char_instiller"));

@@ -1,0 +1,6 @@
+{
+  "parent": "embers:block/mnemonic_inscriber",
+  "textures": {
+    "4": "embers:block/mnemonic_on"
+  }
+}
