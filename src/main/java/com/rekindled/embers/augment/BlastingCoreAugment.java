@@ -20,6 +20,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level.ExplosionInteraction;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.MinecraftForge;
@@ -57,7 +58,8 @@ public class BlastingCoreAugment extends AugmentBase {
 					for (BlockPos toExplode : getBlastCube(world, pos, event.getPlayer(), chance)) {
 						BlockState state = world.getBlockState(toExplode);
 						if (state.getDestroySpeed(world, pos) >= 0 && event.getPlayer().hasCorrectToolForDrops(world.getBlockState(toExplode))) {
-							world.destroyBlock(toExplode, true);
+							world.destroyBlock(toExplode, false, event.getPlayer());
+							Block.dropResources(state, event.getPlayer().level(), pos, world.getBlockEntity(pos), event.getPlayer(), s);
 						}
 					}
 					EmberInventoryUtil.removeEmber(event.getPlayer(), cost);
