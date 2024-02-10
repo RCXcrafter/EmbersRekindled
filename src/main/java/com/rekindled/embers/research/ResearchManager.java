@@ -42,7 +42,7 @@ public class ResearchManager {
 	public static ResearchBase dials, ores, hammer, ancient_golem, gauge, caminite, access, bore, crystals, activator, tinker_lens, reaction_chamber, //WORLD
 	copper_cell, emitters, relays, dawnstone, melter, stamper, mixer, breaker, hearth_coil, char_instiller, atmospheric_bellows, pressureRefinery, mini_boiler, pump, clockwork_attenuator, geo_separator, //MECHANISMS
 	beam_cannon, pulser, splitter, crystal_cell, cinder_staff, clockwork_tools, blazing_ray, charger, jars, alchemy, cinder_plinth, aspecti, ember_siphon, //METALLURGY
-	tyrfing, waste, slate, mnemonic_inscriber, catalytic_plug, cluster, ashen_cloak, inflictor, materia, field_chart, glimmer, metallurgic_dust, //ALCHEMY
+	tyrfing, waste, slate, mnemonic_inscriber, entropic_enumerator, catalytic_plug, cluster, ashen_cloak, inflictor, materia, field_chart, glimmer, metallurgic_dust, //ALCHEMY
 	augments, inferno_forge, heat, dawnstone_anvil, autohammer, dismantling //SMITHING
 	;
 	public static ResearchBase pipes, tank, bin, dropper, reservoir, vacuum, transfer, golem_eye, requisition; //PIPES
@@ -245,7 +245,8 @@ public class ResearchManager {
 				.addPage(new ResearchBase("waste_page_2", new ItemStack(RegistryManager.ALCHEMICAL_WASTE.get()), 0, 0));
 		slate = new ResearchBase("slate", new ItemStack(RegistryManager.CODEBREAKING_SLATE.get()), 6, 2).addAncestor(waste)
 				.addPage(new ResearchBase("slate_alchemy_recap",ItemStack.EMPTY,0,0));
-		mnemonic_inscriber = new ResearchBase("mnemonic_inscriber", new ItemStack(RegistryManager.MNEMONIC_INSCRIBER.get()), 4, 1).addAncestor(slate);
+		mnemonic_inscriber = new ResearchBase("mnemonic_inscriber", new ItemStack(RegistryManager.MNEMONIC_INSCRIBER_ITEM.get()), 4, 1).addAncestor(slate);
+		entropic_enumerator = new ResearchBase("entropic_enumerator", new ItemStack(RegistryManager.ENTROPIC_ENUMERATOR_ITEM.get()), 1, 0).addAncestor(slate);
 		catalytic_plug = new ResearchBase("catalytic_plug", new ItemStack(RegistryManager.CATALYTIC_PLUG_ITEM.get()), 12, 5).addAncestor(slate);
 		materia = new ResearchBase("materia", new ItemStack(RegistryManager.ISOLATED_MATERIA.get()), 6, 5).addAncestor(slate);
 		cluster = new ResearchBase("cluster", new ItemStack(RegistryManager.EMBER_CRYSTAL_CLUSTER.get()), 3, 4).addAncestor(slate);
@@ -309,7 +310,7 @@ public class ResearchManager {
 		diffraction_barrel = new ResearchBase("diffraction_barrel", new ItemStack(RegistryManager.DIFFRACTION_BARREL.get()), subCategoryProjectileAugments.popGoodLocation());
 		focal_lens = new ResearchBase("focal_lens", new ItemStack(RegistryManager.FOCAL_LENS.get()), subCategoryProjectileAugments.popGoodLocation());
 
-		tinker_lens.addPage(tinker_lens_augment);
+		//tinker_lens.addPage(tinker_lens_augment);
 
 		ResearchBase infernoForgeWeapon = new ResearchFakePage(inferno_forge, 6, 4);
 		subCategoryWeaponAugments.addResearch(infernoForgeWeapon);
@@ -455,6 +456,7 @@ public class ResearchManager {
 		.addResearch(waste)
 		.addResearch(slate)
 		.addResearch(mnemonic_inscriber)
+		.addResearch(entropic_enumerator)
 		.addResearch(simpleAlchemySwitch)
 		.addResearch(catalytic_plug)
 		.addResearch(cluster)

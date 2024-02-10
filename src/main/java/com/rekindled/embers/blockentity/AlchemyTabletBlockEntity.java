@@ -105,7 +105,7 @@ public class AlchemyTabletBlockEntity extends BlockEntity implements ISparkable,
 	public int process = 0;
 	static Random rand = new Random();
 	public IAlchemyRecipe cachedRecipe = null;
-	protected List<UpgradeContext> upgrades;
+	protected List<UpgradeContext> upgrades = new ArrayList<UpgradeContext>();
 
 	public static final int SOUND_PROCESS = 1;
 	public static final int[] SOUND_IDS = new int[]{SOUND_PROCESS};

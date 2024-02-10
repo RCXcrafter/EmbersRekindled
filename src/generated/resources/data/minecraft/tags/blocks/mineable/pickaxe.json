@@ -125,6 +125,7 @@
     "embers:automatic_hammer",
     "embers:inferno_forge",
     "embers:inferno_forge_edge",
-    "embers:mnemonic_inscriber"
+    "embers:mnemonic_inscriber",
+    "embers:entropic_enumerator"
   ]
 }

@@ -22,6 +22,7 @@ import com.rekindled.embers.blockentity.EmberEmitterBlockEntity;
 import com.rekindled.embers.blockentity.render.AtmosphericBellowsBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.AutomaticHammerBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.EmberBoreBlockEntityRenderer;
+import com.rekindled.embers.blockentity.render.EntropicEnumeratorBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.InfernoForgeTopBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.MechanicalPumpBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.StamperBlockEntityRenderer;
@@ -340,6 +341,14 @@ public class EmbersClientEvents {
 		InfernoForgeTopBlockEntityRenderer.hatch = getModel(bakery, "inferno_forge_hatch");
 		AtmosphericBellowsBlockEntityRenderer.top = getModel(bakery, "atmospheric_bellows_top");
 		AtmosphericBellowsBlockEntityRenderer.leather = getModel(bakery, "atmospheric_bellows_leather");
+		EntropicEnumeratorBlockEntityRenderer.cubies[0][0][0] = getModel(bakery, "entropic_enumerator_drf");
+		EntropicEnumeratorBlockEntityRenderer.cubies[1][0][0] = getModel(bakery, "entropic_enumerator_dlf");
+		EntropicEnumeratorBlockEntityRenderer.cubies[0][1][0] = getModel(bakery, "entropic_enumerator_urf");
+		EntropicEnumeratorBlockEntityRenderer.cubies[1][1][0] = getModel(bakery, "entropic_enumerator_ulf");
+		EntropicEnumeratorBlockEntityRenderer.cubies[0][0][1] = getModel(bakery, "entropic_enumerator_drb");
+		EntropicEnumeratorBlockEntityRenderer.cubies[1][0][1] = getModel(bakery, "entropic_enumerator_dlb");
+		EntropicEnumeratorBlockEntityRenderer.cubies[0][1][1] = getModel(bakery, "entropic_enumerator_urb");
+		EntropicEnumeratorBlockEntityRenderer.cubies[1][1][1] = getModel(bakery, "entropic_enumerator_ulb");
 	}
 
 	public static BakedModel getModel(ModelBakery bakery, String name) {

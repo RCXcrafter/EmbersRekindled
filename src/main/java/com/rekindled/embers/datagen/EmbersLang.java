@@ -148,6 +148,7 @@ public class EmbersLang extends LanguageProvider {
 		addBlock(RegistryManager.MNEMONIC_INSCRIBER, "Mnemonic Inscriber");
 		addBlock(RegistryManager.CHAR_INSTILLER, "Char Instiller");
 		addBlock(RegistryManager.ATMOSPHERIC_BELLOWS, "Atmospheric Bellows");
+		addBlock(RegistryManager.ENTROPIC_ENUMERATOR, "Entropic Enumerator");
 
 		addItem(RegistryManager.TINKER_HAMMER, "Tinker's Hammer");
 		addItem(RegistryManager.TINKER_LENS, "Tinker's Lens");
@@ -778,8 +779,13 @@ public class EmbersLang extends LanguageProvider {
 
 		add(Embers.MODID + ".research.page.mnemonic_inscriber", "Mnemonic Inscriber");
 		add(Embers.MODID + ".research.page.mnemonic_inscriber.title", "Remember Ember");
-		add(Embers.MODID + ".research.page.mnemonic_inscriber.tags", "Waste;Alchemy;Alchemical;Code;Note;Master;Mind;Mastermind;");
+		add(Embers.MODID + ".research.page.mnemonic_inscriber.tags", "Upgrade;Alchemy;Code;Note;Master;Mind;Mastermind;");
 		add(Embers.MODID + ".research.page.mnemonic_inscriber.desc", "Once you've cracked an alchemy recipe you'll likely want to write it down somewhere for future reference. The Mnemonic Inscriber fulfills exactly this purpose. When attached to an exchange tablet and provided with a piece of paper, it will inscribe any successful alchemy recipe onto the paper.");
+
+		add(Embers.MODID + ".research.page.entropic_enumerator", "Entropic Enumerator");
+		add(Embers.MODID + ".research.page.entropic_enumerator.title", "Approximation");
+		add(Embers.MODID + ".research.page.entropic_enumerator.tags", "Upgrade;Alchemy;Code;Fail;Random;Chance;Rubik;Cube;Master;Mind;Mastermind;");
+		add(Embers.MODID + ".research.page.entropic_enumerator.desc", "Alchemy recipes can be somewhat challenging since the combination of aspecti needs to be exactly right. The Entropic Enumerator loosens the restrictions a bit but also introduces a chance for the recipe to fail randomly. Attaching one to the Exchange Tablet allows two correct aspecti on the wrong ingredient, each additional one allows one more correct aspectus in the wrong place. For every two, an incorrect aspectus is allowed.");
 
 		add(Embers.MODID + ".research.page.hellish_synthesis", "Assorted Syntheses");
 		add(Embers.MODID + ".research.page.hellish_synthesis.title", "Strange Materials");
@@ -1072,6 +1078,8 @@ public class EmbersLang extends LanguageProvider {
 		addSubtitle(EmbersSounds.INFERNO_FORGE_START, "Inferno Forge begins forging");
 		addSubtitle(EmbersSounds.INFERNO_FORGE_OPEN, "Inferno Forge opens");
 		addSubtitle(EmbersSounds.INFERNO_FORGE_CLOSE, "Inferno Forge closes");
+
+		addSubtitle(EmbersSounds.ENTROPIC_ENUMERATOR_TURN, "Entropic Enumerator turns");
 
 		addSubtitle(EmbersSounds.EMBER_EMIT, "Ember packet emitted");
 		addSubtitle(EmbersSounds.EMBER_EMIT_BIG, "Big Ember packet emitted");

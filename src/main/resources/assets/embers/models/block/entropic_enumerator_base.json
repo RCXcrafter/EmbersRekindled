@@ -1,0 +1,32 @@
+{
+	"parent": "block/block",
+	"textures": {
+		"1": "embers:block/entropic_enumerator",
+		"particle": "embers:block/entropic_enumerator"
+	},
+	"elements": [
+		{
+			"from": [6.01, -2, 6.01],
+			"to": [9.99, 1, 9.99],
+			"faces": {
+				"north": {"uv": [10, 4, 6, 7], "texture": "#1"},
+				"east": {"uv": [10, 4, 6, 7], "texture": "#1"},
+				"south": {"uv": [10, 4, 6, 7], "texture": "#1"},
+				"west": {"uv": [10, 4, 6, 7], "texture": "#1"},
+				"down": {"uv": [10, 0, 6, 4], "texture": "#1"}
+			}
+		},
+		{
+			"from": [5, 1, 5],
+			"to": [11, 2, 11],
+			"faces": {
+				"north": {"uv": [0, 0, 6, 1], "texture": "#1"},
+				"east": {"uv": [0, 0, 6, 1], "texture": "#1"},
+				"south": {"uv": [0, 0, 6, 1], "texture": "#1"},
+				"west": {"uv": [0, 0, 6, 1], "texture": "#1"},
+				"up": {"uv": [0, 0, 6, 6], "texture": "#1"},
+				"down": {"uv": [0, 0, 6, 6], "texture": "#1"}
+			}
+		}
+	]
+}

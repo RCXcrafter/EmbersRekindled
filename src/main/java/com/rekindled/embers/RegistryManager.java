@@ -69,6 +69,7 @@ import com.rekindled.embers.block.EmberLanternBlock;
 import com.rekindled.embers.block.EmberReceiverBlock;
 import com.rekindled.embers.block.EmberRelayBlock;
 import com.rekindled.embers.block.EmberSiphonBlock;
+import com.rekindled.embers.block.EntropicEnumeratorBlock;
 import com.rekindled.embers.block.FieldChartBlock;
 import com.rekindled.embers.block.FieldChartEdgeBlock;
 import com.rekindled.embers.block.FluidDialBlock;
@@ -136,6 +137,7 @@ import com.rekindled.embers.blockentity.EmberInjectorBlockEntity;
 import com.rekindled.embers.blockentity.EmberReceiverBlockEntity;
 import com.rekindled.embers.blockentity.EmberRelayBlockEntity;
 import com.rekindled.embers.blockentity.EmberSiphonBlockEntity;
+import com.rekindled.embers.blockentity.EntropicEnumeratorBlockEntity;
 import com.rekindled.embers.blockentity.FieldChartBlockEntity;
 import com.rekindled.embers.blockentity.FluidExtractorBlockEntity;
 import com.rekindled.embers.blockentity.FluidPipeBlockEntity;
@@ -515,6 +517,7 @@ public class RegistryManager {
 	public static final RegistryObject<Block> MNEMONIC_INSCRIBER = BLOCKS.register("mnemonic_inscriber", () -> new MnemonicInscriberBlock(Properties.of().mapColor(MapColor.NONE).sound(EmbersSounds.MACHINE).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
 	public static final RegistryObject<Block> CHAR_INSTILLER = BLOCKS.register("char_instiller", () -> new CharInstillerBlock(Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).sound(SoundType.WOOD).requiresCorrectToolForDrops().strength(1.6f)));
 	public static final RegistryObject<Block> ATMOSPHERIC_BELLOWS = BLOCKS.register("atmospheric_bellows", () -> new AtmosphericBellowsBlock(Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).sound(SoundType.WOOD).requiresCorrectToolForDrops().strength(1.6f)));
+	public static final RegistryObject<Block> ENTROPIC_ENUMERATOR = BLOCKS.register("entropic_enumerator", () -> new EntropicEnumeratorBlock(Properties.of().mapColor(MapColor.COLOR_BLACK).sound(EmbersSounds.ASHEN_STONE).requiresCorrectToolForDrops().strength(1.6f)));
 
 	//items
 	public static final RegistryObject<Item> TINKER_HAMMER = ITEMS.register("tinker_hammer", () -> new TinkerHammerItem(new Item.Properties().stacksTo(1)));
@@ -602,6 +605,7 @@ public class RegistryManager {
 	public static final RegistryObject<Item> MNEMONIC_INSCRIBER_ITEM = ITEMS.register("mnemonic_inscriber", () -> new BlockItem(MNEMONIC_INSCRIBER.get(), new Item.Properties()));
 	public static final RegistryObject<Item> CHAR_INSTILLER_ITEM = ITEMS.register("char_instiller", () -> new BlockItem(CHAR_INSTILLER.get(), new Item.Properties()));
 	public static final RegistryObject<Item> ATMOSPHERIC_BELLOWS_ITEM = ITEMS.register("atmospheric_bellows", () -> new BlockItem(ATMOSPHERIC_BELLOWS.get(), new Item.Properties()));
+	public static final RegistryObject<Item> ENTROPIC_ENUMERATOR_ITEM = ITEMS.register("entropic_enumerator", () -> new BlockItem(ENTROPIC_ENUMERATOR.get(), new Item.Properties()));
 
 	public static final RegistryObject<Item> EMBER_CRYSTAL = ITEMS.register("ember_crystal", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> EMBER_SHARD = ITEMS.register("ember_shard", () -> new Item(new Item.Properties()));
@@ -902,6 +906,7 @@ public class RegistryManager {
 	public static final RegistryObject<BlockEntityType<MnemonicInscriberBlockEntity>> MNEMONIC_INSCRIBER_ENTITY = BLOCK_ENTITY_TYPES.register("mnemonic_inscriber", () -> BlockEntityType.Builder.of(MnemonicInscriberBlockEntity::new, MNEMONIC_INSCRIBER.get()).build(null));
 	public static final RegistryObject<BlockEntityType<CharInstillerBlockEntity>> CHAR_INSTILLER_ENTITY = BLOCK_ENTITY_TYPES.register("char_instiller", () -> BlockEntityType.Builder.of(CharInstillerBlockEntity::new, CHAR_INSTILLER.get()).build(null));
 	public static final RegistryObject<BlockEntityType<AtmosphericBellowsBlockEntity>> ATMOSPHERIC_BELLOWS_ENTITY = BLOCK_ENTITY_TYPES.register("atmospheric_bellows", () -> BlockEntityType.Builder.of(AtmosphericBellowsBlockEntity::new, ATMOSPHERIC_BELLOWS.get()).build(null));
+	public static final RegistryObject<BlockEntityType<EntropicEnumeratorBlockEntity>> ENTROPIC_ENUMERATOR_ENTITY = BLOCK_ENTITY_TYPES.register("entropic_enumerator", () -> BlockEntityType.Builder.of(EntropicEnumeratorBlockEntity::new, ENTROPIC_ENUMERATOR.get()).build(null));
 
 	//creative tabs
 	public static final RegistryObject<CreativeModeTab> EMBERS_TAB = CREATIVE_TABS.register("main_tab", () -> CreativeModeTab.builder()

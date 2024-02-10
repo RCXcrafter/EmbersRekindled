@@ -225,7 +225,8 @@ public class EmbersBlockTags extends BlockTagsProvider {
 				RegistryManager.AUTOMATIC_HAMMER.get(),
 				RegistryManager.INFERNO_FORGE.get(),
 				RegistryManager.INFERNO_FORGE_EDGE.get(),
-				RegistryManager.MNEMONIC_INSCRIBER.get());
+				RegistryManager.MNEMONIC_INSCRIBER.get(),
+				RegistryManager.ENTROPIC_ENUMERATOR.get());
 
 		tag(BlockTags.MINEABLE_WITH_AXE).add(
 				RegistryManager.SEALED_PLANKS.get(),

@@ -11,15 +11,14 @@ public class AlchemyResultEvent extends UpgradeEvent {
 	AlchemyResult result;
 	int consumeAmount;
 	boolean isFailure;
-	ItemStack resultStack;
+	ItemStack resultStack = null;
 
 	public AlchemyResultEvent(BlockEntity tile, IAlchemyRecipe recipe, AlchemyResult result, int consumeAmount) {
 		super(tile);
-		this.recipe = recipe;
+		this.setRecipe(recipe);
 		this.result = result;
 		this.consumeAmount = consumeAmount;
 		this.isFailure = result.blackPins != recipe.getInputs().size();
-		this.resultStack = isFailure ? recipe.getfailureItem() : recipe.getResultItem();
 	}
 
 	public int getConsumeAmount() {
@@ -39,7 +38,9 @@ public class AlchemyResultEvent extends UpgradeEvent {
 	}
 
 	public ItemStack getResultStack() {
-		return resultStack;
+		if (resultStack != null)
+			return resultStack;
+		return isFailure ? recipe.getfailureItem() : recipe.getResultItem();
 	}
 
 	public void setResultStack(ItemStack resultStack) {
@@ -52,5 +53,13 @@ public class AlchemyResultEvent extends UpgradeEvent {
 
 	public void setFailure(boolean isFailure) {
 		this.isFailure = isFailure;
+	}
+
+	public IAlchemyRecipe getRecipe() {
+		return recipe;
+	}
+
+	public void setRecipe(IAlchemyRecipe recipe) {
+		this.recipe = recipe;
 	}
 }

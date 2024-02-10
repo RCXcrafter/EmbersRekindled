@@ -90,6 +90,8 @@ public class EmbersSounds extends SoundDefinitionsProvider {
 
 	public static final RegistryObject<SoundEvent> FIELD_CHART_LOOP = registerSound("block.field_chart.loop");
 
+	public static final RegistryObject<SoundEvent> ENTROPIC_ENUMERATOR_TURN = registerSound("block.entropic_enumerator.turn");
+
 	public static final RegistryObject<SoundEvent> EMBER_EMIT = registerSound("block.ember_transfer.emit.small");
 	public static final RegistryObject<SoundEvent> EMBER_EMIT_BIG = registerSound("block.ember_transfer.emit.big");
 	public static final RegistryObject<SoundEvent> EMBER_RECEIVE = registerSound("block.ember_transfer.receive.small");
@@ -345,6 +347,15 @@ public class EmbersSounds extends SoundDefinitionsProvider {
 
 		add(FIELD_CHART_LOOP, definition().with(
 				sound(resource("field_chart_loop"))));
+
+		withSubtitle(ENTROPIC_ENUMERATOR_TURN, definition().with(
+				sound(resource("entropic_enumerator/turn1")),
+				sound(resource("entropic_enumerator/turn2")),
+				sound(resource("entropic_enumerator/turn3")),
+				sound(resource("entropic_enumerator/turn4")),
+				sound(resource("entropic_enumerator/turn5")),
+				sound(resource("entropic_enumerator/turn6")),
+				sound(resource("entropic_enumerator/turn7"))));
 
 		withSubtitle(EMBER_EMIT, definition().with(
 				sound(resource("ember_transmission/emit1")),

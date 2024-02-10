@@ -22,7 +22,7 @@ public class AtmosphericBellowsUpgrade extends DefaultUpgradeProvider {
 
 	@Override
 	public int getPriority() {
-		return -100; //before everything else
+		return -90; //after the clockwork attenuator
 	}
 
 	@Override

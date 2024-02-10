@@ -260,6 +260,18 @@
     ],
     "subtitle": "subtitles.embers.block.ember_transfer.relay"
   },
+  "block.entropic_enumerator.turn": {
+    "sounds": [
+      "embers:entropic_enumerator/turn1",
+      "embers:entropic_enumerator/turn2",
+      "embers:entropic_enumerator/turn3",
+      "embers:entropic_enumerator/turn4",
+      "embers:entropic_enumerator/turn5",
+      "embers:entropic_enumerator/turn6",
+      "embers:entropic_enumerator/turn7"
+    ],
+    "subtitle": "subtitles.embers.block.entropic_enumerator.turn"
+  },
   "block.field_chart.loop": {
     "sounds": [
       "embers:field_chart_loop"

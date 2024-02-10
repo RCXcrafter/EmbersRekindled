@@ -653,6 +653,9 @@ public class EmbersBlockStates extends BlockStateProvider {
 
 		horizontalBlock(RegistryManager.ATMOSPHERIC_BELLOWS.get(), models().getExistingFile(new ResourceLocation(Embers.MODID, "atmospheric_bellows_bottom")));
 		simpleBlockItem(RegistryManager.ATMOSPHERIC_BELLOWS.get(), models().getExistingFile(new ResourceLocation(Embers.MODID, "atmospheric_bellows")));
+
+		directionalBlock(RegistryManager.ENTROPIC_ENUMERATOR.get(), models().getExistingFile(new ResourceLocation(Embers.MODID, "entropic_enumerator_base")));
+		simpleBlockItem(RegistryManager.ENTROPIC_ENUMERATOR.get(), models().getExistingFile(new ResourceLocation(Embers.MODID, "entropic_enumerator")));
 	}
 
 	public void blockWithItem(RegistryObject<? extends Block> registryObject) {

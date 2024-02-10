@@ -6,7 +6,7 @@ import com.rekindled.embers.recipe.IAlchemyRecipe;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class AlchemyStartEvent extends UpgradeEvent {
-	AlchemyContext context;
+	public AlchemyContext context;
 	IAlchemyRecipe recipe;
 
 	public AlchemyStartEvent(BlockEntity tile, AlchemyContext context, IAlchemyRecipe recipe) {

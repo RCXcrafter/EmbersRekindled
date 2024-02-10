@@ -251,6 +251,9 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		AlchemyRecipeBuilder.create(RegistryManager.GLIMMER_CRYSTAL.get()).tablet(Tags.Items.GEMS_QUARTZ).folder(alchemyFolder)
 		.inputs(Ingredient.of(Tags.Items.GUNPOWDER), Ingredient.of(Tags.Items.GUNPOWDER), Ingredient.of(RegistryManager.EMBER_SHARD.get()), Ingredient.of(RegistryManager.EMBER_SHARD.get()))
 		.aspects(EmbersItemTags.COPPER_ASPECTUS, EmbersItemTags.DAWNSTONE_ASPECTUS).save(consumer);
+		AlchemyRecipeBuilder.create(RegistryManager.ENTROPIC_ENUMERATOR.get()).tablet(RegistryManager.ASHEN_TILE.get()).folder(alchemyFolder)
+		.inputs(Tags.Items.INGOTS_COPPER, Tags.Items.INGOTS_IRON, Tags.Items.INGOTS_GOLD, EmbersItemTags.LEAD_INGOT, EmbersItemTags.SILVER_INGOT, EmbersItemTags.DAWNSTONE_INGOT)
+		.aspects(EmbersItemTags.LEAD_ASPECTUS, EmbersItemTags.DAWNSTONE_ASPECTUS).save(consumer);
 
 		AlchemyRecipeBuilder.create(RegistryManager.BLASTING_CORE.get()).tablet(Tags.Items.GUNPOWDER).folder(alchemyFolder)
 		.inputs(EmbersItemTags.IRON_PLATE, EmbersItemTags.IRON_PLATE, EmbersItemTags.IRON_PLATE, Tags.Items.INGOTS_COPPER)
