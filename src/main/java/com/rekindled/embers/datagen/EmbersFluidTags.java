@@ -50,47 +50,47 @@ public class EmbersFluidTags extends FluidTagsProvider {
 
 	@Override
 	public void addTags(HolderLookup.Provider provider) {
-		tag(MOLTEN_IRON).add(RegistryManager.MOLTEN_IRON.FLUID.get());
-		tag(MOLTEN_GOLD).add(RegistryManager.MOLTEN_GOLD.FLUID.get());
-		tag(MOLTEN_COPPER).add(RegistryManager.MOLTEN_COPPER.FLUID.get());
-		tag(MOLTEN_LEAD).add(RegistryManager.MOLTEN_LEAD.FLUID.get());
-		tag(MOLTEN_SILVER).add(RegistryManager.MOLTEN_SILVER.FLUID.get());
-		tag(MOLTEN_DAWNSTONE).add(RegistryManager.MOLTEN_DAWNSTONE.FLUID.get());
+		tag(MOLTEN_IRON).add(RegistryManager.MOLTEN_IRON.FLUID.get(), RegistryManager.MOLTEN_IRON.FLUID_FLOW.get());
+		tag(MOLTEN_GOLD).add(RegistryManager.MOLTEN_GOLD.FLUID.get(), RegistryManager.MOLTEN_GOLD.FLUID_FLOW.get());
+		tag(MOLTEN_COPPER).add(RegistryManager.MOLTEN_COPPER.FLUID.get(), RegistryManager.MOLTEN_COPPER.FLUID_FLOW.get());
+		tag(MOLTEN_LEAD).add(RegistryManager.MOLTEN_LEAD.FLUID.get(), RegistryManager.MOLTEN_LEAD.FLUID_FLOW.get());
+		tag(MOLTEN_SILVER).add(RegistryManager.MOLTEN_SILVER.FLUID.get(), RegistryManager.MOLTEN_SILVER.FLUID_FLOW.get());
+		tag(MOLTEN_DAWNSTONE).add(RegistryManager.MOLTEN_DAWNSTONE.FLUID.get(), RegistryManager.MOLTEN_DAWNSTONE.FLUID_FLOW.get());
 
-		tag(STEAM).add(RegistryManager.STEAM.FLUID.get());
+		tag(STEAM).add(RegistryManager.STEAM.FLUID.get(), RegistryManager.STEAM.FLUID_FLOW.get());
 
 		tag(WATERY).addTag(FluidTags.WATER);
 
-		tag(MOLTEN_NICKEL).add(RegistryManager.MOLTEN_NICKEL.FLUID.get());
-		tag(MOLTEN_TIN).add(RegistryManager.MOLTEN_TIN.FLUID.get());
-		tag(MOLTEN_ALUMINUM).add(RegistryManager.MOLTEN_ALUMINUM.FLUID.get());
-		tag(MOLTEN_ZINC).add(RegistryManager.MOLTEN_ZINC.FLUID.get());
-		tag(MOLTEN_PLATINUM).add(RegistryManager.MOLTEN_PLATINUM.FLUID.get());
-		tag(MOLTEN_URANIUM).add(RegistryManager.MOLTEN_URANIUM.FLUID.get());
-		tag(MOLTEN_BRONZE).add(RegistryManager.MOLTEN_BRONZE.FLUID.get());
-		tag(MOLTEN_ELECTRUM).add(RegistryManager.MOLTEN_ELECTRUM.FLUID.get());
-		tag(MOLTEN_BRASS).add(RegistryManager.MOLTEN_BRASS.FLUID.get());
-		tag(MOLTEN_CONSTANTAN).add(RegistryManager.MOLTEN_CONSTANTAN.FLUID.get());
-		tag(MOLTEN_INVAR).add(RegistryManager.MOLTEN_INVAR.FLUID.get());
+		tag(MOLTEN_NICKEL).add(RegistryManager.MOLTEN_NICKEL.FLUID.get(), RegistryManager.MOLTEN_NICKEL.FLUID_FLOW.get());
+		tag(MOLTEN_TIN).add(RegistryManager.MOLTEN_TIN.FLUID.get(), RegistryManager.MOLTEN_TIN.FLUID_FLOW.get());
+		tag(MOLTEN_ALUMINUM).add(RegistryManager.MOLTEN_ALUMINUM.FLUID.get(), RegistryManager.MOLTEN_ALUMINUM.FLUID_FLOW.get());
+		tag(MOLTEN_ZINC).add(RegistryManager.MOLTEN_ZINC.FLUID.get(), RegistryManager.MOLTEN_ZINC.FLUID_FLOW.get());
+		tag(MOLTEN_PLATINUM).add(RegistryManager.MOLTEN_PLATINUM.FLUID.get(), RegistryManager.MOLTEN_PLATINUM.FLUID_FLOW.get());
+		tag(MOLTEN_URANIUM).add(RegistryManager.MOLTEN_URANIUM.FLUID.get(), RegistryManager.MOLTEN_URANIUM.FLUID_FLOW.get());
+		tag(MOLTEN_BRONZE).add(RegistryManager.MOLTEN_BRONZE.FLUID.get(), RegistryManager.MOLTEN_BRONZE.FLUID_FLOW.get());
+		tag(MOLTEN_ELECTRUM).add(RegistryManager.MOLTEN_ELECTRUM.FLUID.get(), RegistryManager.MOLTEN_ELECTRUM.FLUID_FLOW.get());
+		tag(MOLTEN_BRASS).add(RegistryManager.MOLTEN_BRASS.FLUID.get(), RegistryManager.MOLTEN_BRASS.FLUID_FLOW.get());
+		tag(MOLTEN_CONSTANTAN).add(RegistryManager.MOLTEN_CONSTANTAN.FLUID.get(), RegistryManager.MOLTEN_CONSTANTAN.FLUID_FLOW.get());
+		tag(MOLTEN_INVAR).add(RegistryManager.MOLTEN_INVAR.FLUID.get(), RegistryManager.MOLTEN_INVAR.FLUID_FLOW.get());
 
 		tag(INGOT_TOOLTIP)
-		.add(RegistryManager.MOLTEN_IRON.FLUID.get())
-		.add(RegistryManager.MOLTEN_GOLD.FLUID.get())
-		.add(RegistryManager.MOLTEN_COPPER.FLUID.get())
-		.add(RegistryManager.MOLTEN_LEAD.FLUID.get())
-		.add(RegistryManager.MOLTEN_SILVER.FLUID.get())
-		.add(RegistryManager.MOLTEN_DAWNSTONE.FLUID.get())
-		.add(RegistryManager.MOLTEN_NICKEL.FLUID.get())
-		.add(RegistryManager.MOLTEN_TIN.FLUID.get())
-		.add(RegistryManager.MOLTEN_ALUMINUM.FLUID.get())
-		.add(RegistryManager.MOLTEN_ZINC.FLUID.get())
-		.add(RegistryManager.MOLTEN_PLATINUM.FLUID.get())
-		.add(RegistryManager.MOLTEN_URANIUM.FLUID.get())
-		.add(RegistryManager.MOLTEN_BRONZE.FLUID.get())
-		.add(RegistryManager.MOLTEN_ELECTRUM.FLUID.get())
-		.add(RegistryManager.MOLTEN_BRASS.FLUID.get())
-		.add(RegistryManager.MOLTEN_CONSTANTAN.FLUID.get())
-		.add(RegistryManager.MOLTEN_INVAR.FLUID.get())
+		.addTag(MOLTEN_IRON)
+		.addTag(MOLTEN_GOLD)
+		.addTag(MOLTEN_COPPER)
+		.addTag(MOLTEN_LEAD)
+		.addTag(MOLTEN_SILVER)
+		.addTag(MOLTEN_DAWNSTONE)
+		.addTag(MOLTEN_NICKEL)
+		.addTag(MOLTEN_TIN)
+		.addTag(MOLTEN_ALUMINUM)
+		.addTag(MOLTEN_ZINC)
+		.addTag(MOLTEN_PLATINUM)
+		.addTag(MOLTEN_URANIUM)
+		.addTag(MOLTEN_BRONZE)
+		.addTag(MOLTEN_ELECTRUM)
+		.addTag(MOLTEN_BRASS)
+		.addTag(MOLTEN_CONSTANTAN)
+		.addTag(MOLTEN_INVAR)
 		.addOptionalTag(METAL_TOOLTIPS.location());
 	}
 }

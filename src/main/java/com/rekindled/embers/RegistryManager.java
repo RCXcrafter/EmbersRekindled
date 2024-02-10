@@ -1040,8 +1040,14 @@ public class RegistryManager {
 			moltenMetalFluidInteractions(MOLTEN_DAWNSTONE.TYPE.get());
 			moltenMetalFluidInteractions(MOLTEN_TIN.TYPE.get());
 			moltenMetalFluidInteractions(MOLTEN_ALUMINUM.TYPE.get());
+			moltenMetalFluidInteractions(MOLTEN_ZINC.TYPE.get());
+			moltenMetalFluidInteractions(MOLTEN_PLATINUM.TYPE.get());
+			moltenMetalFluidInteractions(MOLTEN_URANIUM.TYPE.get());
 			moltenMetalFluidInteractions(MOLTEN_BRONZE.TYPE.get());
 			moltenMetalFluidInteractions(MOLTEN_ELECTRUM.TYPE.get());
+			moltenMetalFluidInteractions(MOLTEN_BRASS.TYPE.get());
+			moltenMetalFluidInteractions(MOLTEN_CONSTANTAN.TYPE.get());
+			moltenMetalFluidInteractions(MOLTEN_INVAR.TYPE.get());
 
 			EmbersAPI.registerLens(Ingredient.of(TINKER_LENS.get()));
 			EmbersAPI.registerWearableLens(Ingredient.of(ASHEN_GOGGLES.get()));
