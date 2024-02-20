@@ -499,9 +499,12 @@ public class RegistryManager {
 	public static final MetalCrystalSeed GOLD_CRYSTAL_SEED = new MetalCrystalSeed("gold");
 	public static final MetalCrystalSeed LEAD_CRYSTAL_SEED = new MetalCrystalSeed("lead");
 	public static final MetalCrystalSeed SILVER_CRYSTAL_SEED = new MetalCrystalSeed("silver");
-	public static final MetalCrystalSeed ALUMINUM_CRYSTAL_SEED = new MetalCrystalSeed("aluminum");
 	public static final MetalCrystalSeed NICKEL_CRYSTAL_SEED = new MetalCrystalSeed("nickel");
 	public static final MetalCrystalSeed TIN_CRYSTAL_SEED = new MetalCrystalSeed("tin");
+	public static final MetalCrystalSeed ALUMINUM_CRYSTAL_SEED = new MetalCrystalSeed("aluminum");
+	public static final MetalCrystalSeed ZINC_CRYSTAL_SEED = new MetalCrystalSeed("zinc");
+	public static final MetalCrystalSeed PLATINUM_CRYSTAL_SEED = new MetalCrystalSeed("platinum");
+	public static final MetalCrystalSeed URANIUM_CRYSTAL_SEED = new MetalCrystalSeed("uranium");
 	public static final MetalCrystalSeed DAWNSTONE_CRYSTAL_SEED = new MetalCrystalSeed("dawnstone");
 	public static final RegistryObject<Block> FIELD_CHART = BLOCKS.register("field_chart", () -> new FieldChartBlock(Properties.of().mapColor(MapColor.COLOR_ORANGE).sound(SoundType.NETHER_BRICKS).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
 	public static final RegistryObject<Block> FIELD_CHART_EDGE = BLOCKS.register("field_chart_edge", () -> new FieldChartEdgeBlock(Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).pushReaction(PushReaction.BLOCK).sound(EmbersSounds.ARCHAIC_MULTIBLOCK_EXTRA).requiresCorrectToolForDrops().strength(1.6f)));
@@ -641,9 +644,12 @@ public class RegistryManager {
 	static { GOLD_CRYSTAL_SEED.makeItem(); }
 	static { LEAD_CRYSTAL_SEED.makeItem(); }
 	static { SILVER_CRYSTAL_SEED.makeItem(); }
-	static { ALUMINUM_CRYSTAL_SEED.makeItem(); }
 	static { NICKEL_CRYSTAL_SEED.makeItem(); }
 	static { TIN_CRYSTAL_SEED.makeItem(); }
+	static { ALUMINUM_CRYSTAL_SEED.makeItem(); }
+	static { ZINC_CRYSTAL_SEED.makeItem(); }
+	static { PLATINUM_CRYSTAL_SEED.makeItem(); }
+	static { URANIUM_CRYSTAL_SEED.makeItem(); }
 	static { DAWNSTONE_CRYSTAL_SEED.makeItem(); }
 
 	public static final RegistryObject<Item> RAW_CAMINITE_PLATE = ITEMS.register("raw_caminite_plate", () -> new Item(new Item.Properties()));

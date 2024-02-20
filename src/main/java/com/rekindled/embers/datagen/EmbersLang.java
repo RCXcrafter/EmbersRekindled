@@ -130,9 +130,12 @@ public class EmbersLang extends LanguageProvider {
 		addBlock(RegistryManager.GOLD_CRYSTAL_SEED.BLOCK, "Gold Crystal Seed");
 		addBlock(RegistryManager.LEAD_CRYSTAL_SEED.BLOCK, "Lead Crystal Seed");
 		addBlock(RegistryManager.SILVER_CRYSTAL_SEED.BLOCK, "Silver Crystal Seed");
-		addBlock(RegistryManager.ALUMINUM_CRYSTAL_SEED.BLOCK, "Aluminum Crystal Seed");
 		addBlock(RegistryManager.NICKEL_CRYSTAL_SEED.BLOCK, "Nickel Crystal Seed");
 		addBlock(RegistryManager.TIN_CRYSTAL_SEED.BLOCK, "Tin Crystal Seed");
+		addBlock(RegistryManager.ALUMINUM_CRYSTAL_SEED.BLOCK, "Aluminum Crystal Seed");
+		addBlock(RegistryManager.ZINC_CRYSTAL_SEED.BLOCK, "Zinc Crystal Seed");
+		addBlock(RegistryManager.PLATINUM_CRYSTAL_SEED.BLOCK, "Platinum Crystal Seed");
+		addBlock(RegistryManager.URANIUM_CRYSTAL_SEED.BLOCK, "Uranium Crystal Seed");
 		addBlock(RegistryManager.DAWNSTONE_CRYSTAL_SEED.BLOCK,  "Dawnstone Crystal Seed");
 		addBlock(RegistryManager.FIELD_CHART, "Field Chart");
 		addBlock(RegistryManager.FIELD_CHART_EDGE, "Field Chart");

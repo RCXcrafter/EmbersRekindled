@@ -544,9 +544,12 @@ public class EmbersBlockStates extends BlockStateProvider {
 		metalSeed(RegistryManager.GOLD_CRYSTAL_SEED);
 		metalSeed(RegistryManager.LEAD_CRYSTAL_SEED);
 		metalSeed(RegistryManager.SILVER_CRYSTAL_SEED);
-		metalSeed(RegistryManager.ALUMINUM_CRYSTAL_SEED);
 		metalSeed(RegistryManager.NICKEL_CRYSTAL_SEED);
 		metalSeed(RegistryManager.TIN_CRYSTAL_SEED);
+		metalSeed(RegistryManager.ALUMINUM_CRYSTAL_SEED);
+		metalSeed(RegistryManager.ZINC_CRYSTAL_SEED);
+		metalSeed(RegistryManager.PLATINUM_CRYSTAL_SEED);
+		metalSeed(RegistryManager.URANIUM_CRYSTAL_SEED);
 		metalSeed(RegistryManager.DAWNSTONE_CRYSTAL_SEED);
 
 		ExistingModelFile chartModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "field_chart_center"));
