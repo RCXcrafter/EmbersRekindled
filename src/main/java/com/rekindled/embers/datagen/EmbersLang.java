@@ -739,7 +739,7 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".research.page.aspecti", "Metal Aspecti");
 		add(Embers.MODID + ".research.page.aspecti.title", "Alchemic Foci");
 		add(Embers.MODID + ".research.page.aspecti.tags", "Alchemy;Focus;Aspect;Aspectus;Foci;Stamp;Shard;Transmutation;");
-		add(Embers.MODID + ".research.page.aspecti.desc", "Wrapping molten metal about an Ember Shard, you have devised the Aspectus. These items can focus the alchemical energies produced by burning ash into a particular elemental alignment, when placed on the bottom of Alchemy Pedestals during a Transmutation. It appears as if not every aspectus that you've theorized to be used for a recipe is always required.");
+		add(Embers.MODID + ".research.page.aspecti.desc", "Wrapping molten metal about an Ember Shard, you have devised the Aspectus. These items can focus the alchemical energies produced by burning ingredients into a particular elemental alignment, when placed on the bottom of Alchemy Pedestals during a Transmutation. It appears as if not every aspectus that you've theorized to be used for a recipe is always required.");
 
 		add(Embers.MODID + ".research.page.cinder_plinth", "Cinder Plinth");
 		add(Embers.MODID + ".research.page.cinder_plinth.title", "Incineration");

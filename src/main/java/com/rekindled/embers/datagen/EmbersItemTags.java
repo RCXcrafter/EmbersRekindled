@@ -86,9 +86,9 @@ public class EmbersItemTags extends ItemTagsProvider {
 	public static final TagKey<Item> ALUMINUM_INGOT = ItemTags.create(new ResourceLocation("forge", "ingots/aluminum"));
 	public static final TagKey<Item> ZINC_INGOT = ItemTags.create(new ResourceLocation("forge", "ingots/zinc"));
 
-	public static final TagKey<Item> ALUMINUM_NUGGET = ItemTags.create(new ResourceLocation("forge", "nuggets/aluminum"));
 	public static final TagKey<Item> NICKEL_NUGGET = ItemTags.create(new ResourceLocation("forge", "nuggets/nickel"));
 	public static final TagKey<Item> TIN_NUGGET = ItemTags.create(new ResourceLocation("forge", "nuggets/tin"));
+	public static final TagKey<Item> ALUMINUM_NUGGET = ItemTags.create(new ResourceLocation("forge", "nuggets/aluminum"));
 	public static final TagKey<Item> ZINC_NUGGET = ItemTags.create(new ResourceLocation("forge", "nuggets/zinc"));
 
 	public static final TagKey<Item> CAMINITE_BRICK = ItemTags.create(new ResourceLocation("forge", "ingots/caminite_brick"));

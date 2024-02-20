@@ -12,6 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 public class EmbersFluidTags extends FluidTagsProvider {
@@ -58,6 +59,8 @@ public class EmbersFluidTags extends FluidTagsProvider {
 		tag(MOLTEN_DAWNSTONE).add(RegistryManager.MOLTEN_DAWNSTONE.FLUID.get(), RegistryManager.MOLTEN_DAWNSTONE.FLUID_FLOW.get());
 
 		tag(STEAM).add(RegistryManager.STEAM.FLUID.get(), RegistryManager.STEAM.FLUID_FLOW.get());
+
+		tag(Tags.Fluids.GASEOUS).add(RegistryManager.STEAM.FLUID.get(), RegistryManager.STEAM.FLUID_FLOW.get()).add(RegistryManager.DWARVEN_GAS.FLUID.get(), RegistryManager.DWARVEN_GAS.FLUID_FLOW.get());
 
 		tag(WATERY).addTag(FluidTags.WATER);
 
