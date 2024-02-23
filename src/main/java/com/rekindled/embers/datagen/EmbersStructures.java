@@ -39,6 +39,7 @@ import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType;
 import net.minecraft.world.level.levelgen.structure.pools.SinglePoolElement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.holdersets.AndHolderSet;
 import net.minecraftforge.registries.holdersets.OrHolderSet;
@@ -74,9 +75,9 @@ public class EmbersStructures {
 		HolderGetter<StructureTemplatePool> templatePool = bootstrap.lookup(Registries.TEMPLATE_POOL);
 		HolderGetter<Biome> biome = bootstrap.lookup(ForgeRegistries.Keys.BIOMES);
 		HolderSet<Biome> overworldBiomes = biome.getOrThrow(BiomeTags.IS_OVERWORLD);
-		List<HolderSet<Biome>> biomeBlackList = List.of(HolderSet.direct(biome.getOrThrow(Biomes.DEEP_DARK)));
+		List<HolderSet<Biome>> biomeBlackList = List.of(biome.getOrThrow(Tags.Biomes.IS_MUSHROOM), HolderSet.direct(biome.getOrThrow(Biomes.DEEP_DARK)), biome.getOrThrow(EmbersBiomeModifiers.NO_MONSTERS));
 		HolderSet<Biome> ruinSpawns = new AndHolderSet<Biome>(List.of(overworldBiomes, new NotHolderSetWrapper<Biome>(new OrHolderSet<Biome>(biomeBlackList))));
-		
+
 		bootstrap.register(SMALL_RUIN, new CaveStructure(new Structure.StructureSettings(ruinSpawns, Map.of(MobCategory.MONSTER,
 				new StructureSpawnOverride(BoundingBoxType.STRUCTURE, WeightedRandomList.create(new MobSpawnSettings.SpawnerData(RegistryManager.ANCIENT_GOLEM.get(), 20, 1, 1)))),
 				Decoration.UNDERGROUND_STRUCTURES, TerrainAdjustment.NONE),
