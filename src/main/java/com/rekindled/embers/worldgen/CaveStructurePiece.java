@@ -32,12 +32,14 @@ public class CaveStructurePiece extends PoolElementStructurePiece {
 	@Override
 	public void postProcess(WorldGenLevel worldGenLevel, StructureManager structureManager, ChunkGenerator chunkGenerator, RandomSource randomSource, BoundingBox boundingBox, ChunkPos chunkPos, BlockPos pos) {
 		BlockPos center = StructureTemplate.transform(new BlockPos(this.getBoundingBox().getXSpan() / 2, 0, this.getBoundingBox().getZSpan() / 2), Mirror.NONE, this.getRotation(), BlockPos.ZERO).offset(this.position);
-		int caveHeight = getCaveFloor(center, worldGenLevel, randomSource);
-		this.position = new BlockPos(this.position.getX(), caveHeight, this.position.getZ());
-		super.postProcess(worldGenLevel, structureManager, chunkGenerator, randomSource, boundingBox, chunkPos, new BlockPos(pos.getX(), caveHeight, pos.getZ()));
+		int caveHeight = getCaveFloor(center, worldGenLevel);
+		if (caveHeight != Integer.MIN_VALUE) {
+			this.position = new BlockPos(this.position.getX(), caveHeight, this.position.getZ());
+			super.postProcess(worldGenLevel, structureManager, chunkGenerator, randomSource, boundingBox, chunkPos, new BlockPos(pos.getX(), caveHeight, pos.getZ()));
+		}
 	}
 
-	public static int getCaveFloor(BlockPos endPos, WorldGenLevel level, RandomSource rand) {
+	public static int getCaveFloor(BlockPos endPos, WorldGenLevel level) {
 		List<Integer> heights = new ArrayList<Integer>();
 		BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos(endPos.getX(), level.getMinBuildHeight() + 9, endPos.getZ());
 		for (int i = level.getMinBuildHeight() + 9; i <= endPos.getY(); i++) {
@@ -48,9 +50,10 @@ public class CaveStructurePiece extends PoolElementStructurePiece {
 				heights.add(i);
 			}
 		}
-		if (heights.isEmpty()) {
-			return rand.nextInt(9 - level.getMinBuildHeight() + endPos.getY()) + level.getMinBuildHeight() + 9;
-		}
-		return heights.get(rand.nextInt(heights.size()));
+		if (heights.isEmpty())
+			return Integer.MIN_VALUE;
+		if (heights.size() > 1)
+			return heights.get(1);
+		return heights.get(0);
 	}
 }
