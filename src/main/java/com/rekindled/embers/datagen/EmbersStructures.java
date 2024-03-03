@@ -89,6 +89,6 @@ public class EmbersStructures {
 	public static void generateSets(BootstapContext<StructureSet> bootstrap) {
 		HolderGetter<Structure> structure = bootstrap.lookup(Registries.STRUCTURE);
 
-		bootstrap.register(SMALL_RUIN_SET, new StructureSet(structure.getOrThrow(SMALL_RUIN), new RandomSpreadStructurePlacement(9, 3, RandomSpreadType.LINEAR, 193826405)));
+		bootstrap.register(SMALL_RUIN_SET, new StructureSet(structure.getOrThrow(SMALL_RUIN), new RandomSpreadStructurePlacement(8, 3, RandomSpreadType.LINEAR, 193826405)));
 	}
 }

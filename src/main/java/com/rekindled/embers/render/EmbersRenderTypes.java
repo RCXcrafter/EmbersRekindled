@@ -13,6 +13,7 @@ import com.mojang.blaze3d.vertex.VertexFormat.Mode;
 import com.rekindled.embers.Embers;
 
 import net.minecraft.Util;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.RenderStateShard;
@@ -33,12 +34,16 @@ public class EmbersRenderTypes extends RenderType {
 
 	//render type used for ember particles
 	public static ParticleRenderType PARTICLE_SHEET_ADDITIVE = new ParticleRenderType() {
+		@SuppressWarnings("resource")
 		public void begin(BufferBuilder p_107455_, TextureManager p_107456_) {
+			RenderSystem.enableDepthTest();
+			Minecraft.getInstance().gameRenderer.lightTexture().turnOnLightLayer();
 			RenderSystem.depthMask(false);
 			RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_PARTICLES);
 			RenderSystem.enableBlend();
 			RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
 			p_107455_.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
+
 		}
 
 		public void end(Tesselator p_107458_) {
@@ -52,7 +57,10 @@ public class EmbersRenderTypes extends RenderType {
 
 	//render type used for x ray ember particles
 	public static ParticleRenderType PARTICLE_SHEET_ADDITIVE_XRAY = new ParticleRenderType() {
+		@SuppressWarnings("resource")
 		public void begin(BufferBuilder p_107455_, TextureManager p_107456_) {
+			RenderSystem.enableDepthTest();
+			Minecraft.getInstance().gameRenderer.lightTexture().turnOnLightLayer();
 			RenderSystem.depthMask(false);
 			RenderSystem.disableDepthTest();
 			RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_PARTICLES);
@@ -73,7 +81,10 @@ public class EmbersRenderTypes extends RenderType {
 
 	//render type used for smoke particles
 	public static ParticleRenderType PARTICLE_SHEET_TRANSLUCENT_NODEPTH = new ParticleRenderType() {
+		@SuppressWarnings("resource")
 		public void begin(BufferBuilder p_107455_, TextureManager p_107456_) {
+			RenderSystem.enableDepthTest();
+			Minecraft.getInstance().gameRenderer.lightTexture().turnOnLightLayer();
 			RenderSystem.depthMask(false);
 			RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_PARTICLES);
 			RenderSystem.enableBlend();
