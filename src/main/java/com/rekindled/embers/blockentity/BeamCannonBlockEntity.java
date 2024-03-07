@@ -167,7 +167,7 @@ public class BeamCannonBlockEntity extends BlockEntity {
 				level.playSound(null, hitPos, EmbersSounds.BEAM_CANNON_HIT.get(), SoundSource.BLOCKS, 0.5f, 1.0f);
 			}
 		}
-		List<Entity> entities = level.getEntities((Entity) null, new AABB(worldPosition, hitPos), EntitySelector.NO_SPECTATORS);
+		List<Entity> entities = level.getEntities((Entity) null, new AABB(worldPosition.getCenter(), hitPos.getCenter()), EntitySelector.NO_SPECTATORS);
 		for (Entity entity : entities) {
 			DamageSource damageSource = new DamageSource(level.registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(EmbersDamageTypes.EMBER_KEY), worldPosition.getCenter());
 			entity.hurt(damageSource, (float)damage);
