@@ -7,6 +7,7 @@ import org.joml.Matrix4f;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.rekindled.embers.ConfigManager;
 import com.rekindled.embers.EmbersClientEvents;
 import com.rekindled.embers.block.FieldChartBlock;
 import com.rekindled.embers.blockentity.FieldChartBlockEntity;
@@ -37,7 +38,7 @@ public class FieldChartBlockEntityRenderer implements BlockEntityRenderer<FieldC
 	@Override
 	public void render(FieldChartBlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
 		if (blockEntity != null) {
-			VertexConsumer buffer = bufferSource.getBuffer(EmbersRenderTypes.FIELD_CHART);
+			VertexConsumer buffer = bufferSource.getBuffer(ConfigManager.RENDER_FALLBACK.get() ? EmbersRenderTypes.FIELD_CHART_FALLBACK : EmbersRenderTypes.FIELD_CHART);
 			RenderSystem.enableDepthTest();
 			RenderSystem.disableCull();
 

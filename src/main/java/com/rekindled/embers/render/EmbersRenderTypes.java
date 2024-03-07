@@ -131,6 +131,18 @@ public class EmbersRenderTypes extends RenderType {
 			.setLightmapState(NO_LIGHTMAP)
 			.setOverlayState(NO_OVERLAY)
 			.createCompositeState(false));
+	public static final RenderType CRYSTAL_FALLBACK = create(
+			Embers.MODID + ":crystal_render_type",
+			DefaultVertexFormat.POSITION_TEX_COLOR, VertexFormat.Mode.QUADS, 256, true, false,
+			RenderType.CompositeState.builder()
+			.setShaderState(PTC_SHADER)
+			.setTextureState(new RenderStateShard.TextureStateShard(new ResourceLocation(Embers.MODID + ":textures/block/crystal_material.png"), false, false))
+			.setTransparencyState(LIGHTNING_TRANSPARENCY)
+			.setCullState(NO_CULL)
+			//.setOutputState(TRANSLUCENT_TARGET)
+			.setLightmapState(NO_LIGHTMAP)
+			.setOverlayState(NO_OVERLAY)
+			.createCompositeState(false));
 
 	//render type used for the field chart
 	public static final RenderType FIELD_CHART = create(
@@ -138,6 +150,16 @@ public class EmbersRenderTypes extends RenderType {
 			DefaultVertexFormat.POSITION_TEX_COLOR, VertexFormat.Mode.QUADS, 256, false, true,
 			RenderType.CompositeState.builder()
 			.setShaderState(ADDITIVE_SHADER)
+			.setTextureState(new RenderStateShard.TextureStateShard(new ResourceLocation(Embers.MODID + ":textures/block/field_square.png"), false, false))
+			.setTransparencyState(LIGHTNING_TRANSPARENCY)
+			.setCullState(NO_CULL)
+			//.setOutputState(TRANSLUCENT_TARGET)
+			.createCompositeState(false));
+	public static final RenderType FIELD_CHART_FALLBACK = create(
+			Embers.MODID + ":field_chart_render_type",
+			DefaultVertexFormat.POSITION_TEX_COLOR, VertexFormat.Mode.QUADS, 256, false, true,
+			RenderType.CompositeState.builder()
+			.setShaderState(PTC_SHADER)
 			.setTextureState(new RenderStateShard.TextureStateShard(new ResourceLocation(Embers.MODID + ":textures/block/field_square.png"), false, false))
 			.setTransparencyState(LIGHTNING_TRANSPARENCY)
 			.setCullState(NO_CULL)

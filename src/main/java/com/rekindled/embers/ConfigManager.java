@@ -59,6 +59,8 @@ public class ConfigManager {
 	public static ConfigValue<List<? extends String>> TAG_PREFERENCES;
 	public static ConfigValue<List<? extends String>> ITEM_PREFERENCES;
 
+	public static ConfigValue<Boolean> RENDER_FALLBACK;
+
 	public static double getScaleDamagePass(String type) {
 		for (String pass : SCALE_DAMAGE_PASSES.get()) {
 			String [] values =  pass.split(":");
@@ -78,13 +80,15 @@ public class ConfigManager {
 	}
 
 	public static void register() {
-		//registerClientConfigs();
+		registerClientConfigs();
 		registerCommonConfigs();
 		//registerServerConfigs();
 	}
 
 	public static void registerClientConfigs() {
 		ForgeConfigSpec.Builder CLIENT = new ForgeConfigSpec.Builder();
+
+		RENDER_FALLBACK = CLIENT.comment("Use a fallback rendertype for certain objects that normally use custom core shaders. Improves compatibility with shader mods but might not look as good.").define("render_fallback", false);
 
 		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CLIENT.build());
 	}

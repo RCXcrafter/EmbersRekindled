@@ -8,6 +8,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
+import com.rekindled.embers.ConfigManager;
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.blockentity.CrystalCellBlockEntity;
 import com.rekindled.embers.render.EmbersRenderTypes;
@@ -58,7 +59,7 @@ public class CrystalCellBlockEntityRenderer implements BlockEntityRenderer<Cryst
 		RenderSystem.setShaderTexture(0, texture);
 		RenderSystem.disableCull();
 		//RenderSystem.enableTexture();
-		VertexConsumer buffer = bufferSource.getBuffer(EmbersRenderTypes.CRYSTAL);
+		VertexConsumer buffer = bufferSource.getBuffer(ConfigManager.RENDER_FALLBACK.get() ? EmbersRenderTypes.CRYSTAL_FALLBACK : EmbersRenderTypes.CRYSTAL);
 
 		for (float j = 0; j < 12; j++) {
 
