@@ -167,16 +167,18 @@ public class EmbersRenderTypes extends RenderType {
 			.createCompositeState(false));
 
 	//unused render type for the crystal seeds
-	public static final RenderType CRYSTAL_SEED = create(
-			Embers.MODID + ":crystal_seed_render_type",
-			DefaultVertexFormat.POSITION_TEX_COLOR_NORMAL, VertexFormat.Mode.TRIANGLES, 256, false, true,
-			RenderType.CompositeState.builder()
-			.setShaderState(PTCN_SHADER)
-			.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
-			.setCullState(NO_CULL)
-			.setLightmapState(LIGHTMAP)
-			.setOutputState(TRANSLUCENT_TARGET)
-			.createCompositeState(false));
+	public static Function<ResourceLocation, RenderType> CRYSTAL_SEED = Util.memoize(EmbersRenderTypes::getSeed);
+	private static RenderType getSeed(ResourceLocation texture) {
+		return create(
+				Embers.MODID + ":crystal_seed_render_type",
+				DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.TRIANGLES, 256, true, false,
+				RenderType.CompositeState.builder()
+				.setShaderState(RENDERTYPE_ENTITY_SOLID_SHADER)
+				.setTextureState(new RenderStateShard.TextureStateShard(texture, false, false))
+				.setOverlayState(OVERLAY)
+				.setLightmapState(LIGHTMAP)
+				.createCompositeState(true));
+	}
 
 	//render type used for the alchemy circle
 	public static final RenderType BEAM = create(
