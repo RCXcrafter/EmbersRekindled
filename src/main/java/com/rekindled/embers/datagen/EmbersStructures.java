@@ -27,6 +27,7 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.heightproviders.ConstantHeight;
 import net.minecraft.world.level.levelgen.structure.Structure;
@@ -81,7 +82,7 @@ public class EmbersStructures {
 		bootstrap.register(SMALL_RUIN, new CaveStructure(new Structure.StructureSettings(ruinSpawns, Map.of(MobCategory.MONSTER,
 				new StructureSpawnOverride(BoundingBoxType.STRUCTURE, WeightedRandomList.create(new MobSpawnSettings.SpawnerData(RegistryManager.ANCIENT_GOLEM.get(), 20, 1, 1)))),
 				Decoration.UNDERGROUND_STRUCTURES, TerrainAdjustment.NONE),
-				templatePool.getOrThrow(SMALL_RUIN_POOL), 2, ConstantHeight.of(VerticalAnchor.aboveBottom(100)), false));
+				templatePool.getOrThrow(SMALL_RUIN_POOL), 2, ConstantHeight.of(VerticalAnchor.absolute(-10)), false, Heightmap.Types.OCEAN_FLOOR_WG));
 	}
 
 	public static final ResourceKey<StructureSet> SMALL_RUIN_SET = ResourceKey.create(Registries.STRUCTURE_SET, new ResourceLocation(Embers.MODID, "small_ruin"));
@@ -89,6 +90,6 @@ public class EmbersStructures {
 	public static void generateSets(BootstapContext<StructureSet> bootstrap) {
 		HolderGetter<Structure> structure = bootstrap.lookup(Registries.STRUCTURE);
 
-		bootstrap.register(SMALL_RUIN_SET, new StructureSet(structure.getOrThrow(SMALL_RUIN), new RandomSpreadStructurePlacement(8, 3, RandomSpreadType.LINEAR, 193826405)));
+		bootstrap.register(SMALL_RUIN_SET, new StructureSet(structure.getOrThrow(SMALL_RUIN), new RandomSpreadStructurePlacement(5, 3, RandomSpreadType.LINEAR, 193826405)));
 	}
 }

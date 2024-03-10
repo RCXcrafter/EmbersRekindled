@@ -154,7 +154,7 @@ public class CaveStructure extends Structure {
 
 			Vec3i vec3i = blockpos.subtract(pPos);
 			BlockPos blockpos1 = pPos.subtract(vec3i);
-			PoolElementStructurePiece poolelementstructurepiece = new CaveStructurePiece(structuretemplatemanager, structurepoolelement, blockpos1, structurepoolelement.getGroundLevelDelta(), rotation, structurepoolelement.getBoundingBox(structuretemplatemanager, blockpos1, rotation));
+			PoolElementStructurePiece poolelementstructurepiece = new CaveStructurePiece(structuretemplatemanager, structurepoolelement, blockpos1, structurepoolelement.getGroundLevelDelta(), rotation, structurepoolelement.getBoundingBox(structuretemplatemanager, blockpos1, rotation), pContext);
 			BoundingBox boundingbox = poolelementstructurepiece.getBoundingBox();
 			int i = (boundingbox.maxX() + boundingbox.minX()) / 2;
 			int j = (boundingbox.maxZ() + boundingbox.minZ()) / 2;
