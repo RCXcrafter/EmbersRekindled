@@ -54,7 +54,7 @@ public class StampBaseBlockEntityRenderer implements BlockEntityRenderer<StampBa
 				} else {
 					blockEntity.renderOffset = 0;
 				}
-				FluidRenderer.renderScaledCuboid(poseStack, bufferSource, cube, fluidStack, offset, capacity, packedLight, false);
+				FluidRenderer.renderScaledCuboid(poseStack, bufferSource, cube, fluidStack, offset, capacity, packedLight, packedOverlay, false);
 			} else {
 				blockEntity.renderOffset = 0;
 			}

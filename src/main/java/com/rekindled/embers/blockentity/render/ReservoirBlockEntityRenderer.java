@@ -1,6 +1,5 @@
 package com.rekindled.embers.blockentity.render;
 
-import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -42,7 +41,7 @@ public class ReservoirBlockEntityRenderer implements BlockEntityRenderer<Reservo
 				} else {
 					blockEntity.renderOffset = 0;
 				}
-				renderLargeFluidCuboid(poseStack, bufferSource.getBuffer(EmbersRenderTypes.FLUID), fluidStack, packedLight, 1, bounds, 1, bounds, 0, (blockEntity.height - 0.0625f) * (fluidStack.getAmount() - offset) / ((float) capacity));
+				renderLargeFluidCuboid(poseStack, bufferSource.getBuffer(EmbersRenderTypes.FLUID), fluidStack, packedLight, packedOverlay, 1, bounds, 1, bounds, 0, (blockEntity.height - 0.0625f) * (fluidStack.getAmount() - offset) / ((float) capacity));
 				poseStack.popPose();
 			} else {
 				blockEntity.renderOffset = 0;
@@ -63,7 +62,7 @@ public class ReservoirBlockEntityRenderer implements BlockEntityRenderer<Reservo
 	 * @param yMin       Min y position
 	 * @param yMax       Max y position
 	 */
-	private static void renderLargeFluidCuboid(PoseStack matrices, VertexConsumer builder, FluidStack fluid, int brightness,
+	private static void renderLargeFluidCuboid(PoseStack matrices, VertexConsumer builder, FluidStack fluid, int brightness, int packedOverlay,
 			int xd, float[] xBounds, int zd, float[] zBounds, float yMin, float yMax) {
 		if (yMin >= yMax || fluid.isEmpty()) {
 			return;
@@ -85,7 +84,6 @@ public class ReservoirBlockEntityRenderer implements BlockEntityRenderer<Reservo
 		float[] yBounds = getBlockBounds(yd, yMin, yMax);
 
 		// render each side
-		Matrix4f matrix = matrices.last().pose();
 		Vector3f from = new Vector3f();
 		Vector3f to = new Vector3f();
 		for (int y = 0; y <= yd; y++) {
@@ -93,15 +91,15 @@ public class ReservoirBlockEntityRenderer implements BlockEntityRenderer<Reservo
 				for (int x = 0; x <= xd; x++) {
 					from.set(xBounds[x], yBounds[y], zBounds[z]);
 					to.set(xBounds[x + 1], yBounds[y + 1], zBounds[z + 1]);
-					if (x == 0)  FluidRenderer.putTexturedQuad(builder, matrix, still, from, to, Direction.WEST,  color, brightness, 0, false);
-					if (x == xd) FluidRenderer.putTexturedQuad(builder, matrix, still, from, to, Direction.EAST,  color, brightness, 0, false);
-					if (z == 0)  FluidRenderer.putTexturedQuad(builder, matrix, still, from, to, Direction.NORTH, color, brightness, 0, false);
-					if (z == zd) FluidRenderer.putTexturedQuad(builder, matrix, still, from, to, Direction.SOUTH, color, brightness, 0, false);
-					if (y == yd) FluidRenderer.putTexturedQuad(builder, matrix, still, from, to, Direction.UP,    color, brightness, 0, false);
+					if (x == 0)  FluidRenderer.putTexturedQuad(builder, matrices, still, from, to, Direction.WEST,  color, brightness, packedOverlay, 0, false);
+					if (x == xd) FluidRenderer.putTexturedQuad(builder, matrices, still, from, to, Direction.EAST,  color, brightness, packedOverlay, 0, false);
+					if (z == 0)  FluidRenderer.putTexturedQuad(builder, matrices, still, from, to, Direction.NORTH, color, brightness, packedOverlay, 0, false);
+					if (z == zd) FluidRenderer.putTexturedQuad(builder, matrices, still, from, to, Direction.SOUTH, color, brightness, packedOverlay, 0, false);
+					if (y == yd) FluidRenderer.putTexturedQuad(builder, matrices, still, from, to, Direction.UP,    color, brightness, packedOverlay, 0, false);
 					if (y == 0) {
 						// increase Y position slightly to prevent z fighting on neighboring fluids
 						from.set(from.x(), from.y() + 0.001f, from.z());
-						FluidRenderer.putTexturedQuad(builder, matrix, still,   from, to, Direction.DOWN,  color, brightness, 0, false);
+						FluidRenderer.putTexturedQuad(builder, matrices, still,   from, to, Direction.DOWN,  color, brightness, packedOverlay, 0, false);
 					}
 				}
 			}

@@ -49,28 +49,28 @@ public class CatalyticPlugBlockEntityRenderer implements BlockEntityRenderer<Cat
 				poseStack.translate(0.5D, 0.25D, 0.1875D);
 				poseStack.mulPose(Axis.XP.rotationDegrees(-22.5f));
 				poseStack.translate(-0.09375D, 0.09375D, -0.09375D);
-				FluidRenderer.renderScaledCuboid(poseStack, bufferSource, cube, fluidStack, offset, capacity, packedLight, false);
+				FluidRenderer.renderScaledCuboid(poseStack, bufferSource, cube, fluidStack, offset, capacity, packedLight, packedOverlay, false);
 				poseStack.popPose();
 
 				poseStack.pushPose();
 				poseStack.translate(0.1875D, 0.25D, 0.5D);
 				poseStack.mulPose(Axis.ZP.rotationDegrees(22.5f));
 				poseStack.translate(-0.09375D, 0.09375D, -0.09375D);
-				FluidRenderer.renderScaledCuboid(poseStack, bufferSource, cube, fluidStack, offset, capacity, packedLight, false);
+				FluidRenderer.renderScaledCuboid(poseStack, bufferSource, cube, fluidStack, offset, capacity, packedLight, packedOverlay, false);
 				poseStack.popPose();
 
 				poseStack.pushPose();
 				poseStack.translate(0.5D, 0.25D, 0.8125D);
 				poseStack.mulPose(Axis.XP.rotationDegrees(22.5f));
 				poseStack.translate(-0.09375D, 0.09375D, -0.09375D);
-				FluidRenderer.renderScaledCuboid(poseStack, bufferSource, cube, fluidStack, offset, capacity, packedLight, false);
+				FluidRenderer.renderScaledCuboid(poseStack, bufferSource, cube, fluidStack, offset, capacity, packedLight, packedOverlay, false);
 				poseStack.popPose();
 
 				poseStack.pushPose();
 				poseStack.translate(0.8125D, 0.25D, 0.5D);
 				poseStack.mulPose(Axis.ZP.rotationDegrees(-22.5f));
 				poseStack.translate(-0.09375D, 0.09375D, -0.09375D);
-				FluidRenderer.renderScaledCuboid(poseStack, bufferSource, cube, fluidStack, offset, capacity, packedLight, false);
+				FluidRenderer.renderScaledCuboid(poseStack, bufferSource, cube, fluidStack, offset, capacity, packedLight, packedOverlay, false);
 				poseStack.popPose();
 
 				poseStack.popPose();

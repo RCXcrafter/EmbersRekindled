@@ -39,7 +39,7 @@ public class MixerCentrifugeBottomBlockEntityRenderer implements BlockEntityRend
 					} else {
 						fluidStack.renderOffset = 0;
 					}
-					FluidRenderer.renderScaledCuboid(poseStack, bufferSource, cubes[i], fluidStack.getFluid(), offset, capacity, packedLight, false);
+					FluidRenderer.renderScaledCuboid(poseStack, bufferSource, cubes[i], fluidStack.getFluid(), offset, capacity, packedLight, packedOverlay, false);
 				} else {
 					fluidStack.renderOffset = 0;
 				}

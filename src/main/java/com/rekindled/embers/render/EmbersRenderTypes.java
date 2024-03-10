@@ -103,16 +103,17 @@ public class EmbersRenderTypes extends RenderType {
 
 	//render type used for the fluid renderer
 	public static final RenderType FLUID = create(
-			Embers.MODID + ":block_render_type",
-			DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP, VertexFormat.Mode.QUADS, 256, false, true,
+			Embers.MODID + ":fluid_render_type",
+			DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, true,
 			RenderType.CompositeState.builder()
 			.setLightmapState(LIGHTMAP)
-			.setShaderState(POSITION_COLOR_TEX_LIGHTMAP_SHADER)
+			.setShaderState(RENDERTYPE_ENTITY_TRANSLUCENT_CULL_SHADER)
 			.setTextureState(BLOCK_SHEET_MIPPED)
 			.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
 			.setCullState(CULL)
+			.setOverlayState(OVERLAY)
 			//.setOutputState(TRANSLUCENT_TARGET)
-			.createCompositeState(false));
+			.createCompositeState(true));
 
 	public static final RenderStateShard.ShaderStateShard PTLC_SHADER = new RenderStateShard.ShaderStateShard(GameRenderer::getPositionTexLightmapColorShader);
 	public static final RenderStateShard.ShaderStateShard PTCN_SHADER = new RenderStateShard.ShaderStateShard(GameRenderer::getPositionTexColorNormalShader);

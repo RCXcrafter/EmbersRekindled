@@ -24,7 +24,7 @@ public class FluidTransferBlockEntityRenderer implements BlockEntityRenderer<Flu
 		if (blockEntity != null) {
 			//render fluid
 			if (!blockEntity.filterFluid.isEmpty()) {
-				FluidRenderer.renderScaledCuboid(poseStack, bufferSource, cube, blockEntity.filterFluid, 0, blockEntity.filterFluid.getAmount(), packedLight, false);
+				FluidRenderer.renderScaledCuboid(poseStack, bufferSource, cube, blockEntity.filterFluid, 0, blockEntity.filterFluid.getAmount(), packedLight, packedOverlay, false);
 			}
 		}
 	}
