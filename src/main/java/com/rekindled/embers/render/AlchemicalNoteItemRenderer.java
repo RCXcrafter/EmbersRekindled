@@ -2,6 +2,7 @@ package com.rekindled.embers.render;
 
 import java.util.ArrayList;
 
+import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 
 import com.google.common.base.MoreObjects;
@@ -32,8 +33,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class AlchemicalNoteItemRenderer extends BlockEntityWithoutLevelRenderer {
 
-	public static final RenderType NOTE_BACKGROUND = RenderType.text(new ResourceLocation(Embers.MODID, "textures/gui/alchemical_note.png"));
-	public static final RenderType NOTE_PEDESTAL = RenderType.text(new ResourceLocation(Embers.MODID, "textures/gui/alchemical_note_pedestal.png"));
 	public Font font;
 	public Minecraft minecraft;
 	public ItemInHandRenderer itemInHandRenderer;
@@ -124,12 +123,13 @@ public class AlchemicalNoteItemRenderer extends BlockEntityWithoutLevelRenderer 
 		poseStack.scale(0.38F, 0.38F, 0.38F);
 		poseStack.translate(-0.5F, -0.5F, 0.0F);
 		poseStack.scale(0.015625F, 0.015625F, 0.015625F);
-		VertexConsumer vertexconsumer = buffer.getBuffer(NOTE_BACKGROUND);
+		VertexConsumer vertexconsumer = buffer.getBuffer(EmbersRenderTypes.NOTE_BACKGROUND);
 		Matrix4f matrix4f = poseStack.last().pose();
-		vertexconsumer.vertex(matrix4f, 0, 64, 0).color(255, 255, 255, 255).uv(1.0F, 0.0F).uv2(packedLight).endVertex();
-		vertexconsumer.vertex(matrix4f, 64, 64, 0).color(255, 255, 255, 255).uv(0.0F, 0.0F).uv2(packedLight).endVertex();
-		vertexconsumer.vertex(matrix4f, 64, 0, 0).color(255, 255, 255, 255).uv(0.0F, 1.0F).uv2(packedLight).endVertex();
-		vertexconsumer.vertex(matrix4f, 0, 0, 0).color(255, 255, 255, 255).uv(1.0F, 1.0F).uv2(packedLight).endVertex();
+		Matrix3f normal = poseStack.last().normal();
+		vertexconsumer.vertex(matrix4f, 0, 64, 0).color(255, 255, 255, 255).uv(1.0F, 0.0F).overlayCoords(packedOverlay).uv2(packedLight).normal(normal, 0, 0.5f, -1).endVertex();
+		vertexconsumer.vertex(matrix4f, 64, 64, 0).color(255, 255, 255, 255).uv(0.0F, 0.0F).overlayCoords(packedOverlay).uv2(packedLight).normal(normal, 0, 0.5f, -1).endVertex();
+		vertexconsumer.vertex(matrix4f, 64, 0, 0).color(255, 255, 255, 255).uv(0.0F, 1.0F).overlayCoords(packedOverlay).uv2(packedLight).normal(normal, 0, 0.5f, -1).endVertex();
+		vertexconsumer.vertex(matrix4f, 0, 0, 0).color(255, 255, 255, 255).uv(1.0F, 1.0F).overlayCoords(packedOverlay).uv2(packedLight).normal(normal, 0, 0.5f, -1).endVertex();
 
 		ArrayList<ItemStack> inputs = AlchemyHintItem.getInputs(stack);
 		ArrayList<ItemStack> aspects = AlchemyHintItem.getAspects(stack);
@@ -147,22 +147,23 @@ public class AlchemicalNoteItemRenderer extends BlockEntityWithoutLevelRenderer 
 		poseStack.translate(32, 44, -0.01);
 		poseStack.mulPose(Axis.YP.rotationDegrees(180.0F));
 		poseStack.last().pose().scale(16, 16, 0.01f); //scaling the posestack normally messes up the normal
-		poseStack.last().normal().rotate(Axis.XP.rotationDegrees(-45.0F)); //rotate the normal slightly to make the items appear brighter
+		poseStack.last().normal().rotate(Axis.XP.rotationDegrees(-22.5F)); //rotate the normal slightly to make the items appear brighter
 		itemRenderer.renderStatic(result, ItemDisplayContext.GUI, packedLight, packedOverlay, poseStack, buffer, minecraft.level, 0);
 	}
 
 	public void renderPedestal(PoseStack poseStack, int x, int y, MultiBufferSource buffer, int combinedLight, int packedOverlay, ItemStack aspect, ItemStack ingredient) {
-		VertexConsumer vertexconsumer = buffer.getBuffer(NOTE_PEDESTAL);
+		VertexConsumer vertexconsumer = buffer.getBuffer(EmbersRenderTypes.NOTE_PEDESTAL);
 		Matrix4f matrix4f = poseStack.last().pose();
-		vertexconsumer.vertex(matrix4f, x, y + 14, 0).color(255, 255, 255, 255).uv(1.0F, 0.0F).uv2(combinedLight).endVertex();
-		vertexconsumer.vertex(matrix4f, x + 10, y + 14, 0).color(255, 255, 255, 255).uv(0.0F, 0.0F).uv2(combinedLight).endVertex();
-		vertexconsumer.vertex(matrix4f, x + 10, y, 0).color(255, 255, 255, 255).uv(0.0F, 1.0F).uv2(combinedLight).endVertex();
-		vertexconsumer.vertex(matrix4f, x, y, 0).color(255, 255, 255, 255).uv(1.0F, 1.0F).uv2(combinedLight).endVertex();
+		Matrix3f normal = poseStack.last().normal();
+		vertexconsumer.vertex(matrix4f, x, y + 14, 0).color(255, 255, 255, 255).uv(1.0F, 0.0F).overlayCoords(packedOverlay).uv2(combinedLight).normal(normal, 0, 0.5f, -1).endVertex();
+		vertexconsumer.vertex(matrix4f, x + 10, y + 14, 0).color(255, 255, 255, 255).uv(0.0F, 0.0F).overlayCoords(packedOverlay).uv2(combinedLight).normal(normal, 0, 0.5f, -1).endVertex();
+		vertexconsumer.vertex(matrix4f, x + 10, y, 0).color(255, 255, 255, 255).uv(0.0F, 1.0F).overlayCoords(packedOverlay).uv2(combinedLight).normal(normal, 0, 0.5f, -1).endVertex();
+		vertexconsumer.vertex(matrix4f, x, y, 0).color(255, 255, 255, 255).uv(1.0F, 1.0F).overlayCoords(packedOverlay).uv2(combinedLight).normal(normal, 0, 0.5f, -1).endVertex();
 		poseStack.pushPose();
 		poseStack.translate(x + 5, y + 7, -0.01);
 		poseStack.mulPose(Axis.YP.rotationDegrees(180.0F));
 		poseStack.last().pose().scale(8, 8, 0.01f); //scaling the posestack normally messes up the normal
-		poseStack.last().normal().rotate(Axis.XP.rotationDegrees(-45.0F)); //rotate the normal slightly to make the items appear brighter
+		poseStack.last().normal().rotate(Axis.XP.rotationDegrees(-22.5F)); //rotate the normal slightly to make the items appear brighter
 		itemRenderer.renderStatic(aspect, ItemDisplayContext.GUI, combinedLight, packedOverlay, poseStack, buffer, minecraft.level, 0);
 		poseStack.translate(0, 1.25, 0);
 		itemRenderer.renderStatic(ingredient, ItemDisplayContext.GUI, combinedLight, packedOverlay, poseStack, buffer, minecraft.level, 0);

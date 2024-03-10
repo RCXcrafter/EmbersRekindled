@@ -243,4 +243,19 @@ public class EmbersRenderTypes extends RenderType {
 				.createCompositeState(false);
 		return create(Embers.MODID + ":glow_text", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP, VertexFormat.Mode.QUADS, 256, false, true, rendertype$state);
 	}
+
+	//render types used for alchemical note
+	public static final RenderType NOTE_BACKGROUND = getNote(new ResourceLocation(Embers.MODID, "textures/gui/alchemical_note.png"));
+	public static final RenderType NOTE_PEDESTAL = getNote(new ResourceLocation(Embers.MODID, "textures/gui/alchemical_note_pedestal.png"));
+	public static RenderType getNote(ResourceLocation location) {
+		RenderType.CompositeState rendertype$state = RenderType.CompositeState.builder()
+				.setShaderState(RENDERTYPE_ENTITY_TRANSLUCENT_CULL_SHADER)
+				.setTextureState(new RenderStateShard.TextureStateShard(location, false, false))
+				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
+				.setLightmapState(LIGHTMAP)
+				.setCullState(NO_CULL)
+				.setOverlayState(OVERLAY)
+				.createCompositeState(false);
+		return create("alchemical_note", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, false, true, rendertype$state);
+	}
 }
