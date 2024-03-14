@@ -115,6 +115,7 @@ import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
 import net.minecraftforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
+import net.minecraftforge.client.event.RegisterNamedRenderTypesEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.client.event.RegisterShadersEvent;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
@@ -392,6 +393,15 @@ public class Embers {
 			event.registerShader(new ShaderInstance(event.getResourceProvider(), new ResourceLocation(MODID, "position_tex_color_additive"), DefaultVertexFormat.POSITION_TEX_COLOR), shaderInstance -> {
 				EmbersRenderTypes.additiveShader = shaderInstance;
 			});
+			event.registerShader(new ShaderInstance(event.getResourceProvider(), new ResourceLocation(MODID, "rendertype_entity_solid_mithril"), DefaultVertexFormat.NEW_ENTITY), shaderInstance -> {
+				EmbersRenderTypes.mithrilShader = shaderInstance;
+			});
+		}
+
+		@OnlyIn(Dist.CLIENT)
+		@SubscribeEvent
+		public static void renderTypeRegistry(RegisterNamedRenderTypesEvent event) {
+			event.register("mithril", RenderType.solid(), EmbersRenderTypes.MITHRIL);
 		}
 	}
 }

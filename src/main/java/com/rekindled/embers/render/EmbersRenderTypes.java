@@ -22,11 +22,14 @@ import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.InventoryMenu;
 
 public class EmbersRenderTypes extends RenderType {
 
 	public static ShaderInstance additiveShader;
 	public static final ShaderStateShard ADDITIVE_SHADER = new ShaderStateShard(() -> additiveShader);
+	public static ShaderInstance mithrilShader;
+	public static final ShaderStateShard MITHRIL_SHADER = new ShaderStateShard(() -> mithrilShader);
 
 	public EmbersRenderTypes(String pName, VertexFormat pFormat, Mode pMode, int pBufferSize, boolean pAffectsCrumbling, boolean pSortOnUpload, Runnable pSetupState, Runnable pClearState) {
 		super(pName, pFormat, pMode, pBufferSize, pAffectsCrumbling, pSortOnUpload, pSetupState, pClearState);
@@ -258,4 +261,15 @@ public class EmbersRenderTypes extends RenderType {
 				.createCompositeState(false);
 		return create("alchemical_note", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, false, true, rendertype$state);
 	}
+
+	//render type used for mithril
+	public static RenderType MITHRIL = create(
+			Embers.MODID + ":mithril_render_type",
+			DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, false,
+			RenderType.CompositeState.builder()
+			.setShaderState(MITHRIL_SHADER)
+			.setTextureState(RenderStateShard.MultiTextureStateShard.builder().add(InventoryMenu.BLOCK_ATLAS, false, false).add(InventoryMenu.BLOCK_ATLAS, false, false).add(InventoryMenu.BLOCK_ATLAS, false, false).add(new ResourceLocation(Embers.MODID + ":textures/misc/mithril_reflection.png"), true, false).build())
+			.setOverlayState(OVERLAY)
+			.setLightmapState(LIGHTMAP)
+			.createCompositeState(true));
 }
