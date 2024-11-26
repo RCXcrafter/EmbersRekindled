@@ -919,7 +919,7 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".research.page.reactor", "Ignem Reactor");
 		add(Embers.MODID + ".research.page.reactor.title", "Ember Chemistry");
 		add(Embers.MODID + ".research.page.reactor.tags", "Wildfire;Core;Catalysis;Catalyst;Combustion;Combust;Generator;Reactor;Chamber;Multiblock;Multi Block;");
-		add(Embers.MODID + ".research.page.reactor.desc", "The Ignem Reactor is a very powerful means of refining Ember crystals. It must be placed adjacent to the top parts of both a Combustion and Catalysis Chamber. When both the Combustion Chamber and Catalysis Chamber are active, the Reactor will refine crystalline Ember with a multiplier equal to the fuel level and catalyst level of the attached chambers added together, plus one. The catalyst level and combustion level must also be fairly close.");
+		add(Embers.MODID + ".research.page.reactor.desc", "The Ignem Reactor is a very powerful means of refining Ember crystals. It must be placed adjacent to the top parts of both a Combustion and Catalysis Chamber. When both Chambers are active, the Reactor will refine crystalline Ember with a multiplier equal to the fuel level and catalyst level of the attached chambers added together, plus one. The catalyst level and combustion level must also be fairly close.");
 
 		add(Embers.MODID + ".research.page.ember_pipe", "Volatile Ember Conduit");
 		add(Embers.MODID + ".research.page.ember_pipe.title", "Rigged From The Start");

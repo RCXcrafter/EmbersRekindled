@@ -626,7 +626,7 @@
   "embers.research.page.reaction_chamber.tags": "Boiler;Pressure;Reaction;Water;Steam;Gas;Condensation;",
   "embers.research.page.reaction_chamber.title": "It's a condenser! It's a combuster!",
   "embers.research.page.reactor": "Ignem Reactor",
-  "embers.research.page.reactor.desc": "The Ignem Reactor is a very powerful means of refining Ember crystals. It must be placed adjacent to the top parts of both a Combustion and Catalysis Chamber. When both the Combustion Chamber and Catalysis Chamber are active, the Reactor will refine crystalline Ember with a multiplier equal to the fuel level and catalyst level of the attached chambers added together, plus one. The catalyst level and combustion level must also be fairly close.",
+  "embers.research.page.reactor.desc": "The Ignem Reactor is a very powerful means of refining Ember crystals. It must be placed adjacent to the top parts of both a Combustion and Catalysis Chamber. When both Chambers are active, the Reactor will refine crystalline Ember with a multiplier equal to the fuel level and catalyst level of the attached chambers added together, plus one. The catalyst level and combustion level must also be fairly close.",
   "embers.research.page.reactor.tags": "Wildfire;Core;Catalysis;Catalyst;Combustion;Combust;Generator;Reactor;Chamber;Multiblock;Multi Block;",
   "embers.research.page.reactor.title": "Ember Chemistry",
   "embers.research.page.receivers.desc": "Receptors function as the receiving end. When they receive an Ember burst from an Emitter, they will push the Ember into the attached machine, no redstone required. Note that if Ember is received, but the receptor can't take all of it, some of it will be lost, signified by a plume of smoke and sparks.",

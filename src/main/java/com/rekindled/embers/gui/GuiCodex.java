@@ -82,6 +82,16 @@ public class GuiCodex extends Screen {
 	public static ResourceLocation INDEX = new ResourceLocation(Embers.MODID, "textures/gui/codex_index.png");
 	public static ResourceLocation PARTS = new ResourceLocation(Embers.MODID, "textures/gui/codex_parts.png");
 
+	public static int codexWidth = 192;
+	public static int codexHeight = 240;
+
+	public static int categoryWidth = 384;
+	public static int categoryHeight = 246;
+	public static float categorySpacingY = 0.925f;
+
+	public static int pageWidth = 208;
+	public static int pageHeight = 240;
+
 	public static GuiCodex instance = new GuiCodex();
 
 	public GuiCodex() {
@@ -439,7 +449,8 @@ public class GuiCodex extends Screen {
 		this.selectedIndex = -1;
 		this.selectedPageIndex = -1;
 		if (this.researchCategory == null){
-			graphics.blit(INDEX, basePosX, basePosY, 0, 0, 192, 256);
+			basePosY += 8;
+			graphics.blit(INDEX, basePosX, basePosY, 0, 0, codexWidth, codexHeight);
 
 			/*for (int i = 0; i < sentences.length; i ++) {
 				drawCenteredTextGlowing(Minecraft.getInstance().fontFilterFishy, poseStack, Component.literal(sentences[i]).getVisualOrderText(), basePosX+96, basePosY+22+i*12);
@@ -447,10 +458,10 @@ public class GuiCodex extends Screen {
 
 			graphics.blit(PARTS, basePosX-16, basePosY-16, 0, 0, 48, 48);
 			graphics.blit(PARTS, basePosX+160, basePosY-16, 48, 0, 48, 48);
-			graphics.blit(PARTS, basePosX+160, basePosY+224, 96, 0, 48, 48);
-			graphics.blit(PARTS, basePosX-16, basePosY+224, 144, 0, 48, 48);
+			graphics.blit(PARTS, basePosX+160, basePosY+codexHeight-32, 96, 0, 48, 48);
+			graphics.blit(PARTS, basePosX-16, basePosY+codexHeight-32, 144, 0, 48, 48);
 			graphics.blit(PARTS, basePosX+72, basePosY-16, 0, 48, 48, 48);
-			graphics.blit(PARTS, basePosX+72, basePosY+224, 0, 48, 48, 48);
+			graphics.blit(PARTS, basePosX+72, basePosY+codexHeight-32, 0, 48, 48, 48);
 			graphics.blit(PARTS, basePosX-16, basePosY+64, 0, 48, 48, 48);
 			graphics.blit(PARTS, basePosX+160, basePosY+64, 0, 48, 48, 48);
 
@@ -458,7 +469,7 @@ public class GuiCodex extends Screen {
 			float sine = 0.5f + 0.25f*((float)Math.sin(Math.toRadians(4.0f*((float)EmbersClientEvents.ticks + Minecraft.getInstance().getPartialTick())))+1.0f);
 			RenderSystem.setShaderColor(255.0F / 255.0F, 64.0F / 255.0F, 16.0F / 255.0F, sine);
 			for (float i = 0; i < 4; i ++){
-				graphics.blit(PARTS, basePosX-16, basePosY+224, 192, 0, 48, 48);
+				graphics.blit(PARTS, basePosX-16, basePosY+208, 192, 0, 48, 48);
 			}
 			RenderSystem.defaultBlendFunc();
 			RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
@@ -498,8 +509,9 @@ public class GuiCodex extends Screen {
 				graphics.pose().translate(basePosX+96, basePosY+88, 0);
 				graphics.pose().mulPose(Axis.ZP.rotationDegrees(angle));
 				boolean glowing = alreadyGlowing || selected && category.isChecked();
-				graphics.blit(category.getIndexTexture(), -16, (int) (-88-12f*instRaise), 192, 112, 32, 64);
-				graphics.blit(category.getIndexTexture(), -6, (int) (-80-12f*instRaise), (int) category.getIconU()+(glowing ? 16 : 0), (int) category.getIconV(), 12, 12);
+				//values are rounded to prevent a final pixel jump.
+				graphics.blit(category.getIndexTexture(), -16, Math.round(-88-12f*instRaise), 192, 112, 32, 64);
+				graphics.blit(category.getIndexTexture(), -6, Math.round(-80-12f*instRaise), (int) category.getIconU()+(glowing ? 16 : 0), (int) category.getIconV(), 12, 12);
 				graphics.pose().popPose();
 			}
 
@@ -507,12 +519,12 @@ public class GuiCodex extends Screen {
 
 			if(!showSearchString && selectedIndex >= 0) {
 				ResearchCategory category = ResearchManager.researches.get(selectedIndex);
-				drawCenteredTextGlowing(this.font, graphics, Component.literal(category.getName()).getVisualOrderText(), basePosX + 96, basePosY + 207);
+				drawCenteredTextGlowing(this.font, graphics, Component.literal(category.getName()).getVisualOrderText(), basePosX + 96, basePosY + codexHeight - 49);
 
 			} else if(!searchString.isEmpty()) {
-				drawCenteredTextGlowing(this.font, graphics, Component.literal(getSearchStringPrint()).getVisualOrderText(), basePosX+96, basePosY+207);
+				drawCenteredTextGlowing(this.font, graphics, Component.literal(getSearchStringPrint()).getVisualOrderText(), basePosX+96, basePosY + codexHeight - 49);
 			} else {
-				drawCenteredTextGlowing(this.font, graphics, Component.translatable(Embers.MODID + ".research.null").getVisualOrderText(), basePosX+96, basePosY+207);
+				drawCenteredTextGlowing(this.font, graphics, Component.translatable(Embers.MODID + ".research.null").getVisualOrderText(), basePosX+96, basePosY + codexHeight - 49);
 			}
 
 			if(selectedIndex >= 0) {
@@ -535,9 +547,9 @@ public class GuiCodex extends Screen {
 
 				basePosX = (int)((float)width/2.0f)-192;
 				basePosY = (int)((float)height/2.0f)-136;
-				int basePosY2 = Math.min(height-33, basePosY+272);
 
-				graphics.blit(researchCategory.getBackgroundTexture(), basePosX, basePosY, 0, 0, 0, 384, 272, 512, 512);
+				//category background
+				graphics.blit(researchCategory.getBackgroundTexture(), basePosX, basePosY + 12, 0, 0, 0, categoryWidth, categoryHeight, 512, 512);
 				for (int i = 0; i < researchCategory.researches.size(); i ++){
 					ResearchBase r = researchCategory.researches.get(i);
 					if (r.isHidden())
@@ -569,7 +581,7 @@ public class GuiCodex extends Screen {
 						Tesselator tess = Tesselator.getInstance();
 						BufferBuilder b = tess.getBuilder();
 						float x = r.x;
-						float y = r.y;
+						float y = (r.y + 8) * categorySpacingY;
 						RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
 						RenderSystem.setShader(GameRenderer::getPositionColorShader);
 						int index = searchResult.indexOf(r);
@@ -588,7 +600,7 @@ public class GuiCodex extends Screen {
 						Tesselator tess = Tesselator.getInstance();
 						BufferBuilder b = tess.getBuilder();
 						float x = r.x;
-						float y = r.y;
+						float y = (r.y + 8) * categorySpacingY;
 						RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
 						RenderSystem.setShader(GameRenderer::getPositionColorShader);
 						float amt = r.selectedAmount;
@@ -633,22 +645,22 @@ public class GuiCodex extends Screen {
 						RenderSystem.setShaderTexture(0, r.getIconBackground());
 						int u = (int) r.getIconBackgroundU();
 						int v = (int) r.getIconBackgroundV();
-						graphics.blit(r.getIconBackground(), basePosX + r.x - 24, basePosY + r.y - 24, 0, u, v, 48, 48, 512, 512);
+						graphics.blit(r.getIconBackground(), basePosX + r.x - 24, basePosY  + (int)((r.y - 16) * categorySpacingY), 0, u, v, 48, 48, 512, 512);
 						if (!r.isChecked()) { //TODO: cleanup
 							RenderSystem.setShaderTexture(0, ResearchManager.PAGE_ICONS);
 							int uOverlay = 5 * 48;
 							int vOverlay = 0 * 48;
-							graphics.blit(r.getIconBackground(), basePosX + r.x - 24, basePosY + r.y - 24, 0, uOverlay, vOverlay, 48, 48, 512, 512);
+							graphics.blit(r.getIconBackground(), basePosX + r.x - 24, basePosY + (int)((r.y - 16) * categorySpacingY), 0, uOverlay, vOverlay, 48, 48, 512, 512);
 						}
-						this.renderItemStackMinusTooltipAt(graphics, r.getIcon(), basePosX + r.x - 8, basePosY + r.y - 8);
+						this.renderItemStackMinusTooltipAt(graphics, r.getIcon(), basePosX + r.x - 8, basePosY + (int)((r.y - 16) * categorySpacingY) + 16);
 					}
 				}
-				graphics.blit(researchCategory.getBackgroundTexture(), basePosX, basePosY2, 0, 0, 272, 384, 33, 512, 512);
+				//graphics.blit(researchCategory.getBackgroundTexture(), basePosX, basePosY2, 0, 0, 272, 384, 33, 512, 512);
 				if (!showSearchString && this.selectedPageIndex >= 0) {
 					ResearchBase research = researchCategory.researches.get(this.selectedPageIndex);
-					drawCenteredTextGlowing(this.font, graphics, Component.literal(research.getName()).getVisualOrderText(), basePosX + 192, basePosY2 + 13);
+					drawCenteredTextGlowing(this.font, graphics, Component.literal(research.getName()).getVisualOrderText(), basePosX + 192, basePosY + categoryHeight - 7);
 				} else if (!searchString.isEmpty()) {
-					drawCenteredTextGlowing(this.font, graphics, Component.literal(getSearchStringPrint()).getVisualOrderText(), basePosX + 192, basePosY2 + 13);
+					drawCenteredTextGlowing(this.font, graphics, Component.literal(getSearchStringPrint()).getVisualOrderText(), basePosX + 192, basePosY + categoryHeight - 7);
 				}
 				for (int i = 0; i < researchCategory.researches.size(); i ++) {
 					ResearchBase r = researchCategory.researches.get(i);
@@ -659,7 +671,7 @@ public class GuiCodex extends Screen {
 						Tesselator tess = Tesselator.getInstance();
 						BufferBuilder b = tess.getBuilder();
 						float x = r.x;
-						float y = r.y;
+						float y = (r.y + 8) * categorySpacingY;
 						RenderSystem.enableBlend();
 						RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
 						RenderSystem.setShader(GameRenderer::getPositionColorShader);
@@ -687,24 +699,27 @@ public class GuiCodex extends Screen {
 					playSound(EmbersSounds.CODEX_UNLOCK.get(), showSpeed);
 
 			} else {
-				graphics.blit(researchPage.getBackground(), basePosX, basePosY, 0, 0, 192, 256);
+				basePosX -= 8;
+				basePosY += 8;
 
-				drawCenteredTextGlowing(this.font, graphics, Component.literal(researchPage.getTitle()).getVisualOrderText(), basePosX+96, basePosY+19);
+				graphics.blit(researchPage.getBackground(), basePosX, basePosY, 0, 0, pageWidth, pageHeight);
+
+				drawCenteredTextGlowing(this.font, graphics, Component.literal(researchPage.getTitle()).getVisualOrderText(), basePosX+(pageWidth / 2), basePosY+19);
 				researchPage.renderPageContent(graphics, this, basePosX, basePosY, this.font);
 
 				if (researchPage.hasMultiplePages()) {
 					nextPageSelected = false;
 					previousPageSelected = false;
-					int arrowY = basePosY + 256 - 13;
+					int arrowY = basePosY + pageHeight - 13;
 					RenderSystem.enableBlend();
 					if(researchPage.getNextPage() != researchPage) {
-						int rightArrowX = basePosX + 192 - 9 - 8;
-						drawModalRectGlowing(graphics, researchPage.getBackground(), rightArrowX, arrowY, 192, 24, 18, 13);
+						int rightArrowX = basePosX + pageWidth - 9 - 8;
+						drawModalRectGlowing(graphics, researchPage.getBackground(), rightArrowX, arrowY, pageWidth, 24, 18, 13);
 						nextPageSelected = mouseX >= rightArrowX-3 && mouseY >= arrowY-3 && mouseX <= rightArrowX+3 + 18 && mouseY <= arrowY+3 + 13;
 					}
 					if(researchPage.getPreviousPage() != researchPage) {
 						int leftArrowX = basePosX - 9 + 8;
-						drawModalRectGlowing(graphics, researchPage.getBackground(), leftArrowX, arrowY, 192, 24 + 13, 18, 13);
+						drawModalRectGlowing(graphics, researchPage.getBackground(), leftArrowX, arrowY, pageWidth, 24 + 13, 18, 13);
 						previousPageSelected = mouseX >= leftArrowX-3 && mouseY >= arrowY-3 && mouseX <= leftArrowX+3 + 18 && mouseY <= arrowY+3 + 13;
 					}
 					RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);

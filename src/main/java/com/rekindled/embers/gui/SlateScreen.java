@@ -20,6 +20,8 @@ public class SlateScreen extends AbstractContainerScreen<SlateMenu> {
 	ResourceLocation inventory = new ResourceLocation(Embers.MODID, "textures/gui/inventory_gui.png");
 	ResourceLocation slate = new ResourceLocation(Embers.MODID, "textures/gui/codebreaking_slate_gui.png");
 
+	public static int slotOffset = SlateMenu.slotIndent + 3;
+
 	public SlateScreen(SlateMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
 		super(pMenu, pPlayerInventory, pTitle);
 		this.imageHeight = SlateMenu.invHeight + SlateMenu.slateHeight;
@@ -46,35 +48,40 @@ public class SlateScreen extends AbstractContainerScreen<SlateMenu> {
 		ItemStack baseStack = this.menu.getSlot(0).getItem();
 		ArrayList<ItemStack> inputs = AlchemyHintItem.getInputs(baseStack);
 		for (int j = 0; j < inputs.size(); ++j) {
-			int slotX = x + SlateMenu.slateMargin + j * SlateMenu.layerWidth / inputs.size() + SlateMenu.layerWidth / (2 * inputs.size()) - 12;
-			graphics.blit(slate, slotX, y + SlateMenu.slateMargin, 192, 0, 24, 24);
-			graphics.renderFakeItem(inputs.get(j), slotX + 4, y + SlateMenu.slateMargin + 4);
+			int slotX = x + SlateMenu.widthMargin + j * SlateMenu.layerWidth / inputs.size() + SlateMenu.layerWidth / (2 * inputs.size()) - 12;
+			graphics.blit(slate, slotX, y + SlateMenu.heightMargin, 192, 0, 24, 24);
+			graphics.renderFakeItem(inputs.get(j), slotX + 4, y + SlateMenu.heightMargin + 4);
 		}
 
 		//render guesses
+		boolean cont = true;
 		for (int i = 0; i < SlateMenu.slotCount; ++i) {
-			int height = y + SlateMenu.slateMargin + i * SlateMenu.layerHeight + SlateMenu.layerHeight / 2 + 13;
+			int height = y + SlateMenu.heightMargin + i * SlateMenu.layerHeight + SlateMenu.layerHeight / 2 + (SlateMenu.slotHeight - 9);
 
-			graphics.blit(slate, x - 30, height, 192, 24, 26, 26);
+			graphics.blit(slate, x + slotOffset, height, 192, 24, SlateMenu.slotWidth, SlateMenu.slotHeight);
 
-			if (baseStack.isEmpty())
+			if (baseStack.isEmpty() || !cont)
 				continue;
 
 			ItemStack stack = this.menu.getSlot(i).getItem();
 			ArrayList<ItemStack> aspects = AlchemyHintItem.getAspects(stack);
+			if (aspects.isEmpty()) {
+				cont = false;
+				continue;
+			}
 			int blackPins = AlchemyHintItem.getBlackPins(stack);
 			int whitePins = AlchemyHintItem.getWhitePins(stack);
 
 			for (int j = 0; j < inputs.size(); ++j) {
-				int slotX = x + SlateMenu.slateMargin + j * SlateMenu.layerWidth / inputs.size() + SlateMenu.layerWidth / (2 * inputs.size()) - 10;
-				graphics.blit(slate, slotX, height + 2, 218, 20, 20, 24);
+				int slotX = x + SlateMenu.widthMargin + j * SlateMenu.layerWidth / inputs.size() + SlateMenu.layerWidth / (2 * inputs.size()) - 10;
+				graphics.blit(slate, slotX, height, 218, 20, 20, 24);
 				if (j < aspects.size())
-					graphics.renderFakeItem(aspects.get(j), slotX + 2, height + 5);
+					graphics.renderFakeItem(aspects.get(j), slotX + 2, height + 3);
 			}
 
 			//render hint
 			int hintX = x + 155;
-			int hintY = height + 3;
+			int hintY = height + 2;
 			graphics.blit(slate, hintX, hintY, 216, 0, 19, 19);
 
 			if (inputs.size() <= 4) { //4 pin slots

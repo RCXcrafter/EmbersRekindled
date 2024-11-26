@@ -20,15 +20,18 @@ import net.minecraftforge.items.SlotItemHandler;
 
 public class SlateMenu extends AbstractContainerMenu {
 
-	public static int slateHeight = 256;
+	public static int slateHeight = 158;
 	public static int slateWidth = 192;
-	public static int slateMargin = 14;
+	public static int heightMargin = 12;
+	public static int widthMargin = 15;
 	public static int invHeight = 100;
 	public static int invWidth = 176;
-	public static int slotHeight = 48;
-	public static int slotCount = 7;
-	public static int layerHeight = (slateHeight - 26 - 2 * slateMargin) / slotCount;
-	public static int layerWidth = (slateWidth - 24 - 2 * slateMargin);
+	public static int slotIndent = -28;
+	public static int slotWidth = 26;
+	public static int slotHeight = 22;
+	public static int slotCount = 5;
+	public static int layerHeight = (slateHeight - slotHeight - (2 * heightMargin)) / slotCount;
+	public static int layerWidth = slateWidth - slotWidth - (2 * (widthMargin));
 
 	public ItemStackHandler inventory;
 	public ItemStack slate;
@@ -46,22 +49,22 @@ public class SlateMenu extends AbstractContainerMenu {
 			inventory.deserializeNBT(nbt);
 
 		//slate inventory
-		Slot master = this.addSlot(new SlotItemHandler(inventory, 0, -33, slateMargin + layerHeight / 2 + 18));
+		Slot master = this.addSlot(new SlotItemHandler(inventory, 0, slotIndent, heightMargin + layerHeight / 2 + 16));
 		for (int j = 1; j < slotCount; ++j) {
-			this.addSlot(new SlateSlot(inventory, j, -33, slateMargin + j * layerHeight + layerHeight / 2 + 18, master));
+			this.addSlot(new SlateSlot(inventory, j, slotIndent, heightMargin + j * layerHeight + layerHeight / 2 + 16, master));
 		}
 		//player inventory
 		for (int l = 0; l < 3; ++l) {
 			for (int k = 0; k < 9; ++k) {
-				this.addSlot(new Slot(inv, k + l * 9 + 9, 8 + k * 18, l * 18 + 274));
+				this.addSlot(new Slot(inv, k + l * 9 + 9, 8 + k * 18, l * 18 + (slateHeight + 18)));
 			}
 		}
 		//hotbar
 		for (int i = 0; i < 9; ++i) {
 			if (ItemStack.isSameItemSameTags(inv.getItem(i), slate)) {
-				this.addSlot(new LockedSlot(inv, i, 8 + i * 18, 332));
+				this.addSlot(new LockedSlot(inv, i, 8 + i * 18, slateHeight + 76));
 			} else {
-				this.addSlot(new Slot(inv, i, 8 + i * 18, 332));
+				this.addSlot(new Slot(inv, i, 8 + i * 18, slateHeight + 76));
 			}
 		}
 	}

@@ -49,11 +49,11 @@ public class ResearchShowItem extends ResearchBase {
 		int y = 0;
 		for (DisplayItem displayItem : displayItems) {
 			ItemStack[] stacks = displayItem.getStacks();
-			int batchOff = displayItem.sideText == null ? (152-stacks.length*24)/2 : 0;
+			int batchOff = displayItem.sideText == null ? (168-stacks.length*24)/2 : 0;
 			int slotY = basePosY - textOffY + 43 + y * 24;
 			for(int x = 0; x < stacks.length; x++) {
 				int slotX = basePosX - textOffX + batchOff + 20;
-				graphics.blit(getBackground(), slotX + x * 24, slotY, 192, 0, 24, 24);
+				graphics.blit(getBackground(), slotX + x * 24, slotY, GuiCodex.pageWidth, 0, 24, 24);
 			}
 			y++;
 		}
@@ -61,7 +61,7 @@ public class ResearchShowItem extends ResearchBase {
 		y = 0;
 		for (DisplayItem displayItem : displayItems) {
 			ItemStack[] stacks = displayItem.getStacks();
-			int batchOff = displayItem.sideText == null ? (152-stacks.length*24)/2 : 0;
+			int batchOff = displayItem.sideText == null ? (168-stacks.length*24)/2 : 0;
 			int slotY = basePosY - textOffY + 43 + y * 24;
 			for(int x = 0; x < stacks.length; x++) {
 				int slotX = basePosX - textOffX + batchOff + 20 + x * 24;

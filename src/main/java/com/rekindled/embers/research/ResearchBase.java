@@ -284,7 +284,7 @@ public class ResearchBase {
 	}
 
 	public void renderPageContent(GuiGraphics graphics, GuiCodex gui, int basePosX, int basePosY, Font fontRenderer) {
-		List<FormattedCharSequence> strings = getLines(fontRenderer, getText(), 152);
+		List<FormattedCharSequence> strings = getLines(fontRenderer, getText(), GuiCodex.pageWidth - 40);
 		for (int i = 0; i < Math.min(strings.size(),17); i++){
 			GuiCodex.drawTextGlowing(fontRenderer, graphics, strings.get(i), basePosX+20, basePosY+43+i*(fontRenderer.lineHeight+3));
 		}
