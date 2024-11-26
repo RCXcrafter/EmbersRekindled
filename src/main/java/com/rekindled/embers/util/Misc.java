@@ -34,6 +34,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerChunkCache;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
@@ -473,6 +475,26 @@ public class Misc {
 			return InteractionResult.SUCCESS;
 		}
 		return InteractionResult.PASS;
+	}
+
+	public static void giveItemToPlayer(ItemStack stack, Player player) {
+		boolean flag = player.getInventory().add(stack);
+		if (flag && stack.isEmpty()) {
+			stack.setCount(1);
+			ItemEntity itementity1 = player.drop(stack, false);
+			if (itementity1 != null) {
+				itementity1.makeFakeItem();
+			}
+
+			player.level().playSound((Player)null, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 0.2F, ((player.getRandom().nextFloat() - player.getRandom().nextFloat()) * 0.7F + 1.0F) * 2.0F);
+			player.containerMenu.broadcastChanges();
+		} else {
+			ItemEntity itementity = player.drop(stack, false);
+			if (itementity != null) {
+				itementity.setNoPickUpDelay();
+				itementity.setTarget(player.getUUID());
+			}
+		}
 	}
 
 	@SuppressWarnings("resource")
