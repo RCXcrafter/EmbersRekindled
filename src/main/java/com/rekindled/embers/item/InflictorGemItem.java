@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.api.item.IInflictorGem;
+import com.rekindled.embers.datagen.EmbersDamageTypeTags;
 import com.rekindled.embers.datagen.EmbersSounds;
 
 import net.minecraft.ChatFormatting;
@@ -49,7 +50,7 @@ public class InflictorGemItem extends Item implements IInflictorGem {
 	@Override
 	public void attuneSource(ItemStack stack, LivingEntity entity, DamageSource source) {
 		String damageType = source.type().msgId();
-		if (damageType.compareTo("mob") != 0 && damageType.compareTo("generic") != 0 && damageType.compareTo("player") != 0 && damageType.compareTo("arrow") != 0) {
+		if (!source.is(EmbersDamageTypeTags.INFLICTOR_GEM_BLACKLIST)) {
 			stack.getOrCreateTag().putString("type", damageType);
 			if (entity != null)
 				entity.level().playSound(null, entity.getX(), entity.getY(), entity.getZ(), EmbersSounds.INFLICTOR_GEM.get(), SoundSource.PLAYERS, 1.0f, 1.0f);
