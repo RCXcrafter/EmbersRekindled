@@ -66,7 +66,7 @@ public class EmberRelayBlockEntity extends BlockEntity implements IEmberPacketPr
 			if (level instanceof ServerLevel serverLevel) {
 				serverLevel.sendParticles(new StarParticleOptions(GlowParticleOptions.EMBER_COLOR, 3.5f + 0.5f * random.nextFloat()), getBlockPos().getX() + 0.5, getBlockPos().getY() + 0.5, getBlockPos().getZ() + 0.5, 12, 0.0125f * (random.nextFloat() - 0.5f), 0.0125f * (random.nextFloat() - 0.5f), 0.0125f * (random.nextFloat() - 0.5f), 0.0);
 			}
-			packet.lifetime = 78;
+			packet.setLifetime(78);
 			packet.dest = target;
 			packet.pos = getBlockPos();
 			packet.setDeltaMovement(packet.getDeltaMovement().scale(1.7));

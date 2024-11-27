@@ -63,7 +63,7 @@ public class MirrorRelayBlockEntity extends BlockEntity implements IEmberPacketP
 	public boolean onReceive(EmberPacketEntity packet) {
 		if (target != null && packet.pos != getBlockPos()) {
 			Axis axis = level.getBlockState(worldPosition).getValue(BlockStateProperties.FACING).getAxis();
-			packet.lifetime = 78;
+			packet.setLifetime(78);
 			packet.dest = target;
 			packet.pos = getBlockPos();
 			packet.setDeltaMovement(packet.getDeltaMovement().multiply(axis == Axis.X ? -1.7 : 1.7, axis == Axis.Y ? -1.7 : 1.7, axis == Axis.Z ? -1.7 : 1.7));

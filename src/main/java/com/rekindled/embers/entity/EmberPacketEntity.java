@@ -11,6 +11,9 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -25,7 +28,7 @@ public class EmberPacketEntity extends Entity {
 	public BlockPos pos = new BlockPos(0,0,0);
 	public BlockPos dest = new BlockPos(0,0,0);
 	public double value = 0;
-	public int lifetime = 80;
+	public static final EntityDataAccessor<Integer> lifetime = SynchedEntityData.defineId(EmberProjectileEntity.class, EntityDataSerializers.INT);
 
 	public EmberPacketEntity(EntityType<?> pEntityType, Level pLevel) {
 		super(pEntityType, pLevel);
@@ -42,8 +45,14 @@ public class EmberPacketEntity extends Entity {
 		this.value = value;
 	}
 
+	public void setLifetime(int time) {
+		getEntityData().set(lifetime, time);
+	}
+
 	@Override
-	protected void defineSynchedData() {}
+	protected void defineSynchedData() {
+		getEntityData().define(lifetime, 80);
+	}
 
 	@Override
 	protected void readAdditionalSaveData(CompoundTag nbt) {
@@ -51,7 +60,7 @@ public class EmberPacketEntity extends Entity {
 			dest = new BlockPos(nbt.getInt("destX"), nbt.getInt("destY"), nbt.getInt("destZ"));
 		}
 		value = nbt.getDouble("value");
-		lifetime = nbt.getInt("lifetime");
+		getEntityData().set(lifetime, nbt.getInt("lifetime"));
 	}
 
 	@Override
@@ -62,12 +71,14 @@ public class EmberPacketEntity extends Entity {
 			nbt.putInt("destZ", dest.getZ());
 		}
 		nbt.putDouble("value", value);
-		nbt.putInt("lifetime", lifetime);
+		nbt.putInt("lifetime", getEntityData().get(lifetime));
 	}
 
 	public void tick() {
 		//super.tick();
-		if (this.lifetime == 79) {
+		int lifetime = getEntityData().get(EmberPacketEntity.lifetime);
+		getEntityData().set(EmberPacketEntity.lifetime, lifetime - 1);
+		if (lifetime == 79) {
 			if (level() instanceof ServerLevel serverLevel) {
 				serverLevel.sendParticles(new StarParticleOptions(GlowParticleOptions.EMBER_COLOR, 3.5f + 0.5f * random.nextFloat()), getX(), getY(), getZ(), 12, 0.0125f * (random.nextFloat() - 0.5f), 0.0125f * (random.nextFloat() - 0.5f), 0.0125f * (random.nextFloat() - 0.5f), 0.0);
 			}
@@ -100,7 +111,7 @@ public class EmberPacketEntity extends Entity {
 			if (getX() > pos.getX()+0.25 && getX() < pos.getX()+0.75 && getY() > pos.getY()+0.25 && this.getY() < pos.getY()+0.75 && getZ() > pos.getZ()+0.25 && getZ() < pos.getZ()+0.75) {
 				affectTileEntity(level().getBlockState(blockPosition()), level().getBlockEntity(blockPosition()));
 			}
-			if (level().isClientSide() && this.lifetime != 80) {
+			if (level().isClientSide() && lifetime != 80) {
 				double deltaX = getX() - oldPosition.x;
 				double deltaY = getY() - oldPosition.y;
 				double deltaZ = getZ() - oldPosition.z;
@@ -114,7 +125,7 @@ public class EmberPacketEntity extends Entity {
 	}
 
 	public void affectTileEntity(BlockState state, BlockEntity blockEntity) {
-		if (blockEntity instanceof IEmberPacketReceiver && this.lifetime > 1){
+		if (blockEntity instanceof IEmberPacketReceiver && getEntityData().get(lifetime) > 1) {
 			if (((IEmberPacketReceiver) blockEntity).onReceive(this)) {
 				IEmberCapability capability = blockEntity.getCapability(EmbersCapabilities.EMBER_CAPABILITY).orElse(null);
 				if (capability != null) {
@@ -123,7 +134,7 @@ public class EmberPacketEntity extends Entity {
 				}
 				setDeltaMovement(0, 0, 0);
 				//stay alive for one more tick for the sake of the particles reaching the receptor properly
-				this.lifetime = 2;
+				getEntityData().set(lifetime, 2);
 			}
 		}
 	}
