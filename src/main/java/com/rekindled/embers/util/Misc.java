@@ -469,7 +469,7 @@ public class Misc {
 		}
 		if (!inventory.getStackInSlot(0).isEmpty()) {
 			if (!level.isClientSide) {
-				level.addFreshEntity(new ItemEntity(level, player.position().x, player.position().y, player.position().z, inventory.getStackInSlot(0)));
+				giveItemToPlayer(inventory.getStackInSlot(0), player, player.getInventory().selected);
 				inventory.setStackInSlot(0, ItemStack.EMPTY);
 			}
 			return InteractionResult.SUCCESS;
@@ -478,14 +478,24 @@ public class Misc {
 	}
 
 	public static void giveItemToPlayer(ItemStack stack, Player player) {
-		boolean flag = player.getInventory().add(stack);
-		if (flag && stack.isEmpty()) {
+		giveItemToPlayer(stack, player, -1);
+	}
+
+	public static void giveItemToPlayer(ItemStack stack, Player player, int slot) {
+		boolean success = false;
+
+		if (slot != -1 && player.getInventory().items.get(slot).isEmpty()) {
+			success = player.getInventory().add(slot, stack) && stack.isEmpty();
+		}
+		if (!success)
+			success = player.getInventory().add(stack) && stack.isEmpty();
+
+		if (success) {
 			stack.setCount(1);
 			ItemEntity itementity1 = player.drop(stack, false);
 			if (itementity1 != null) {
 				itementity1.makeFakeItem();
 			}
-
 			player.level().playSound((Player)null, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 0.2F, ((player.getRandom().nextFloat() - player.getRandom().nextFloat()) * 0.7F + 1.0F) * 2.0F);
 			player.containerMenu.broadcastChanges();
 		} else {
