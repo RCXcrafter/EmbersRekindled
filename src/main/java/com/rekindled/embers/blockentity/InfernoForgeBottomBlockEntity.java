@@ -162,7 +162,7 @@ public class InfernoForgeBottomBlockEntity extends BlockEntity implements IExtra
 			return;
 		}
 		UpgradeUtil.throwEvent(blockEntity, new EmberEvent(blockEntity, EmberEvent.EnumType.CONSUME, emberCost), blockEntity.upgrades);
-		blockEntity.progress--;
+		blockEntity.progress -= 1 * UpgradeUtil.getTotalSpeedModifier(blockEntity, blockEntity.upgrades);
 		blockEntity.capability.removeAmount(emberCost, true);
 		List<ItemEntity> items = blockEntity.getValidItems();
 		for (ItemEntity e : items) {
