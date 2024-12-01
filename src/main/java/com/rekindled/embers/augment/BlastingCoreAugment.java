@@ -3,7 +3,6 @@ package com.rekindled.embers.augment;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
 
 import com.rekindled.embers.api.EmbersAPI;
 import com.rekindled.embers.api.augment.AugmentUtil;
@@ -12,18 +11,21 @@ import com.rekindled.embers.util.Misc;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.protocol.game.ClientboundExplodePacket;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Explosion;
-import net.minecraft.world.level.Level.ExplosionInteraction;
+import net.minecraft.world.level.Explosion.BlockInteraction;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.level.BlockEvent.BreakEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -46,22 +48,19 @@ public class BlastingCoreAugment extends AugmentBase {
 	public void onBreak(BreakEvent event) {
 		LevelAccessor world = event.getLevel();
 		BlockPos pos = event.getPos();
-		if (event.getPlayer() != null){
+		if (event.getPlayer() != null) {
 			if (!event.getPlayer().getMainHandItem().isEmpty()) {
 				ItemStack s = event.getPlayer().getMainHandItem();
 				int blastingLevel = AugmentUtil.getAugmentLevel(s, this);
 				if (blastingLevel > 0 && EmberInventoryUtil.getEmberTotal(event.getPlayer()) >= cost) { 
-					event.getPlayer().level().explode(event.getPlayer(), pos.getX()+0.5, pos.getY()+0.5, pos.getZ()+0.5, 0.5f, ExplosionInteraction.BLOCK);
 					double resonance = EmbersAPI.getEmberResonance(s);
 					double chance = (double) blastingLevel / (blastingLevel + 1) * getChanceBonus(resonance);
+					double x = pos.getX()+0.5;
+					double y = pos.getY()+0.5;
+					double z = pos.getZ()+0.5;
 
-					for (BlockPos toExplode : getBlastCube(world, pos, event.getPlayer(), chance)) {
-						BlockState state = world.getBlockState(toExplode);
-						if (state.getDestroySpeed(world, pos) >= 0 && event.getPlayer().hasCorrectToolForDrops(world.getBlockState(toExplode))) {
-							world.destroyBlock(toExplode, false, event.getPlayer());
-							Block.dropResources(state, event.getPlayer().level(), pos, world.getBlockEntity(pos), event.getPlayer(), s);
-						}
-					}
+					ToolExplosion explosion = new ToolExplosion(s, event.getPlayer().level(), event.getPlayer(), x, y, z, 0.5f, false, BlockInteraction.DESTROY, getBlastCube(world, pos, event.getPlayer(), chance));
+					spawnExplosion(event.getPlayer().level(), explosion, x, y, z, 0.5f);
 					EmberInventoryUtil.removeEmber(event.getPlayer(), cost);
 				}
 			}
@@ -78,7 +77,7 @@ public class BlastingCoreAugment extends AugmentBase {
 		return posList;
 	}
 
-	public Iterable<BlockPos> getBlastCube(LevelAccessor world, BlockPos pos, Player player, double chance) {
+	public List<BlockPos> getBlastCube(LevelAccessor world, BlockPos pos, Player player, double chance) {
 		ArrayList<BlockPos> posList = new ArrayList<>();
 		for (Direction facePrimary : Direction.values()) {
 			if (Misc.random.nextDouble() < chance) {
@@ -107,8 +106,9 @@ public class BlastingCoreAugment extends AugmentBase {
 		return posList;
 	}
 
-	private HashSet<Entity> blastedEntities = new HashSet<>();
+	public static HashSet<Entity> blastedEntities = new HashSet<>();
 
+	@SuppressWarnings("unchecked")
 	@SubscribeEvent
 	public void onHit(LivingHurtEvent event) {
 		if (!blastedEntities.contains(event.getEntity()) && event.getSource().getEntity() != event.getEntity() && event.getSource().getDirectEntity() != event.getEntity()) {
@@ -124,16 +124,16 @@ public class BlastingCoreAugment extends AugmentBase {
 
 							EmberInventoryUtil.removeEmber(damager, cost);
 							blastedEntities.add(event.getEntity());
-							List<LivingEntity> entities = damager.level().getEntitiesOfClass(LivingEntity.class, new AABB(event.getEntity().getX() - 4.0 * strength, event.getEntity().getY() - 4.0 * strength, event.getEntity().getZ() - 4.0 * strength,
+							List<? extends Entity> entities = damager.level().getEntitiesOfClass(LivingEntity.class, new AABB(event.getEntity().getX() - 4.0 * strength, event.getEntity().getY() - 4.0 * strength, event.getEntity().getZ() - 4.0 * strength,
 									event.getEntity().getX() + 4.0 * strength, event.getEntity().getY() + 4.0 * strength, event.getEntity().getZ() + 4.0 * strength));
-							Explosion explosion = damager.level().explode(damager, event.getEntity().getX(), event.getEntity().getY() + event.getEntity().getBbHeight() / 2.0, event.getEntity().getZ(), 0.5f, ExplosionInteraction.NONE);
-							for (LivingEntity e : entities) {
-								if (!Objects.equals(e.getUUID(), damager.getUUID())) {
-									blastedEntities.add(e);
-									e.hurt(damager.level().damageSources().explosion(explosion), event.getAmount() * strength);
-									e.hurtTime = 0;
-								}
-							}
+
+							double x = event.getEntity().getX();
+							double y = event.getEntity().getY() + event.getEntity().getBbHeight() / 2.0;
+							double z = event.getEntity().getZ();
+							blastedEntities.addAll(entities);
+
+							BlastingExplosion explosion = new BlastingExplosion((List<Entity>) entities, event.getAmount() * strength, damager.level(), damager, x, y, z, strength * 5f, false, BlockInteraction.KEEP);
+							spawnExplosion(damager.level(), explosion, x, y, z, strength * 1.5f);
 						}
 					}
 				}
@@ -143,21 +143,38 @@ public class BlastingCoreAugment extends AugmentBase {
 					if (blastingLevel > 0 && EmberInventoryUtil.getEmberTotal(damager) >= cost) {
 						float strength = (float) (2.0 * (Math.atan(0.6 * (blastingLevel)) / (Math.PI)));
 						EmberInventoryUtil.removeEmber(damager, cost);
-						List<LivingEntity> entities = damager.level().getEntitiesOfClass(LivingEntity.class, new AABB(damager.getX() - 4.0 * strength, damager.getY() - 4.0 * strength, damager.getZ() - 4.0 * strength,
+						List<? extends Entity> entities = damager.level().getEntitiesOfClass(LivingEntity.class, new AABB(damager.getX() - 4.0 * strength, damager.getY() - 4.0 * strength, damager.getZ() - 4.0 * strength,
 								damager.getX() + 4.0 * strength, damager.getY() + 4.0 * strength, damager.getZ() + 4.0 * strength));
-						Explosion explosion = damager.level().explode(damager, damager.getX(), damager.getY() + damager.getBbHeight() / 2.0, damager.getZ(), 0.5f, ExplosionInteraction.NONE);
-						for (LivingEntity e : entities) {
-							if (!Objects.equals(e.getUUID(), event.getEntity().getUUID())) {
-								blastedEntities.add(e);
-								e.hurt(damager.level().damageSources().explosion(explosion), event.getAmount() * strength * 0.25f);
-								e.knockback(2.0f * strength, -e.getX() + damager.getX(), -e.getZ() + damager.getZ());
-								e.hurtTime = 0;
-							}
-						}
+
+						double x = event.getEntity().getX();
+						double y = event.getEntity().getY() + event.getEntity().getBbHeight() / 2.0;
+						double z = event.getEntity().getZ();
+						blastedEntities.addAll(entities);
+
+						BlastingExplosion explosion = new BlastingExplosion((List<Entity>) entities, event.getAmount() * strength * 0.25f, damager.level(), damager, x, y, z, strength * 5f, false, BlockInteraction.KEEP);
+						spawnExplosion(damager.level(), explosion, x, y, z, strength * 1.5f);
 					}
 				}
 			} finally {
 				blastedEntities.clear();
+			}
+		}
+	}
+
+	public static void spawnExplosion(Level level, Explosion explosion, double x, double y, double z, float radius) {
+		if (!ForgeEventFactory.onExplosionStart(level, explosion)) {
+			explosion.explode();
+			explosion.finalizeExplosion(true);
+
+			if (level instanceof ServerLevel server) {
+				if (!explosion.interactsWithBlocks()) {
+					explosion.clearToBlow();
+				}
+				for (ServerPlayer serverplayer : server.players()) {
+					if (serverplayer.distanceToSqr(x, y, z) < 4096.0D) {
+						serverplayer.connection.send(new ClientboundExplodePacket(x, y, z, radius, explosion.getToBlow(), explosion.getHitPlayers().get(serverplayer)));
+					}
+				}
 			}
 		}
 	}
