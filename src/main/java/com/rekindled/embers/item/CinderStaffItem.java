@@ -28,6 +28,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -52,12 +53,7 @@ public class CinderStaffItem extends Item implements IProjectileWeapon {
 	public void releaseUsing(ItemStack stack, Level level, LivingEntity entity, int timeLeft) {
 		if (!level.isClientSide) {
 			double charge = (Math.min(ConfigManager.CINDER_STAFF_MAX_CHARGE.get(), getUseDuration(stack) - timeLeft)) / (double) ConfigManager.CINDER_STAFF_MAX_CHARGE.get();
-			float spawnDistance = 2.0f;//Math.max(1.0f, (float)charge/5.0f);
-			Vec3 eyesPos = entity.getEyePosition();
-			HitResult traceResult = getPlayerPOVHitResult(entity.level(), (Player) entity, ClipContext.Fluid.NONE);
-			if (traceResult.getType() == HitResult.Type.BLOCK)
-				spawnDistance = (float) Math.min(spawnDistance, traceResult.getLocation().distanceTo(eyesPos));
-			Vec3 launchPos = eyesPos.add(entity.getLookAngle().scale(spawnDistance));
+			Vec3 launchPos = getLaunchPos(entity);
 			float damage = (float) Math.max(charge * ConfigManager.CINDER_STAFF_DAMAGE.get(), 0.5f);
 			float size = (float) Math.max(charge * ConfigManager.CINDER_STAFF_SIZE.get(), 0.5f);
 			float aoeSize = (float) (charge * ConfigManager.CINDER_STAFF_AOE_SIZE.get());
@@ -107,19 +103,31 @@ public class CinderStaffItem extends Item implements IProjectileWeapon {
 		} else {
 			soundPlaying = false;
 		}
-
 		if (event.hasParticles()) {
 			Color color = event.getColor();
-			float spawnDistance = 2.0f;//Math.max(1.0f, (float)charge/5.0f);
-			Vec3 eyesPos = player.getEyePosition();
-			HitResult traceResult = getPlayerPOVHitResult(level, (Player) player, ClipContext.Fluid.NONE);
-			if (traceResult.getType() == HitResult.Type.BLOCK)
-				spawnDistance = (float) Math.min(spawnDistance, traceResult.getLocation().distanceTo(eyesPos));
-			Vec3 launchPos = eyesPos.add(player.getLookAngle().scale(spawnDistance));
+			Vec3 launchPos = getLaunchPos(player);
 			GlowParticleOptions options = new GlowParticleOptions(new Vector3f(color.getRed() / 255.0F, color.getGreen() / 255.0F, color.getBlue() / 255.0F), (float) (charge * ConfigManager.CINDER_STAFF_SIZE.get() / 2.0f), 24);
 			for (int i = 0; i < 4; i++)
 				level.addParticle(options, (float) launchPos.x + (rand.nextFloat() * 0.1f - 0.05f), (float) launchPos.y + (rand.nextFloat() * 0.1f - 0.05f), (float) launchPos.z + (rand.nextFloat() * 0.1f - 0.05f), 0, 0.000001, 0);
 		}
+	}
+
+	public static Vec3 getLaunchPos(LivingEntity entity) {
+		float spawnDistance = 2.0f;//Math.max(1.0f, (float)charge/5.0f);
+		Vec3 eyesPos = entity.getEyePosition();
+		if (entity instanceof Player player) {
+			HitResult traceResult = getPlayerPOVHitResult(entity.level(), player, ClipContext.Fluid.NONE);
+			if (traceResult.getType() == HitResult.Type.BLOCK)
+				spawnDistance = (float) Math.min(spawnDistance, traceResult.getLocation().distanceTo(eyesPos));
+		}
+
+		Vec3 look = entity.getLookAngle().add(entity.getUpVector(1.0f).scale(0.2));
+		double handmod = entity.getUsedItemHand() == InteractionHand.MAIN_HAND ? 1.0 : -1.0;
+		handmod *= entity.getMainArm() == HumanoidArm.RIGHT ? 1.0 : -1.0;
+		return new Vec3(
+				entity.getX() + look.x * spawnDistance + handmod * (entity.getBbWidth() / 1.5) * Math.sin(Math.toRadians(-entity.getYHeadRot() - 90)),
+				entity.getY() + entity.getEyeHeight() + look.y * spawnDistance,
+				entity.getZ() + look.z * spawnDistance + handmod * (entity.getBbWidth() / 1.5) * Math.cos(Math.toRadians(-entity.getYHeadRot() - 90)));
 	}
 
 	@Override
