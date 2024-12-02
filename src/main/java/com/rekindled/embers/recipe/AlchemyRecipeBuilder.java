@@ -25,6 +25,7 @@ public class AlchemyRecipeBuilder {
 	public Ingredient tablet;
 	public ArrayList<Ingredient> aspects = new ArrayList<Ingredient>();
 	public ArrayList<Ingredient> inputs = new ArrayList<Ingredient>();
+	public boolean babbyGames = false;
 
 	public static AlchemyRecipeBuilder create(ItemStack itemStack) {
 		AlchemyRecipeBuilder builder = new AlchemyRecipeBuilder();
@@ -135,7 +136,14 @@ public class AlchemyRecipeBuilder {
 		return this;
 	}
 
-	public AlchemyRecipe build() {
+	public AlchemyRecipeBuilder setBabbyGames(boolean babbyGames) {
+		this.babbyGames = babbyGames;
+		return this;
+	}
+
+	public AlchemyRecipeBase build() {
+		if (babbyGames)
+			return new AlchemyRecipeForBabies(id, tablet, aspects, inputs, output, failure);
 		return new AlchemyRecipe(id, tablet, aspects, inputs, output, failure);
 	}
 
@@ -145,9 +153,9 @@ public class AlchemyRecipeBuilder {
 
 	public static class Finished implements FinishedRecipe {
 
-		public final AlchemyRecipe recipe;
+		public final AlchemyRecipeBase recipe;
 
-		public Finished(AlchemyRecipe recipe) {
+		public Finished(AlchemyRecipeBase recipe) {
 			this.recipe = recipe;
 		}
 
@@ -192,6 +200,8 @@ public class AlchemyRecipeBuilder {
 
 		@Override
 		public RecipeSerializer<?> getType() {
+			if (recipe instanceof AlchemyRecipeForBabies)
+				return RegistryManager.ALCHEMY_FOR_BABIES_SERIALIZER.get();
 			return RegistryManager.ALCHEMY_SERIALIZER.get();
 		}
 

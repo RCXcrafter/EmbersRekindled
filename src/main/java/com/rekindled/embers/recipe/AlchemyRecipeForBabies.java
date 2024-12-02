@@ -17,12 +17,32 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 
-public class AlchemyRecipe extends AlchemyRecipeBase {
+public class AlchemyRecipeForBabies extends AlchemyRecipeBase {
 
 	public static final Serializer SERIALIZER = new Serializer();
 
-	public AlchemyRecipe(ResourceLocation id, Ingredient tablet, ArrayList<Ingredient> aspects, ArrayList<Ingredient> inputs, ItemStack output, ItemStack failure) {
+	public AlchemyRecipeForBabies(ResourceLocation id, Ingredient tablet, ArrayList<Ingredient> aspects, ArrayList<Ingredient> inputs, ItemStack output, ItemStack failure) {
 		super(id, tablet, aspects, inputs, output, failure);
+	}
+
+	@Override
+	public ArrayList<Ingredient> getCode(long seed) {
+		ArrayList<Ingredient> code = null;
+		int incr = 0;
+		boolean incorrectCode = true;
+		while (incorrectCode) {
+			code = super.getCode(seed + incr);
+			incorrectCode = false;
+			for (Ingredient ingredient : aspects) {
+				//only return this recipe if it contains all possible aspecti
+				if (!code.contains(ingredient)) {
+					incorrectCode = true;
+					break;
+				}
+			}
+			incr++;
+		}
+		return code;
 	}
 
 	@Override
@@ -30,10 +50,10 @@ public class AlchemyRecipe extends AlchemyRecipeBase {
 		return SERIALIZER;
 	}
 
-	public static class Serializer implements RecipeSerializer<AlchemyRecipe> {
+	public static class Serializer implements RecipeSerializer<AlchemyRecipeForBabies> {
 
 		@Override
-		public AlchemyRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
+		public AlchemyRecipeForBabies fromJson(ResourceLocation recipeId, JsonObject json) {
 			Ingredient tablet = Ingredient.fromJson(json.get("tablet"));
 
 			ArrayList<Ingredient> inputs = new ArrayList<>();
@@ -57,22 +77,22 @@ public class AlchemyRecipe extends AlchemyRecipeBase {
 			} else {
 				failure = new ItemStack(RegistryManager.ALCHEMICAL_WASTE.get());
 			}
-			return new AlchemyRecipe(recipeId, tablet, aspects, inputs, output, failure);
+			return new AlchemyRecipeForBabies(recipeId, tablet, aspects, inputs, output, failure);
 		}
 
 		@Override
-		public @Nullable AlchemyRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
+		public @Nullable AlchemyRecipeForBabies fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
 			Ingredient tablet = Ingredient.fromNetwork(buffer);
 			ArrayList<Ingredient> aspects = buffer.readCollection((i) -> new ArrayList<>(), (buf) -> Ingredient.fromNetwork(buf));
 			ArrayList<Ingredient> inputs = buffer.readCollection((i) -> new ArrayList<>(), (buf) -> Ingredient.fromNetwork(buf));
 			ItemStack output = buffer.readItem();
 			ItemStack failure = buffer.readItem();
 
-			return new AlchemyRecipe(recipeId, tablet, aspects, inputs, output, failure);
+			return new AlchemyRecipeForBabies(recipeId, tablet, aspects, inputs, output, failure);
 		}
 
 		@Override
-		public void toNetwork(FriendlyByteBuf buffer, AlchemyRecipe recipe) {
+		public void toNetwork(FriendlyByteBuf buffer, AlchemyRecipeForBabies recipe) {
 			recipe.tablet.toNetwork(buffer);
 			buffer.writeCollection(recipe.aspects, (buf, input) -> input.toNetwork(buf));
 			buffer.writeCollection(recipe.inputs, (buf, input) -> input.toNetwork(buf));

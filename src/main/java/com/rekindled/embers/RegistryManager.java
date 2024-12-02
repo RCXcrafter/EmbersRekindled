@@ -223,6 +223,7 @@ import com.rekindled.embers.particle.TyrfingParticleOptions;
 import com.rekindled.embers.particle.VaporParticleOptions;
 import com.rekindled.embers.particle.XRayGlowParticleOptions;
 import com.rekindled.embers.recipe.AlchemyRecipe;
+import com.rekindled.embers.recipe.AlchemyRecipeForBabies;
 import com.rekindled.embers.recipe.AnvilAugmentRecipe;
 import com.rekindled.embers.recipe.AnvilAugmentRemoveRecipe;
 import com.rekindled.embers.recipe.AnvilBreakdownRecipe;
@@ -1019,6 +1020,7 @@ public class RegistryManager {
 	public static final RegistryObject<RecipeSerializer<MixingRecipe>> MIXING_SERIALIZER = RECIPE_SERIALIZERS.register("mixing", () -> MixingRecipe.SERIALIZER);
 	public static final RegistryObject<RecipeSerializer<MetalCoefficientRecipe>> METAL_COEFFICIENT_SERIALIZER = RECIPE_SERIALIZERS.register("metal_coefficient", () -> MetalCoefficientRecipe.SERIALIZER);
 	public static final RegistryObject<RecipeSerializer<AlchemyRecipe>> ALCHEMY_SERIALIZER = RECIPE_SERIALIZERS.register("alchemy", () -> AlchemyRecipe.SERIALIZER);
+	public static final RegistryObject<RecipeSerializer<AlchemyRecipeForBabies>> ALCHEMY_FOR_BABIES_SERIALIZER = RECIPE_SERIALIZERS.register("alchemy_for_babies", () -> AlchemyRecipeForBabies.SERIALIZER);
 	public static final RegistryObject<RecipeSerializer<BoilingRecipe>> BOILING_SERIALIZER = RECIPE_SERIALIZERS.register("boiling", () -> BoilingRecipe.SERIALIZER);
 	public static final RegistryObject<RecipeSerializer<GaseousFuelRecipe>> GASEOUS_FUEL_SERIALIZER = RECIPE_SERIALIZERS.register("gaseous_fuel", () -> GaseousFuelRecipe.SERIALIZER);
 	public static final RegistryObject<RecipeSerializer<CatalysisCombustionRecipe>> CATALYSIS_COMBUSTION_SERIALIZER = RECIPE_SERIALIZERS.register("catalysis_combustion", () -> CatalysisCombustionRecipe.SERIALIZER);
