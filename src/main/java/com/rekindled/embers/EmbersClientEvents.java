@@ -17,8 +17,10 @@ import com.rekindled.embers.api.capabilities.EmbersCapabilities;
 import com.rekindled.embers.api.power.IEmberCapability;
 import com.rekindled.embers.api.power.IEmberPacketReceiver;
 import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
-import com.rekindled.embers.api.tile.IMechanicallyPowered;
+import com.rekindled.embers.api.tile.IUpgradeable;
+import com.rekindled.embers.api.upgrades.IUpgradeProxy;
 import com.rekindled.embers.blockentity.EmberEmitterBlockEntity;
+import com.rekindled.embers.blockentity.MechanicalCoreBlockEntity.BlockEntityDirection;
 import com.rekindled.embers.blockentity.render.AtmosphericBellowsBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.AutomaticHammerBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.EmberBoreBlockEntityRenderer;
@@ -283,10 +285,17 @@ public class EmbersClientEvents {
 		//MysticalMechanicsIntegration.addCapabilityInformation(text, tile, facing);
 		if (tile.getCapability(EmbersCapabilities.UPGRADE_PROVIDER_CAPABILITY, facing).isPresent())
 			text.add(Component.translatable(Embers.MODID + ".tooltip.goggles.upgrade"));
-		if (Misc.isSideProxyable(state, facing))
+		boolean proxyable = Misc.isSideProxyable(state, tile, facing);
+		if (!proxyable && tile instanceof IUpgradeProxy proxy) {
+			BlockEntityDirection multiBlock = proxy.getAttachedMultiblock(ConfigManager.MAX_PROXY_DISTANCE.get() - 1);
+			proxyable = multiBlock != null && Misc.isSideProxyable(multiBlock.blockEntity.getLevel().getBlockState(multiBlock.blockEntity.getBlockPos()), multiBlock.blockEntity, multiBlock.direction);
+		}
+		if (proxyable)
 			text.add(Component.translatable(Embers.MODID + ".tooltip.goggles.accessor_slot"));
-		if (tile instanceof IMechanicallyPowered)
-			text.add(Component.translatable(Embers.MODID + ".tooltip.goggles.actuator_slot"));
+		if (tile instanceof IUpgradeable upgradeable && upgradeable.isSideUpgradeSlot(facing))
+			text.add(Component.translatable(Embers.MODID + ".tooltip.goggles.upgrade_slot"));
+		//if (tile instanceof IMechanicallyPowered)
+		//	text.add(Component.translatable(Embers.MODID + ".tooltip.goggles.actuator_slot"));
 		if (tile instanceof IExtraCapabilityInformation)
 			((IExtraCapabilityInformation) tile).addOtherDescription(text, facing);
 	}

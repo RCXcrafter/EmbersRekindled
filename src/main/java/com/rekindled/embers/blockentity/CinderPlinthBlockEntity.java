@@ -15,6 +15,7 @@ import com.rekindled.embers.api.power.IEmberCapability;
 import com.rekindled.embers.api.tile.IBin;
 import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
 import com.rekindled.embers.api.tile.IExtraDialInformation;
+import com.rekindled.embers.api.tile.IUpgradeable;
 import com.rekindled.embers.api.upgrades.UpgradeContext;
 import com.rekindled.embers.api.upgrades.UpgradeUtil;
 import com.rekindled.embers.datagen.EmbersItemTags;
@@ -44,7 +45,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
-public class CinderPlinthBlockEntity extends BlockEntity implements ISoundController, IExtraDialInformation, IExtraCapabilityInformation {
+public class CinderPlinthBlockEntity extends BlockEntity implements ISoundController, IExtraDialInformation, IExtraCapabilityInformation, IUpgradeable {
 
 	public static double EMBER_COST = 0.5;
 	public static int PROCESS_TIME = 40;
@@ -239,5 +240,10 @@ public class CinderPlinthBlockEntity extends BlockEntity implements ISoundContro
 			strings.add(IExtraCapabilityInformation.formatCapability(EnumIOType.INPUT, Embers.MODID + ".tooltip.goggles.item", null));
 			strings.add(IExtraCapabilityInformation.formatCapability(EnumIOType.OUTPUT, Embers.MODID + ".tooltip.goggles.item", Component.translatable(Embers.MODID + ".tooltip.goggles.item.ash")));
 		}
+	}
+
+	@Override
+	public boolean isSideUpgradeSlot(Direction face) {
+		return true;
 	}
 }

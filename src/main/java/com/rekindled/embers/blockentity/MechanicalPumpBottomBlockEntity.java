@@ -9,6 +9,7 @@ import com.rekindled.embers.api.event.EmberEvent;
 import com.rekindled.embers.api.power.IEmberCapability;
 import com.rekindled.embers.api.tile.IExtraDialInformation;
 import com.rekindled.embers.api.tile.IMechanicallyPowered;
+import com.rekindled.embers.api.tile.IUpgradeable;
 import com.rekindled.embers.api.upgrades.UpgradeContext;
 import com.rekindled.embers.api.upgrades.UpgradeUtil;
 import com.rekindled.embers.datagen.EmbersSounds;
@@ -17,6 +18,7 @@ import com.rekindled.embers.util.Misc;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Direction.Axis;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
@@ -36,7 +38,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 
-public class MechanicalPumpBottomBlockEntity extends BlockEntity implements IMechanicallyPowered, IExtraDialInformation {
+public class MechanicalPumpBottomBlockEntity extends BlockEntity implements IMechanicallyPowered, IExtraDialInformation, IUpgradeable {
 
 	public IEmberCapability capability = new DefaultEmberCapability() {
 		@Override
@@ -203,5 +205,10 @@ public class MechanicalPumpBottomBlockEntity extends BlockEntity implements IMec
 		super.setChanged();
 		if (level instanceof ServerLevel)
 			((ServerLevel) level).getChunkSource().blockChanged(worldPosition);
+	}
+
+	@Override
+	public boolean isSideUpgradeSlot(Direction face) {
+		return face.getAxis() != Axis.Y;
 	}
 }

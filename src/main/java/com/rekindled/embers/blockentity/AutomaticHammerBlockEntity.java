@@ -11,6 +11,7 @@ import com.rekindled.embers.api.power.IEmberCapability;
 import com.rekindled.embers.api.tile.IExtraDialInformation;
 import com.rekindled.embers.api.tile.IHammerable;
 import com.rekindled.embers.api.tile.IMechanicallyPowered;
+import com.rekindled.embers.api.tile.IUpgradeable;
 import com.rekindled.embers.api.upgrades.UpgradeContext;
 import com.rekindled.embers.api.upgrades.UpgradeUtil;
 import com.rekindled.embers.power.DefaultEmberCapability;
@@ -32,7 +33,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 
-public class AutomaticHammerBlockEntity extends BlockEntity implements IMechanicallyPowered, IExtraDialInformation {
+public class AutomaticHammerBlockEntity extends BlockEntity implements IMechanicallyPowered, IExtraDialInformation, IUpgradeable {
 
 	public static final double EMBER_COST = 40.0;
 	public static final int PROCESS_TIME = 20;
@@ -159,5 +160,10 @@ public class AutomaticHammerBlockEntity extends BlockEntity implements IMechanic
 	@Override
 	public void addDialInformation(Direction facing, List<Component> information, String dialType) {
 		UpgradeUtil.throwEvent(this, new DialInformationEvent(this, information, dialType), upgrades);
+	}
+
+	@Override
+	public boolean isSideUpgradeSlot(Direction face) {
+		return getBlockState().hasProperty(BlockStateProperties.HORIZONTAL_FACING) && getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING).getOpposite() == face;
 	}
 }

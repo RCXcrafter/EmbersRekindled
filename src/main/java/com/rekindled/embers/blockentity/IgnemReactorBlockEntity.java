@@ -16,6 +16,7 @@ import com.rekindled.embers.api.event.EmberEvent;
 import com.rekindled.embers.api.power.IEmberCapability;
 import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
 import com.rekindled.embers.api.tile.IExtraDialInformation;
+import com.rekindled.embers.api.tile.IUpgradeable;
 import com.rekindled.embers.api.upgrades.UpgradeContext;
 import com.rekindled.embers.api.upgrades.UpgradeUtil;
 import com.rekindled.embers.block.EmberDialBlock;
@@ -31,6 +32,7 @@ import com.rekindled.embers.util.sound.ISoundController;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Direction.Axis;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
@@ -51,7 +53,7 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 
-public class IgnemReactorBlockEntity extends BlockEntity implements ISoundController, IExtraDialInformation, IExtraCapabilityInformation {
+public class IgnemReactorBlockEntity extends BlockEntity implements ISoundController, IExtraDialInformation, IExtraCapabilityInformation, IUpgradeable {
 
 	public static final double BASE_MULTIPLIER = 1.0;
 	public static final int PROCESS_TIME = 20;
@@ -290,5 +292,10 @@ public class IgnemReactorBlockEntity extends BlockEntity implements ISoundContro
 			information.add(Component.translatable(Embers.MODID + ".tooltip.dial.ember_multiplier", multiplierFormat.format(multiplier)));
 		}
 		UpgradeUtil.throwEvent(this, new DialInformationEvent(this, information, dialType), upgrades);
+	}
+
+	@Override
+	public boolean isSideUpgradeSlot(Direction face) {
+		return face.getAxis() != Axis.Y;
 	}
 }

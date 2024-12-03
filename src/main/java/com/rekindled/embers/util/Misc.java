@@ -20,6 +20,7 @@ import com.google.gson.JsonSyntaxException;
 import com.rekindled.embers.ConfigManager;
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.api.event.InfoGogglesEvent;
+import com.rekindled.embers.api.tile.IProxyable;
 import com.rekindled.embers.datagen.EmbersBlockTags;
 
 import net.minecraft.client.gui.Font;
@@ -55,6 +56,7 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
@@ -516,7 +518,7 @@ public class Misc {
 		}
 	}
 
-	public static boolean isSideProxyable(BlockState state, Direction face) {
-		return state.is(EmbersBlockTags.MECH_CORE_PROXYABLE) || (state.is(EmbersBlockTags.MECH_CORE_PROXYABLE_BOTTOM) && face == Direction.DOWN) || (state.is(EmbersBlockTags.MECH_CORE_PROXYABLE_TOP) && face == Direction.UP);
+	public static boolean isSideProxyable(BlockState state, BlockEntity tile, Direction face) {
+		return state.is(EmbersBlockTags.MECH_CORE_PROXYABLE) || (state.is(EmbersBlockTags.MECH_CORE_PROXYABLE_BOTTOM) && face == Direction.DOWN) || (state.is(EmbersBlockTags.MECH_CORE_PROXYABLE_TOP) && face == Direction.UP) || (tile instanceof IProxyable proxyable && proxyable.isSideProxyable(face));
 	}
 }

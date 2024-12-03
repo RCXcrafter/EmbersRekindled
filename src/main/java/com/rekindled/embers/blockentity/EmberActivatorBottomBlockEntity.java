@@ -9,6 +9,7 @@ import com.rekindled.embers.api.event.DialInformationEvent;
 import com.rekindled.embers.api.event.EmberEvent;
 import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
 import com.rekindled.embers.api.tile.IExtraDialInformation;
+import com.rekindled.embers.api.tile.IUpgradeable;
 import com.rekindled.embers.api.upgrades.UpgradeContext;
 import com.rekindled.embers.api.upgrades.UpgradeUtil;
 import com.rekindled.embers.datagen.EmbersSounds;
@@ -20,6 +21,7 @@ import com.rekindled.embers.util.Misc;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Direction.Axis;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -36,7 +38,7 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 
-public class EmberActivatorBottomBlockEntity extends BlockEntity implements IExtraDialInformation, IExtraCapabilityInformation {
+public class EmberActivatorBottomBlockEntity extends BlockEntity implements IExtraDialInformation, IExtraCapabilityInformation, IUpgradeable {
 
 	public static final int PROCESS_TIME = 40;
 	int progress = -1;
@@ -151,5 +153,10 @@ public class EmberActivatorBottomBlockEntity extends BlockEntity implements IExt
 	@Override
 	public void addDialInformation(Direction facing, List<Component> information, String dialType) {
 		UpgradeUtil.throwEvent(this, new DialInformationEvent(this, information, dialType), upgrades);
+	}
+
+	@Override
+	public boolean isSideUpgradeSlot(Direction face) {
+		return face.getAxis() != Axis.Y;
 	}
 }

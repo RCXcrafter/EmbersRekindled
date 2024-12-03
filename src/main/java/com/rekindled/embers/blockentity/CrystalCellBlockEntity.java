@@ -11,6 +11,7 @@ import com.rekindled.embers.api.event.DialInformationEvent;
 import com.rekindled.embers.api.power.IEmberCapability;
 import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
 import com.rekindled.embers.api.tile.IExtraDialInformation;
+import com.rekindled.embers.api.tile.IUpgradeable;
 import com.rekindled.embers.api.upgrades.UpgradeContext;
 import com.rekindled.embers.api.upgrades.UpgradeUtil;
 import com.rekindled.embers.datagen.EmbersSounds;
@@ -43,7 +44,7 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 
-public class CrystalCellBlockEntity extends BlockEntity implements ISoundController, IExtraDialInformation, IExtraCapabilityInformation {
+public class CrystalCellBlockEntity extends BlockEntity implements ISoundController, IExtraDialInformation, IExtraCapabilityInformation, IUpgradeable {
 	public static final int MAX_CAPACITY = 1440000;
 	Random random = new Random();
 	public long ticksExisted = 0;
@@ -259,5 +260,10 @@ public class CrystalCellBlockEntity extends BlockEntity implements ISoundControl
 	public void addCapabilityDescription(List<Component> strings, Capability<?> capability, Direction facing) {
 		if (capability == ForgeCapabilities.ITEM_HANDLER)
 			strings.add(IExtraCapabilityInformation.formatCapability(EnumIOType.INPUT, Embers.MODID + ".tooltip.goggles.item", Component.translatable(Embers.MODID + ".tooltip.goggles.item.ember")));
+	}
+
+	@Override
+	public boolean isSideUpgradeSlot(Direction face) {
+		return face == Direction.DOWN;
 	}
 }

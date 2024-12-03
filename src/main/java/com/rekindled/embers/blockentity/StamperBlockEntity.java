@@ -16,6 +16,7 @@ import com.rekindled.embers.api.tile.IBin;
 import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
 import com.rekindled.embers.api.tile.IExtraDialInformation;
 import com.rekindled.embers.api.tile.IMechanicallyPowered;
+import com.rekindled.embers.api.tile.IUpgradeable;
 import com.rekindled.embers.api.upgrades.UpgradeContext;
 import com.rekindled.embers.api.upgrades.UpgradeUtil;
 import com.rekindled.embers.datagen.EmbersSounds;
@@ -29,6 +30,7 @@ import com.rekindled.embers.util.Misc;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Direction.Axis;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
@@ -49,7 +51,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
-public class StamperBlockEntity extends BlockEntity implements IMechanicallyPowered, IExtraDialInformation, IExtraCapabilityInformation {
+public class StamperBlockEntity extends BlockEntity implements IMechanicallyPowered, IExtraDialInformation, IExtraCapabilityInformation, IUpgradeable {
 
 	public static final double EMBER_COST = 80.0;
 	public static final int STAMP_TIME = 70;
@@ -259,5 +261,10 @@ public class StamperBlockEntity extends BlockEntity implements IMechanicallyPowe
 	public void addCapabilityDescription(List<Component> strings, Capability<?> capability, Direction facing) {
 		if (capability == ForgeCapabilities.ITEM_HANDLER)
 			strings.add(IExtraCapabilityInformation.formatCapability(EnumIOType.BOTH, Embers.MODID + ".tooltip.goggles.item", Component.translatable(Embers.MODID + ".tooltip.goggles.item.stamp")));
+	}
+
+	@Override
+	public boolean isSideUpgradeSlot(Direction face) {
+		return face.getAxis() != Axis.Y;
 	}
 }

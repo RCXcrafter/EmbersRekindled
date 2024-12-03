@@ -13,6 +13,7 @@ import com.rekindled.embers.api.event.EmberEvent;
 import com.rekindled.embers.api.power.IEmberCapability;
 import com.rekindled.embers.api.tile.IEmberInjectable;
 import com.rekindled.embers.api.tile.IExtraDialInformation;
+import com.rekindled.embers.api.tile.IUpgradeable;
 import com.rekindled.embers.api.upgrades.UpgradeContext;
 import com.rekindled.embers.api.upgrades.UpgradeUtil;
 import com.rekindled.embers.datagen.EmbersSounds;
@@ -36,7 +37,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 
-public class EmberInjectorBlockEntity extends BlockEntity implements ISoundController, IExtraDialInformation {
+public class EmberInjectorBlockEntity extends BlockEntity implements ISoundController, IExtraDialInformation, IUpgradeable {
 
 	public IEmberCapability capability = new DefaultEmberCapability() {
 		@Override
@@ -199,5 +200,10 @@ public class EmberInjectorBlockEntity extends BlockEntity implements ISoundContr
 	@Override
 	public void addDialInformation(Direction facing, List<Component> information, String dialType) {
 		UpgradeUtil.throwEvent(this, new DialInformationEvent(this, information, dialType), upgrades);
+	}
+
+	@Override
+	public boolean isSideUpgradeSlot(Direction face) {
+		return true;
 	}
 }

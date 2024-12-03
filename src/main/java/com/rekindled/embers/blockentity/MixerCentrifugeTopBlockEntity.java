@@ -7,6 +7,7 @@ import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.capabilities.EmbersCapabilities;
 import com.rekindled.embers.api.power.IEmberCapability;
 import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
+import com.rekindled.embers.api.tile.IUpgradeable;
 import com.rekindled.embers.power.DefaultEmberCapability;
 
 import net.minecraft.core.BlockPos;
@@ -27,7 +28,7 @@ import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fluids.capability.FluidHandlerBlockEntity;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 
-public class MixerCentrifugeTopBlockEntity extends FluidHandlerBlockEntity implements IExtraCapabilityInformation {
+public class MixerCentrifugeTopBlockEntity extends FluidHandlerBlockEntity implements IExtraCapabilityInformation, IUpgradeable {
 
 	public static int capacity = FluidType.BUCKET_VOLUME * 8;
 	public boolean loaded = false;
@@ -132,5 +133,10 @@ public class MixerCentrifugeTopBlockEntity extends FluidHandlerBlockEntity imple
 	public void addCapabilityDescription(List<Component> strings, Capability<?> capability, Direction facing) {
 		if (capability == ForgeCapabilities.FLUID_HANDLER)
 			strings.add(IExtraCapabilityInformation.formatCapability(EnumIOType.OUTPUT, Embers.MODID + ".tooltip.goggles.fluid", Component.translatable(Embers.MODID + ".tooltip.goggles.fluid.metal")));
+	}
+
+	@Override
+	public boolean isSideUpgradeSlot(Direction face) {
+		return true;
 	}
 }

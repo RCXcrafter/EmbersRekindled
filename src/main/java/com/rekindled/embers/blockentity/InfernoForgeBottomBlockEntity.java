@@ -13,6 +13,7 @@ import com.rekindled.embers.api.event.DialInformationEvent;
 import com.rekindled.embers.api.event.EmberEvent;
 import com.rekindled.embers.api.power.IEmberCapability;
 import com.rekindled.embers.api.tile.IExtraDialInformation;
+import com.rekindled.embers.api.tile.IUpgradeable;
 import com.rekindled.embers.api.upgrades.UpgradeContext;
 import com.rekindled.embers.api.upgrades.UpgradeUtil;
 import com.rekindled.embers.datagen.EmbersSounds;
@@ -46,7 +47,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 
-public class InfernoForgeBottomBlockEntity extends BlockEntity implements IExtraDialInformation, ISoundController {
+public class InfernoForgeBottomBlockEntity extends BlockEntity implements IExtraDialInformation, ISoundController, IUpgradeable {
 
 	public static double EMBER_COST = 16.0;
 	public static int MAX_LEVEL = 5;
@@ -304,5 +305,10 @@ public class InfernoForgeBottomBlockEntity extends BlockEntity implements IExtra
 		super.setChanged();
 		if (level instanceof ServerLevel)
 			((ServerLevel) level).getChunkSource().blockChanged(worldPosition);
+	}
+
+	@Override
+	public boolean isSideUpgradeSlot(Direction face) {
+		return face == Direction.DOWN;
 	}
 }

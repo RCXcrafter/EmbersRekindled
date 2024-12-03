@@ -16,6 +16,7 @@ import com.rekindled.embers.api.misc.AlchemyResult;
 import com.rekindled.embers.api.tile.IBin;
 import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
 import com.rekindled.embers.api.tile.ISparkable;
+import com.rekindled.embers.api.tile.IUpgradeable;
 import com.rekindled.embers.api.upgrades.UpgradeContext;
 import com.rekindled.embers.api.upgrades.UpgradeUtil;
 import com.rekindled.embers.datagen.EmbersSounds;
@@ -50,7 +51,7 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 
-public class AlchemyTabletBlockEntity extends BlockEntity implements ISparkable, ISoundController, IExtraCapabilityInformation {
+public class AlchemyTabletBlockEntity extends BlockEntity implements ISparkable, ISoundController, IExtraCapabilityInformation, IUpgradeable {
 
 	public static final Direction[] UPGRADE_SIDES = {
 			Direction.NORTH,
@@ -359,6 +360,11 @@ public class AlchemyTabletBlockEntity extends BlockEntity implements ISparkable,
 		} else {
 			strings.add(IExtraCapabilityInformation.formatCapability(EnumIOType.BOTH, Embers.MODID + ".tooltip.goggles.item", null));
 		}
+	}
+
+	@Override
+	public boolean isSideUpgradeSlot(Direction face) {
+		return face != Direction.UP;
 	}
 
 	public static class TabletItemStackHandler extends ItemStackHandler {

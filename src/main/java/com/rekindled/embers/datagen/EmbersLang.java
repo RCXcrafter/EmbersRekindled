@@ -381,9 +381,9 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".tooltip.goggles.fluid.water_or_steam", "Water or Steam");
 		add(Embers.MODID + ".tooltip.goggles.fluid.redstone", "Alchemical Slurry");
 
-		add(Embers.MODID + ".tooltip.goggles.upgrade_slot", "• Machine Upgrade Slot");
+		add(Embers.MODID + ".tooltip.goggles.upgrade_slot", "• Upgrade Slot");
 		add(Embers.MODID + ".tooltip.goggles.upgrade", "• Machine Upgrade");
-		add(Embers.MODID + ".tooltip.goggles.accessor_slot", "• Machine Accessor Slot");
+		add(Embers.MODID + ".tooltip.goggles.accessor_slot", "• Mechanical Core Slot");
 		add(Embers.MODID + ".tooltip.goggles.actuator_slot", "• Actuator Slot");
 
 		add(Embers.MODID + ".tooltip.crystal.level", "Level %s");
@@ -587,7 +587,7 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".research.page.hearth_coil", "Hearth Coil");
 		add(Embers.MODID + ".research.page.hearth_coil.title", "Open Fire");
 		add(Embers.MODID + ".research.page.hearth_coil.tags", "Furnace;Coil;Hearth;Machine;Smelt;Processing;Item;Multiblock;Multi Block;");
-		add(Embers.MODID + ".research.page.hearth_coil.desc", "Gone are the days of using solid fuels in a stone furnace to cook your items. Making use of Ember power, you have developed the Hearth Coil. When supplied with Ember, the Coil will heat up. The hotter it gets, the faster it will smelt the items on top of it. All smelted items will be contained within the inventory of the Coil, and can be piped out from the bottom or from some Accessor.");
+		add(Embers.MODID + ".research.page.hearth_coil.desc", "Gone are the days of using solid fuels in a stone furnace to cook your items. Making use of Ember power, you have developed the Hearth Coil. When supplied with Ember, the Coil will heat up. The hotter it gets, the faster it will smelt the items on top of it. All smelted items will be contained within the inventory of the Coil, and can be piped out from the bottom or a Mechanical Core.");
 
 		add(Embers.MODID + ".research.page.char_instiller", "Char Instiller");
 		add(Embers.MODID + ".research.page.char_instiller.title", "Smoking Hot");
@@ -617,7 +617,7 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".research.page.reservoir", "Reservoir");
 		add(Embers.MODID + ".research.page.reservoir.title", "Massive Tanks");
 		add(Embers.MODID + ".research.page.reservoir.tags", "Tank;Storage;Liquid;Fluid;Caminite;Multiblock;Multi Block;Valve;");
-		add(Embers.MODID + ".research.page.reservoir.desc", "The Reservoir is a simple means of storing large quantities of fluids. While it will not store any fluid by default, its capacity can be extended by placing Caminite Rings atop the Reservoir base, by 40 buckets for each ring. The Reservoir may only be filled or drained through the port on its bottom, or through a Mechanical Core or Accessor attached to that port.");
+		add(Embers.MODID + ".research.page.reservoir.desc", "The Reservoir is a simple means of storing large quantities of fluids. While it will not store any fluid by default, its capacity can be extended by placing Caminite Rings atop the Reservoir base, by 40 buckets for each ring. The Reservoir may only be filled or drained through the port on its bottom, or through a Mechanical Core attached to that port.");
 		add(Embers.MODID + ".research.page.reservoir_valve.desc", "Caminite Valves can also be added for ease of access. They hold the exact same amount of fluid per layer as a regular Caminite Ring, but they have 4 extra sides for fluid input and output.");
 
 		add(Embers.MODID + ".research.page.transfer", "Item Transfer");

@@ -14,6 +14,7 @@ import com.rekindled.embers.api.event.MachineRecipeEvent;
 import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
 import com.rekindled.embers.api.tile.IExtraDialInformation;
 import com.rekindled.embers.api.tile.IMechanicallyPowered;
+import com.rekindled.embers.api.tile.IUpgradeable;
 import com.rekindled.embers.api.upgrades.UpgradeContext;
 import com.rekindled.embers.api.upgrades.UpgradeUtil;
 import com.rekindled.embers.datagen.EmbersSounds;
@@ -48,7 +49,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
-public class EmberBoreBlockEntity extends BlockEntity implements ISoundController, IMechanicallyPowered, IExtraDialInformation, IExtraCapabilityInformation {
+public class EmberBoreBlockEntity extends BlockEntity implements ISoundController, IMechanicallyPowered, IExtraDialInformation, IExtraCapabilityInformation, IUpgradeable {
 
 	public static final int SLOT_FUEL = 8;
 
@@ -424,5 +425,10 @@ public class EmberBoreBlockEntity extends BlockEntity implements ISoundControlle
 			}
 			return super.extractItem(slot, amount, simulate);
 		}
+	}
+
+	@Override
+	public boolean isSideUpgradeSlot(Direction face) {
+		return face == Direction.UP;
 	}
 }

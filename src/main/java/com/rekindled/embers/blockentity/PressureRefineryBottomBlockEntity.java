@@ -10,6 +10,7 @@ import com.rekindled.embers.api.event.DialInformationEvent;
 import com.rekindled.embers.api.event.EmberEvent;
 import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
 import com.rekindled.embers.api.tile.IExtraDialInformation;
+import com.rekindled.embers.api.tile.IUpgradeable;
 import com.rekindled.embers.api.upgrades.UpgradeContext;
 import com.rekindled.embers.api.upgrades.UpgradeUtil;
 import com.rekindled.embers.block.EmberDialBlock;
@@ -26,6 +27,7 @@ import com.rekindled.embers.util.Misc;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Direction.Axis;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -47,7 +49,7 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 
-public class PressureRefineryBottomBlockEntity extends FluidHandlerBlockEntity implements IExtraDialInformation, IExtraCapabilityInformation {
+public class PressureRefineryBottomBlockEntity extends FluidHandlerBlockEntity implements IExtraDialInformation, IExtraCapabilityInformation, IUpgradeable {
 
 	public static final float BASE_MULTIPLIER = 1.25f;
 	public static final int FLUID_CONSUMED = 25;
@@ -202,5 +204,10 @@ public class PressureRefineryBottomBlockEntity extends FluidHandlerBlockEntity i
 			strings.add(IExtraCapabilityInformation.formatCapability(EnumIOType.INPUT, Embers.MODID + ".tooltip.goggles.item", Component.translatable(Embers.MODID + ".tooltip.goggles.item.ember")));
 		if(capability == ForgeCapabilities.FLUID_HANDLER)
 			strings.add(IExtraCapabilityInformation.formatCapability(EnumIOType.INPUT, Embers.MODID + ".tooltip.goggles.fluid", Component.translatable(Embers.MODID + ".tooltip.goggles.fluid.water")));
+	}
+
+	@Override
+	public boolean isSideUpgradeSlot(Direction face) {
+		return face.getAxis() != Axis.Y;
 	}
 }

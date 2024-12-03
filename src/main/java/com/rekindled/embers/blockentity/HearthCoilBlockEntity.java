@@ -22,6 +22,7 @@ import com.rekindled.embers.api.event.MachineRecipeEvent;
 import com.rekindled.embers.api.power.IEmberCapability;
 import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
 import com.rekindled.embers.api.tile.IExtraDialInformation;
+import com.rekindled.embers.api.tile.IUpgradeable;
 import com.rekindled.embers.api.upgrades.UpgradeContext;
 import com.rekindled.embers.api.upgrades.UpgradeUtil;
 import com.rekindled.embers.block.EmberDialBlock;
@@ -58,7 +59,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
-public class HearthCoilBlockEntity extends BlockEntity implements ISoundController, IExtraDialInformation, IExtraCapabilityInformation {
+public class HearthCoilBlockEntity extends BlockEntity implements ISoundController, IExtraDialInformation, IExtraCapabilityInformation, IUpgradeable {
 
 	public static final Color DEFAULT_COLOR = new Color(255, 64, 16);
 
@@ -355,5 +356,10 @@ public class HearthCoilBlockEntity extends BlockEntity implements ISoundControll
 	public void addCapabilityDescription(List<Component> strings, Capability<?> capability, Direction facing) {
 		if (capability == ForgeCapabilities.ITEM_HANDLER)
 			strings.add(IExtraCapabilityInformation.formatCapability(EnumIOType.OUTPUT, Embers.MODID + ".tooltip.goggles.item", null));
+	}
+
+	@Override
+	public boolean isSideUpgradeSlot(Direction face) {
+		return face == Direction.DOWN;
 	}
 }

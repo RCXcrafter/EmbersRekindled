@@ -9,6 +9,7 @@ import com.rekindled.embers.api.event.EmberEvent;
 import com.rekindled.embers.api.power.IEmberCapability;
 import com.rekindled.embers.api.power.IEmberPacketReceiver;
 import com.rekindled.embers.api.tile.ISparkable;
+import com.rekindled.embers.api.tile.IUpgradeable;
 import com.rekindled.embers.api.upgrades.UpgradeContext;
 import com.rekindled.embers.api.upgrades.UpgradeUtil;
 import com.rekindled.embers.damage.DamageEmber;
@@ -37,7 +38,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.network.PacketDistributor;
 
-public class BeamCannonBlockEntity extends BlockEntity {
+public class BeamCannonBlockEntity extends BlockEntity implements IUpgradeable {
 
 	public IEmberCapability capability = new DefaultEmberCapability() {
 		@Override
@@ -174,5 +175,10 @@ public class BeamCannonBlockEntity extends BlockEntity {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public boolean isSideUpgradeSlot(Direction face) {
+		return true;
 	}
 }
