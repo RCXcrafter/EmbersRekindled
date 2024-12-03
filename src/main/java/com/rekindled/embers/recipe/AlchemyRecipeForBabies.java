@@ -25,22 +25,27 @@ public class AlchemyRecipeForBabies extends AlchemyRecipeBase {
 		super(id, tablet, aspects, inputs, output, failure);
 	}
 
+	public Long cachedSeed = null;
+	public ArrayList<Ingredient> code = null;
+
 	@Override
 	public ArrayList<Ingredient> getCode(long seed) {
-		ArrayList<Ingredient> code = null;
-		int incr = 0;
-		boolean incorrectCode = true;
-		while (incorrectCode) {
-			code = super.getCode(seed + incr);
-			incorrectCode = false;
-			for (Ingredient ingredient : aspects) {
-				//only return this recipe if it contains all possible aspecti
-				if (!code.contains(ingredient)) {
-					incorrectCode = true;
-					break;
+		if (cachedSeed == null || cachedSeed != seed) {
+			int incr = 0;
+			boolean incorrectCode = true;
+			while (incorrectCode) {
+				code = super.getCode(seed + incr);
+				incorrectCode = false;
+				for (Ingredient ingredient : aspects) {
+					//only return this recipe if it contains all possible aspecti
+					if (!code.contains(ingredient)) {
+						incorrectCode = true;
+						break;
+					}
 				}
+				incr++;
 			}
-			incr++;
+			cachedSeed = seed;
 		}
 		return code;
 	}
