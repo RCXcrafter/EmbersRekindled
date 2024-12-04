@@ -565,7 +565,7 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".research.page.tinker_lens", "Tinker's Lens");
 		add(Embers.MODID + ".research.page.tinker_lens.title", "What's What?");
 		add(Embers.MODID + ".research.page.tinker_lens.tags", "Info;Modifier;Augment;Armor;Tool;");
-		add(Embers.MODID + ".research.page.tinker_lens.desc", "Despite you creating all this machinery yourself, some of its functionality can be a bit obtuse at times. Fortunately you've devised an eyepiece you can use to examine machines more closely. When held in either hand, you will always be able to tell which purpose a face on a machine has. Note that this tool is not a periscope, so you might have some trouble with Mechanical Cores...");
+		add(Embers.MODID + ".research.page.tinker_lens.desc", "Despite you creating all this machinery yourself, some of its functionality can be a bit obtuse at times. Fortunately you've devised an eyepiece you can use to examine machines more closely. When held in either hand, you will always be able to tell which purpose a face on a machine has.");// Note that this tool is not a periscope, so you might have some trouble with Mechanical Cores...");
 
 
 
