@@ -2,9 +2,6 @@
   "type": "embers:alchemy",
   "aspects": [
     {
-      "tag": "embers:aspectus/copper"
-    },
-    {
       "tag": "embers:aspectus/iron"
     },
     {
@@ -20,6 +17,9 @@
     },
     {
       "tag": "forge:dusts/ash"
+    },
+    {
+      "tag": "forge:string"
     },
     {
       "tag": "forge:string"
