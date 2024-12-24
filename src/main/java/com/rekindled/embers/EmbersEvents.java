@@ -106,7 +106,7 @@ public class EmbersEvents {
 		}
 		event.setAmount(event.getAmount() * mult);
 
-		final Entity source = event.getSource().getEntity();
+		final Entity source = event.getSource().getDirectEntity();//.getEntity();
 		if (source instanceof LivingEntity livingSource) {
 			final ItemStack heldStack = livingSource.getMainHandItem();
 			if (heldStack.getItem() instanceof ITyrfingWeapon tyrfing) {
