@@ -15,6 +15,8 @@ import com.rekindled.embers.api.tile.IUpgradeable;
 import com.rekindled.embers.api.upgrades.UpgradeContext;
 import com.rekindled.embers.api.upgrades.UpgradeUtil;
 import com.rekindled.embers.datagen.EmbersSounds;
+import com.rekindled.embers.network.PacketHandler;
+import com.rekindled.embers.network.message.MessageCrystalCellGrowFX;
 import com.rekindled.embers.particle.GlowParticleOptions;
 import com.rekindled.embers.power.DefaultEmberCapability;
 import com.rekindled.embers.recipe.IEmberActivationRecipe;
@@ -43,6 +45,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
+import net.minecraftforge.network.PacketDistributor;
 
 public class CrystalCellBlockEntity extends BlockEntity implements ISoundController, IExtraDialInformation, IExtraCapabilityInformation, IUpgradeable {
 	public static final int MAX_CAPACITY = 1440000;
@@ -155,20 +158,7 @@ public class CrystalCellBlockEntity extends BlockEntity implements ISoundControl
 							blockEntity.capability.setEmberCapacity(Math.min(maxCapacity, blockEntity.capability.getEmberCapacity() + emberValue * 10));
 							blockEntity.setChanged();
 						}
-					} else {
-						double angle = blockEntity.random.nextDouble() * 2.0 * Math.PI;
-						double x = pos.getX() + 0.5 + 0.5 * Math.sin(angle);
-						double z = pos.getZ() + 0.5 + 0.5 * Math.cos(angle);
-						double x2 = pos.getX() + 0.5;
-						double z2 = pos.getZ() + 0.5;
-						float layerHeight = 0.25f;
-						float numLayers = 2 + (float) Math.floor(blockEntity.capability.getEmberCapacity() / 120000.0f);
-						float height = layerHeight * numLayers;
-						for (float i = 0; i < 72; i++) {
-							float coeff = i / 72.0f;
-							level.addParticle(GlowParticleOptions.EMBER_NOMOTION, x * (1.0f - coeff) + x2 * coeff, pos.getY() + (1.0f - coeff) + (height / 2.0f + 1.5f) * coeff, z * (1.0f - coeff) + z2 * coeff, 0, 0, 0);
-						}
-						level.playLocalSound(x, pos.getY() + 0.5, z, EmbersSounds.CRYSTAL_CELL_GROW.get(), SoundSource.BLOCKS, 1.0f, 1.0f + blockEntity.random.nextFloat(), false);
+						PacketHandler.INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(pos)), new MessageCrystalCellGrowFX(pos, blockEntity.capability.getEmberCapacity()));
 					}
 				}
 			}
