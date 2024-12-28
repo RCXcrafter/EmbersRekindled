@@ -1,5 +1,6 @@
 package com.rekindled.embers.item;
 
+import com.rekindled.embers.EmbersClientEvents;
 import com.rekindled.embers.datagen.EmbersSounds;
 
 import net.minecraft.sounds.SoundEvent;
@@ -22,7 +23,8 @@ public interface IEmbersCurioItem extends ICurioItem {
 	}
 
 	default void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {
-		this.playEquipSound(slotContext, false);
+		if (EmbersClientEvents.ticks > 1)
+			this.playEquipSound(slotContext, false);
 	}
 
 	default void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
@@ -32,7 +34,6 @@ public interface IEmbersCurioItem extends ICurioItem {
 	default void playEquipSound(SlotContext slotContext, boolean unequip) {
 		Vec3 pos = slotContext.entity().position();
 		slotContext.entity().level().playSound(null, pos.x, pos.y, pos.z, unequip ? unequipSound() : equipSound(), slotContext.entity().getSoundSource(), 1.0f, 1.0f);
-
 	}
 
 	default SoundEvent equipSound() {

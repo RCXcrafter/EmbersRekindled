@@ -73,6 +73,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.event.TickEvent.ClientTickEvent;
 import net.minecraftforge.event.TickEvent.Phase;
+import net.minecraftforge.event.level.LevelEvent;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.items.IItemHandler;
@@ -87,6 +88,10 @@ public class EmbersClientEvents {
 	public static BlockPos lastTarget = null;
 	public static ResourceLocation GAUGE = new ResourceLocation(Embers.MODID, "textures/gui/ember_meter_overlay.png"); 
 	public static ResourceLocation GAUGE_POINTER = new ResourceLocation(Embers.MODID, "textures/gui/ember_meter_pointer.png"); 
+
+	public static void onLevelLoad(LevelEvent.Load event) {
+		ticks = 0;
+	}
 
 	public static void onClientTick(ClientTickEvent event) {
 		if (event.side == LogicalSide.CLIENT && event.phase == Phase.START) {
