@@ -7,7 +7,7 @@
     },
     {
       "amount": 20,
-      "fluid": "embers:steam"
+      "tag": "forge:steam"
     }
   ],
   "output": {

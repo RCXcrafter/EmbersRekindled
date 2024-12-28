@@ -173,7 +173,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		MixingRecipeBuilder.create(RegistryManager.MOLTEN_BRASS.FLUID.get(), 4).folder(mixingFolder).input(EmbersFluidTags.MOLTEN_COPPER, 2).input(EmbersFluidTags.MOLTEN_ZINC, 2).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(itemTag("forge", "ingots/brass"))).build(consumer));
 		MixingRecipeBuilder.create(RegistryManager.MOLTEN_CONSTANTAN.FLUID.get(), 4).folder(mixingFolder).input(EmbersFluidTags.MOLTEN_COPPER, 2).input(EmbersFluidTags.MOLTEN_NICKEL, 2).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(itemTag("forge", "ingots/constantan"))).build(consumer));
 		MixingRecipeBuilder.create(RegistryManager.MOLTEN_INVAR.FLUID.get(), 3).folder(mixingFolder).input(EmbersFluidTags.MOLTEN_IRON, 2).input(EmbersFluidTags.MOLTEN_NICKEL, 1).save(ConsumerWrapperBuilder.wrap().addCondition(tagReal(itemTag("forge", "ingots/invar"))).build(consumer));
-		MixingRecipeBuilder.create(RegistryManager.DWARVEN_OIL.FLUID.get(), 10).id(new ResourceLocation(Embers.MODID, mixingFolder + "/dwarven_oil_steam")).input(RegistryManager.SOUL_CRUDE.FLUID.get(), 5).input(RegistryManager.STEAM.FLUID.get(), 20).save(consumer);
+		MixingRecipeBuilder.create(RegistryManager.DWARVEN_OIL.FLUID.get(), 10).id(new ResourceLocation(Embers.MODID, mixingFolder + "/dwarven_oil_steam")).input(RegistryManager.SOUL_CRUDE.FLUID.get(), 5).input(EmbersFluidTags.STEAM, 20).save(consumer);
 		MixingRecipeBuilder.create(RegistryManager.DWARVEN_OIL.FLUID.get(), 30).id(new ResourceLocation(Embers.MODID, mixingFolder + "/dwarven_oil")).input(RegistryManager.SOUL_CRUDE.FLUID.get(), 10).input(RegistryManager.DWARVEN_GAS.FLUID.get(), 5).save(consumer);
 
 		//metal coefficient
@@ -309,7 +309,7 @@ public class EmbersRecipes extends RecipeProvider implements IConditionBuilder {
 		BoilingRecipeBuilder.create(RegistryManager.DWARVEN_GAS.FLUID.get(), 1).folder(boilingFolder).input(RegistryManager.DWARVEN_OIL.FLUID.get(), 1).save(consumer);
 
 		//gaseous fuel
-		GaseousFuelRecipeBuilder.create(RegistryManager.STEAM.FLUID.get(), 1).folder(gaseousFuelFolder).burnTime(1).powerMultiplier(2.0).save(consumer);
+		GaseousFuelRecipeBuilder.create(new ResourceLocation(Embers.MODID, "steam")).input(EmbersFluidTags.STEAM, 1).folder(gaseousFuelFolder).burnTime(1).powerMultiplier(2.0).save(consumer);
 		GaseousFuelRecipeBuilder.create(RegistryManager.DWARVEN_GAS.FLUID.get(), 1).folder(gaseousFuelFolder).burnTime(5).powerMultiplier(2.5).save(consumer);
 
 		//catalysis and combustion

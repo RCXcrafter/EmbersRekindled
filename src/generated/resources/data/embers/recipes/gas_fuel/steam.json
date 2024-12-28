@@ -3,7 +3,7 @@
   "burn_time": 1,
   "input": {
     "amount": 1,
-    "fluid": "embers:steam"
+    "tag": "forge:steam"
   },
   "power_multiplier": 2.0
 }

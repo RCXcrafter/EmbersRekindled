@@ -94,6 +94,9 @@ public class EmbersBlockTags extends BlockTagsProvider {
 	public static final TagKey<Block> ALUMINUM_BLOCK = BlockTags.create(new ResourceLocation("forge", "storage_blocks/aluminium"));
 	public static final TagKey<Block> ELECTRUM_BLOCK = BlockTags.create(new ResourceLocation("forge", "storage_blocks/electrum"));
 
+	//compat
+	public static final TagKey<Block> ANVIL_METAL = BlockTags.create(new ResourceLocation("tconstruct", "anvil_metal"));
+
 	public EmbersBlockTags(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
 		super(output, lookupProvider, Embers.MODID, existingFileHelper);
 	}
@@ -367,6 +370,8 @@ public class EmbersBlockTags extends BlockTagsProvider {
 		tag(PLATINUM_SEED).add(RegistryManager.PLATINUM_CRYSTAL_SEED.BLOCK.get());
 		tag(URANIUM_SEED).add(RegistryManager.URANIUM_CRYSTAL_SEED.BLOCK.get());
 		tag(DAWNSTONE_SEED).add(RegistryManager.DAWNSTONE_CRYSTAL_SEED.BLOCK.get());
+
+		tag(ANVIL_METAL).addTag(DAWNSTONE_BLOCK);
 	}
 
 	public void decoTags(StoneDecoBlocks deco) {

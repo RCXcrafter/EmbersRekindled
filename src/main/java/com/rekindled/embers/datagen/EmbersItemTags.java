@@ -134,6 +134,9 @@ public class EmbersItemTags extends ItemTagsProvider {
 	public static final TagKey<Item> BODY_CURIO = ItemTags.create(new ResourceLocation("curios", "body"));
 	public static final TagKey<Item> CHARM_CURIO = ItemTags.create(new ResourceLocation("curios", "charm"));
 
+	//other compat
+	public static final TagKey<Item> ANVIL_METAL = ItemTags.create(new ResourceLocation("tconstruct", "anvil_metal"));
+
 	public EmbersItemTags(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<Block>> blockTagProvider, ExistingFileHelper existingFileHelper) {
 		super(output, lookupProvider, blockTagProvider, Embers.MODID, existingFileHelper);
 	}
@@ -260,6 +263,8 @@ public class EmbersItemTags extends ItemTagsProvider {
 		copy(EmbersBlockTags.PLATINUM_SEED, PLATINUM_SEED);
 		copy(EmbersBlockTags.URANIUM_SEED, URANIUM_SEED);
 		copy(EmbersBlockTags.DAWNSTONE_SEED, DAWNSTONE_SEED);
+
+		copy(EmbersBlockTags.ANVIL_METAL, ANVIL_METAL);
 
 		//compat stuff
 		tag(AUGMENTABLE_TOOLS)
