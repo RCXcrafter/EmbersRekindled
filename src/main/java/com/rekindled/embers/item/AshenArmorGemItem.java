@@ -1,16 +1,22 @@
 package com.rekindled.embers.item;
 
+import java.util.List;
 import java.util.function.Supplier;
 
+import com.rekindled.embers.Embers;
 import com.rekindled.embers.api.item.IInflictorGem;
 import com.rekindled.embers.api.item.IInflictorGemHolder;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 
 public class AshenArmorGemItem extends AshenArmorItem implements IInflictorGemHolder {
 
@@ -83,5 +89,30 @@ public class AshenArmorGemItem extends AshenArmorItem implements IInflictorGemHo
 			}
 		}
 		return reduction;
+	}
+
+	@Override
+	public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
+		super.appendHoverText(stack, level, tooltip, isAdvanced);
+		ItemStack[] attached = getAttachedGems(stack);
+		int filledSlots = 0;
+
+		for (ItemStack stacks : attached) {
+			if (!stacks.isEmpty()) {
+				filledSlots++;
+			}
+		}
+		if (getGemSlots(stack) > filledSlots)
+			tooltip.add(Component.translatable(Embers.MODID + ".tooltip.inflictor.slots", getGemSlots(stack) - filledSlots).withStyle(ChatFormatting.GRAY));
+
+		for (ItemStack stacks : attached) {
+			if (!stacks.isEmpty()) {
+				if (stacks.getOrCreateTag().contains("type")) {
+					tooltip.add(Component.translatable(Embers.MODID + ".tooltip.inflictor", stacks.getOrCreateTag().getString("type")).withStyle(ChatFormatting.GRAY));
+				} else {
+					tooltip.add(Component.translatable(Embers.MODID + ".tooltip.inflictor.none").withStyle(ChatFormatting.GRAY));
+				}
+			}
+		}
 	}
 }

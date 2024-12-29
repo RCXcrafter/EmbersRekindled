@@ -23,7 +23,7 @@ public interface IEmbersCurioItem extends ICurioItem {
 	}
 
 	default void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {
-		if (EmbersClientEvents.ticks > 1)
+		if (EmbersClientEvents.ticks > 10)
 			this.playEquipSound(slotContext, false);
 	}
 

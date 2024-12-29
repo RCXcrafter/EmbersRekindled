@@ -391,6 +391,7 @@ public class EmbersLang extends LanguageProvider {
 
 		add(Embers.MODID + ".tooltip.tyrfing", "Deals damage based on the target's armor.");
 		add(Embers.MODID + ".tooltip.broken", "Broken");
+		add(Embers.MODID + ".tooltip.inflictor.slots", "Inflictor Gem Slots: %s");
 		add(Embers.MODID + ".tooltip.inflictor", "Attuned Damage: %s");
 		add(Embers.MODID + ".tooltip.inflictor.none", "Attuned Damage: none");
 

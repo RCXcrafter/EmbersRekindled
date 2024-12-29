@@ -795,6 +795,7 @@
   "embers.tooltip.heat_level": "Level: ",
   "embers.tooltip.inflictor": "Attuned Damage: %s",
   "embers.tooltip.inflictor.none": "Attuned Damage: none",
+  "embers.tooltip.inflictor.slots": "Inflictor Gem Slots: %s",
   "embers.tooltip.item.ember": "Ember: %s/%s",
   "embers.tooltip.itemdial.item": "%s %s",
   "embers.tooltip.itemdial.noitem": "NONE",
