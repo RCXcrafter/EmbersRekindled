@@ -2,11 +2,11 @@ package com.rekindled.embers.util;
 
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Random;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiPredicate;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -214,7 +214,7 @@ public class Misc {
 		return recipes.get(0);
 	}
 
-	public static HashMap<ResourceLocation, Item> tagItems = new HashMap<ResourceLocation, Item>();
+	public static ConcurrentHashMap<ResourceLocation, Item> tagItems = new ConcurrentHashMap<ResourceLocation, Item>();
 
 	public static Item getTaggedItem(TagKey<Item> tag) {
 		if (tagItems.containsKey(tag.location()))
