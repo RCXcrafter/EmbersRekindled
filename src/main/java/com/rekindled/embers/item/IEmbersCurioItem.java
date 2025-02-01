@@ -1,6 +1,5 @@
 package com.rekindled.embers.item;
 
-import com.rekindled.embers.EmbersClientEvents;
 import com.rekindled.embers.datagen.EmbersSounds;
 
 import net.minecraft.sounds.SoundEvent;
@@ -23,7 +22,7 @@ public interface IEmbersCurioItem extends ICurioItem {
 	}
 
 	default void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {
-		if (EmbersClientEvents.ticks > 10)
+		if (slotContext.entity().tickCount > 10)
 			this.playEquipSound(slotContext, false);
 	}
 
