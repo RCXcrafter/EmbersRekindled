@@ -191,7 +191,9 @@ public class HearthCoilBlockEntity extends BlockEntity implements ISoundControll
 		if (blockEntity.heat != prevHeat)
 			blockEntity.setChanged();
 
-		int cookTime = UpgradeUtil.getWorkTime(blockEntity,(int)Math.ceil(Mth.clampedLerp(ConfigManager.HEARTH_COIL_MIN_COOK_TIME.get(), ConfigManager.HEARTH_COIL_MAX_COOK_TIME.get(), 1.0 - (blockEntity.heat / maxHeat))), blockEntity.upgrades);
+		int cookTime = UpgradeUtil.getWorkTime(blockEntity, (int)Math.ceil(Mth.lerp(ConfigManager.HEARTH_COIL_MIN_COOK_TIME.get(), ConfigManager.HEARTH_COIL_MAX_COOK_TIME.get(), 1.0 - (blockEntity.heat / ConfigManager.HEARTH_COIL_MAX_HEAT.get()))), blockEntity.upgrades);
+		if (cookTime < 1)
+			cookTime = 1;
 		if (blockEntity.heat > 0 && blockEntity.ticksExisted % cookTime == 0) {
 			if (cancel == null)
 				cancel = UpgradeUtil.doWork(blockEntity, blockEntity.upgrades);
