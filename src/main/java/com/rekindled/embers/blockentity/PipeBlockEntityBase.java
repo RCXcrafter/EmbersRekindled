@@ -14,6 +14,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -257,8 +258,7 @@ public class PipeBlockEntityBase extends BlockEntity {
 	@Override
 	public Packet<ClientGamePacketListener> getUpdatePacket() {
 		if (requiresSync()) {
-			Packet<ClientGamePacketListener> packet = ClientboundBlockEntityDataPacket.create(this);
-			resetSync();
+			Packet<ClientGamePacketListener> packet = ResettingBEDataPacket.create(this);
 			return packet;
 		}
 		return null;
@@ -269,6 +269,18 @@ public class PipeBlockEntityBase extends BlockEntity {
 		super.setChanged();
 		if (level instanceof ServerLevel)
 			((ServerLevel) level).getChunkSource().blockChanged(worldPosition);
+	}
+
+	public class ResettingBEDataPacket extends ClientboundBlockEntityDataPacket {
+
+		public ResettingBEDataPacket(FriendlyByteBuf pBuffer) {
+			super(pBuffer);
+		}
+
+		public void handle(ClientGamePacketListener pHandler) {
+			super.handle(pHandler);
+			resetSync();
+		}
 	}
 
 	public static enum PipeConnection implements StringRepresentable {
