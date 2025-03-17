@@ -121,7 +121,7 @@ public class DawnstoneAnvilBlockEntity extends BlockEntity implements IHammerabl
 				for (ItemStack result : results) {
 					BlockEntity bin = level.getBlockEntity(worldPosition.below());
 					if (bin instanceof IBin) {
-						ItemStack remainder = ((IBin) bin).getInventory().insertItem(0, result, false);
+						ItemStack remainder = ((IBin) bin).getInventory().insertItem(0, result.copy(), false);
 						if (!remainder.isEmpty() && !level.isClientSide()) {
 							level.addFreshEntity(new ItemEntity(level, worldPosition.getX()+0.5,worldPosition.getY()+1.0625f,worldPosition.getZ()+0.5, remainder));
 						}

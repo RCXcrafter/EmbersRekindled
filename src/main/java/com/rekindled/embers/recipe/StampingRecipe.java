@@ -99,7 +99,7 @@ public class StampingRecipe implements IStampingRecipe {
 	@Override
 	public ItemStack getResultItem() {
 		if (output.left().isPresent())
-			return output.left().get().copy();
+			return output.left().get();
 		return new ItemStack(Misc.getTaggedItem(output.right().get().tag), output.right().get().amount);
 	}
 
