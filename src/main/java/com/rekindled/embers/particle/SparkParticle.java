@@ -59,7 +59,7 @@ public class SparkParticle extends TextureSheetParticle {
 
 	@Override
 	public ParticleRenderType getRenderType() {
-		return EmbersRenderTypes.PARTICLE_SHEET_ADDITIVE;
+		return EmbersRenderTypes.PARTICLE_SHEET_EMBER;
 	}
 
 	@OnlyIn(Dist.CLIENT)

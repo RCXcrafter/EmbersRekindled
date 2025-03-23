@@ -413,6 +413,18 @@ public class Embers {
 			event.registerShader(new ShaderInstance(event.getResourceProvider(), new ResourceLocation(MODID, "position_tex_color_additive"), DefaultVertexFormat.POSITION_TEX_COLOR), shaderInstance -> {
 				EmbersRenderTypes.additiveShader = shaderInstance;
 			});
+			event.registerShader(new ShaderInstance(event.getResourceProvider(), new ResourceLocation(MODID, "particle_ember_rough"), DefaultVertexFormat.PARTICLE), shaderInstance -> {
+				EmbersRenderTypes.emberParticleRoughShader = shaderInstance;
+			});
+			event.registerShader(new ShaderInstance(event.getResourceProvider(), new ResourceLocation(MODID, "particle_ember"), DefaultVertexFormat.PARTICLE), shaderInstance -> {
+				EmbersRenderTypes.emberParticleShader = shaderInstance;
+			});
+			event.registerShader(new ShaderInstance(event.getResourceProvider(), new ResourceLocation(MODID, "particle_ember_rough_fab"), DefaultVertexFormat.PARTICLE), shaderInstance -> {
+				EmbersRenderTypes.emberParticleRoughFabShader = shaderInstance;
+			});
+			event.registerShader(new ShaderInstance(event.getResourceProvider(), new ResourceLocation(MODID, "particle_ember_fab"), DefaultVertexFormat.PARTICLE), shaderInstance -> {
+				EmbersRenderTypes.emberParticleFabShader = shaderInstance;
+			});
 			event.registerShader(new ShaderInstance(event.getResourceProvider(), new ResourceLocation(MODID, "rendertype_entity_solid_mithril"), DefaultVertexFormat.NEW_ENTITY), shaderInstance -> {
 				EmbersRenderTypes.mithrilShader = shaderInstance;
 			});

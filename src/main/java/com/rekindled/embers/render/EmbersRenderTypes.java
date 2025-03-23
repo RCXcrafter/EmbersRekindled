@@ -28,6 +28,14 @@ public class EmbersRenderTypes extends RenderType {
 
 	public static ShaderInstance additiveShader;
 	public static final ShaderStateShard ADDITIVE_SHADER = new ShaderStateShard(() -> additiveShader);
+	public static ShaderInstance emberParticleRoughShader;
+	public static final ShaderStateShard EMBER_PARTICLE_ROUGH_SHADER = new ShaderStateShard(() -> emberParticleRoughShader);
+	public static ShaderInstance emberParticleShader;
+	public static final ShaderStateShard EMBER_PARTICLE_SHADER = new ShaderStateShard(() -> emberParticleShader);
+	public static ShaderInstance emberParticleRoughFabShader;
+	public static final ShaderStateShard EMBER_PARTICLE_ROUGH_FAB_SHADER = new ShaderStateShard(() -> emberParticleRoughFabShader);
+	public static ShaderInstance emberParticleFabShader;
+	public static final ShaderStateShard EMBER_PARTICLE_FAB_SHADER = new ShaderStateShard(() -> emberParticleFabShader);
 	public static ShaderInstance mithrilShader;
 	public static final ShaderStateShard MITHRIL_SHADER = new ShaderStateShard(() -> mithrilShader);
 
@@ -35,7 +43,7 @@ public class EmbersRenderTypes extends RenderType {
 		super(pName, pFormat, pMode, pBufferSize, pAffectsCrumbling, pSortOnUpload, pSetupState, pClearState);
 	}
 
-	//render type used for ember particles
+	//render type used for additive particles
 	public static ParticleRenderType PARTICLE_SHEET_ADDITIVE = new ParticleRenderType() {
 		@SuppressWarnings("resource")
 		public void begin(BufferBuilder p_107455_, TextureManager p_107456_) {
@@ -58,6 +66,60 @@ public class EmbersRenderTypes extends RenderType {
 		}
 	};
 
+	//render type used for ember particles
+	public static ParticleRenderType PARTICLE_SHEET_EMBER_ROUGH = new ParticleRenderType() {
+		@SuppressWarnings("resource")
+		public void begin(BufferBuilder p_107455_, TextureManager p_107456_) {
+			RenderSystem.enableDepthTest();
+			Minecraft.getInstance().gameRenderer.lightTexture().turnOnLightLayer();
+			RenderSystem.depthMask(false);
+			if (Minecraft.useShaderTransparency())
+				EMBER_PARTICLE_ROUGH_FAB_SHADER.setupRenderState();
+			else
+				EMBER_PARTICLE_ROUGH_SHADER.setupRenderState();
+			RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_PARTICLES);
+			RenderSystem.enableBlend();
+			RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
+			p_107455_.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
+
+		}
+
+		public void end(Tesselator p_107458_) {
+			p_107458_.end();
+		}
+
+		public String toString() {
+			return "PARTICLE_SHEET_EMBER";
+		}
+	};
+
+	//render type used for ember particles
+	public static ParticleRenderType PARTICLE_SHEET_EMBER = new ParticleRenderType() {
+		@SuppressWarnings("resource")
+		public void begin(BufferBuilder p_107455_, TextureManager p_107456_) {
+			RenderSystem.enableDepthTest();
+			Minecraft.getInstance().gameRenderer.lightTexture().turnOnLightLayer();
+			RenderSystem.depthMask(false);
+			if (Minecraft.useShaderTransparency())
+				EMBER_PARTICLE_FAB_SHADER.setupRenderState();
+			else
+				EMBER_PARTICLE_SHADER.setupRenderState();
+			RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_PARTICLES);
+			RenderSystem.enableBlend();
+			RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
+			p_107455_.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
+
+		}
+
+		public void end(Tesselator p_107458_) {
+			p_107458_.end();
+		}
+
+		public String toString() {
+			return "PARTICLE_SHEET_EMBER";
+		}
+	};
+
 	//render type used for x ray ember particles
 	public static ParticleRenderType PARTICLE_SHEET_ADDITIVE_XRAY = new ParticleRenderType() {
 		@SuppressWarnings("resource")
@@ -65,6 +127,10 @@ public class EmbersRenderTypes extends RenderType {
 			RenderSystem.enableDepthTest();
 			Minecraft.getInstance().gameRenderer.lightTexture().turnOnLightLayer();
 			RenderSystem.depthMask(false);
+			if (Minecraft.useShaderTransparency())
+				EMBER_PARTICLE_ROUGH_FAB_SHADER.setupRenderState();
+			else
+				EMBER_PARTICLE_ROUGH_SHADER.setupRenderState();
 			RenderSystem.disableDepthTest();
 			RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_PARTICLES);
 			RenderSystem.enableBlend();
