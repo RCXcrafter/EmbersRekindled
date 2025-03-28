@@ -282,6 +282,7 @@ public class Embers {
 			MinecraftForge.EVENT_BUS.addListener(EmbersClientEvents::onBlockHighlight);
 			MinecraftForge.EVENT_BUS.addListener(EmbersClientEvents::onLevelRender);
 			MinecraftForge.EVENT_BUS.addListener(EmbersClientEvents::onTooltip);
+			MinecraftForge.EVENT_BUS.addListener(EmbersClientEvents::onWorldRender);
 			event.enqueueWork(() -> MenuScreens.register(RegistryManager.SLATE_MENU.get(), SlateScreen::new));
 			ItemBlockRenderTypes.setRenderLayer(RegistryManager.STEAM.FLUID.get(), RenderType.translucent());
 			ItemBlockRenderTypes.setRenderLayer(RegistryManager.STEAM.FLUID_FLOW.get(), RenderType.translucent());
@@ -413,17 +414,14 @@ public class Embers {
 			event.registerShader(new ShaderInstance(event.getResourceProvider(), new ResourceLocation(MODID, "position_tex_color_additive"), DefaultVertexFormat.POSITION_TEX_COLOR), shaderInstance -> {
 				EmbersRenderTypes.additiveShader = shaderInstance;
 			});
-			event.registerShader(new ShaderInstance(event.getResourceProvider(), new ResourceLocation(MODID, "particle_ember_rough"), DefaultVertexFormat.PARTICLE), shaderInstance -> {
-				EmbersRenderTypes.emberParticleRoughShader = shaderInstance;
-			});
 			event.registerShader(new ShaderInstance(event.getResourceProvider(), new ResourceLocation(MODID, "particle_ember"), DefaultVertexFormat.PARTICLE), shaderInstance -> {
 				EmbersRenderTypes.emberParticleShader = shaderInstance;
 			});
-			event.registerShader(new ShaderInstance(event.getResourceProvider(), new ResourceLocation(MODID, "particle_ember_rough_fab"), DefaultVertexFormat.PARTICLE), shaderInstance -> {
-				EmbersRenderTypes.emberParticleRoughFabShader = shaderInstance;
-			});
 			event.registerShader(new ShaderInstance(event.getResourceProvider(), new ResourceLocation(MODID, "particle_ember_fab"), DefaultVertexFormat.PARTICLE), shaderInstance -> {
 				EmbersRenderTypes.emberParticleFabShader = shaderInstance;
+			});
+			event.registerShader(new ShaderInstance(event.getResourceProvider(), new ResourceLocation(MODID, "particle_translucent"), DefaultVertexFormat.PARTICLE), shaderInstance -> {
+				EmbersRenderTypes.translucentParticleShader = shaderInstance;
 			});
 			event.registerShader(new ShaderInstance(event.getResourceProvider(), new ResourceLocation(MODID, "rendertype_entity_solid_mithril"), DefaultVertexFormat.NEW_ENTITY), shaderInstance -> {
 				EmbersRenderTypes.mithrilShader = shaderInstance;

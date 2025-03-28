@@ -5,7 +5,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.tuple.Pair;
+import org.lwjgl.opengl.GL30C;
 
+import com.mojang.blaze3d.pipeline.RenderTarget;
+import com.mojang.blaze3d.pipeline.TextureTarget;
+import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.datafixers.util.Either;
@@ -144,6 +148,9 @@ public class EmbersClientEvents {
 			Pair<BlockPos, Direction> target = Misc.getHammerTarget(player);
 			if (target != null && player.level().isLoaded(target.getLeft())) {
 				BlockPos targetPos = target.getLeft();
+				BlockState state = player.level().getBlockState(targetPos);
+				if (state.isAir())
+					return;
 				Direction targetDir = target.getRight();
 				Vec3 camPos = event.getCamera().getPosition();
 				VertexConsumer consumer = mc.renderBuffers().bufferSource().getBuffer(EmbersRenderTypes.GLOW_LINES);
@@ -169,7 +176,7 @@ public class EmbersClientEvents {
 				};
 
 				//LevelRenderer.renderShape(event.getPoseStack(), consumer, player.level.getBlockState(targetPos).getShape(player.level, targetPos), x, y, z, red, green, blue, alpha);
-				player.level().getBlockState(targetPos).getShape(player.level(), targetPos).forAllEdges(lineDrawer);
+				state.getShape(player.level(), targetPos).forAllEdges(lineDrawer);
 
 				if (mc.hitResult instanceof BlockHitResult result && result != null && result.getType() == BlockHitResult.Type.BLOCK && !result.getBlockPos().equals(targetPos) && mc.level.getBlockEntity(result.getBlockPos()) instanceof IEmberPacketReceiver) {
 					lastTarget = result.getBlockPos();
@@ -419,5 +426,26 @@ public class EmbersClientEvents {
 			return key;
 		else
 			return Embers.MODID + ".tooltip.numstop";
+	}
+
+	public static RenderTarget depthBuffer;
+
+	public static void onWorldRender(RenderLevelStageEvent event) {
+		if (event.getStage().equals(RenderLevelStageEvent.Stage.AFTER_TRIPWIRE_BLOCKS) && Minecraft.useFancyGraphics()) {
+
+			Minecraft mc = Minecraft.getInstance();
+
+			if (depthBuffer == null) {
+				depthBuffer = new TextureTarget(mc.getMainRenderTarget().width, mc.getMainRenderTarget().height, true, Minecraft.ON_OSX);
+			}
+
+			if (mc.getMainRenderTarget().isStencilEnabled()) {
+				depthBuffer.enableStencil();
+			}
+
+			RenderTarget mainRenderTarget = mc.getMainRenderTarget();
+			depthBuffer.copyDepthFrom(mainRenderTarget);
+			GlStateManager._glBindFramebuffer(GL30C.GL_DRAW_FRAMEBUFFER, mainRenderTarget.frameBufferId);
+		}
 	}
 }

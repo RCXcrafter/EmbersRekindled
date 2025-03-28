@@ -2,10 +2,10 @@
     "blend": {
         "func": "add",
         "srcrgb": "srcalpha",
-        "dstrgb": "1"
+        "dstrgb": "1-srcalpha"
     },
-    "vertex": "embers:particle_ember_rough",
-    "fragment": "embers:particle_ember_rough",
+    "vertex": "embers:particle_ember",
+    "fragment": "embers:particle_ember",
     "attributes": [
         "Position",
         "UV0",
@@ -14,15 +14,20 @@
     ],
     "samplers": [
         { "name": "Sampler0" },
-        { "name": "Sampler2" }
+        { "name": "Sampler2" },
+        { "name": "DepthBuffer" }
     ],
     "uniforms": [
         { "name": "ModelViewMat", "type": "matrix4x4", "count": 16, "values": [ 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0 ] },
         { "name": "ProjMat", "type": "matrix4x4", "count": 16, "values": [ 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0 ] },
+		{ "name": "ScreenSize", "type": "float", "count": 2, "values": [ 1.0, 1.0 ] },
         { "name": "ColorModulator", "type": "float", "count": 4, "values": [ 1.0, 1.0, 1.0, 1.0 ] },
         { "name": "FogStart", "type": "float", "count": 1, "values": [ 0.0 ] },
         { "name": "FogEnd", "type": "float", "count": 1, "values": [ 1.0 ] },
         { "name": "FogColor", "type": "float", "count": 4, "values": [ 0.0, 0.0, 0.0, 0.0 ] },
-        { "name": "FogShape", "type": "int", "count": 1, "values": [ 0 ] }
+        { "name": "FogShape", "type": "int", "count": 1, "values": [ 0 ] },
+        { "name": "Offset", "type": "float", "count": 1, "values": [ 0.0 ] },
+        { "name": "Fade", "type": "float", "count": 1, "values": [ 0.0 ] },
+        { "name": "AlphaCutoff", "type": "float", "count": 1, "values": [ 0.0 ] }
     ]
 }

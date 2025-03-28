@@ -10,9 +10,12 @@ import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat.Mode;
+import com.rekindled.embers.ConfigManager;
 import com.rekindled.embers.Embers;
+import com.rekindled.embers.EmbersClientEvents;
 
 import net.minecraft.Util;
+import net.minecraft.client.GraphicsStatus;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.renderer.GameRenderer;
@@ -28,14 +31,12 @@ public class EmbersRenderTypes extends RenderType {
 
 	public static ShaderInstance additiveShader;
 	public static final ShaderStateShard ADDITIVE_SHADER = new ShaderStateShard(() -> additiveShader);
-	public static ShaderInstance emberParticleRoughShader;
-	public static final ShaderStateShard EMBER_PARTICLE_ROUGH_SHADER = new ShaderStateShard(() -> emberParticleRoughShader);
 	public static ShaderInstance emberParticleShader;
 	public static final ShaderStateShard EMBER_PARTICLE_SHADER = new ShaderStateShard(() -> emberParticleShader);
-	public static ShaderInstance emberParticleRoughFabShader;
-	public static final ShaderStateShard EMBER_PARTICLE_ROUGH_FAB_SHADER = new ShaderStateShard(() -> emberParticleRoughFabShader);
 	public static ShaderInstance emberParticleFabShader;
 	public static final ShaderStateShard EMBER_PARTICLE_FAB_SHADER = new ShaderStateShard(() -> emberParticleFabShader);
+	public static ShaderInstance translucentParticleShader;
+	public static final ShaderStateShard TRANSLUCENT_PARTICLE_SHADER = new ShaderStateShard(() -> translucentParticleShader);
 	public static ShaderInstance mithrilShader;
 	public static final ShaderStateShard MITHRIL_SHADER = new ShaderStateShard(() -> mithrilShader);
 
@@ -50,6 +51,16 @@ public class EmbersRenderTypes extends RenderType {
 			RenderSystem.enableDepthTest();
 			Minecraft.getInstance().gameRenderer.lightTexture().turnOnLightLayer();
 			RenderSystem.depthMask(false);
+			if (!ConfigManager.RENDER_FALLBACK.get()) {
+				int fancyness = Minecraft.getInstance().options.graphicsMode().get().getId();
+				if (fancyness >= GraphicsStatus.FANCY.getId()) {
+					EMBER_PARTICLE_SHADER.setupRenderState();
+					emberParticleShader.setSampler("DepthBuffer", EmbersClientEvents.depthBuffer.getDepthTextureId());
+					emberParticleShader.getUniform("Offset").set(0.0f);
+					emberParticleShader.getUniform("Fade").set(3.0f / 16.0f);
+					emberParticleShader.getUniform("AlphaCutoff").set(0.0f);
+				}
+			}
 			RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_PARTICLES);
 			RenderSystem.enableBlend();
 			RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
@@ -73,10 +84,20 @@ public class EmbersRenderTypes extends RenderType {
 			RenderSystem.enableDepthTest();
 			Minecraft.getInstance().gameRenderer.lightTexture().turnOnLightLayer();
 			RenderSystem.depthMask(false);
-			if (Minecraft.useShaderTransparency())
-				EMBER_PARTICLE_ROUGH_FAB_SHADER.setupRenderState();
-			else
-				EMBER_PARTICLE_ROUGH_SHADER.setupRenderState();
+			if (!ConfigManager.RENDER_FALLBACK.get()) {
+				int fancyness = Minecraft.getInstance().options.graphicsMode().get().getId();
+				if (fancyness >= GraphicsStatus.FANCY.getId()) {
+					if (fancyness >= GraphicsStatus.FABULOUS.getId())
+						EMBER_PARTICLE_FAB_SHADER.setupRenderState();
+					else
+						EMBER_PARTICLE_SHADER.setupRenderState();
+					RenderSystem.getShader().setSampler("DepthBuffer", EmbersClientEvents.depthBuffer.getDepthTextureId());
+					RenderSystem.getShader().getUniform("Offset").set(1.0f / 16.0f);
+					RenderSystem.getShader().getUniform("Fade").set(2.0f / 16.0f);
+					RenderSystem.getShader().getUniform("AlphaCutoff").set(0.1f);
+					RenderSystem.disableDepthTest();
+				}
+			}
 			RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_PARTICLES);
 			RenderSystem.enableBlend();
 			RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
@@ -89,7 +110,7 @@ public class EmbersRenderTypes extends RenderType {
 		}
 
 		public String toString() {
-			return "PARTICLE_SHEET_EMBER";
+			return "PARTICLE_SHEET_EMBER_ROUGH";
 		}
 	};
 
@@ -100,10 +121,54 @@ public class EmbersRenderTypes extends RenderType {
 			RenderSystem.enableDepthTest();
 			Minecraft.getInstance().gameRenderer.lightTexture().turnOnLightLayer();
 			RenderSystem.depthMask(false);
-			if (Minecraft.useShaderTransparency())
-				EMBER_PARTICLE_FAB_SHADER.setupRenderState();
-			else
-				EMBER_PARTICLE_SHADER.setupRenderState();
+			if (!ConfigManager.RENDER_FALLBACK.get()) {
+				int fancyness = Minecraft.getInstance().options.graphicsMode().get().getId();
+				if (fancyness >= GraphicsStatus.FANCY.getId()) {
+					if (fancyness >= GraphicsStatus.FABULOUS.getId())
+						EMBER_PARTICLE_FAB_SHADER.setupRenderState();
+					else
+						EMBER_PARTICLE_SHADER.setupRenderState();
+					RenderSystem.getShader().setSampler("DepthBuffer", EmbersClientEvents.depthBuffer.getDepthTextureId());
+					RenderSystem.getShader().getUniform("Offset").set(2.0f / 16.0f);
+					RenderSystem.getShader().getUniform("Fade").set(5.0f / 16.0f);
+					RenderSystem.getShader().getUniform("AlphaCutoff").set(0.0f);
+					RenderSystem.disableDepthTest();
+				}
+			}
+			RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_PARTICLES);
+			RenderSystem.enableBlend();
+			RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
+			p_107455_.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
+
+		}
+
+		public void end(Tesselator p_107458_) {
+			p_107458_.end();
+			RenderSystem.enableDepthTest();
+		}
+
+		public String toString() {
+			return "PARTICLE_SHEET_EMBER";
+		}
+	};
+
+	//render type used for the alchemy circle
+	public static ParticleRenderType PARTICLE_SHEET_EMBER_HARD = new ParticleRenderType() {
+		@SuppressWarnings("resource")
+		public void begin(BufferBuilder p_107455_, TextureManager p_107456_) {
+			RenderSystem.enableDepthTest();
+			Minecraft.getInstance().gameRenderer.lightTexture().turnOnLightLayer();
+			RenderSystem.depthMask(false);
+			if (!ConfigManager.RENDER_FALLBACK.get()) {
+				int fancyness = Minecraft.getInstance().options.graphicsMode().get().getId();
+				if (fancyness >= GraphicsStatus.FABULOUS.getId()) {
+					EMBER_PARTICLE_FAB_SHADER.setupRenderState();
+					emberParticleFabShader.setSampler("DepthBuffer", EmbersClientEvents.depthBuffer.getDepthTextureId());
+					emberParticleFabShader.getUniform("Offset").set(0.0f);
+					emberParticleFabShader.getUniform("Fade").set(0.0f);
+					emberParticleFabShader.getUniform("AlphaCutoff").set(0.0f);
+				}
+			}
 			RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_PARTICLES);
 			RenderSystem.enableBlend();
 			RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
@@ -127,10 +192,19 @@ public class EmbersRenderTypes extends RenderType {
 			RenderSystem.enableDepthTest();
 			Minecraft.getInstance().gameRenderer.lightTexture().turnOnLightLayer();
 			RenderSystem.depthMask(false);
-			if (Minecraft.useShaderTransparency())
-				EMBER_PARTICLE_ROUGH_FAB_SHADER.setupRenderState();
-			else
-				EMBER_PARTICLE_ROUGH_SHADER.setupRenderState();
+			if (!ConfigManager.RENDER_FALLBACK.get()) {
+				int fancyness = Minecraft.getInstance().options.graphicsMode().get().getId();
+				if (fancyness >= GraphicsStatus.FANCY.getId()) {
+					if (fancyness >= GraphicsStatus.FABULOUS.getId())
+						EMBER_PARTICLE_FAB_SHADER.setupRenderState();
+					else
+						EMBER_PARTICLE_SHADER.setupRenderState();
+					RenderSystem.getShader().setSampler("DepthBuffer", EmbersClientEvents.depthBuffer.getDepthTextureId());
+					RenderSystem.getShader().getUniform("Offset").set(50.0f);
+					RenderSystem.getShader().getUniform("Fade").set(40.0f);
+					RenderSystem.getShader().getUniform("AlphaCutoff").set(0.0f);
+				}
+			}
 			RenderSystem.disableDepthTest();
 			RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_PARTICLES);
 			RenderSystem.enableBlend();
@@ -155,6 +229,16 @@ public class EmbersRenderTypes extends RenderType {
 			RenderSystem.enableDepthTest();
 			Minecraft.getInstance().gameRenderer.lightTexture().turnOnLightLayer();
 			RenderSystem.depthMask(false);
+			if (!ConfigManager.RENDER_FALLBACK.get()) {
+				int fancyness = Minecraft.getInstance().options.graphicsMode().get().getId();
+				if (fancyness >= GraphicsStatus.FANCY.getId()) {
+					TRANSLUCENT_PARTICLE_SHADER.setupRenderState();
+					translucentParticleShader.setSampler("DepthBuffer", EmbersClientEvents.depthBuffer.getDepthTextureId());
+					translucentParticleShader.getUniform("Offset").set(0.0f);
+					translucentParticleShader.getUniform("Fade").set(3.0f / 16.0f);
+					translucentParticleShader.getUniform("AlphaCutoff").set(0.0f);
+				}
+			}
 			RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_PARTICLES);
 			RenderSystem.enableBlend();
 			RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);

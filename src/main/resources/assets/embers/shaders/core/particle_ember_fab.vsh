@@ -16,11 +16,16 @@ uniform int FogShape;
 out float vertexDistance;
 out vec2 texCoord0;
 out vec4 vertexColor;
+out vec4 viewSpacePos;
+out mat4 projMatInv;
 
 void main() {
-    gl_Position = ProjMat * ModelViewMat * vec4(Position, 1.0);
+	viewSpacePos = ModelViewMat * vec4(Position, 1.0);
+	gl_Position = ProjMat * viewSpacePos;
 
-    vertexDistance = fog_distance(ModelViewMat, Position, FogShape);
-    texCoord0 = UV0;
-    vertexColor = Color * texelFetch(Sampler2, UV2 / 16, 0);
+	projMatInv = inverse(ProjMat);
+
+	vertexDistance = fog_distance(ModelViewMat, Position, FogShape);
+	texCoord0 = UV0;
+	vertexColor = Color * texelFetch(Sampler2, UV2 / 16, 0);
 }

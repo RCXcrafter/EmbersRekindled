@@ -103,7 +103,7 @@ public class AlchemyCircleParticle extends TextureSheetParticle {
 
 	@Override
 	public ParticleRenderType getRenderType() {
-		return EmbersRenderTypes.PARTICLE_SHEET_EMBER;
+		return EmbersRenderTypes.PARTICLE_SHEET_EMBER_HARD;
 	}
 
 	@OnlyIn(Dist.CLIENT)
