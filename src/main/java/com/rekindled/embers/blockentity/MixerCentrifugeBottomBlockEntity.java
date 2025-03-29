@@ -249,16 +249,16 @@ public class MixerCentrifugeBottomBlockEntity extends BlockEntity implements IMe
 		if (FluidDialBlock.DIAL_TYPE.equals(dialType)) {
 			information.clear();
 			information.add(Component.translatable(Embers.MODID + ".tooltip.colon", Component.translatable(Embers.MODID + ".tooltip.side.north").withStyle(facing == Direction.NORTH ? ChatFormatting.BOLD : ChatFormatting.RESET), FluidDialBlock.formatFluidStack(north.getFluid(),north.getCapacity())));
-			if (north.getFluid().getFluid().is(EmbersFluidTags.INGOT_TOOLTIP) && north.getFluid().getAmount() >= FluidAmounts.NUGGET_AMOUNT)
+			if (north.getFluid().getFluid().is(EmbersFluidTags.INGOT_TOOLTIP) && north.getFluid().getAmount() >= FluidAmounts.nuggetValue())
 				information.add(FluidAmounts.getIngotTooltip(north.getFluid().getAmount()));
 			information.add(Component.translatable(Embers.MODID + ".tooltip.colon", Component.translatable(Embers.MODID + ".tooltip.side.east").withStyle(facing == Direction.EAST ? ChatFormatting.BOLD : ChatFormatting.RESET), FluidDialBlock.formatFluidStack(east.getFluid(), east.getCapacity())));
-			if (east.getFluid().getFluid().is(EmbersFluidTags.INGOT_TOOLTIP) && east.getFluid().getAmount() >= FluidAmounts.NUGGET_AMOUNT)
+			if (east.getFluid().getFluid().is(EmbersFluidTags.INGOT_TOOLTIP) && east.getFluid().getAmount() >= FluidAmounts.nuggetValue())
 				information.add(FluidAmounts.getIngotTooltip(east.getFluid().getAmount()));
 			information.add(Component.translatable(Embers.MODID + ".tooltip.colon", Component.translatable(Embers.MODID + ".tooltip.side.south").withStyle(facing == Direction.SOUTH ? ChatFormatting.BOLD : ChatFormatting.RESET), FluidDialBlock.formatFluidStack(south.getFluid(), south.getCapacity())));
-			if (south.getFluid().getFluid().is(EmbersFluidTags.INGOT_TOOLTIP) && south.getFluid().getAmount() >= FluidAmounts.NUGGET_AMOUNT)
+			if (south.getFluid().getFluid().is(EmbersFluidTags.INGOT_TOOLTIP) && south.getFluid().getAmount() >= FluidAmounts.nuggetValue())
 				information.add(FluidAmounts.getIngotTooltip(south.getFluid().getAmount()));
 			information.add(Component.translatable(Embers.MODID + ".tooltip.colon", Component.translatable(Embers.MODID + ".tooltip.side.west").withStyle(facing == Direction.WEST ? ChatFormatting.BOLD : ChatFormatting.RESET), FluidDialBlock.formatFluidStack(west.getFluid(), west.getCapacity())));
-			if (west.getFluid().getFluid().is(EmbersFluidTags.INGOT_TOOLTIP) && west.getFluid().getAmount() >= FluidAmounts.NUGGET_AMOUNT)
+			if (west.getFluid().getFluid().is(EmbersFluidTags.INGOT_TOOLTIP) && west.getFluid().getAmount() >= FluidAmounts.nuggetValue())
 				information.add(FluidAmounts.getIngotTooltip(west.getFluid().getAmount()));
 		}
 		UpgradeUtil.throwEvent(this, new DialInformationEvent(this, information, dialType), upgrades);

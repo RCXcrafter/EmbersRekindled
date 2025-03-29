@@ -38,16 +38,18 @@ void main() {
 
 	color *= ColorModulator;
 
-	vec2 screenPos = gl_FragCoord.xy / ScreenSize;
-	vec4 solidDepth = ProjMatInv * vec4(screenPos * 2.0 - 1.0, texture(DepthBuffer, screenPos).r * 2.0 - 1.0, 1.0);
-	solidDepth.z /= solidDepth.w;
-	float depthFade = min((viewSpacePos.z - solidDepth.z + Offset / 2.0) / Fade, 1.0);
-
-	if (color.a <= AlphaCutoff * 2.0 || depthFade <= 0.0) {
+	if (color.a <= AlphaCutoff * 2.0) {
 		discard;
 	}
 
-	color.a *= depthFade;
+	vec2 screenPos = gl_FragCoord.xy / ScreenSize;
+	vec4 solidDepth = ProjMatInv * vec4(screenPos * 2.0 - 1.0, texture(DepthBuffer, screenPos).r * 2.0 - 1.0, 1.0);
+	solidDepth.z /= solidDepth.w;
+	color.a *= min((viewSpacePos.z - solidDepth.z + Offset / 2.0) / Fade, 1.0);
+
+	if (color.a <= 0.0) {
+		discard;
+	}
 
 	fragColor = linear_fog(color, vertexDistance, FogStart, FogEnd, FogColor);
 }

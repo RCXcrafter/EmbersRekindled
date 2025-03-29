@@ -61,7 +61,7 @@ public class FluidDialBlock extends DialBaseBlock {
 			for (int i = 0; i < dial.fluids.length && (i + extraLines) < maxLines; i++) {
 				FluidStack contents = dial.fluids[i];
 				text.add(formatFluidStack(contents, dial.capacities[i]));
-				if (contents.getFluid().is(EmbersFluidTags.INGOT_TOOLTIP) && contents.getAmount() >= FluidAmounts.NUGGET_AMOUNT) {
+				if (contents.getFluid().is(EmbersFluidTags.INGOT_TOOLTIP) && contents.getAmount() >= FluidAmounts.nuggetValue()) {
 					if ((i + extraLines + 1) < maxLines)
 						text.add(FluidAmounts.getIngotTooltip(contents.getAmount()));
 					extraLines++;

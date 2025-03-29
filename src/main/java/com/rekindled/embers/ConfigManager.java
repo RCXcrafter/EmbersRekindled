@@ -60,6 +60,7 @@ public class ConfigManager {
 	public static ConfigValue<List<? extends String>> ITEM_PREFERENCES;
 
 	public static ConfigValue<Boolean> RENDER_FALLBACK;
+	public static ConfigValue<Integer> NUGGET_FLUID_VALUE;
 
 	public static double getScaleDamagePass(String type) {
 		for (String pass : SCALE_DAMAGE_PASSES.get()) {
@@ -90,6 +91,8 @@ public class ConfigManager {
 
 		RENDER_FALLBACK = CLIENT.comment("Use a fallback rendertype for certain objects that normally use custom core shaders. Improves compatibility with shader mods but might not look as good.").define("render_fallback", false);
 
+		NUGGET_FLUID_VALUE = CLIENT.comment("The amount of millibuckets one nugget is worth when molten, only affects fluid tooltips.").define("nugget_fluid_value", 10);
+		
 		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CLIENT.build());
 	}
 
