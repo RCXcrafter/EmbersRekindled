@@ -151,7 +151,7 @@ public class IgnemReactorBlockEntity extends BlockEntity implements ISoundContro
 			int b = (int) Mth.clampedLerp(16, 64, catalyzerRatio);
 			float size = (float) Mth.clampedLerp(4.0, 2.0, catalyzerRatio);
 			GlowParticleOptions options = new GlowParticleOptions(new Vector3f(r / 255f, g / 255f, b / 255f), size);
-			for (int i = 0; i < Math.ceil(blockEntity.capability.getEmber() / 500.0); i ++) {
+			for (int i = 0; i < Math.ceil(blockEntity.capability.getEmber() / 3000.0); i ++) {
 				float vx = (float) Mth.clampedLerp(0, (random.nextFloat() - 0.5) * 0.1f, catalyzerRatio);
 				float vy = (float) Mth.clampedLerp(random.nextFloat() * 0.05f, (random.nextFloat() - 0.5) * 0.2f, catalyzerRatio);
 				float vz = (float) Mth.clampedLerp(0, (random.nextFloat() - 0.5) * 0.1f, catalyzerRatio);

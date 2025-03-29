@@ -35,6 +35,7 @@ public class AlchemyCircleParticle extends TextureSheetParticle {
 		this.roll = rotScale;
 		this.quadSize = pOptions.getScale();
 		this.lifetime = pOptions.getLifetime();
+		this.setSize(2.0f, 0.1f);
 	}
 
 	public float getQuadSize(float pScaleFactor) {

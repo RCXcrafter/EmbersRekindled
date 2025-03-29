@@ -44,6 +44,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
@@ -114,6 +115,11 @@ public class AlchemyTabletBlockEntity extends BlockEntity implements ISparkable,
 
 	public AlchemyTabletBlockEntity(BlockPos pPos, BlockState pBlockState) {
 		super(RegistryManager.ALCHEMY_TABLET_ENTITY.get(), pPos, pBlockState);
+	}
+
+	@Override
+	public AABB getRenderBoundingBox() {
+		return new AABB(worldPosition.offset(0, 0, 0), worldPosition.offset(1, 2, 1));
 	}
 
 	@Override

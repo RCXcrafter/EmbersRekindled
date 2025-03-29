@@ -10,6 +10,7 @@ uniform float FogStart;
 uniform float FogEnd;
 uniform vec4 FogColor;
 uniform vec2 ScreenSize;
+uniform mat4 ProjMatInv;
 uniform float Offset;
 uniform float Fade;
 uniform float AlphaCutoff;
@@ -18,7 +19,6 @@ in float vertexDistance;
 in vec2 texCoord0;
 in vec4 vertexColor;
 in vec4 viewSpacePos;
-in mat4 projMatInv;
 
 out vec4 fragColor;
 
@@ -36,16 +36,18 @@ void main() {
 		color.rgb = vertexColor.rgb;
 	}
 
-	vec2 screenPos = gl_FragCoord.xy / ScreenSize;
-	vec4 solidDepth = projMatInv * vec4(screenPos * 2.0 - 1.0, texture(DepthBuffer, screenPos).r * 2.0 - 1.0, 1.0);
-	solidDepth.xyz /= solidDepth.w;
-	color.a *= clamp((viewSpacePos.z - solidDepth.z + Offset / 2.0) / Fade, 0.0, 1.0);
-
 	color *= ColorModulator;
 
-	if (color.a * 2.0 < AlphaCutoff) {
+	vec2 screenPos = gl_FragCoord.xy / ScreenSize;
+	vec4 solidDepth = ProjMatInv * vec4(screenPos * 2.0 - 1.0, texture(DepthBuffer, screenPos).r * 2.0 - 1.0, 1.0);
+	solidDepth.z /= solidDepth.w;
+	float depthFade = min((viewSpacePos.z - solidDepth.z + Offset / 2.0) / Fade, 1.0);
+
+	if (color.a <= AlphaCutoff * 2.0 || depthFade <= 0.0) {
 		discard;
 	}
+
+	color.a *= depthFade;
 
 	fragColor = linear_fog(color, vertexDistance, FogStart, FogEnd, FogColor);
 }
