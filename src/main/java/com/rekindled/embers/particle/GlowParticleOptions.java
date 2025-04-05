@@ -29,6 +29,8 @@ public class GlowParticleOptions implements ParticleOptions {
 	protected final Vec3 motion;
 	protected final float scale;
 	protected final int lifetime;
+	@Deprecated
+	public static Vector3f EMBER_COLOR = EmbersColors.EMBER;
 	public static GlowParticleOptions EMBER = new GlowParticleOptions(EmbersColors.EMBER_ID, 2.0F);
 	public static GlowParticleOptions EMBER_NOMOTION = new GlowParticleOptions(EmbersColors.EMBER_ID, new Vec3(0.0, 0.000001, 0.0), 2.0F);
 
