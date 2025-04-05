@@ -13,6 +13,7 @@ import com.rekindled.embers.blockentity.MnemonicInscriberBlockEntity;
 import com.rekindled.embers.datagen.EmbersItemTags;
 import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.particle.GlowParticleOptions;
+import com.rekindled.embers.util.EmbersColors;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -47,7 +48,7 @@ public class MnemonicInscriberUpgrade extends DefaultUpgradeProvider {
 				inscriber.inventory.setStackInSlot(0, alchemyEvent.getResult().createResultStack(new ItemStack(RegistryManager.ALCHEMICAL_NOTE.get())));
 				tile.getLevel().playSound(null, this.tile.getBlockPos(), EmbersSounds.EMBER_EMIT_BIG.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
 				if (tile.getLevel() instanceof ServerLevel serverLevel) {
-					serverLevel.sendParticles(new GlowParticleOptions(GlowParticleOptions.EMBER_COLOR, new Vec3(0.0, 0.000001, 0.0), 2.0F, 40), this.tile.getBlockPos().getX() + 0.5, this.tile.getBlockPos().getY() + 0.5, this.tile.getBlockPos().getZ() + 0.5, 40, 0.12f, 0.12f, 0.12f, 0.0);
+					serverLevel.sendParticles(new GlowParticleOptions(EmbersColors.EMBER_ID, new Vec3(0.0, 0.000001, 0.0), 2.0F, 40), this.tile.getBlockPos().getX() + 0.5, this.tile.getBlockPos().getY() + 0.5, this.tile.getBlockPos().getZ() + 0.5, 40, 0.12f, 0.12f, 0.12f, 0.0);
 				}
 			}
 			BlockState state = tile.getLevel().getBlockState(this.tile.getBlockPos());

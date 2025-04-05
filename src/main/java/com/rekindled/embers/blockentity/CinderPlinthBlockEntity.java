@@ -22,6 +22,7 @@ import com.rekindled.embers.datagen.EmbersItemTags;
 import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.particle.SmokeParticleOptions;
 import com.rekindled.embers.power.DefaultEmberCapability;
+import com.rekindled.embers.util.EmbersColors;
 import com.rekindled.embers.util.sound.ISoundController;
 
 import net.minecraft.core.BlockPos;
@@ -134,7 +135,7 @@ public class CinderPlinthBlockEntity extends BlockEntity implements ISoundContro
 			boolean cancel = UpgradeUtil.doWork(blockEntity, blockEntity.upgrades);
 			if (!cancel) {
 				blockEntity.progress++;
-				((ServerLevel) level).sendParticles(new SmokeParticleOptions(SmokeParticleOptions.SMOKE_COLOR, 3.0f + random.nextFloat() * 0.4f), pos.getX() + 0.5f, pos.getY() + 0.875f, pos.getZ() + 0.5f, 1, 0.0125, 0.025, 0.0125, 1.0);
+				((ServerLevel) level).sendParticles(new SmokeParticleOptions(EmbersColors.SMOKE_ID, 3.0f + random.nextFloat() * 0.4f), pos.getX() + 0.5f, pos.getY() + 0.875f, pos.getZ() + 0.5f, 1, 0.0125, 0.025, 0.0125, 1.0);
 				double emberCost = UpgradeUtil.getTotalEmberConsumption(blockEntity, EMBER_COST, blockEntity.upgrades);
 				UpgradeUtil.throwEvent(blockEntity, new EmberEvent(blockEntity, EmberEvent.EnumType.CONSUME, emberCost), blockEntity.upgrades);
 				blockEntity.capability.removeAmount(emberCost, true);
@@ -152,7 +153,7 @@ public class CinderPlinthBlockEntity extends BlockEntity implements ISoundContro
 							level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, remainder));
 						}
 					}
-					((ServerLevel) level).sendParticles(new SmokeParticleOptions(SmokeParticleOptions.SMOKE_COLOR, 3.0f), pos.getX() + 0.5f, pos.getY() + 1.1f, pos.getZ() + 0.5f, 9, 0.0125, 0.025, 0.0125, 1.0);
+					((ServerLevel) level).sendParticles(new SmokeParticleOptions(EmbersColors.SMOKE_ID, 3.0f), pos.getX() + 0.5f, pos.getY() + 1.1f, pos.getZ() + 0.5f, 9, 0.0125, 0.025, 0.0125, 1.0);
 				}
 			}
 		} else {

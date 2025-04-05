@@ -1,13 +1,16 @@
 package com.rekindled.embers.entity;
 
-import java.awt.Color;
 import java.util.List;
 import java.util.function.Predicate;
 
+import org.joml.Vector3f;
+
+import com.rekindled.embers.api.EmbersAPI;
 import com.rekindled.embers.api.projectile.IProjectileEffect;
 import com.rekindled.embers.api.projectile.IProjectilePreset;
 import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.particle.GlowParticleOptions;
+import com.rekindled.embers.util.EmbersColors;
 import com.rekindled.embers.util.Misc;
 
 import net.minecraft.nbt.CompoundTag;
@@ -17,6 +20,7 @@ import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
@@ -36,6 +40,7 @@ public class EmberProjectileEntity extends Projectile {
 	public static final EntityDataAccessor<Boolean> dead = SynchedEntityData.defineId(EmberProjectileEntity.class, EntityDataSerializers.BOOLEAN);
 	public static final EntityDataAccessor<Integer> lifetime = SynchedEntityData.defineId(EmberProjectileEntity.class, EntityDataSerializers.INT);
 	public static final EntityDataAccessor<Integer> color = SynchedEntityData.defineId(EmberProjectileEntity.class, EntityDataSerializers.INT);
+	public static final EntityDataAccessor<String> colorId = SynchedEntityData.defineId(EmberProjectileEntity.class, EntityDataSerializers.STRING);
 	//public UUID id = null;
 	public IProjectileEffect effect;
 	private IProjectilePreset preset;
@@ -57,7 +62,8 @@ public class EmberProjectileEntity extends Projectile {
 		getEntityData().define(value, 0f);
 		getEntityData().define(dead, false);
 		getEntityData().define(lifetime, 160);
-		getEntityData().define(color, new Color(255,64,16).getRGB());
+		getEntityData().define(color, Misc.intColor(EmbersColors.EMBER));
+		getEntityData().define(colorId, EmbersColors.EMBER_ID.toString());
 	}
 
 	public void shootFromRotation(Entity shooter, float x, float y, float z, float velocity, float inaccuracy, double value) {
@@ -79,8 +85,17 @@ public class EmberProjectileEntity extends Projectile {
 		this.gravity = gravity;
 	}
 
-	public void setColor(int red, int green, int blue, int alpha) {
-		getEntityData().set(color, new Color((red * alpha) / 255,(green * alpha) / 255,(blue * alpha) / 255).getRGB());
+	public void setColor(int colour) {
+		getEntityData().set(color, colour);
+		getEntityData().set(colorId, EmbersColors.CUSTOM_ID.toString());
+	}
+
+	public void setColor(Vector3f colour) {
+		setColor(Misc.intColor(colour));
+	}
+
+	public void setColor(ResourceLocation color) {
+		getEntityData().set(colorId, color.toString());
 	}
 
 	public void setHoming(int time, double range, int index, int modulo, Predicate<Entity> predicate) {
@@ -107,12 +122,14 @@ public class EmberProjectileEntity extends Projectile {
 	protected void readAdditionalSaveData(CompoundTag nbt) {
 		getEntityData().set(value, nbt.getFloat("value"));
 		getEntityData().set(color, nbt.getInt("color"));
+		getEntityData().set(colorId, nbt.getString("colorId"));
 	}
 
 	@Override
 	protected void addAdditionalSaveData(CompoundTag nbt) {
 		nbt.putFloat("value", getEntityData().get(value));
 		nbt.putInt("color", getEntityData().get(color));
+		nbt.putString("colorId", getEntityData().get(colorId));
 	}
 
 	public void tick() {
@@ -157,7 +174,7 @@ public class EmberProjectileEntity extends Projectile {
 				double deltaY = getY() - currPosVec.y;
 				double deltaZ = getZ() - currPosVec.z;
 				double dist = Math.ceil(Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * 10);
-				GlowParticleOptions options = new GlowParticleOptions(Misc.colorFromInt(getEntityData().get(color)), getEntityData().get(value) / 1.75f, 24);
+				GlowParticleOptions options = new GlowParticleOptions(EmbersAPI.getColor(new ResourceLocation(getEntityData().get(colorId)), Misc.colorFromInt(getEntityData().get(color))), getEntityData().get(value) / 1.75f, 24);
 				for (double i = 0; i < dist; i++) {
 					double coeff = i / dist;
 					level().addAlwaysVisibleParticle(options, true, currPosVec.x + deltaX * coeff, currPosVec.y + deltaY * coeff, currPosVec.z + deltaZ * coeff, 0.125f*(random.nextFloat()-0.5f), 0.125f*(random.nextFloat()-0.5f), 0.125f*(random.nextFloat()-0.5f));
@@ -208,7 +225,7 @@ public class EmberProjectileEntity extends Projectile {
 	public void onHit(HitResult raytraceresult) {
 		super.onHit(raytraceresult);
 		if (level().isClientSide()) {
-			GlowParticleOptions options = new GlowParticleOptions(Misc.colorFromInt(getEntityData().get(color)), getEntityData().get(value), 24);
+			GlowParticleOptions options = new GlowParticleOptions(EmbersAPI.getColor(new ResourceLocation(getEntityData().get(colorId)), Misc.colorFromInt(getEntityData().get(color))), getEntityData().get(value), 24);
 			float dist = getEntityData().get(value) * 0.25f;
 			for (double i = 0; i < 40; i++) {
 				level().addAlwaysVisibleParticle(options, true, getX(), getY(), getZ(), dist*(random.nextFloat()-0.5f), dist*(random.nextFloat()-0.5f), dist*(random.nextFloat()-0.5f));

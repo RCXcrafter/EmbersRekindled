@@ -5,6 +5,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 import org.apache.commons.lang3.tuple.Pair;
+import org.joml.Vector3f;
 
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.EmbersAPI;
@@ -17,11 +18,13 @@ import com.rekindled.embers.network.PacketHandler;
 import com.rekindled.embers.network.message.MessageScalesData;
 import com.rekindled.embers.util.EmberGenUtil;
 import com.rekindled.embers.util.EmberInventoryUtil;
+import com.rekindled.embers.util.EmbersColors;
 import com.rekindled.embers.util.Misc;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
@@ -166,5 +169,22 @@ public class EmbersAPIImpl implements IEmbersAPI {
 			}
 			cap.setScales(scales);
 		}
+	}
+
+	@Override
+	public void registerColor(ResourceLocation id, Vector3f color) {
+		EmbersColors.colors.put(id, color);
+	}
+
+	@Override
+	public Vector3f getColor(ResourceLocation id, Vector3f color) {
+		if (id.equals(EmbersColors.CUSTOM_ID))
+			return color;
+		return EmbersColors.colors.get(id);
+	}
+
+	@Override
+	public Vector3f getColor(ResourceLocation id) {
+		return EmbersColors.colors.get(id);
 	}
 }

@@ -2,10 +2,9 @@ package com.rekindled.embers.block;
 
 import javax.annotation.Nullable;
 
-import org.joml.Vector3f;
-
 import com.rekindled.embers.particle.GlowParticleOptions;
 import com.rekindled.embers.particle.StarParticleOptions;
+import com.rekindled.embers.util.EmbersColors;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -26,8 +25,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class GlimmerBlock extends Block implements SimpleWaterloggedBlock {
 
-	public static final GlowParticleOptions EMBER = new GlowParticleOptions(GlowParticleOptions.EMBER_COLOR, 3.0F, 80);
-	public static final StarParticleOptions GLIMMER = new StarParticleOptions(new Vector3f(255.0F / 255.0F, 255.0F / 255.0F, 16.0F / 255.0F), 3.0F);
+	public static final GlowParticleOptions EMBER = new GlowParticleOptions(EmbersColors.EMBER_ID, 3.0F, 80);
+	public static final StarParticleOptions GLIMMER = new StarParticleOptions(EmbersColors.GLIMMER_ID, 3.0F);
 	public static final VoxelShape GLIMMER_AABB = Block.box(4,4,4,12,12,12);
 
 	public GlimmerBlock(Properties pProperties) {

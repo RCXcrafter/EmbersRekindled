@@ -87,6 +87,7 @@ import com.rekindled.embers.research.ResearchManager;
 import com.rekindled.embers.research.capability.IResearchCapability;
 import com.rekindled.embers.util.AugmentPredicate;
 import com.rekindled.embers.util.DecimalFormats;
+import com.rekindled.embers.util.EmbersColors;
 import com.rekindled.embers.util.GlowingTextTooltip;
 import com.rekindled.embers.util.GlowingTextTooltip.GlowingTextClientTooltip;
 import com.rekindled.embers.util.HeatBarTooltip;
@@ -309,6 +310,7 @@ public class Embers {
 		@SubscribeEvent
 		static void addResourceListener(RegisterClientReloadListenersEvent event) {
 			event.registerReloadListener(new DecimalFormats());
+			event.registerReloadListener(new EmbersColors());
 		}
 
 		@OnlyIn(Dist.CLIENT)

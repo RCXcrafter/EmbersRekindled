@@ -16,11 +16,11 @@ import com.rekindled.embers.api.tile.IUpgradeable;
 import com.rekindled.embers.api.upgrades.UpgradeContext;
 import com.rekindled.embers.api.upgrades.UpgradeUtil;
 import com.rekindled.embers.datagen.EmbersSounds;
-import com.rekindled.embers.particle.GlowParticleOptions;
 import com.rekindled.embers.particle.SmokeParticleOptions;
 import com.rekindled.embers.particle.SparkParticleOptions;
 import com.rekindled.embers.power.DefaultEmberCapability;
 import com.rekindled.embers.recipe.IMeltingRecipe;
+import com.rekindled.embers.util.EmbersColors;
 import com.rekindled.embers.util.Misc;
 import com.rekindled.embers.util.sound.ISoundController;
 
@@ -128,10 +128,10 @@ public class MelterBottomBlockEntity extends BlockEntity implements ISoundContro
 
 					if (level instanceof ServerLevel serverLevel) {
 						if (random.nextInt(20) == 0) {
-							serverLevel.sendParticles(new SparkParticleOptions(GlowParticleOptions.EMBER_COLOR, random.nextFloat() + 0.45f), pos.getX() + 0.5f, pos.getY() + 1.85f, pos.getZ() + 0.5f, 1, 0.125, 0.0, 0.125, 1.0);
+							serverLevel.sendParticles(new SparkParticleOptions(EmbersColors.EMBER_ID, random.nextFloat() + 0.45f), pos.getX() + 0.5f, pos.getY() + 1.85f, pos.getZ() + 0.5f, 1, 0.125, 0.0, 0.125, 1.0);
 						}
 						if (random.nextInt(10) == 0) {
-							serverLevel.sendParticles(new SmokeParticleOptions(SmokeParticleOptions.SMOKE_COLOR, 4.0f), pos.getX() + 0.5f, pos.getY() + 1.5f, pos.getZ() + 0.5f, 12, 0.125, 0.125, 0.125, 1.0);
+							serverLevel.sendParticles(new SmokeParticleOptions(EmbersColors.SMOKE_ID, 4.0f), pos.getX() + 0.5f, pos.getY() + 1.5f, pos.getZ() + 0.5f, 12, 0.125, 0.125, 0.125, 1.0);
 						}
 					}
 

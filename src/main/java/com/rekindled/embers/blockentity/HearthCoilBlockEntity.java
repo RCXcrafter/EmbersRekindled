@@ -1,6 +1,5 @@
 package com.rekindled.embers.blockentity;
 
-import java.awt.Color;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,6 +31,7 @@ import com.rekindled.embers.particle.SmokeParticleOptions;
 import com.rekindled.embers.power.DefaultEmberCapability;
 import com.rekindled.embers.recipe.SingleItemContainer;
 import com.rekindled.embers.util.DecimalFormats;
+import com.rekindled.embers.util.EmbersColors;
 import com.rekindled.embers.util.Misc;
 import com.rekindled.embers.util.sound.ISoundController;
 
@@ -60,8 +60,6 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
 public class HearthCoilBlockEntity extends BlockEntity implements ISoundController, IExtraDialInformation, IExtraCapabilityInformation, IUpgradeable {
-
-	public static final Color DEFAULT_COLOR = new Color(255, 64, 16);
 
 	public IEmberCapability capability = new DefaultEmberCapability() {
 		@Override
@@ -242,10 +240,10 @@ public class HearthCoilBlockEntity extends BlockEntity implements ISoundControll
 
 		if (blockEntity.heat > 0) {
 			int particleCount = (int) ((1 + random.nextInt(2)) * (1 + (float) Math.sqrt(blockEntity.heat)));
-			HeatCoilVisualEvent event = new HeatCoilVisualEvent(blockEntity, DEFAULT_COLOR, particleCount, 0);
+			HeatCoilVisualEvent event = new HeatCoilVisualEvent(blockEntity, EmbersColors.EMBER, particleCount, 0);
 			UpgradeUtil.throwEvent(blockEntity, event, blockEntity.upgrades);
-			Color color = event.getColor();
-			GlowParticleOptions options = new GlowParticleOptions(new Vector3f(color.getRed() / 255.0F, color.getGreen() / 255.0F, color.getBlue() / 255.0F), 2.0F);
+			Vector3f color = event.getColor();
+			GlowParticleOptions options = new GlowParticleOptions(color, 2.0F);
 			for (int i = 0; i < event.getParticles(); i ++) {
 				level.addParticle(options, pos.getX()-0.2f+random.nextFloat()*1.4f, pos.getY()+1.275f, pos.getZ()-0.2f+random.nextFloat()*1.4f,
 						(Math.random() * 2.0D - 1.0D) * 0.2D, random.nextFloat() * event.getVerticalSpeed(), (Math.random() * 2.0D - 1.0D) * 0.2D);
@@ -264,8 +262,8 @@ public class HearthCoilBlockEntity extends BlockEntity implements ISoundControll
 		ItemStack stack = entityItem.getItem();
 		stack.shrink(inputCount);
 		entityItem.setItem(stack);
-		((ServerLevel) entityItem.level()).sendParticles(new SmokeParticleOptions(SmokeParticleOptions.SMOKE_COLOR, 5.0f), entityItem.getX(), entityItem.getY(), entityItem.getZ(), 2, 0.07, 0.07, 0.07, 1.0);
-		((ServerLevel) entityItem.level()).sendParticles(new SmokeParticleOptions(SmokeParticleOptions.SMOKE_COLOR, 2.0f), entityItem.getX(), entityItem.getY(), entityItem.getZ(), 3, 0.07, 0.07, 0.07, 1.0);
+		((ServerLevel) entityItem.level()).sendParticles(new SmokeParticleOptions(EmbersColors.SMOKE_ID, 5.0f), entityItem.getX(), entityItem.getY(), entityItem.getZ(), 2, 0.07, 0.07, 0.07, 1.0);
+		((ServerLevel) entityItem.level()).sendParticles(new SmokeParticleOptions(EmbersColors.SMOKE_ID, 2.0f), entityItem.getX(), entityItem.getY(), entityItem.getZ(), 3, 0.07, 0.07, 0.07, 1.0);
 		if (stack.isEmpty()) {
 			entityItem.discard();
 		}

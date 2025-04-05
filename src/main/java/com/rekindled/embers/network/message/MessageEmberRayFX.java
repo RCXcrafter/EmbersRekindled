@@ -3,13 +3,13 @@ package com.rekindled.embers.network.message;
 import java.util.Random;
 import java.util.function.Supplier;
 
-import org.joml.Vector3f;
-
+import com.rekindled.embers.api.EmbersAPI;
 import com.rekindled.embers.particle.GlowParticleOptions;
 import com.rekindled.embers.util.Misc;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -21,12 +21,13 @@ public class MessageEmberRayFX {
 	double dX = 0, dY = 0, dZ = 0;
 	double hitDistance = Double.POSITIVE_INFINITY;
 	int packedColor;
+	ResourceLocation colorId;
 
 	public MessageEmberRayFX() {
 		super();
 	}
 
-	public MessageEmberRayFX(double x, double y, double z, double dX, double dY, double dZ, double hitDistance, int packedColor) {
+	public MessageEmberRayFX(double x, double y, double z, double dX, double dY, double dZ, double hitDistance, int packedColor, ResourceLocation colorId) {
 		super();
 		this.posX = x;
 		this.posY = y;
@@ -36,6 +37,7 @@ public class MessageEmberRayFX {
 		this.dZ = dZ;
 		this.hitDistance = hitDistance;
 		this.packedColor = packedColor;
+		this.colorId = colorId;
 	}
 
 	public static void encode(MessageEmberRayFX msg, FriendlyByteBuf buf) {
@@ -47,10 +49,11 @@ public class MessageEmberRayFX {
 		buf.writeDouble(msg.dZ);
 		buf.writeDouble(msg.hitDistance);
 		buf.writeInt(msg.packedColor);
+		buf.writeResourceLocation(msg.colorId);
 	}
 
 	public static MessageEmberRayFX decode(FriendlyByteBuf buf) {
-		return new MessageEmberRayFX(buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readInt());
+		return new MessageEmberRayFX(buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readInt(), buf.readResourceLocation());
 	}
 
 	public static void handle(MessageEmberRayFX msg, Supplier<NetworkEvent.Context> ctx) {
@@ -66,8 +69,7 @@ public class MessageEmberRayFX {
 		Level world = Minecraft.getInstance().level;
 		double distance = Math.sqrt(msg.dX * msg.dX + msg.dY * msg.dY + msg.dZ * msg.dZ);
 		double segments = distance * 4;
-		Vector3f color = Misc.colorFromInt(msg.packedColor);
-		GlowParticleOptions options = new GlowParticleOptions(color, 2.0F);
+		GlowParticleOptions options = new GlowParticleOptions(EmbersAPI.getColor(msg.colorId, Misc.colorFromInt(msg.packedColor)), 2.0F);
 		for (double i = 0; i < segments; i++) {
 			if (i >= msg.hitDistance * 4) {
 				for (int k = 0; k < 80; k++) {

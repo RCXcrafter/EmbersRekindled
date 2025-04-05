@@ -8,7 +8,6 @@ import java.util.Random;
 import javax.annotation.Nonnull;
 
 import org.jetbrains.annotations.NotNull;
-import org.joml.Vector3f;
 
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.filter.FilterAny;
@@ -17,6 +16,7 @@ import com.rekindled.embers.api.tile.IOrderDestination;
 import com.rekindled.embers.api.tile.IOrderSource;
 import com.rekindled.embers.api.tile.OrderStack;
 import com.rekindled.embers.particle.VaporParticleOptions;
+import com.rekindled.embers.util.EmbersColors;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -127,7 +127,7 @@ public class ItemExtractorBlockEntity extends ItemPipeBlockEntityBase implements
 			float vx = xOffset * speed + posRand.nextFloat() * speed * 0.3f;
 			float vy = yOffset * speed + posRand.nextFloat() * speed * 0.3f;
 			float vz = zOffset * speed + posRand.nextFloat() * speed * 0.3f;
-			((ServerLevel) level).sendParticles(new VaporParticleOptions(new Vector3f(64.0f / 255.0F, 64.0f / 255.0F, 64.0f / 255.0F), new Vec3(vx, vy, vz), 1.0f), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 4, 0, 0, 0, 1.0);
+			((ServerLevel) level).sendParticles(new VaporParticleOptions(EmbersColors.VAPOR_ID, new Vec3(vx, vy, vz), 1.0f), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 4, 0, 0, 0, 1.0);
 		}
 		blockEntity.cleanupOrders();
 		blockEntity.active = level.hasNeighborSignal(pos);

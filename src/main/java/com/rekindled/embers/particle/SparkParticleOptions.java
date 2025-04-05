@@ -9,23 +9,29 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.rekindled.embers.RegistryManager;
+import com.rekindled.embers.api.EmbersAPI;
+import com.rekindled.embers.util.EmbersColors;
 
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ExtraCodecs;
 
 public class SparkParticleOptions implements ParticleOptions {
 
 	public static final float MIN_SCALE = 0.01F;
 	public static final float MAX_SCALE = 4.0F;
+	protected final ResourceLocation colorId;
 	protected final Vector3f color;
 	protected final float scale;
-	public static final SparkParticleOptions EMBER = new SparkParticleOptions(GlowParticleOptions.EMBER_COLOR, 2.0F);
+	public static final SparkParticleOptions EMBER = new SparkParticleOptions(EmbersColors.EMBER_ID, 2.0F);
 
 	public static final Codec<SparkParticleOptions> CODEC = RecordCodecBuilder.create((p_175793_) -> {
-		return p_175793_.group(ExtraCodecs.VECTOR3F.fieldOf("color").forGetter((p_175797_) -> {
+		return p_175793_.group(ResourceLocation.CODEC.fieldOf("color_id").forGetter((p_175797_) -> {
+			return p_175797_.colorId;
+		}), ExtraCodecs.VECTOR3F.fieldOf("color").forGetter((p_175797_) -> {
 			return p_175797_.color;
 		}), Codec.FLOAT.fieldOf("scale").forGetter((p_175795_) -> {
 			return p_175795_.scale;
@@ -40,13 +46,22 @@ public class SparkParticleOptions implements ParticleOptions {
 		}
 
 		public SparkParticleOptions fromNetwork(ParticleType<SparkParticleOptions> p_123692_, FriendlyByteBuf p_123693_) {
-			return new SparkParticleOptions(SparkParticleOptions.readVector3f(p_123693_), p_123693_.readFloat());
+			return new SparkParticleOptions(p_123693_.readResourceLocation(), SparkParticleOptions.readVector3f(p_123693_), p_123693_.readFloat());
 		}
 	};
 
-	public SparkParticleOptions(Vector3f pColor, float pScale) {
+	public SparkParticleOptions(ResourceLocation pColorId, Vector3f pColor, float pScale) {
+		this.colorId = pColorId;
 		this.color = pColor;
 		this.scale = pScale;
+	}
+
+	public SparkParticleOptions(Vector3f pColor, float pScale) {
+		this(EmbersColors.CUSTOM_ID, pColor, pScale);
+	}
+
+	public SparkParticleOptions(ResourceLocation pColorId, float pScale) {
+		this(pColorId, EmbersColors.EMBER, pScale);
 	}
 
 	public static Vector3f readVector3f(StringReader pStringInput) throws CommandSyntaxException {
@@ -64,6 +79,7 @@ public class SparkParticleOptions implements ParticleOptions {
 	}
 
 	public void writeToNetwork(FriendlyByteBuf pBuffer) {
+		pBuffer.writeResourceLocation(this.colorId);
 		pBuffer.writeFloat(this.color.x());
 		pBuffer.writeFloat(this.color.y());
 		pBuffer.writeFloat(this.color.z());
@@ -75,7 +91,7 @@ public class SparkParticleOptions implements ParticleOptions {
 	}
 
 	public Vector3f getColor() {
-		return this.color;
+		return EmbersAPI.getColor(this.colorId, this.color);
 	}
 
 	public float getScale() {

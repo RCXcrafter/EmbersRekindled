@@ -8,6 +8,7 @@ import java.util.ListIterator;
 import java.util.Map;
 
 import org.joml.Matrix4f;
+import org.joml.Vector3f;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.platform.InputConstants;
@@ -26,6 +27,7 @@ import com.rekindled.embers.research.ResearchBase;
 import com.rekindled.embers.research.ResearchCategory;
 import com.rekindled.embers.research.ResearchManager;
 import com.rekindled.embers.research.subtypes.ResearchSwitchCategory;
+import com.rekindled.embers.util.EmbersColors;
 import com.rekindled.embers.util.Misc;
 import com.rekindled.embers.util.RenderUtil;
 
@@ -290,7 +292,6 @@ public class GuiCodex extends Screen {
 	}*/
 
 	public static void drawTextGlowing(Font font, GuiGraphics graphics, FormattedCharSequence s, int x, int y) {
-		float sine = 0.5f*((float)Math.sin(Math.toRadians(4.0f*((float)EmbersClientEvents.ticks + Minecraft.getInstance().getPartialTick())))+1.0f);
 		//String stringColorStripped = s.replaceAll(RenderUtil.COLOR_CODE_MATCHER.pattern(),"");
 		int shadowColor = Misc.intColor(64, 0, 0, 0);
 		graphics.drawString(font, s, x-1, y, shadowColor, false);
@@ -306,11 +307,10 @@ public class GuiCodex extends Screen {
 		graphics.drawString(font, s, x+1, y-1, shadowColor2, false);
 		graphics.drawString(font, s, x-1, y-1, shadowColor2, false);
 		graphics.drawString(font, s, x+1, y+1, shadowColor2, false);
-		graphics.drawString(font, s, x, y, Misc.intColor(255, 64+(int)(64*sine), 16), false);
+		graphics.drawString(font, s, x, y, Misc.intColor(1.0f, Misc.multColor(EmbersColors.EMBER, 0.5f*((float)Math.sin(Math.toRadians(4.0f*((float)EmbersClientEvents.ticks + Minecraft.getInstance().getPartialTick())))+1.0f))), false);
 	}
 
 	public void drawModalRectGlowing(GuiGraphics graphics, ResourceLocation texture, int x, int y, int textureX, int textureY, int width, int height) {
-		float sine = 0.5f*((float)Math.sin(Math.toRadians(4.0f*((float)EmbersClientEvents.ticks + Minecraft.getInstance().getPartialTick())))+1.0f);
 		RenderSystem.setShaderColor(0,0,0,64f/255);
 		graphics.blit(texture, x-1, y,textureX,textureY,width,height);
 		graphics.blit(texture, x+1, y,textureX,textureY,width,height);
@@ -325,7 +325,8 @@ public class GuiCodex extends Screen {
 		graphics.blit(texture, x+1, y-1,textureX,textureY,width,height);
 		graphics.blit(texture, x-1, y-1,textureX,textureY,width,height);
 		graphics.blit(texture, x+1, y+1,textureX,textureY,width,height);
-		RenderSystem.setShaderColor(255f/255,(64f+64*sine)/255,16f/255,1.0f);
+		Vector3f color = Misc.multColor(EmbersColors.EMBER, 0.5f*((float)Math.sin(Math.toRadians(4.0f*((float)EmbersClientEvents.ticks + Minecraft.getInstance().getPartialTick())))+1.0f));
+		RenderSystem.setShaderColor(color.x, color.y, color.z, 1.0f);
 		graphics.blit(texture, x, y,textureX,textureY,width,height);
 	}
 
@@ -334,13 +335,13 @@ public class GuiCodex extends Screen {
 		Matrix4f matrix = graphics.pose().last().pose();
 		MultiBufferSource buffer = new SneakyBufferSourceWrapper(graphics.bufferSource());
 
-		int shadowColor = Misc.intColor(40, 255, 64+(int)(64*sine), 16);
+		int shadowColor = Misc.intColor(0.15686f, Misc.multColor(EmbersColors.EMBER, sine));
 		font.drawInBatch(s, x-1, y, shadowColor, false, matrix, buffer, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
 		font.drawInBatch(s, x-1, y, shadowColor, false, matrix, buffer, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
 		font.drawInBatch(s, x+1, y, shadowColor, false, matrix, buffer, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
 		font.drawInBatch(s, x, y-1, shadowColor, false, matrix, buffer, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
 		font.drawInBatch(s, x, y+1, shadowColor, false, matrix, buffer, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
-		int shadowColor2 = Misc.intColor(40, 127, 32+(int)(32*sine), 8);
+		int shadowColor2 = Misc.intColor(0.15686f, Misc.multColor(EmbersColors.EMBER.mul(0.5f, new Vector3f()), sine));
 		font.drawInBatch(s, x-2, y, shadowColor2, false, matrix, buffer, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
 		font.drawInBatch(s, x+2, y, shadowColor2, false, matrix, buffer, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
 		font.drawInBatch(s, x, y-2, shadowColor2, false, matrix, buffer, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
@@ -349,7 +350,7 @@ public class GuiCodex extends Screen {
 		font.drawInBatch(s, x+1, y-1, shadowColor2, false, matrix, buffer, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
 		font.drawInBatch(s, x-1, y-1, shadowColor2, false, matrix, buffer, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
 		font.drawInBatch(s, x+1, y+1, shadowColor2, false, matrix, buffer, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
-		font.drawInBatch(s, x, y, Misc.intColor(255, 64+(int)(64*sine), 16), false, matrix, buffer, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
+		font.drawInBatch(s, x, y, Misc.intColor(1.0f, Misc.multColor(EmbersColors.EMBER, sine)), false, matrix, buffer, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
 	}
 
 	/*public static void drawTextGlowingAuraTransparent(Font font, PoseStack poseStack, FormattedCharSequence s, int x, int y, int r, int g, int b, int a) {
@@ -467,7 +468,7 @@ public class GuiCodex extends Screen {
 
 			RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
 			float sine = 0.5f + 0.25f*((float)Math.sin(Math.toRadians(4.0f*((float)EmbersClientEvents.ticks + Minecraft.getInstance().getPartialTick())))+1.0f);
-			RenderSystem.setShaderColor(255.0F / 255.0F, 64.0F / 255.0F, 16.0F / 255.0F, sine);
+			RenderSystem.setShaderColor(EmbersColors.EMBER.x, EmbersColors.EMBER.y, EmbersColors.EMBER.z, sine);
 			for (float i = 0; i < 4; i ++){
 				graphics.blit(PARTS, basePosX-16, basePosY+208, 192, 0, 48, 48);
 			}
@@ -630,7 +631,7 @@ public class GuiCodex extends Screen {
 								float appearCoeff = Math.min(r.shownAmount,ancestor.shownAmount);
 
 								b.begin(VertexFormat.Mode.TRIANGLE_STRIP, DefaultVertexFormat.POSITION_COLOR);
-								RenderUtil.renderWavyEmberLine(b, basePosX+x1, basePosY+y1, basePosX+x2, basePosY+y2, 4.0f*coeff, appearCoeff, new Color(255,64,16));
+								RenderUtil.renderWavyEmberLine(b, basePosX+x1, basePosY+y1, basePosX+x2, basePosY+y2, 4.0f*coeff, appearCoeff, EmbersColors.EMBER);
 								tess.end();
 							}
 							RenderSystem.defaultBlendFunc();
@@ -828,8 +829,8 @@ public class GuiCodex extends Screen {
 			int backgroundColor = new Color(0,0,0,128).getRGB();
 			float sine = 0.5f*((float)Math.sin(Math.toRadians(4.0f*((float)EmbersClientEvents.ticks + Minecraft.getInstance().getPartialTick())))+1.0f);
 			float cosine = 0.5f*((float)Math.cos(Math.toRadians(4.0f*((float)EmbersClientEvents.ticks + Minecraft.getInstance().getPartialTick())))+1.0f);
-			int borderColorStart = new Color(255,64+(int)(64*sine),16,128).getRGB();
-			int borderColorEnd =  new Color(255,64+(int)(64*cosine),16,128).getRGB();
+			int borderColorStart = Misc.intColor(1.0f, Misc.multColor(EmbersColors.EMBER, sine));
+			int borderColorEnd = Misc.intColor(1.0f, Misc.multColor(EmbersColors.EMBER, cosine));
 
 			graphics.fillGradient(j2 - 3, k2 - 4, j2 + i + 3, k2 - 3, 400, backgroundColor, backgroundColor);
 			graphics.fillGradient(j2 - 3, k2 + j + 3, j2 + i + 3, k2 + j + 4, 400, backgroundColor, backgroundColor);

@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
+import org.joml.Math;
 import org.joml.Vector3f;
 
 import com.rekindled.embers.Embers;
@@ -27,6 +28,7 @@ import com.rekindled.embers.power.DefaultEmberCapability;
 import com.rekindled.embers.recipe.IEmberActivationRecipe;
 import com.rekindled.embers.recipe.SingleItemContainer;
 import com.rekindled.embers.util.DecimalFormats;
+import com.rekindled.embers.util.EmbersColors;
 import com.rekindled.embers.util.Misc;
 import com.rekindled.embers.util.sound.ISoundController;
 
@@ -143,14 +145,42 @@ public class IgnemReactorBlockEntity extends BlockEntity implements ISoundContro
 		UpgradeUtil.verifyUpgrades(blockEntity, blockEntity.upgrades);
 		blockEntity.handleSound();
 		if (blockEntity.capability.getEmber() > 0) {
-			double catalyzerRatio = 0.0;
+			float catalyzerRatio = 0.0f;
 			if (blockEntity.catalyzerMult > 0 || blockEntity.combustorMult > 0)
-				catalyzerRatio = blockEntity.catalyzerMult / (blockEntity.catalyzerMult + blockEntity.combustorMult);
-			int r = (int) Mth.clampedLerp(255, 255, catalyzerRatio);
-			int g = (int) Mth.clampedLerp(64, 64, catalyzerRatio);
-			int b = (int) Mth.clampedLerp(16, 64, catalyzerRatio);
+				catalyzerRatio = (float) (blockEntity.catalyzerMult / (blockEntity.catalyzerMult + blockEntity.combustorMult));
+
+			float[] limits = new float[] {
+					EmbersColors.EMBER.x,
+					EmbersColors.EMBER.y,
+					EmbersColors.EMBER.z
+			};
+
+			int min = EmbersColors.EMBER.minComponent();
+			int max = EmbersColors.EMBER.maxComponent();
+			int mid = 0;
+			if (max == 0) {
+				if (min == 1)
+					mid = 2;
+				else if (min == 2)
+					mid = 0;
+			} else if (max == 1) {
+				if (min == 0)
+					mid = 2;
+				else if (min == 2)
+					mid = 0;
+			} else if (max == 2) {
+				if (min == 0)
+					mid = 1;
+				else if (min == 1)
+					mid = 0;
+			}
+			limits[min] = limits[mid];
+
+			float r = Mth.clampedLerp(EmbersColors.EMBER.x, limits[0], catalyzerRatio);
+			float g = Mth.clampedLerp(EmbersColors.EMBER.y, limits[1], catalyzerRatio);
+			float b = Mth.clampedLerp(EmbersColors.EMBER.z, limits[2], catalyzerRatio);
 			float size = (float) Mth.clampedLerp(4.0, 2.0, catalyzerRatio);
-			GlowParticleOptions options = new GlowParticleOptions(new Vector3f(r / 255f, g / 255f, b / 255f), size);
+			GlowParticleOptions options = new GlowParticleOptions(new Vector3f(r, g, b), size);
 			for (int i = 0; i < Math.ceil(blockEntity.capability.getEmber() / 3000.0); i ++) {
 				float vx = (float) Mth.clampedLerp(0, (random.nextFloat() - 0.5) * 0.1f, catalyzerRatio);
 				float vy = (float) Mth.clampedLerp(random.nextFloat() * 0.05f, (random.nextFloat() - 0.5) * 0.2f, catalyzerRatio);
@@ -193,8 +223,8 @@ public class IgnemReactorBlockEntity extends BlockEntity implements ISoundContro
 							if (ember > 0 && blockEntity.capability.getEmber() + ember <= blockEntity.capability.getEmberCapacity()) {
 								level.playSound(null, pos, EmbersSounds.IGNEM_REACTOR.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
 								if (level instanceof ServerLevel serverLevel) {
-									serverLevel.sendParticles(new GlowParticleOptions(GlowParticleOptions.EMBER_COLOR, new Vec3(0, 0.65f, 0), 4.7f), pos.getX() + 0.5f, pos.getY() + 0.5f, pos.getZ() + 0.5f, 80, 0.1, 0.1, 0.1, 1.0);
-									serverLevel.sendParticles(new SmokeParticleOptions(SmokeParticleOptions.SMOKE_COLOR, 5.0f), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 20, 0.1, 0.1, 0.1, 1.0);
+									serverLevel.sendParticles(new GlowParticleOptions(EmbersColors.EMBER_ID, new Vec3(0, 0.65f, 0), 4.7f), pos.getX() + 0.5f, pos.getY() + 0.5f, pos.getZ() + 0.5f, 80, 0.1, 0.1, 0.1, 1.0);
+									serverLevel.sendParticles(new SmokeParticleOptions(EmbersColors.SMOKE_ID, 5.0f), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 20, 0.1, 0.1, 0.1, 1.0);
 								}
 								UpgradeUtil.throwEvent(blockEntity, new EmberEvent(blockEntity, EmberEvent.EnumType.PRODUCE, ember), blockEntity.upgrades);
 								blockEntity.capability.addAmount(ember, true);

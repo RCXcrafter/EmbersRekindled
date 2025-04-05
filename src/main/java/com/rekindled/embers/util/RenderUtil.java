@@ -1,8 +1,7 @@
 package com.rekindled.embers.util;
 
-import java.awt.Color;
-
 import org.joml.Matrix4f;
+import org.joml.Vector3f;
 
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -20,10 +19,10 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class RenderUtil {
 
 	public static void renderWavyEmberLine(BufferBuilder b, double x1, double y1, double x2, double y2, double thickness) {
-		renderWavyEmberLine(b,x1,y1,x2,y2,thickness,1.0,new Color(255,64,16));
+		renderWavyEmberLine(b, x1, y1, x2, y2, thickness, 1.0, EmbersColors.EMBER);
 	}
 
-	public static void renderWavyEmberLine(BufferBuilder b, double x1, double y1, double x2, double y2, double thickness, double density, Color color) {
+	public static void renderWavyEmberLine(BufferBuilder b, double x1, double y1, double x2, double y2, double thickness, double density, Vector3f color) {
 		double dx = x2-x1;
 		double dy = y2-y1;
 		double angleRads = Math.atan2(y2-y1, x2-x1);
@@ -46,16 +45,16 @@ public class RenderUtil {
 			float densityCoeff = (float)(0.5+0.5*Math.sin(coeff*Math.PI*2.0*dist*0.01 + tick * 0.2));
 			float minusDensity = (float)density * densityCoeff * EmberGenUtil.getEmberDensity(1, offX+(int)(tx-thickness*orthoX*thickCoeff), offZ+(int)(ty-thickness*orthoY*thickCoeff));
 			float plusDensity = (float)density * densityCoeff * EmberGenUtil.getEmberDensity(1, offX+(int)(tx-thickness*orthoX*thickCoeff), offZ+(int)(ty-thickness*orthoY*thickCoeff));
-			b.vertex(tx-thickness*(0.5f+minusDensity)*orthoX*thickCoeff-thickCoeff*orthoX*sine*sineOff, ty-thickness*(0.5f+minusDensity)*orthoY*thickCoeff-thickCoeff*orthoY*sine*sineOff, 0).color(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, (float)Math.pow(0.5f*(float)Math.max(0,thickCoeff-0.4f)*minusDensity,1)).endVertex();
-			b.vertex(tx+thickness*(0.5f+plusDensity)*orthoX*thickCoeff-thickCoeff*orthoX*sine*sineOff, ty+thickness*(0.5f+plusDensity)*orthoY*thickCoeff-thickCoeff*orthoY*sine*sineOff, 0).color(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, (float)Math.pow(0.5f*(float)Math.max(0,thickCoeff-0.4f)*plusDensity,1)).endVertex();
+			b.vertex(tx-thickness*(0.5f+minusDensity)*orthoX*thickCoeff-thickCoeff*orthoX*sine*sineOff, ty-thickness*(0.5f+minusDensity)*orthoY*thickCoeff-thickCoeff*orthoY*sine*sineOff, 0).color(color.x, color.y, color.z, (float)Math.pow(0.5f*(float)Math.max(0,thickCoeff-0.4f)*minusDensity,1)).endVertex();
+			b.vertex(tx+thickness*(0.5f+plusDensity)*orthoX*thickCoeff-thickCoeff*orthoX*sine*sineOff, ty+thickness*(0.5f+plusDensity)*orthoY*thickCoeff-thickCoeff*orthoY*sine*sineOff, 0).color(color.x, color.y, color.z, (float)Math.pow(0.5f*(float)Math.max(0,thickCoeff-0.4f)*plusDensity,1)).endVertex();
 		}
 	}
 
 	public static void renderHighlightCircle(BufferBuilder b, double x1, double y1, double thickness) {
-		renderHighlightCircle(b,x1,y1,thickness,0,new Color(255,64,16));
+		renderHighlightCircle(b, x1, y1, thickness, 0, EmbersColors.EMBER);
 	}
 
-	public static void renderHighlightCircle(BufferBuilder b, double x1, double y1, double thickness, double z, Color color) {
+	public static void renderHighlightCircle(BufferBuilder b, double x1, double y1, double thickness, double z, Vector3f color) {
 		for (int i = 0; i < 40; i ++) {
 			float coeff = (float)i / 40f;
 			int i2 = i+1;
@@ -73,9 +72,9 @@ public class RenderUtil {
 			double ty = y1 + Math.cos(angle+0.03125f*tick)*(thickness - (thickness * 0.5f * density1));
 			double tx2 = x1 + Math.sin(angle2+0.03125f*tick)*(thickness - (thickness * 0.5f * density2));
 			double ty2 = y1 + Math.cos(angle2+0.03125f*tick)*(thickness - (thickness * 0.5f * density2));
-			b.vertex(x1, y1, z).color(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, 1.0f).endVertex();
-			b.vertex(tx, ty, z).color(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, 0.0f).endVertex();
-			b.vertex(tx2, ty2, z).color(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, 0.0f).endVertex();
+			b.vertex(x1, y1, z).color(color.x, color.y, color.z, 1.0f).endVertex();
+			b.vertex(tx, ty, z).color(color.x, color.y, color.z, 0.0f).endVertex();
+			b.vertex(tx2, ty2, z).color(color.x, color.y, color.z, 0.0f).endVertex();
 		}
 	}
 

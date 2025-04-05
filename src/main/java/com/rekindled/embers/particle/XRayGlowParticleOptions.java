@@ -9,11 +9,14 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.rekindled.embers.RegistryManager;
+import com.rekindled.embers.api.EmbersAPI;
+import com.rekindled.embers.util.EmbersColors;
 
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.phys.Vec3;
 
@@ -21,16 +24,19 @@ public class XRayGlowParticleOptions implements ParticleOptions {
 
 	public static final float MIN_SCALE = 0.01F;
 	public static final float MAX_SCALE = 4.0F;
+	protected final ResourceLocation colorId;
 	protected final Vector3f color;
 	protected final Vec3 motion;
 	protected final float scale;
 	protected final int lifetime;
-	public static final XRayGlowParticleOptions EMBER = new XRayGlowParticleOptions(GlowParticleOptions.EMBER_COLOR, 2.0F);
-	public static final XRayGlowParticleOptions EMBER_NOMOTION = new XRayGlowParticleOptions(GlowParticleOptions.EMBER_COLOR, new Vec3(0.0, 0.000001, 0.0), 2.0F);
-	public static final XRayGlowParticleOptions EMBER_BIG_NOMOTION = new XRayGlowParticleOptions(GlowParticleOptions.EMBER_COLOR, new Vec3(0.0, 0.000001, 0.0), 6.0F, 200);
+	public static final XRayGlowParticleOptions EMBER = new XRayGlowParticleOptions(EmbersColors.EMBER_ID, 2.0F);
+	public static final XRayGlowParticleOptions EMBER_NOMOTION = new XRayGlowParticleOptions(EmbersColors.EMBER_ID, new Vec3(0.0, 0.000001, 0.0), 2.0F);
+	public static final XRayGlowParticleOptions EMBER_BIG_NOMOTION = new XRayGlowParticleOptions(EmbersColors.EMBER_ID, new Vec3(0.0, 0.000001, 0.0), 6.0F, 200);
 
 	public static final Codec<XRayGlowParticleOptions> CODEC = RecordCodecBuilder.create((p_175793_) -> {
-		return p_175793_.group(ExtraCodecs.VECTOR3F.fieldOf("color").forGetter((p_175797_) -> {
+		return p_175793_.group(ResourceLocation.CODEC.fieldOf("color_id").forGetter((p_175797_) -> {
+			return p_175797_.colorId;
+		}), ExtraCodecs.VECTOR3F.fieldOf("color").forGetter((p_175797_) -> {
 			return p_175797_.color;
 		}), Vec3.CODEC.fieldOf("motion").forGetter((p_175797_) -> {
 			return p_175797_.motion;
@@ -52,15 +58,24 @@ public class XRayGlowParticleOptions implements ParticleOptions {
 		}
 
 		public XRayGlowParticleOptions fromNetwork(ParticleType<XRayGlowParticleOptions> p_123692_, FriendlyByteBuf p_123693_) {
-			return new XRayGlowParticleOptions(XRayGlowParticleOptions.readVector3f(p_123693_), XRayGlowParticleOptions.readVec3(p_123693_), p_123693_.readFloat(), p_123693_.readInt());
+			return new XRayGlowParticleOptions(p_123693_.readResourceLocation(), XRayGlowParticleOptions.readVector3f(p_123693_), XRayGlowParticleOptions.readVec3(p_123693_), p_123693_.readFloat(), p_123693_.readInt());
 		}
 	};
 
-	public XRayGlowParticleOptions(Vector3f pColor, Vec3 pMotion, float pScale, int plifetime) {
+	public XRayGlowParticleOptions(ResourceLocation pColorId, Vector3f pColor, Vec3 pMotion, float pScale, int plifetime) {
+		this.colorId = pColorId;
 		this.color = pColor;
 		this.motion = pMotion;
 		this.scale = pScale;
 		this.lifetime = plifetime;
+	}
+
+	public XRayGlowParticleOptions(Vector3f pColor, Vec3 pMotion, float pScale, int plifetime) {
+		this(EmbersColors.CUSTOM_ID, pColor, pMotion, pScale, plifetime);
+	}
+
+	public XRayGlowParticleOptions(ResourceLocation pColorId, Vec3 pMotion, float pScale, int plifetime) {
+		this(pColorId, EmbersColors.EMBER, pMotion, pScale, plifetime);
 	}
 
 	public XRayGlowParticleOptions(Vector3f pColor, Vec3 pMotion, float pScale) {
@@ -73,6 +88,18 @@ public class XRayGlowParticleOptions implements ParticleOptions {
 
 	public XRayGlowParticleOptions(Vector3f pColor, float pScale) {
 		this(pColor, Vec3.ZERO, pScale);
+	}
+
+	public XRayGlowParticleOptions(ResourceLocation pColorId, Vec3 pMotion, float pScale) {
+		this(pColorId, pMotion, pScale, -1);
+	}
+
+	public XRayGlowParticleOptions(ResourceLocation pColorId, float pScale, int plifetime) {
+		this(pColorId, Vec3.ZERO, pScale, plifetime);
+	}
+
+	public XRayGlowParticleOptions(ResourceLocation pColorId, float pScale) {
+		this(pColorId, Vec3.ZERO, pScale);
 	}
 
 	public static Vector3f readVector3f(StringReader pStringInput) throws CommandSyntaxException {
@@ -104,6 +131,7 @@ public class XRayGlowParticleOptions implements ParticleOptions {
 	}
 
 	public void writeToNetwork(FriendlyByteBuf pBuffer) {
+		pBuffer.writeResourceLocation(this.colorId);
 		pBuffer.writeFloat(this.color.x());
 		pBuffer.writeFloat(this.color.y());
 		pBuffer.writeFloat(this.color.z());
@@ -119,7 +147,7 @@ public class XRayGlowParticleOptions implements ParticleOptions {
 	}
 
 	public Vector3f getColor() {
-		return this.color;
+		return EmbersAPI.getColor(this.colorId, this.color);
 	}
 
 	public Vec3 getMotion() {

@@ -9,11 +9,14 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.rekindled.embers.RegistryManager;
+import com.rekindled.embers.api.EmbersAPI;
+import com.rekindled.embers.util.EmbersColors;
 
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.phys.Vec3;
 
@@ -21,14 +24,16 @@ public class VaporParticleOptions implements ParticleOptions {
 
 	public static final float MIN_SCALE = 0.01F;
 	public static final float MAX_SCALE = 4.0F;
+	protected final ResourceLocation colorId;
 	protected final Vector3f color;
 	protected final Vec3 motion;
 	protected final float scale;
-	public static final Vector3f VAPOR_COLOR = new Vector3f(64.0F / 255.0F, 64.0F / 255.0F, 64.0F / 255.0F);
-	public static final VaporParticleOptions VAPOR = new VaporParticleOptions(VAPOR_COLOR, 1.0F);
+	public static final VaporParticleOptions VAPOR = new VaporParticleOptions(EmbersColors.VAPOR_ID, 1.0F);
 
 	public static final Codec<VaporParticleOptions> CODEC = RecordCodecBuilder.create((p_175793_) -> {
-		return p_175793_.group(ExtraCodecs.VECTOR3F.fieldOf("color").forGetter((p_175797_) -> {
+		return p_175793_.group(ResourceLocation.CODEC.fieldOf("color_id").forGetter((p_175797_) -> {
+			return p_175797_.colorId;
+		}), ExtraCodecs.VECTOR3F.fieldOf("color").forGetter((p_175797_) -> {
 			return p_175797_.color;
 		}), Vec3.CODEC.fieldOf("motion").forGetter((p_175797_) -> {
 			return p_175797_.motion;
@@ -47,14 +52,27 @@ public class VaporParticleOptions implements ParticleOptions {
 		}
 
 		public VaporParticleOptions fromNetwork(ParticleType<VaporParticleOptions> p_123692_, FriendlyByteBuf p_123693_) {
-			return new VaporParticleOptions(VaporParticleOptions.readVector3f(p_123693_), VaporParticleOptions.readVec3(p_123693_), p_123693_.readFloat());
+			return new VaporParticleOptions(p_123693_.readResourceLocation(), VaporParticleOptions.readVector3f(p_123693_), VaporParticleOptions.readVec3(p_123693_), p_123693_.readFloat());
 		}
 	};
 
-	public VaporParticleOptions(Vector3f pColor, Vec3 pMotion, float pScale) {
+	public VaporParticleOptions(ResourceLocation pColorId, Vector3f pColor, Vec3 pMotion, float pScale) {
+		this.colorId = pColorId;
 		this.color = pColor;
 		this.motion = pMotion;
 		this.scale = pScale;
+	}
+
+	public VaporParticleOptions(Vector3f pColor, Vec3 pMotion, float pScale) {
+		this(EmbersColors.CUSTOM_ID, pColor, pMotion, pScale);
+	}
+
+	public VaporParticleOptions(ResourceLocation pColorId, Vec3 pMotion, float pScale) {
+		this(pColorId, EmbersColors.SMOKE, pMotion, pScale);
+	}
+
+	public VaporParticleOptions(ResourceLocation pColorId, float pScale) {
+		this(pColorId, Vec3.ZERO, pScale);
 	}
 
 	public VaporParticleOptions(Vector3f pColor, float pScale) {
@@ -90,6 +108,7 @@ public class VaporParticleOptions implements ParticleOptions {
 	}
 
 	public void writeToNetwork(FriendlyByteBuf pBuffer) {
+		pBuffer.writeResourceLocation(this.colorId);
 		pBuffer.writeFloat(this.color.x());
 		pBuffer.writeFloat(this.color.y());
 		pBuffer.writeFloat(this.color.z());
@@ -104,7 +123,7 @@ public class VaporParticleOptions implements ParticleOptions {
 	}
 
 	public Vector3f getColor() {
-		return this.color;
+		return EmbersAPI.getColor(this.colorId, this.color);
 	}
 
 	public Vec3 getMotion() {

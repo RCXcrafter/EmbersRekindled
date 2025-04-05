@@ -5,6 +5,7 @@ import com.rekindled.embers.api.power.IEmberCapability;
 import com.rekindled.embers.api.power.IEmberPacketReceiver;
 import com.rekindled.embers.particle.GlowParticleOptions;
 import com.rekindled.embers.particle.StarParticleOptions;
+import com.rekindled.embers.util.EmbersColors;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -14,7 +15,6 @@ import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MoverType;
@@ -78,11 +78,6 @@ public class EmberPacketEntity extends Entity {
 		//super.tick();
 		int lifetime = getEntityData().get(EmberPacketEntity.lifetime);
 		getEntityData().set(EmberPacketEntity.lifetime, lifetime - 1);
-		if (lifetime == 79) {
-			if (level() instanceof ServerLevel serverLevel) {
-				serverLevel.sendParticles(new StarParticleOptions(GlowParticleOptions.EMBER_COLOR, 3.5f + 0.5f * random.nextFloat()), getX(), getY(), getZ(), 12, 0.0125f * (random.nextFloat() - 0.5f), 0.0125f * (random.nextFloat() - 0.5f), 0.0125f * (random.nextFloat() - 0.5f), 0.0);
-			}
-		}
 		lifetime --;
 		if (lifetime <= 0) {
 			this.remove(RemovalReason.DISCARDED);
@@ -112,6 +107,11 @@ public class EmberPacketEntity extends Entity {
 				affectTileEntity(level().getBlockState(blockPosition()), level().getBlockEntity(blockPosition()));
 			}
 			if (level().isClientSide() && lifetime != 80) {
+				if (lifetime == 79) {
+					for (double i = 0; i < 12; i ++) {
+						level().addParticle(new StarParticleOptions(EmbersColors.EMBER_ID, 3.5f + 0.5f * random.nextFloat()), getX(), getY(), getZ(), 0.125f*(random.nextFloat()-0.5f), 0.125f*(random.nextFloat()-0.5f), 0.125f*(random.nextFloat()-0.5f));
+					}
+				}
 				double deltaX = getX() - oldPosition.x;
 				double deltaY = getY() - oldPosition.y;
 				double deltaZ = getZ() - oldPosition.z;

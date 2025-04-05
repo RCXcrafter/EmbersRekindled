@@ -49,6 +49,7 @@ public class DiffractionBarrelAugment extends AugmentBase {
 							Vec3 newVelocity = velocity.add((Misc.random.nextDouble() - 0.5) * speed * 2 * spread, (Misc.random.nextDouble() - 0.5) * speed * 2 * spread, (Misc.random.nextDouble() - 0.5) * speed * 2 * spread).scale(newspeed / speed);
 							IProjectilePreset newProjectile = new ProjectileFireball(projectile.getShooter(), projectile.getPos(), newVelocity, 2.4, 80, effect);
 							newProjectile.setColor(projectile.getColor());
+							newProjectile.setColor(projectile.getColorId());
 							projectiles.add(newProjectile);
 						}
 					} else if (projectile instanceof ProjectileFireball) {
@@ -60,6 +61,7 @@ public class DiffractionBarrelAugment extends AugmentBase {
 							Vec3 newVelocity = velocity.add((Misc.random.nextDouble() - 0.5) * speed * 2 * spread, (Misc.random.nextDouble() - 0.5) * speed * 2 * spread, (Misc.random.nextDouble() - 0.5) * speed * 2 * spread);
 							IProjectilePreset newProjectile = new ProjectileFireball(projectile.getShooter(), projectile.getPos(), newVelocity, fireball.getSize() / 3, fireball.getLifetime() / 2, effect);
 							newProjectile.setColor(projectile.getColor());
+							newProjectile.setColor(projectile.getColorId());
 							projectiles.add(newProjectile);
 						}
 					}

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.tuple.Pair;
+import org.joml.Vector3f;
 import org.lwjgl.opengl.GL30C;
 
 import com.mojang.blaze3d.pipeline.RenderTarget;
@@ -37,6 +38,7 @@ import com.rekindled.embers.datagen.EmbersItemTags;
 import com.rekindled.embers.render.EmbersRenderTypes;
 import com.rekindled.embers.upgrade.ExcavationBucketsUpgrade;
 import com.rekindled.embers.util.EmberGenUtil;
+import com.rekindled.embers.util.EmbersColors;
 import com.rekindled.embers.util.GlowingTextTooltip;
 import com.rekindled.embers.util.HeatBarTooltip;
 import com.rekindled.embers.util.Misc;
@@ -154,9 +156,7 @@ public class EmbersClientEvents {
 				Direction targetDir = target.getRight();
 				Vec3 camPos = event.getCamera().getPosition();
 				VertexConsumer consumer = mc.renderBuffers().bufferSource().getBuffer(EmbersRenderTypes.GLOW_LINES);
-				float red = 1.0F;
-				float green = 0.25F + 0.5f*((float)Math.sin(Math.toRadians(4.0f*(event.getRenderTick() + event.getPartialTick())))+1.0f) * 0.25F;
-				float blue = 0.062745F;
+				Vector3f color = Misc.multColor(EmbersColors.EMBER, (float) (Math.sin(Math.toRadians(4.0f*(event.getRenderTick() + event.getPartialTick())))+1.0f) / 2.0f);
 				float alpha = 0.8F;
 				double x = targetPos.getX() - camPos.x;
 				double y = targetPos.getY() - camPos.y;
@@ -171,8 +171,8 @@ public class EmbersClientEvents {
 					f /= f3;
 					f1 /= f3;
 					f2 /= f3;
-					consumer.vertex(pose.pose(), (float)(fromX + x), (float)(fromY + y), (float)(fromZ + z)).color(red, green, blue, alpha).normal(pose.normal(), f, f1, f2).endVertex();
-					consumer.vertex(pose.pose(), (float)(toX+ x), (float)(toY + y), (float)(toZ + z)).color(red, green, blue, alpha).normal(pose.normal(), f, f1, f2).endVertex();
+					consumer.vertex(pose.pose(), (float)(fromX + x), (float)(fromY + y), (float)(fromZ + z)).color(color.x, color.y, color.z, alpha).normal(pose.normal(), f, f1, f2).endVertex();
+					consumer.vertex(pose.pose(), (float)(toX+ x), (float)(toY + y), (float)(toZ + z)).color(color.x, color.y, color.z, alpha).normal(pose.normal(), f, f1, f2).endVertex();
 				};
 
 				//LevelRenderer.renderShape(event.getPoseStack(), consumer, player.level.getBlockState(targetPos).getShape(player.level, targetPos), x, y, z, red, green, blue, alpha);

@@ -604,7 +604,7 @@
   "embers.research.page.ores.title": "Raw Minerals",
   "embers.research.page.pipe_tools.desc": "Pipes will automatically connect to other adjacent pipes. When this is not wanted, your Tinker's Hammer can be used to disconnect them. (Note that both sides can be disconnected individually) Sometimes, routing in a pipe network can go awry. When this happens, pipes will expel smoke to show that they are clogged. To unclog a pipe, simply right-click it with a stick.",
   "embers.research.page.pipes": "Pipes",
-  "embers.research.page.pipes.desc": "One of the simplest mechanisms necessary for your ambitions is the pipe, a simple means of moving materials. You have developed both iron and lead pipes: Iron Pipes can be used to transport fluids, while Lead Pipes can be used to transport items. Pipes can only insert to tanks or inventories, however: to extract, you must craft a corresponding Pump, place it adjacent to the container, and power it with redstone.",
+  "embers.research.page.pipes.desc": "One of the simplest mechanisms necessary for your ambitions is the pipe, a simple means of moving materials. You have developed both iron and lead pipes: Iron Pipes can be used to transport fluids, while Lead Pipes can be used to transport items. Pipes can only insert to tanks or inventories, however: to extract, you must craft a corresponding Extractor, place it adjacent to the container, and power it with redstone.",
   "embers.research.page.pipes.tags": "Pipe;Transport;Item;Fluid;Liquid;",
   "embers.research.page.pipes.title": "Transportation",
   "embers.research.page.pipes_category": "Pipes",

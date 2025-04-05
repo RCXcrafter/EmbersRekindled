@@ -9,25 +9,30 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.rekindled.embers.RegistryManager;
+import com.rekindled.embers.api.EmbersAPI;
+import com.rekindled.embers.util.EmbersColors;
 
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ExtraCodecs;
 
 public class SmokeParticleOptions implements ParticleOptions {
 
 	public static final float MIN_SCALE = 0.01F;
 	public static final float MAX_SCALE = 4.0F;
+	protected final ResourceLocation colorId;
 	protected final Vector3f color;
 	protected final float scale;
-	public static final Vector3f SMOKE_COLOR = new Vector3f(64.0F / 255.0F, 64.0F / 255.0F, 64.0F / 255.0F);
-	public static final SmokeParticleOptions SMOKE = new SmokeParticleOptions(SMOKE_COLOR, 2.0F);
-	public static final SmokeParticleOptions BIG_SMOKE = new SmokeParticleOptions(SMOKE_COLOR, 5.0F); //a number 6 with extra dip
+	public static final SmokeParticleOptions SMOKE = new SmokeParticleOptions(EmbersColors.SMOKE_ID, 2.0F);
+	public static final SmokeParticleOptions BIG_SMOKE = new SmokeParticleOptions(EmbersColors.SMOKE_ID, 5.0F); //a number 6 with extra dip
 
 	public static final Codec<SmokeParticleOptions> CODEC = RecordCodecBuilder.create((p_175793_) -> {
-		return p_175793_.group(ExtraCodecs.VECTOR3F.fieldOf("color").forGetter((p_175797_) -> {
+		return p_175793_.group(ResourceLocation.CODEC.fieldOf("color_id").forGetter((p_175797_) -> {
+			return p_175797_.colorId;
+		}), ExtraCodecs.VECTOR3F.fieldOf("color").forGetter((p_175797_) -> {
 			return p_175797_.color;
 		}), Codec.FLOAT.fieldOf("scale").forGetter((p_175795_) -> {
 			return p_175795_.scale;
@@ -42,13 +47,22 @@ public class SmokeParticleOptions implements ParticleOptions {
 		}
 
 		public SmokeParticleOptions fromNetwork(ParticleType<SmokeParticleOptions> p_123692_, FriendlyByteBuf p_123693_) {
-			return new SmokeParticleOptions(SmokeParticleOptions.readVector3f(p_123693_), p_123693_.readFloat());
+			return new SmokeParticleOptions(p_123693_.readResourceLocation(), SmokeParticleOptions.readVector3f(p_123693_), p_123693_.readFloat());
 		}
 	};
 
-	public SmokeParticleOptions(Vector3f pColor, float pScale) {
+	public SmokeParticleOptions(ResourceLocation pColorId, Vector3f pColor, float pScale) {
+		this.colorId = pColorId;
 		this.color = pColor;
 		this.scale = pScale;
+	}
+
+	public SmokeParticleOptions(Vector3f pColor, float pScale) {
+		this(EmbersColors.CUSTOM_ID, pColor, pScale);
+	}
+
+	public SmokeParticleOptions(ResourceLocation pColorId, float pScale) {
+		this(pColorId, EmbersColors.SMOKE, pScale);
 	}
 
 	public static Vector3f readVector3f(StringReader pStringInput) throws CommandSyntaxException {
@@ -66,6 +80,7 @@ public class SmokeParticleOptions implements ParticleOptions {
 	}
 
 	public void writeToNetwork(FriendlyByteBuf pBuffer) {
+		pBuffer.writeResourceLocation(this.colorId);
 		pBuffer.writeFloat(this.color.x());
 		pBuffer.writeFloat(this.color.y());
 		pBuffer.writeFloat(this.color.z());
@@ -77,7 +92,7 @@ public class SmokeParticleOptions implements ParticleOptions {
 	}
 
 	public Vector3f getColor() {
-		return this.color;
+		return EmbersAPI.getColor(this.colorId, this.color);
 	}
 
 	public float getScale() {

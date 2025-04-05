@@ -1,6 +1,5 @@
 package com.rekindled.embers.upgrade;
 
-import java.awt.Color;
 import java.util.List;
 
 import com.rekindled.embers.ConfigManager;
@@ -9,6 +8,7 @@ import com.rekindled.embers.api.event.HeatCoilVisualEvent;
 import com.rekindled.embers.api.event.UpgradeEvent;
 import com.rekindled.embers.api.upgrades.UpgradeContext;
 import com.rekindled.embers.blockentity.HearthCoilBlockEntity;
+import com.rekindled.embers.util.EmbersColors;
 import com.rekindled.embers.util.Misc;
 
 import net.minecraft.resources.ResourceLocation;
@@ -58,7 +58,7 @@ public class HeatInsulationUpgrade extends DefaultUpgradeProvider {
 		if (event instanceof HeatCoilVisualEvent visualEvent && tile instanceof HearthCoilBlockEntity) {
 			double heat = ((HearthCoilBlockEntity) tile).heat;
 			double overheat = heat - ConfigManager.HEARTH_COIL_MAX_HEAT.get();
-			visualEvent.setColor(Misc.lerpColor(visualEvent.getColor(), new Color(255, 192, 64), Mth.clamp(overheat / 300.0, 0, 1)));
+			visualEvent.setColor(Misc.lerpColor(visualEvent.getColor(), EmbersColors.OVERHEAT, (float) Mth.clamp(overheat / 300.0, 0, 1)));
 			visualEvent.setVerticalSpeed((float) Mth.clampedLerp(visualEvent.getVerticalSpeed(), Math.max(visualEvent.getVerticalSpeed(), 0.9), overheat / 300.0));
 		}
 	}

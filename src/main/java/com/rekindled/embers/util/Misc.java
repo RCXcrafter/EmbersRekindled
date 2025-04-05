@@ -1,6 +1,5 @@
 package com.rekindled.embers.util;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -179,6 +178,26 @@ public class Misc {
 		}
 	}
 
+	public static Vector3f multColor(Vector3f color, float mult) {
+		return new Vector3f(Math.min(color.x + mult * color.x, 1.0f), Math.min(color.y + mult * color.y, 1.0f), Math.min(color.z + mult * color.z, 1.0f));
+	}
+
+	public static int intColor(Vector3f color) {
+		return intColor(color.x, color.y, color.z);
+	}
+
+	public static int intColor(float a, Vector3f color) {
+		return intColor(a, color.x, color.y, color.z);
+	}
+
+	public static int intColor(float r, float g, float b) {
+		return intColor((int) (r * 255), (int) (g * 255), (int) (b * 255));
+	}
+
+	public static int intColor(float a, float r, float g, float b) {
+		return intColor((int) (a * 255), (int) (r * 255), (int) (g * 255), (int) (b * 255));
+	}
+
 	public static int intColor(int r, int g, int b) {
 		return (r * 65536 + g * 256 + b);
 	}
@@ -191,17 +210,20 @@ public class Misc {
 		return new Vector3f(((0xFF0000 & color) >> 16) / 255.0f, ((0x00FF00 & color) >> 8) / 255.0f, (0x0000FF & color) / 255.0f);
 	}
 
-	public static Color lerpColor(Color color1, Color color2, double scale) {
-		return new Color(
-				lerp(color1.getRed(),color2.getRed(),scale),
-				lerp(color1.getGreen(),color2.getGreen(),scale),
-				lerp(color1.getBlue(),color2.getBlue(),scale),
-				lerp(color1.getAlpha(),color2.getAlpha(),scale)
+	public static Vector3f colorFromABGRInt(int color) {
+		return new Vector3f((0x000000FF & color) / 255.0f, ((0x0000FF00 & color) >> 8) / 255.0f, ((0x00FF0000 & color) >> 16) / 255.0f);
+	}
+
+	public static Vector3f lerpColor(Vector3f color1, Vector3f color2, float scale) {
+		return new Vector3f(
+				lerp(color1.x,color2.x,scale),
+				lerp(color1.y,color2.y,scale),
+				lerp(color1.z,color2.z,scale)
 				);
 	}
 
-	public static int lerp(int a, int b, double scale) {
-		return (int)(a*(1-scale)+b*(scale));
+	public static float lerp(float a, float b, float scale) {
+		return a*(1-scale)+b*(scale);
 	}
 
 	@SuppressWarnings("unchecked")

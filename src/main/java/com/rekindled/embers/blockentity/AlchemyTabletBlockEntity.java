@@ -26,6 +26,7 @@ import com.rekindled.embers.particle.StarParticleOptions;
 import com.rekindled.embers.recipe.AlchemyContext;
 import com.rekindled.embers.recipe.IAlchemyRecipe;
 import com.rekindled.embers.recipe.IAlchemyRecipe.PedestalContents;
+import com.rekindled.embers.util.EmbersColors;
 import com.rekindled.embers.util.Misc;
 import com.rekindled.embers.util.sound.ISoundController;
 
@@ -228,7 +229,7 @@ public class AlchemyTabletBlockEntity extends BlockEntity implements ISparkable,
 							}
 						}
 
-						((ServerLevel) level).sendParticles(new GlowParticleOptions(GlowParticleOptions.EMBER_COLOR, 4.0f), pos.getX() + 0.5f, pos.getY() + 0.875, pos.getZ() + 0.5f, 24, 0.1, 0.1, 0.1, 0.5);
+						((ServerLevel) level).sendParticles(new GlowParticleOptions(EmbersColors.EMBER_ID, 4.0f), pos.getX() + 0.5f, pos.getY() + 0.875, pos.getZ() + 0.5f, 24, 0.1, 0.1, 0.1, 0.5);
 
 						blockEntity.progress = 0;
 
@@ -292,7 +293,7 @@ public class AlchemyTabletBlockEntity extends BlockEntity implements ISparkable,
 
 		if (event.getRecipe() != null) {
 			int time = UpgradeUtil.getWorkTime(this, PROCESSING_TIME * 10, upgrades);
-			((ServerLevel) level).sendParticles(new AlchemyCircleParticleOptions(GlowParticleOptions.EMBER_COLOR, 1.0F, time + 20), worldPosition.getX() + 0.5, worldPosition.getY() + 1.01, worldPosition.getZ() + 0.5, 5, 0, 0, 0, 1);
+			((ServerLevel) level).sendParticles(new AlchemyCircleParticleOptions(EmbersColors.EMBER_ID, 1.0F, time + 20), worldPosition.getX() + 0.5, worldPosition.getY() + 1.01, worldPosition.getZ() + 0.5, 5, 0, 0, 0, 1);
 			progress = 1;
 			setChanged();
 			level.playSound(null, worldPosition, EmbersSounds.ALCHEMY_START.get(), SoundSource.BLOCKS, 1.0f, 1.0f);

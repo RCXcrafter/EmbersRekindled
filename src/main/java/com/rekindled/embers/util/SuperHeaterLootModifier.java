@@ -62,7 +62,7 @@ public class SuperHeaterLootModifier extends LootModifier {
 				context.getLevel().playSound(null, pos.x, pos.y, pos.z, EmbersSounds.FIREBALL_HIT.get(), SoundSource.PLAYERS, 0.5f, Misc.random.nextFloat()*0.5f + 0.2f);
 				EmberInventoryUtil.removeEmber(player, RegistryManager.SUPERHEATER_AUGMENT.getCost());
 
-				context.getLevel().sendParticles(new SparkParticleOptions(GlowParticleOptions.EMBER_COLOR, 1.0f), pos.x, pos.y, pos.z, 10, 0.0, 0.0, 0.0, 1.0);
+				context.getLevel().sendParticles(new SparkParticleOptions(EmbersColors.EMBER_ID, 1.0f), pos.x, pos.y, pos.z, 10, 0.0, 0.0, 0.0, 1.0);
 				context.getLevel().sendParticles(GlowParticleOptions.EMBER, pos.x, pos.y, pos.z, 20, 0.25, 0.25, 0.25, 0.1);
 			}
 		}

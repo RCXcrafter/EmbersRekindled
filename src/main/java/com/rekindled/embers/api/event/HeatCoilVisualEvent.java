@@ -1,26 +1,26 @@
 package com.rekindled.embers.api.event;
 
-import java.awt.Color;
+import org.joml.Vector3f;
 
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class HeatCoilVisualEvent extends UpgradeEvent {
-    Color color;
+	Vector3f color;
     int particles;
     float verticalSpeed;
 
-    public HeatCoilVisualEvent(BlockEntity tile, Color color, int particles, float verticalSpeed) {
+    public HeatCoilVisualEvent(BlockEntity tile, Vector3f color, int particles, float verticalSpeed) {
         super(tile);
         this.color = color;
         this.particles = particles;
         this.verticalSpeed = verticalSpeed;
     }
 
-    public Color getColor() {
+    public Vector3f getColor() {
         return color;
     }
 
-    public void setColor(Color color) {
+    public void setColor(Vector3f color) {
         this.color = color;
     }
 

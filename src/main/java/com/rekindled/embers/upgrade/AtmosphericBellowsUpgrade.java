@@ -1,7 +1,8 @@
 package com.rekindled.embers.upgrade;
 
-import java.awt.Color;
 import java.util.List;
+
+import org.joml.Vector3f;
 
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.api.event.HeatCoilVisualEvent;
@@ -47,8 +48,8 @@ public class AtmosphericBellowsUpgrade extends DefaultUpgradeProvider {
 	@Override
 	public void throwEvent(BlockEntity tile, List<UpgradeContext> upgrades, UpgradeEvent event, int distance, int count) {
 		if (event instanceof HeatCoilVisualEvent visualEvent) {
-			Color color = visualEvent.getColor();
-			visualEvent.setColor(new Color(color.getBlue(), color.getGreen(), color.getRed()));
+			Vector3f color = visualEvent.getColor();
+			visualEvent.setColor(new Vector3f(color.z, color.y, color.x));
 			visualEvent.setParticles((int) (visualEvent.getParticles() * 1.5));
 		}
 	}

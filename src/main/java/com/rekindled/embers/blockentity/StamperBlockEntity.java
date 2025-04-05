@@ -20,12 +20,12 @@ import com.rekindled.embers.api.tile.IUpgradeable;
 import com.rekindled.embers.api.upgrades.UpgradeContext;
 import com.rekindled.embers.api.upgrades.UpgradeUtil;
 import com.rekindled.embers.datagen.EmbersSounds;
-import com.rekindled.embers.particle.GlowParticleOptions;
 import com.rekindled.embers.particle.SmokeParticleOptions;
 import com.rekindled.embers.particle.SparkParticleOptions;
 import com.rekindled.embers.power.DefaultEmberCapability;
 import com.rekindled.embers.recipe.IStampingRecipe;
 import com.rekindled.embers.recipe.StampingContext;
+import com.rekindled.embers.util.EmbersColors;
 import com.rekindled.embers.util.Misc;
 
 import net.minecraft.core.BlockPos;
@@ -166,8 +166,8 @@ public class StamperBlockEntity extends BlockEntity implements IMechanicallyPowe
 						UpgradeUtil.throwEvent(blockEntity, new EmberEvent(blockEntity, EmberEvent.EnumType.CONSUME, emberCost), blockEntity.upgrades);
 						blockEntity.capability.removeAmount(emberCost, true);
 						if (level instanceof ServerLevel serverLevel) {
-							serverLevel.sendParticles(new SparkParticleOptions(GlowParticleOptions.EMBER_COLOR, 1.0f), pos.getX() + 0.5f, pos.getY() - 1.1f, pos.getZ() + 0.5f, 10, 0.25, 0.0, 0.25, 1.0);
-							serverLevel.sendParticles(new SmokeParticleOptions(SmokeParticleOptions.SMOKE_COLOR, 3.0f), pos.getX() + 0.5f, pos.getY() - 1.1f, pos.getZ() + 0.5f, 10, 0.25, 0.0, 0.25, 1.0);
+							serverLevel.sendParticles(new SparkParticleOptions(EmbersColors.EMBER_ID, 1.0f), pos.getX() + 0.5f, pos.getY() - 1.1f, pos.getZ() + 0.5f, 10, 0.25, 0.0, 0.25, 1.0);
+							serverLevel.sendParticles(new SmokeParticleOptions(EmbersColors.SMOKE_ID, 3.0f), pos.getX() + 0.5f, pos.getY() - 1.1f, pos.getZ() + 0.5f, 10, 0.25, 0.0, 0.25, 1.0);
 						}
 
 						level.playSound(null, pos.below(), EmbersSounds.STAMPER_DOWN.get(), SoundSource.BLOCKS, 1.0f, 1.0f);

@@ -160,7 +160,7 @@ public class BeamCannonBlockEntity extends BlockEntity implements IUpgradeable {
 			entity.hurt(damageSource, (float)damage);
 		}
 
-		PacketHandler.INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new MessageBeamCannonFX(worldPosition.getX()+0.5,worldPosition.getY()+0.5,worldPosition.getZ()+0.5,ray.x*impactDist,ray.y*impactDist,ray.z*impactDist,0XFF4010));
+		PacketHandler.INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new MessageBeamCannonFX(worldPosition.getX()+0.5,worldPosition.getY()+0.5,worldPosition.getZ()+0.5,ray.x*impactDist,ray.y*impactDist,ray.z*impactDist));
 
 		UpgradeUtil.throwEvent(this, new EmberEvent(this, EmberEvent.EnumType.TRANSFER, this.capability.getEmber()), upgrades);
 		this.capability.setEmber(0);

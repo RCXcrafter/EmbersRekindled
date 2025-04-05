@@ -1,6 +1,7 @@
 package com.rekindled.embers.block;
 
 import com.rekindled.embers.particle.GlowParticleOptions;
+import com.rekindled.embers.util.EmbersColors;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -10,7 +11,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class ArchaicLightBlock extends Block {
 
-	public static final GlowParticleOptions EMBER = new GlowParticleOptions(GlowParticleOptions.EMBER_COLOR, 2.0F, 120);
+	public static final GlowParticleOptions EMBER = new GlowParticleOptions(EmbersColors.EMBER_ID, 2.0F, 120);
 
 	public ArchaicLightBlock(Properties pProperties) {
 		super(pProperties);

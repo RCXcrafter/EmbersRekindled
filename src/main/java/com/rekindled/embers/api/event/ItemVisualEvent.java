@@ -1,6 +1,6 @@
 package com.rekindled.embers.api.event;
 
-import java.awt.Color;
+import org.joml.Vector3f;
 
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -12,7 +12,7 @@ public class ItemVisualEvent extends Event {
 	private LivingEntity entity;
 	private EquipmentSlot slot;
 	private ItemStack item;
-	private Color color;
+	private Vector3f color;
 	private SoundEvent sound;
 	private float pitch;
 	private float volume;
@@ -34,11 +34,11 @@ public class ItemVisualEvent extends Event {
 		return state;
 	}
 
-	public Color getColor() {
+	public Vector3f getColor() {
 		return color;
 	}
 
-	public void setColor(Color color) {
+	public void setColor(Vector3f color) {
 		this.color = color;
 	}
 
@@ -67,7 +67,7 @@ public class ItemVisualEvent extends Event {
 	}
 
 	public void setNoParticles() {
-		this.color = new Color(0,0,0,0);
+		this.color = new Vector3f(0,0,0);
 	}
 
 	public void setNoSound() {
@@ -76,17 +76,15 @@ public class ItemVisualEvent extends Event {
 		this.pitch = 0;
 	}
 
-	public boolean hasSound()
-	{
+	public boolean hasSound() {
 		return sound != null;
 	}
 
-	public boolean hasParticles()
-	{
-		return color.getAlpha() > 0;
+	public boolean hasParticles() {
+		return color.x + color.y + color.z > 0;
 	}
 
-	public ItemVisualEvent(LivingEntity entity, EquipmentSlot slot, ItemStack item, Color color, SoundEvent sound, float pitch, float volume, String state) {
+	public ItemVisualEvent(LivingEntity entity, EquipmentSlot slot, ItemStack item, Vector3f color, SoundEvent sound, float pitch, float volume, String state) {
 		this.entity = entity;
 		this.slot = slot;
 		this.item = item;

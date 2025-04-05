@@ -5,9 +5,11 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 import org.apache.commons.lang3.tuple.Pair;
+import org.joml.Vector3f;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
@@ -57,4 +59,10 @@ public interface IEmbersAPI {
 	double getScales(LivingEntity entity);
 
 	void setScales(LivingEntity entity, double scales);
+
+	void registerColor(ResourceLocation id, Vector3f color);
+
+	Vector3f getColor(ResourceLocation id, Vector3f color);
+
+	Vector3f getColor(ResourceLocation id);
 }

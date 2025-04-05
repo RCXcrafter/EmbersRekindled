@@ -2,11 +2,10 @@ package com.rekindled.embers.blockentity;
 
 import java.util.Random;
 
-import org.joml.Vector3f;
-
 import com.rekindled.embers.api.block.IPipeConnection;
 import com.rekindled.embers.block.PipeBlockBase;
 import com.rekindled.embers.particle.GlowParticleOptions;
+import com.rekindled.embers.util.EmbersColors;
 import com.rekindled.embers.util.Misc;
 
 import net.minecraft.client.Minecraft;
@@ -166,11 +165,8 @@ public class PipeBlockEntityBase extends BlockEntity {
 			double x = pos.getX() + 0.4f + random.nextFloat() * 0.2f;
 			double y = pos.getY() + 0.4f + random.nextFloat() * 0.2f;
 			double z = pos.getZ() + 0.4f + random.nextFloat() * 0.2f;
-			float r = blockEntity.clogged ? 255f : 16f;
-			float g = blockEntity.clogged ? 16f : 255f;
-			float b = 16f;
 			for (int i = 0; i < 3; i++) {
-				level.addParticle(new GlowParticleOptions(new Vector3f(r / 255.0F, g / 255.0F, b / 255.0F), new Vec3(vx, vy, vz), 2.0f), x, y, z, vx, vy, vz);
+				level.addParticle(new GlowParticleOptions(blockEntity.clogged ? EmbersColors.PIPE_CLOGGED_ID : EmbersColors.PIPE_FLOWING_ID, new Vec3(vx, vy, vz), 2.0f), x, y, z, vx, vy, vz);
 			}
 		}
 	}

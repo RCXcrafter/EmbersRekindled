@@ -3,6 +3,7 @@ package com.rekindled.embers.block;
 import javax.annotation.Nullable;
 
 import com.rekindled.embers.particle.GlowParticleOptions;
+import com.rekindled.embers.util.EmbersColors;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -24,7 +25,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class EmberLanternBlock extends Block implements SimpleWaterloggedBlock {
 
-	public static final GlowParticleOptions EMBER = new GlowParticleOptions(GlowParticleOptions.EMBER_COLOR, 2.0F, 120);
+	public static final GlowParticleOptions EMBER = new GlowParticleOptions(EmbersColors.EMBER_ID, 2.0F, 120);
 	public static final VoxelShape LANTERN_AABB = Shapes.or(Block.box(6,0,6,10,13,10), Block.box(4,2,4,12,11,12));
 
 	public EmberLanternBlock(Properties pProperties) {

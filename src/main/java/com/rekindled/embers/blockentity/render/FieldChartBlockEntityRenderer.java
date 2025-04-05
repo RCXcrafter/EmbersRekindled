@@ -1,8 +1,7 @@
 package com.rekindled.embers.blockentity.render;
 
-import java.awt.Color;
-
 import org.joml.Matrix4f;
+import org.joml.Vector3f;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -13,6 +12,7 @@ import com.rekindled.embers.block.FieldChartBlock;
 import com.rekindled.embers.blockentity.FieldChartBlockEntity;
 import com.rekindled.embers.render.EmbersRenderTypes;
 import com.rekindled.embers.util.EmberGenUtil;
+import com.rekindled.embers.util.EmbersColors;
 import com.rekindled.embers.util.Misc;
 
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -45,23 +45,23 @@ public class FieldChartBlockEntityRenderer implements BlockEntityRenderer<FieldC
 			BlockState state = blockEntity.getLevel().getBlockState(blockEntity.getBlockPos());
 
 			if (state.hasProperty(FieldChartBlock.INVERTED) && state.getValue(FieldChartBlock.INVERTED)) {
-				renderChart(blockEntity.getLevel(), blockEntity.getBlockPos(), 0, 0, 0, buffer, poseStack.last().pose(), (cx, cz) -> EmberGenUtil.getEmberStability(EmbersClientEvents.seed, cx, cz), new Color(16,64,255), new Color(16,192,255), new Color(8,255,255));
+				renderChart(blockEntity.getLevel(), blockEntity.getBlockPos(), 0, 0, 0, buffer, poseStack.last().pose(), (cx, cz) -> EmberGenUtil.getEmberStability(EmbersClientEvents.seed, cx, cz), EmbersColors.EMBER_INVERTED, Misc.multColor(EmbersColors.EMBER_INVERTED, 1.5f), Misc.multColor(EmbersColors.EMBER_INVERTED, 2.0f));
 			} else {
-				renderChart(blockEntity.getLevel(), blockEntity.getBlockPos(), 0, 0, 0, buffer, poseStack.last().pose(), (cx, cz) -> EmberGenUtil.getEmberDensity(EmbersClientEvents.seed, cx, cz), new Color(255,64,16), new Color(255,192,16), new Color(255,255,8));
+				renderChart(blockEntity.getLevel(), blockEntity.getBlockPos(), 0, 0, 0, buffer, poseStack.last().pose(), (cx, cz) -> EmberGenUtil.getEmberDensity(EmbersClientEvents.seed, cx, cz), EmbersColors.EMBER, Misc.multColor(EmbersColors.EMBER, 1.5f), Misc.multColor(EmbersColors.EMBER, 2.0f));
 			}
 			RenderSystem.enableCull();
 		}
 	}
 
-	public void renderChart(Level level, BlockPos pos, float x, float y, float z, VertexConsumer buffer, Matrix4f matrix4f, IChartSource source, Color color1, Color color2, Color color3) {
+	public void renderChart(Level level, BlockPos pos, float x, float y, float z, VertexConsumer buffer, Matrix4f matrix4f, IChartSource source, Vector3f color1, Vector3f color2, Vector3f color3) {
 		int signal = level.getBestNeighborSignal(pos);
 		float brightness = 1.0f;
 		if (signal > 2) {
 			brightness = Misc.getLightBrightness(15 - signal, EmbersClientEvents.ticks);
 		}
-		float red1 = brightness * color1.getRed() / 255f;
-		float green1 = brightness * color1.getGreen() / 255f;
-		float blue1 = brightness * color1.getBlue() / 255f;
+		float red1 = brightness * color1.x;
+		float green1 = brightness * color1.y;
+		float blue1 = brightness * color1.z;
 
 		float[][][] valueCache = new float[10][10][4];
 		for (float i = -160; i < 160; i += 32) {
@@ -84,9 +84,9 @@ public class FieldChartBlockEntityRenderer implements BlockEntityRenderer<FieldC
 				buffer.vertex(matrix4f, x + 0.5f + 1.25f * (i / 160f), y + baseHeight + values[3] * height, z + 0.5f + 1.25f * (j / 160f) + 0.25f).uv(0, 1).color(red1 * alphadl, green1 * alphadl, blue1 * alphadl, 1).endVertex();
 			}
 		}
-		float red2 = brightness * color2.getRed() / 255f;
-		float green2 = brightness * color2.getGreen() / 255f;
-		float blue2 = brightness * color2.getBlue() / 255f;
+		float red2 = brightness * color2.x;
+		float green2 = brightness * color2.y;
+		float blue2 = brightness * color2.z;
 		for (float i = -160; i < 160; i += 32) {
 			for (float j = -160; j < 160; j += 32) {
 				float[] values = valueCache[(int) (i/32f)+5][(int) (j/32f)+5];
@@ -104,9 +104,9 @@ public class FieldChartBlockEntityRenderer implements BlockEntityRenderer<FieldC
 				buffer.vertex(matrix4f, x + 0.5f + 1.25f * (i / 160f), y + baseHeight + amountdl * height, z + 0.5f + 1.25f * (j / 160f) + 0.25f).uv(0, 1).color(red2 * alphadl, green2 * alphadl, blue2 * alphadl, 1).endVertex();
 			}
 		}
-		float red3 = brightness * color3.getRed() / 255f;
-		float green3 = brightness * color3.getGreen() / 255f;
-		float blue3 = brightness * color3.getBlue() / 255f;
+		float red3 = brightness * color3.x;
+		float green3 = brightness * color3.y;
+		float blue3 = brightness * color3.z;
 		for (float i = -160; i < 160; i += 32) {
 			for (float j = -160; j < 160; j += 32) {
 				float[] values = valueCache[(int) (i/32f)+5][(int) (j/32f)+5];

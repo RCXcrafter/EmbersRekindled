@@ -1,12 +1,11 @@
 package com.rekindled.embers.entity;
 
-import org.joml.Vector3f;
-
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.block.GlimmerBlock;
 import com.rekindled.embers.particle.GlowParticleOptions;
 import com.rekindled.embers.particle.SmokeParticleOptions;
 import com.rekindled.embers.particle.SparkParticleOptions;
+import com.rekindled.embers.util.EmbersColors;
 import com.rekindled.embers.util.Misc;
 
 import net.minecraft.core.BlockPos;
@@ -35,9 +34,9 @@ import net.minecraftforge.event.ForgeEventFactory;
 
 public class GlimmerProjectileEntity extends Projectile {
 
-	public static final GlowParticleOptions EMBER = new GlowParticleOptions(GlowParticleOptions.EMBER_COLOR, new Vec3(0.0, 0.000001, 0.0), 3.0F, 120);
-	public static final SparkParticleOptions GLIMMER = new SparkParticleOptions(new Vector3f(255.0F / 255.0F, 128.0F / 255.0F, 16.0F / 255.0F), 1.5F);
-	public static final SmokeParticleOptions SMOKE = new SmokeParticleOptions(SmokeParticleOptions.SMOKE_COLOR, 6.0F);
+	public static final GlowParticleOptions EMBER = new GlowParticleOptions(EmbersColors.EMBER_ID, new Vec3(0.0, 0.000001, 0.0), 3.0F, 120);
+	public static final SparkParticleOptions GLIMMER = new SparkParticleOptions(EmbersColors.GLIMMER_PROJECTILE_ID, 1.5F);
+	public static final SmokeParticleOptions SMOKE = new SmokeParticleOptions(EmbersColors.SMOKE_ID, 6.0F);
 	public static final EntityDataAccessor<Integer> lifetime = SynchedEntityData.defineId(EmberProjectileEntity.class, EntityDataSerializers.INT);
 
 	public GlimmerProjectileEntity(EntityType<? extends Projectile> pEntityType, Level pLevel) {

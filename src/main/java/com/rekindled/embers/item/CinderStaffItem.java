@@ -1,6 +1,5 @@
 package com.rekindled.embers.item;
 
-import java.awt.Color;
 import java.util.Random;
 import java.util.function.Function;
 
@@ -19,6 +18,7 @@ import com.rekindled.embers.datagen.EmbersDamageTypes;
 import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.particle.GlowParticleOptions;
 import com.rekindled.embers.util.EmberInventoryUtil;
+import com.rekindled.embers.util.EmbersColors;
 import com.rekindled.embers.util.Misc;
 
 import net.minecraft.core.registries.Registries;
@@ -90,7 +90,7 @@ public class CinderStaffItem extends Item implements IProjectileWeapon {
 			player.stopUsingItem();
 		double charge = (Math.min(ConfigManager.CINDER_STAFF_MAX_CHARGE.get(), getUseDuration(stack) - count)) / (double) ConfigManager.CINDER_STAFF_MAX_CHARGE.get();
 		boolean fullCharge = charge >= 1.0;
-		ItemVisualEvent event = new ItemVisualEvent(player, Misc.handToSlot(player.getUsedItemHand()),stack,new Color(255,64,16),fullCharge ? EmbersSounds.CINDER_STAFF_LOOP.get() : null, 1.0f, 1.0f, "charge");
+		ItemVisualEvent event = new ItemVisualEvent(player, Misc.handToSlot(player.getUsedItemHand()),stack,EmbersColors.EMBER,fullCharge ? EmbersSounds.CINDER_STAFF_LOOP.get() : null, 1.0f, 1.0f, "charge");
 
 		MinecraftForge.EVENT_BUS.post(event);
 
@@ -104,9 +104,9 @@ public class CinderStaffItem extends Item implements IProjectileWeapon {
 			soundPlaying = false;
 		}
 		if (event.hasParticles()) {
-			Color color = event.getColor();
+			Vector3f color = event.getColor();
 			Vec3 launchPos = getLaunchPos(player);
-			GlowParticleOptions options = new GlowParticleOptions(new Vector3f(color.getRed() / 255.0F, color.getGreen() / 255.0F, color.getBlue() / 255.0F), (float) (charge * ConfigManager.CINDER_STAFF_SIZE.get() / 2.0f), 24);
+			GlowParticleOptions options = new GlowParticleOptions(new Vector3f(color.x, color.y, color.z), (float) (charge * ConfigManager.CINDER_STAFF_SIZE.get() / 2.0f), 24);
 			for (int i = 0; i < 4; i++)
 				level.addParticle(options, (float) launchPos.x + (rand.nextFloat() * 0.1f - 0.05f), (float) launchPos.y + (rand.nextFloat() * 0.1f - 0.05f), (float) launchPos.z + (rand.nextFloat() * 0.1f - 0.05f), 0, 0.000001, 0);
 		}
