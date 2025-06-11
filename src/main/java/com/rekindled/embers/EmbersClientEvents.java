@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.apache.commons.lang3.tuple.Pair;
 import org.joml.Vector3f;
 import org.lwjgl.opengl.GL30C;
 
@@ -19,12 +18,13 @@ import com.rekindled.embers.api.augment.AugmentUtil;
 import com.rekindled.embers.api.augment.IAugment;
 import com.rekindled.embers.api.block.IDial;
 import com.rekindled.embers.api.capabilities.EmbersCapabilities;
+import com.rekindled.embers.api.misc.HammerTarget;
 import com.rekindled.embers.api.power.IEmberCapability;
+import com.rekindled.embers.api.power.IEmberPacketProducer;
 import com.rekindled.embers.api.power.IEmberPacketReceiver;
 import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
 import com.rekindled.embers.api.tile.IUpgradeable;
 import com.rekindled.embers.api.upgrades.IUpgradeProxy;
-import com.rekindled.embers.blockentity.EmberEmitterBlockEntity;
 import com.rekindled.embers.blockentity.MechanicalCoreBlockEntity.BlockEntityDirection;
 import com.rekindled.embers.blockentity.render.AtmosphericBellowsBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.AutomaticHammerBlockEntityRenderer;
@@ -134,8 +134,8 @@ public class EmbersClientEvents {
 		Minecraft mc = Minecraft.getInstance();
 		if (mc.options.hideGui)
 			return;
-		Pair<BlockPos, Direction> target = Misc.getHammerTarget(mc.player);
-		if (target != null && event.getTarget().getBlockPos().equals(target.getLeft())) {
+		HammerTarget target = Misc.getHammerTarget(mc.player);
+		if (target != null && event.getTarget().getBlockPos().equals(target.pos)) {
 			event.setCanceled(true);
 		}
 	}
@@ -147,13 +147,13 @@ public class EmbersClientEvents {
 				return;
 
 			Player player = mc.player;
-			Pair<BlockPos, Direction> target = Misc.getHammerTarget(player);
-			if (target != null && player.level().isLoaded(target.getLeft())) {
-				BlockPos targetPos = target.getLeft();
+			HammerTarget target = Misc.getHammerTarget(player);
+			if (target != null && player.level().isLoaded(target.pos)) {
+				BlockPos targetPos = target.pos;
 				BlockState state = player.level().getBlockState(targetPos);
 				if (state.isAir())
 					return;
-				Direction targetDir = target.getRight();
+				Direction targetDir = target.face;
 				Vec3 camPos = event.getCamera().getPosition();
 				VertexConsumer consumer = mc.renderBuffers().bufferSource().getBuffer(EmbersRenderTypes.GLOW_LINES);
 				Vector3f color = Misc.multColor(EmbersColors.EMBER, (float) (Math.sin(Math.toRadians(4.0f*(event.getRenderTick() + event.getPartialTick())))+1.0f) / 2.0f);
@@ -181,9 +181,9 @@ public class EmbersClientEvents {
 				if (mc.hitResult instanceof BlockHitResult result && result != null && result.getType() == BlockHitResult.Type.BLOCK && !result.getBlockPos().equals(targetPos) && mc.level.getBlockEntity(result.getBlockPos()) instanceof IEmberPacketReceiver) {
 					lastTarget = result.getBlockPos();
 				}
-				if (lastTarget != null) {
+				if (lastTarget != null && player.level().getBlockEntity(targetPos) instanceof IEmberPacketProducer emitter) {
 					Vec3 hitPos = Vec3.atCenterOf(lastTarget.subtract(targetPos));
-					Vec3 motion = EmberEmitterBlockEntity.getBurstVelocity(targetDir);
+					Vec3 motion = emitter.getEmittingDirection(targetDir);
 					Vec3 oldPos = new Vec3(0.5, 0.5, 0.5);
 					Vec3 newPos = oldPos.add(motion);
 
@@ -206,8 +206,9 @@ public class EmbersClientEvents {
 						lineDrawer.consume(oldPos.x, oldPos.y, oldPos.z, newPos.x, newPos.y, newPos.z);
 						oldPos = newPos;
 					}
-				} else {
-					lineDrawer.consume(0.5, 0.5, 0.5, 0.5 + targetDir.getStepX(), 0.5 + targetDir.getStepY(), 0.5 + targetDir.getStepZ());
+				} else if (player.level().getBlockEntity(targetPos) instanceof IEmberPacketProducer emitter) {
+					Vec3 motion = emitter.getEmittingDirection(targetDir).scale(2.0);
+					lineDrawer.consume(0.5, 0.5, 0.5, 0.5 + motion.x, 0.5 + motion.y, 0.5 + motion.z);
 				}
 			} else {
 				lastTarget = null;

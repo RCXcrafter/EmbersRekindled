@@ -145,7 +145,7 @@ public class EmberEmitterBlockEntity extends BlockEntity implements IEmberPacket
 	}
 
 	@Override
-	public Direction getEmittingDirection(Direction side) {
-		return level.getBlockState(worldPosition).getValue(BlockStateProperties.FACING);
+	public Vec3 getEmittingDirection(Direction side) {
+		return getBurstVelocity(level.getBlockState(worldPosition).getValue(BlockStateProperties.FACING));
 	}
 }

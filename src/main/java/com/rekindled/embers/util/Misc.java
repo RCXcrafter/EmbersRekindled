@@ -10,7 +10,6 @@ import java.util.function.BiPredicate;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
 
@@ -19,6 +18,7 @@ import com.google.gson.JsonSyntaxException;
 import com.rekindled.embers.ConfigManager;
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.api.event.InfoGogglesEvent;
+import com.rekindled.embers.api.misc.HammerTarget;
 import com.rekindled.embers.api.tile.IProxyable;
 import com.rekindled.embers.datagen.EmbersBlockTags;
 
@@ -80,7 +80,7 @@ public class Misc {
 			Direction.EAST
 	};
 	public static final List<BiPredicate<Player, InteractionHand>> IS_HOLDING_HAMMER = new ArrayList<BiPredicate<Player, InteractionHand>>();
-	public static final List<Function<Player, Pair<BlockPos, Direction>>> GET_HAMMER_TARGET = new ArrayList<Function<Player, Pair<BlockPos, Direction>>>();
+	public static final List<Function<Player, HammerTarget>> GET_HAMMER_TARGET = new ArrayList<Function<Player, HammerTarget>>();
 	public static final List<Predicate<Player>> IS_WEARING_LENS = new ArrayList<Predicate<Player>>();
 	public static final List<Function<ItemStack, Double>> GET_EMBER_RESONANCE = new ArrayList<Function<ItemStack, Double>>();
 
@@ -103,9 +103,9 @@ public class Misc {
 		return false;
 	}
 
-	public static Pair<BlockPos, Direction> getHammerTarget(Player player) {
-		for (Function<Player, Pair<BlockPos, Direction>> func : GET_HAMMER_TARGET) {
-			Pair<BlockPos, Direction> target = func.apply(player);
+	public static HammerTarget getHammerTarget(Player player) {
+		for (Function<Player, HammerTarget> func : GET_HAMMER_TARGET) {
+			HammerTarget target = func.apply(player);
 			if (target != null) {
 				return target;
 			}

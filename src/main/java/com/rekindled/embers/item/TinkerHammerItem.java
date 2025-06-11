@@ -9,7 +9,6 @@ import com.rekindled.embers.EmbersClientEvents;
 import com.rekindled.embers.api.EmbersAPI;
 import com.rekindled.embers.api.power.IEmberPacketProducer;
 import com.rekindled.embers.api.power.IEmberPacketReceiver;
-import com.rekindled.embers.api.tile.ITargetable;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -26,6 +25,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 
 public class TinkerHammerItem extends Item {
 
@@ -58,25 +58,44 @@ public class TinkerHammerItem extends Item {
 			BlockEntity targetTile = world.getBlockEntity(targetPos);
 			if (targetTile instanceof IEmberPacketProducer) {
 				if (tile instanceof IEmberPacketReceiver) {
-					((IEmberPacketProducer) targetTile).setTargetPosition(pos, Direction.byName(nbt.getString("targetFace")));
+					Direction face = Direction.byName(nbt.getString("targetFace"));
+					((IEmberPacketProducer) targetTile).setTargetPosition(pos, face);
+					//calculate the trajectory of the ember packet
+					Vec3 hitPos = Vec3.atCenterOf(pos.subtract(targetPos));
+					Vec3 motion = ((IEmberPacketProducer) targetTile).getEmittingDirection(face);
+					Vec3 oldPos = new Vec3(0.5, 0.5, 0.5);
+					Vec3 newPos = oldPos.add(motion);
+
+					for (int i = 0; i <= 80; ++i) {
+						Vec3 targetVector = hitPos.subtract(newPos);
+						double length = targetVector.length();
+						targetVector = targetVector.scale(0.3 / length);
+						double weight = 0;
+						if (length <= 3) {
+							weight = 0.9 * ((3.0 - length) / 3.0);
+							if (length <= 0.2) {
+								break;
+							}
+						}
+						motion = new Vec3(
+								(0.9 - weight) * motion.x + (0.1 + weight) * targetVector.x,
+								(0.9 - weight) * motion.y + (0.1 + weight) * targetVector.y,
+								(0.9 - weight) * motion.z + (0.1 + weight) * targetVector.z);
+						newPos = oldPos.add(motion);
+						oldPos = newPos;
+					}
+					((IEmberPacketReceiver) tile).setIncomingDirection(motion);
 					world.playLocalSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, SoundEvents.ANVIL_LAND, SoundSource.BLOCKS, 0.5f, 1.5f + world.random.nextFloat() * 0.1f, false);
 					nbt.remove("targetWorld");
 					return InteractionResult.SUCCESS;
 				}
-			} else if (targetTile instanceof ITargetable) {
-				((ITargetable) targetTile).setTarget(pos);
-				world.playLocalSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, SoundEvents.ANVIL_LAND, SoundSource.BLOCKS, 0.5f, 1.5f + world.random.nextFloat() * 0.1f, false);
-				nbt.remove("targetWorld");
-				return InteractionResult.SUCCESS;
 			}
 		}
-		if (world != null && (tile instanceof IEmberPacketProducer || tile instanceof ITargetable)) {
+		if (world != null && tile instanceof IEmberPacketProducer) {
 			Direction face = context.getClickedFace();
-			if (tile instanceof IEmberPacketProducer) {
-				face = ((IEmberPacketProducer)tile).getEmittingDirection(face);
-				if (face == null)
-					return InteractionResult.PASS;
-			}
+			Vec3 emitDirection = ((IEmberPacketProducer) tile).getEmittingDirection(face);
+			if (emitDirection == null)
+				return InteractionResult.PASS;
 			nbt.putString("targetWorld", world.dimension().location().toString());
 			nbt.putString("targetFace", face.getName());
 			nbt.putInt("targetX", pos.getX());

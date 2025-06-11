@@ -4,13 +4,13 @@ import java.util.function.BiPredicate;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import org.apache.commons.lang3.tuple.Pair;
 import org.joml.Vector3f;
 
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.EmbersAPI;
 import com.rekindled.embers.api.IEmbersAPI;
 import com.rekindled.embers.api.augment.AugmentUtil;
+import com.rekindled.embers.api.misc.HammerTarget;
 import com.rekindled.embers.api.upgrades.UpgradeUtil;
 import com.rekindled.embers.augment.ShiftingScalesAugment.IScalesCapability;
 import com.rekindled.embers.augment.ShiftingScalesAugment.ScalesCapabilityProvider;
@@ -74,7 +74,7 @@ public class EmbersAPIImpl implements IEmbersAPI {
 			if (stack.getItem() == item && stack.hasTag()) {	
 				CompoundTag nbt = stack.getTag();
 				if (stack.hasTag() && nbt.contains("targetWorld") && player.level().dimension().location().toString().equals(nbt.getString("targetWorld"))) {
-					return Pair.of(new BlockPos(nbt.getInt("targetX"), nbt.getInt("targetY"), nbt.getInt("targetZ")), Direction.byName(nbt.getString("targetFace")));
+					return new HammerTarget(new BlockPos(nbt.getInt("targetX"), nbt.getInt("targetY"), nbt.getInt("targetZ")), Direction.byName(nbt.getString("targetFace")));
 				}
 			}
 			return null;
@@ -82,7 +82,7 @@ public class EmbersAPIImpl implements IEmbersAPI {
 	}
 
 	@Override
-	public void registerHammerTargetGetter(Function<Player, Pair<BlockPos, Direction>> predicate) {
+	public void registerHammerTargetGetter(Function<Player, HammerTarget> predicate) {
 		Misc.GET_HAMMER_TARGET.add(predicate);
 	}
 
@@ -92,7 +92,7 @@ public class EmbersAPIImpl implements IEmbersAPI {
 	}
 
 	@Override
-	public Pair<BlockPos, Direction> getHammerTarget(Player player) {
+	public HammerTarget getHammerTarget(Player player) {
 		return Misc.getHammerTarget(player);
 	}
 

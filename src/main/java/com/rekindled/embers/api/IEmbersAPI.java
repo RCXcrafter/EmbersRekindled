@@ -4,11 +4,10 @@ import java.util.function.BiPredicate;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import org.apache.commons.lang3.tuple.Pair;
 import org.joml.Vector3f;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
+import com.rekindled.embers.api.misc.HammerTarget;
+
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
@@ -30,11 +29,11 @@ public interface IEmbersAPI {
 
 	void registerHammerTargetGetter(Item item);
 
-	void registerHammerTargetGetter(Function<Player, Pair<BlockPos, Direction>> predicate);
+	void registerHammerTargetGetter(Function<Player, HammerTarget> predicate);
 
 	boolean isHoldingHammer(Player player, InteractionHand hand);
 
-	Pair<BlockPos, Direction> getHammerTarget(Player player);
+	HammerTarget getHammerTarget(Player player);
 
 	void registerLens(Ingredient ingredient);
 

@@ -12,16 +12,19 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.Vec3;
 
 public class MirrorRelayBlockEntity extends BlockEntity implements IEmberPacketProducer, IEmberPacketReceiver {
 
 	public BlockPos target = null;
 	public Random random = new Random();
 	public boolean polled = false;
+	public Vec3 incomingDirection = Vec3.ZERO;
 
 	public MirrorRelayBlockEntity(BlockPos pPos, BlockState pBlockState) {
 		super(RegistryManager.MIRROR_RELAY_ENTITY.get(), pPos, pBlockState);
@@ -33,6 +36,7 @@ public class MirrorRelayBlockEntity extends BlockEntity implements IEmberPacketP
 		if (nbt.contains("targetX")){
 			target = new BlockPos(nbt.getInt("targetX"), nbt.getInt("targetY"), nbt.getInt("targetZ"));
 		}
+		incomingDirection = new Vec3(nbt.getDouble("incomingX"), nbt.getDouble("incomingY"), nbt.getDouble("incomingZ"));
 	}
 
 	@Override
@@ -43,6 +47,25 @@ public class MirrorRelayBlockEntity extends BlockEntity implements IEmberPacketP
 			nbt.putInt("targetY", target.getY());
 			nbt.putInt("targetZ", target.getZ());
 		}
+		nbt.putDouble("incomingX", incomingDirection.x);
+		nbt.putDouble("incomingY", incomingDirection.y);
+		nbt.putDouble("incomingZ", incomingDirection.z);
+	}
+
+	@Override
+	public CompoundTag getUpdateTag() {
+		CompoundTag nbt = super.getUpdateTag();
+		nbt.putDouble("incomingX", incomingDirection.x);
+		nbt.putDouble("incomingY", incomingDirection.y);
+		nbt.putDouble("incomingZ", incomingDirection.z);
+		return nbt;
+	}
+
+	@Override
+	public void setChanged() {
+		super.setChanged();
+		if (level instanceof ServerLevel)
+			((ServerLevel) level).getChunkSource().blockChanged(worldPosition);
 	}
 
 	@Override
@@ -66,10 +89,18 @@ public class MirrorRelayBlockEntity extends BlockEntity implements IEmberPacketP
 			packet.setLifetime(78);
 			packet.dest = target;
 			packet.pos = getBlockPos();
+			setIncomingDirection(packet.getDeltaMovement());
 			packet.setDeltaMovement(packet.getDeltaMovement().multiply(axis == Axis.X ? -1.7 : 1.7, axis == Axis.Y ? -1.7 : 1.7, axis == Axis.Z ? -1.7 : 1.7));
 			level.playLocalSound(packet.getX(), packet.getY(), packet.getZ(), EmbersSounds.EMBER_RELAY.get(), SoundSource.BLOCKS, 1.0f, 1.0f, false);
 		}
 		return false;
+	}
+
+	@Override
+	public void setIncomingDirection(Vec3 direction) {
+		Axis axis = level.getBlockState(worldPosition).getValue(BlockStateProperties.FACING).getAxis();
+		incomingDirection = direction.multiply(axis == Axis.X ? -1.7 : 1.7, axis == Axis.Y ? -1.7 : 1.7, axis == Axis.Z ? -1.7 : 1.7);
+		this.setChanged();
 	}
 
 	@Override
@@ -81,7 +112,9 @@ public class MirrorRelayBlockEntity extends BlockEntity implements IEmberPacketP
 	}
 
 	@Override
-	public Direction getEmittingDirection(Direction side) {
-		return level.getBlockState(worldPosition).getValue(BlockStateProperties.FACING);
+	public Vec3 getEmittingDirection(Direction side) {
+		if (incomingDirection.equals(Vec3.ZERO))
+			return EmberEmitterBlockEntity.getBurstVelocity(level.getBlockState(worldPosition).getValue(BlockStateProperties.FACING));
+		return incomingDirection;
 	}
 }
