@@ -1,5 +1,6 @@
 package com.rekindled.embers.blockentity;
 
+import java.util.HashSet;
 import java.util.Random;
 
 import com.rekindled.embers.RegistryManager;
@@ -7,6 +8,7 @@ import com.rekindled.embers.api.power.IEmberPacketProducer;
 import com.rekindled.embers.api.power.IEmberPacketReceiver;
 import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.entity.EmberPacketEntity;
+import com.rekindled.embers.util.Misc;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -14,6 +16,7 @@ import net.minecraft.core.Direction.Axis;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -25,6 +28,7 @@ public class MirrorRelayBlockEntity extends BlockEntity implements IEmberPacketP
 	public Random random = new Random();
 	public boolean polled = false;
 	public Vec3 incomingDirection = Vec3.ZERO;
+	public HashSet<ChunkPos> trajectoryChunks = null;
 
 	public MirrorRelayBlockEntity(BlockPos pPos, BlockState pBlockState) {
 		super(RegistryManager.MIRROR_RELAY_ENTITY.get(), pPos, pBlockState);
@@ -66,14 +70,27 @@ public class MirrorRelayBlockEntity extends BlockEntity implements IEmberPacketP
 		super.setChanged();
 		if (level instanceof ServerLevel)
 			((ServerLevel) level).getChunkSource().blockChanged(worldPosition);
+		if (trajectoryChunks == null)
+			trajectoryChunks = new HashSet<ChunkPos>();
+		Misc.calculateTrajectoryChunks(trajectoryChunks, worldPosition, target, getEmittingDirection(level.getBlockState(worldPosition).getValue(BlockStateProperties.FACING)));
 	}
 
 	@Override
 	public boolean hasRoomFor(double ember) {
+		if (trajectoryChunks == null) {
+			trajectoryChunks = new HashSet<ChunkPos>();
+			Misc.calculateTrajectoryChunks(trajectoryChunks, worldPosition, target, getEmittingDirection(level.getBlockState(worldPosition).getValue(BlockStateProperties.FACING)));
+		}
+		if (level instanceof ServerLevel serverLevel) {
+			for (ChunkPos chunk : trajectoryChunks) {
+				if (!serverLevel.isNaturalSpawningAllowed(chunk))
+					return false;
+			}
+		}
 		if (polled)
 			return target != null;
 		polled = true;
-		if (target != null && level.isLoaded(target) && level.getBlockEntity(target) instanceof IEmberPacketReceiver targetBE) {
+		if (target != null && level.getBlockEntity(target) instanceof IEmberPacketReceiver targetBE) {
 			boolean hasRoom = targetBE.hasRoomFor(ember);
 			polled = false;
 			return hasRoom;

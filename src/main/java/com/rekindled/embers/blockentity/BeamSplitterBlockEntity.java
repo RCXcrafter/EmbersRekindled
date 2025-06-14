@@ -1,5 +1,6 @@
 package com.rekindled.embers.blockentity;
 
+import java.util.HashSet;
 import java.util.Random;
 
 import com.rekindled.embers.RegistryManager;
@@ -8,13 +9,16 @@ import com.rekindled.embers.api.power.IEmberPacketReceiver;
 import com.rekindled.embers.api.tile.ISparkable;
 import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.entity.EmberPacketEntity;
+import com.rekindled.embers.util.Misc;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.core.Direction.AxisDirection;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -26,6 +30,8 @@ public class BeamSplitterBlockEntity extends BlockEntity implements IEmberPacket
 	public BlockPos target2 = null;
 	public Random random = new Random();
 	public boolean polled = false;
+	public HashSet<ChunkPos> trajectoryChunks1 = null;
+	public HashSet<ChunkPos> trajectoryChunks2 = null;
 
 	public BeamSplitterBlockEntity(BlockPos pPos, BlockState pBlockState) {
 		super(RegistryManager.BEAM_SPLITTER_ENTITY.get(), pPos, pBlockState);
@@ -58,20 +64,40 @@ public class BeamSplitterBlockEntity extends BlockEntity implements IEmberPacket
 	}
 
 	@Override
+	public void setChanged() {
+		super.setChanged();
+		if (trajectoryChunks1 == null)
+			trajectoryChunks1 = new HashSet<ChunkPos>();
+		if (trajectoryChunks2 == null)
+			trajectoryChunks2 = new HashSet<ChunkPos>();
+
+		Axis axis = level.getBlockState(worldPosition).getValue(BlockStateProperties.AXIS);
+		Misc.calculateTrajectoryChunks(trajectoryChunks1, worldPosition, target1, EmberEmitterBlockEntity.getBurstVelocity(Direction.get(AxisDirection.POSITIVE, axis)));
+		Misc.calculateTrajectoryChunks(trajectoryChunks2, worldPosition, target2, EmberEmitterBlockEntity.getBurstVelocity(Direction.get(AxisDirection.NEGATIVE, axis)));
+	}
+
+	@Override
 	public boolean hasRoomFor(double ember) {
+		if (trajectoryChunks1 == null || trajectoryChunks2 == null) {
+			Axis axis = level.getBlockState(worldPosition).getValue(BlockStateProperties.AXIS);
+			trajectoryChunks1 = new HashSet<ChunkPos>();
+			trajectoryChunks2 = new HashSet<ChunkPos>();
+			Misc.calculateTrajectoryChunks(trajectoryChunks1, worldPosition, target1, EmberEmitterBlockEntity.getBurstVelocity(Direction.get(AxisDirection.POSITIVE, axis)));
+			Misc.calculateTrajectoryChunks(trajectoryChunks2, worldPosition, target2, EmberEmitterBlockEntity.getBurstVelocity(Direction.get(AxisDirection.NEGATIVE, axis)));
+		}
 		if (polled)
 			return false;
 		polled = true;
 
-		if (hasRoomTarget(target1, ember / 2.0) && hasRoomTarget(target2, ember / 2.0)) {
+		if (hasRoomTarget(target1, trajectoryChunks1, ember / 2.0) && hasRoomTarget(target2, trajectoryChunks2, ember / 2.0)) {
 			polled = false;
 			return true;
 		}
-		if (hasRoomTarget(target1, ember)) {
+		if (hasRoomTarget(target1, trajectoryChunks1, ember)) {
 			polled = false;
 			return true;
 		}
-		if (hasRoomTarget(target2, ember)) {
+		if (hasRoomTarget(target2, trajectoryChunks2, ember)) {
 			polled = false;
 			return true;
 		}
@@ -79,8 +105,14 @@ public class BeamSplitterBlockEntity extends BlockEntity implements IEmberPacket
 		return false;
 	}
 
-	public boolean hasRoomTarget(BlockPos target, double ember) {
-		if (target != null && level.isLoaded(target) && level.getBlockEntity(target) instanceof IEmberPacketReceiver targetBE) {
+	public boolean hasRoomTarget(BlockPos target, HashSet<ChunkPos> trajectoryChunks, double ember) {
+		if (target != null && level.getBlockEntity(target) instanceof IEmberPacketReceiver targetBE) {
+			if (level instanceof ServerLevel serverLevel) {
+				for (ChunkPos chunk : trajectoryChunks) {
+					if (!serverLevel.isNaturalSpawningAllowed(chunk))
+						return false;
+				}
+			}
 			return targetBE.hasRoomFor(ember);
 		}
 		return false;
@@ -103,8 +135,8 @@ public class BeamSplitterBlockEntity extends BlockEntity implements IEmberPacket
 		if ((target1 != null || target2 != null) && ember > 0.1) {
 			Axis axis = level.getBlockState(worldPosition).getValue(BlockStateProperties.AXIS);
 			double value = ember / 2.0;
-			boolean room1 = hasRoomTarget(target1, value) || target2 == null;
-			boolean room2 = hasRoomTarget(target2, value) || target1 == null;
+			boolean room1 = hasRoomTarget(target1, trajectoryChunks1, value) || target2 == null;
+			boolean room2 = hasRoomTarget(target2, trajectoryChunks2, value) || target1 == null;
 			if (room1 != room2)
 				value = ember;
 

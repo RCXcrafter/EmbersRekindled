@@ -40,10 +40,10 @@ public class EmberEjectorBlockEntity extends EmberEmitterBlockEntity {
 				}
 			}
 		}
-		if ((blockEntity.ticksExisted + blockEntity.offset) % 20 == 0 && level.hasNeighborSignal(pos) && blockEntity.target != null && level.isLoaded(blockEntity.target) && !level.isClientSide && blockEntity.capability.getEmber() > PULL_RATE) {
+		if ((blockEntity.ticksExisted + blockEntity.offset) % 20 == 0 && blockEntity.canSendBurst()) {
 			BlockEntity targetTile = level.getBlockEntity(blockEntity.target);
 			if (targetTile instanceof IEmberPacketReceiver){
-				if (((IEmberPacketReceiver) targetTile).hasRoomFor(TRANSFER_RATE)){
+				if (((IEmberPacketReceiver) targetTile).hasRoomFor(TRANSFER_RATE)) {
 					EmberPacketEntity packet = RegistryManager.EMBER_PACKET.get().create(blockEntity.level);
 					Vec3 velocity = getBurstVelocity(facing);
 					packet.initCustom(pos, blockEntity.target, velocity.x, velocity.y, velocity.z, Math.min(TRANSFER_RATE, blockEntity.capability.getEmber()));

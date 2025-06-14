@@ -1,5 +1,6 @@
 package com.rekindled.embers.blockentity;
 
+import java.util.HashSet;
 import java.util.Random;
 
 import com.rekindled.embers.RegistryManager;
@@ -10,11 +11,14 @@ import com.rekindled.embers.api.power.IEmberPacketReceiver;
 import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.entity.EmberPacketEntity;
 import com.rekindled.embers.power.DefaultEmberCapability;
+import com.rekindled.embers.util.Misc;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -46,6 +50,7 @@ public class EmberEmitterBlockEntity extends BlockEntity implements IEmberPacket
 	public long ticksExisted = 0;
 	public Random random = new Random();
 	public int offset = random.nextInt(40);
+	public HashSet<ChunkPos> trajectoryChunks = null;
 
 	public EmberEmitterBlockEntity(BlockPos pPos, BlockState pBlockState) {
 		super(RegistryManager.EMBER_EMITTER_ENTITY.get(), pPos, pBlockState);
@@ -77,6 +82,14 @@ public class EmberEmitterBlockEntity extends BlockEntity implements IEmberPacket
 		capability.writeToNBT(nbt);
 	}
 
+	@Override
+	public void setChanged() {
+		super.setChanged();
+		if (trajectoryChunks == null)
+			trajectoryChunks = new HashSet<ChunkPos>();
+		Misc.calculateTrajectoryChunks(trajectoryChunks, worldPosition, target, getEmittingDirection(level.getBlockState(worldPosition).getValue(BlockStateProperties.FACING)));
+	}
+
 	public static void serverTick(Level level, BlockPos pos, BlockState state, EmberEmitterBlockEntity blockEntity) {
 		blockEntity.ticksExisted ++;
 		Direction facing = state.getValue(BlockStateProperties.FACING);
@@ -90,10 +103,10 @@ public class EmberEmitterBlockEntity extends BlockEntity implements IEmberPacket
 				}
 			}
 		}
-		if ((blockEntity.ticksExisted + blockEntity.offset) % 20 == 0 && level.hasNeighborSignal(pos) && blockEntity.target != null && level.isLoaded(blockEntity.target) && !level.isClientSide && blockEntity.capability.getEmber() > PULL_RATE) {
+		if ((blockEntity.ticksExisted + blockEntity.offset) % 20 == 0 && blockEntity.canSendBurst()) {
 			BlockEntity targetTile = level.getBlockEntity(blockEntity.target);
 			if (targetTile instanceof IEmberPacketReceiver){
-				if (((IEmberPacketReceiver) targetTile).hasRoomFor(TRANSFER_RATE)){
+				if (((IEmberPacketReceiver) targetTile).hasRoomFor(TRANSFER_RATE)) {
 					EmberPacketEntity packet = RegistryManager.EMBER_PACKET.get().create(blockEntity.level);
 					Vec3 velocity = getBurstVelocity(facing);
 					packet.initCustom(pos, blockEntity.target, velocity.x, velocity.y, velocity.z, Math.min(TRANSFER_RATE, blockEntity.capability.getEmber()));
@@ -103,6 +116,23 @@ public class EmberEmitterBlockEntity extends BlockEntity implements IEmberPacket
 				}
 			}
 		}
+	}
+
+	public boolean canSendBurst() {
+		if (level.hasNeighborSignal(worldPosition) && target != null && level.isLoaded(target) && !level.isClientSide && capability.getEmber() > PULL_RATE) {
+			if (trajectoryChunks == null) {
+				trajectoryChunks = new HashSet<ChunkPos>();
+				Misc.calculateTrajectoryChunks(trajectoryChunks, worldPosition, target, getEmittingDirection(level.getBlockState(worldPosition).getValue(BlockStateProperties.FACING)));
+			}
+			if (level instanceof ServerLevel serverLevel) {
+				for (ChunkPos chunk : trajectoryChunks) {
+					if (!serverLevel.isNaturalSpawningAllowed(chunk))
+						return false;
+				}
+			}
+			return true;
+		}
+		return false;
 	}
 
 	public static Vec3 getBurstVelocity(Direction facing) {

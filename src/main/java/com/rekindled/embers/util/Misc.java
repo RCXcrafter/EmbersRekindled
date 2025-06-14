@@ -1,6 +1,7 @@
 package com.rekindled.embers.util;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -542,5 +543,36 @@ public class Misc {
 
 	public static boolean isSideProxyable(BlockState state, BlockEntity tile, Direction face) {
 		return state.is(EmbersBlockTags.MECH_CORE_PROXYABLE) || (state.is(EmbersBlockTags.MECH_CORE_PROXYABLE_BOTTOM) && face == Direction.DOWN) || (state.is(EmbersBlockTags.MECH_CORE_PROXYABLE_TOP) && face == Direction.UP) || (tile instanceof IProxyable proxyable && proxyable.isSideProxyable(face));
+	}
+
+	public static void calculateTrajectoryChunks(HashSet<ChunkPos> trajectoryChunks, BlockPos origin, BlockPos target, Vec3 motion) {
+		trajectoryChunks.clear();
+		if (target == null)
+			return;
+
+		Vec3 hitPos = Vec3.atCenterOf(target);
+		Vec3 oldPos = Vec3.atCenterOf(origin);
+		Vec3 newPos = oldPos.add(motion);
+
+		for (int i = 0; i <= 80; ++i) {
+			Vec3 targetVector = hitPos.subtract(newPos);
+			double length = targetVector.length();
+			targetVector = targetVector.scale(0.3 / length);
+			double weight = 0;
+			if (length <= 3) {
+				weight = 0.9 * ((3.0 - length) / 3.0);
+				if (length <= 0.2) {
+					break;
+				}
+			}
+			motion = new Vec3(
+					(0.9 - weight) * motion.x + (0.1 + weight) * targetVector.x,
+					(0.9 - weight) * motion.y + (0.1 + weight) * targetVector.y,
+					(0.9 - weight) * motion.z + (0.1 + weight) * targetVector.z);
+			newPos = oldPos.add(motion);
+			oldPos = newPos;
+			trajectoryChunks.add(new ChunkPos(BlockPos.containing(newPos)));
+		}
+		trajectoryChunks.add(new ChunkPos(target));
 	}
 }
