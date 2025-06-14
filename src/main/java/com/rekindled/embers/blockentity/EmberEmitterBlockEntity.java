@@ -103,9 +103,9 @@ public class EmberEmitterBlockEntity extends BlockEntity implements IEmberPacket
 				}
 			}
 		}
-		if ((blockEntity.ticksExisted + blockEntity.offset) % 20 == 0 && blockEntity.canSendBurst()) {
+		if ((blockEntity.ticksExisted + blockEntity.offset) % 20 == 0 && blockEntity.canSendBurst() && blockEntity.capability.getEmber() > PULL_RATE) {
 			BlockEntity targetTile = level.getBlockEntity(blockEntity.target);
-			if (targetTile instanceof IEmberPacketReceiver){
+			if (targetTile instanceof IEmberPacketReceiver) {
 				if (((IEmberPacketReceiver) targetTile).hasRoomFor(TRANSFER_RATE)) {
 					EmberPacketEntity packet = RegistryManager.EMBER_PACKET.get().create(blockEntity.level);
 					Vec3 velocity = getBurstVelocity(facing);
@@ -119,7 +119,7 @@ public class EmberEmitterBlockEntity extends BlockEntity implements IEmberPacket
 	}
 
 	public boolean canSendBurst() {
-		if (level.hasNeighborSignal(worldPosition) && target != null && level.isLoaded(target) && !level.isClientSide && capability.getEmber() > PULL_RATE) {
+		if (level.hasNeighborSignal(worldPosition) && target != null && level.isLoaded(target) && !level.isClientSide) {
 			if (trajectoryChunks == null) {
 				trajectoryChunks = new HashSet<ChunkPos>();
 				Misc.calculateTrajectoryChunks(trajectoryChunks, worldPosition, target, getEmittingDirection(level.getBlockState(worldPosition).getValue(BlockStateProperties.FACING)));
