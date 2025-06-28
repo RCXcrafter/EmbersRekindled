@@ -116,16 +116,6 @@ public class MnemonicInscriberBlock extends BaseEntityBlock implements SimpleWat
 	}
 
 	@Override
-	public BlockState rotate(BlockState pState, Rotation pRot) {
-		return pState.setValue(BlockStateProperties.FACING, pRot.rotate(pState.getValue(BlockStateProperties.FACING)));
-	}
-
-	@Override
-	public BlockState mirror(BlockState pState, Mirror pMirror) {
-		return pState.rotate(pMirror.getRotation(pState.getValue(BlockStateProperties.FACING)));
-	}
-
-	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
 		pBuilder.add(BlockStateProperties.FACING).add(ACTIVE).add(BlockStateProperties.WATERLOGGED);
 	}
@@ -138,5 +128,15 @@ public class MnemonicInscriberBlock extends BaseEntityBlock implements SimpleWat
 	@Override
 	public FluidState getFluidState(BlockState pState) {
 		return pState.getValue(BlockStateProperties.WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(pState);
+	}
+
+	@Override
+	public BlockState rotate(BlockState state, Rotation rotation) {
+		return state.setValue(BlockStateProperties.FACING, rotation.rotate(state.getValue(BlockStateProperties.FACING)));
+	}
+
+	@Override
+	public BlockState mirror(BlockState state, Mirror mirror) {
+		return state.setValue(BlockStateProperties.FACING, mirror.mirror(state.getValue(BlockStateProperties.FACING)));
 	}
 }

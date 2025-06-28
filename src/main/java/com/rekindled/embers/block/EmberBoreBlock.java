@@ -8,12 +8,15 @@ import com.rekindled.embers.util.Misc;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -70,7 +73,7 @@ public class EmberBoreBlock extends BaseEntityBlock implements SimpleWaterlogged
 	}
 
 	@Override
-	public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
+	public void setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
 		Axis axis = state.getValue(BlockStateProperties.HORIZONTAL_AXIS);
 		for (MechEdge edge : MechEdge.values()) {
 			BlockState edgeState = RegistryManager.EMBER_BORE_EDGE.get().defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, Boolean.valueOf(level.getFluidState(pos.subtract(edge.centerPos)).getType() == Fluids.WATER));
@@ -104,5 +107,15 @@ public class EmberBoreBlock extends BaseEntityBlock implements SimpleWaterlogged
 	@Override
 	public FluidState getFluidState(BlockState pState) {
 		return pState.getValue(BlockStateProperties.WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(pState);
+	}
+
+	@Override
+	public BlockState rotate(BlockState state, Rotation rotation) {
+		if (rotation == Rotation.CLOCKWISE_90 || rotation == Rotation.COUNTERCLOCKWISE_90) {
+			if (state.getValue(BlockStateProperties.HORIZONTAL_AXIS) == Axis.Z)
+				return state.setValue(BlockStateProperties.HORIZONTAL_AXIS, Axis.X);
+			return state.setValue(BlockStateProperties.HORIZONTAL_AXIS, Axis.Z);
+		}
+		return state;
 	}
 }

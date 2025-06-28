@@ -107,16 +107,6 @@ public class BeamSplitterBlock extends BaseEntityBlock implements SimpleWaterlog
 	}
 
 	@Override
-	public BlockState rotate(BlockState pState, Rotation pRot) {
-		return pState.setValue(FACING, pRot.rotate(pState.getValue(FACING)));
-	}
-
-	@Override
-	public BlockState mirror(BlockState pState, Mirror pMirror) {
-		return pState.rotate(pMirror.getRotation(pState.getValue(FACING)));
-	}
-
-	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
 		pBuilder.add(FACING).add(BlockStateProperties.AXIS).add(BlockStateProperties.WATERLOGGED);
 	}
@@ -129,5 +119,23 @@ public class BeamSplitterBlock extends BaseEntityBlock implements SimpleWaterlog
 	@Override
 	public FluidState getFluidState(BlockState pState) {
 		return pState.getValue(BlockStateProperties.WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(pState);
+	}
+
+	@Override
+	public BlockState rotate(BlockState state, Rotation rotation) {
+		Direction facing = rotation.rotate(state.getValue(FACING));
+		Axis axis = state.getValue(BlockStateProperties.AXIS);
+		if (rotation == Rotation.CLOCKWISE_90 || rotation == Rotation.COUNTERCLOCKWISE_90) {
+			if (state.getValue(BlockStateProperties.AXIS) == Axis.Z)
+				state = state.setValue(BlockStateProperties.AXIS, Axis.X);
+			else if (axis == Axis.X)
+				state = state.setValue(BlockStateProperties.AXIS, Axis.Z);
+		}
+		return state.setValue(FACING, facing);
+	}
+
+	@Override
+	public BlockState mirror(BlockState state, Mirror mirror) {
+		return state.setValue(FACING, mirror.mirror(state.getValue(FACING)));
 	}
 }

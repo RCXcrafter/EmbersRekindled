@@ -1,5 +1,7 @@
 package com.rekindled.embers.block;
 
+import java.util.HashMap;
+
 import javax.annotation.Nullable;
 
 import net.minecraft.core.BlockPos;
@@ -12,6 +14,8 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -93,6 +97,16 @@ public abstract class MechEdgeBlockBase extends Block implements SimpleWaterlogg
 		return pState.getValue(BlockStateProperties.WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(pState);
 	}
 
+	@Override
+	public BlockState rotate(BlockState state, Rotation rotation) {
+		return state.setValue(EDGE, state.getValue(EDGE).rotate(rotation));
+	}
+
+	@Override
+	public BlockState mirror(BlockState state, Mirror mirror) {
+		return state.setValue(EDGE, state.getValue(EDGE).mirror(mirror));
+	}
+
 	public static enum MechEdge implements StringRepresentable {
 		NORTH("north", 0, new Vec3i(0, 0, 1), false, 0),
 		NORTHEAST("northeast", 1, new Vec3i(-1, 0, 1), true, 0),
@@ -109,6 +123,23 @@ public abstract class MechEdgeBlockBase extends Block implements SimpleWaterlogg
 		public final boolean corner;
 		public final int rotation;
 
+		public static MechEdge[] edges = new MechEdge[4];
+		public static MechEdge[] corners = new MechEdge[4];
+		public static HashMap<Vec3i, MechEdge> edgeByVec = new HashMap<Vec3i, MechEdge>();
+		public static HashMap<Vec3i, MechEdge> cornerByVec = new HashMap<Vec3i, MechEdge>();
+
+		static {
+			for (MechEdge edge : MechEdge.values()) {
+				if (edge.corner) {
+					corners[edge.rotation / 90] = edge;
+					cornerByVec.put(edge.centerPos, edge);
+				} else {
+					edges[edge.rotation / 90] = edge;
+					edgeByVec.put(edge.centerPos, edge);
+				}
+			}
+		}
+
 		private MechEdge(String name, int index, Vec3i center, boolean corner, int rotation) {
 			this.name = name;
 			this.index = index;
@@ -123,6 +154,44 @@ public abstract class MechEdgeBlockBase extends Block implements SimpleWaterlogg
 
 		public String getSerializedName() {
 			return this.name;
+		}
+
+		public MechEdge rotate(Rotation rotation) {
+			int angle = this.rotation;
+			switch (rotation) {
+			case NONE:
+				return this;
+			case CLOCKWISE_90:
+				angle += 90;
+				break;
+			case CLOCKWISE_180:
+				angle += 180;
+				break;
+			case COUNTERCLOCKWISE_90:
+				angle += 270;
+				break;
+			}
+			angle = (angle % 360) / 90;
+			if (corner)
+				return corners[angle];
+			return edges[angle];
+		}
+
+		public MechEdge mirror(Mirror mirror) {
+			Vec3i center = this.centerPos;
+			switch (mirror) {
+			case NONE:
+				return this;
+			case FRONT_BACK:
+				center = new Vec3i(-center.getX(), center.getY(), center.getZ());
+				break;
+			case LEFT_RIGHT:
+				center = new Vec3i(center.getX(), center.getY(), -center.getZ());
+				break;
+			}
+			if (corner)
+				return cornerByVec.get(center);
+			return edgeByVec.get(center);
 		}
 	}
 }

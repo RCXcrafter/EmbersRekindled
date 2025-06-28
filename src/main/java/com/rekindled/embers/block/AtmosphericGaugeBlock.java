@@ -90,16 +90,6 @@ public class AtmosphericGaugeBlock extends DirectionalBlock implements EntityBlo
 	}
 
 	@Override
-	public BlockState rotate(BlockState pState, Rotation pRot) {
-		return pState.setValue(FACING, pRot.rotate(pState.getValue(FACING)));
-	}
-
-	@Override
-	public BlockState mirror(BlockState pState, Mirror pMirror) {
-		return pState.rotate(pMirror.getRotation(pState.getValue(FACING)));
-	}
-
-	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
 		pBuilder.add(FACING).add(BlockStateProperties.WATERLOGGED);
 	}
@@ -130,5 +120,15 @@ public class AtmosphericGaugeBlock extends DirectionalBlock implements EntityBlo
 	@Override
 	public FluidState getFluidState(BlockState pState) {
 		return pState.getValue(BlockStateProperties.WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(pState);
+	}
+
+	@Override
+	public BlockState rotate(BlockState state, Rotation rotation) {
+		return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
+	}
+
+	@Override
+	public BlockState mirror(BlockState state, Mirror mirror) {
+		return state.setValue(FACING, mirror.mirror(state.getValue(FACING)));
 	}
 }

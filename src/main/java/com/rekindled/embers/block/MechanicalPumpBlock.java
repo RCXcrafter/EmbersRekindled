@@ -5,10 +5,13 @@ import com.rekindled.embers.blockentity.MechanicalPumpBottomBlockEntity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction.Axis;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -47,7 +50,7 @@ public class MechanicalPumpBlock extends DoubleTallMachineBlock {
 	}
 
 	@Override
-	public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
+	public void setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
 		if (state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER) {
 			BlockState topState = state.setValue(BlockStateProperties.WATERLOGGED, Boolean.valueOf(level.getFluidState(pos.above()).getType() == Fluids.WATER));
 			level.setBlock(pos.above(), topState.setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.UPPER), UPDATE_ALL);
@@ -72,5 +75,15 @@ public class MechanicalPumpBlock extends DoubleTallMachineBlock {
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
 		super.createBlockStateDefinition(pBuilder);
 		pBuilder.add(BlockStateProperties.HORIZONTAL_AXIS);
+	}
+
+	@Override
+	public BlockState rotate(BlockState state, Rotation rotation) {
+		if (rotation == Rotation.CLOCKWISE_90 || rotation == Rotation.COUNTERCLOCKWISE_90) {
+			if (state.getValue(BlockStateProperties.HORIZONTAL_AXIS) == Axis.Z)
+				return state.setValue(BlockStateProperties.HORIZONTAL_AXIS, Axis.X);
+			return state.setValue(BlockStateProperties.HORIZONTAL_AXIS, Axis.Z);
+		}
+		return state;
 	}
 }
