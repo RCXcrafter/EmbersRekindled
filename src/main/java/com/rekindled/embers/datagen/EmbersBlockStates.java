@@ -101,7 +101,16 @@ public class EmbersBlockStates extends BlockStateProvider {
 		columnBlockWithItem(RegistryManager.METAL_PLATFORM, "metal_platform_side", "metal_platform");
 		slabBlock(RegistryManager.METAL_PLATFORM_DECO.slab.get(), new ResourceLocation(Embers.MODID, "metal_platform"), new ResourceLocation(Embers.MODID, "block/metal_platform_side"), new ResourceLocation(Embers.MODID, "block/metal_platform"), new ResourceLocation(Embers.MODID, "block/metal_platform"));
 		simpleBlockItem(RegistryManager.METAL_PLATFORM_DECO.slab.get(), models().getExistingFile(new ResourceLocation(Embers.MODID, "metal_platform_slab")));
-		blockWithItem(RegistryManager.EMBER_LANTERN, "ember_lantern");
+
+		ExistingModelFile emberLanternModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "ember_lantern"));
+		ExistingModelFile emberLanternCeilingModel = models().getExistingFile(new ResourceLocation(Embers.MODID, "ember_lantern_ceiling"));
+		getVariantBuilder(RegistryManager.EMBER_LANTERN.get()).forAllStates(state -> {
+			return ConfiguredModel.builder()
+					.modelFile(state.getValue(BlockStateProperties.HANGING) ? emberLanternCeilingModel : emberLanternModel)
+					.uvLock(false)
+					.build();
+		});
+		simpleBlockItem(RegistryManager.EMBER_LANTERN.get(), emberLanternModel);
 
 		blockWithItem(RegistryManager.COPPER_CELL, "copper_cell");
 		blockWithItem(RegistryManager.CREATIVE_EMBER);

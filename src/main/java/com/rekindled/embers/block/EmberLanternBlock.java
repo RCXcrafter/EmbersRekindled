@@ -27,28 +27,34 @@ public class EmberLanternBlock extends Block implements SimpleWaterloggedBlock {
 
 	public static final GlowParticleOptions EMBER = new GlowParticleOptions(EmbersColors.EMBER_ID, 2.0F, 120);
 	public static final VoxelShape LANTERN_AABB = Shapes.or(Block.box(6,0,6,10,13,10), Block.box(4,2,4,12,11,12));
+	public static final VoxelShape LANTERN_CEILING_AABB = LANTERN_AABB.move(0, 0.1875, 0);
 
 	public EmberLanternBlock(Properties pProperties) {
 		super(pProperties);
-		this.registerDefaultState(this.stateDefinition.any().setValue(BlockStateProperties.WATERLOGGED, false));
+		this.registerDefaultState(this.stateDefinition.any().setValue(BlockStateProperties.HANGING, false).setValue(BlockStateProperties.WATERLOGGED, false));
 	}
 
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+		if (state.getValue(BlockStateProperties.HANGING))
+			return LANTERN_CEILING_AABB;
 		return LANTERN_AABB;
 	}
 
 	@Override
 	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+		float yOffset = 0.375f;
+		if (state.getValue(BlockStateProperties.HANGING))
+			yOffset += 0.1875f;
 		for (int i = 0; i < 3; i ++) {
-			level.addParticle(EMBER, pos.getX()+0.5f, pos.getY()+0.375f, pos.getZ()+0.5f, (random.nextFloat()-0.5f)*0.003f, (random.nextFloat())*0.003f, (random.nextFloat()-0.5f)*0.003f);
+			level.addParticle(EMBER, pos.getX()+0.5f, pos.getY()+yOffset, pos.getZ()+0.5f, (random.nextFloat()-0.5f)*0.003f, (random.nextFloat())*0.003f, (random.nextFloat()-0.5f)*0.003f);
 		}
 	}
 
 	@Nullable
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext pContext) {
-		return this.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, Boolean.valueOf(pContext.getLevel().getFluidState(pContext.getClickedPos()).getType() == Fluids.WATER));
+		return this.defaultBlockState().setValue(BlockStateProperties.HANGING, pContext.getClickedFace() == Direction.DOWN).setValue(BlockStateProperties.WATERLOGGED, Boolean.valueOf(pContext.getLevel().getFluidState(pContext.getClickedPos()).getType() == Fluids.WATER));
 	}
 
 	@Override
@@ -61,7 +67,7 @@ public class EmberLanternBlock extends Block implements SimpleWaterloggedBlock {
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-		pBuilder.add(BlockStateProperties.WATERLOGGED);
+		pBuilder.add(BlockStateProperties.HANGING).add(BlockStateProperties.WATERLOGGED);
 	}
 
 	@Override

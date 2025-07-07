@@ -1,7 +1,16 @@
 {
   "variants": {
-    "": {
+    "hanging=false,waterlogged=false": {
       "model": "embers:block/ember_lantern"
+    },
+    "hanging=false,waterlogged=true": {
+      "model": "embers:block/ember_lantern"
+    },
+    "hanging=true,waterlogged=false": {
+      "model": "embers:block/ember_lantern_ceiling"
+    },
+    "hanging=true,waterlogged=true": {
+      "model": "embers:block/ember_lantern_ceiling"
     }
   }
 }
