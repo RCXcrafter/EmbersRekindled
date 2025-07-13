@@ -23,6 +23,7 @@ import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.particle.SmokeParticleOptions;
 import com.rekindled.embers.power.DefaultEmberCapability;
 import com.rekindled.embers.util.EmbersColors;
+import com.rekindled.embers.util.Misc;
 import com.rekindled.embers.util.sound.ISoundController;
 
 import net.minecraft.core.BlockPos;
@@ -142,7 +143,7 @@ public class CinderPlinthBlockEntity extends BlockEntity implements ISoundContro
 				if (blockEntity.progress > UpgradeUtil.getWorkTime(blockEntity, PROCESS_TIME, blockEntity.upgrades)) {
 					blockEntity.progress = 0;
 					BlockEntity tile = level.getBlockEntity(pos.below());
-					List<ItemStack> outputs = Lists.newArrayList(new ItemStack(RegistryManager.ASH.get(), 1));
+					List<ItemStack> outputs = Lists.newArrayList(new ItemStack(Misc.getTaggedItem(EmbersItemTags.ASH_DUST), 1));
 					UpgradeUtil.transformOutput(blockEntity, outputs, blockEntity.upgrades);
 					blockEntity.inventory.extractItem(0, 1, false);
 					for (ItemStack remainder : outputs) {
