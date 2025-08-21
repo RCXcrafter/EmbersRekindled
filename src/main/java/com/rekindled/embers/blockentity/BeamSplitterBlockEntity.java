@@ -135,6 +135,12 @@ public class BeamSplitterBlockEntity extends BlockEntity implements IEmberPacket
 		if ((target1 != null || target2 != null) && ember > 0.1) {
 			Axis axis = level.getBlockState(worldPosition).getValue(BlockStateProperties.AXIS);
 			double value = ember / 2.0;
+			if (trajectoryChunks1 == null || trajectoryChunks2 == null) {
+				trajectoryChunks1 = new HashSet<ChunkPos>();
+				trajectoryChunks2 = new HashSet<ChunkPos>();
+				Misc.calculateTrajectoryChunks(trajectoryChunks1, worldPosition, target1, EmberEmitterBlockEntity.getBurstVelocity(Direction.get(AxisDirection.POSITIVE, axis)));
+				Misc.calculateTrajectoryChunks(trajectoryChunks2, worldPosition, target2, EmberEmitterBlockEntity.getBurstVelocity(Direction.get(AxisDirection.NEGATIVE, axis)));
+			}
 			boolean room1 = hasRoomTarget(target1, trajectoryChunks1, value) || target2 == null;
 			boolean room2 = hasRoomTarget(target2, trajectoryChunks2, value) || target1 == null;
 			if (room1 != room2)
