@@ -14,6 +14,6 @@
   },
   "output": {
     "amount": 810,
-    "fluid": "embers:molten_gold"
+    "tag": "forge:molten_gold"
   }
 }

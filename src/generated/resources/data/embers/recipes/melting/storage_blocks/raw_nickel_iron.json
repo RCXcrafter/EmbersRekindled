@@ -2,7 +2,7 @@
   "type": "embers:melting",
   "bonus": {
     "amount": 90,
-    "fluid": "embers:molten_iron"
+    "tag": "forge:molten_iron"
   },
   "conditions": [
     {
@@ -23,6 +23,6 @@
   },
   "output": {
     "amount": 1080,
-    "fluid": "embers:molten_nickel"
+    "tag": "forge:molten_nickel"
   }
 }

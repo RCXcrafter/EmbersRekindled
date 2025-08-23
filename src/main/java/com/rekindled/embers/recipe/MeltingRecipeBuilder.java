@@ -4,7 +4,7 @@ import java.util.function.Consumer;
 
 import com.google.gson.JsonObject;
 import com.rekindled.embers.RegistryManager;
-import com.rekindled.embers.util.Misc;
+import com.rekindled.embers.util.FluidOutput;
 
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
@@ -21,8 +21,8 @@ public class MeltingRecipeBuilder {
 
 	public ResourceLocation id;
 	public Ingredient ingredient;
-	public FluidStack output;
-	public FluidStack bonus = FluidStack.EMPTY;
+	public FluidOutput output;
+	public FluidOutput bonus = FluidOutput.EMPTY;
 
 	public static MeltingRecipeBuilder create(Ingredient ingredient) {
 		MeltingRecipeBuilder builder = new MeltingRecipeBuilder();
@@ -67,22 +67,32 @@ public class MeltingRecipeBuilder {
 	}
 
 	public MeltingRecipeBuilder output(FluidStack output) {
-		this.output = output;
+		this.output = new FluidOutput(output);
 		return this;
 	}
 
 	public MeltingRecipeBuilder output(Fluid fluid, int amount) {
-		this.output = new FluidStack(fluid, amount);
+		output(new FluidStack(fluid, amount));
+		return this;
+	}
+
+	public MeltingRecipeBuilder output(TagKey<Fluid> tag, int amount) {
+		this.output = new FluidOutput(tag, amount);
 		return this;
 	}
 
 	public MeltingRecipeBuilder bonus(FluidStack bonus) {
-		this.bonus = bonus;
+		this.bonus = new FluidOutput(bonus);
 		return this;
 	}
 
 	public MeltingRecipeBuilder bonus(Fluid fluid, int amount) {
-		this.bonus = new FluidStack(fluid, amount);
+		bonus(new FluidStack(fluid, amount));
+		return this;
+	}
+
+	public MeltingRecipeBuilder bonus(TagKey<Fluid> tag, int amount) {
+		this.bonus = new FluidOutput(tag, amount);
 		return this;
 	}
 
@@ -105,9 +115,9 @@ public class MeltingRecipeBuilder {
 		@Override
 		public void serializeRecipeData(JsonObject json) {
 			json.add("input", recipe.ingredient.toJson());
-			json.add("output", Misc.serializeFluidStack(recipe.output));
+			json.add("output", recipe.output.toJson());
 			if (!recipe.bonus.isEmpty())
-				json.add("bonus", Misc.serializeFluidStack(recipe.bonus));
+				json.add("bonus", recipe.bonus.toJson());
 		}
 
 		@Override

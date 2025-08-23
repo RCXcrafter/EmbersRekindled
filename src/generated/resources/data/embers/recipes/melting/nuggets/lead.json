@@ -14,6 +14,6 @@
   },
   "output": {
     "amount": 10,
-    "fluid": "embers:molten_lead"
+    "tag": "forge:molten_lead"
   }
 }

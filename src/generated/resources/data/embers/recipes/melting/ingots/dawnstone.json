@@ -14,6 +14,6 @@
   },
   "output": {
     "amount": 90,
-    "fluid": "embers:molten_dawnstone"
+    "tag": "forge:molten_dawnstone"
   }
 }
