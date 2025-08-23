@@ -141,9 +141,9 @@ public class AlchemicalNoteItemRenderer extends BlockEntityWithoutLevelRenderer 
 			}
 		}
 
-		poseStack.translate(32, 44, -0.01);
+		poseStack.translate(32, 44, -0.2);
 		poseStack.mulPose(Axis.YP.rotationDegrees(180.0F));
-		poseStack.last().pose().scale(16, 16, 0.01f); //scaling the posestack normally messes up the normal
+		poseStack.last().pose().scale(16, 16, 1); //scaling the posestack normally messes up the normal
 		poseStack.last().normal().rotate(Axis.XP.rotationDegrees(-22.5F)); //rotate the normal slightly to make the items appear brighter
 		itemRenderer.renderStatic(result, ItemDisplayContext.GUI, packedLight, packedOverlay, poseStack, buffer, minecraft.level, 0);
 	}
@@ -157,9 +157,9 @@ public class AlchemicalNoteItemRenderer extends BlockEntityWithoutLevelRenderer 
 		vertexconsumer.vertex(matrix4f, x + 10, y, 0).color(255, 255, 255, 255).uv(0.0F, 1.0F).overlayCoords(packedOverlay).uv2(combinedLight).normal(normal, 0, 0.5f, -1).endVertex();
 		vertexconsumer.vertex(matrix4f, x, y, 0).color(255, 255, 255, 255).uv(1.0F, 1.0F).overlayCoords(packedOverlay).uv2(combinedLight).normal(normal, 0, 0.5f, -1).endVertex();
 		poseStack.pushPose();
-		poseStack.translate(x + 5, y + 7, -0.01);
+		poseStack.translate(x + 5, y + 7, -0.2);
 		poseStack.mulPose(Axis.YP.rotationDegrees(180.0F));
-		poseStack.last().pose().scale(8, 8, 0.01f); //scaling the posestack normally messes up the normal
+		poseStack.last().pose().scale(8, 8, 1); //scaling the posestack normally messes up the normal
 		poseStack.last().normal().rotate(Axis.XP.rotationDegrees(-22.5F)); //rotate the normal slightly to make the items appear brighter
 		itemRenderer.renderStatic(aspect, ItemDisplayContext.GUI, combinedLight, packedOverlay, poseStack, buffer, minecraft.level, 0);
 		poseStack.translate(0, 1.25, 0);
