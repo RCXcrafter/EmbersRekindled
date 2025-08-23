@@ -2,7 +2,7 @@
   "type": "embers:melting",
   "bonus": {
     "amount": 20,
-    "fluid": "embers:molten_tin"
+    "tag": "forge:molten_tin"
   },
   "conditions": [
     {
@@ -30,6 +30,6 @@
   },
   "output": {
     "amount": 240,
-    "fluid": "embers:molten_zinc"
+    "tag": "forge:molten_zinc"
   }
 }

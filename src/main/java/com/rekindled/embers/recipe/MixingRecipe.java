@@ -8,7 +8,7 @@ import org.jetbrains.annotations.Nullable;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.rekindled.embers.util.Misc;
+import com.rekindled.embers.util.FluidOutput;
 
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -26,9 +26,9 @@ public class MixingRecipe implements IMixingRecipe {
 	public final ResourceLocation id;
 
 	public final ArrayList<FluidIngredient> inputs;
-	public final FluidStack output;
+	public final FluidOutput output;
 
-	public MixingRecipe(ResourceLocation id, ArrayList<FluidIngredient> inputs, FluidStack output) {
+	public MixingRecipe(ResourceLocation id, ArrayList<FluidIngredient> inputs, FluidOutput output) {
 		this.id = id;
 		this.inputs = inputs;
 		this.output = output;
@@ -60,7 +60,7 @@ public class MixingRecipe implements IMixingRecipe {
 
 	@Override
 	public FluidStack getOutput(MixingContext context) {
-		return output;
+		return output.getStack();
 	}
 
 	@Override
@@ -82,7 +82,7 @@ public class MixingRecipe implements IMixingRecipe {
 					break;
 			}
 		}
-		return output;
+		return output.getStack();
 	}
 
 	@Override
@@ -102,14 +102,14 @@ public class MixingRecipe implements IMixingRecipe {
 
 	@Override
 	public FluidStack getDisplayOutput() {
-		return output;
+		return output.getStack();
 	}
 
 	public static class Serializer implements RecipeSerializer<MixingRecipe> {
 
 		@Override
 		public MixingRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
-			FluidStack output = Misc.deserializeFluidStack(GsonHelper.getAsJsonObject(json, "output"));
+			FluidOutput output = FluidOutput.fromJson(GsonHelper.getAsJsonObject(json, "output"));
 			ArrayList<FluidIngredient> inputs = new ArrayList<>();
 
 			JsonArray inputJson = GsonHelper.getAsJsonArray(json, "inputs", null);
@@ -125,7 +125,7 @@ public class MixingRecipe implements IMixingRecipe {
 		@Override
 		public @Nullable MixingRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
 			ArrayList<FluidIngredient> inputs = buffer.readCollection((i) -> new ArrayList<>(), (buf) -> FluidIngredient.read(buf));
-			FluidStack output = FluidStack.readFromPacket(buffer);
+			FluidOutput output = FluidOutput.fromNetwork(buffer);
 
 			return new MixingRecipe(recipeId, inputs, output);
 		}
@@ -133,7 +133,7 @@ public class MixingRecipe implements IMixingRecipe {
 		@Override
 		public void toNetwork(FriendlyByteBuf buffer, MixingRecipe recipe) {
 			buffer.writeCollection(recipe.inputs, (buf, input) -> input.write(buf));
-			recipe.output.writeToPacket(buffer);
+			recipe.output.toNetwork(buffer);
 		}
 	}
 }

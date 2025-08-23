@@ -238,6 +238,7 @@ public class Misc {
 	}
 
 	public static ConcurrentHashMap<ResourceLocation, Item> tagItems = new ConcurrentHashMap<ResourceLocation, Item>();
+	public static ConcurrentHashMap<ResourceLocation, Fluid> tagFluids = new ConcurrentHashMap<ResourceLocation, Fluid>();
 
 	public static Item getTaggedItem(TagKey<Item> tag) {
 		if (tagItems.containsKey(tag.location()))
@@ -258,6 +259,28 @@ public class Misc {
 		}
 		if (output != Items.AIR)
 			tagItems.put(tag.location(), output);
+		return output;
+	}
+
+	public static Fluid getTaggedFluid(TagKey<Fluid> tag) {
+		if (tagFluids.containsKey(tag.location()))
+			return tagFluids.get(tag.location());
+
+		Fluid output = Fluids.EMPTY;
+		int index = Integer.MAX_VALUE;
+		List<? extends String> preferences = ConfigManager.TAG_PREFERENCES.get();
+		for (Holder<Fluid> holder : BuiltInRegistries.FLUID.getTagOrEmpty(tag)) {
+			for (int i = 0; i < preferences.size(); i ++) {
+				if (i < index && preferences.get(i).equals(BuiltInRegistries.FLUID.getKey(holder.get()).getNamespace())) {
+					output = holder.get();
+					index = i;
+				}
+			}
+			if (output == Fluids.EMPTY)
+				output = holder.get();
+		}
+		if (output != Fluids.EMPTY)
+			tagFluids.put(tag.location(), output);
 		return output;
 	}
 

@@ -3,7 +3,7 @@ package com.rekindled.embers.recipe;
 import org.jetbrains.annotations.Nullable;
 
 import com.google.gson.JsonObject;
-import com.rekindled.embers.util.Misc;
+import com.rekindled.embers.util.FluidOutput;
 
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -21,18 +21,18 @@ public class MeltingRecipe implements IMeltingRecipe {
 	public final ResourceLocation id;
 
 	public final Ingredient ingredient;
-	public final FluidStack output;
-	public final FluidStack bonus;
+	public final FluidOutput output;
+	public final FluidOutput bonus;
 
-	public MeltingRecipe(ResourceLocation id, Ingredient ingredient, FluidStack output, FluidStack bonus) {
+	public MeltingRecipe(ResourceLocation id, Ingredient ingredient, FluidOutput output, FluidOutput bonus) {
 		this.id = id;
 		this.ingredient = ingredient;
 		this.output = output;
 		this.bonus = bonus;
 	}
 
-	public MeltingRecipe(ResourceLocation id, Ingredient ingredient, FluidStack output) {
-		this(id, ingredient, output, FluidStack.EMPTY);
+	public MeltingRecipe(ResourceLocation id, Ingredient ingredient, FluidOutput output) {
+		this(id, ingredient, output, FluidOutput.EMPTY);
 	}
 
 	@Override
@@ -46,12 +46,12 @@ public class MeltingRecipe implements IMeltingRecipe {
 
 	@Override
 	public FluidStack getOutput(Container context) {
-		return output;
+		return output.getStack();
 	}
 
 	@Override
 	public FluidStack getBonus() {
-		return bonus;
+		return bonus.getStack();
 	}
 
 	@Override
@@ -62,7 +62,7 @@ public class MeltingRecipe implements IMeltingRecipe {
 				break;
 			}
 		}
-		return output;
+		return output.getStack();
 	}
 
 	@Override
@@ -77,7 +77,7 @@ public class MeltingRecipe implements IMeltingRecipe {
 
 	@Override
 	public FluidStack getDisplayOutput() {
-		return output;
+		return output.getStack();
 	}
 
 	@Override
@@ -90,10 +90,10 @@ public class MeltingRecipe implements IMeltingRecipe {
 		@Override
 		public MeltingRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
 			Ingredient ingredient = Ingredient.fromJson(json.get("input"));
-			FluidStack output = Misc.deserializeFluidStack(GsonHelper.getAsJsonObject(json, "output"));
-			FluidStack bonus = FluidStack.EMPTY;
+			FluidOutput output = FluidOutput.fromJson(GsonHelper.getAsJsonObject(json, "output"));
+			FluidOutput bonus = FluidOutput.EMPTY;
 			if (json.has("bonus"))
-				bonus = Misc.deserializeFluidStack(GsonHelper.getAsJsonObject(json, "bonus"));
+				bonus = FluidOutput.fromJson(GsonHelper.getAsJsonObject(json, "bonus"));
 
 			return new MeltingRecipe(recipeId, ingredient, output, bonus);
 		}
@@ -101,8 +101,8 @@ public class MeltingRecipe implements IMeltingRecipe {
 		@Override
 		public @Nullable MeltingRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
 			Ingredient ingredient = Ingredient.fromNetwork(buffer);
-			FluidStack output = FluidStack.readFromPacket(buffer);
-			FluidStack bonus = FluidStack.readFromPacket(buffer);
+			FluidOutput output = FluidOutput.fromNetwork(buffer);
+			FluidOutput bonus = FluidOutput.fromNetwork(buffer);
 
 			return new MeltingRecipe(recipeId, ingredient, output, bonus);
 		}
@@ -110,8 +110,8 @@ public class MeltingRecipe implements IMeltingRecipe {
 		@Override
 		public void toNetwork(FriendlyByteBuf buffer, MeltingRecipe recipe) {
 			recipe.ingredient.toNetwork(buffer);
-			recipe.output.writeToPacket(buffer);
-			recipe.bonus.writeToPacket(buffer);
+			recipe.output.toNetwork(buffer);
+			recipe.bonus.toNetwork(buffer);
 		}
 	}
 }

@@ -2,7 +2,7 @@
   "type": "embers:melting",
   "bonus": {
     "amount": 10,
-    "fluid": "embers:molten_copper"
+    "tag": "forge:molten_copper"
   },
   "conditions": [
     {
@@ -31,6 +31,6 @@
   },
   "output": {
     "amount": 120,
-    "fluid": "embers:molten_iron"
+    "tag": "forge:molten_iron"
   }
 }

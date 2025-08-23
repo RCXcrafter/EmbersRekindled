@@ -4,7 +4,7 @@ import java.util.function.Consumer;
 
 import com.google.gson.JsonObject;
 import com.rekindled.embers.RegistryManager;
-import com.rekindled.embers.util.Misc;
+import com.rekindled.embers.util.FluidOutput;
 
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
@@ -18,17 +18,24 @@ public class BoilingRecipeBuilder {
 
 	public ResourceLocation id;
 	public FluidIngredient input;
-	public FluidStack output;
+	public FluidOutput output;
 
 	public static BoilingRecipeBuilder create(FluidStack fluidStack) {
 		BoilingRecipeBuilder builder = new BoilingRecipeBuilder();
-		builder.output = fluidStack;
+		builder.output = new FluidOutput(fluidStack);
 		builder.id = ForgeRegistries.FLUIDS.getKey(fluidStack.getFluid());
 		return builder;
 	}
 
 	public static BoilingRecipeBuilder create(Fluid fluid, int amount) {
 		return create(new FluidStack(fluid, amount));
+	}
+
+	public static BoilingRecipeBuilder create(TagKey<Fluid> tag, int amount) {
+		BoilingRecipeBuilder builder = new BoilingRecipeBuilder();
+		builder.output = new FluidOutput(tag, amount);
+		builder.id = tag.location();
+		return builder;
 	}
 
 	public BoilingRecipeBuilder id(ResourceLocation id) {
@@ -72,12 +79,17 @@ public class BoilingRecipeBuilder {
 	}
 
 	public BoilingRecipeBuilder output(FluidStack output) {
-		this.output = output;
+		this.output = new FluidOutput(output);
 		return this;
 	}
 
 	public BoilingRecipeBuilder output(Fluid fluid, int amount) {
 		output(new FluidStack(fluid, amount));
+		return this;
+	}
+
+	public BoilingRecipeBuilder output(TagKey<Fluid> tag, int amount) {
+		this.output = new FluidOutput(tag, amount);
 		return this;
 	}
 
@@ -101,7 +113,7 @@ public class BoilingRecipeBuilder {
 		public void serializeRecipeData(JsonObject json) {
 			json.add("input", recipe.input.serialize());
 
-			json.add("output", Misc.serializeFluidStack(recipe.output));
+			json.add("output", recipe.output.toJson());
 		}
 
 		@Override

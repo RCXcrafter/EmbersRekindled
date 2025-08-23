@@ -3,7 +3,7 @@ package com.rekindled.embers.recipe;
 import org.jetbrains.annotations.Nullable;
 
 import com.google.gson.JsonObject;
-import com.rekindled.embers.util.Misc;
+import com.rekindled.embers.util.FluidOutput;
 
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -20,9 +20,9 @@ public class BoilingRecipe implements IBoilingRecipe {
 	public final ResourceLocation id;
 
 	public final FluidIngredient input;
-	public final FluidStack output;
+	public final FluidOutput output;
 
-	public BoilingRecipe(ResourceLocation id, FluidIngredient input, FluidStack output) {
+	public BoilingRecipe(ResourceLocation id, FluidIngredient input, FluidOutput output) {
 		this.id = id;
 		this.input = input;
 		this.output = output;
@@ -40,7 +40,7 @@ public class BoilingRecipe implements IBoilingRecipe {
 
 	@Override
 	public FluidStack getOutput(FluidHandlerContext context) {
-		return output;
+		return output.getStack();
 	}
 
 	@Override
@@ -53,7 +53,7 @@ public class BoilingRecipe implements IBoilingRecipe {
 				break;
 			}
 		}
-		return new FluidStack(output, output.getAmount() * trueAmount);
+		return new FluidStack(output.getStack(), output.getStack().getAmount() * trueAmount);
 	}
 
 	@Override
@@ -73,14 +73,14 @@ public class BoilingRecipe implements IBoilingRecipe {
 
 	@Override
 	public FluidStack getDisplayOutput() {
-		return output;
+		return output.getStack();
 	}
 
 	public static class Serializer implements RecipeSerializer<BoilingRecipe> {
 
 		@Override
 		public BoilingRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
-			FluidStack output = Misc.deserializeFluidStack(GsonHelper.getAsJsonObject(json, "output"));
+			FluidOutput output = FluidOutput.fromJson(GsonHelper.getAsJsonObject(json, "output"));
 			FluidIngredient input = FluidIngredient.deserialize(json, "input");
 
 			return new BoilingRecipe(recipeId, input, output);
@@ -89,7 +89,7 @@ public class BoilingRecipe implements IBoilingRecipe {
 		@Override
 		public @Nullable BoilingRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
 			FluidIngredient input = FluidIngredient.read(buffer);
-			FluidStack output = FluidStack.readFromPacket(buffer);
+			FluidOutput output = FluidOutput.fromNetwork(buffer);
 
 			return new BoilingRecipe(recipeId, input, output);
 		}
@@ -97,7 +97,7 @@ public class BoilingRecipe implements IBoilingRecipe {
 		@Override
 		public void toNetwork(FriendlyByteBuf buffer, BoilingRecipe recipe) {
 			recipe.input.write(buffer);
-			recipe.output.writeToPacket(buffer);
+			recipe.output.toNetwork(buffer);
 		}
 	}
 }

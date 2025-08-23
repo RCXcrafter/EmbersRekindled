@@ -21,6 +21,6 @@
   ],
   "output": {
     "amount": 3,
-    "fluid": "embers:molten_invar"
+    "tag": "forge:molten_invar"
   }
 }

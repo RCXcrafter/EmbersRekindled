@@ -6,6 +6,6 @@
   },
   "output": {
     "amount": 5,
-    "fluid": "embers:steam"
+    "tag": "forge:steam"
   }
 }

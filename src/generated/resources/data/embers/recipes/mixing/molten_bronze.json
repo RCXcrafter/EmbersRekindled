@@ -21,6 +21,6 @@
   ],
   "output": {
     "amount": 4,
-    "fluid": "embers:molten_bronze"
+    "tag": "forge:molten_bronze"
   }
 }
