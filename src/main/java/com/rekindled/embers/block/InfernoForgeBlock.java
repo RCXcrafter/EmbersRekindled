@@ -128,12 +128,15 @@ public class InfernoForgeBlock extends DoubleTallMachineBlock implements SimpleW
 
 	@Override
 	public void setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
-		DoubleBlockHalf half = state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF);
-		for (MechEdge edge : MechEdge.values()) {
-			BlockState edgeState = RegistryManager.INFERNO_FORGE_EDGE.get().defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, Boolean.valueOf(level.getFluidState(pos.subtract(edge.centerPos)).getType() == Fluids.WATER));
-			level.setBlock(pos.subtract(edge.centerPos), edgeState.setValue(MechEdgeBlockBase.EDGE, edge).setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, half), UPDATE_ALL);
-		}
 		if (state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER) {
+			for (MechEdge edge : MechEdge.values()) {
+				BlockPos edgePos = pos.subtract(edge.centerPos);
+				BlockState edgeState = RegistryManager.INFERNO_FORGE_EDGE.get().defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, Boolean.valueOf(level.getFluidState(edgePos).getType() == Fluids.WATER));
+				level.setBlock(edgePos, edgeState.setValue(MechEdgeBlockBase.EDGE, edge).setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER), UPDATE_ALL);
+				BlockPos edgePosUpper = pos.above().subtract(edge.centerPos);
+				BlockState edgeStateUpper = RegistryManager.INFERNO_FORGE_EDGE.get().defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, Boolean.valueOf(level.getFluidState(edgePosUpper).getType() == Fluids.WATER));
+				level.setBlock(edgePosUpper, edgeStateUpper.setValue(MechEdgeBlockBase.EDGE, edge).setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.UPPER), UPDATE_ALL);
+			}
 			BlockState topState = this.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_AXIS, state.getValue(BlockStateProperties.HORIZONTAL_AXIS)).setValue(BlockStateProperties.WATERLOGGED, Boolean.valueOf(level.getFluidState(pos.above()).getType() == Fluids.WATER));
 			level.setBlock(pos.above(), topState.setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.UPPER), UPDATE_ALL);
 		}
