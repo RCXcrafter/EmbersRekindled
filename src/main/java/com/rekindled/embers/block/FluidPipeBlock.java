@@ -57,6 +57,9 @@ public class FluidPipeBlock extends PipeBlockBase {
 	@Override
 	public boolean unclog(BlockEntity blockEntity, Level level, BlockPos pos) {
 		if (blockEntity instanceof FluidPipeBlockEntityBase pipeEntity && pipeEntity.clogged) {
+			pipeEntity.resetFrom();
+			pipeEntity.lastTransfer = null;
+			pipeEntity.syncTransfer = true;
 			IFluidHandler handler = blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, null).orElse(null);
 			handler.drain(handler.getTankCapacity(0), FluidAction.EXECUTE);
 			level.updateNeighbourForOutputSignal(pos, this);

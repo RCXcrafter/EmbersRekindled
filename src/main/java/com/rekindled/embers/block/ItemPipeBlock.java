@@ -59,6 +59,9 @@ public class ItemPipeBlock extends PipeBlockBase {
 	@Override
 	public boolean unclog(BlockEntity blockEntity, Level level, BlockPos pos) {
 		if (blockEntity instanceof ItemPipeBlockEntityBase pipeEntity && pipeEntity.clogged) {
+			pipeEntity.resetFrom();
+			pipeEntity.lastTransfer = null;
+			pipeEntity.syncTransfer = true;
 			IItemHandler handler = blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, null).orElse(null);
 			if (handler instanceof IItemHandlerModifiable) {
 				Misc.spawnInventoryInWorld(level, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, handler);
