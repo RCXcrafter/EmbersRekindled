@@ -6,6 +6,7 @@ import java.util.Random;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.power.IEmberPacketProducer;
 import com.rekindled.embers.api.power.IEmberPacketReceiver;
+import com.rekindled.embers.api.power.ITargetable;
 import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.entity.EmberPacketEntity;
 import com.rekindled.embers.util.Misc;
@@ -22,7 +23,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
 
-public class MirrorRelayBlockEntity extends BlockEntity implements IEmberPacketProducer, IEmberPacketReceiver {
+public class MirrorRelayBlockEntity extends BlockEntity implements IEmberPacketProducer, ITargetable, IEmberPacketReceiver {
 
 	public BlockPos target = null;
 	public Random random = new Random();
@@ -59,6 +60,11 @@ public class MirrorRelayBlockEntity extends BlockEntity implements IEmberPacketP
 	@Override
 	public CompoundTag getUpdateTag() {
 		CompoundTag nbt = super.getUpdateTag();
+		if (target != null) {
+			nbt.putInt("targetX", target.getX());
+			nbt.putInt("targetY", target.getY());
+			nbt.putInt("targetZ", target.getZ());
+		}
 		nbt.putDouble("incomingX", incomingDirection.x);
 		nbt.putDouble("incomingY", incomingDirection.y);
 		nbt.putDouble("incomingZ", incomingDirection.z);
@@ -133,5 +139,16 @@ public class MirrorRelayBlockEntity extends BlockEntity implements IEmberPacketP
 		if (incomingDirection.equals(Vec3.ZERO))
 			return EmberEmitterBlockEntity.getBurstVelocity(level.getBlockState(worldPosition).getValue(BlockStateProperties.FACING));
 		return incomingDirection;
+	}
+
+	@Override
+	public BlockPos getTarget(Direction side) {
+		BlockState state = level.getBlockState(worldPosition);
+		if (state.hasProperty(BlockStateProperties.FACING)) {
+			Direction facing = state.getValue(BlockStateProperties.FACING);
+			if (side != facing)
+				return null;
+		}
+		return target;
 	}
 }

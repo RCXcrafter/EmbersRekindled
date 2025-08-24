@@ -7,6 +7,7 @@ import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.capabilities.EmbersCapabilities;
 import com.rekindled.embers.api.event.EmberEvent;
 import com.rekindled.embers.api.power.IEmberCapability;
+import com.rekindled.embers.api.power.IEmberPacketProducer;
 import com.rekindled.embers.api.power.IEmberPacketReceiver;
 import com.rekindled.embers.api.tile.ISparkable;
 import com.rekindled.embers.api.tile.IUpgradeable;
@@ -38,7 +39,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.network.PacketDistributor;
 
-public class BeamCannonBlockEntity extends BlockEntity implements IUpgradeable {
+public class BeamCannonBlockEntity extends BlockEntity implements IUpgradeable, IEmberPacketProducer {
 
 	public IEmberCapability capability = new DefaultEmberCapability() {
 		@Override
@@ -84,6 +85,11 @@ public class BeamCannonBlockEntity extends BlockEntity implements IUpgradeable {
 		super.saveAdditional(nbt);
 		nbt.putBoolean("lastPowered", lastPowered);
 		capability.writeToNBT(nbt);
+	}
+
+	public static void clientTick(Level level, BlockPos pos, BlockState state, BeamCannonBlockEntity blockEntity) {
+		blockEntity.upgrades = UpgradeUtil.getUpgrades(level, pos, Direction.values());
+		UpgradeUtil.verifyUpgrades(blockEntity, blockEntity.upgrades);
 	}
 
 	public static void serverTick(Level level, BlockPos pos, BlockState state, BeamCannonBlockEntity blockEntity) {
@@ -180,5 +186,37 @@ public class BeamCannonBlockEntity extends BlockEntity implements IUpgradeable {
 	@Override
 	public boolean isSideUpgradeSlot(Direction face) {
 		return true;
+	}
+
+	@Override
+	public Vec3 getEmittingDirection(Direction side) {
+		BlockState state = level.getBlockState(worldPosition);
+		if (state.hasProperty(BlockStateProperties.FACING)) {
+			Direction facing = state.getValue(BlockStateProperties.FACING);
+			return new Vec3(facing.getNormal().getX(), facing.getNormal().getY(), facing.getNormal().getZ());
+		}
+		return null;
+	}
+
+	@Override
+	public BlockPos getTarget(Direction side) {
+		BlockState state = level.getBlockState(worldPosition);
+		if (state.hasProperty(BlockStateProperties.FACING)) {
+			Direction facing = state.getValue(BlockStateProperties.FACING);
+			if (side != facing)
+				return null;
+			int maxDist = UpgradeUtil.getOtherParameter(this, "distance", MAX_DISTANCE, upgrades);
+			BlockPos hitPos = worldPosition;
+			for (int i = 0; i < maxDist; i++) {
+				hitPos = hitPos.relative(facing);
+				BlockState hitState = level.getBlockState(hitPos);
+				BlockEntity tile = level.getBlockEntity(hitPos);
+				if (tile instanceof ISparkable || tile instanceof IEmberPacketReceiver || !hitState.getCollisionShape(level, hitPos).isEmpty()) {
+					return hitPos;
+				}
+			}
+			return hitPos;
+		}
+		return null;
 	}
 }

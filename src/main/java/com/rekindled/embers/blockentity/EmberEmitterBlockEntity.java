@@ -8,6 +8,7 @@ import com.rekindled.embers.api.capabilities.EmbersCapabilities;
 import com.rekindled.embers.api.power.IEmberCapability;
 import com.rekindled.embers.api.power.IEmberPacketProducer;
 import com.rekindled.embers.api.power.IEmberPacketReceiver;
+import com.rekindled.embers.api.power.ITargetable;
 import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.entity.EmberPacketEntity;
 import com.rekindled.embers.power.DefaultEmberCapability;
@@ -28,7 +29,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 
-public class EmberEmitterBlockEntity extends BlockEntity implements IEmberPacketProducer {
+public class EmberEmitterBlockEntity extends BlockEntity implements IEmberPacketProducer, ITargetable {
 
 	public IEmberCapability capability = new DefaultEmberCapability() {
 		@Override
@@ -83,8 +84,21 @@ public class EmberEmitterBlockEntity extends BlockEntity implements IEmberPacket
 	}
 
 	@Override
+	public CompoundTag getUpdateTag() {
+		CompoundTag nbt = super.getUpdateTag();
+		if (target != null){
+			nbt.putInt("targetX", target.getX());
+			nbt.putInt("targetY", target.getY());
+			nbt.putInt("targetZ", target.getZ());
+		}
+		return nbt;
+	}
+
+	@Override
 	public void setChanged() {
 		super.setChanged();
+		if (level instanceof ServerLevel)
+			((ServerLevel) level).getChunkSource().blockChanged(worldPosition);
 		if (trajectoryChunks == null)
 			trajectoryChunks = new HashSet<ChunkPos>();
 		Misc.calculateTrajectoryChunks(trajectoryChunks, worldPosition, target, getEmittingDirection(level.getBlockState(worldPosition).getValue(BlockStateProperties.FACING)));
@@ -177,5 +191,16 @@ public class EmberEmitterBlockEntity extends BlockEntity implements IEmberPacket
 	@Override
 	public Vec3 getEmittingDirection(Direction side) {
 		return getBurstVelocity(level.getBlockState(worldPosition).getValue(BlockStateProperties.FACING));
+	}
+
+	@Override
+	public BlockPos getTarget(Direction side) {
+		BlockState state = level.getBlockState(worldPosition);
+		if (state.hasProperty(BlockStateProperties.FACING)) {
+			Direction facing = state.getValue(BlockStateProperties.FACING);
+			if (side != facing)
+				return null;
+		}
+		return target;
 	}
 }

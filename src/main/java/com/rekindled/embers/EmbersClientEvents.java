@@ -1,6 +1,7 @@
 package com.rekindled.embers;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -92,6 +93,7 @@ public class EmbersClientEvents {
 	public static double gaugeAngle = 0;
 	public static long seed = 0;
 	public static BlockPos lastTarget = null;
+	public static BlockPos lastEmitter = null;
 	public static ResourceLocation GAUGE = new ResourceLocation(Embers.MODID, "textures/gui/ember_meter_overlay.png"); 
 	public static ResourceLocation GAUGE_POINTER = new ResourceLocation(Embers.MODID, "textures/gui/ember_meter_pointer.png"); 
 
@@ -213,7 +215,89 @@ public class EmbersClientEvents {
 			} else {
 				lastTarget = null;
 			}
+			if (Misc.isWearingLens(player)) {
+				if (mc.hitResult instanceof BlockHitResult result && result != null && result.getType() == BlockHitResult.Type.BLOCK && mc.level.getBlockEntity(result.getBlockPos()) instanceof IEmberPacketProducer) {
+					lastEmitter = result.getBlockPos();
+				}
+				Vec3 camPos = event.getCamera().getPosition();
+				VertexConsumer consumer = mc.renderBuffers().bufferSource().getBuffer(EmbersRenderTypes.GLOW_LINES);
+				Vector3f color = Misc.multColor(EmbersColors.EMBER, (float) (Math.sin(Math.toRadians(4.0f*(event.getRenderTick() + event.getPartialTick())))+1.0f) / 2.0f);
+				float alpha = 0.6F;
+				double x = -camPos.x;
+				double y = -camPos.y;
+				double z = -camPos.z;
+				PoseStack.Pose pose = event.getPoseStack().last();
+
+				Shapes.DoubleLineConsumer lineDrawer = (fromX, fromY, fromZ, toX, toY, toZ) -> {
+					float f = (float)(toX - fromX);
+					float f1 = (float)(toY - fromY);
+					float f2 = (float)(toZ - fromZ);
+					float f3 = Mth.sqrt(f * f + f1 * f1 + f2 * f2);
+					f /= f3;
+					f1 /= f3;
+					f2 /= f3;
+					consumer.vertex(pose.pose(), (float)(fromX + x), (float)(fromY + y), (float)(fromZ + z)).color(color.x, color.y, color.z, alpha).normal(pose.normal(), f, f1, f2).endVertex();
+					consumer.vertex(pose.pose(), (float)(toX+ x), (float)(toY + y), (float)(toZ + z)).color(color.x, color.y, color.z, alpha).normal(pose.normal(), f, f1, f2).endVertex();
+				};
+
+				HashSet<BlockPos> drawnLines = new HashSet<BlockPos>();
+				HashSet<BlockPos> linesToDraw = new HashSet<BlockPos>();
+				HashSet<BlockPos> nextLinesToDraw = new HashSet<BlockPos>();
+				linesToDraw.add(lastEmitter);
+				for (int i = 0; i <= 20 && !linesToDraw.isEmpty();) {
+					for (BlockPos emitterPos : linesToDraw) {
+						for (Direction side : Direction.values()) {
+							BlockPos newTarget = drawEmittingLine(event, player.level(), mc, lineDrawer, emitterPos, side);
+							if (newTarget != null) {
+								i++;
+								if (!drawnLines.contains(newTarget))
+									nextLinesToDraw.add(newTarget);
+							}
+							drawnLines.add(emitterPos);
+						}
+					}
+					linesToDraw = nextLinesToDraw;
+					nextLinesToDraw = new HashSet<BlockPos>();
+				}
+			} else {
+				lastEmitter = null;
+			}
 		}
+	}
+
+	public static BlockPos drawEmittingLine(RenderLevelStageEvent event, Level level, Minecraft mc, Shapes.DoubleLineConsumer lineDrawer, BlockPos emitterPos, Direction side) {
+		BlockPos target = null;
+		if (emitterPos != null && level.getBlockEntity(emitterPos) instanceof IEmberPacketProducer emitter) {
+			target = emitter.getTarget(side);
+			if (target == null)
+				return null;
+			Vec3 hitPos = Vec3.atCenterOf(target);
+			Vec3 motion = emitter.getEmittingDirection(side);
+			Vec3 oldPos = Vec3.atCenterOf(emitterPos);
+			Vec3 newPos = oldPos.add(motion);
+
+			for (int i = 0; i <= 80; ++i) {
+				Vec3 targetVector = hitPos.subtract(newPos);
+				double length = targetVector.length();
+				targetVector = targetVector.scale(0.3 / length);
+				double weight = 0;
+				if (length <= 3) {
+					weight = 0.9 * ((3.0 - length) / 3.0);
+					if (length <= 0.2) {
+						lineDrawer.consume(oldPos.x, oldPos.y, oldPos.z, hitPos.x, hitPos.y, hitPos.z);
+						break;
+					}
+				}
+				motion = new Vec3(
+						(0.9 - weight) * motion.x + (0.1 + weight) * targetVector.x,
+						(0.9 - weight) * motion.y + (0.1 + weight) * targetVector.y,
+						(0.9 - weight) * motion.z + (0.1 + weight) * targetVector.z);
+				newPos = oldPos.add(motion);
+				lineDrawer.consume(oldPos.x, oldPos.y, oldPos.z, newPos.x, newPos.y, newPos.z);
+				oldPos = newPos;
+			}
+		}
+		return target;
 	}
 
 	public static void renderIngameOverlay(ForgeGui gui, GuiGraphics graphics, float partialTicks, int width, int height) {

@@ -6,6 +6,7 @@ import java.util.Random;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.power.IEmberPacketProducer;
 import com.rekindled.embers.api.power.IEmberPacketReceiver;
+import com.rekindled.embers.api.power.ITargetable;
 import com.rekindled.embers.api.tile.ISparkable;
 import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.entity.EmberPacketEntity;
@@ -24,7 +25,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
 
-public class BeamSplitterBlockEntity extends BlockEntity implements IEmberPacketProducer, IEmberPacketReceiver, ISparkable {
+public class BeamSplitterBlockEntity extends BlockEntity implements IEmberPacketProducer, ITargetable, IEmberPacketReceiver, ISparkable {
 
 	public BlockPos target1 = null;
 	public BlockPos target2 = null;
@@ -64,8 +65,27 @@ public class BeamSplitterBlockEntity extends BlockEntity implements IEmberPacket
 	}
 
 	@Override
+	public CompoundTag getUpdateTag() {
+		CompoundTag nbt = super.getUpdateTag();
+		if (target1 != null){
+			nbt.putInt("target1X", target1.getX());
+			nbt.putInt("target1Y", target1.getY());
+			nbt.putInt("target1Z", target1.getZ());
+		}
+		if (target2 != null){
+			nbt.putInt("target2X", target2.getX());
+			nbt.putInt("target2Y", target2.getY());
+			nbt.putInt("target2Z", target2.getZ());
+		}
+		return nbt;
+	}
+
+	@Override
 	public void setChanged() {
 		super.setChanged();
+		if (level instanceof ServerLevel)
+			((ServerLevel) level).getChunkSource().blockChanged(worldPosition);
+
 		if (trajectoryChunks1 == null)
 			trajectoryChunks1 = new HashSet<ChunkPos>();
 		if (trajectoryChunks2 == null)
@@ -178,6 +198,16 @@ public class BeamSplitterBlockEntity extends BlockEntity implements IEmberPacket
 	public Vec3 getEmittingDirection(Direction side) {
 		if (side.getAxis() == level.getBlockState(worldPosition).getValue(BlockStateProperties.AXIS)) {
 			return EmberEmitterBlockEntity.getBurstVelocity(side);
+		}
+		return null;
+	}
+
+	@Override
+	public BlockPos getTarget(Direction side) {
+		if (side.getAxis() == level.getBlockState(worldPosition).getValue(BlockStateProperties.AXIS)) {
+			if (side.getAxisDirection() == AxisDirection.POSITIVE)
+				return target1;
+			return target2;
 		}
 		return null;
 	}
