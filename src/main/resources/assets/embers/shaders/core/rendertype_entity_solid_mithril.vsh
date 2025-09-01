@@ -20,6 +20,7 @@ uniform int FogShape;
 
 uniform vec3 Light0_Direction;
 uniform vec3 Light1_Direction;
+uniform vec3 PlayerPos;
 
 out float vertexDistance;
 out vec4 vertexColor;
@@ -29,6 +30,9 @@ out vec2 texCoord0;
 out vec3 normal;
 out vec3 position;
 out mat4 modelViewMat;
+out mat4 projMat;
+out mat3 iViewRotMat;
+out vec3 playerPos;
 
 void main() {
 	gl_Position = ProjMat * ModelViewMat * vec4(Position, 1.0);
@@ -52,6 +56,9 @@ void main() {
 	TBN = mat3(T, B, N);*/
 
 	modelViewMat = ModelViewMat;
+	projMat = ProjMat;
+	iViewRotMat = IViewRotMat;
 	normal = Normal;
 	position = Position;
+	playerPos = PlayerPos;
 }

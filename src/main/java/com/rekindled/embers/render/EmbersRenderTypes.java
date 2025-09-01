@@ -407,6 +407,7 @@ public class EmbersRenderTypes extends RenderType {
 
 	//render type used for mithril
 	public static ResourceLocation MITHRIL_REFLECTION = new ResourceLocation(Embers.MODID + ":textures/misc/mithril_reflection.png");
+	@SuppressWarnings("resource")
 	public static RenderType MITHRIL = create(
 			Embers.MODID + ":mithril_render_type",
 			DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, false,
@@ -418,6 +419,7 @@ public class EmbersRenderTypes extends RenderType {
 				RenderSystem.setShaderTexture(0, InventoryMenu.BLOCK_ATLAS);
 				texturemanager.getTexture(MITHRIL_REFLECTION).setFilter(true, false);
 				RenderSystem.setShaderTexture(3, MITHRIL_REFLECTION);
+				mithrilShader.safeGetUniform("PlayerPos").set(Minecraft.getInstance().gameRenderer.getMainCamera().getPosition().toVector3f());
 			}, () -> {}))
 			.setOverlayState(OVERLAY)
 			.setLightmapState(LIGHTMAP)
