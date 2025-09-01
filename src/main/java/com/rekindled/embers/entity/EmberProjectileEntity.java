@@ -155,7 +155,8 @@ public class EmberProjectileEntity extends Projectile {
 			HitResult hitEntity = ProjectileUtil.getEntityHitResult(level(), this, currPosVec, newPosVector, this.getBoundingBox().expandTowards(this.getDeltaMovement()).inflate(1.0D), this::canHitEntity);
 
 			if (hitEntity != null) {
-				newPosVector = hitEntity.getLocation();
+				//why was I doing this?
+				//newPosVector = hitEntity.getLocation();
 				raytraceresult = hitEntity;
 			}
 
