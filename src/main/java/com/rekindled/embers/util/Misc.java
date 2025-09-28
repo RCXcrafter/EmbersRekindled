@@ -478,8 +478,7 @@ public class Misc {
 	};
 
 	public static float getLightBrightness(int style, int ticks) {
-		String table = lightstyle[style];
-		return (table.charAt((ticks / 2) % table.length()) - 'a') / 25.0f;
+		return (lightstyle[style].charAt((ticks / 2) % lightstyle[style].length()) - 'a') / 25.0f;
 	}
 
 	public static Ingredient getRepairIngredient(Item item) {
@@ -539,11 +538,6 @@ public class Misc {
 			success = player.getInventory().add(stack) && stack.isEmpty();
 
 		if (success) {
-			stack.setCount(1);
-			ItemEntity itementity1 = player.drop(stack, false);
-			if (itementity1 != null) {
-				itementity1.makeFakeItem();
-			}
 			player.level().playSound((Player)null, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 0.2F, ((player.getRandom().nextFloat() - player.getRandom().nextFloat()) * 0.7F + 1.0F) * 2.0F);
 			player.containerMenu.broadcastChanges();
 		} else {
