@@ -146,7 +146,7 @@ public class StampBaseBlockEntity extends OpenTankBlockEntity implements IExtraC
 
 	@Override
 	public boolean hasCapabilityDescription(Capability<?> capability) {
-		return capability == ForgeCapabilities.FLUID_HANDLER || capability == ForgeCapabilities.ITEM_HANDLER;
+		return capability == ForgeCapabilities.FLUID_HANDLER;
 	}
 
 	@Override
