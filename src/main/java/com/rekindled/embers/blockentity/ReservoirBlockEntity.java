@@ -36,6 +36,7 @@ public class ReservoirBlockEntity extends OpenTankBlockEntity {
 	public float renderOffset;
 	int previousFluid;
 	public int height = 0;
+	public boolean capped = false;
 
 	public ReservoirBlockEntity(BlockPos pPos, BlockState pBlockState) {
 		super(RegistryManager.RESERVOIR_ENTITY.get(), pPos, pBlockState);
@@ -47,7 +48,7 @@ public class ReservoirBlockEntity extends OpenTankBlockEntity {
 
 			@Override
 			public int fill(FluidStack resource, FluidAction action) {
-				if (Misc.isGaseousFluid(resource)) {
+				if (!capped && Misc.isGaseousFluid(resource)) {
 					ReservoirBlockEntity.this.setEscapedFluid(resource);
 					return resource.getAmount();
 				}
@@ -96,9 +97,26 @@ public class ReservoirBlockEntity extends OpenTankBlockEntity {
 	public void updateCapacity() {
 		int capacity = 0;
 		height = 0;
-		for (int i = 1; level.getBlockState(worldPosition.above(i)).is(EmbersBlockTags.RESERVOIR_EXPANSION); i++) {
-			capacity += ConfigManager.RESERVOIR_CAPACITY.get();
-			height++;
+		boolean previouslyCapped = capped;
+		capped = false;
+		for (int i = 1; true; i++) {
+			BlockState state = level.getBlockState(worldPosition.above(i));
+			if (state.is(EmbersBlockTags.RESERVOIR_CAP)) {
+				capped = true;
+			}
+			if (state.is(EmbersBlockTags.RESERVOIR_EXPANSION)) {
+				capacity += ConfigManager.RESERVOIR_CAPACITY.get();
+				height++;
+			} else {
+				break;
+			}
+			if (state.is(EmbersBlockTags.RESERVOIR_END)) {
+				break;
+			}
+		}
+		if (previouslyCapped && !capped && Misc.isGaseousFluid(tank.getFluid())) {
+			ReservoirBlockEntity.this.setEscapedFluid(tank.drain(tank.getFluidAmount(), FluidAction.EXECUTE));
+			this.setChanged();
 		}
 		if (tank.getCapacity() != capacity) {
 			this.tank.setCapacity(capacity);

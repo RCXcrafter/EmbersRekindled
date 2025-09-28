@@ -39,6 +39,8 @@ public class EmbersBlockTags extends BlockTagsProvider {
 	public static final TagKey<Block> HEAT_SOURCES = BlockTags.create(new ResourceLocation(Embers.MODID, "heat_sources"));
 
 	public static final TagKey<Block> RESERVOIR_EXPANSION = BlockTags.create(new ResourceLocation(Embers.MODID, "reservoir_expansion"));
+	public static final TagKey<Block> RESERVOIR_END = BlockTags.create(new ResourceLocation(Embers.MODID, "reservoir_end"));
+	public static final TagKey<Block> RESERVOIR_CAP = BlockTags.create(new ResourceLocation(Embers.MODID, "reservoir_cap"));
 
 	public static final TagKey<Block> CHAMBER_CONNECTION = BlockTags.create(new ResourceLocation(Embers.MODID, "chamber_connection"));
 
