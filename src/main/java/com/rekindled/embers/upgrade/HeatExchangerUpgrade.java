@@ -37,7 +37,7 @@ public class HeatExchangerUpgrade extends DefaultUpgradeProvider {
 	public void throwEvent(BlockEntity tile, List<UpgradeContext> upgrades, UpgradeEvent event, int distance, int count) {
 		if (event instanceof EmberEvent emberEvent && emberEvent.getType() == EmberEvent.EnumType.PRODUCE) {
 			if (tile.getLevel() instanceof ServerLevel serverLevel) {
-				serverLevel.sendParticles(new GlowParticleOptions(EmbersColors.EMBER_ID, new Vec3(0.0, 0.000001, 0.0), 2.0F, 40), this.tile.getBlockPos().getX() + 0.5, this.tile.getBlockPos().getY() + 0.5, this.tile.getBlockPos().getZ() + 0.5, 40, 0.12f, 0.12f, 0.12f, 0.0);
+				serverLevel.sendParticles(new GlowParticleOptions(EmbersColors.EMBER_ID, new Vec3(0.0, 0.000001, 0.0), 2.0F, 40), this.tile.getBlockPos().getX() + 0.5, this.tile.getBlockPos().getY() + 0.5, this.tile.getBlockPos().getZ() + 0.5, (int) (0.04 * emberEvent.getAmount()), 0.12f, 0.12f, 0.12f, 0.0);
 			}
 		}
 	}
