@@ -9,6 +9,7 @@ import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.capabilities.EmbersCapabilities;
 import com.rekindled.embers.api.power.IEmberCapability;
 import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
+import com.rekindled.embers.api.tile.IExtraDialInformation;
 import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.particle.GlowParticleOptions;
 import com.rekindled.embers.power.DefaultEmberCapability;
@@ -29,7 +30,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 
-public class EmberActivatorTopBlockEntity extends BlockEntity implements ISoundController, IExtraCapabilityInformation {
+public class EmberActivatorTopBlockEntity extends BlockEntity implements ISoundController, IExtraDialInformation, IExtraCapabilityInformation {
 
 	public IEmberCapability capability = new DefaultEmberCapability() {
 		@Override
@@ -124,6 +125,13 @@ public class EmberActivatorTopBlockEntity extends BlockEntity implements ISoundC
 
 	public float getCurrentVolume(int id, float volume) {
 		return (float) ((capability.getEmber() + 5000.0f) / (capability.getEmberCapacity() + 5000.0f));
+	}
+
+	@Override
+	public void addDialInformation(Direction facing, List<Component> information, String dialType) {
+		BlockEntity bottom = level.getBlockEntity(worldPosition.below());
+		if(bottom instanceof EmberActivatorBottomBlockEntity)
+			((EmberActivatorBottomBlockEntity) bottom).addDialInformation(facing, information, dialType);
 	}
 
 	@Override
