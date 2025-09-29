@@ -14,6 +14,7 @@ import com.rekindled.embers.ConfigManager;
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.api.EmbersAPI;
 import com.rekindled.embers.api.augment.AugmentUtil;
+import com.rekindled.embers.api.capabilities.EmbersCapabilities;
 import com.rekindled.embers.api.event.ScaleEvent;
 import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.network.PacketHandler;
@@ -36,8 +37,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.common.capabilities.CapabilityToken;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
@@ -353,14 +352,11 @@ public class ShiftingScalesAugment extends AugmentBase {
 			holder = LazyOptional.of(() -> this.capability);
 		}
 
-		public static final Capability<IScalesCapability> scalesCapability = CapabilityManager.get(new CapabilityToken<>(){});
-
-
 		@Nullable
 		@Override
 		public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction facing) {
-			if (scalesCapability != null && capability == scalesCapability)
-				return scalesCapability.orEmpty(capability, holder);
+			if (EmbersCapabilities.SCALES_CAPABILITY != null && capability == EmbersCapabilities.SCALES_CAPABILITY)
+				return EmbersCapabilities.SCALES_CAPABILITY.orEmpty(capability, holder);
 			return LazyOptional.empty();
 		}
 

@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.logging.LogUtils;
 import com.rekindled.embers.api.power.IEmberCapability;
+import com.rekindled.embers.api.upgrades.IUpgradeProvider;
 import com.rekindled.embers.apiimpl.EmbersAPIImpl;
 import com.rekindled.embers.augment.ShiftingScalesAugment;
 import com.rekindled.embers.augment.ShiftingScalesAugment.IScalesCapability;
@@ -211,6 +212,7 @@ public class Embers {
 
 	public void registerCaps(RegisterCapabilitiesEvent event) {
 		event.register(IEmberCapability.class);
+		event.register(IUpgradeProvider.class);
 		event.register(IResearchCapability.class);
 		event.register(IScalesCapability.class);
 	}

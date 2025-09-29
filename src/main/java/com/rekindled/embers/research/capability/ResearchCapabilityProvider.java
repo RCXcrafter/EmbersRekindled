@@ -3,11 +3,11 @@ package com.rekindled.embers.research.capability;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.rekindled.embers.api.capabilities.EmbersCapabilities;
+
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.common.capabilities.CapabilityToken;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
@@ -27,14 +27,11 @@ public class ResearchCapabilityProvider implements ICapabilityProvider, INBTSeri
 		holder = LazyOptional.of(() -> this.capability);
 	}
 
-	public static final Capability<IResearchCapability> researchCapability = CapabilityManager.get(new CapabilityToken<>(){});
-
-
 	@Nullable
 	@Override
 	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction facing) {
-		if (researchCapability != null && capability == researchCapability)
-			return researchCapability.orEmpty(capability, holder);
+		if (EmbersCapabilities.RESEARCH_CAPABILITY != null && capability == EmbersCapabilities.RESEARCH_CAPABILITY)
+			return EmbersCapabilities.RESEARCH_CAPABILITY.orEmpty(capability, holder);
 		return LazyOptional.empty();
 	}
 

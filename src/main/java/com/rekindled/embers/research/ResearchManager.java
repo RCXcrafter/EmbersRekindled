@@ -9,6 +9,7 @@ import java.util.Set;
 
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
+import com.rekindled.embers.api.capabilities.EmbersCapabilities;
 import com.rekindled.embers.compat.curios.CuriosCompat;
 import com.rekindled.embers.item.EmberStorageItem;
 import com.rekindled.embers.network.PacketHandler;
@@ -114,12 +115,13 @@ public class ResearchManager {
 	}
 
 	public static void attachCapability(AttachCapabilitiesEvent<Entity> event) {
-		if (event.getObject() instanceof Player && !event.getCapabilities().containsKey(PLAYER_RESEARCH)) {
+		if (event.getObject() instanceof Player) {
 			event.addCapability(PLAYER_RESEARCH, new ResearchCapabilityProvider(new DefaultResearchCapability()));
 		}
 	}
 
 	public static void onClone(PlayerEvent.Clone event) {
+		event.getOriginal().reviveCaps();
 		IResearchCapability oldCap = getPlayerResearch(event.getOriginal());
 		IResearchCapability newCap = getPlayerResearch(event.getEntity());
 		if (oldCap != null && newCap != null) {
@@ -127,10 +129,11 @@ public class ResearchManager {
 			oldCap.writeToNBT(compound);
 			newCap.readFromNBT(compound);
 		}
+		event.getOriginal().invalidateCaps();
 	}
 
 	public static IResearchCapability getPlayerResearch(Player player) {
-		return player.getCapability(ResearchCapabilityProvider.researchCapability).orElse(null);
+		return player.getCapability(EmbersCapabilities.RESEARCH_CAPABILITY).orElse(null);
 	}
 
 	public static List<ResearchBase> getAllResearch() {
