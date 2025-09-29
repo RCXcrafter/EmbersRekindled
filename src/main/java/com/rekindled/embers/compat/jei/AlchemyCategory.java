@@ -59,17 +59,24 @@ public class AlchemyCategory implements IRecipeCategory<IAlchemyRecipe> {
 		builder.addSlot(RecipeIngredientRole.INPUT, 32, 37).addIngredients(recipe.getCenterInput());
 		builder.addSlot(RecipeIngredientRole.OUTPUT, 101, 37).addItemStack(recipe.getResultItem());
 		Vec3 center = new Vec3(0, 30, 0);
-		for (int i = 0; i < recipe.getInputs().size(); i++) {
+
+		int aspecti = recipe.getAspects().size();
+		int inputs = recipe.getInputs().size();
+
+		Ingredient[][] aspectusCombinations = new Ingredient[inputs][(int) Math.pow(aspecti, inputs)];
+		for (int i = 0; i < inputs; i++) {
+			for (int j = 0; j < ((int) Math.pow(aspecti, inputs)); j++) {
+				aspectusCombinations[i][j] = recipe.getAspects().get((j / ((int) Math.pow(aspecti, i))) % aspecti);
+			}
+		}
+
+		for (int i = 0; i < inputs; i++) {
 			Vec3 rotated = center.zRot((float) (i * 2.0 * Math.PI / recipe.getInputs().size()));
 			builder.addSlot(RecipeIngredientRole.INPUT, (int) (32 + rotated.x()), (int) (29 + rotated.y())).addIngredients(recipe.getInputs().get(i));
 
-			Ingredient[] aspecti = new Ingredient[recipe.getAspects().size()];
-			for (int j = 0; j < recipe.getAspects().size(); j++) {
-				aspecti[j] = recipe.getAspects().get((j + i) % recipe.getAspects().size());
-			}
-			builder.addSlot(RecipeIngredientRole.CATALYST, (int) (32 + rotated.x()), (int) (45 + rotated.y())).addIngredients(CompoundIngredient.of(aspecti)).setBackground(pillar, 0, 0);
+			builder.addSlot(RecipeIngredientRole.CATALYST, (int) (32 + rotated.x()), (int) (45 + rotated.y())).addIngredients(CompoundIngredient.of(aspectusCombinations[i])).setBackground(pillar, 0, 0);
 		}
-		for (int i = 0; i < recipe.getAspects().size(); i++) {
+		for (int i = 0; i < aspecti; i++) {
 			builder.addSlot(RecipeIngredientRole.CATALYST, 63 - 8 * recipe.getAspects().size() + 16 * i, 90).addIngredients(recipe.getAspects().get(i));
 		}
 	}
