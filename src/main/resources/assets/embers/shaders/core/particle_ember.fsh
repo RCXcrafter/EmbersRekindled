@@ -23,11 +23,15 @@ in vec4 viewSpacePos;
 out vec4 fragColor;
 
 void main() {
-	vec4 color = texture(Sampler0, texCoord0) * vertexColor * ColorModulator;
+	vec4 color = texture(Sampler0, texCoord0);
 
 	if (color.a <= AlphaCutoff) {
 		discard;
 	}
+	color.rgb *= color.a;
+	color.a = (color.r + color.g + color.b) / 3.0;
+	color.rgb = vec3(1.0, 1.0, 1.0);
+	color *= vertexColor * ColorModulator;
 
 	vec2 screenPos = gl_FragCoord.xy / ScreenSize;
 	vec4 solidDepth = ProjMatInv * vec4(screenPos * 2.0 - 1.0, texture(DepthBuffer, screenPos).r * 2.0 - 1.0, 1.0);
