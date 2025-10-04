@@ -5,7 +5,7 @@
         "dstrgb": "1-srcalpha"
     },
     "vertex": "embers:particle_ember",
-    "fragment": "embers:particle_ember",
+    "fragment": "embers:particle_translucent",
     "attributes": [
         "Position",
         "UV0",
