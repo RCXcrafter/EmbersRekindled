@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "forge:ingots/dwarven_mithril"
+    },
+    {
+      "tag": "forge:ingots/dwarven_mithril"
+    },
+    {
+      "tag": "embers:tinker_hammer"
+    }
+  ],
+  "result": {
+    "item": "embers:mithril_plate"
+  }
+}

@@ -74,6 +74,7 @@ public class EmbersBlockTags extends BlockTagsProvider {
 	public static final TagKey<Block> LEAD_BLOCK = BlockTags.create(new ResourceLocation("forge", "storage_blocks/lead"));
 	public static final TagKey<Block> SILVER_BLOCK = BlockTags.create(new ResourceLocation("forge", "storage_blocks/silver"));
 	public static final TagKey<Block> DAWNSTONE_BLOCK = BlockTags.create(new ResourceLocation("forge", "storage_blocks/dawnstone"));
+	public static final TagKey<Block> MITHRIL_BLOCK = BlockTags.create(new ResourceLocation("forge", "storage_blocks/dwarven_mithril"));
 
 	public static final TagKey<Block> CRYSTAL_SEEDS = BlockTags.create(new ResourceLocation(Embers.MODID, "crystal_seeds"));
 	public static final TagKey<Block> COPPER_SEED = BlockTags.create(new ResourceLocation(Embers.MODID, "crystal_seeds/copper"));
@@ -88,6 +89,7 @@ public class EmbersBlockTags extends BlockTagsProvider {
 	public static final TagKey<Block> PLATINUM_SEED = BlockTags.create(new ResourceLocation(Embers.MODID, "crystal_seeds/platinum"));
 	public static final TagKey<Block> URANIUM_SEED = BlockTags.create(new ResourceLocation(Embers.MODID, "crystal_seeds/uranium"));
 	public static final TagKey<Block> DAWNSTONE_SEED = BlockTags.create(new ResourceLocation(Embers.MODID, "crystal_seeds/dawnstone"));
+	public static final TagKey<Block> MITHRIL_SEED = BlockTags.create(new ResourceLocation(Embers.MODID, "crystal_seeds/dwarven_mithril"));
 
 	//tags not used in this class
 	public static final TagKey<Block> BRONZE_BLOCK = BlockTags.create(new ResourceLocation("forge", "storage_blocks/bronze"));
@@ -231,6 +233,7 @@ public class EmbersBlockTags extends BlockTagsProvider {
 				RegistryManager.PLATINUM_CRYSTAL_SEED.BLOCK.get(),
 				RegistryManager.URANIUM_CRYSTAL_SEED.BLOCK.get(),
 				RegistryManager.DAWNSTONE_CRYSTAL_SEED.BLOCK.get(),
+				RegistryManager.MITHRIL_CRYSTAL_SEED.BLOCK.get(),
 				RegistryManager.FIELD_CHART.get(),
 				RegistryManager.FIELD_CHART_EDGE.get(),
 				RegistryManager.IGNEM_REACTOR.get(),
@@ -267,8 +270,11 @@ public class EmbersBlockTags extends BlockTagsProvider {
 				RegistryManager.DEEPSLATE_SILVER_ORE.get(),
 				RegistryManager.RAW_SILVER_BLOCK.get(),
 				RegistryManager.SILVER_BLOCK.get(),
-				RegistryManager.DAWNSTONE_BLOCK.get(),
-				RegistryManager.MITHRIL_BLOCK.get());
+				RegistryManager.DAWNSTONE_BLOCK.get());
+
+		tag(BlockTags.NEEDS_DIAMOND_TOOL).add(
+				RegistryManager.MITHRIL_BLOCK.get(),
+				RegistryManager.MITHRIL_CRYSTAL_SEED.BLOCK.get());
 
 		tag(RELOCATION_NOT_SUPPORTED).add(
 				RegistryManager.EMBER_BORE.get(),
@@ -354,12 +360,13 @@ public class EmbersBlockTags extends BlockTagsProvider {
 		tag(Tags.Blocks.STORAGE_BLOCKS).addTags(RAW_SILVER_BLOCK);
 		tag(RAW_SILVER_BLOCK).add(RegistryManager.RAW_SILVER_BLOCK.get());
 
-		tag(Tags.Blocks.STORAGE_BLOCKS).addTags(LEAD_BLOCK).addTags(SILVER_BLOCK).addTags(DAWNSTONE_BLOCK);
+		tag(Tags.Blocks.STORAGE_BLOCKS).addTags(LEAD_BLOCK, SILVER_BLOCK, DAWNSTONE_BLOCK, MITHRIL_BLOCK);
 		tag(LEAD_BLOCK).add(RegistryManager.LEAD_BLOCK.get());
 		tag(SILVER_BLOCK).add(RegistryManager.SILVER_BLOCK.get());
 		tag(DAWNSTONE_BLOCK).add(RegistryManager.DAWNSTONE_BLOCK.get());
+		tag(MITHRIL_BLOCK).add(RegistryManager.MITHRIL_BLOCK.get());
 
-		tag(CRYSTAL_SEEDS).addTags(COPPER_SEED, IRON_SEED, GOLD_SEED, LEAD_SEED, SILVER_SEED, NICKEL_SEED, TIN_SEED, ALUMINUM_SEED, ZINC_SEED, PLATINUM_SEED, URANIUM_SEED, DAWNSTONE_SEED);
+		tag(CRYSTAL_SEEDS).addTags(COPPER_SEED, IRON_SEED, GOLD_SEED, LEAD_SEED, SILVER_SEED, NICKEL_SEED, TIN_SEED, ALUMINUM_SEED, ZINC_SEED, PLATINUM_SEED, URANIUM_SEED, DAWNSTONE_SEED, MITHRIL_SEED);
 		tag(COPPER_SEED).add(RegistryManager.COPPER_CRYSTAL_SEED.BLOCK.get());
 		tag(IRON_SEED).add(RegistryManager.IRON_CRYSTAL_SEED.BLOCK.get());
 		tag(GOLD_SEED).add(RegistryManager.GOLD_CRYSTAL_SEED.BLOCK.get());
@@ -372,8 +379,9 @@ public class EmbersBlockTags extends BlockTagsProvider {
 		tag(PLATINUM_SEED).add(RegistryManager.PLATINUM_CRYSTAL_SEED.BLOCK.get());
 		tag(URANIUM_SEED).add(RegistryManager.URANIUM_CRYSTAL_SEED.BLOCK.get());
 		tag(DAWNSTONE_SEED).add(RegistryManager.DAWNSTONE_CRYSTAL_SEED.BLOCK.get());
+		tag(MITHRIL_SEED).add(RegistryManager.MITHRIL_CRYSTAL_SEED.BLOCK.get());
 
-		tag(ANVIL_METAL).addTag(DAWNSTONE_BLOCK);
+		tag(ANVIL_METAL).addTags(DAWNSTONE_BLOCK, MITHRIL_BLOCK);
 	}
 
 	public void decoTags(StoneDecoBlocks deco) {

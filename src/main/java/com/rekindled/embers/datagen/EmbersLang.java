@@ -138,6 +138,7 @@ public class EmbersLang extends LanguageProvider {
 		addBlock(RegistryManager.PLATINUM_CRYSTAL_SEED.BLOCK, "Platinum Crystal Seed");
 		addBlock(RegistryManager.URANIUM_CRYSTAL_SEED.BLOCK, "Uranium Crystal Seed");
 		addBlock(RegistryManager.DAWNSTONE_CRYSTAL_SEED.BLOCK,  "Dawnstone Crystal Seed");
+		addBlock(RegistryManager.MITHRIL_CRYSTAL_SEED.BLOCK,  "Mithril Crystal Seed");
 		addBlock(RegistryManager.FIELD_CHART, "Field Chart");
 		addBlock(RegistryManager.FIELD_CHART_EDGE, "Field Chart");
 		addBlock(RegistryManager.IGNEM_REACTOR, "Ignem Reactor");
@@ -230,6 +231,7 @@ public class EmbersLang extends LanguageProvider {
 		addItem(RegistryManager.LEAD_ASPECTUS, "Lead Aspectus");
 		addItem(RegistryManager.SILVER_ASPECTUS, "Silver Aspectus");
 		addItem(RegistryManager.DAWNSTONE_ASPECTUS, "Dawnstone Aspectus");
+		addItem(RegistryManager.MITHRIL_ASPECTUS, "Mithril Aspectus");
 
 		addItem(RegistryManager.IRON_PLATE, "Iron Plate");
 		//addItem(RegistryManager.GOLD_PLATE, "Gold Plate");
@@ -260,6 +262,9 @@ public class EmbersLang extends LanguageProvider {
 		addItem(RegistryManager.DAWNSTONE_PLATE, "Dawnstone Plate");
 
 		addBlock(RegistryManager.MITHRIL_BLOCK, "Block of Mithril");
+		addItem(RegistryManager.MITHRIL_INGOT, "Mithril Ingot");
+		addItem(RegistryManager.MITHRIL_NUGGET, "Mithril Nugget");
+		addItem(RegistryManager.MITHRIL_PLATE, "Mithril Plate");
 
 		addTools(RegistryManager.LEAD_TOOLS, "Lead");
 		addTools(RegistryManager.SILVER_TOOLS, "Silver");

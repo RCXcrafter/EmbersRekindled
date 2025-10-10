@@ -1,0 +1,22 @@
+{
+  "type": "embers:stamping",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/dwarven_mithril"
+      }
+    }
+  ],
+  "fluid": {
+    "amount": 90,
+    "tag": "forge:molten_dwarven_mithril"
+  },
+  "output": {
+    "tag": "forge:ingots/dwarven_mithril"
+  },
+  "stamp": {
+    "item": "embers:ingot_stamp"
+  }
+}

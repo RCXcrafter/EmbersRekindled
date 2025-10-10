@@ -2,6 +2,7 @@
   "render_type": "embers:mithril",
   "parent": "minecraft:block/cube_all",
   "textures": {
+	"particle": "embers:block/block_mithril",
     "all": "embers:block/block_mithril_normal"
   }
 }

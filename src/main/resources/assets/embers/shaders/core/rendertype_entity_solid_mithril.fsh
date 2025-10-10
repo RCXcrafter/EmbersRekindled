@@ -25,7 +25,12 @@ in vec3 playerPos;
 out vec4 fragColor;
 
 void main() {
-	vec3 normalMap = texture(Sampler0, texCoord0).rgb;
+	vec4 normalMap = texture(Sampler0, texCoord0);
+
+	if (normalMap.a <= 0.0) {
+		discard;
+	}
+
 	normalMap = normalize(normalMap * 2.0 - 1.0);
 
 	/*vec3 pos = (position + normal * 0.03125) * inverse(iViewRotMat) + mod(playerPos, 0.0625);
@@ -35,7 +40,7 @@ void main() {
 	pos = pos * iViewRotMat;*/
 
 	vec3 e = normalize(position);//normalize(pos);
-	vec3 n = normalize(normal + normalMap);
+	vec3 n = normalize(normal + normalMap.rgb);
 	vec3 r = reflect(e, n);
 	float m = 2 * sqrt(
 		pow(r.x, 2) +
@@ -48,6 +53,7 @@ void main() {
 	color *= vertexColor * ColorModulator;
 	color.rgb = mix(overlayColor.rgb, color.rgb, overlayColor.a);
 	color *= lightMapColor;
+	color.a *= normalMap.a;
 	fragColor = linear_fog(color, vertexDistance, FogStart, FogEnd, FogColor);
 	
 	

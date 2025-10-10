@@ -414,7 +414,7 @@ public class RegistryManager {
 	public static final RegistryObject<Block> SILVER_BLOCK = BLOCKS.register("silver_block", () -> new Block(Properties.of().mapColor(MapColor.ICE).sound(SoundType.METAL).requiresCorrectToolForDrops().strength(5.0F, 6.0F)));
 
 	public static final RegistryObject<Block> DAWNSTONE_BLOCK = BLOCKS.register("dawnstone_block", () -> new Block(Properties.of().mapColor(MapColor.TERRACOTTA_YELLOW).sound(SoundType.METAL).requiresCorrectToolForDrops().strength(5.0F, 6.0F)));
-	public static final RegistryObject<Block> MITHRIL_BLOCK = BLOCKS.register("mithril_block", () -> new MithrilBlock(Properties.of().mapColor(MapColor.GLOW_LICHEN).sound(SoundType.METAL).requiresCorrectToolForDrops().strength(5.0F, 6.0F).noOcclusion()));
+	public static final RegistryObject<Block> MITHRIL_BLOCK = BLOCKS.register("mithril_block", () -> new MithrilBlock(Properties.of().mapColor(MapColor.GLOW_LICHEN).sound(SoundType.NETHERITE_BLOCK).requiresCorrectToolForDrops().strength(5.0F, 6.0F).noOcclusion()));
 
 	public static final RegistryObject<Block> CAMINITE_BRICKS = BLOCKS.register("caminite_bricks", () -> new Block(Properties.of().mapColor(MapColor.WOOD).sound(EmbersSounds.CAMINITE).requiresCorrectToolForDrops().strength(1.6f)));
 	public static final StoneDecoBlocks CAMINITE_BRICKS_DECO = new StoneDecoBlocks("caminite_bricks", CAMINITE_BRICKS, Properties.of().mapColor(MapColor.WOOD).sound(EmbersSounds.CAMINITE).requiresCorrectToolForDrops().strength(1.6f));
@@ -521,6 +521,7 @@ public class RegistryManager {
 	public static final MetalCrystalSeed PLATINUM_CRYSTAL_SEED = new MetalCrystalSeed("platinum");
 	public static final MetalCrystalSeed URANIUM_CRYSTAL_SEED = new MetalCrystalSeed("uranium");
 	public static final MetalCrystalSeed DAWNSTONE_CRYSTAL_SEED = new MetalCrystalSeed("dawnstone");
+	public static final MetalCrystalSeed MITHRIL_CRYSTAL_SEED = new MetalCrystalSeed("dwarven_mithril");
 	public static final RegistryObject<Block> FIELD_CHART = BLOCKS.register("field_chart", () -> new FieldChartBlock(Properties.of().mapColor(MapColor.COLOR_ORANGE).sound(SoundType.NETHER_BRICKS).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
 	public static final RegistryObject<Block> FIELD_CHART_EDGE = BLOCKS.register("field_chart_edge", () -> new FieldChartEdgeBlock(Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).pushReaction(PushReaction.BLOCK).sound(EmbersSounds.ARCHAIC_MULTIBLOCK_EXTRA).requiresCorrectToolForDrops().strength(1.6f)));
 	public static final RegistryObject<Block> IGNEM_REACTOR = BLOCKS.register("ignem_reactor", () -> new IgnemReactorBlock(Properties.of().mapColor(MapColor.COLOR_ORANGE).sound(EmbersSounds.MACHINE).requiresCorrectToolForDrops().strength(1.6f).noOcclusion()));
@@ -672,6 +673,7 @@ public class RegistryManager {
 	static { PLATINUM_CRYSTAL_SEED.makeItem(); }
 	static { URANIUM_CRYSTAL_SEED.makeItem(); }
 	static { DAWNSTONE_CRYSTAL_SEED.makeItem(); }
+	static { MITHRIL_CRYSTAL_SEED.makeItem(); }
 
 	public static final RegistryObject<Item> RAW_CAMINITE_PLATE = ITEMS.register("raw_caminite_plate", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> RAW_FLAT_STAMP = ITEMS.register("raw_flat_stamp", () -> new Item(new Item.Properties()));
@@ -692,6 +694,7 @@ public class RegistryManager {
 	public static final RegistryObject<Item> LEAD_ASPECTUS = ITEMS.register("lead_aspectus", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> SILVER_ASPECTUS = ITEMS.register("silver_aspectus", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> DAWNSTONE_ASPECTUS = ITEMS.register("dawnstone_aspectus", () -> new Item(new Item.Properties()));
+	public static final RegistryObject<Item> MITHRIL_ASPECTUS = ITEMS.register("mithril_aspectus", () -> new Item(new Item.Properties()));
 
 	public static final RegistryObject<Item> IRON_PLATE = ITEMS.register("iron_plate", () -> new Item(new Item.Properties()));
 	//public static final RegistryObject<Item> GOLD_PLATE = ITEMS.register("gold_plate", () -> new Item(new Item.Properties()));
@@ -721,6 +724,10 @@ public class RegistryManager {
 	public static final RegistryObject<Item> DAWNSTONE_INGOT = ITEMS.register("dawnstone_ingot", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> DAWNSTONE_NUGGET = ITEMS.register("dawnstone_nugget", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> DAWNSTONE_PLATE = ITEMS.register("dawnstone_plate", () -> new Item(new Item.Properties()));
+
+	public static final RegistryObject<Item> MITHRIL_INGOT = ITEMS.register("mithril_ingot", () -> new Item(new Item.Properties()));
+	public static final RegistryObject<Item> MITHRIL_NUGGET = ITEMS.register("mithril_nugget", () -> new Item(new Item.Properties()));
+	public static final RegistryObject<Item> MITHRIL_PLATE = ITEMS.register("mithril_plate", () -> new Item(new Item.Properties()));
 
 	public static final RegistryObject<Item> DAWNSTONE_BLOCK_ITEM = ITEMS.register("dawnstone_block", () -> new BlockItem(DAWNSTONE_BLOCK.get(), new Item.Properties()));
 	public static final RegistryObject<Item> MITHRIL_BLOCK_ITEM = ITEMS.register("mithril_block", () -> new BlockItem(MITHRIL_BLOCK.get(), new Item.Properties()));
@@ -781,6 +788,9 @@ public class RegistryManager {
 			prop -> prop.explosionResistance(1000F).tickRate(30).slopeFindDistance(2).levelDecreasePerBlock(2), moltenMetalProps());
 
 	public static final FluidStuff MOLTEN_DAWNSTONE = addFluid("Molten Dawnstone", new FluidInfo("molten_dawnstone", 0xFF9C36, 0.1F, 1.5F), MoltenMetalFluidType::new, LiquidBlock::new,
+			prop -> prop.explosionResistance(1000F).tickRate(30).slopeFindDistance(2).levelDecreasePerBlock(2), moltenMetalProps());
+
+	public static final FluidStuff MOLTEN_MITHRIL = addFluid("Molten Mithril", new FluidInfo("molten_mithril", 0xC8EBA2, 0.1F, 1.5F), MoltenMetalFluidType::new, LiquidBlock::new,
 			prop -> prop.explosionResistance(1000F).tickRate(30).slopeFindDistance(2).levelDecreasePerBlock(2), moltenMetalProps());
 
 	public static final FluidStuff MOLTEN_NICKEL = addFluid("Molten Nickel", new FluidInfo("molten_nickel", 0xDDEBC0, 0.1F, 1.5F), MoltenMetalFluidType::new, LiquidBlock::new,
@@ -950,7 +960,7 @@ public class RegistryManager {
 			.withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
 			.displayItems((params, output) -> {
 				for (RegistryObject<Item> item : ITEMS.getEntries()) {
-					if (item == MITHRIL_BLOCK_ITEM)
+					if (item == MITHRIL_BLOCK_ITEM || item == MITHRIL_CRYSTAL_SEED.ITEM || item == MITHRIL_ASPECTUS || item == MITHRIL_INGOT || item == MITHRIL_NUGGET || item == MITHRIL_PLATE || item.get() == MOLTEN_MITHRIL.FLUID_BUCKET.get())
 						continue;
 					output.accept(item.get());
 					if (item == COPPER_CELL_ITEM)
@@ -1079,6 +1089,7 @@ public class RegistryManager {
 			moltenMetalFluidInteractions(MOLTEN_LEAD.TYPE.get());
 			moltenMetalFluidInteractions(MOLTEN_SILVER.TYPE.get());
 			moltenMetalFluidInteractions(MOLTEN_DAWNSTONE.TYPE.get());
+			moltenMetalFluidInteractions(MOLTEN_MITHRIL.TYPE.get());
 			moltenMetalFluidInteractions(MOLTEN_TIN.TYPE.get());
 			moltenMetalFluidInteractions(MOLTEN_ALUMINUM.TYPE.get());
 			moltenMetalFluidInteractions(MOLTEN_ZINC.TYPE.get());

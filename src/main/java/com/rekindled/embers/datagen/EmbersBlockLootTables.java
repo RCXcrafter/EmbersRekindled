@@ -161,6 +161,7 @@ public class EmbersBlockLootTables extends BlockLootSubProvider {
 		dropSelf(RegistryManager.PLATINUM_CRYSTAL_SEED.BLOCK.get());
 		dropSelf(RegistryManager.URANIUM_CRYSTAL_SEED.BLOCK.get());
 		dropSelf(RegistryManager.DAWNSTONE_CRYSTAL_SEED.BLOCK.get());
+		dropSelf(RegistryManager.MITHRIL_CRYSTAL_SEED.BLOCK.get());
 		dropSelf(RegistryManager.FIELD_CHART.get());
 		dropOther(RegistryManager.FIELD_CHART_EDGE.get(), RegistryManager.FIELD_CHART.get());
 		dropSelf(RegistryManager.IGNEM_REACTOR.get());

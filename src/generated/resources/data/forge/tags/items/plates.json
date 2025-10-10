@@ -4,6 +4,7 @@
     "#forge:plates/copper",
     "#forge:plates/lead",
     "#forge:plates/silver",
-    "#forge:plates/dawnstone"
+    "#forge:plates/dawnstone",
+    "#forge:plates/dwarven_mithril"
   ]
 }

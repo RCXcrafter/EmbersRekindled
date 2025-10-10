@@ -57,6 +57,7 @@ public class EmbersItemTags extends ItemTagsProvider {
 	public static final TagKey<Item> LEAD_ASPECTUS = ItemTags.create(new ResourceLocation(Embers.MODID, "aspectus/lead"));
 	public static final TagKey<Item> SILVER_ASPECTUS = ItemTags.create(new ResourceLocation(Embers.MODID, "aspectus/silver"));
 	public static final TagKey<Item> DAWNSTONE_ASPECTUS = ItemTags.create(new ResourceLocation(Embers.MODID, "aspectus/dawnstone"));
+	public static final TagKey<Item> MITHRIL_ASPECTUS = ItemTags.create(new ResourceLocation(Embers.MODID, "aspectus/dwarven_mithril"));
 
 	public static final TagKey<Item> ASHEN_STONE = ItemTags.create(new ResourceLocation(Embers.MODID, "ashen_stone"));
 
@@ -89,6 +90,11 @@ public class EmbersItemTags extends ItemTagsProvider {
 	public static final TagKey<Item> DAWNSTONE_INGOT = ItemTags.create(new ResourceLocation("forge", "ingots/dawnstone"));
 	public static final TagKey<Item> DAWNSTONE_NUGGET = ItemTags.create(new ResourceLocation("forge", "nuggets/dawnstone"));
 	public static final TagKey<Item> DAWNSTONE_PLATE = ItemTags.create(new ResourceLocation("forge", "plates/dawnstone"));
+
+	public static final TagKey<Item> MITHRIL_BLOCK = ItemTags.create(new ResourceLocation("forge", "storage_blocks/dwarven_mithril"));
+	public static final TagKey<Item> MITHRIL_INGOT = ItemTags.create(new ResourceLocation("forge", "ingots/dwarven_mithril"));
+	public static final TagKey<Item> MITHRIL_NUGGET = ItemTags.create(new ResourceLocation("forge", "nuggets/dwarven_mithril"));
+	public static final TagKey<Item> MITHRIL_PLATE = ItemTags.create(new ResourceLocation("forge", "plates/dwarven_mithril"));
 
 	public static final TagKey<Item> NICKEL_INGOT = ItemTags.create(new ResourceLocation("forge", "ingots/nickel"));
 	public static final TagKey<Item> TIN_INGOT = ItemTags.create(new ResourceLocation("forge", "ingots/tin"));
@@ -125,6 +131,7 @@ public class EmbersItemTags extends ItemTagsProvider {
 	public static final TagKey<Item> PLATINUM_SEED = ItemTags.create(new ResourceLocation(Embers.MODID, "crystal_seeds/platinum"));
 	public static final TagKey<Item> URANIUM_SEED = ItemTags.create(new ResourceLocation(Embers.MODID, "crystal_seeds/uranium"));
 	public static final TagKey<Item> DAWNSTONE_SEED = ItemTags.create(new ResourceLocation(Embers.MODID, "crystal_seeds/dawnstone"));
+	public static final TagKey<Item> MITHRIL_SEED = ItemTags.create(new ResourceLocation(Embers.MODID, "crystal_seeds/dwarven_mithril"));
 
 	//curios
 	public static final TagKey<Item> ANY_CURIO = ItemTags.create(new ResourceLocation("curios", "curio"));
@@ -164,12 +171,13 @@ public class EmbersItemTags extends ItemTagsProvider {
 
 		tag(TINKER_LENS_HELMETS).add(RegistryManager.ASHEN_GOGGLES.get());
 
-		tag(ASPECTUS).addTags(IRON_ASPECTUS, COPPER_ASPECTUS, LEAD_ASPECTUS, SILVER_ASPECTUS, DAWNSTONE_ASPECTUS);
+		tag(ASPECTUS).addTags(IRON_ASPECTUS, COPPER_ASPECTUS, LEAD_ASPECTUS, SILVER_ASPECTUS, DAWNSTONE_ASPECTUS, MITHRIL_ASPECTUS);
 		tag(IRON_ASPECTUS).add(RegistryManager.IRON_ASPECTUS.get());
 		tag(COPPER_ASPECTUS).add(RegistryManager.COPPER_ASPECTUS.get());
 		tag(LEAD_ASPECTUS).add(RegistryManager.LEAD_ASPECTUS.get());
 		tag(SILVER_ASPECTUS).add(RegistryManager.SILVER_ASPECTUS.get());
 		tag(DAWNSTONE_ASPECTUS).add(RegistryManager.DAWNSTONE_ASPECTUS.get());
+		tag(MITHRIL_ASPECTUS).add(RegistryManager.MITHRIL_ASPECTUS.get());
 
 		tag(ASHEN_STONE).add(RegistryManager.ASHEN_STONE_ITEM.get(), RegistryManager.ASHEN_BRICK_ITEM.get(), RegistryManager.ASHEN_TILE_ITEM.get());
 
@@ -191,33 +199,37 @@ public class EmbersItemTags extends ItemTagsProvider {
 		tag(RAW_LEAD_BLOCK).add(RegistryManager.RAW_LEAD_BLOCK_ITEM.get());
 		tag(RAW_SILVER_BLOCK).add(RegistryManager.RAW_SILVER_BLOCK_ITEM.get());
 
-		tag(Tags.Items.STORAGE_BLOCKS).addTags(LEAD_BLOCK, SILVER_BLOCK, DAWNSTONE_BLOCK);
+		tag(Tags.Items.STORAGE_BLOCKS).addTags(LEAD_BLOCK, SILVER_BLOCK, DAWNSTONE_BLOCK, MITHRIL_BLOCK);
 		tag(LEAD_BLOCK).add(RegistryManager.LEAD_BLOCK_ITEM.get());
 		tag(SILVER_BLOCK).add(RegistryManager.SILVER_BLOCK_ITEM.get());
 		tag(DAWNSTONE_BLOCK).add(RegistryManager.DAWNSTONE_BLOCK_ITEM.get());
+		tag(MITHRIL_BLOCK).add(RegistryManager.MITHRIL_BLOCK_ITEM.get());
 
 		tag(Tags.Items.RAW_MATERIALS).addTags(RAW_LEAD, RAW_SILVER);
 		tag(RAW_LEAD).add(RegistryManager.RAW_LEAD.get());
 		tag(RAW_SILVER).add(RegistryManager.RAW_SILVER.get());
 
-		tag(Tags.Items.INGOTS).addTags(LEAD_INGOT, SILVER_INGOT, DAWNSTONE_INGOT);
+		tag(Tags.Items.INGOTS).addTags(LEAD_INGOT, SILVER_INGOT, DAWNSTONE_INGOT, MITHRIL_INGOT);
 		tag(LEAD_INGOT).add(RegistryManager.LEAD_INGOT.get());
 		tag(SILVER_INGOT).add(RegistryManager.SILVER_INGOT.get());
 		tag(DAWNSTONE_INGOT).add(RegistryManager.DAWNSTONE_INGOT.get());
+		tag(MITHRIL_INGOT).add(RegistryManager.MITHRIL_INGOT.get());
 
-		tag(Tags.Items.NUGGETS).addTags(COPPER_NUGGET, LEAD_NUGGET, SILVER_NUGGET, DAWNSTONE_NUGGET);
+		tag(Tags.Items.NUGGETS).addTags(COPPER_NUGGET, LEAD_NUGGET, SILVER_NUGGET, DAWNSTONE_NUGGET, MITHRIL_NUGGET);
 		tag(COPPER_NUGGET).add(RegistryManager.COPPER_NUGGET.get());
 		tag(LEAD_NUGGET).add(RegistryManager.LEAD_NUGGET.get());
 		tag(SILVER_NUGGET).add(RegistryManager.SILVER_NUGGET.get());
 		tag(DAWNSTONE_NUGGET).add(RegistryManager.DAWNSTONE_NUGGET.get());
+		tag(MITHRIL_NUGGET).add(RegistryManager.MITHRIL_NUGGET.get());
 
-		tag(PLATES).addTags(IRON_PLATE, COPPER_PLATE, LEAD_PLATE, SILVER_PLATE, DAWNSTONE_PLATE);
+		tag(PLATES).addTags(IRON_PLATE, COPPER_PLATE, LEAD_PLATE, SILVER_PLATE, DAWNSTONE_PLATE, MITHRIL_PLATE);
 		tag(IRON_PLATE).add(RegistryManager.IRON_PLATE.get());
 		//tag(GOLD_PLATE).add(RegistryManager.GOLD_PLATE.get());
 		tag(COPPER_PLATE).add(RegistryManager.COPPER_PLATE.get());
 		tag(LEAD_PLATE).add(RegistryManager.LEAD_PLATE.get());
 		tag(SILVER_PLATE).add(RegistryManager.SILVER_PLATE.get());
 		tag(DAWNSTONE_PLATE).add(RegistryManager.DAWNSTONE_PLATE.get());
+		tag(MITHRIL_PLATE).add(RegistryManager.MITHRIL_PLATE.get());
 
 		tag(Tags.Items.INGOTS).addTags(CAMINITE_BRICK);
 		tag(CAMINITE_BRICK).add(RegistryManager.CAMINITE_BRICK.get());
@@ -263,6 +275,7 @@ public class EmbersItemTags extends ItemTagsProvider {
 		copy(EmbersBlockTags.PLATINUM_SEED, PLATINUM_SEED);
 		copy(EmbersBlockTags.URANIUM_SEED, URANIUM_SEED);
 		copy(EmbersBlockTags.DAWNSTONE_SEED, DAWNSTONE_SEED);
+		copy(EmbersBlockTags.MITHRIL_SEED, MITHRIL_SEED);
 
 		copy(EmbersBlockTags.ANVIL_METAL, ANVIL_METAL);
 
