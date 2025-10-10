@@ -59,6 +59,13 @@ public class CatalyticPlugUpgrade extends DefaultUpgradeProvider {
 	}
 
 	@Override
+	public double getOtherParameter(BlockEntity tile, String type, double value, int distance, int count) {
+		if (type.equals("fuel_consumption"))
+			return value * getMultiplier(getCatalystMultiplier(), distance, count);
+		return value;
+	}
+
+	@Override
 	public boolean doWork(BlockEntity tile, List<UpgradeContext> upgrades, int distance, int count) {
 		if (getCatalystMultiplier() != 1.0 && this.tile instanceof CatalyticPlugBlockEntity) {
 			depleteCatalyst(1);
