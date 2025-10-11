@@ -50,7 +50,7 @@ public class AshenArmorItem extends ArmorItem {
 
 	@Override
 	public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
-		return isBroken(stack) ? 0 : amount;
+		return isBroken(stack) ? 0 : Math.min(amount, getMaxDamage(stack) - getDamage(stack) - 1);
 	}
 
 	public boolean isBroken(ItemStack armor) {
