@@ -6,7 +6,10 @@ import com.rekindled.embers.Embers;
 import com.rekindled.embers.api.event.AlchemyResultEvent;
 import com.rekindled.embers.api.event.AlchemyStartEvent;
 import com.rekindled.embers.api.event.UpgradeEvent;
+import com.rekindled.embers.api.misc.AlchemyResult;
 import com.rekindled.embers.api.upgrades.UpgradeContext;
+import com.rekindled.embers.api.upgrades.UpgradeUtil;
+import com.rekindled.embers.blockentity.AlchemyTabletBlockEntity;
 import com.rekindled.embers.blockentity.EntropicEnumeratorBlockEntity;
 import com.rekindled.embers.util.Misc;
 
@@ -27,26 +30,46 @@ public class EntropicEnumeratorUpgrade extends DefaultUpgradeProvider {
 	@Override
 	public void throwEvent(BlockEntity tile, List<UpgradeContext> upgrades, UpgradeEvent event, int distance, int count) {
 		if (event instanceof AlchemyStartEvent alchemyEvent && alchemyEvent.getRecipe() != null && this.tile instanceof EntropicEnumeratorBlockEntity enumerator) {
-			if (alchemyEvent.getRecipe().getResult(alchemyEvent.context).blackPins != alchemyEvent.getRecipe().getInputs().size())
-				enumerator.solve(false, 390); //alchemy takes about 400 ticks
-		}
-		if (event instanceof AlchemyResultEvent alchemyEvent && this.tile instanceof EntropicEnumeratorBlockEntity enumerator) {
-			int blackPins = alchemyEvent.getResult().blackPins;
+			boolean willFail = true;
+			AlchemyResult result = alchemyEvent.getRecipe().getResult(alchemyEvent.context);
 			int requirement = alchemyEvent.getRecipe().getInputs().size();
-			if (blackPins != requirement) {
-				if (upgrades.get(0).upgrade() == this) {
+			if (result.blackPins == requirement) {
+				willFail = false;
+			} else {
+				boolean first = false;
+				for (UpgradeContext upgrade : upgrades) {
+					if (upgrade.upgrade() instanceof EntropicEnumeratorUpgrade firstEnumerator) {
+						if (firstEnumerator == this) {
+							first = true;
+						} else {
+							willFail = ((EntropicEnumeratorBlockEntity) firstEnumerator.tile).willFail;
+						}
+						break;
+					}
+				}
+				if (first) {
 					if (Misc.random.nextFloat(count + 3) > 3) {
-						alchemyEvent.setFailure(true);
+						willFail = true;
 					} else {
-						int bonusWhite = Math.min(alchemyEvent.getResult().whitePins, count + 1);
+						int bonusWhite = Math.min(result.whitePins, count + 1);
 						int bonusNothing = count / 2;
-						if (alchemyEvent.isFailure() && requirement <= blackPins + bonusWhite + bonusNothing) {
-							alchemyEvent.setFailure(false);
+						if (requirement <= result.blackPins + bonusWhite + bonusNothing) {
+							willFail = false;
 						}
 					}
 				}
-				enumerator.restartScramble(Misc.random.nextInt(EntropicEnumeratorBlockEntity.queueTime));
+				enumerator.willFail = willFail;
 			}
+
+			int solveTime = UpgradeUtil.getWorkTime(tile, AlchemyTabletBlockEntity.PROCESSING_TIME * 10, upgrades) - 10;
+			if (solveTime < 38 * EntropicEnumeratorBlockEntity.solvingMoveTime) {
+				return; //not enough time to solve so don't bother
+			}
+			enumerator.solve(false, solveTime, willFail);
+		}
+		if (event instanceof AlchemyResultEvent alchemyEvent && this.tile instanceof EntropicEnumeratorBlockEntity enumerator) {
+			alchemyEvent.setFailure(enumerator.willFail);
+			enumerator.restartScramble(Misc.random.nextInt(EntropicEnumeratorBlockEntity.queueTime));
 		}
 	}
 }

@@ -50,7 +50,7 @@ public class EntropicEnumeratorBlock extends BaseEntityBlock implements SimpleWa
 			if (enumerator.isSolved()) {
 				enumerator.restartScramble(2);
 			} else if (!enumerator.solving) {
-				enumerator.solve(true, 0);
+				enumerator.solve(true, 0, false);
 			}
 			return InteractionResult.SUCCESS;
 		}

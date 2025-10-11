@@ -58,6 +58,7 @@ public class EntropicEnumeratorBlockEntity extends BlockEntity implements IExtra
 	public Move[] moveQueue = new Move[0];
 	public int[] offsetQueue = new int[0];
 	public boolean solving;
+	public boolean willFail;
 
 	public static Random seededRand = new Random();
 
@@ -95,6 +96,7 @@ public class EntropicEnumeratorBlockEntity extends BlockEntity implements IExtra
 		}
 		moveOffset = nbt.getInt("moveOffset");
 		solving = nbt.getBoolean("solving");
+		willFail = nbt.getBoolean("willFail");
 		previousMove = -10;
 	}
 
@@ -130,6 +132,7 @@ public class EntropicEnumeratorBlockEntity extends BlockEntity implements IExtra
 		nbt.put("queue", queue);
 		nbt.putInt("moveOffset", moveOffset);
 		nbt.putBoolean("solving", solving);
+		nbt.putBoolean("willFail", willFail);
 	}
 
 	@Override
@@ -292,7 +295,7 @@ public class EntropicEnumeratorBlockEntity extends BlockEntity implements IExtra
 		}
 	}
 
-	public void solve(boolean direct, int delay) {
+	public void solve(boolean direct, int delay, boolean fail) {
 		solving = true;
 		//cut current queue short
 		applyCurrentQueue(cube);
@@ -795,6 +798,12 @@ public class EntropicEnumeratorBlockEntity extends BlockEntity implements IExtra
 				moveQueue[moveIndex] = algorithm[j];
 				moveIndex++;
 			}
+		}
+
+		if (fail) {
+			int wrongMove = seededRand.nextInt(moveQueue.length);
+			Move[] wrongMoves = Move.getNextMoves(moveQueue[wrongMove]);
+			moveQueue[wrongMove] = wrongMoves[seededRand.nextInt(wrongMoves.length)];
 		}
 
 		moveQueue = optimizeAlgorithm(moveQueue);
