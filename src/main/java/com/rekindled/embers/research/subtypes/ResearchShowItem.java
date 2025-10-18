@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.rekindled.embers.Embers;
 import com.rekindled.embers.gui.GuiCodex;
 import com.rekindled.embers.research.ResearchBase;
 import com.rekindled.embers.util.Vec2i;
@@ -13,18 +12,29 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.item.ItemStack;
 
 public class ResearchShowItem extends ResearchBase {
 	LinkedList<DisplayItem> displayItems = new LinkedList<>();
 
+	public ResearchShowItem(ResourceLocation location, ItemStack icon, double x, double y) {
+		super(location, icon, x, y);
+	}
+
+	public ResearchShowItem(ResourceLocation location, ItemStack icon, Vec2i pos) {
+		this(location, icon, pos.x, pos.y);
+	}
+
+	@Deprecated
 	public ResearchShowItem(String location, ItemStack icon, double x, double y) {
 		super(location, icon, x, y);
 	}
 
+	@Deprecated
 	public ResearchShowItem(String location, ItemStack icon, Vec2i pos) {
-		this(location,icon,pos.x,pos.y);
+		this(location, icon, pos.x, pos.y);
 	}
 
 	public ResearchShowItem addItem(DisplayItem item) {
@@ -79,13 +89,13 @@ public class ResearchShowItem extends ResearchBase {
 
 	public static class DisplayItem {
 		public ItemStack[] stacks;
-		public String sideText;
+		public ResourceLocation sideText;
 
 		public DisplayItem(ItemStack... stacks) {
 			this.stacks = stacks;
 		}
 
-		public DisplayItem(String sideText, ItemStack... stacks) {
+		public DisplayItem(ResourceLocation sideText, ItemStack... stacks) {
 			this.stacks = stacks;
 			this.sideText = sideText;
 		}
@@ -95,7 +105,7 @@ public class ResearchShowItem extends ResearchBase {
 		}
 
 		public Component getSideText() {
-			return Component.translatable(Embers.MODID + ".research.image." + sideText);
+			return Component.translatable(sideText.getNamespace() + ".research.image." + sideText.getPath());
 		}
 	}
 }

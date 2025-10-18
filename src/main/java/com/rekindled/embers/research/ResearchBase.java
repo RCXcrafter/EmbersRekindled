@@ -23,7 +23,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class ResearchBase {
-	public String name = "";
+	public ResourceLocation name;
 	public double u = 0.0;
 	public double v = 0.0;
 	public ItemStack icon = ItemStack.EMPTY;
@@ -46,13 +46,23 @@ public class ResearchBase {
 
 	public boolean checked;
 
-	public ResearchBase(String location, ItemStack icon, double x, double y){
+	public ResearchBase(ResourceLocation location, ItemStack icon, double x, double y) {
 		this.name = location;
 		this.icon = icon;
 		this.x = 48+(int)(x*24);
 		this.y = 48+(int)(y*24);
 	}
 
+	public ResearchBase(ResourceLocation location, ItemStack icon, Vec2i pos) {
+		this(location, icon, pos.x, pos.y);
+	}
+
+	@Deprecated
+	public ResearchBase(String location, ItemStack icon, double x, double y) {
+		this(new ResourceLocation(Embers.MODID, location), icon, x, y);
+	}
+
+	@Deprecated
 	public ResearchBase(String location, ItemStack icon, Vec2i pos) {
 		this(location, icon, pos.x, pos.y);
 	}
@@ -186,20 +196,20 @@ public class ResearchBase {
 
 	@OnlyIn(Dist.CLIENT)
 	public String getName() {
-		return I18n.get(Embers.MODID + ".research.page."+name);
+		return I18n.get(name.getNamespace() + ".research.page." + name.getPath());
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	public String getTitle() {
 		if (hasMultiplePages())
-			return I18n.get(Embers.MODID + ".research.multipage", I18n.get(Embers.MODID + ".research.page."+getFirstPage().name+".title"), pageNumber+1, getPageCount()+1);
+			return I18n.get(name.getNamespace() + ".research.multipage", I18n.get(name.getNamespace() + ".research.page." + getFirstPage().name.getPath() + ".title"), pageNumber+1, getPageCount()+1);
 		else
-			return I18n.get(Embers.MODID + ".research.page."+name+".title");
+			return I18n.get(name.getNamespace() + ".research.page." + name.getPath() + ".title");
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	private String[] getTags() {
-		String translateKey = Embers.MODID + ".research.page." + name + ".tags";
+		String translateKey = name.getNamespace() + ".research.page." + name.getPath() + ".tags";
 		if (I18n.exists(translateKey)) {
 			return I18n.get(translateKey).split(";");
 		} else {
@@ -209,7 +219,7 @@ public class ResearchBase {
 
 	@OnlyIn(Dist.CLIENT)
 	public Component getText() {
-		return Component.translatable(Embers.MODID + ".research.page."+name+".desc");
+		return Component.translatable(name.getNamespace() + ".research.page." + name.getPath() + ".desc");
 	}
 
 	@OnlyIn(Dist.CLIENT)

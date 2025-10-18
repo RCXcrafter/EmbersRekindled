@@ -8,12 +8,18 @@ import com.rekindled.embers.gui.GuiCodex;
 import com.rekindled.embers.research.ResearchBase;
 import com.rekindled.embers.research.ResearchCategory;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 public class ResearchSwitchCategory extends ResearchBase {
 	public ResearchCategory targetCategory;
 	int minEntries;
 
+	public ResearchSwitchCategory(ResourceLocation location, ItemStack icon, double x, double y) {
+		super(location, icon, x, y);
+	}
+
+	@Deprecated
 	public ResearchSwitchCategory(String location, ItemStack icon, double x, double y) {
 		super(location, icon, x, y);
 	}
@@ -30,7 +36,7 @@ public class ResearchSwitchCategory extends ResearchBase {
 
 	@Override
 	public void getAllResearch(Set<ResearchBase> result) {
-		if(result.contains(this))
+		if (result.contains(this))
 			return;
 		targetCategory.getAllResearch(result);
 	}
@@ -39,8 +45,7 @@ public class ResearchSwitchCategory extends ResearchBase {
 	public void findByTag(String match, Map<ResearchBase, Integer> result, Set<ResearchCategory> categories) {
 		int startResults = result.size();
 		targetCategory.findByTag(match,result,categories);
-		if(startResults != result.size())
-		{
+		if(startResults != result.size()) {
 			int categoryScore = result.entrySet().stream().filter(entry -> targetCategory.researches.contains(entry.getKey())).mapToInt(Map.Entry::getValue).max().orElse(0);
 			result.put(this,categoryScore);
 		}

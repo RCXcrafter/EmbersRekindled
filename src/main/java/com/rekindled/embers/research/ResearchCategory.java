@@ -22,7 +22,7 @@ public class ResearchCategory {
 
 	public static final ArrayList<ResearchBase> NO_PREREQUISITES = Lists.newArrayList();
 
-	public String name = "";
+	public ResourceLocation name;
 	public double u = 192.0;
 	public double v = 0;
 	public ResourceLocation texture = new ResourceLocation(Embers.MODID, "textures/gui/codex_index.png");
@@ -31,22 +31,37 @@ public class ResearchCategory {
 	public ArrayList<ResearchBase> prerequisites = new ArrayList<>();
 	public LinkedList<Vec2i> goodLocations = new LinkedList<>();
 
+	public ResearchCategory(ResourceLocation name, double v) {
+		this.name = name;
+		this.v = v;
+	}
+
+	public ResearchCategory(ResourceLocation name, double u, double v) {
+		this.name = name;
+		this.u = u;
+		this.v = v;
+	}
+
+	public ResearchCategory(ResourceLocation name, ResourceLocation texture, double u, double v) {
+		this.name = name;
+		this.v = v;
+		this.u = u;
+		this.texture = texture;
+	}
+
+	@Deprecated
 	public ResearchCategory(String name, double v) {
-		this.name = name;
-		this.v = v;
+		this(new ResourceLocation(Embers.MODID), v);
 	}
 
+	@Deprecated
 	public ResearchCategory(String name, double u, double v) {
-		this.name = name;
-		this.u = u;
-		this.v = v;
+		this(new ResourceLocation(Embers.MODID), u, v);
 	}
 
-	public ResearchCategory(String name, ResourceLocation loc, double u, double v) {
-		this.name = name;
-		this.v = v;
-		this.u = u;
-		this.texture = loc;
+	@Deprecated
+	public ResearchCategory(String name, ResourceLocation texture, double u, double v) {
+		this(new ResourceLocation(Embers.MODID), texture, u, v);
 	}
 
 	public ResearchCategory addResearch(ResearchBase base) {

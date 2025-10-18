@@ -7,33 +7,34 @@ import java.util.function.Supplier;
 import com.rekindled.embers.research.ResearchManager;
 
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.network.NetworkEvent;
 
 public class MessageResearchData {
 	public static final int NAME_MAX_LENGTH = 64;
-	Map<String,Boolean> ticks;
+	Map<ResourceLocation, Boolean> ticks;
 
 	public MessageResearchData() {
 		this.ticks = new HashMap<>();
 	}
 
-	public MessageResearchData(Map<String, Boolean> ticks) {
+	public MessageResearchData(Map<ResourceLocation, Boolean> ticks) {
 		this.ticks = ticks;
 	}
 
 	public static void encode(MessageResearchData msg, FriendlyByteBuf buf) {
 		buf.writeInt(msg.ticks.size());
-		for (Map.Entry<String,Boolean> entry : msg.ticks.entrySet()) {
-			buf.writeUtf(entry.getKey(), NAME_MAX_LENGTH);
+		for (Map.Entry<ResourceLocation, Boolean> entry : msg.ticks.entrySet()) {
+			buf.writeResourceLocation(entry.getKey());
 			buf.writeBoolean(entry.getValue());
 		}
 	}
 
 	public static MessageResearchData decode(FriendlyByteBuf buf) {
-		Map<String,Boolean> ticks = new HashMap<>();
+		Map<ResourceLocation, Boolean> ticks = new HashMap<>();
 		int entries = buf.readInt();
 		for(int i = 0; i < entries; i++) {
-			String key = buf.readUtf(NAME_MAX_LENGTH);
+			ResourceLocation key = buf.readResourceLocation();
 			boolean value = buf.readBoolean();
 			ticks.put(key, value);
 		}
