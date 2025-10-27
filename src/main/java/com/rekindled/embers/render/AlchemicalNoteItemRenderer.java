@@ -19,6 +19,7 @@ import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.HumanoidArm;
@@ -67,6 +68,14 @@ public class AlchemicalNoteItemRenderer extends BlockEntityWithoutLevelRenderer 
 			poseStack.mulPose(Axis.YP.rotationDegrees(180.0F));
 			poseStack.scale(4.0F, 4.0F, 4.0F);
 			this.renderNote(poseStack, buffer, packedLight, packedOverlay, stack);
+			poseStack.popPose();
+		} else if (displayContext == ItemDisplayContext.GUI) {
+			poseStack.pushPose();
+			poseStack.translate(0.5, 0.5, 0.0);
+			itemRenderer.renderStatic(stack, ItemDisplayContext.NONE, packedLight, packedOverlay, poseStack, buffer, minecraft.level, 0);
+			poseStack.scale(0.5F, 0.5F, 0.5F);
+			poseStack.translate(0.5, -0.5, 0.1);
+			itemRenderer.renderStatic(AlchemyHintItem.getResult(stack), ItemDisplayContext.GUI, packedLight, packedOverlay, poseStack, buffer, minecraft.level, 0);
 			poseStack.popPose();
 		}
 	}

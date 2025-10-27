@@ -16,6 +16,9 @@
     },
     "fixed": {
       "parent": "minecraft:builtin/entity"
+    },
+    "gui": {
+      "parent": "minecraft:builtin/entity"
     }
   }
 }
