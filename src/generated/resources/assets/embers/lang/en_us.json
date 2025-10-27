@@ -789,6 +789,7 @@
   "embers.tooltip.goggles.item.stamp": "Stamp",
   "embers.tooltip.goggles.mechanical": "Mechanical Power",
   "embers.tooltip.goggles.output": "§6⬉§r %s",
+  "embers.tooltip.goggles.redstone_signal": "§4▲§r Redstone Signal",
   "embers.tooltip.goggles.storage": "• %s",
   "embers.tooltip.goggles.upgrade": "• Machine Upgrade",
   "embers.tooltip.goggles.upgrade_slot": "• Upgrade Slot",

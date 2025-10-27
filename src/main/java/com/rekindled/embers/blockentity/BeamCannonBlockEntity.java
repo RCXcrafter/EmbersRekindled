@@ -1,14 +1,17 @@
 package com.rekindled.embers.blockentity;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.capabilities.EmbersCapabilities;
 import com.rekindled.embers.api.event.EmberEvent;
 import com.rekindled.embers.api.power.IEmberCapability;
 import com.rekindled.embers.api.power.IEmberPacketProducer;
 import com.rekindled.embers.api.power.IEmberPacketReceiver;
+import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
 import com.rekindled.embers.api.tile.ISparkable;
 import com.rekindled.embers.api.tile.IUpgradeable;
 import com.rekindled.embers.api.upgrades.UpgradeContext;
@@ -24,6 +27,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -39,7 +43,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.network.PacketDistributor;
 
-public class BeamCannonBlockEntity extends BlockEntity implements IUpgradeable, IEmberPacketProducer {
+public class BeamCannonBlockEntity extends BlockEntity implements IUpgradeable, IEmberPacketProducer, IExtraCapabilityInformation {
 
 	public IEmberCapability capability = new DefaultEmberCapability() {
 		@Override
@@ -62,7 +66,7 @@ public class BeamCannonBlockEntity extends BlockEntity implements IUpgradeable, 
 	public boolean lastPowered = false;
 	public Random random = new Random();
 	public int offset = random.nextInt(40);
-	protected List<UpgradeContext> upgrades;
+	protected List<UpgradeContext> upgrades = new LinkedList<UpgradeContext>();
 
 	public BeamCannonBlockEntity(BlockPos pPos, BlockState pBlockState) {
 		super(RegistryManager.BEAM_CANNON_ENTITY.get(), pPos, pBlockState);
@@ -218,5 +222,10 @@ public class BeamCannonBlockEntity extends BlockEntity implements IUpgradeable, 
 			return hitPos;
 		}
 		return null;
+	}
+
+	@Override
+	public void addOtherDescription(List<Component> strings, Direction facing) {
+		strings.add(Component.translatable(Embers.MODID + ".tooltip.goggles.redstone_signal"));
 	}
 }

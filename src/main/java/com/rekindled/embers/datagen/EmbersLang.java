@@ -390,6 +390,7 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".tooltip.goggles.upgrade", "• Machine Upgrade");
 		add(Embers.MODID + ".tooltip.goggles.accessor_slot", "• Mechanical Core Slot");
 		add(Embers.MODID + ".tooltip.goggles.actuator_slot", "• Actuator Slot");
+		add(Embers.MODID + ".tooltip.goggles.redstone_signal", "§4▲§r Redstone Signal");
 
 		add(Embers.MODID + ".tooltip.crystal.level", "Level %s");
 		add(Embers.MODID + ".tooltip.crystal.xp", "Refinement %s/%s");

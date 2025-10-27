@@ -9,9 +9,11 @@ import javax.annotation.Nonnull;
 
 import org.jetbrains.annotations.NotNull;
 
+import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.filter.FilterAny;
 import com.rekindled.embers.api.filter.IFilter;
+import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
 import com.rekindled.embers.api.tile.IOrderDestination;
 import com.rekindled.embers.api.tile.IOrderSource;
 import com.rekindled.embers.api.tile.OrderStack;
@@ -23,6 +25,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -34,7 +37,7 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 
-public class ItemExtractorBlockEntity extends ItemPipeBlockEntityBase implements IOrderDestination {
+public class ItemExtractorBlockEntity extends ItemPipeBlockEntityBase implements IOrderDestination, IExtraCapabilityInformation {
 
 	Random random = new Random();
 	IItemHandler[] sideHandlers;
@@ -225,5 +228,10 @@ public class ItemExtractorBlockEntity extends ItemPipeBlockEntityBase implements
 
 	private boolean isOrderInvalid(OrderStack order) {
 		return order.getSize() <= 0 || order.getSource(level) == null;
+	}
+
+	@Override
+	public void addOtherDescription(List<Component> strings, Direction facing) {
+		strings.add(Component.translatable(Embers.MODID + ".tooltip.goggles.redstone_signal"));
 	}
 }
