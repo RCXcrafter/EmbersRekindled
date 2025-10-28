@@ -1,9 +1,13 @@
 package com.rekindled.embers.item;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import org.jetbrains.annotations.Nullable;
 
 import com.rekindled.embers.Embers;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -14,6 +18,7 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
 public class AlchemyHintItem extends Item {
@@ -63,6 +68,18 @@ public class AlchemyHintItem extends Item {
 			return ItemStack.of(stack.getTag().getCompound("result"));
 		}
 		return ItemStack.EMPTY;
+	}
+
+	@Override
+	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
+		int blackPins = getBlackPins(stack);
+		int whitePins = getWhitePins(stack);
+		if (blackPins != 0)
+			tooltip.add(Component.translatable(blackPins == 1 ? Embers.MODID + ".alchemy_hint.black.one" : Embers.MODID + ".alchemy_hint.black", blackPins).withStyle(ChatFormatting.GRAY));
+		if (whitePins != 0)
+			tooltip.add(Component.translatable(whitePins == 1 ? Embers.MODID + ".alchemy_hint.white.one" : Embers.MODID + ".alchemy_hint.white", whitePins).withStyle(ChatFormatting.GRAY));
+		if (blackPins == 0 && whitePins == 0)
+			tooltip.add(Component.translatable(Embers.MODID + ".alchemy_hint.none").withStyle(ChatFormatting.GRAY));
 	}
 
 	@Override
