@@ -800,7 +800,7 @@ public class EntropicEnumeratorBlockEntity extends BlockEntity implements IExtra
 			}
 		}
 
-		if (fail) {
+		if (fail && moveQueue.length > 0) {
 			int wrongMove = seededRand.nextInt(moveQueue.length);
 			Move[] wrongMoves = Move.getNextMoves(moveQueue[wrongMove]);
 			moveQueue[wrongMove] = wrongMoves[seededRand.nextInt(wrongMoves.length)];
