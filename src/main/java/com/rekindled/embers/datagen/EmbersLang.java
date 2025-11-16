@@ -10,6 +10,7 @@ import com.rekindled.embers.RegistryManager.ToolSet;
 import com.rekindled.embers.api.augment.IAugment;
 import com.rekindled.embers.compat.curios.CuriosCompat;
 
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.Item;
@@ -415,6 +416,23 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".tooltip.heat_level", "Level: ");
 		add(Embers.MODID + ".tooltip.augment_slots", "Augment slots: ");
 		add(Embers.MODID + ".tooltip.augments", "Augments:");
+
+		add(Embers.MODID + ".tooltip.upgrade", "Machine Upgrade:");
+		add(Embers.MODID + ".tooltip.upgrade.compatible", "Works with:");
+		add(Embers.MODID + ".tooltip.upgrade.compatible.list", "- %s");
+		addUpgradeDesc(RegistryManager.CLOCKWORK_ATTENUATOR_ITEM, "Allows controlling the speed of machines with redstone.");
+		addUpgradeDesc(RegistryManager.GEOLOGIC_SEPARATOR_ITEM, "Produces bonus output from molten ores.");
+		addUpgradeDesc(RegistryManager.EMBER_SIPHON_ITEM, "Inverts the Copper Charger to drain items instead.");
+		addUpgradeDesc(RegistryManager.MINI_BOILER_ITEM, "Boils fluids when the attached machine consumes/produces ember.");
+		addUpgradeDesc(RegistryManager.CATALYTIC_PLUG_ITEM, "Increases speed at the cost of gaseous fuel.");
+		addUpgradeDesc(RegistryManager.WILDFIRE_STIRLING_ITEM, "Reduces ember consumption at the cost of gaseous fuel.");
+		addUpgradeDesc(RegistryManager.MNEMONIC_INSCRIBER_ITEM, "Inscribes successful alchemy recipes on paper for future reference.");
+		addUpgradeDesc(RegistryManager.CHAR_INSTILLER_ITEM, "Doubles speed but limits Hearth Coil to smoking recipes.");
+		addUpgradeDesc(RegistryManager.ATMOSPHERIC_BELLOWS_ITEM, "Doubles speed but limits Hearth Coil to blasting recipes.");
+		addUpgradeDesc(RegistryManager.ENTROPIC_ENUMERATOR_ITEM, "Allows alchemy recipes to be slightly off from their true recipe but adds a small chance to fail.");
+		addUpgradeDesc(RegistryManager.HEAT_EXCHANGER_ITEM, "Multiplies produced ember by 0.9 but adds flat bonus of 300.");
+		addUpgradeDesc(RegistryManager.HEAT_INSULATION_ITEM, "Reduces cooling speed by 30% and adds 75 max heat.");
+		addUpgradeDesc(RegistryManager.EXCAVATION_BUCKETS_ITEM, "Allows bore to perform excavation recipes in addition to boring recipes.");
 
 
 		//jei stuff
@@ -1212,5 +1230,9 @@ public class EmbersLang extends LanguageProvider {
 
 	public void addAugment(IAugment augment, String name, boolean singleLevel) {
 		add(Embers.MODID + ".tooltip.augment." + augment.getName().toLanguageKey(), name + (singleLevel ? "" : " %s"));
+	}
+
+	public void addUpgradeDesc(Supplier<? extends Item> key, String desc) {
+		add(Embers.MODID + ".tooltip.upgrade.desc." + BuiltInRegistries.ITEM.getKey(key.get()).toLanguageKey(), desc);
 	}
 }

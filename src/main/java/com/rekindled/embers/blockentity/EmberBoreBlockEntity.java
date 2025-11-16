@@ -80,7 +80,7 @@ public class EmberBoreBlockEntity extends BlockEntity implements ISoundControlle
 
 	@Override
 	public AABB getRenderBoundingBox() {
-		return new AABB(worldPosition.offset(-1, -2, -1), worldPosition.offset(2, -1, 2));
+		return new AABB(worldPosition.offset(-1, -2, -1), worldPosition.offset(2, 0, 2));
 	}
 
 	public AABB getBladeBoundingBox() {

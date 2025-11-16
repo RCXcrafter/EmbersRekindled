@@ -8,6 +8,7 @@ import com.rekindled.embers.RegistryManager.StoneDecoBlocks;
 import com.rekindled.embers.compat.curios.CuriosCompat;
 
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
@@ -55,6 +56,10 @@ public class EmbersBlockTags extends BlockTagsProvider {
 	public static final TagKey<Block> NEEDS_DAWNSTONE_TOOL = BlockTags.create(new ResourceLocation(Embers.MODID, "needs_dawnstone_tool"));
 	public static final TagKey<Block> NEEDS_CLOCKWORK_TOOL = BlockTags.create(new ResourceLocation(Embers.MODID, "needs_clockwork_tool"));
 	public static final TagKey<Block> NEEDS_CLOCKWORK_HAMMER = BlockTags.create(new ResourceLocation(Embers.MODID, "needs_clockwork_hammer"));
+
+	public static final TagKey<Block> EMBER_CONSUMPTION_UPGRADEABLE = BlockTags.create(new ResourceLocation(Embers.MODID, "upgradeable_with/consumption_multiplier"));
+	public static final TagKey<Block> EMBER_PRODUCTION_UPGRADEABLE = BlockTags.create(new ResourceLocation(Embers.MODID, "upgradeable_with/production_multiplier"));
+	public static final TagKey<Block> SPEED_UPGRADEABLE = BlockTags.create(new ResourceLocation(Embers.MODID, "upgradeable_with/speed_multiplier"));
 
 	//tags shared with items
 	public static final TagKey<Block> WORLD_BOTTOM = BlockTags.create(new ResourceLocation(Embers.MODID, "world_bottom"));
@@ -333,6 +338,46 @@ public class EmbersBlockTags extends BlockTagsProvider {
 
 		tag(HEAT_SOURCES).add(Blocks.LAVA, Blocks.FIRE);
 
+		tag(EMBER_CONSUMPTION_UPGRADEABLE).add(RegistryManager.MELTER.get(),
+				RegistryManager.STAMPER.get(),
+				RegistryManager.MIXER_CENTRIFUGE.get(),
+				RegistryManager.HEARTH_COIL.get(),
+				RegistryManager.MECHANICAL_PUMP.get(),
+				RegistryManager.EMBER_INJECTOR.get(),
+				RegistryManager.CINDER_PLINTH.get(),
+				RegistryManager.AUTOMATIC_HAMMER.get(),
+				RegistryManager.INFERNO_FORGE.get());
+		tag(EMBER_PRODUCTION_UPGRADEABLE).add(RegistryManager.EMBER_ACTIVATOR.get(), RegistryManager.PRESSURE_REFINERY.get(), RegistryManager.IGNEM_REACTOR.get());
+		tag(SPEED_UPGRADEABLE).add(RegistryManager.EMBER_BORE.get(),
+				RegistryManager.EMBER_ACTIVATOR.get(),
+				RegistryManager.MELTER.get(),
+				RegistryManager.STAMPER.get(),
+				RegistryManager.MIXER_CENTRIFUGE.get(),
+				RegistryManager.PRESSURE_REFINERY.get(),
+				RegistryManager.HEARTH_COIL.get(),
+				//RegistryManager.CRYSTAL_CELL.get(), like okay technically it does work on this but but nobody cares
+				RegistryManager.COPPER_CHARGER.get(),
+				RegistryManager.ALCHEMY_TABLET.get(),
+				RegistryManager.MECHANICAL_PUMP.get(),
+				RegistryManager.EMBER_INJECTOR.get(),
+				RegistryManager.IGNEM_REACTOR.get(),
+				RegistryManager.CINDER_PLINTH.get(),
+				RegistryManager.AUTOMATIC_HAMMER.get(),
+				RegistryManager.INFERNO_FORGE.get());
+		upgradeTag(RegistryManager.CLOCKWORK_ATTENUATOR.get()).addTag(SPEED_UPGRADEABLE);
+		upgradeTag(RegistryManager.GEOLOGIC_SEPARATOR.get()).add(RegistryManager.MELTER.get());
+		upgradeTag(RegistryManager.EMBER_SIPHON.get()).add(RegistryManager.COPPER_CHARGER.get());
+		upgradeTag(RegistryManager.MINI_BOILER.get()).addTag(EMBER_CONSUMPTION_UPGRADEABLE).addTag(EMBER_PRODUCTION_UPGRADEABLE);
+		upgradeTag(RegistryManager.CATALYTIC_PLUG.get()).addTag(SPEED_UPGRADEABLE);
+		upgradeTag(RegistryManager.WILDFIRE_STIRLING.get()).addTag(EMBER_CONSUMPTION_UPGRADEABLE);
+		upgradeTag(RegistryManager.MNEMONIC_INSCRIBER.get()).add(RegistryManager.ALCHEMY_TABLET.get());
+		upgradeTag(RegistryManager.CHAR_INSTILLER.get()).add(RegistryManager.HEARTH_COIL.get());
+		upgradeTag(RegistryManager.ATMOSPHERIC_BELLOWS.get()).add(RegistryManager.HEARTH_COIL.get());
+		upgradeTag(RegistryManager.ENTROPIC_ENUMERATOR.get()).add(RegistryManager.ALCHEMY_TABLET.get());
+		upgradeTag(RegistryManager.HEAT_EXCHANGER.get()).addTag(EMBER_PRODUCTION_UPGRADEABLE);
+		upgradeTag(RegistryManager.HEAT_INSULATION.get()).add(RegistryManager.HEARTH_COIL.get());
+		upgradeTag(RegistryManager.EXCAVATION_BUCKETS.get()).add(RegistryManager.EMBER_BORE.get());
+
 		//tags shared with items
 		tag(WORLD_BOTTOM).add(Blocks.BEDROCK);
 		tag(SNOW).add(Blocks.SNOW_BLOCK);
@@ -412,5 +457,10 @@ public class EmbersBlockTags extends BlockTagsProvider {
 			tag(BlockTags.WALLS).add(deco.wall.get());
 			tag(BlockTags.MINEABLE_WITH_AXE).add(deco.wall.get());
 		}
+	}
+
+	public IntrinsicTagAppender<Block> upgradeTag(Block upgrade) {
+		ResourceLocation upgradeLoc = BuiltInRegistries.BLOCK.getKey(upgrade);
+		return tag(BlockTags.create(new ResourceLocation(Embers.MODID, "upgradeable_with/" + upgradeLoc.getNamespace() + "/" + upgradeLoc.getPath())));
 	}
 }

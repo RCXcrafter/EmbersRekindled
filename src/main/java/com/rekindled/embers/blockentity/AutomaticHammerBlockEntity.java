@@ -3,11 +3,13 @@ package com.rekindled.embers.blockentity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.capabilities.EmbersCapabilities;
 import com.rekindled.embers.api.event.DialInformationEvent;
 import com.rekindled.embers.api.event.EmberEvent;
 import com.rekindled.embers.api.power.IEmberCapability;
+import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
 import com.rekindled.embers.api.tile.IExtraDialInformation;
 import com.rekindled.embers.api.tile.IHammerable;
 import com.rekindled.embers.api.tile.IMechanicallyPowered;
@@ -33,7 +35,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 
-public class AutomaticHammerBlockEntity extends BlockEntity implements IMechanicallyPowered, IExtraDialInformation, IUpgradeable {
+public class AutomaticHammerBlockEntity extends BlockEntity implements IMechanicallyPowered, IExtraDialInformation, IUpgradeable, IExtraCapabilityInformation {
 
 	public static final double EMBER_COST = 40.0;
 	public static final int PROCESS_TIME = 20;
@@ -165,5 +167,10 @@ public class AutomaticHammerBlockEntity extends BlockEntity implements IMechanic
 	@Override
 	public boolean isSideUpgradeSlot(Direction face) {
 		return getBlockState().hasProperty(BlockStateProperties.HORIZONTAL_FACING) && getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING).getOpposite() == face;
+	}
+
+	@Override
+	public void addOtherDescription(List<Component> strings, Direction facing) {
+		strings.add(Component.translatable(Embers.MODID + ".tooltip.goggles.redstone_signal"));
 	}
 }
