@@ -1,17 +1,21 @@
 package com.rekindled.embers.blockentity;
 
+import java.util.List;
 import java.util.Random;
 
 import javax.annotation.Nullable;
 
 import org.jetbrains.annotations.NotNull;
 
+import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
+import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
 import com.rekindled.embers.particle.VaporParticleOptions;
 import com.rekindled.embers.util.EmbersColors;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -24,7 +28,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 
-public class FluidExtractorBlockEntity extends FluidPipeBlockEntityBase {
+public class FluidExtractorBlockEntity extends FluidPipeBlockEntityBase implements IExtraCapabilityInformation {
 
 	Random random = new Random();
 	IFluidHandler[] sideHandlers;
@@ -139,5 +143,10 @@ public class FluidExtractorBlockEntity extends FluidPipeBlockEntityBase {
 	@Override
 	public int getCapacity() {
 		return 240;
+	}
+
+	@Override
+	public void addOtherDescription(List<Component> strings, Direction facing) {
+		strings.add(Component.translatable(Embers.MODID + ".tooltip.goggles.redstone_signal"));
 	}
 }

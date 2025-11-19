@@ -1,14 +1,17 @@
 package com.rekindled.embers.blockentity;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 
+import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.capabilities.EmbersCapabilities;
 import com.rekindled.embers.api.power.IEmberCapability;
 import com.rekindled.embers.api.power.IEmberPacketProducer;
 import com.rekindled.embers.api.power.IEmberPacketReceiver;
 import com.rekindled.embers.api.power.ITargetable;
+import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
 import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.entity.EmberPacketEntity;
 import com.rekindled.embers.power.DefaultEmberCapability;
@@ -17,6 +20,7 @@ import com.rekindled.embers.util.Misc;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.ChunkPos;
@@ -29,7 +33,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 
-public class EmberEmitterBlockEntity extends BlockEntity implements IEmberPacketProducer, ITargetable {
+public class EmberEmitterBlockEntity extends BlockEntity implements IEmberPacketProducer, ITargetable, IExtraCapabilityInformation {
 
 	public IEmberCapability capability = new DefaultEmberCapability() {
 		@Override
@@ -202,5 +206,10 @@ public class EmberEmitterBlockEntity extends BlockEntity implements IEmberPacket
 				return null;
 		}
 		return target;
+	}
+
+	@Override
+	public void addOtherDescription(List<Component> strings, Direction facing) {
+		strings.add(Component.translatable(Embers.MODID + ".tooltip.goggles.redstone_signal"));
 	}
 }

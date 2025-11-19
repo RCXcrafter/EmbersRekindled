@@ -1,0 +1,19 @@
+{
+  "values": [
+    "embers:ember_bore",
+    "embers:ember_activator",
+    "embers:melter",
+    "embers:stamper",
+    "embers:mixer_centrifuge",
+    "embers:pressure_refinery",
+    "embers:hearth_coil",
+    "embers:copper_charger",
+    "embers:alchemy_tablet",
+    "embers:mechanical_pump",
+    "embers:ember_injector",
+    "embers:ignem_reactor",
+    "embers:cinder_plinth",
+    "embers:automatic_hammer",
+    "embers:inferno_forge"
+  ]
+}

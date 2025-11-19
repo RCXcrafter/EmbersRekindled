@@ -68,6 +68,14 @@ public class AlchemicalNoteItemRenderer extends BlockEntityWithoutLevelRenderer 
 			poseStack.scale(4.0F, 4.0F, 4.0F);
 			this.renderNote(poseStack, buffer, packedLight, packedOverlay, stack);
 			poseStack.popPose();
+		} else if (displayContext == ItemDisplayContext.GUI) {
+			poseStack.pushPose();
+			poseStack.translate(0.5, 0.5, 0.0);
+			itemRenderer.renderStatic(stack, ItemDisplayContext.NONE, packedLight, packedOverlay, poseStack, buffer, minecraft.level, 0);
+			poseStack.scale(0.5F, 0.5F, 0.5F);
+			poseStack.translate(0.5, -0.5, 0.3);
+			itemRenderer.renderStatic(AlchemyHintItem.getResult(stack), ItemDisplayContext.GUI, packedLight, packedOverlay, poseStack, buffer, minecraft.level, 0);
+			poseStack.popPose();
 		}
 	}
 

@@ -1,0 +1,13 @@
+{
+  "values": [
+    "embers:melter",
+    "embers:stamper",
+    "embers:mixer_centrifuge",
+    "embers:hearth_coil",
+    "embers:mechanical_pump",
+    "embers:ember_injector",
+    "embers:cinder_plinth",
+    "embers:automatic_hammer",
+    "embers:inferno_forge"
+  ]
+}

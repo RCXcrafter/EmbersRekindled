@@ -47,6 +47,7 @@ public class EmbersItemModels extends ItemModelProvider {
 		.base(basicItem(new ResourceLocation(Embers.MODID, "alchemical_note_item")))
 		.perspective(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND, nested().parent(new UncheckedModelFile(new ResourceLocation("builtin/entity"))))
 		.perspective(ItemDisplayContext.FIRST_PERSON_LEFT_HAND, nested().parent(new UncheckedModelFile(new ResourceLocation("builtin/entity"))))
+		.perspective(ItemDisplayContext.GUI, nested().parent(new UncheckedModelFile(new ResourceLocation("builtin/entity"))))
 		.perspective(ItemDisplayContext.FIXED, nested().parent(new UncheckedModelFile(new ResourceLocation("builtin/entity"))));
 		basicItem(RegistryManager.CODEBREAKING_SLATE.get());
 		layeredItem(RegistryManager.TYRFING, "item/handheld", "tyrfing", "tyrfing_gem");

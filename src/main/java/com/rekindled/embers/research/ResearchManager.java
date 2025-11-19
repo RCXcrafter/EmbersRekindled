@@ -508,6 +508,6 @@ public class ResearchManager {
 	}
 
 	private static ResearchSwitchCategory makeCategorySwitch(ResearchCategory targetCategory, int x, int y, ItemStack icon, int u, int v) {
-		return (ResearchSwitchCategory) new ResearchSwitchCategory(targetCategory.name+"_category", icon, x, y).setTargetCategory(targetCategory).setIconBackground(PAGE_ICONS, PAGE_ICON_SIZE * u, PAGE_ICON_SIZE * v);
+		return (ResearchSwitchCategory) new ResearchSwitchCategory(new ResourceLocation(targetCategory.name.getNamespace(), targetCategory.name.getPath() + "_category"), icon, x, y).setTargetCategory(targetCategory).setIconBackground(PAGE_ICONS, PAGE_ICON_SIZE * u, PAGE_ICON_SIZE * v);
 	}
 }
