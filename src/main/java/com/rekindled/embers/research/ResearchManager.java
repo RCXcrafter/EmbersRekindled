@@ -6,11 +6,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.capabilities.EmbersCapabilities;
 import com.rekindled.embers.compat.curios.CuriosCompat;
+import com.rekindled.embers.datagen.EmbersItemTags;
 import com.rekindled.embers.item.EmberStorageItem;
 import com.rekindled.embers.network.PacketHandler;
 import com.rekindled.embers.network.message.MessageResearchData;
@@ -29,8 +31,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Ingredient.ItemValue;
+import net.minecraft.world.item.crafting.Ingredient.TagValue;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.ModList;
@@ -41,6 +48,7 @@ public class ResearchManager {
 	public static final ResourceLocation PAGE_ICONS = new ResourceLocation(Embers.MODID, "textures/gui/codex_pageicons.png");
 	public static final double PAGE_ICON_SIZE = 48;
 	public static List<ResearchCategory> researches = new ArrayList<ResearchCategory>();
+	public static HashMap<Item, ResearchBase> researchByItem = new HashMap<Item, ResearchBase>();
 
 	public static ResearchBase dials, ores, hammer, ancient_golem, gauge, caminite, access, bore, excavation_buckets, crystals, activator, tinker_lens, reaction_chamber, heat_exchanger, //WORLD
 	copper_cell, emitters, relays, dawnstone, melter, stamper, mixer, breaker, hearth_coil, char_instiller, atmospheric_bellows, heat_insulation, pressureRefinery, mini_boiler, pump, clockwork_attenuator, geo_separator, //MECHANISMS
@@ -132,6 +140,24 @@ public class ResearchManager {
 		event.getOriginal().invalidateCaps();
 	}
 
+	public static void reloadLookupIngredients() {
+		researchByItem.clear();
+		for (ResearchBase research : getAllResearch()) {
+			for (ResearchBase page : research.getPages()) {
+				if (page.lookupIngredient.isEmpty())
+					continue;
+				for (ItemStack item : page.lookupIngredient.getItems()) {
+					researchByItem.put(item.getItem(), page);
+				}
+			}
+			if (research.lookupIngredient.isEmpty())
+				continue;
+			for (ItemStack item : research.lookupIngredient.getItems()) {
+				researchByItem.put(item.getItem(), research);
+			}
+		}
+	}
+
 	public static IResearchCapability getPlayerResearch(Player player) {
 		return player.getCapability(EmbersCapabilities.RESEARCH_CAPABILITY).orElse(null);
 	}
@@ -174,35 +200,35 @@ public class ResearchManager {
 		subCategoryWildfire = new ResearchCategory(loc("wildfire"), 0);
 
 		//WORLD
-		ores = new ResearchBase(loc("ores"), new ItemStack(RegistryManager.RAW_LEAD.get()), 0, 7);
+		ores = new ResearchBase(loc("ores"), new ItemStack(RegistryManager.RAW_LEAD.get()), 0, 7).setLookupIngredient(Ingredient.fromValues(Stream.of(new TagValue(EmbersItemTags.RAW_LEAD), new TagValue(EmbersItemTags.RAW_SILVER), new TagValue(Tags.Items.RAW_MATERIALS_COPPER), new TagValue(EmbersItemTags.LEAD_ORE), new TagValue(EmbersItemTags.SILVER_ORE), new TagValue(Tags.Items.ORES_COPPER))));
 		hammer = new ResearchBase(loc("hammer"), new ItemStack(RegistryManager.TINKER_HAMMER.get()), 0, 3).addAncestor(ores);
-		ancient_golem = new ResearchBase(loc("ancient_golem"), ItemStack.EMPTY, 0, 0).setIconBackground(PAGE_ICONS, PAGE_ICON_SIZE *1, PAGE_ICON_SIZE *0);
+		ancient_golem = new ResearchBase(loc("ancient_golem"), ItemStack.EMPTY, 0, 0).setIconBackground(PAGE_ICONS, PAGE_ICON_SIZE *1, PAGE_ICON_SIZE *0).setLookupIngredient(Ingredient.of(RegistryManager.ANCIENT_MOTIVE_CORE.get()));
 		gauge = new ResearchBase(loc("gauge"), new ItemStack(RegistryManager.ATMOSPHERIC_GAUGE_ITEM.get()), 4, 3).addAncestor(ores);
-		caminite = new ResearchBase(loc("caminite"), new ItemStack(RegistryManager.CAMINITE_BRICK.get()), 6, 7);
+		caminite = new ResearchBase(loc("caminite"), new ItemStack(RegistryManager.CAMINITE_BRICK.get()), 6, 7).setLookupIngredient(Ingredient.of(RegistryManager.CAMINITE_BLEND.get(), RegistryManager.CAMINITE_BRICK.get(), RegistryManager.CAMINITE_BRICKS.get(), RegistryManager.RAW_CAMINITE_PLATE.get(), RegistryManager.CAMINITE_PLATE.get()));
 		access = new ResearchBase(loc("access"), new ItemStack(RegistryManager.MECHANICAL_CORE_ITEM.get()), 7, 2).addAncestor(caminite);
 		bore = new ResearchBase(loc("bore"), new ItemStack(RegistryManager.EMBER_BORE_ITEM.get()), 9, 0).addAncestor(hammer).addAncestor(access);
 		excavation_buckets = new ResearchBase(loc("excavation_buckets"), new ItemStack(RegistryManager.EXCAVATION_BUCKETS_ITEM.get()), 6, 0).addAncestor(bore);
-		crystals = new ResearchBase(loc("crystals"), new ItemStack(RegistryManager.EMBER_CRYSTAL.get()), 12, 3).addAncestor(bore);
+		crystals = new ResearchBase(loc("crystals"), new ItemStack(RegistryManager.EMBER_CRYSTAL.get()), 12, 3).addAncestor(bore).setLookupIngredient(Ingredient.of(RegistryManager.EMBER_CRYSTAL.get(), RegistryManager.EMBER_SHARD.get()));
 		tinker_lens = new ResearchBase(loc("tinker_lens"), new ItemStack(RegistryManager.TINKER_LENS.get()), 9, 4).addAncestor(bore);
 		activator = new ResearchBase(loc("activator"), new ItemStack(RegistryManager.EMBER_ACTIVATOR_ITEM.get()), 10, 6).addAncestor(crystals).addAncestor(tinker_lens);
-		dials = new ResearchBase(loc("dials"), new ItemStack(RegistryManager.EMBER_DIAL_ITEM.get()), 3, 6).addAncestor(hammer);
+		dials = new ResearchBase(loc("dials"), new ItemStack(RegistryManager.EMBER_DIAL_ITEM.get()), 3, 6).addAncestor(hammer).setLookupIngredient(Ingredient.of(EmbersItemTags.DIALS));
 		//reaction_chamber = new ResearchBase(loc("reaction_chamber"), new ItemStack(RegistryManager.reaction_chamber), 12, 5).addAncestor(mini_boiler);
 		heat_exchanger = new ResearchBase(loc("heat_exchanger"), new ItemStack(RegistryManager.HEAT_EXCHANGER_ITEM.get()), 12, 7).addAncestor(activator);
 
-		pipes = new ResearchBase(loc("pipes"), new ItemStack(RegistryManager.FLUID_EXTRACTOR_ITEM.get()), 2, 4);
-		pipes.addPage(new ResearchShowItem(loc("routing"),ItemStack.EMPTY,0,0).addItem(new DisplayItem(new ItemStack(RegistryManager.ITEM_PIPE_ITEM.get()),new ItemStack(RegistryManager.FLUID_PIPE_ITEM.get()))));
-		pipes.addPage(new ResearchShowItem(loc("valves"),ItemStack.EMPTY,0,0).addItem(new DisplayItem(new ItemStack(RegistryManager.ITEM_EXTRACTOR_ITEM.get()),new ItemStack(RegistryManager.FLUID_EXTRACTOR_ITEM.get()))));
+		pipes = new ResearchBase(loc("pipes"), new ItemStack(RegistryManager.FLUID_EXTRACTOR_ITEM.get()), 2, 4).setLookupIngredient(Ingredient.EMPTY);
+		pipes.addPage(new ResearchShowItem(loc("routing"),ItemStack.EMPTY,0,0).addItem(new DisplayItem(new ItemStack(RegistryManager.ITEM_PIPE_ITEM.get()),new ItemStack(RegistryManager.FLUID_PIPE_ITEM.get()))).setLookupIngredient(Ingredient.of(RegistryManager.ITEM_PIPE_ITEM.get(), RegistryManager.FLUID_PIPE_ITEM.get())));
+		pipes.addPage(new ResearchShowItem(loc("valves"),ItemStack.EMPTY,0,0).addItem(new DisplayItem(new ItemStack(RegistryManager.ITEM_EXTRACTOR_ITEM.get()),new ItemStack(RegistryManager.FLUID_EXTRACTOR_ITEM.get()))).setLookupIngredient(Ingredient.of(RegistryManager.ITEM_EXTRACTOR_ITEM.get(), RegistryManager.FLUID_EXTRACTOR_ITEM.get())));
 		pipes.addPage(new ResearchShowItem(loc("pipe_tools"),ItemStack.EMPTY,0,0).addItem(new DisplayItem(new ItemStack(RegistryManager.TINKER_HAMMER.get()),new ItemStack(Items.STICK))));
 		//golem_eye = new ResearchBase(loc("golem_eye"), new ItemStack(RegistryManager.golems_eye), 5, 7)
 		//		.addPage(new ResearchShowItem(loc("filter_existing"), new ItemStack(RegistryManager.item_request), 0, 0).addItem(new DisplayItem(new ItemStack(RegistryManager.item_request))))
 		//		.addPage(new ResearchShowItem(loc("filter_not_existing"), new ItemStack(RegistryManager.dawnstone_anvil), 0, 0).addItem(new DisplayItem(new ItemStack(RegistryManager.dawnstone_anvil))));
 		transfer = new ResearchBase(loc("transfer"), new ItemStack(RegistryManager.ITEM_TRANSFER_ITEM.get()), 5, 5).addAncestor(pipes);//.addAncestor(golem_eye);
-		transfer.addPage(new ResearchShowItem(loc("fluid_transfer"),ItemStack.EMPTY,0,0).addItem(new DisplayItem(new ItemStack(RegistryManager.FLUID_TRANSFER_ITEM.get()))));
+		transfer.addPage(new ResearchShowItem(loc("fluid_transfer"), new ItemStack(RegistryManager.FLUID_TRANSFER_ITEM.get()),0,0).addItem(new DisplayItem(new ItemStack(RegistryManager.FLUID_TRANSFER_ITEM.get()))));
 		vacuum = new ResearchBase(loc("vacuum"), new ItemStack(RegistryManager.ITEM_VACUUM_ITEM.get()), 8, 4).addPage(new ResearchBase(loc("vacuum_transfer"),ItemStack.EMPTY,0,0)).addAncestor(pipes);
 		dropper = new ResearchBase(loc("dropper"), new ItemStack(RegistryManager.ITEM_DROPPER_ITEM.get()), 8, 6).addAncestor(pipes);
 		bin = new ResearchBase(loc("bin"), new ItemStack(RegistryManager.BIN_ITEM.get()), 4, 3).addAncestor(pipes);
 		tank = new ResearchBase(loc("tank"), new ItemStack(RegistryManager.FLUID_VESSEL_ITEM.get()), 3, 1).addAncestor(pipes);
-		reservoir = new ResearchBase(loc("reservoir"), new ItemStack(RegistryManager.RESERVOIR_ITEM.get()), 6, 0).addAncestor(tank)
+		reservoir = new ResearchBase(loc("reservoir"), new ItemStack(RegistryManager.RESERVOIR_ITEM.get()), 6, 0).addAncestor(tank).setLookupIngredient(Ingredient.of(RegistryManager.RESERVOIR_ITEM.get(), RegistryManager.CAMINITE_RING_ITEM.get(), RegistryManager.CAMINITE_GAUGE_ITEM.get()))
 				.addPage(new ResearchShowItem(loc("reservoir_valve"), new ItemStack(RegistryManager.CAMINITE_VALVE_ITEM.get()), 0, 0).addItem(new DisplayItem(new ItemStack(RegistryManager.CAMINITE_VALVE_ITEM.get()))));
 		//requisition = new ResearchBase(loc("requisition"), new ItemStack(RegistryManager.item_request), 3, 6).addAncestor(pipes).addAncestor(golem_eye);
 
@@ -214,10 +240,10 @@ public class ResearchManager {
 				.addPage(new ResearchShowItem(loc("mirror_relay"), new ItemStack(RegistryManager.MIRROR_RELAY_ITEM.get()), 0, 0).addItem(new DisplayItem(new ItemStack(RegistryManager.MIRROR_RELAY_ITEM.get()))));
 		melter = new ResearchBase(loc("melter"), new ItemStack(RegistryManager.MELTER_ITEM.get()), 2, 0).addAncestor(emitters);
 		geo_separator = new ResearchBase(loc("geo_separator"), new ItemStack(RegistryManager.GEOLOGIC_SEPARATOR_ITEM.get()), 0, 0).addAncestor(melter);
-		stamper = new ResearchBase(loc("stamper"), new ItemStack(RegistryManager.STAMPER_ITEM.get()), 3, 4).addAncestor(melter).addAncestor(emitters);
+		stamper = new ResearchBase(loc("stamper"), new ItemStack(RegistryManager.STAMPER_ITEM.get()), 3, 4).addAncestor(melter).addAncestor(emitters).setLookupIngredient(Ingredient.fromValues(Stream.of(new TagValue(EmbersItemTags.STAMPS), new ItemValue(new ItemStack(RegistryManager.STAMPER_ITEM.get())), new ItemValue(new ItemStack(RegistryManager.STAMP_BASE_ITEM.get())))));
 		mixer = new ResearchBase(loc("mixer"), new ItemStack(RegistryManager.MIXER_CENTRIFUGE_ITEM.get()), 5, 2).addAncestor(stamper).addAncestor(melter);
 		//breaker = new ResearchBase(loc("breaker"), new ItemStack(RegistryManager.breaker), 4, 7).addAncestor(stamper);
-		dawnstone = new ResearchBase(loc("dawnstone"), new ItemStack(RegistryManager.DAWNSTONE_INGOT.get()), 11, 4).addAncestor(mixer);
+		dawnstone = new ResearchBase(loc("dawnstone"), new ItemStack(RegistryManager.DAWNSTONE_INGOT.get()), 11, 4).addAncestor(mixer).setLookupIngredient(Ingredient.fromValues(Stream.of(new TagValue(EmbersItemTags.DAWNSTONE_INGOT), new TagValue(EmbersItemTags.DAWNSTONE_NUGGET), new TagValue(EmbersItemTags.DAWNSTONE_PLATE), new TagValue(EmbersItemTags.DAWNSTONE_BLOCK))));
 		pressureRefinery = new ResearchBase(loc("pressure_refinery"), new ItemStack(RegistryManager.PRESSURE_REFINERY_ITEM.get()), 10, 0).addAncestor(dawnstone);
 		pump = new ResearchBase(loc("pump"), new ItemStack(RegistryManager.MECHANICAL_PUMP_ITEM.get()), 7, 0).addAncestor(pressureRefinery);
 		mini_boiler = new ResearchBase(loc("mini_boiler"), new ItemStack(RegistryManager.MINI_BOILER_ITEM.get()), 8, 5).addAncestor(pump);
@@ -235,31 +261,31 @@ public class ResearchManager {
 		charger = new ResearchBase(loc("charger"), new ItemStack(RegistryManager.COPPER_CHARGER_ITEM.get()), 4, 0);
 		ember_siphon = new ResearchBase(loc("ember_siphon"), new ItemStack(RegistryManager.EMBER_SIPHON_ITEM.get()), 2, 0).addAncestor(ResearchManager.charger);
 		ItemStack fullJar = EmberStorageItem.withFill(RegistryManager.EMBER_JAR.get(), ((EmberStorageItem)RegistryManager.EMBER_JAR.get()).getCapacity());
-		jars = new ResearchBase(loc("jars"), fullJar, 7, 1).addAncestor(charger);
-		clockwork_tools = new ResearchBase(loc("clockwork_tools"), new ItemStack(RegistryManager.CLOCKWORK_AXE.get()), 2, 2).addAncestor(jars)
-				.addPage(new ResearchShowItem(loc("clockwork_pickaxe"),ItemStack.EMPTY,0,0).addItem(new DisplayItem(new ItemStack(RegistryManager.CLOCKWORK_PICKAXE.get()))))
-				.addPage(new ResearchShowItem(loc("clockwork_hammer"),ItemStack.EMPTY,0,0).addItem(new DisplayItem(new ItemStack(RegistryManager.GRANDHAMMER.get()))))
-				.addPage(new ResearchShowItem(loc("clockwork_axe"),ItemStack.EMPTY,0,0).addItem(new DisplayItem(new ItemStack(RegistryManager.CLOCKWORK_AXE.get()))));
+		jars = new ResearchBase(loc("jars"), fullJar, 7, 1).addAncestor(charger).setLookupIngredient(Ingredient.of(RegistryManager.EMBER_JAR.get(), RegistryManager.EMBER_CARTRIDGE.get()));
+		clockwork_tools = new ResearchBase(loc("clockwork_tools"), new ItemStack(RegistryManager.CLOCKWORK_AXE.get()), 2, 2).addAncestor(jars).setLookupIngredient(Ingredient.EMPTY)
+				.addPage(new ResearchShowItem(loc("clockwork_pickaxe"), new ItemStack(RegistryManager.CLOCKWORK_PICKAXE.get()),0,0).addItem(new DisplayItem(new ItemStack(RegistryManager.CLOCKWORK_PICKAXE.get()))))
+				.addPage(new ResearchShowItem(loc("clockwork_hammer"), new ItemStack(RegistryManager.GRANDHAMMER.get()),0,0).addItem(new DisplayItem(new ItemStack(RegistryManager.GRANDHAMMER.get()))))
+				.addPage(new ResearchShowItem(loc("clockwork_axe"), new ItemStack(RegistryManager.CLOCKWORK_AXE.get()),0,0).addItem(new DisplayItem(new ItemStack(RegistryManager.CLOCKWORK_AXE.get()))));
 		splitter = new ResearchBase(loc("splitter"), new ItemStack(RegistryManager.BEAM_SPLITTER_ITEM.get()), 0, 6).addAncestor(pulser);
 		cinder_staff = new ResearchBase(loc("cinder_staff"), new ItemStack(RegistryManager.CINDER_STAFF.get()), 4, 4).addAncestor(jars);
 		blazing_ray = new ResearchBase(loc("blazing_ray"), new ItemStack(RegistryManager.BLAZING_RAY.get()), 6, 5).addAncestor(jars);
-		aspecti = new ResearchBase(loc("aspecti"), new ItemStack(RegistryManager.DAWNSTONE_ASPECTUS.get()), 12, 1);
-		cinder_plinth = new ResearchBase(loc("cinder_plinth"), new ItemStack(RegistryManager.CINDER_PLINTH_ITEM.get()), 9, 0);
+		aspecti = new ResearchBase(loc("aspecti"), new ItemStack(RegistryManager.DAWNSTONE_ASPECTUS.get()), 12, 1).setLookupIngredient(Ingredient.of(EmbersItemTags.ASPECTUS));
+		cinder_plinth = new ResearchBase(loc("cinder_plinth"), new ItemStack(RegistryManager.CINDER_PLINTH_ITEM.get()), 9, 0).setLookupIngredient(Ingredient.fromValues(Stream.of(new TagValue(EmbersItemTags.ASH_DUST), new ItemValue(new ItemStack(RegistryManager.CINDER_PLINTH_ITEM.get())))));
 		beam_cannon = new ResearchBase(loc("beam_cannon"), new ItemStack(RegistryManager.BEAM_CANNON_ITEM.get()), 9, 7);
-		alchemy = new ResearchBase(loc("alchemy"), new ItemStack(RegistryManager.ALCHEMY_TABLET_ITEM.get()), 9, 4)
-				.addPage(new ResearchBase(loc("alchemy_page_2"), new ItemStack(RegistryManager.ALCHEMY_TABLET_ITEM.get()), 0, 0)).addAncestor(aspecti).addAncestor(beam_cannon);
+		alchemy = new ResearchBase(loc("alchemy"), new ItemStack(RegistryManager.ALCHEMY_TABLET_ITEM.get()), 9, 4).setLookupIngredient(Ingredient.of(RegistryManager.ALCHEMY_TABLET_ITEM.get(), RegistryManager.ALCHEMY_PEDESTAL_ITEM.get()))
+				.addPage(new ResearchBase(loc("alchemy_page_2"), ItemStack.EMPTY, 0, 0)).addAncestor(aspecti).addAncestor(beam_cannon);
 
 		//TRANSMUTATION
 		waste = new ResearchBase(loc("waste"), new ItemStack(RegistryManager.ALCHEMICAL_WASTE.get()), 6, 0)
-				.addPage(new ResearchBase(loc("waste_page_2"), new ItemStack(RegistryManager.ALCHEMICAL_WASTE.get()), 0, 0));
+				.addPage(new ResearchBase(loc("waste_page_2"), ItemStack.EMPTY, 0, 0));
 		slate = new ResearchBase(loc("slate"), new ItemStack(RegistryManager.CODEBREAKING_SLATE.get()), 6, 2).addAncestor(waste)
 				.addPage(new ResearchBase(loc("slate_alchemy_recap"),ItemStack.EMPTY,0,0));
-		mnemonic_inscriber = new ResearchBase(loc("mnemonic_inscriber"), new ItemStack(RegistryManager.MNEMONIC_INSCRIBER_ITEM.get()), 4, 1).addAncestor(slate);
+		mnemonic_inscriber = new ResearchBase(loc("mnemonic_inscriber"), new ItemStack(RegistryManager.MNEMONIC_INSCRIBER_ITEM.get()), 4, 1).addAncestor(slate).setLookupIngredient(Ingredient.of(RegistryManager.MNEMONIC_INSCRIBER_ITEM.get(), RegistryManager.ALCHEMICAL_NOTE.get()));
 		entropic_enumerator = new ResearchBase(loc("entropic_enumerator"), new ItemStack(RegistryManager.ENTROPIC_ENUMERATOR_ITEM.get()), 1, 0).addAncestor(slate);
 		catalytic_plug = new ResearchBase(loc("catalytic_plug"), new ItemStack(RegistryManager.CATALYTIC_PLUG_ITEM.get()), 12, 5).addAncestor(slate);
 		materia = new ResearchBase(loc("materia"), new ItemStack(RegistryManager.ISOLATED_MATERIA.get()), 6, 5).addAncestor(slate);
 		cluster = new ResearchBase(loc("cluster"), new ItemStack(RegistryManager.EMBER_CRYSTAL_CLUSTER.get()), 3, 4).addAncestor(slate);
-		ashen_cloak = new ResearchShowItem(loc("ashen_cloak"), new ItemStack(RegistryManager.ASHEN_CLOAK.get()), 9, 4).addItem(new DisplayItem(new ItemStack(RegistryManager.ASHEN_GOGGLES.get()),new ItemStack(RegistryManager.ASHEN_CLOAK.get()),new ItemStack(RegistryManager.ASHEN_LEGGINGS.get()),new ItemStack(RegistryManager.ASHEN_BOOTS.get()))).addAncestor(slate);
+		ashen_cloak = new ResearchShowItem(loc("ashen_cloak"), new ItemStack(RegistryManager.ASHEN_CLOAK.get()), 9, 4).addItem(new DisplayItem(new ItemStack(RegistryManager.ASHEN_GOGGLES.get()),new ItemStack(RegistryManager.ASHEN_CLOAK.get()),new ItemStack(RegistryManager.ASHEN_LEGGINGS.get()),new ItemStack(RegistryManager.ASHEN_BOOTS.get()))).addAncestor(slate).setLookupIngredient(Ingredient.of(RegistryManager.ASHEN_GOGGLES.get(), RegistryManager.ASHEN_CLOAK.get(), RegistryManager.ASHEN_LEGGINGS.get(), RegistryManager.ASHEN_BOOTS.get(), RegistryManager.ASHEN_FABRIC.get()));
 		field_chart = new ResearchBase(loc("field_chart"), new ItemStack(RegistryManager.FIELD_CHART_ITEM.get()), 0, 5).addAncestor(cluster);
 		inflictor = new ResearchBase(loc("inflictor"), new ItemStack(RegistryManager.INFLICTOR_GEM.get()), 11, 7).addAncestor(ashen_cloak);
 		tyrfing = new ResearchBase(loc("tyrfing"), new ItemStack(RegistryManager.TYRFING.get()), 8, 6).addAncestor(slate);
@@ -268,9 +294,9 @@ public class ResearchManager {
 		//metallurgic_dust = new ResearchBase(loc("metallurgic_dust"), new ItemStack(RegistryManager.dust_metallurgic), 0, 2).addAncestor(slate);
 
 		adhesive = new ResearchBase(loc("adhesive"), new ItemStack(RegistryManager.ADHESIVE.get()), 10, 1);
-		hellish_synthesis = new ResearchBase(loc("hellish_synthesis"), new ItemStack(Items.NETHERRACK), 2, 1);
-		archaic_brick = new ResearchBase(loc("archaic_brick"), new ItemStack(RegistryManager.ARCHAIC_BRICK.get()), 5, 2).addAncestor(hellish_synthesis);
-		motive_core = new ResearchBase(loc("motive_core"), new ItemStack(RegistryManager.ANCIENT_MOTIVE_CORE.get()), 4, 4).addAncestor(archaic_brick);
+		hellish_synthesis = new ResearchBase(loc("hellish_synthesis"), new ItemStack(Items.NETHERRACK), 2, 1).setLookupIngredient(Ingredient.EMPTY);
+		archaic_brick = new ResearchBase(loc("archaic_brick"), new ItemStack(RegistryManager.ARCHAIC_BRICK.get()), 5, 2).addAncestor(hellish_synthesis).setLookupIngredient(Ingredient.EMPTY);
+		motive_core = new ResearchBase(loc("motive_core"), new ItemStack(RegistryManager.ANCIENT_MOTIVE_CORE.get()), 4, 4).addAncestor(archaic_brick).setLookupIngredient(Ingredient.EMPTY);
 		dwarven_oil = new ResearchBase(loc("dwarven_oil"), new ItemStack(RegistryManager.DWARVEN_OIL.FLUID_BUCKET.get()), 1, 4).addAncestor(hellish_synthesis);
 
 		wildfire = new ResearchBase(loc("wildfire"), new ItemStack(RegistryManager.WILDFIRE_CORE.get()), 1, 5);
@@ -297,8 +323,8 @@ public class ResearchManager {
 		//SMITHING
 		dawnstone_anvil = new ResearchBase(loc("dawnstone_anvil"), new ItemStack(RegistryManager.DAWNSTONE_ANVIL_ITEM.get()), 12, 7);
 		autohammer = new ResearchBase(loc("autohammer"), new ItemStack(RegistryManager.AUTOMATIC_HAMMER_ITEM.get()), 9, 5).addAncestor(dawnstone_anvil);
-		heat = new ResearchBase(loc("heat"), new ItemStack(RegistryManager.EMBER_CRYSTAL.get()), 7, 7).addAncestor(dawnstone_anvil);
-		augments = new ResearchBase(loc("augments"), new ItemStack(RegistryManager.ANCIENT_MOTIVE_CORE.get()), 5, 7).addAncestor(heat);
+		heat = new ResearchBase(loc("heat"), new ItemStack(RegistryManager.EMBER_CRYSTAL.get()), 7, 7).addAncestor(dawnstone_anvil).setLookupIngredient(Ingredient.EMPTY);
+		augments = new ResearchBase(loc("augments"), new ItemStack(RegistryManager.ANCIENT_MOTIVE_CORE.get()), 5, 7).addAncestor(heat).setLookupIngredient(Ingredient.EMPTY);
 		dismantling = new ResearchBase(loc("dismantling"), ItemStack.EMPTY, 3, 5).setIconBackground(PAGE_ICONS, PAGE_ICON_SIZE * 2, PAGE_ICON_SIZE * 0).addAncestor(augments);
 		inferno_forge = new ResearchBase(loc("inferno_forge"), new ItemStack(RegistryManager.INFERNO_FORGE_ITEM.get()), 6, 4).addAncestor(heat);
 
@@ -313,7 +339,7 @@ public class ResearchManager {
 		intelligent_apparatus = new ResearchBase(loc("intelligent_apparatus"), new ItemStack(RegistryManager.INTELLIGENT_APPARATUS.get()), subCategoryArmorAugments.popGoodLocation());
 		flame_barrier = new ResearchBase(loc("flame_barrier"), new ItemStack(RegistryManager.FLAME_BARRIER.get()), subCategoryArmorAugments.popGoodLocation());
 		cinder_jet = new ResearchBase(loc("cinder_jet"), new ItemStack(RegistryManager.CINDER_JET.get()), subCategoryArmorAugments.popGoodLocation());
-		tinker_lens_augment = new ResearchBase(loc("tinker_lens_augment"), new ItemStack(RegistryManager.TINKER_LENS.get()), subCategoryArmorAugments.popGoodLocation());
+		tinker_lens_augment = new ResearchBase(loc("tinker_lens_augment"), new ItemStack(RegistryManager.TINKER_LENS.get()), subCategoryArmorAugments.popGoodLocation()).setLookupIngredient(Ingredient.EMPTY);
 		anti_tinker_lens = new ResearchBase(loc("anti_tinker_lens"), new ItemStack(RegistryManager.SMOKY_TINKER_LENS.get()), subCategoryArmorAugments.popGoodLocation()).addAncestor(tinker_lens_augment);
 		shifting_scales = new ResearchBase(loc("shifting_scales"), new ItemStack(RegistryManager.SHIFTING_SCALES.get()), subCategoryArmorAugments.popGoodLocation());
 

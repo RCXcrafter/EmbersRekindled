@@ -3,6 +3,7 @@ package com.rekindled.embers.compat.curios;
 import java.util.Map;
 import java.util.function.Predicate;
 
+import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.capabilities.EmbersCapabilities;
 import com.rekindled.embers.api.power.IEmberCapability;
@@ -21,10 +22,12 @@ import com.rekindled.embers.research.ResearchManager;
 import com.rekindled.embers.research.subtypes.ResearchShowItem;
 
 import net.minecraft.client.color.item.ItemColor;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
@@ -132,13 +135,13 @@ public class CuriosCompat {
 	public static void initCuriosCategory() {
 		ItemStack fullBulb = EmberStorageItem.withFill(EMBER_BULB.get(), ((EmberBulbItem)EMBER_BULB.get()).getCapacity());
 
-		ResearchManager.cost_reduction = new ResearchShowItem("cost_reduction", new ItemStack(EMBER_AMULET.get()), 5, 5).addItem(new ResearchShowItem.DisplayItem(new ItemStack(EMBER_AMULET.get()), new ItemStack(EMBER_BELT.get()), new ItemStack(EMBER_RING.get())));
-		ResearchManager.mantle_bulb = new ResearchBase("mantle_bulb", fullBulb, 7, 3);
-		ResearchManager.dawnstone_mail = new ResearchBase("dawnstone_mail", new ItemStack(DAWNSTONE_MAIL.get()), 3, 7);
-		ResearchManager.ashen_amulet = new ResearchBase("ashen_amulet", new ItemStack(ASHEN_AMULET.get()), 4, 3);
-		ResearchManager.nonbeliever_amulet = new ResearchBase("nonbeliever_amulet", new ItemStack(NONBELEIVER_AMULET.get()), 1, 3);
-		ResearchManager.explosion_charm = new ResearchBase("explosion_charm", new ItemStack(EXPLOSION_CHARM.get()), 9, 2);
-		ResearchManager.explosion_pedestal = new ResearchBase("explosion_pedestal", new ItemStack(EXPLOSION_PEDESTAL_ITEM.get()), 11, 1).addAncestor(ResearchManager.explosion_charm);
+		ResearchManager.cost_reduction = new ResearchShowItem(loc("cost_reduction"), new ItemStack(EMBER_AMULET.get()), 5, 5).addItem(new ResearchShowItem.DisplayItem(new ItemStack(EMBER_AMULET.get()), new ItemStack(EMBER_BELT.get()), new ItemStack(EMBER_RING.get()))).setLookupIngredient(Ingredient.of(EMBER_AMULET.get(), EMBER_BELT.get(), EMBER_RING.get()));
+		ResearchManager.mantle_bulb = new ResearchBase(loc("mantle_bulb"), fullBulb, 7, 3);
+		ResearchManager.dawnstone_mail = new ResearchBase(loc("dawnstone_mail"), new ItemStack(DAWNSTONE_MAIL.get()), 3, 7);
+		ResearchManager.ashen_amulet = new ResearchBase(loc("ashen_amulet"), new ItemStack(ASHEN_AMULET.get()), 4, 3);
+		ResearchManager.nonbeliever_amulet = new ResearchBase(loc("nonbeliever_amulet"), new ItemStack(NONBELEIVER_AMULET.get()), 1, 3);
+		ResearchManager.explosion_charm = new ResearchBase(loc("explosion_charm"), new ItemStack(EXPLOSION_CHARM.get()), 9, 2);
+		ResearchManager.explosion_pedestal = new ResearchBase(loc("explosion_pedestal"), new ItemStack(EXPLOSION_PEDESTAL_ITEM.get()), 11, 1).addAncestor(ResearchManager.explosion_charm);
 
 		ResearchManager.subCategoryBaubles.addResearch(ResearchManager.cost_reduction);
 		ResearchManager.subCategoryBaubles.addResearch(ResearchManager.mantle_bulb);
@@ -147,5 +150,9 @@ public class CuriosCompat {
 		ResearchManager.subCategoryBaubles.addResearch(ResearchManager.nonbeliever_amulet);
 		ResearchManager.subCategoryBaubles.addResearch(ResearchManager.explosion_charm);
 		ResearchManager.subCategoryBaubles.addResearch(ResearchManager.explosion_pedestal);
+	}
+
+	static ResourceLocation loc(String name) {
+		return new ResourceLocation(Embers.MODID, name);
 	}
 }

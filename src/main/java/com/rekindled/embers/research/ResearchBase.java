@@ -19,6 +19,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -27,6 +28,7 @@ public class ResearchBase {
 	public double u = 0.0;
 	public double v = 0.0;
 	public ItemStack icon = ItemStack.EMPTY;
+	public Ingredient lookupIngredient = Ingredient.EMPTY;
 	public int x = 0;
 	public int y = 0;
 	public List<ResearchBase> ancestors = new ArrayList<>();
@@ -49,6 +51,7 @@ public class ResearchBase {
 	public ResearchBase(ResourceLocation location, ItemStack icon, double x, double y) {
 		this.name = location;
 		this.icon = icon;
+		this.lookupIngredient = Ingredient.of(icon);
 		this.x = 48+(int)(x*24);
 		this.y = 48+(int)(y*24);
 	}
@@ -152,6 +155,11 @@ public class ResearchBase {
 
 	public ResearchBase setBackground(ResourceLocation resourceLocation) {
 		this.background = resourceLocation;
+		return this;
+	}
+
+	public ResearchBase setLookupIngredient(Ingredient ingredient) {
+		this.lookupIngredient = ingredient;
 		return this;
 	}
 

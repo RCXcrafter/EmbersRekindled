@@ -61,6 +61,7 @@ public class GuiCodex extends Screen {
 	public int selectedPageIndex = -1;
 	public ResearchCategory researchCategory;
 	public ResearchBase researchPage;
+	public Screen previousScreen;
 
 	public float ticks = 1.0f;
 
@@ -161,11 +162,11 @@ public class GuiCodex extends Screen {
 	@SuppressWarnings("resource")
 	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
 		if (keyCode == InputConstants.KEY_ESCAPE) {
-			if (researchCategory != null) {
+			if (researchCategory != null || researchPage != null) {
 				if (researchPage != null) {
 					researchPage = null;
 					playSound(EmbersSounds.CODEX_PAGE_CLOSE.get());
-					return false;
+					return super.keyPressed(keyCode, scanCode, modifiers);
 				}
 				researchCategory = popLastCategory();
 				playSound(researchCategory == null ? EmbersSounds.CODEX_CATEGORY_CLOSE.get() : EmbersSounds.CODEX_CATEGORY_SWITCH.get());
@@ -332,16 +333,20 @@ public class GuiCodex extends Screen {
 
 	public static void drawTextGlowingAura(Font font, GuiGraphics graphics, FormattedCharSequence s, int x, int y) {
 		float sine = 0.5f*((float)Math.sin(Math.toRadians(4.0f*((float)EmbersClientEvents.ticks + Minecraft.getInstance().getPartialTick())))+1.0f);
+		drawTextGlowingAura(font, graphics, s, x, y, sine);
+	}
+
+	public static void drawTextGlowingAura(Font font, GuiGraphics graphics, FormattedCharSequence s, int x, int y, float mul) {
 		Matrix4f matrix = graphics.pose().last().pose();
 		MultiBufferSource buffer = new SneakyBufferSourceWrapper(graphics.bufferSource());
 
-		int shadowColor = Misc.intColor(0.15686f, Misc.multColor(EmbersColors.EMBER, sine));
+		int shadowColor = Misc.intColor(Mth.clamp(0.15686f * mul, 0.15686f, 1.0f), Misc.multColor(EmbersColors.EMBER, mul));
 		font.drawInBatch(s, x-1, y, shadowColor, false, matrix, buffer, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
 		font.drawInBatch(s, x-1, y, shadowColor, false, matrix, buffer, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
 		font.drawInBatch(s, x+1, y, shadowColor, false, matrix, buffer, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
 		font.drawInBatch(s, x, y-1, shadowColor, false, matrix, buffer, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
 		font.drawInBatch(s, x, y+1, shadowColor, false, matrix, buffer, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
-		int shadowColor2 = Misc.intColor(0.15686f, Misc.multColor(EmbersColors.EMBER.mul(0.5f, new Vector3f()), sine));
+		int shadowColor2 = Misc.intColor(Mth.clamp(0.15686f * mul, 0.15686f, 1.0f), Misc.multColor(EmbersColors.EMBER.mul(0.5f, new Vector3f()), mul));
 		font.drawInBatch(s, x-2, y, shadowColor2, false, matrix, buffer, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
 		font.drawInBatch(s, x+2, y, shadowColor2, false, matrix, buffer, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
 		font.drawInBatch(s, x, y-2, shadowColor2, false, matrix, buffer, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
@@ -350,7 +355,7 @@ public class GuiCodex extends Screen {
 		font.drawInBatch(s, x+1, y-1, shadowColor2, false, matrix, buffer, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
 		font.drawInBatch(s, x-1, y-1, shadowColor2, false, matrix, buffer, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
 		font.drawInBatch(s, x+1, y+1, shadowColor2, false, matrix, buffer, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
-		font.drawInBatch(s, x, y, Misc.intColor(1.0f, Misc.multColor(EmbersColors.EMBER, sine)), false, matrix, buffer, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
+		font.drawInBatch(s, x, y, Misc.intColor(1.0f, Misc.multColor(EmbersColors.EMBER, mul)), false, matrix, buffer, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
 	}
 
 	/*public static void drawTextGlowingAuraTransparent(Font font, PoseStack poseStack, FormattedCharSequence s, int x, int y, int r, int g, int b, int a) {
@@ -449,7 +454,7 @@ public class GuiCodex extends Screen {
 		int lastSelectedIndex = this.selectedIndex;
 		this.selectedIndex = -1;
 		this.selectedPageIndex = -1;
-		if (this.researchCategory == null){
+		if (this.researchCategory == null && researchPage == null) {
 			basePosY += 8;
 			graphics.blit(INDEX, basePosX, basePosY, 0, 0, codexWidth, codexHeight);
 
@@ -766,8 +771,13 @@ public class GuiCodex extends Screen {
 
 	@Override
 	public void onClose() {
-		super.onClose();
-		for (ResearchCategory category : ResearchManager.researches){
+		if (previousScreen != null) {
+			Minecraft.getInstance().setScreen(previousScreen);
+			previousScreen = null;
+		} else {
+			super.onClose();
+		}
+		for (ResearchCategory category : ResearchManager.researches) {
 			for (ResearchBase base : category.researches){
 				base.selectedAmount = 0.0f;
 			}

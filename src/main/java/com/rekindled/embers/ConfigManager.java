@@ -61,6 +61,8 @@ public class ConfigManager {
 
 	public static ConfigValue<Boolean> RENDER_FALLBACK;
 	public static ConfigValue<Integer> NUGGET_FLUID_VALUE;
+	public static ConfigValue<Integer> TICKS_TO_OPEN_CODEX;
+	public static ConfigValue<Boolean> CODEX_REQUIRED_FOR_LOOKUP;
 
 	public static double getScaleDamagePass(String type) {
 		for (String pass : SCALE_DAMAGE_PASSES.get()) {
@@ -92,6 +94,9 @@ public class ConfigManager {
 		RENDER_FALLBACK = CLIENT.comment("Use a fallback rendertype for certain objects that normally use custom core shaders. Improves compatibility with shader mods but might not look as good.").define("render_fallback", false);
 
 		NUGGET_FLUID_VALUE = CLIENT.comment("The amount of millibuckets one nugget is worth when molten, only affects fluid tooltips.").define("nugget_fluid_value", 10);
+
+		TICKS_TO_OPEN_CODEX = CLIENT.comment("The amount of ticks it takes to open the codex by holding ctrl while hovering over an item.").define("ticks_to_open_codex", 10);
+		CODEX_REQUIRED_FOR_LOOKUP = CLIENT.comment("If the codex is required in the hotbar to open a codex entry from the inventory.").define("codex_required_for_lookup", true);
 
 		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CLIENT.build());
 	}

@@ -434,6 +434,9 @@ public class EmbersLang extends LanguageProvider {
 		addUpgradeDesc(RegistryManager.HEAT_INSULATION_ITEM, "Reduces cooling speed by 30% and adds 75 max heat.");
 		addUpgradeDesc(RegistryManager.EXCAVATION_BUCKETS_ITEM, "Allows bore to perform excavation recipes in addition to boring recipes.");
 
+		add(Embers.MODID + ".tooltip.research", "Hold Ctrl to open codex entry");
+		add(Embers.MODID + ".tooltip.research.world", "Ctrl + Right Click to open codex entry"); 
+
 
 		//jei stuff
 		add(Embers.MODID + ".jei.recipe.boring", "Boring");

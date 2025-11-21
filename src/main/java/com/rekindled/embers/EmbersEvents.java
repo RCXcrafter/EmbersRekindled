@@ -46,6 +46,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.event.AnvilUpdateEvent;
+import net.minecraftforge.event.TagsUpdatedEvent;
 import net.minecraftforge.event.TickEvent.LevelTickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -233,6 +234,12 @@ public class EmbersEvents {
 				((ExplosionPedestalBlockEntity) tile).absorb(explosion);
 				event.setCanceled(true);
 			}
+		}
+	}
+
+	public static void onTagsReload(TagsUpdatedEvent event) {
+		if (event.shouldUpdateStaticData()) {
+			ResearchManager.reloadLookupIngredients();
 		}
 	}
 

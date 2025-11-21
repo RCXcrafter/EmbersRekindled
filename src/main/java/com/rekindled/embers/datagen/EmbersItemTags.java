@@ -110,6 +110,10 @@ public class EmbersItemTags extends ItemTagsProvider {
 	public static final TagKey<Item> ARCHAIC_BRICK = ItemTags.create(new ResourceLocation("forge", "ingots/archaic_brick"));
 	public static final TagKey<Item> ASH_DUST = ItemTags.create(new ResourceLocation("forge", "dusts/ash"));
 
+	public static final TagKey<Item> ANCIENT_CODEX = ItemTags.create(new ResourceLocation(Embers.MODID, "ancient_codex"));
+	public static final TagKey<Item> STAMPS = ItemTags.create(new ResourceLocation(Embers.MODID, "stamps"));
+	public static final TagKey<Item> DIALS = ItemTags.create(new ResourceLocation(Embers.MODID, "dials"));
+
 	public static final TagKey<Item> WORLD_BOTTOM = ItemTags.create(new ResourceLocation(Embers.MODID, "world_bottom"));
 	public static final TagKey<Item> SNOW = ItemTags.create(new ResourceLocation(Embers.MODID, "snow"));
 
@@ -252,6 +256,10 @@ public class EmbersItemTags extends ItemTagsProvider {
 		tag(Tags.Items.SLIMEBALLS).add(RegistryManager.ADHESIVE.get());
 
 		tag(ItemTags.MUSIC_DISCS).add(RegistryManager.MUSIC_DISC_7F_PATTERNS.get());
+
+		tag(ANCIENT_CODEX).add(RegistryManager.ANCIENT_CODEX.get());
+		tag(STAMPS).add(RegistryManager.FLAT_STAMP.get(), RegistryManager.INGOT_STAMP.get(), RegistryManager.NUGGET_STAMP.get(), RegistryManager.PLATE_STAMP.get(), RegistryManager.GEAR_STAMP.get());
+		tag(DIALS).add(RegistryManager.EMBER_DIAL_ITEM.get(), RegistryManager.ITEM_DIAL_ITEM.get(), RegistryManager.FLUID_DIAL_ITEM.get());
 
 		//tags shared by blocks
 		copy(EmbersBlockTags.WORLD_BOTTOM, WORLD_BOTTOM);

@@ -36,7 +36,11 @@ import com.rekindled.embers.blockentity.render.InfernoForgeTopBlockEntityRendere
 import com.rekindled.embers.blockentity.render.MechanicalPumpBlockEntityRenderer;
 import com.rekindled.embers.blockentity.render.StamperBlockEntityRenderer;
 import com.rekindled.embers.datagen.EmbersItemTags;
+import com.rekindled.embers.datagen.EmbersSounds;
+import com.rekindled.embers.gui.GuiCodex;
 import com.rekindled.embers.render.EmbersRenderTypes;
+import com.rekindled.embers.research.ResearchBase;
+import com.rekindled.embers.research.ResearchManager;
 import com.rekindled.embers.upgrade.ExcavationBucketsUpgrade;
 import com.rekindled.embers.util.EmberGenUtil;
 import com.rekindled.embers.util.EmbersColors;
@@ -47,6 +51,7 @@ import com.rekindled.embers.util.Misc;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.client.resources.model.BakedModel;
@@ -59,8 +64,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -316,6 +324,9 @@ public class EmbersClientEvents {
 					Direction facing = result.getDirection();
 					List<Component> text = new ArrayList<Component>();
 
+					if ((player.getMainHandItem().is(EmbersItemTags.ANCIENT_CODEX) || player.getOffhandItem().is(EmbersItemTags.ANCIENT_CODEX)) && ResearchManager.researchByItem.get(state.getBlock().asItem()) != null) {
+						text.add(Component.translatable(Embers.MODID + ".tooltip.research.world"));
+					}
 					if (state.getBlock() instanceof IDial) {
 						text.addAll(((IDial) state.getBlock()).getDisplayInfo(world, result.getBlockPos(), state, Math.max(0, (height / 2 - 100) / 11)));
 					} else if (state.getBlock() == RegistryManager.ATMOSPHERIC_GAUGE.get() && !player.getMainHandItem().is(EmbersItemTags.GAUGE_OVERLAY) && !player.getOffhandItem().is(EmbersItemTags.GAUGE_OVERLAY)) {
@@ -478,20 +489,57 @@ public class EmbersClientEvents {
 		return model.bake(bakerImpl, Material::sprite, BlockModelRotation.X0_Y0, location);
 	}
 
-	@SuppressWarnings("resource")
+	public static ItemStack lastHoveredItem = ItemStack.EMPTY;
+	public static int tickStartedHoldingCtrl = Integer.MAX_VALUE;
+
 	public static void onTooltip(RenderTooltipEvent.GatherComponents event) {
+		Minecraft mc = Minecraft.getInstance();
+		int codexIndex = -1;
+		if (ConfigManager.CODEX_REQUIRED_FOR_LOOKUP.get()) {
+			for (int i = 0; i < Inventory.getSelectionSize(); i++) {
+				if (mc.player.getInventory().getItem(i).is(EmbersItemTags.ANCIENT_CODEX)) {
+					codexIndex = i;
+					break;
+				}
+			}
+		}
+		if (codexIndex >= 0 || !ConfigManager.CODEX_REQUIRED_FOR_LOOKUP.get()) {
+			ResearchBase research = ResearchManager.researchByItem.get(event.getItemStack().getItem());
+			if (research != null) {
+				float openProgress = 0;
+				if (Screen.hasControlDown()) {
+					if (tickStartedHoldingCtrl == Integer.MAX_VALUE) {
+						tickStartedHoldingCtrl = ticks;
+					}
+					openProgress = mc.getPartialTick() + ticks - tickStartedHoldingCtrl;
+				} else {
+					tickStartedHoldingCtrl = Integer.MAX_VALUE;
+				}
+				float intensity = (float) (5.0f * (1 - Math.sqrt(1 - Math.pow(openProgress / ((float) ConfigManager.TICKS_TO_OPEN_CODEX.get()), 2)))) - 1.0f;
+				event.getTooltipElements().add(1, Either.right(new GlowingTextTooltip(Component.translatable(Embers.MODID + ".tooltip.research").withStyle(ChatFormatting.DARK_GRAY), intensity)));
+				if (openProgress >= ConfigManager.TICKS_TO_OPEN_CODEX.get()) {
+					if (ConfigManager.CODEX_REQUIRED_FOR_LOOKUP.get())
+						mc.player.getInventory().selected = codexIndex;
+					GuiCodex.instance.previousScreen = mc.screen;
+					GuiCodex.instance.researchPage = research;
+					mc.setScreen(GuiCodex.instance);
+					ResearchManager.sendCheckmark(research, true);
+					mc.level.playSound(mc.player, mc.player, EmbersSounds.CODEX_PAGE_OPEN.get(), SoundSource.MASTER, 0.75f, 1.0f);
+				}
+			}
+		}
 		if (AugmentUtil.hasHeat(event.getItemStack())) {
 			event.getTooltipElements().add(Either.left(Component.empty()));
 			if (AugmentUtil.getLevel(event.getItemStack()) > 0) {
-				event.getTooltipElements().add(Either.right(new GlowingTextTooltip(Component.translatable(Embers.MODID + ".tooltip.heat_level").withStyle(ChatFormatting.GRAY).getVisualOrderText(), Component.literal("" + AugmentUtil.getLevel(event.getItemStack())).getVisualOrderText())));
+				event.getTooltipElements().add(Either.right(new GlowingTextTooltip(Component.translatable(Embers.MODID + ".tooltip.heat_level").withStyle(ChatFormatting.GRAY), Component.literal("" + AugmentUtil.getLevel(event.getItemStack())))));
 				int slots = AugmentUtil.getLevel(event.getItemStack()) - AugmentUtil.getTotalAugmentLevel(event.getItemStack());
 				if (slots > 0)
-					event.getTooltipElements().add(Either.right(new GlowingTextTooltip(Component.translatable(Embers.MODID + ".tooltip.augment_slots").withStyle(ChatFormatting.GRAY).getVisualOrderText(), Component.literal("" + slots).getVisualOrderText())));
+					event.getTooltipElements().add(Either.right(new GlowingTextTooltip(Component.translatable(Embers.MODID + ".tooltip.augment_slots").withStyle(ChatFormatting.GRAY), Component.literal("" + slots))));
 			}
 			float heat = AugmentUtil.getHeat(event.getItemStack());
 			float maxHeat = AugmentUtil.getMaxHeat(event.getItemStack());
 			event.getTooltipElements().add(Either.right(new HeatBarTooltip(Component.translatable(Embers.MODID + ".tooltip.heat_amount").withStyle(ChatFormatting.GRAY).getVisualOrderText(), heat, maxHeat)));
-			if (Minecraft.getInstance().options.advancedItemTooltips)
+			if (mc.options.advancedItemTooltips)
 				event.getTooltipElements().add(Either.left(Component.translatable(Embers.MODID + ".tooltip.heat_debug", heat, maxHeat).withStyle(ChatFormatting.DARK_GRAY)));
 
 			List<IAugment> augments = AugmentUtil.getAugments(event.getItemStack()).stream().filter(x -> x.shouldRenderTooltip()).collect(Collectors.toList());
@@ -499,7 +547,7 @@ public class EmbersClientEvents {
 				event.getTooltipElements().add(Either.left(Component.translatable(Embers.MODID + ".tooltip.augments").withStyle(ChatFormatting.GRAY)));
 				for (IAugment augment : augments) {
 					int level = AugmentUtil.getAugmentLevel(event.getItemStack(), augment);
-					event.getTooltipElements().add(Either.right(new GlowingTextTooltip(Component.translatable(Embers.MODID + ".tooltip.augment." + augment.getName().toLanguageKey(), Component.translatable(getFormattedModifierLevel(level))).getVisualOrderText())));
+					event.getTooltipElements().add(Either.right(new GlowingTextTooltip(Component.translatable(Embers.MODID + ".tooltip.augment." + augment.getName().toLanguageKey(), Component.translatable(getFormattedModifierLevel(level))))));
 				}
 			}
 		}

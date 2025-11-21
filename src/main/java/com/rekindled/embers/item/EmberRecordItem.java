@@ -30,6 +30,6 @@ public class EmberRecordItem extends RecordItem {
 
 	@Override
 	public Optional<TooltipComponent> getTooltipImage(ItemStack stack) {
-		return Optional.of(new GlowingTextTooltip(this.getDisplayName().getVisualOrderText()));
+		return Optional.of(new GlowingTextTooltip(this.getDisplayName()));
 	}
 }

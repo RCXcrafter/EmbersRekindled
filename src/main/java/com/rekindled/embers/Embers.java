@@ -208,6 +208,7 @@ public class Embers {
 		MinecraftForge.EVENT_BUS.addListener(EmbersEvents::onLevelLoad);
 		MinecraftForge.EVENT_BUS.addListener(EmbersEvents::onServerTick);
 		MinecraftForge.EVENT_BUS.addListener(EmbersEvents::onExplosion);
+		MinecraftForge.EVENT_BUS.addListener(EmbersEvents::onTagsReload);
 	}
 
 	public void registerCaps(RegisterCapabilitiesEvent event) {

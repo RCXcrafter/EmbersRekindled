@@ -107,7 +107,7 @@ public class ResearchCategory {
 
 	@OnlyIn(Dist.CLIENT)
 	public String getName() {
-		return I18n.get(Embers.MODID + ".research." + name);
+		return I18n.get(name.getNamespace() + ".research." + name.getPath());
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -120,7 +120,7 @@ public class ResearchCategory {
 				if (prerequisite.isChecked()) {
 					//tooltip.add(Component.translatable(Embers.MODID + ".research.prerequisite.unlocked",prerequisite.getName()));
 				} else {
-					tooltip.add(Component.translatable(Embers.MODID + ".research.prerequisite.locked",prerequisite.getName()));
+					tooltip.add(Component.translatable(Embers.MODID + ".research.prerequisite.locked", prerequisite.getName()));
 				}
 			}
 		return tooltip;
