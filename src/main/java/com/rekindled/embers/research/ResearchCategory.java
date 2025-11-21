@@ -22,7 +22,9 @@ public class ResearchCategory {
 
 	public static final ArrayList<ResearchBase> NO_PREREQUISITES = Lists.newArrayList();
 
-	public ResourceLocation name;
+	public ResourceLocation id;
+	@Deprecated
+	public String name;
 	public double u = 192.0;
 	public double v = 0;
 	public ResourceLocation texture = new ResourceLocation(Embers.MODID, "textures/gui/codex_index.png");
@@ -31,19 +33,22 @@ public class ResearchCategory {
 	public ArrayList<ResearchBase> prerequisites = new ArrayList<>();
 	public LinkedList<Vec2i> goodLocations = new LinkedList<>();
 
-	public ResearchCategory(ResourceLocation name, double v) {
-		this.name = name;
+	public ResearchCategory(ResourceLocation id, double v) {
+		this.id = id;
+		this.name = id.getPath();
 		this.v = v;
 	}
 
-	public ResearchCategory(ResourceLocation name, double u, double v) {
-		this.name = name;
+	public ResearchCategory(ResourceLocation id, double u, double v) {
+		this.id = id;
+		this.name = id.getPath();
 		this.u = u;
 		this.v = v;
 	}
 
-	public ResearchCategory(ResourceLocation name, ResourceLocation texture, double u, double v) {
-		this.name = name;
+	public ResearchCategory(ResourceLocation id, ResourceLocation texture, double u, double v) {
+		this.id = id;
+		this.name = id.getPath();
 		this.v = v;
 		this.u = u;
 		this.texture = texture;
@@ -51,17 +56,17 @@ public class ResearchCategory {
 
 	@Deprecated
 	public ResearchCategory(String name, double v) {
-		this(new ResourceLocation(Embers.MODID), v);
+		this(new ResourceLocation(Embers.MODID, name), v);
 	}
 
 	@Deprecated
 	public ResearchCategory(String name, double u, double v) {
-		this(new ResourceLocation(Embers.MODID), u, v);
+		this(new ResourceLocation(Embers.MODID, name), u, v);
 	}
 
 	@Deprecated
 	public ResearchCategory(String name, ResourceLocation texture, double u, double v) {
-		this(new ResourceLocation(Embers.MODID), texture, u, v);
+		this(new ResourceLocation(Embers.MODID, name), texture, u, v);
 	}
 
 	public ResearchCategory addResearch(ResearchBase base) {
@@ -107,7 +112,7 @@ public class ResearchCategory {
 
 	@OnlyIn(Dist.CLIENT)
 	public String getName() {
-		return I18n.get(name.getNamespace() + ".research." + name.getPath());
+		return I18n.get(id.getNamespace() + ".research." + id.getPath());
 	}
 
 	@OnlyIn(Dist.CLIENT)

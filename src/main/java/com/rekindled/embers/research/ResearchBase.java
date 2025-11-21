@@ -24,7 +24,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class ResearchBase {
-	public ResourceLocation name;
+	public ResourceLocation id;
 	public double u = 0.0;
 	public double v = 0.0;
 	public ItemStack icon = ItemStack.EMPTY;
@@ -49,7 +49,7 @@ public class ResearchBase {
 	public boolean checked;
 
 	public ResearchBase(ResourceLocation location, ItemStack icon, double x, double y) {
-		this.name = location;
+		this.id = location;
 		this.icon = icon;
 		this.lookupIngredient = Ingredient.of(icon);
 		this.x = 48+(int)(x*24);
@@ -204,20 +204,20 @@ public class ResearchBase {
 
 	@OnlyIn(Dist.CLIENT)
 	public String getName() {
-		return I18n.get(name.getNamespace() + ".research.page." + name.getPath());
+		return I18n.get(id.getNamespace() + ".research.page." + id.getPath());
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	public String getTitle() {
 		if (hasMultiplePages())
-			return I18n.get(name.getNamespace() + ".research.multipage", I18n.get(name.getNamespace() + ".research.page." + getFirstPage().name.getPath() + ".title"), pageNumber+1, getPageCount()+1);
+			return I18n.get(id.getNamespace() + ".research.multipage", I18n.get(id.getNamespace() + ".research.page." + getFirstPage().id.getPath() + ".title"), pageNumber+1, getPageCount()+1);
 		else
-			return I18n.get(name.getNamespace() + ".research.page." + name.getPath() + ".title");
+			return I18n.get(id.getNamespace() + ".research.page." + id.getPath() + ".title");
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	private String[] getTags() {
-		String translateKey = name.getNamespace() + ".research.page." + name.getPath() + ".tags";
+		String translateKey = id.getNamespace() + ".research.page." + id.getPath() + ".tags";
 		if (I18n.exists(translateKey)) {
 			return I18n.get(translateKey).split(";");
 		} else {
@@ -227,7 +227,7 @@ public class ResearchBase {
 
 	@OnlyIn(Dist.CLIENT)
 	public Component getText() {
-		return Component.translatable(name.getNamespace() + ".research.page." + name.getPath() + ".desc");
+		return Component.translatable(id.getNamespace() + ".research.page." + id.getPath() + ".desc");
 	}
 
 	@OnlyIn(Dist.CLIENT)

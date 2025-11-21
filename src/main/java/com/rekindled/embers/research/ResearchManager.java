@@ -112,14 +112,14 @@ public class ResearchManager {
 
 	public static void receiveResearchData(Map<ResourceLocation, Boolean> checkmarks) {
 		for (ResearchBase research : getAllResearch()) {
-			Boolean checked = checkmarks.get(research.name);
+			Boolean checked = checkmarks.get(research.id);
 			if (checked != null)
 				research.check(checked);
 		}
 	}
 
 	public static void sendCheckmark(ResearchBase research, boolean checked) {
-		PacketHandler.INSTANCE.sendToServer(new MessageResearchTick(research.name, checked));
+		PacketHandler.INSTANCE.sendToServer(new MessageResearchTick(research.id, checked));
 	}
 
 	public static void attachCapability(AttachCapabilitiesEvent<Entity> event) {
@@ -534,7 +534,7 @@ public class ResearchManager {
 		return new ResourceLocation(Embers.MODID, name);
 	}
 
-	private static ResearchSwitchCategory makeCategorySwitch(ResearchCategory targetCategory, int x, int y, ItemStack icon, int u, int v) {
-		return (ResearchSwitchCategory) new ResearchSwitchCategory(new ResourceLocation(targetCategory.name.getNamespace(), targetCategory.name.getPath() + "_category"), icon, x, y).setTargetCategory(targetCategory).setIconBackground(PAGE_ICONS, PAGE_ICON_SIZE * u, PAGE_ICON_SIZE * v);
+	public static ResearchSwitchCategory makeCategorySwitch(ResearchCategory targetCategory, int x, int y, ItemStack icon, int u, int v) {
+		return (ResearchSwitchCategory) new ResearchSwitchCategory(new ResourceLocation(targetCategory.id.getNamespace(), targetCategory.id.getPath() + "_category"), icon, x, y).setTargetCategory(targetCategory).setIconBackground(PAGE_ICONS, PAGE_ICON_SIZE * u, PAGE_ICON_SIZE * v);
 	}
 }

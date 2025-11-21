@@ -3,6 +3,8 @@ package com.rekindled.embers.research;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.rekindled.embers.Embers;
+
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -32,7 +34,7 @@ public class ResearchCategoryComingSoon extends ResearchCategory {
 	public List<Component> getTooltip(boolean showTooltips) {
 		ArrayList<Component> tooltip = new ArrayList<>();
 		if (showTooltips) {
-			tooltip.add(Component.translatable(name.getNamespace() + ".research.coming_soon"));
+			tooltip.add(Component.translatable(Embers.MODID + ".research.coming_soon"));
 		}
 		return tooltip;
 	}

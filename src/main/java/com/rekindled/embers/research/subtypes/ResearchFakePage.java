@@ -12,7 +12,7 @@ public class ResearchFakePage extends ResearchBase {
     ResearchBase targetPage;
 
     public ResearchFakePage(ResearchBase page, double x, double y) {
-        super(page.name, ItemStack.EMPTY, x, y);
+        super(page.id, ItemStack.EMPTY, x, y);
         targetPage = page;
     }
 
