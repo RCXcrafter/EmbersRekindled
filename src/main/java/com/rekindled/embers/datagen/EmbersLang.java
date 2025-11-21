@@ -896,6 +896,7 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".research.page.glimmer.title", "Light on, Light off");
 		add(Embers.MODID + ".research.page.glimmer.tags", "Alchemy;Transmutation;Light;Glimmer;Crystal;Tool;Quartz;");
 		add(Embers.MODID + ".research.page.glimmer.desc", "By infusing quartz with heat and ember, you have devised a luminescent material that appears to be eager to part with its own luminosity. This allows you to place light sources at will, although it will deplete the crystal. However, while you are exposed to sunlight, the crystal will slowly regenerate itself.");
+		add(Embers.MODID + ".research.page.glimmer_page_2.desc", "By encasing the crystal in a metal cage you've fashioned it into a lamp. With this, you can launch the light sources, allowing you to place them at a distance. This does come with fewer uses and slower recharging in sunlight.");
 
 		add(Embers.MODID + ".research.page.metallurgic_dust", "Metallurgic Dust");
 		add(Embers.MODID + ".research.page.metallurgic_dust.title", "This for that");

@@ -263,7 +263,8 @@ public class ResearchManager {
 		field_chart = new ResearchBase(loc("field_chart"), new ItemStack(RegistryManager.FIELD_CHART_ITEM.get()), 0, 5).addAncestor(cluster);
 		inflictor = new ResearchBase(loc("inflictor"), new ItemStack(RegistryManager.INFLICTOR_GEM.get()), 11, 7).addAncestor(ashen_cloak);
 		tyrfing = new ResearchBase(loc("tyrfing"), new ItemStack(RegistryManager.TYRFING.get()), 8, 6).addAncestor(slate);
-		glimmer = new ResearchBase(loc("glimmer"), new ItemStack(RegistryManager.GLIMMER_CRYSTAL.get()), 9, 0).addAncestor(slate);
+		glimmer = new ResearchBase(loc("glimmer"), new ItemStack(RegistryManager.GLIMMER_CRYSTAL.get()), 9, 0).addAncestor(slate)
+				.addPage(new ResearchShowItem(loc("glimmer_page_2"), new ItemStack(RegistryManager.GLIMMER_LAMP.get()), 9, 4).addItem(new DisplayItem(new ItemStack(RegistryManager.GLIMMER_LAMP.get()))));
 		//metallurgic_dust = new ResearchBase(loc("metallurgic_dust"), new ItemStack(RegistryManager.dust_metallurgic), 0, 2).addAncestor(slate);
 
 		adhesive = new ResearchBase(loc("adhesive"), new ItemStack(RegistryManager.ADHESIVE.get()), 10, 1);
