@@ -33,7 +33,7 @@ public class DamageEmber extends DamageSource {
 
 	public DamageEmber(Holder<DamageType> type, @Nullable Entity entity, boolean indirect) {
 		super(type, entity, entity);
-		indirect = true;
+		this.indirect = indirect;
 	}
 
 	public DamageEmber(Holder<DamageType> type) {
