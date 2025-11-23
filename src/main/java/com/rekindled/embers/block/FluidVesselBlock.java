@@ -1,6 +1,7 @@
 package com.rekindled.embers.block;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Nullable;
 
@@ -12,14 +13,18 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.AbstractCauldronBlock;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -28,6 +33,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.storage.loot.LootParams;
@@ -39,16 +45,18 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 
-public class FluidVesselBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
+public class FluidVesselBlock extends AbstractCauldronBlock implements EntityBlock, SimpleWaterloggedBlock {
 
-	protected static final VoxelShape VESSEL_AABB = Shapes.join(Shapes.block(), Block.box(4,2,4,12,16,12), BooleanOp.ONLY_FIRST);
+	protected static final VoxelShape INSIDE = Block.box(4,2,4,12,16,12);
+	protected static final VoxelShape VESSEL_AABB = Shapes.join(Shapes.block(), INSIDE, BooleanOp.ONLY_FIRST);
 
 	public FluidVesselBlock(Properties properties) {
-		super(properties);
+		super(properties, Map.of());
 		this.registerDefaultState(this.stateDefinition.any().setValue(BlockStateProperties.WATERLOGGED, false));
 	}
 
@@ -85,13 +93,58 @@ public class FluidVesselBlock extends BaseEntityBlock implements SimpleWaterlogg
 	}
 
 	@Override
+	public VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
+		return INSIDE;
+	}
+
+	@Override
+	public boolean isEntityInsideContent(BlockState state, BlockPos pos, Entity entity) {
+		return false;
+	}
+
+	@Override
+	public boolean hasAnalogOutputSignal(BlockState state) {
+		return false;
+	}
+
+	@Override
+	public boolean isFull(BlockState state) {
+		return false;
+	}
+
+	@Override
+	public boolean canReceiveStalactiteDrip(Fluid fluid) {
+		return true;
+	}
+
+	@Override
+	public void receiveStalactiteDrip(BlockState state, Level level, BlockPos pos, Fluid fluid) {
+		if (level.getBlockEntity(pos) instanceof FluidVesselBlockEntity vesselEntity) {
+			IFluidHandler cap = vesselEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, Direction.UP).orElse(null);
+			if (cap != null) {
+				int amount = 333;
+				if (fluid == Fluids.LAVA)
+					amount = FluidType.BUCKET_VOLUME;
+
+				cap.fill(new FluidStack(fluid, amount), FluidAction.EXECUTE);
+
+				if (fluid.getFluidType().getTemperature() > 500) {
+					level.levelEvent(LevelEvent.SOUND_DRIP_LAVA_INTO_CAULDRON, pos, 0);
+				} else {
+					level.levelEvent(LevelEvent.SOUND_DRIP_WATER_INTO_CAULDRON, pos, 0);
+				}
+			}
+		}
+	}
+
+	@Override
 	public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
 		return RegistryManager.FLUID_VESSEL_ENTITY.get().create(pPos, pState);
 	}
 
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-		return pLevel.isClientSide ? createTickerHelper(pBlockEntityType, RegistryManager.FLUID_VESSEL_ENTITY.get(), FluidVesselBlockEntity::clientTick) : null;
+		return pLevel.isClientSide ? BaseEntityBlock.createTickerHelper(pBlockEntityType, RegistryManager.FLUID_VESSEL_ENTITY.get(), FluidVesselBlockEntity::clientTick) : null;
 	}
 
 	@Override
