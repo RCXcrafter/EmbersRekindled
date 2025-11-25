@@ -31,13 +31,19 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.IItemHandler;
 
 public class EntropicEnumeratorBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
 
-	public static final VoxelShape CUBE_AABB = Block.box(4,4,4,12,12,12);
+	public static final VoxelShape UP_AABB = Shapes.or(Block.box(4,4,4,12,12,12),Block.box(6,-2,6,10,1,10),Block.box(5,1,5,11,2,11));
+	public static final VoxelShape DOWN_AABB = Misc.rotateVoxelShape(Direction.DOWN, UP_AABB);
+	public static final VoxelShape NORTH_AABB = Misc.rotateVoxelShape(Direction.NORTH, UP_AABB);
+	public static final VoxelShape SOUTH_AABB = Misc.rotateVoxelShape(Direction.SOUTH, UP_AABB);
+	public static final VoxelShape WEST_AABB = Misc.rotateVoxelShape(Direction.WEST, UP_AABB);
+	public static final VoxelShape EAST_AABB = Misc.rotateVoxelShape(Direction.EAST, UP_AABB);
 
 	public EntropicEnumeratorBlock(Properties properties) {
 		super(properties);
@@ -73,8 +79,22 @@ public class EntropicEnumeratorBlock extends BaseEntityBlock implements SimpleWa
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-		return CUBE_AABB;
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+		switch (state.getValue(BlockStateProperties.FACING)) {
+		case UP:
+			return UP_AABB;
+		case DOWN:
+			return DOWN_AABB;
+		case EAST:
+			return EAST_AABB;
+		case WEST:
+			return WEST_AABB;
+		case SOUTH:
+			return SOUTH_AABB;
+		case NORTH:
+		default:
+			return NORTH_AABB;
+		}
 	}
 
 	@Override

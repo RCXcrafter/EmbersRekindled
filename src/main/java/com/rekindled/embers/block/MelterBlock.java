@@ -21,7 +21,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -32,7 +31,8 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 public class MelterBlock extends DoubleTallMachineBlock {
 
 	protected static final VoxelShape BASE_AABB = Shapes.or(Block.box(2,0,2,14,16,14), Block.box(0,8,0,4,16,4), Block.box(0,8,12,4,16,16), Block.box(12,8,0,16,16,4), Block.box(12,8,12,16,16,16), Block.box(1,0,1,4,8,4), Block.box(1,0,12,4,8,15), Block.box(12,0,1,15,8,4), Block.box(12,0,12,15,8,15));
-	protected static final VoxelShape TOP_AABB = Shapes.join(Shapes.block(), Block.box(4,0,4,12,16,12), BooleanOp.ONLY_FIRST);
+	protected static final VoxelShape BASE_INTERACTION = Shapes.or(Block.box(1,0,1,15,8,15),Block.box(0,8,0,16,16,16));
+	protected static final VoxelShape TOP_AABB = Shapes.or(Block.box(0,0,0,4,16,4),Block.box(6,0,0,10,16,4),Block.box(12,0,0,16,16,4),Block.box(12,0,6,16,16,10),Block.box(12,0,12,16,16,16),Block.box(6,0,12,10,16,16),Block.box(0,0,12,4,16,16),Block.box(0,0,6,4,16,10),Block.box(4,1,2,6,15,4),Block.box(10,1,2,12,15,4),Block.box(12,1,4,14,15,6),Block.box(12,1,10,14,15,12),Block.box(10,1,12,12,15,14),Block.box(4,1,12,6,15,14),Block.box(2,1,10,4,15,12),Block.box(2,1,4,4,15,6),Block.box(3,0,13,13,2,15),Block.box(3,0,1,13,2,3),Block.box(13,0,3,15,2,13),Block.box(1,0,3,3,2,13));
 
 	public MelterBlock(Properties properties, SoundType topSound) {
 		super(properties, topSound);
@@ -56,6 +56,11 @@ public class MelterBlock extends DoubleTallMachineBlock {
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER ? BASE_AABB : TOP_AABB;
+	}
+
+	@Override
+	public VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
+		return state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER ? BASE_INTERACTION : Shapes.block();
 	}
 
 	@Override

@@ -27,13 +27,18 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 
 public class CaminiteValveEdgeBlock extends MechEdgeBlockBase implements EntityBlock {
 
-	public static final VoxelShape X_AABB = Shapes.or(Block.box(0,0,4,16,16,12), Block.box(1,0,3,7,16,13), Block.box(9,0,3,15,16,13), Block.box(4,4,1,12,12,15));
-	public static final VoxelShape Z_AABB = Shapes.or(Block.box(4,0,0,12,16,16), Block.box(3,0,1,13,16,7), Block.box(3,0,9,13,16,15), Block.box(1,4,4,15,12,12));
+	public static final VoxelShape NORTH_AABB = Shapes.or(Block.box(0,0,4,16,16,12), Block.box(1,0,3,7,16,13), Block.box(9,0,3,15,16,13), Block.box(4,4,1,12,12,15), Block.box(6,6,0,10,10,1));
+	public static final VoxelShape SOUTH_AABB = Shapes.or(Block.box(0,0,4,16,16,12), Block.box(1,0,3,7,16,13), Block.box(9,0,3,15,16,13), Block.box(4,4,1,12,12,15), Block.box(6,6,15,10,10,16));
+	public static final VoxelShape WEST_AABB = Shapes.or(Block.box(4,0,0,12,16,16), Block.box(3,0,1,13,16,7), Block.box(3,0,9,13,16,15), Block.box(1,4,4,15,12,12), Block.box(0,6,6,1,10,10));
+	public static final VoxelShape EAST_AABB = Shapes.or(Block.box(4,0,0,12,16,16), Block.box(3,0,1,13,16,7), Block.box(3,0,9,13,16,15), Block.box(1,4,4,15,12,12), Block.box(15,6,6,16,10,10));
 	public static final VoxelShape NORTHEAST_AABB = Shapes.or(Block.box(0,0,4,12,16,12), Block.box(4,0,4,12,16,16));
 	public static final VoxelShape SOUTHEAST_AABB = Shapes.or(Block.box(0,0,4,12,16,12), Block.box(4,0,0,12,16,12));
 	public static final VoxelShape SOUTHWEST_AABB = Shapes.or(Block.box(4,0,4,16,16,12), Block.box(4,0,0,12,16,12));
 	public static final VoxelShape NORTHWEST_AABB = Shapes.or(Block.box(4,0,4,16,16,12), Block.box(4,0,4,12,16,16));
-	public static final VoxelShape[] SHAPES = new VoxelShape[] { X_AABB, NORTHEAST_AABB, Z_AABB, SOUTHEAST_AABB, X_AABB, SOUTHWEST_AABB, Z_AABB, NORTHWEST_AABB };
+	public static final VoxelShape[] SHAPES = new VoxelShape[] { NORTH_AABB, NORTHEAST_AABB, EAST_AABB, SOUTHEAST_AABB, SOUTH_AABB, SOUTHWEST_AABB, WEST_AABB, NORTHWEST_AABB };
+	public static final VoxelShape X_INTERACTION = Block.box(0,1,1,16,15,15);
+	public static final VoxelShape Z_INTERACTION = Block.box(1,1,0,15,15,16);
+	public static final VoxelShape[] INTERACTION_SHAPES = new VoxelShape[] { Z_INTERACTION, Shapes.empty(), X_INTERACTION, Shapes.empty(), Z_INTERACTION, Shapes.empty(), X_INTERACTION, Shapes.empty() };
 
 	public CaminiteValveEdgeBlock(Properties pProperties) {
 		super(pProperties);
@@ -64,6 +69,11 @@ public class CaminiteValveEdgeBlock extends MechEdgeBlockBase implements EntityB
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return SHAPES[state.getValue(EDGE).index];
+	}
+
+	@Override
+	public VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
+		return INTERACTION_SHAPES[state.getValue(EDGE).index];
 	}
 
 	@Override

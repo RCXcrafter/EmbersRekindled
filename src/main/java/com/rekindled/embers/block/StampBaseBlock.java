@@ -29,7 +29,6 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -40,7 +39,7 @@ import net.minecraftforge.items.IItemHandler;
 
 public class StampBaseBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
 
-	protected static final VoxelShape STAMP_BASE_AABB = Shapes.join(Shapes.block(), Block.box(4,12,4,12,16,12), BooleanOp.ONLY_FIRST);
+	protected static final VoxelShape STAMP_BASE_AABB = Shapes.or(Block.box(0,14,0,16,16,4),Block.box(0,14,12,16,16,16),Block.box(0,0,0,4,4,4),Block.box(12,0,0,16,4,4),Block.box(12,0,12,16,4,16),Block.box(0,0,12,4,4,16),Block.box(0,8,12,4,12,16),Block.box(0,8,0,4,12,4),Block.box(12,8,0,16,12,4),Block.box(12,8,12,16,12,16),Block.box(12,4,12,15,8,15),Block.box(1,4,12,4,8,15),Block.box(1,4,1,4,8,4),Block.box(12,4,1,15,8,4),Block.box(2,0,2,14,12,14),Block.box(12,12,4,14,14,12),Block.box(2,12,4,4,14,12),Block.box(2,12,2,14,14,4),Block.box(2,12,12,14,14,14),Block.box(1,8,1,15,12,15),Block.box(0,14,4,4,16,12),Block.box(12,14,4,16,16,12));
 
 	public StampBaseBlock(Properties properties) {
 		super(properties);
@@ -85,6 +84,11 @@ public class StampBaseBlock extends BaseEntityBlock implements SimpleWaterlogged
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return STAMP_BASE_AABB;
+	}
+
+	@Override
+	public VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
+		return Shapes.block();
 	}
 
 	@Override

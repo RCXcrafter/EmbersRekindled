@@ -38,7 +38,11 @@ import net.minecraftforge.items.IItemHandler;
 
 public class CopperChargerBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
 
-	protected static final VoxelShape CHARGER_AABB = Shapes.or(Block.box(2,0,2,14,2,14), Block.box(3,2,3,13,12,13), Block.box(2,12,2,14,14,14), Block.box(4,14,4,12,16,12));
+	protected static final VoxelShape NORTH_AABB = Shapes.or(Block.box(2,0,2,14,2,14),Block.box(4,2,4,12,4,12),Block.box(3,2,11,5,12,13),Block.box(3,2,3,5,12,5),Block.box(11,2,3,13,12,5),Block.box(11,2,11,13,12,13),Block.box(4,10,4,12,16,12),Block.box(2,12,2,14,14,14),Block.box(7,2,11,9,12,13),Block.box(11,2,7,13,12,9),Block.box(3,2,7,5,12,9),Block.box(6,6,12,10,10,14),Block.box(12,6,6,14,10,10),Block.box(2,6,6,4,10,10));
+	protected static final VoxelShape SOUTH_AABB = Misc.rotateVoxelShape(Direction.NORTH, Direction.SOUTH, NORTH_AABB);
+	protected static final VoxelShape WEST_AABB = Misc.rotateVoxelShape(Direction.NORTH, Direction.WEST, NORTH_AABB);
+	protected static final VoxelShape EAST_AABB = Misc.rotateVoxelShape(Direction.NORTH, Direction.EAST, NORTH_AABB);
+	protected static final VoxelShape CHARGER_INTERACTION = Block.box(2,2,2,14,12,14);
 
 	public CopperChargerBlock(Properties properties) {
 		super(properties);
@@ -75,7 +79,22 @@ public class CopperChargerBlock extends BaseEntityBlock implements SimpleWaterlo
 
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-		return CHARGER_AABB;
+		switch (state.getValue(BlockStateProperties.HORIZONTAL_FACING)) {
+		case EAST:
+			return EAST_AABB;
+		case WEST:
+			return WEST_AABB;
+		case SOUTH:
+			return SOUTH_AABB;
+		case NORTH:
+		default:
+			return NORTH_AABB;
+		}
+	}
+
+	@Override
+	public VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
+		return CHARGER_INTERACTION;
 	}
 
 	@Override

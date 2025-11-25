@@ -3,6 +3,7 @@ package com.rekindled.embers.block;
 import javax.annotation.Nullable;
 
 import com.rekindled.embers.RegistryManager;
+import com.rekindled.embers.util.Misc;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -23,11 +24,15 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class AtmosphericBellowsBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
 
-	protected static final VoxelShape BELLOWS_AABB = Block.box(2,0,2,14,16,14);
+	protected static final VoxelShape NORTH_AABB = Shapes.or(Block.box(6,3,0,10,7,2),Block.box(1,0,1,15,3,15),Block.box(2,3,2,14,16,14));
+	protected static final VoxelShape SOUTH_AABB = Misc.rotateVoxelShape(Direction.NORTH, Direction.SOUTH, NORTH_AABB);
+	protected static final VoxelShape WEST_AABB = Misc.rotateVoxelShape(Direction.NORTH, Direction.WEST, NORTH_AABB);
+	protected static final VoxelShape EAST_AABB = Misc.rotateVoxelShape(Direction.NORTH, Direction.EAST, NORTH_AABB);
 
 	public AtmosphericBellowsBlock(Properties properties) {
 		super(properties);
@@ -41,7 +46,17 @@ public class AtmosphericBellowsBlock extends BaseEntityBlock implements SimpleWa
 
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-		return BELLOWS_AABB;
+		switch (state.getValue(BlockStateProperties.HORIZONTAL_FACING)) {
+		case EAST:
+			return EAST_AABB;
+		case WEST:
+			return WEST_AABB;
+		case SOUTH:
+			return SOUTH_AABB;
+		case NORTH:
+		default:
+			return NORTH_AABB;
+		}
 	}
 
 	@Override

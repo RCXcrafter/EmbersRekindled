@@ -4,6 +4,7 @@ import javax.annotation.Nullable;
 
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.blockentity.WildfireStirlingBlockEntity;
+import com.rekindled.embers.util.Misc;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -31,12 +32,12 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class WildfireStirlingBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
 
-	protected static final VoxelShape UP_AABB = Shapes.or(Block.box(3, 0, 3, 13, 16, 13), Block.box(2, 2, 2, 14, 14, 14), Block.box(6, 0, 0, 10, 7, 16), Block.box(0, 0, 6, 16, 7, 10));
-	protected static final VoxelShape DOWN_AABB = Shapes.or(Block.box(3, 0, 3, 13, 16, 13), Block.box(2, 2, 2, 14, 14, 14), Block.box(6, 9, 0, 10, 16, 16), Block.box(0, 9, 6, 16, 16, 10));
-	protected static final VoxelShape NORTH_AABB = Shapes.or(Block.box(3, 3, 0, 13, 13, 16), Block.box(2, 2, 2, 14, 14, 14), Block.box(6, 0, 9, 10, 16, 16), Block.box(0, 6, 9, 16, 10, 16));
-	protected static final VoxelShape SOUTH_AABB = Shapes.or(Block.box(3, 3, 0, 13, 13, 16), Block.box(2, 2, 2, 14, 14, 14), Block.box(6, 0, 0, 10, 16, 7), Block.box(0, 6, 0, 16, 10, 7));
-	protected static final VoxelShape WEST_AABB = Shapes.or(Block.box(0, 3, 3, 16, 13, 13), Block.box(2, 2, 2, 14, 14, 14), Block.box(9, 0, 6, 16, 16, 10), Block.box(9, 6, 0, 16, 10, 16));
-	protected static final VoxelShape EAST_AABB = Shapes.or(Block.box(0, 3, 3, 16, 13, 13), Block.box(2, 2, 2, 14, 14, 14), Block.box(0, 0, 6, 7, 16, 10), Block.box(0, 6, 0, 7, 10, 16));
+	protected static final VoxelShape UP_AABB = Shapes.or(Block.box(7,10,0,9,12,16),Block.box(2,2,2,14,14,14),Block.box(3,0,3,13,16,13),Block.box(6,0,0,10,7,16),Block.box(0,0,6,16,7,10),Block.box(1,9,6,15,13,10),Block.box(6,9,1,10,13,15),Block.box(0,10,7,16,12,9));
+	protected static final VoxelShape DOWN_AABB = Misc.rotateVoxelShape(Direction.DOWN, UP_AABB);
+	protected static final VoxelShape NORTH_AABB = Misc.rotateVoxelShape(Direction.NORTH, UP_AABB);
+	protected static final VoxelShape SOUTH_AABB = Misc.rotateVoxelShape(Direction.SOUTH, UP_AABB);
+	protected static final VoxelShape WEST_AABB = Misc.rotateVoxelShape(Direction.WEST, UP_AABB);
+	protected static final VoxelShape EAST_AABB = Misc.rotateVoxelShape(Direction.EAST, UP_AABB);
 
 	public WildfireStirlingBlock(Properties properties) {
 		super(properties);

@@ -78,6 +78,11 @@ public class BinBlock extends BaseEntityBlock implements SimpleWaterloggedBlock 
 	}
 
 	@Override
+	public VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
+		return Shapes.block();
+	}
+
+	@Override
 	public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
 		return RegistryManager.BIN_ENTITY.get().create(pPos, pState);
 	}

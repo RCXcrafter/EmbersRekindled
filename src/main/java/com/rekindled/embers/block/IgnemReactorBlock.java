@@ -24,7 +24,6 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -33,7 +32,8 @@ import net.minecraftforge.items.IItemHandler;
 
 public class IgnemReactorBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
 
-	protected static final VoxelShape REACTOR_AABB = Shapes.or(Shapes.joinUnoptimized(Block.box(3,4,3,13,16,13), Block.box(5,5,5,11,16,11), BooleanOp.ONLY_FIRST), Block.box(2,0,2,14,4,14));
+	protected static final VoxelShape REACTOR_AABB = Shapes.or(Block.box(3,4,3,5,16,5),Block.box(7,4,3,9,16,5),Block.box(11,4,3,13,16,5),Block.box(11,4,7,13,16,9),Block.box(11,4,11,13,16,13),Block.box(7,4,11,9,16,13),Block.box(3,4,11,5,16,13),Block.box(3,4,7,5,16,9),Block.box(3,6,5,5,8,11),Block.box(5,6,3,11,8,5),Block.box(11,6,5,13,8,11),Block.box(5,6,11,11,8,13),Block.box(5,10,11,11,12,13),Block.box(11,10,5,13,12,11),Block.box(5,10,3,11,12,5),Block.box(3,10,5,5,12,11),Block.box(13,6,6,15,10,10),Block.box(1,6,6,3,10,10),Block.box(6,6,1,10,10,3),Block.box(6,6,13,10,10,15),Block.box(0,5,5,2,11,11),Block.box(14,5,5,16,11,11),Block.box(5,5,14,11,11,16),Block.box(5,5,0,11,11,2),Block.box(4.5,0,4.5,11.5,7,11.5),Block.box(2,0,2,6,4,6),Block.box(10,0,2,14,4,6),Block.box(2,0,10,6,4,14),Block.box(10,0,10,14,4,14));
+	protected static final VoxelShape REACTOR_INTERACTION = Shapes.or(Block.box(3,4,3,13,16,13),Block.box(2,0,2,14,4,14));
 
 	public IgnemReactorBlock(Properties properties) {
 		super(properties);
@@ -63,6 +63,11 @@ public class IgnemReactorBlock extends BaseEntityBlock implements SimpleWaterlog
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return REACTOR_AABB;
+	}
+
+	@Override
+	public VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
+		return REACTOR_INTERACTION;
 	}
 
 	@Override

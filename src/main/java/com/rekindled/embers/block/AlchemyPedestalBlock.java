@@ -28,9 +28,10 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class AlchemyPedestalBlock extends DoubleTallMachineBlock {
 
 	protected static final VoxelShape BASE_AABB = Shapes.or(Block.box(1,0,1,6,4,6), Block.box(10,0,10,15,4,15), Block.box(10,0,1,15,4,6), Block.box(1,0,10,6,4,15), Block.box(3,0,3,13,16,13));
-	protected static final VoxelShape TOP_AABB = Shapes.joinUnoptimized(Shapes.or(Block.box(1,0,1,6,4,6), Block.box(10,0,10,15,4,15), Block.box(10,0,1,15,4,6), Block.box(1,0,10,6,4,15),
+	protected static final VoxelShape TOP_AABB = Shapes.join(Shapes.or(Block.box(1,0,1,6,4,6), Block.box(10,0,10,15,4,15), Block.box(10,0,1,15,4,6), Block.box(1,0,10,6,4,15),
 			Block.box(3,0,3,13,4,13), Block.box(4,4,4,12,6,12), Block.box(2,6,2,14,8,14)),
 			Block.box(6,4,6,10,16,10), BooleanOp.ONLY_FIRST);
+	protected static final VoxelShape TOP_INTERACTION = Block.box(1,0,1,15,8,15);
 
 	public AlchemyPedestalBlock(Properties properties, SoundType topSound) {
 		super(properties, topSound);
@@ -47,6 +48,11 @@ public class AlchemyPedestalBlock extends DoubleTallMachineBlock {
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER ? BASE_AABB : TOP_AABB;
+	}
+
+	@Override
+	public VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
+		return state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER ? Shapes.empty() : TOP_INTERACTION;
 	}
 
 	@Override

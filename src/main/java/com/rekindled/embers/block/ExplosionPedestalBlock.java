@@ -25,8 +25,9 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class ExplosionPedestalBlock extends AlchemyPedestalBlock {
 
 	protected static final VoxelShape TOP_AABB = Shapes.joinUnoptimized(Shapes.or(Block.box(1,0,1,6,4,6), Block.box(10,0,10,15,4,15), Block.box(10,0,1,15,4,6), Block.box(1,0,10,6,4,15),
-			Block.box(3,0,3,13,4,13), Block.box(4,4,4,12,6,12)),
-			Block.box(6,4,6,10,16,10), BooleanOp.ONLY_FIRST);
+			Block.box(3,0,3,13,4,13), Block.box(4,4,4,12,6,12),
+			Block.box(7,8,4,9,10,12), Block.box(4,8,7,12,10,9), Block.box(4,7.5,4,7,10.5,7), Block.box(9,7.5,4,12,10.5,7), Block.box(9,7.5,9,12,10.5,12), Block.box(4,7.5,9,7,10.5,12), Block.box(2,7.5,6,4,10.5,10), Block.box(6,7.5,2,10,10.5,4), Block.box(12,7.5,6,14,10.5,10), Block.box(6,7.5,12,10,10.5,14)),
+			Block.box(6,4,6,10,7,10), BooleanOp.ONLY_FIRST);
 
 	public ExplosionPedestalBlock(Properties properties, SoundType topSound) {
 		super(properties, topSound);

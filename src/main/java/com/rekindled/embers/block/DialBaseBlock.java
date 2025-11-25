@@ -31,18 +31,26 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public abstract class DialBaseBlock extends DirectionalBlock implements IDial, EntityBlock, SimpleWaterloggedBlock {
 
-	protected static final VoxelShape UP_AABB = Shapes.box(0.3125,0,0.3125,0.6875,0.125,0.6875);
-	protected static final VoxelShape DOWN_AABB = Shapes.box(0.3125,0.875,0.3125,0.6875,1.0,0.6875);
-	protected static final VoxelShape NORTH_AABB = Shapes.box(0.3125,0.3125,0.875,0.6875,0.6875,1.0);
-	protected static final VoxelShape SOUTH_AABB = Shapes.box(0.3125,0.3125,0,0.6875,0.6875,0.125);
-	protected static final VoxelShape WEST_AABB = Shapes.box(0.875,0.3125,0.3125,1.0,0.6875,0.6875);
-	protected static final VoxelShape EAST_AABB = Shapes.box(0.0,0.3125,0.3125,0.125,0.6875,0.6875);
+	protected static final VoxelShape UP_INTERACTION = Shapes.box(0.3125,0,0.3125,0.6875,0.125,0.6875);
+	protected static final VoxelShape DOWN_INTERACTION = Shapes.box(0.3125,0.875,0.3125,0.6875,1.0,0.6875);
+	protected static final VoxelShape NORTH_INTERACTION = Shapes.box(0.3125,0.3125,0.875,0.6875,0.6875,1.0);
+	protected static final VoxelShape SOUTH_INTERACTION = Shapes.box(0.3125,0.3125,0,0.6875,0.6875,0.125);
+	protected static final VoxelShape WEST_INTERACTION = Shapes.box(0.875,0.3125,0.3125,1.0,0.6875,0.6875);
+	protected static final VoxelShape EAST_INTERACTION = Shapes.box(0.0,0.3125,0.3125,0.125,0.6875,0.6875);
+
+	protected static final VoxelShape UP_AABB = Shapes.join(UP_INTERACTION, Shapes.box(0.375,0.0625,0.375,0.625,0.125,0.625), BooleanOp.ONLY_FIRST);
+	protected static final VoxelShape DOWN_AABB = Shapes.join(DOWN_INTERACTION, Shapes.box(0.375,0.875,0.375,0.625,0.9375,0.625), BooleanOp.ONLY_FIRST);
+	protected static final VoxelShape NORTH_AABB = Shapes.join(NORTH_INTERACTION, Shapes.box(0.375,0.375,0.875,0.625,0.625,0.9375), BooleanOp.ONLY_FIRST);
+	protected static final VoxelShape SOUTH_AABB = Shapes.join(SOUTH_INTERACTION, Shapes.box(0.375,0.375,0.0625,0.625,0.625,0.125), BooleanOp.ONLY_FIRST);
+	protected static final VoxelShape WEST_AABB = Shapes.join(WEST_INTERACTION, Shapes.box(0.875,0.375,0.375,0.9375,0.625,0.625), BooleanOp.ONLY_FIRST);
+	protected static final VoxelShape EAST_AABB = Shapes.join(EAST_INTERACTION, Shapes.box(0.0625,0.375,0.375,0.125,0.625,0.625), BooleanOp.ONLY_FIRST);
 
 	public DialBaseBlock(Properties pProperties) {
 		super(pProperties);
@@ -65,6 +73,25 @@ public abstract class DialBaseBlock extends DirectionalBlock implements IDial, E
 		case NORTH:
 		default:
 			return NORTH_AABB;
+		}
+	}
+
+	@Override
+	public VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
+		switch (state.getValue(FACING)) {
+		case UP:
+			return UP_INTERACTION;
+		case DOWN:
+			return DOWN_INTERACTION;
+		case EAST:
+			return EAST_INTERACTION;
+		case WEST:
+			return WEST_INTERACTION;
+		case SOUTH:
+			return SOUTH_INTERACTION;
+		case NORTH:
+		default:
+			return NORTH_INTERACTION;
 		}
 	}
 

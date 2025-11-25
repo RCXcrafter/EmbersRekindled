@@ -4,6 +4,7 @@ import javax.annotation.Nullable;
 
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.blockentity.EmberReceiverBlockEntity;
+import com.rekindled.embers.util.Misc;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -34,12 +35,19 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class EmberReceiverBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
 
-	protected static final VoxelShape UP_AABB = Shapes.box(0.25,0,0.25,0.75,0.5,0.75);
-	protected static final VoxelShape DOWN_AABB = Shapes.box(0.25,0.5,0.25,0.75,1.0,0.75);
-	protected static final VoxelShape NORTH_AABB = Shapes.box(0.25,0.25,0.5,0.75,0.75,1.0);
-	protected static final VoxelShape SOUTH_AABB = Shapes.box(0.25,0.25,0,0.75,0.75,0.5);
-	protected static final VoxelShape WEST_AABB = Shapes.box(0.5,0.25,0.25,1.0,0.75,0.75);
-	protected static final VoxelShape EAST_AABB = Shapes.box(0.0,0.25,0.25,0.5,0.75,0.75);
+	protected static final VoxelShape UP_AABB = Shapes.or(Block.box(4,0,4,12,2,12),Block.box(5,2,5,11,4,11),Block.box(4,2,7,6,8,9),Block.box(10,2,7,12,8,9),Block.box(7,2,10,9,8,12),Block.box(7,2,4,9,8,6),Block.box(6,3,6,10,5,10));
+	protected static final VoxelShape DOWN_AABB = Misc.rotateVoxelShape(Direction.DOWN, UP_AABB);
+	protected static final VoxelShape NORTH_AABB = Misc.rotateVoxelShape(Direction.NORTH, UP_AABB);
+	protected static final VoxelShape SOUTH_AABB = Misc.rotateVoxelShape(Direction.SOUTH, UP_AABB);
+	protected static final VoxelShape WEST_AABB = Misc.rotateVoxelShape(Direction.WEST, UP_AABB);
+	protected static final VoxelShape EAST_AABB = Misc.rotateVoxelShape(Direction.EAST, UP_AABB);
+
+	protected static final VoxelShape UP_INTERACTION = Shapes.box(0.25,0,0.25,0.75,0.5,0.75);
+	protected static final VoxelShape DOWN_INTERACTION = Shapes.box(0.25,0.5,0.25,0.75,1.0,0.75);
+	protected static final VoxelShape NORTH_INTERACTION = Shapes.box(0.25,0.25,0.5,0.75,0.75,1.0);
+	protected static final VoxelShape SOUTH_INTERACTION = Shapes.box(0.25,0.25,0,0.75,0.75,0.5);
+	protected static final VoxelShape WEST_INTERACTION = Shapes.box(0.5,0.25,0.25,1.0,0.75,0.75);
+	protected static final VoxelShape EAST_INTERACTION = Shapes.box(0.0,0.25,0.25,0.5,0.75,0.75);
 
 	public static final DirectionProperty FACING = BlockStateProperties.FACING;
 
@@ -64,6 +72,25 @@ public class EmberReceiverBlock extends BaseEntityBlock implements SimpleWaterlo
 		case NORTH:
 		default:
 			return NORTH_AABB;
+		}
+	}
+
+	@Override
+	public VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
+		switch (state.getValue(FACING)) {
+		case UP:
+			return UP_INTERACTION;
+		case DOWN:
+			return DOWN_INTERACTION;
+		case EAST:
+			return EAST_INTERACTION;
+		case WEST:
+			return WEST_INTERACTION;
+		case SOUTH:
+			return SOUTH_INTERACTION;
+		case NORTH:
+		default:
+			return NORTH_INTERACTION;
 		}
 	}
 

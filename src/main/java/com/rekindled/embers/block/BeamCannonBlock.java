@@ -2,11 +2,14 @@ package com.rekindled.embers.block;
 
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.blockentity.BeamCannonBlockEntity;
+import com.rekindled.embers.util.Misc;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -17,12 +20,16 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class BeamCannonBlock extends EmberEmitterBlock {
 
-	protected static final VoxelShape UP_AABB = Shapes.box(0.25,0,0.25,0.75,1,0.75);
-	protected static final VoxelShape DOWN_AABB = Shapes.box(0.25,0,0.25,0.75,1.0,0.75);
-	protected static final VoxelShape NORTH_AABB = Shapes.box(0.25,0.25,0,0.75,0.75,1.0);
-	protected static final VoxelShape SOUTH_AABB = Shapes.box(0.25,0.25,0,0.75,0.75,1);
-	protected static final VoxelShape WEST_AABB = Shapes.box(0,0.25,0.25,1.0,0.75,0.75);
-	protected static final VoxelShape EAST_AABB = Shapes.box(0,0.25,0.25,1,0.75,0.75);
+	protected static final VoxelShape UP_AABB = Shapes.or(Block.box(3,0,3,13,2,13),Block.box(7,-1,1,9,7,3),Block.box(7,-1,13,9,7,15),Block.box(13,-1,7,15,7,9),Block.box(1,-1,7,3,7,9),Block.box(2,2,2,4,4,14),Block.box(12,2,2,14,4,14),Block.box(4,2,2,12,4,4),Block.box(4,2,12,12,4,14),Block.box(5.5,1.5,5.5,10.5,6.5,10.5),Block.box(5,12,5,11,14,11),Block.box(5,9,5,11,11,11),Block.box(5,6,5,11,8,11),Block.box(6,6,6,10,16,10),Block.box(5.1,-2,5.1,10.9,0,10.9));
+	protected static final VoxelShape DOWN_AABB = Misc.rotateVoxelShape(Direction.DOWN, UP_AABB);
+	protected static final VoxelShape NORTH_AABB = Misc.rotateVoxelShape(Direction.NORTH, UP_AABB);
+	protected static final VoxelShape SOUTH_AABB = Misc.rotateVoxelShape(Direction.SOUTH, UP_AABB);
+	protected static final VoxelShape WEST_AABB = Misc.rotateVoxelShape(Direction.WEST, UP_AABB);
+	protected static final VoxelShape EAST_AABB = Misc.rotateVoxelShape(Direction.EAST, UP_AABB);
+
+	protected static final VoxelShape X_INTERACTION = Shapes.box(0,0.3125,0.3125,1,0.6875,0.6875);
+	protected static final VoxelShape Y_INTERACTION = Shapes.box(0.3125,0,0.3125,0.6875,1,0.6875);
+	protected static final VoxelShape Z_INTERACTION = Shapes.box(0.3125,0.3125,0,0.6875,0.6875,1);
 	protected static final VoxelShape SUPPORT_UP = Shapes.or(Shapes.box(0,0,0,1,1,0.1), Shapes.box(0,0,0.9,1,1,1), Shapes.box(0,0,0,0.1,1,1), Shapes.box(0.9,0,0,1,1,1), Shapes.box(0,0,0,1,0.1,1));
 	protected static final VoxelShape SUPPORT_DOWN = Shapes.or(Shapes.box(0,0,0,1,1,0.1), Shapes.box(0,0,0.9,1,1,1), Shapes.box(0,0,0,0.1,1,1), Shapes.box(0.9,0,0,1,1,1), Shapes.box(0,0.9,0,1,1,1));
 	protected static final VoxelShape SUPPORT_NORTH = Shapes.or(Shapes.box(0,0,0,1,0.1,1), Shapes.box(0,0.9,0,1,1,1), Shapes.box(0,0,0,0.1,1,1), Shapes.box(0.9,0,0,1,1,1), Shapes.box(0,0,0.9,1,1,1));
@@ -34,22 +41,37 @@ public class BeamCannonBlock extends EmberEmitterBlock {
 		super(properties);
 	}
 
+	public VoxelShape[][] shapeCache = new VoxelShape[6][16];
+
 	@Override
-	public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-		switch (pState.getValue(FACING)) {
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+		switch (state.getValue(FACING)) {
 		case UP:
-			return UP_AABB;
+			return addPipeConnections(state, UP_AABB, shapeCache);
 		case DOWN:
-			return DOWN_AABB;
+			return addPipeConnections(state, DOWN_AABB, shapeCache);
 		case EAST:
-			return EAST_AABB;
+			return addPipeConnections(state, EAST_AABB, shapeCache);
 		case WEST:
-			return WEST_AABB;
+			return addPipeConnections(state, WEST_AABB, shapeCache);
 		case SOUTH:
-			return SOUTH_AABB;
+			return addPipeConnections(state, SOUTH_AABB, shapeCache);
 		case NORTH:
 		default:
-			return NORTH_AABB;
+			return addPipeConnections(state, NORTH_AABB, shapeCache);
+		}
+	}
+
+	@Override
+	public VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
+		switch (state.getValue(FACING).getAxis()) {
+		case X:
+			return X_INTERACTION;
+		case Y:
+			return Y_INTERACTION;
+		case Z:
+		default:
+			return Z_INTERACTION;
 		}
 	}
 

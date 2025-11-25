@@ -12,6 +12,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -27,10 +28,15 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.IItemHandler;
 
 public class StamperBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
+
+	protected static final VoxelShape STAMPER_AABB = Shapes.or(Block.box(0,0,0,4,4,4),Block.box(12,0,0,16,4,4),Block.box(12,0,12,16,4,16),Block.box(0,0,12,4,4,16),Block.box(1,4,12,4,12,15),Block.box(12,4,12,15,12,15),Block.box(12,4,1,15,12,4),Block.box(1,4,1,4,12,4),Block.box(0,12,0,4,16,4),Block.box(12,12,12,16,16,16),Block.box(12,12,0,16,16,4),Block.box(0,12,12,4,16,16),Block.box(1,12,1,15,15,15),Block.box(2,4,2,14,12,14),Block.box(0,5,5,16,11,11),Block.box(5,5,0,11,11,16),Block.box(4,0,4,12,16,12));
 
 	public StamperBlock(Properties properties) {
 		super(properties);
@@ -63,6 +69,16 @@ public class StamperBlock extends BaseEntityBlock implements SimpleWaterloggedBl
 	@Override
 	public RenderShape getRenderShape(BlockState pState) {
 		return RenderShape.MODEL;
+	}
+
+	@Override
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+		return STAMPER_AABB;
+	}
+
+	@Override
+	public VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
+		return Shapes.block();
 	}
 
 	@Override

@@ -39,7 +39,6 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -52,8 +51,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 
 public class FluidVesselBlock extends AbstractCauldronBlock implements EntityBlock, SimpleWaterloggedBlock {
 
-	protected static final VoxelShape INSIDE = Block.box(4,2,4,12,16,12);
-	protected static final VoxelShape VESSEL_AABB = Shapes.join(Shapes.block(), INSIDE, BooleanOp.ONLY_FIRST);
+	protected static final VoxelShape VESSEL_AABB = Shapes.or(Block.box(0,0,0,4,16,4),Block.box(12,0,0,16,16,4),Block.box(12,0,12,16,16,16),Block.box(0,0,12,4,16,16),Block.box(4,0,12,12,16,14),Block.box(4,0,2,12,16,4),Block.box(2,0,4,4,16,12),Block.box(12,0,4,14,16,12),Block.box(4,0,4,12,2,12),Block.box(6,6,0,10,10,2),Block.box(6,6,14,10,10,16),Block.box(14,6,6,16,10,10),Block.box(0,6,6,2,10,10));
 
 	public FluidVesselBlock(Properties properties) {
 		super(properties, Map.of());
@@ -94,7 +92,7 @@ public class FluidVesselBlock extends AbstractCauldronBlock implements EntityBlo
 
 	@Override
 	public VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
-		return INSIDE;
+		return Shapes.block();
 	}
 
 	@Override

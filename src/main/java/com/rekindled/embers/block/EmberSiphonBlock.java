@@ -24,8 +24,6 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class EmberSiphonBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
-	
-	protected static final VoxelShape SIPHON_AABB = Shapes.or(box(0,0,0,16,4,16), box(1,4,1,15,16,15));
 
 	public EmberSiphonBlock(Properties properties) {
 		super(properties);
@@ -33,8 +31,13 @@ public class EmberSiphonBlock extends BaseEntityBlock implements SimpleWaterlogg
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-		return SIPHON_AABB;
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+		return CombustionChamberBlock.BASE_AABB;
+	}
+
+	@Override
+	public VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
+		return Shapes.block();
 	}
 
 	@Override

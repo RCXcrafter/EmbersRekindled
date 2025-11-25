@@ -3,6 +3,7 @@ package com.rekindled.embers.block;
 import javax.annotation.Nullable;
 
 import com.rekindled.embers.RegistryManager;
+import com.rekindled.embers.util.Misc;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -23,11 +24,15 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class CharInstillerBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
 
-	protected static final VoxelShape BARREL_AABB = Block.box(2,0,2,14,16,14);
+	protected static final VoxelShape NORTH_AABB = Shapes.or(Block.box(5,10,14,11,11,16),Block.box(5,6,14,6,10,16),Block.box(5,5,14,11,6,16),Block.box(10,6,14,11,10,16),Block.box(2,0,2,14,16,14),Block.box(6,6,0,10,10,15),Block.box(1.5,3,1.5,14.5,5,14.5),Block.box(1.5,11,1.5,14.5,13,14.5),Block.box(0,2,6,16,14,10));
+	protected static final VoxelShape SOUTH_AABB = Misc.rotateVoxelShape(Direction.NORTH, Direction.SOUTH, NORTH_AABB);
+	protected static final VoxelShape WEST_AABB = Misc.rotateVoxelShape(Direction.NORTH, Direction.WEST, NORTH_AABB);
+	protected static final VoxelShape EAST_AABB = Misc.rotateVoxelShape(Direction.NORTH, Direction.EAST, NORTH_AABB);
 
 	public CharInstillerBlock(Properties properties) {
 		super(properties);
@@ -41,7 +46,17 @@ public class CharInstillerBlock extends BaseEntityBlock implements SimpleWaterlo
 
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-		return BARREL_AABB;
+		switch (state.getValue(BlockStateProperties.HORIZONTAL_FACING)) {
+		case EAST:
+			return EAST_AABB;
+		case WEST:
+			return WEST_AABB;
+		case SOUTH:
+			return SOUTH_AABB;
+		case NORTH:
+		default:
+			return NORTH_AABB;
+		}
 	}
 
 	@Override
