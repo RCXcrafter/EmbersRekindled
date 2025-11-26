@@ -11,6 +11,7 @@ import net.minecraft.core.Direction.Axis;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -26,10 +27,15 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.IItemHandler;
 
 public class EmberBoreBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
+
+	protected static final VoxelShape BORE_AABB = Shapes.or(Block.box(0,0,0,16,15,16),Block.box(4,14,4,12,16,12));
 
 	public EmberBoreBlock(Properties pProperties) {
 		super(pProperties);
@@ -39,6 +45,16 @@ public class EmberBoreBlock extends BaseEntityBlock implements SimpleWaterlogged
 	@Override
 	public RenderShape getRenderShape(BlockState pState) {
 		return RenderShape.MODEL;
+	}
+
+	@Override
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+		return BORE_AABB;
+	}
+
+	@Override
+	public VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
+		return Shapes.block();
 	}
 
 	@Override

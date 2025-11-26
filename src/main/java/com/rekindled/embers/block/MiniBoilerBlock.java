@@ -45,7 +45,10 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 
 public class MiniBoilerBlock extends BaseEntityBlock implements SimpleWaterloggedBlock, IPipeConnection {
 
-	protected static final VoxelShape BOILER_AABB = Shapes.or(Block.box(3,0,3,13,16,13), Block.box(2,2,2,14,14,14));
+	protected static final VoxelShape NORTH_AABB = Shapes.or(Block.box(2,2,2,14,14,14),Block.box(3,0,3,13,16,13),Block.box(4,4,-2,12,12,2));
+	protected static final VoxelShape SOUTH_AABB = Misc.rotateVoxelShape(Direction.NORTH, Direction.SOUTH, NORTH_AABB);
+	protected static final VoxelShape WEST_AABB = Misc.rotateVoxelShape(Direction.NORTH, Direction.WEST, NORTH_AABB);
+	protected static final VoxelShape EAST_AABB = Misc.rotateVoxelShape(Direction.NORTH, Direction.EAST, NORTH_AABB);
 
 	public MiniBoilerBlock(Properties properties) {
 		super(properties);
@@ -81,7 +84,17 @@ public class MiniBoilerBlock extends BaseEntityBlock implements SimpleWaterlogge
 
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-		return BOILER_AABB;
+		switch (state.getValue(BlockStateProperties.HORIZONTAL_FACING)) {
+		case EAST:
+			return EAST_AABB;
+		case WEST:
+			return WEST_AABB;
+		case SOUTH:
+			return SOUTH_AABB;
+		case NORTH:
+		default:
+			return NORTH_AABB;
+		}
 	}
 
 	@Override

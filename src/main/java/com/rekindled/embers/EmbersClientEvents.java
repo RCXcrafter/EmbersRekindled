@@ -495,7 +495,7 @@ public class EmbersClientEvents {
 	public static void onTooltip(RenderTooltipEvent.GatherComponents event) {
 		Minecraft mc = Minecraft.getInstance();
 		int codexIndex = -1;
-		if (ConfigManager.CODEX_REQUIRED_FOR_LOOKUP.get()) {
+		if (ConfigManager.CODEX_REQUIRED_FOR_LOOKUP.get() && mc.player != null) {
 			for (int i = 0; i < Inventory.getSelectionSize(); i++) {
 				if (mc.player.getInventory().getItem(i).is(EmbersItemTags.ANCIENT_CODEX)) {
 					codexIndex = i;

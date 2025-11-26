@@ -27,7 +27,9 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Direction.Axis;
 import net.minecraft.core.Holder;
+import net.minecraft.core.Vec3i;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
@@ -63,6 +65,9 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.BooleanOp;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
@@ -591,5 +596,59 @@ public class Misc {
 			trajectoryChunks.add(new ChunkPos(BlockPos.containing(newPos)));
 		}
 		trajectoryChunks.add(new ChunkPos(target));
+	}
+
+	public static VoxelShape rotateVoxelShape(Direction to, VoxelShape shape) {
+		return rotateVoxelShape(Direction.UP, to, shape);
+	}
+
+	private static VoxelShape rotated = Shapes.empty();
+	public static VoxelShape rotateVoxelShape(Direction from, Direction to, VoxelShape shape) {
+		if (from == to)
+			return shape;
+		rotated = Shapes.empty();
+
+		Vec3i vecF = from.getNormal();
+		Vec3i vecT = to.getNormal();
+
+		shape = shape.move(-0.5, -0.5, -0.5);
+
+		int[][] map = new int[3][3];
+		int[] skip = new int[] { -1, -1, -1 };
+		boolean opposites = from.getOpposite() == to;
+
+		for (int i = 0; i < 3; ++i) {
+			int f = vecF.get(Axis.VALUES[i]);
+			for (int j = 0; j < 3; ++j) {
+				int k = j;
+				if (!opposites)
+					k = 2 - k;
+				if (k == skip[0] || k == skip[1] || k == skip[2])
+					continue;
+				int t = vecT.get(Axis.VALUES[k]);
+				if (t == f) {
+					map[k][i] = 1;
+					skip[i] = k;
+					break;
+				} else if (t == -f) {
+					map[k][i] = -1;
+					skip[i] = k;
+					break;
+				}
+			}
+		}
+
+		shape.forAllBoxes((minX, minY, minZ, maxX, maxY, maxZ) -> rotated = Shapes.joinUnoptimized(rotated,
+				Shapes.create(
+						Math.min(minX * map[0][0], maxX * map[0][0]) + Math.min(minY * map[0][1], maxY * map[0][1]) + Math.min(minZ * map[0][2], maxZ * map[0][2]),
+						Math.min(minX * map[1][0], maxX * map[1][0]) + Math.min(minY * map[1][1], maxY * map[1][1]) + Math.min(minZ * map[1][2], maxZ * map[1][2]),
+						Math.min(minX * map[2][0], maxX * map[2][0]) + Math.min(minY * map[2][1], maxY * map[2][1]) + Math.min(minZ * map[2][2], maxZ * map[2][2]),
+
+						Math.max(minX * map[0][0], maxX * map[0][0]) + Math.max(minY * map[0][1], maxY * map[0][1]) + Math.max(minZ * map[0][2], maxZ * map[0][2]),
+						Math.max(minX * map[1][0], maxX * map[1][0]) + Math.max(minY * map[1][1], maxY * map[1][1]) + Math.max(minZ * map[1][2], maxZ * map[1][2]),
+						Math.max(minX * map[2][0], maxX * map[2][0]) + Math.max(minY * map[2][1], maxY * map[2][1]) + Math.max(minZ * map[2][2], maxZ * map[2][2])),
+				BooleanOp.OR));
+
+		return rotated.move(0.5, 0.5, 0.5).optimize();
 	}
 }

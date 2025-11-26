@@ -36,7 +36,8 @@ import net.minecraftforge.items.IItemHandler;
 
 public class CinderPlinthBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
 
-	protected static final VoxelShape PLINTH_AABB = Shapes.or(Block.box(0,0,0,16,4,16), Block.box(4,4,4,12,18,12), Block.box(6,4,0,10,8,4), Block.box(12,4,6,16,8,10), Block.box(0,4,6,4,8,10), Block.box(6,4,12,10,8,16));
+	protected static final VoxelShape PLINTH_AABB = Shapes.or(Block.box(0,0,0,16,4,16),Block.box(4,2,4,12,10,12),Block.box(0,4,6,16,8,10),Block.box(6,4,0,10,8,16),Block.box(5,12,3,11,18,5),Block.box(5,12,11,11,18,13),Block.box(11,12,5,13,18,11),Block.box(3,12,5,5,18,11),Block.box(5,10,5,11,14,11),Block.box(2,8,7,14,10,9),Block.box(3,10,7,13,12,9),Block.box(7,10,3,9,12,13),Block.box(7,8,2,9,10,14));
+	protected static final VoxelShape PLINTH_INTERACTION = Block.box(3, 4, 3, 13, 18, 13);
 
 	public CinderPlinthBlock(Properties properties) {
 		super(properties);
@@ -74,6 +75,11 @@ public class CinderPlinthBlock extends BaseEntityBlock implements SimpleWaterlog
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return PLINTH_AABB;
+	}
+
+	@Override
+	public VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
+		return PLINTH_INTERACTION;
 	}
 
 	@Override

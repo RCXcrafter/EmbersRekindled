@@ -39,6 +39,7 @@ public class AlchemyTabletBlock extends BaseEntityBlock implements SimpleWaterlo
 	protected static final VoxelShape TABLET_AABB = Shapes.or(Block.box(1,0,1,6,4,6), Block.box(10,0,10,15,4,15), Block.box(10,0,1,15,4,6), Block.box(1,0,10,6,4,15),
 			Block.box(5,4,2,11,8,14), Block.box(2,4,5,14,8,11),
 			Block.box(3,0,3,13,8,13), Block.box(1,8,1,15,12,15), Block.box(2,12,2,14,14,14));
+	protected static final VoxelShape TABLET_INTERACTION = Block.box(1,0,1,15,14,15);
 
 	public AlchemyTabletBlock(Properties properties) {
 		super(properties);
@@ -76,6 +77,11 @@ public class AlchemyTabletBlock extends BaseEntityBlock implements SimpleWaterlo
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return TABLET_AABB;
+	}
+
+	@Override
+	public VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
+		return TABLET_INTERACTION;
 	}
 
 	@Override

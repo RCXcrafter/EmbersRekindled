@@ -61,6 +61,25 @@ public class AtmosphericGaugeBlock extends DirectionalBlock implements EntityBlo
 	}
 
 	@Override
+	public VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
+		switch (state.getValue(FACING)) {
+		case UP:
+			return DialBaseBlock.UP_INTERACTION;
+		case DOWN:
+			return DialBaseBlock.DOWN_INTERACTION;
+		case EAST:
+			return DialBaseBlock.EAST_INTERACTION;
+		case WEST:
+			return DialBaseBlock.WEST_INTERACTION;
+		case SOUTH:
+			return DialBaseBlock.SOUTH_INTERACTION;
+		case NORTH:
+		default:
+			return DialBaseBlock.NORTH_INTERACTION;
+		}
+	}
+
+	@Override
 	public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
 		return canAttach(pLevel, pPos, pState.getValue(FACING).getOpposite());
 	}

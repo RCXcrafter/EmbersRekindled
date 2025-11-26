@@ -36,6 +36,7 @@ public class AutomaticHammerBlock extends BaseEntityBlock implements SimpleWater
 	public static final VoxelShape HAMMER_EAST_AABB = Shapes.or(Block.box(0,0,0,4,16,16), Block.box(10,6,6,14,10,10), Block.box(4,4,4,6,12,12), Block.box(6,5,5,10,11,11), Block.box(4,9,2,8,14,7), Block.box(4,9,9,8,14,14), Block.box(4,2,2,8,7,7), Block.box(4,2,9,8,7,14));
 	public static final VoxelShape HAMMER_SOUTH_AABB = Shapes.or(Block.box(0,0,0,16,16,4), Block.box(6,6,10,10,10,14), Block.box(4,4,4,12,12,6), Block.box(5,5,6,11,11,10), Block.box(9,9,4,14,14,8),Block.box(2,9,4,7,14,8), Block.box(9,2,4,14,7,8), Block.box(2,2,4,7,7,8));
 	public static final VoxelShape HAMMER_WEST_AABB = Shapes.or(Block.box(12,0,0,16,16,16), Block.box(2,6,6,6,10,10), Block.box(10,4,4,12,12,12), Block.box(6,5,5,10,11,11), Block.box(8,9,9,12,14,14), Block.box(8,9,2,12,14,7), Block.box(8,2,9,12,7,14), Block.box(8,2,2,12,7,7));
+	public static final VoxelShape HAMMER_INTERACTION = Block.box(2, 2, 2, 14, 14, 14);
 
 	public AutomaticHammerBlock(Properties properties) {
 		super(properties);
@@ -60,6 +61,11 @@ public class AutomaticHammerBlock extends BaseEntityBlock implements SimpleWater
 		default:
 			return HAMMER_NORTH_AABB;
 		}
+	}
+
+	@Override
+	public VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
+		return HAMMER_INTERACTION;
 	}
 
 	@Override

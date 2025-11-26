@@ -26,8 +26,10 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class EmberLanternBlock extends Block implements SimpleWaterloggedBlock {
 
 	public static final GlowParticleOptions EMBER = new GlowParticleOptions(EmbersColors.EMBER_ID, 2.0F, 120);
-	public static final VoxelShape LANTERN_AABB = Shapes.or(Block.box(6,0,6,10,13,10), Block.box(4,2,4,12,11,12));
+	public static final VoxelShape LANTERN_AABB = Shapes.or(Block.box(6,0,6,10,2,10),Block.box(4,2,4,12,4,12),Block.box(5,4,5,7,10,7),Block.box(9,4,5,11,10,7),Block.box(9,4,9,11,10,11),Block.box(5,4,9,7,10,11),Block.box(4,9,4,12,11,12),Block.box(6,11,6,10,13,10));
+	public static final VoxelShape LANTERN_INTERACTION = Block.box(4,2,4,12,11,12);
 	public static final VoxelShape LANTERN_CEILING_AABB = LANTERN_AABB.move(0, 0.1875, 0);
+	public static final VoxelShape LANTERN_CEILING_INTERACTION = LANTERN_INTERACTION.move(0, 0.1875, 0);
 
 	public EmberLanternBlock(Properties pProperties) {
 		super(pProperties);
@@ -39,6 +41,13 @@ public class EmberLanternBlock extends Block implements SimpleWaterloggedBlock {
 		if (state.getValue(BlockStateProperties.HANGING))
 			return LANTERN_CEILING_AABB;
 		return LANTERN_AABB;
+	}
+
+	@Override
+	public VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
+		if (state.getValue(BlockStateProperties.HANGING))
+			return LANTERN_CEILING_INTERACTION;
+		return LANTERN_INTERACTION;
 	}
 
 	@Override

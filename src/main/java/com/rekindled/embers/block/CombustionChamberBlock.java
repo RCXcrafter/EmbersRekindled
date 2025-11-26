@@ -18,7 +18,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class CombustionChamberBlock extends ChamberBlockBase {
 
-	protected static final VoxelShape BASE_AABB = Shapes.or(Block.box(0,0,0,16,4,16), Block.box(1,4,1,15,16,15));
+	protected static final VoxelShape BASE_AABB = Shapes.or(Block.box(0,0,0,16,4,16),Block.box(1,4,1,5,16,5),Block.box(11,4,1,15,16,5),Block.box(1,4,11,5,16,15),Block.box(11,4,11,15,16,15),Block.box(2,4,2,14,12,14),Block.box(6,6,0,10,10,16),Block.box(0,6,6,16,10,10),Block.box(4,12,4,12,14,12),Block.box(5,14,5,11,16,11),Block.box(6,11,0,10,15,4),Block.box(0,11,6,4,15,10),Block.box(6,11,12,10,15,16),Block.box(12,11,6,16,15,10));
 
 	public CombustionChamberBlock(Properties properties, SoundType topSound) {
 		super(properties, topSound);
@@ -27,6 +27,11 @@ public class CombustionChamberBlock extends ChamberBlockBase {
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return state.getValue(CONNECTION) == ChamberConnection.BOTTOM ? BASE_AABB : TOP_AABB;
+	}
+
+	@Override
+	public VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
+		return state.getValue(CONNECTION) == ChamberConnection.BOTTOM ? Shapes.block() : Shapes.empty();
 	}
 
 	@Override

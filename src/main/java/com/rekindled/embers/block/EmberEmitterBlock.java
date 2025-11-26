@@ -5,9 +5,11 @@ import javax.annotation.Nullable;
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.blockentity.EmberEmitterBlockEntity;
 import com.rekindled.embers.datagen.EmbersBlockTags;
+import com.rekindled.embers.util.Misc;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Direction.Axis;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -32,18 +34,26 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class EmberEmitterBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
 
-	protected static final VoxelShape UP_AABB = Shapes.box(0.25,0,0.25,0.75,0.9375,0.75);
-	protected static final VoxelShape DOWN_AABB = Shapes.box(0.25,0.0625,0.25,0.75,1.0,0.75);
-	protected static final VoxelShape NORTH_AABB = Shapes.box(0.25,0.25,0.0625,0.75,0.75,1.0);
-	protected static final VoxelShape SOUTH_AABB = Shapes.box(0.25,0.25,0,0.75,0.75,0.9375);
-	protected static final VoxelShape WEST_AABB = Shapes.box(0.0625,0.25,0.25,1.0,0.75,0.75);
-	protected static final VoxelShape EAST_AABB = Shapes.box(0.0,0.25,0.25,0.9375,0.75,0.75);
+	protected static final VoxelShape UP_AABB = Shapes.or(Block.box(5,2,5,11,11,11),Block.box(4,0,4,12,2,12),Block.box(4,7,4,12,9,12),Block.box(6,11,6,10,15,10),Block.box(7,12,5,9,14,11),Block.box(5,12,7,11,14,9));
+	protected static final VoxelShape DOWN_AABB = Misc.rotateVoxelShape(Direction.DOWN, UP_AABB);
+	protected static final VoxelShape NORTH_AABB = Misc.rotateVoxelShape(Direction.NORTH, UP_AABB);
+	protected static final VoxelShape SOUTH_AABB = Misc.rotateVoxelShape(Direction.SOUTH, UP_AABB);
+	protected static final VoxelShape WEST_AABB = Misc.rotateVoxelShape(Direction.WEST, UP_AABB);
+	protected static final VoxelShape EAST_AABB = Misc.rotateVoxelShape(Direction.EAST, UP_AABB);
+
+	protected static final VoxelShape UP_INTERACTION = Shapes.box(0.25,0,0.25,0.75,0.9375,0.75);
+	protected static final VoxelShape DOWN_INTERACTION = Shapes.box(0.25,0.0625,0.25,0.75,1.0,0.75);
+	protected static final VoxelShape NORTH_INTERACTION = Shapes.box(0.25,0.25,0.0625,0.75,0.75,1.0);
+	protected static final VoxelShape SOUTH_INTERACTION = Shapes.box(0.25,0.25,0,0.75,0.75,0.9375);
+	protected static final VoxelShape WEST_INTERACTION = Shapes.box(0.0625,0.25,0.25,1.0,0.75,0.75);
+	protected static final VoxelShape EAST_INTERACTION = Shapes.box(0.0,0.25,0.25,0.9375,0.75,0.75);
 	protected static final VoxelShape SUPPORT_X = Shapes.or(Shapes.box(0,0,0,1,1,0.1), Shapes.box(0,0,0.9,1,1,1), Shapes.box(0,0,0,1,0.1,1), Shapes.box(0,0.9,0,1,1,1));
 	protected static final VoxelShape SUPPORT_Y = Shapes.or(Shapes.box(0,0,0,1,1,0.1), Shapes.box(0,0,0.9,1,1,1), Shapes.box(0,0,0,0.1,1,1), Shapes.box(0.9,0,0,1,1,1));
 	protected static final VoxelShape SUPPORT_Z = Shapes.or(Shapes.box(0,0,0,1,0.1,1), Shapes.box(0,0.9,0,1,1,1), Shapes.box(0,0,0,0.1,1,1), Shapes.box(0.9,0,0,1,1,1));
@@ -89,22 +99,63 @@ public class EmberEmitterBlock extends BaseEntityBlock implements SimpleWaterlog
 		}
 	}
 
+	public VoxelShape[][] shapeCache = new VoxelShape[6][16];
+
 	@Override
-	public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-		switch (pState.getValue(FACING)) {
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+		switch (state.getValue(FACING)) {
 		case UP:
-			return UP_AABB;
+			return addPipeConnections(state, UP_AABB, shapeCache);
 		case DOWN:
-			return DOWN_AABB;
+			return addPipeConnections(state, DOWN_AABB, shapeCache);
 		case EAST:
-			return EAST_AABB;
+			return addPipeConnections(state, EAST_AABB, shapeCache);
 		case WEST:
-			return WEST_AABB;
+			return addPipeConnections(state, WEST_AABB, shapeCache);
 		case SOUTH:
-			return SOUTH_AABB;
+			return addPipeConnections(state, SOUTH_AABB, shapeCache);
 		case NORTH:
 		default:
-			return NORTH_AABB;
+			return addPipeConnections(state, NORTH_AABB, shapeCache);
+		}
+	}
+
+	public static VoxelShape addPipeConnections(BlockState state, VoxelShape shape, VoxelShape[][] cache) {
+		int face = state.getValue(FACING).get3DDataValue();
+		int cacheValue = 0;
+		for (int i = 0; i < DIRECTIONS.length; ++i) {
+			cacheValue *= 2;
+			cacheValue += state.getValue(DIRECTIONS[i]).compareTo(false);
+		}
+		if (cache[face][cacheValue] != null)
+			return cache[face][cacheValue];
+
+		Axis axis = state.getValue(FACING).getAxis();
+		for (int i = 0; i < DIRECTIONS.length; ++i) {
+			if (state.getValue(DIRECTIONS[i])) {
+				shape = Shapes.joinUnoptimized(shape, PipeBlockBase.END_AABBS[getDirectionForIndex(axis, i).get3DDataValue()], BooleanOp.OR);
+			}				
+		}
+		cache[face][cacheValue] = shape.optimize();
+		return cache[face][cacheValue];
+	}
+
+	@Override
+	public VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
+		switch (state.getValue(FACING)) {
+		case UP:
+			return UP_INTERACTION;
+		case DOWN:
+			return DOWN_INTERACTION;
+		case EAST:
+			return EAST_INTERACTION;
+		case WEST:
+			return WEST_INTERACTION;
+		case SOUTH:
+			return SOUTH_INTERACTION;
+		case NORTH:
+		default:
+			return NORTH_INTERACTION;
 		}
 	}
 

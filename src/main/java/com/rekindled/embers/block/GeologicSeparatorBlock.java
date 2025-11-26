@@ -4,6 +4,7 @@ import javax.annotation.Nullable;
 
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.blockentity.GeologicSeparatorBlockEntity;
+import com.rekindled.embers.util.Misc;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -31,7 +32,6 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -41,7 +41,11 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 
 public class GeologicSeparatorBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
 
-	protected static final VoxelShape SEPARATOR_AABB = Shapes.join(Block.box(0,0,0,16,8,16), Block.box(4,4,4,12,16,12), BooleanOp.ONLY_FIRST);
+	protected static final VoxelShape NORTH_AABB = Shapes.or(Block.box(0,0,12,4,4,16),Block.box(0,0,0,4,4,4),Block.box(12,0,0,16,4,4),Block.box(12,0,12,16,4,16),Block.box(4,4,2,12,6,4),Block.box(4,4,12,12,6,14),Block.box(2,4,2,4,6,14),Block.box(12,4,2,14,6,14),Block.box(4,0,1,12,4,15),Block.box(1,0,4,15,4,12),Block.box(4,6,12,12,8,16),Block.box(4,6,0,12,8,4),Block.box(0,6,0,4,8,16),Block.box(12,6,0,16,8,16),Block.box(6,6,-3,10,10,5),Block.box(5,5,-2,11,11,4));
+	protected static final VoxelShape SOUTH_AABB = Misc.rotateVoxelShape(Direction.NORTH, Direction.SOUTH, NORTH_AABB);
+	protected static final VoxelShape WEST_AABB = Misc.rotateVoxelShape(Direction.NORTH, Direction.WEST, NORTH_AABB);
+	protected static final VoxelShape EAST_AABB = Misc.rotateVoxelShape(Direction.NORTH, Direction.EAST, NORTH_AABB);
+	protected static final VoxelShape SEPARATOR_INTERACTION = Block.box(0,0,0,16,8,16);
 
 	public GeologicSeparatorBlock(Properties properties) {
 		super(properties);
@@ -77,7 +81,22 @@ public class GeologicSeparatorBlock extends BaseEntityBlock implements SimpleWat
 
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-		return SEPARATOR_AABB;
+		switch (state.getValue(BlockStateProperties.HORIZONTAL_FACING)) {
+		case EAST:
+			return EAST_AABB;
+		case WEST:
+			return WEST_AABB;
+		case SOUTH:
+			return SOUTH_AABB;
+		case NORTH:
+		default:
+			return NORTH_AABB;
+		}
+	}
+
+	@Override
+	public VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
+		return SEPARATOR_INTERACTION;
 	}
 
 	@Override
