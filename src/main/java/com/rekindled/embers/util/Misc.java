@@ -142,7 +142,7 @@ public class Misc {
 	}
 
 	public static Direction readNullableFacing(int index) {
-		return index > 0 ? Direction.from3DDataValue(index) : null;
+		return index >= 0 ? Direction.from3DDataValue(index) : null;
 	}
 
 	public static int writeNullableFacing(Direction facing) {
