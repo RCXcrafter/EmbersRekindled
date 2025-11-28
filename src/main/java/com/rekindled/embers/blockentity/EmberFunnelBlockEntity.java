@@ -48,9 +48,9 @@ public class EmberFunnelBlockEntity extends EmberReceiverBlockEntity {
 	public boolean onReceive(EmberPacketEntity packet) {
 		if (level instanceof ServerLevel serverLevel) {
 			Direction facing = level.getBlockState(worldPosition).getValue(BlockStateProperties.FACING);
-			double offX = 0.5 + facing.getStepX() * 0.5;
-			double offY = 0.5 + facing.getStepY() * 0.5;
-			double offZ = 0.5 + facing.getStepZ() * 0.5;
+			double offX = 0.5 + facing.getStepX() * 0.45;
+			double offY = 0.5 + facing.getStepY() * 0.45;
+			double offZ = 0.5 + facing.getStepZ() * 0.45;
 			if (capability.getEmber() + packet.value > capability.getEmberCapacity()) {
 				serverLevel.sendParticles(new SparkParticleOptions(EmbersColors.EMBER_ID, random.nextFloat() * 0.75f + 0.45f), getBlockPos().getX() + offX, getBlockPos().getY() + offY, getBlockPos().getZ() + offZ, 5, 0.125f * (random.nextFloat() - 0.5f), 0.125f * (random.nextFloat()), 0.125f * (random.nextFloat() - 0.5f), 1.0);
 				serverLevel.sendParticles(new SmokeParticleOptions(EmbersColors.SMOKE_ID, 2.0f + random.nextFloat() * 2.0f), getBlockPos().getX() + offX, getBlockPos().getY() + offY, getBlockPos().getZ() + offZ, 15, 0.0625f * (random.nextFloat() - 0.5f), 0.0625f + 0.0625f * (random.nextFloat() - 0.5f), 0.0625f * (random.nextFloat() - 0.5f), 1.0);
