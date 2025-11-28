@@ -38,12 +38,12 @@ import net.minecraftforge.items.IItemHandler;
 public class MnemonicInscriberBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
 
 	public static final BooleanProperty ACTIVE = BooleanProperty.create("active");
-	public static final VoxelShape UP_AABB = Shapes.or(Block.box(12,0,7,14,5,9), Block.box(7,0,2,9,5,4), Block.box(7,0,12,9,5,14), Block.box(2,0,7,4,5,9), Block.box(3.5,3,3.5,12.5,9,12.5));
-	public static final VoxelShape DOWN_AABB = Shapes.or(Block.box(7,11,2,9,16,4), Block.box(12,11,7,14,16,9), Block.box(2,11,7,4,16,9), Block.box(7,11,12,9,16,14), Block.box(3.5,7,3.5,12.5,13,12.5));
-	public static final VoxelShape NORTH_AABB = Shapes.or(Block.box(12,7,11,14,9,16), Block.box(7,2,11,9,4,16), Block.box(7,12,11,9,14,16), Block.box(2,7,11,4,9,16), Block.box(3.5,3.5,7,12.5,12.5,13));
-	public static final VoxelShape SOUTH_AABB = Shapes.or(Block.box(2,7,0,4,9,5), Block.box(7,2,0,9,4,5), Block.box(7,12,0,9,14,5), Block.box(12,7,0,14,9,5), Block.box(3.5,3.5,3,12.5,12.5,9));
-	public static final VoxelShape WEST_AABB = Shapes.or(Block.box(11,7,2,16,9,4), Block.box(11,2,7,16,4,9), Block.box(11,12,7,16,14,9), Block.box(11,7,12,16,9,14), Block.box(7,3.5,3.5,13,12.5,12.5));
-	public static final VoxelShape EAST_AABB = Shapes.or(Block.box(0,7,12,5,9,14), Block.box(0,2,7,5,4,9), Block.box(0,12,7,5,14,9), Block.box(0,7,2,5,9,4), Block.box(3,3.5,3.5,9,12.5,12.5));
+	public static final VoxelShape UP_AABB = Shapes.or(Block.box(3.5,3,3.5,7.5,9,12.5),Block.box(7,1,9.5,9,5,11.5),Block.box(7.5,3,7.5,8.5,7,10.5),Block.box(8.5,3,3.5,12.5,9,12.5),Block.box(12,-2,7,14,5,9),Block.box(2,-2,7,4,5,9),Block.box(7,-2,12,9,5,14),Block.box(7,-2,2,9,5,4),Block.box(6,6,6,10,10,10));
+	public static final VoxelShape WEST_AABB = Misc.rotateVoxelShape(Direction.WEST, UP_AABB);
+	public static final VoxelShape EAST_AABB = Misc.rotateVoxelShape(Direction.EAST, UP_AABB);
+	public static final VoxelShape NORTH_AABB = Misc.rotateVoxelShape(Direction.WEST, Direction.NORTH, WEST_AABB);
+	public static final VoxelShape SOUTH_AABB = Misc.rotateVoxelShape(Direction.EAST, Direction.SOUTH, EAST_AABB);
+	public static final VoxelShape DOWN_AABB = Misc.rotateVoxelShape(Direction.NORTH, Direction.SOUTH, Misc.rotateVoxelShape(Direction.DOWN, UP_AABB));
 
 	public MnemonicInscriberBlock(Properties properties) {
 		super(properties);

@@ -27,11 +27,16 @@ public class InfernoForgeEdgeBlock extends MechEdgeBlockBase {
 	public static final VoxelShape[] SHAPES_TOP = new VoxelShape[] { NORTH_AABB, NORTHEAST_AABB, EAST_AABB, SOUTHEAST_AABB, SOUTH_AABB, SOUTHWEST_AABB, WEST_AABB, NORTHWEST_AABB };
 
 	public static final VoxelShape CORNER_CENTER_AABB = Shapes.or(Block.box(4,6,4,12,10,12), Block.box(2,4,2,14,6,14), Block.box(2,10,2,14,12,14));
-	public static final VoxelShape NORTHEAST_BOTTOM_AABB = Shapes.or(Shapes.join(Block.box(0,0,1,15,16,16), Block.box(4,4,1,15,12,12), BooleanOp.ONLY_FIRST), CORNER_CENTER_AABB);
-	public static final VoxelShape SOUTHEAST_BOTTOM_AABB = Shapes.or(Shapes.join(Block.box(0,0,0,15,16,15), Block.box(4,4,4,15,12,15), BooleanOp.ONLY_FIRST), CORNER_CENTER_AABB);
-	public static final VoxelShape SOUTHWEST_BOTTOM_AABB = Shapes.or(Shapes.join(Block.box(1,0,0,16,16,15), Block.box(1,4,4,12,12,15), BooleanOp.ONLY_FIRST), CORNER_CENTER_AABB);
-	public static final VoxelShape NORTHWEST_BOTTOM_AABB = Shapes.or(Shapes.join(Block.box(1,0,1,16,16,16), Block.box(1,4,1,12,12,12), BooleanOp.ONLY_FIRST), CORNER_CENTER_AABB);
+	public static final VoxelShape NORTHEAST_BOTTOM_INTERACTION = Block.box(0,0,1,15,16,16);
+	public static final VoxelShape SOUTHEAST_BOTTOM_INTERACTION = Block.box(0,0,0,15,16,15);
+	public static final VoxelShape SOUTHWEST_BOTTOM_INTERACTION = Block.box(1,0,0,16,16,15);
+	public static final VoxelShape NORTHWEST_BOTTOM_INTERACTION = Block.box(1,0,1,16,16,16);
+	public static final VoxelShape NORTHEAST_BOTTOM_AABB = Shapes.or(Shapes.join(NORTHEAST_BOTTOM_INTERACTION, Block.box(4,4,1,15,12,12), BooleanOp.ONLY_FIRST), CORNER_CENTER_AABB);
+	public static final VoxelShape SOUTHEAST_BOTTOM_AABB = Shapes.or(Shapes.join(SOUTHEAST_BOTTOM_INTERACTION, Block.box(4,4,4,15,12,15), BooleanOp.ONLY_FIRST), CORNER_CENTER_AABB);
+	public static final VoxelShape SOUTHWEST_BOTTOM_AABB = Shapes.or(Shapes.join(SOUTHWEST_BOTTOM_INTERACTION, Block.box(1,4,4,12,12,15), BooleanOp.ONLY_FIRST), CORNER_CENTER_AABB);
+	public static final VoxelShape NORTHWEST_BOTTOM_AABB = Shapes.or(Shapes.join(NORTHWEST_BOTTOM_INTERACTION, Block.box(1,4,1,12,12,12), BooleanOp.ONLY_FIRST), CORNER_CENTER_AABB);
 	public static final VoxelShape[] SHAPES_BOTTOM = new VoxelShape[] { Shapes.block(), NORTHEAST_BOTTOM_AABB, Shapes.block(), SOUTHEAST_BOTTOM_AABB, Shapes.block(), SOUTHWEST_BOTTOM_AABB, Shapes.block(), NORTHWEST_BOTTOM_AABB };
+	public static final VoxelShape[] INTERACTION_BOTTOM = new VoxelShape[] { Shapes.empty(), NORTHEAST_BOTTOM_INTERACTION, Shapes.empty(), SOUTHEAST_BOTTOM_INTERACTION, Shapes.empty(), SOUTHWEST_BOTTOM_INTERACTION, Shapes.empty(), NORTHWEST_BOTTOM_INTERACTION };
 
 	public InfernoForgeEdgeBlock(Properties pProperties) {
 		super(pProperties);
@@ -43,6 +48,13 @@ public class InfernoForgeEdgeBlock extends MechEdgeBlockBase {
 		if (state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER)
 			return SHAPES_BOTTOM[state.getValue(EDGE).index];
 		return SHAPES_TOP[state.getValue(EDGE).index];
+	}
+
+	@Override
+	public VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
+		if (state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER)
+			return INTERACTION_BOTTOM[state.getValue(EDGE).index];
+		return Shapes.empty();
 	}
 
 	@Override

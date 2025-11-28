@@ -73,6 +73,12 @@ public class EmberInjectorBlock extends BaseEntityBlock implements SimpleWaterlo
 		return Shapes.block();
 	}
 
+	//this is to stop nuggets from getting stuck inside it
+	@Override
+	public VoxelShape getCollisionShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+		return Shapes.block();
+	}
+
 	@Nullable
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {

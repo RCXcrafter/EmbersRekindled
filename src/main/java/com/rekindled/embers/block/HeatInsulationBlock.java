@@ -59,6 +59,11 @@ public class HeatInsulationBlock extends BaseEntityBlock implements SimpleWaterl
 	}
 
 	@Override
+	public VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
+		return Shapes.block();
+	}
+
+	@Override
 	public RenderShape getRenderShape(BlockState pState) {
 		return RenderShape.MODEL;
 	}

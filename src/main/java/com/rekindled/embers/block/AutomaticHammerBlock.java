@@ -4,6 +4,7 @@ import javax.annotation.Nullable;
 
 import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.blockentity.AutomaticHammerBlockEntity;
+import com.rekindled.embers.util.Misc;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -32,11 +33,14 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class AutomaticHammerBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
 
-	public static final VoxelShape HAMMER_NORTH_AABB = Shapes.or(Block.box(0,0,12,16,16,16), Block.box(6,6,2,10,10,6), Block.box(4,4,10,12,12,12), Block.box(5,5,6,11,11,10), Block.box(2,9,8,7,14,12), Block.box(9,9,8,14,14,12), Block.box(2,2,8,7,7,12), Block.box(9,2,8,14,7,12));
-	public static final VoxelShape HAMMER_EAST_AABB = Shapes.or(Block.box(0,0,0,4,16,16), Block.box(10,6,6,14,10,10), Block.box(4,4,4,6,12,12), Block.box(6,5,5,10,11,11), Block.box(4,9,2,8,14,7), Block.box(4,9,9,8,14,14), Block.box(4,2,2,8,7,7), Block.box(4,2,9,8,7,14));
-	public static final VoxelShape HAMMER_SOUTH_AABB = Shapes.or(Block.box(0,0,0,16,16,4), Block.box(6,6,10,10,10,14), Block.box(4,4,4,12,12,6), Block.box(5,5,6,11,11,10), Block.box(9,9,4,14,14,8),Block.box(2,9,4,7,14,8), Block.box(9,2,4,14,7,8), Block.box(2,2,4,7,7,8));
-	public static final VoxelShape HAMMER_WEST_AABB = Shapes.or(Block.box(12,0,0,16,16,16), Block.box(2,6,6,6,10,10), Block.box(10,4,4,12,12,12), Block.box(6,5,5,10,11,11), Block.box(8,9,9,12,14,14), Block.box(8,9,2,12,14,7), Block.box(8,2,9,12,7,14), Block.box(8,2,2,12,7,7));
-	public static final VoxelShape HAMMER_INTERACTION = Block.box(2, 2, 2, 14, 14, 14);
+	public static final VoxelShape HAMMER_NORTH_AABB = Shapes.or(Block.box(0,0,12,16,4,16),Block.box(0,4,12,4,12,16),Block.box(12,4,12,16,12,16),Block.box(0,12,12,16,16,16),Block.box(6,6,2,10,10,16),Block.box(4,4,10,12,12,15),Block.box(5,5,6,11,11,10),Block.box(2,9,8,7,14,12),Block.box(9,9,8,14,14,12),Block.box(2,2,8,7,7,12),Block.box(9,2,8,14,7,12));
+	public static final VoxelShape HAMMER_EAST_AABB = Misc.rotateVoxelShape(Direction.NORTH, Direction.EAST, HAMMER_NORTH_AABB);
+	public static final VoxelShape HAMMER_SOUTH_AABB = Misc.rotateVoxelShape(Direction.NORTH, Direction.SOUTH, HAMMER_NORTH_AABB);
+	public static final VoxelShape HAMMER_WEST_AABB = Misc.rotateVoxelShape(Direction.NORTH, Direction.WEST, HAMMER_NORTH_AABB);
+	public static final VoxelShape NORTH_INTERACTION = Block.box(2,2,2,14,14,16);
+	public static final VoxelShape EAST_INTERACTION = Block.box(0,2,2,14,14,14);
+	public static final VoxelShape SOUTH_INTERACTION = Block.box(2,2,0,14,14,14);
+	public static final VoxelShape WEST_INTERACTION = Block.box(2,2,2,16,14,14);
 
 	public AutomaticHammerBlock(Properties properties) {
 		super(properties);
@@ -65,7 +69,17 @@ public class AutomaticHammerBlock extends BaseEntityBlock implements SimpleWater
 
 	@Override
 	public VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
-		return HAMMER_INTERACTION;
+		switch (state.getValue(BlockStateProperties.HORIZONTAL_FACING)) {
+		case EAST:
+			return EAST_INTERACTION;
+		case WEST:
+			return WEST_INTERACTION;
+		case SOUTH:
+			return SOUTH_INTERACTION;
+		case NORTH:
+		default:
+			return NORTH_INTERACTION;
+		}
 	}
 
 	@Override
