@@ -82,11 +82,12 @@ public class BeamSplitterBlock extends BaseEntityBlock implements SimpleWaterlog
 	@Nullable
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext pContext) {
-		for (Direction direction : pContext.getNearestLookingDirections()) {
+		Direction[] directions = pContext.getNearestLookingDirections();
+		for (Direction direction : directions) {
 			BlockState blockstate = this.defaultBlockState().setValue(FACING, direction.getOpposite());
 			if (blockstate.canSurvive(pContext.getLevel(), pContext.getClickedPos())) {
 				Axis axis = Axis.Z;
-				for (Direction facing : Direction.orderedByNearest(pContext.getPlayer())) {
+				for (Direction facing : directions) {
 					if (facing.getAxis() != direction.getAxis()) {
 						axis = Misc.getOtherAxis(direction.getAxis(), facing.getAxis());
 						break;

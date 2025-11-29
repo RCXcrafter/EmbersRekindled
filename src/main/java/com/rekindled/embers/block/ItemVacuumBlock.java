@@ -72,7 +72,7 @@ public class ItemVacuumBlock extends BaseEntityBlock implements SimpleWaterlogge
 	@Nullable
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
-		Direction facing = context.getPlayer().isSecondaryUseActive() ? context.getNearestLookingDirection() : context.getNearestLookingDirection().getOpposite();
+		Direction facing = (context.getPlayer() != null && context.getPlayer().isSecondaryUseActive()) ? context.getNearestLookingDirection() : context.getNearestLookingDirection().getOpposite();
 		return this.defaultBlockState().setValue(BlockStateProperties.FACING, facing).setValue(BlockStateProperties.WATERLOGGED, Boolean.valueOf(context.getLevel().getFluidState(context.getClickedPos()).getType() == Fluids.WATER));
 	}
 

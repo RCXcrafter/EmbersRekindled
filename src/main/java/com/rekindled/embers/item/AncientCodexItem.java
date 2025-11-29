@@ -28,7 +28,7 @@ public class AncientCodexItem extends Item {
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public InteractionResult onItemUseFirst(ItemStack stack, UseOnContext context) {
-		if (Screen.hasControlDown()) {
+		if (Screen.hasControlDown() && context.getPlayer() != null) {
 			ResearchBase research = ResearchManager.researchByItem.get(context.getLevel().getBlockState(context.getClickedPos()).getBlock().asItem());
 			if (research != null) {
 				GuiCodex.instance.researchPage = research;
