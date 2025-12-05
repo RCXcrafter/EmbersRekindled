@@ -94,7 +94,7 @@ public class TinkerHammerItem extends Item {
 				}
 			}
 		}
-		if (world != null && tile instanceof IEmberPacketProducer) {
+		if (world != null && tile instanceof IEmberPacketProducer && tile instanceof ITargetable) {
 			Direction face = context.getClickedFace();
 			Vec3 emitDirection = ((IEmberPacketProducer) tile).getEmittingDirection(face);
 			if (emitDirection == null)
