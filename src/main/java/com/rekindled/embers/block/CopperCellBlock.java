@@ -52,6 +52,11 @@ public class CopperCellBlock extends BaseEntityBlock implements SimpleWaterlogge
 	}
 
 	@Override
+	public VoxelShape getBlockSupportShape(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
+		return Shapes.block();
+	}
+
+	@Override
 	public VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
 		return Shapes.block();
 	}

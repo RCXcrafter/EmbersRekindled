@@ -4,11 +4,14 @@ import java.util.List;
 
 import org.jetbrains.annotations.NotNull;
 
+import com.rekindled.embers.Embers;
 import com.rekindled.embers.RegistryManager;
+import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -23,7 +26,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
-public class ItemVacuumBlockEntity extends BlockEntity {
+public class ItemVacuumBlockEntity extends BlockEntity implements IExtraCapabilityInformation {
 
 	public ItemStackHandler inventory = new ItemStackHandler(1) {
 		@Override
@@ -102,5 +105,10 @@ public class ItemVacuumBlockEntity extends BlockEntity {
 			}
 		}
 		return slot;
+	}
+
+	@Override
+	public void addOtherDescription(List<Component> strings, Direction facing) {
+		strings.add(Component.translatable(Embers.MODID + ".tooltip.goggles.redstone_signal"));
 	}
 }
