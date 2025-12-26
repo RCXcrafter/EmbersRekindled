@@ -28,7 +28,7 @@ public class AncientCodexItem extends Item {
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public InteractionResult onItemUseFirst(ItemStack stack, UseOnContext context) {
-		if (Screen.hasControlDown() && context.getPlayer() != null) {
+		if (context.getLevel().isClientSide() && Screen.hasControlDown() && context.getPlayer() != null) {
 			ResearchBase research = ResearchManager.researchByItem.get(context.getLevel().getBlockState(context.getClickedPos()).getBlock().asItem());
 			if (research != null) {
 				GuiCodex.instance.researchPage = research;
@@ -44,8 +44,10 @@ public class AncientCodexItem extends Item {
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
-		Minecraft.getInstance().setScreen(GuiCodex.instance);
-		level.playSound(player, player, EmbersSounds.CODEX_OPEN.get(), SoundSource.MASTER, 0.75f, 1.0f);
+		if (level.isClientSide()) {
+			Minecraft.getInstance().setScreen(GuiCodex.instance);
+			level.playSound(player, player, EmbersSounds.CODEX_OPEN.get(), SoundSource.MASTER, 0.75f, 1.0f);
+		}
 		return InteractionResultHolder.success(player.getItemInHand(hand));
 	}
 }
