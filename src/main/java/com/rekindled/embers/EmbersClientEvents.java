@@ -185,40 +185,47 @@ public class EmbersClientEvents {
 					consumer.vertex(pose.pose(), (float)(toX+ x), (float)(toY + y), (float)(toZ + z)).color(color.x, color.y, color.z, alpha).normal(pose.normal(), f, f1, f2).endVertex();
 				};
 
-				//LevelRenderer.renderShape(event.getPoseStack(), consumer, player.level.getBlockState(targetPos).getShape(player.level, targetPos), x, y, z, red, green, blue, alpha);
-				state.getShape(player.level(), targetPos).forAllEdges(lineDrawer);
+				Vec3 motion = null;
+				if (player.level().getBlockEntity(targetPos) instanceof IEmberPacketProducer emitter) {
+					motion = emitter.getEmittingDirection(targetDir);
+				}
 
 				if (mc.hitResult instanceof BlockHitResult result && result != null && result.getType() == BlockHitResult.Type.BLOCK && !result.getBlockPos().equals(targetPos) && mc.level.getBlockEntity(result.getBlockPos()) instanceof IEmberPacketReceiver) {
 					lastTarget = result.getBlockPos();
 				}
-				if (lastTarget != null && player.level().getBlockEntity(targetPos) instanceof IEmberPacketProducer emitter) {
-					Vec3 hitPos = Vec3.atCenterOf(lastTarget.subtract(targetPos));
-					Vec3 motion = emitter.getEmittingDirection(targetDir);
-					Vec3 oldPos = new Vec3(0.5, 0.5, 0.5);
-					Vec3 newPos = oldPos.add(motion);
 
-					for (int i = 0; i <= 80; ++i) {
-						Vec3 targetVector = hitPos.subtract(newPos);
-						double length = targetVector.length();
-						targetVector = targetVector.scale(0.3 / length);
-						double weight = 0;
-						if (length <= 3) {
-							weight = 0.9 * ((3.0 - length) / 3.0);
-							if (length <= 0.2) {
-								break;
+				if (motion != null) {
+					//LevelRenderer.renderShape(event.getPoseStack(), consumer, player.level.getBlockState(targetPos).getShape(player.level, targetPos), x, y, z, red, green, blue, alpha);
+					state.getShape(player.level(), targetPos).forAllEdges(lineDrawer);
+
+					if (lastTarget != null) {
+						Vec3 hitPos = Vec3.atCenterOf(lastTarget.subtract(targetPos));
+						Vec3 oldPos = new Vec3(0.5, 0.5, 0.5);
+						Vec3 newPos = oldPos.add(motion);
+
+						for (int i = 0; i <= 80; ++i) {
+							Vec3 targetVector = hitPos.subtract(newPos);
+							double length = targetVector.length();
+							targetVector = targetVector.scale(0.3 / length);
+							double weight = 0;
+							if (length <= 3) {
+								weight = 0.9 * ((3.0 - length) / 3.0);
+								if (length <= 0.2) {
+									break;
+								}
 							}
+							motion = new Vec3(
+									(0.9 - weight) * motion.x + (0.1 + weight) * targetVector.x,
+									(0.9 - weight) * motion.y + (0.1 + weight) * targetVector.y,
+									(0.9 - weight) * motion.z + (0.1 + weight) * targetVector.z);
+							newPos = oldPos.add(motion);
+							lineDrawer.consume(oldPos.x, oldPos.y, oldPos.z, newPos.x, newPos.y, newPos.z);
+							oldPos = newPos;
 						}
-						motion = new Vec3(
-								(0.9 - weight) * motion.x + (0.1 + weight) * targetVector.x,
-								(0.9 - weight) * motion.y + (0.1 + weight) * targetVector.y,
-								(0.9 - weight) * motion.z + (0.1 + weight) * targetVector.z);
-						newPos = oldPos.add(motion);
-						lineDrawer.consume(oldPos.x, oldPos.y, oldPos.z, newPos.x, newPos.y, newPos.z);
-						oldPos = newPos;
+					} else {
+						motion = motion.scale(2.0);
+						lineDrawer.consume(0.5, 0.5, 0.5, 0.5 + motion.x, 0.5 + motion.y, 0.5 + motion.z);
 					}
-				} else if (player.level().getBlockEntity(targetPos) instanceof IEmberPacketProducer emitter) {
-					Vec3 motion = emitter.getEmittingDirection(targetDir).scale(2.0);
-					lineDrawer.consume(0.5, 0.5, 0.5, 0.5 + motion.x, 0.5 + motion.y, 0.5 + motion.z);
 				}
 			} else {
 				lastTarget = null;

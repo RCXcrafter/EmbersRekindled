@@ -58,13 +58,13 @@ public class TinkerHammerItem extends Item {
 			BlockPos targetPos = new BlockPos(nbt.getInt("targetX"), nbt.getInt("targetY"), nbt.getInt("targetZ"));
 			BlockEntity targetTile = world.getBlockEntity(targetPos);
 			if (targetTile instanceof ITargetable) {
-				if (tile instanceof IEmberPacketReceiver) {
-					Direction face = Direction.byName(nbt.getString("targetFace"));
+				Direction face = Direction.byName(nbt.getString("targetFace"));
+				Vec3 motion = ((IEmberPacketProducer) targetTile).getEmittingDirection(face);
+				if (tile instanceof IEmberPacketReceiver && motion != null) {
 					((ITargetable) targetTile).setTargetPosition(pos, face);
 					//calculate the trajectory of the ember packet
 					if (targetTile instanceof IEmberPacketProducer) {
 						Vec3 hitPos = Vec3.atCenterOf(pos.subtract(targetPos));
-						Vec3 motion = ((IEmberPacketProducer) targetTile).getEmittingDirection(face);
 						Vec3 oldPos = new Vec3(0.5, 0.5, 0.5);
 						Vec3 newPos = oldPos.add(motion);
 
