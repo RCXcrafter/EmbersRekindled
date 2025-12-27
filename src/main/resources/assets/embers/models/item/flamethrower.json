@@ -1,0 +1,62 @@
+{
+	"parent": "embers:item/handheld_model_base",
+	"elements": [
+		{
+			"name": "barrel",
+			"from": [5.5, 3.5, -9],
+			"to": [10.5, 8.5, -1],
+			"rotation": {"angle": 22.5, "axis": "x", "origin": [8, 5, 3]},
+			"color": 1,
+			"faces": {
+				"east": {"uv": [0, 0, 8, 5], "texture": "#missing"},
+				"south": {"uv": [0, 0, 5, 5], "texture": "#missing"},
+				"west": {"uv": [0, 0, 8, 5], "texture": "#missing"},
+				"up": {"uv": [0, 0, 5, 8], "texture": "#missing"},
+				"down": {"uv": [0, 0, 5, 8], "texture": "#missing"}
+			}
+		},
+		{
+			"from": [7, 5, -8],
+			"to": [9, 7, 3],
+			"rotation": {"angle": 22.5, "axis": "x", "origin": [8, 5, 3]},
+			"color": 0,
+			"faces": {
+				"north": {"uv": [0, 0, 2, 2], "texture": "#missing"},
+				"east": {"uv": [0, 0, 11, 2], "texture": "#missing"},
+				"south": {"uv": [0, 0, 2, 2], "texture": "#missing"},
+				"west": {"uv": [0, 0, 11, 2], "texture": "#missing"},
+				"up": {"uv": [0, 0, 2, 11], "texture": "#missing"},
+				"down": {"uv": [0, 0, 2, 11], "texture": "#missing"}
+			}
+		},
+		{
+			"name": "body",
+			"from": [6, 4, 3],
+			"to": [10, 8, 16],
+			"color": 4,
+			"faces": {
+				"north": {"uv": [0, 0, 4, 4], "texture": "#missing"},
+				"east": {"uv": [0, 0, 13, 4], "texture": "#missing"},
+				"south": {"uv": [0, 0, 4, 4], "texture": "#missing"},
+				"west": {"uv": [0, 0, 13, 4], "texture": "#missing"},
+				"up": {"uv": [0, 0, 4, 13], "texture": "#missing"},
+				"down": {"uv": [0, 0, 4, 13], "texture": "#missing"}
+			}
+		},
+		{
+			"name": "handle",
+			"from": [7, 0, 11],
+			"to": [9, 4, 13],
+			"rotation": {"angle": 22.5, "axis": "x", "origin": [8, 4, 13]},
+			"color": 8,
+			"faces": {
+				"north": {"uv": [0, 0, 2, 4], "texture": "#missing"},
+				"east": {"uv": [0, 0, 2, 4], "texture": "#missing"},
+				"south": {"uv": [0, 0, 2, 4], "texture": "#missing"},
+				"west": {"uv": [0, 0, 2, 4], "texture": "#missing"},
+				"up": {"uv": [0, 0, 2, 2], "texture": "#missing"},
+				"down": {"uv": [0, 0, 2, 2], "texture": "#missing"}
+			}
+		}
+	]
+}

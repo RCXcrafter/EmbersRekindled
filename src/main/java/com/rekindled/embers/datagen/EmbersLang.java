@@ -435,7 +435,10 @@ public class EmbersLang extends LanguageProvider {
 		addUpgradeDesc(RegistryManager.EXCAVATION_BUCKETS_ITEM, "Allows bore to perform excavation recipes in addition to boring recipes.");
 
 		add(Embers.MODID + ".tooltip.research", "Hold Ctrl to open codex entry");
-		add(Embers.MODID + ".tooltip.research.world", "Ctrl + Right Click to open codex entry"); 
+		add(Embers.MODID + ".tooltip.research.world", "Ctrl + Right Click to open codex entry");
+
+		add(Embers.MODID + ".tooltip.craft_lens_0", "You can §ecraft§r a §eTinker's Lens§r to see where to input §eember§r.");
+		add(Embers.MODID + ".tooltip.craft_lens_1", "Check the §eAncient Codex§r for more §einformation§r.");
 
 
 		//jei stuff
@@ -593,7 +596,7 @@ public class EmbersLang extends LanguageProvider {
 		add(Embers.MODID + ".research.page.tinker_lens", "Tinker's Lens");
 		add(Embers.MODID + ".research.page.tinker_lens.title", "What's What?");
 		add(Embers.MODID + ".research.page.tinker_lens.tags", "Info;Modifier;Augment;Armor;Tool;");
-		add(Embers.MODID + ".research.page.tinker_lens.desc", "Despite you creating all this machinery yourself, some of its functionality can be a bit obtuse at times. Fortunately you've devised an eyepiece you can use to examine machines more closely. When held in either hand, you will always be able to tell which purpose a face on a machine has.");// Note that this tool is not a periscope, so you might have some trouble with Mechanical Cores...");
+		add(Embers.MODID + ".research.page.tinker_lens.desc", "Despite you creating all this machinery yourself, some of its functionality can be a bit obtuse at times. Fortunately you've devised an eyepiece you can use to examine machines more closely. When held in either hand, you will always be able to tell which purpose a face on a machine has. The lens is also capable of showing the movement of contents of pipes and which receptor an emitter is linked to.");// Note that this tool is not a periscope, so you might have some trouble with Mechanical Cores...");
 
 
 

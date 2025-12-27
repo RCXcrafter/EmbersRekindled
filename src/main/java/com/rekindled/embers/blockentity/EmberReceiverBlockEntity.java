@@ -6,6 +6,8 @@ import com.rekindled.embers.RegistryManager;
 import com.rekindled.embers.api.capabilities.EmbersCapabilities;
 import com.rekindled.embers.api.power.IEmberCapability;
 import com.rekindled.embers.api.power.IEmberPacketReceiver;
+import com.rekindled.embers.api.tile.IEmberInputHint;
+import com.rekindled.embers.datagen.EmbersBlockTags;
 import com.rekindled.embers.datagen.EmbersSounds;
 import com.rekindled.embers.entity.EmberPacketEntity;
 import com.rekindled.embers.particle.SmokeParticleOptions;
@@ -27,7 +29,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 
-public class EmberReceiverBlockEntity extends BlockEntity implements IEmberPacketReceiver {
+public class EmberReceiverBlockEntity extends BlockEntity implements IEmberPacketReceiver, IEmberInputHint {
 
 	public IEmberCapability capability = new DefaultEmberCapability() {
 		@Override
@@ -119,5 +121,16 @@ public class EmberReceiverBlockEntity extends BlockEntity implements IEmberPacke
 	public void invalidateCaps() {
 		super.invalidateCaps();
 		capability.invalidate();
+	}
+
+	@Override
+	public boolean shouldShowHintTooltip() {
+		Direction facing = getBlockState().getValue(BlockStateProperties.FACING);
+		BlockPos attachedPos = worldPosition.relative(facing, -1);
+		if (level.getBlockState(attachedPos).is(EmbersBlockTags.EMBER_WRONG_INPUT_HINTER)) {
+			BlockEntity entity = level.getBlockEntity(attachedPos);
+			return entity == null || !entity.getCapability(EmbersCapabilities.EMBER_CAPABILITY, facing).isPresent();
+		}
+		return false;
 	}
 }

@@ -23,6 +23,7 @@ import com.rekindled.embers.api.misc.HammerTarget;
 import com.rekindled.embers.api.power.IEmberCapability;
 import com.rekindled.embers.api.power.IEmberPacketProducer;
 import com.rekindled.embers.api.power.IEmberPacketReceiver;
+import com.rekindled.embers.api.tile.IEmberInputHint;
 import com.rekindled.embers.api.tile.IExtraCapabilityInformation;
 import com.rekindled.embers.api.tile.IUpgradeable;
 import com.rekindled.embers.api.upgrades.IUpgradeProxy;
@@ -328,9 +329,14 @@ public class EmbersClientEvents {
 				if (result.getType() == BlockHitResult.Type.BLOCK) {
 					BlockPos pos = result.getBlockPos();
 					BlockState state = world.getBlockState(pos);
+					BlockEntity tileEntity = world.getBlockEntity(result.getBlockPos());
 					Direction facing = result.getDirection();
 					List<Component> text = new ArrayList<Component>();
 
+					if (tileEntity instanceof IEmberInputHint input && input.shouldShowHintTooltip()) {
+						text.add(Component.translatable(Embers.MODID + ".tooltip.craft_lens_0"));
+						text.add(Component.translatable(Embers.MODID + ".tooltip.craft_lens_1"));
+					}
 					if ((player.getMainHandItem().is(EmbersItemTags.ANCIENT_CODEX) || player.getOffhandItem().is(EmbersItemTags.ANCIENT_CODEX)) && ResearchManager.researchByItem.get(state.getBlock().asItem()) != null) {
 						text.add(Component.translatable(Embers.MODID + ".tooltip.research.world"));
 					}
@@ -339,7 +345,6 @@ public class EmbersClientEvents {
 					} else if (state.getBlock() == RegistryManager.ATMOSPHERIC_GAUGE.get() && !player.getMainHandItem().is(EmbersItemTags.GAUGE_OVERLAY) && !player.getOffhandItem().is(EmbersItemTags.GAUGE_OVERLAY)) {
 						renderAtmosphericGauge(gui, graphics, player, partialTicks, width, height);
 					} else if (Misc.isWearingLens(player)) {
-						BlockEntity tileEntity = world.getBlockEntity(result.getBlockPos());
 						if (tileEntity != null) {
 							addCapabilityInformation(text, state, tileEntity, facing);
 						}

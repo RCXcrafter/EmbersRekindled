@@ -47,6 +47,8 @@ public class EmbersBlockTags extends BlockTagsProvider {
 
 	public static final TagKey<Block> DIAL = BlockTags.create(new ResourceLocation(Embers.MODID, "dial"));
 
+	public static final TagKey<Block> EMBER_WRONG_INPUT_HINTER = BlockTags.create(new ResourceLocation(Embers.MODID, "wrong_input_hinter"));
+
 	public static final TagKey<Block> MINABLE_WITH_PICKAXE_SHOVEL = BlockTags.create(new ResourceLocation(Embers.MODID, "mineable/pickaxe_shovel"));
 	public static final TagKey<Block> MINABLE_WITH_HAMMER = BlockTags.create(new ResourceLocation(Embers.MODID, "mineable/hammer"));
 
@@ -337,6 +339,16 @@ public class EmbersBlockTags extends BlockTagsProvider {
 		tag(FLUID_PIPE_CONNECTION_TOGGLEABLE).add(RegistryManager.FLUID_PIPE.get(), RegistryManager.FLUID_EXTRACTOR.get());
 
 		tag(HEAT_SOURCES).add(Blocks.LAVA, Blocks.FIRE);
+
+		tag(EMBER_WRONG_INPUT_HINTER).add(
+				RegistryManager.MELTER.get(),
+				RegistryManager.MIXER_CENTRIFUGE.get(),
+				RegistryManager.HEARTH_COIL.get(),
+				RegistryManager.HEARTH_COIL_EDGE.get()/*,
+				RegistryManager.CRYSTAL_CELL.get(),
+				RegistryManager.CRYSTAL_CELL_EDGE.get(),
+				RegistryManager.INFERNO_FORGE.get(),
+				RegistryManager.INFERNO_FORGE_EDGE.get()*/);
 
 		tag(EMBER_CONSUMPTION_UPGRADEABLE).add(RegistryManager.MELTER.get(),
 				RegistryManager.STAMPER.get(),
