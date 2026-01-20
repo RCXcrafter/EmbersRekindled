@@ -37,6 +37,8 @@ public class ConfigManager {
 	public static ConfigValue<Double> BLAZING_RAY_COST;
 	public static ConfigValue<Integer> BLAZING_RAY_COOLDOWN;
 	public static ConfigValue<Integer> BLAZING_RAY_MAX_CHARGE;
+	public static ConfigValue<Double> BLAZING_RAY_AIM_TIME;
+	public static ConfigValue<Boolean> BLAZING_RAY_AIM_ENABLE;
 	public static ConfigValue<Double> BLAZING_RAY_DAMAGE;
 	public static ConfigValue<Double> BLAZING_RAY_MAX_SPREAD;
 	public static ConfigValue<Double> BLAZING_RAY_MAX_DISTANCE;
@@ -143,6 +145,9 @@ public class ConfigManager {
 		BLAZING_RAY_COST = COMMON.comment("Ember used up by each shot.").define("blazingRay.cost", 25.0);
 		BLAZING_RAY_COOLDOWN = COMMON.comment("Cooldown in ticks between each shot.").define("blazingRay.cooldown", 10);
 		BLAZING_RAY_MAX_CHARGE = COMMON.comment("Time in ticks to fully charge.").define("blazingRay.charge", 20);
+		BLAZING_RAY_AIM_TIME = COMMON.comment("fraction of the charge time until it is visually aimed, 1 is when it is fully charged ").defineInRange("blazingRay.aim_time",  0.1d,0.001d,1d);
+		BLAZING_RAY_AIM_ENABLE = COMMON.comment("Enable the aim animation, as minor gameplay effect").define("blazingRay.aim_enable",true);
+
 		BLAZING_RAY_DAMAGE = COMMON.comment("Damage dealt by one shot.").define("blazingRay.damage", 7.0);
 		BLAZING_RAY_MAX_SPREAD = COMMON.comment("Maximum spread.").define("blazingRay.spread", 30.0);
 		BLAZING_RAY_MAX_DISTANCE = COMMON.comment("Maximum shot distance.").define("blazingRay.distance", 96.0);
